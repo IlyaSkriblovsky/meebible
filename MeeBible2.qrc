@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>nwt.xslt</file>
+        <file>style.css</file>
+    </qresource>
+</RCC>

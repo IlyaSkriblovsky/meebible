@@ -1,0 +1,20 @@
+.verse
+{
+    display: inline;
+}
+
+.verse-label
+{
+    display: inline;
+    position: relative;
+    top: -.5em;
+    font-size: 65%;
+    font-weight: bold;
+    padding: 0 .2em 0 .3em;
+}
+
+.par
+{
+    margin-top: .8em;
+    text-indent: 1em;
+}
