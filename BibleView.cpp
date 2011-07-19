@@ -5,6 +5,7 @@
 
 #include "ChapterRequest.h"
 #include "Translation.h"
+#include "Cache.h"
 
 
 BibleView::BibleView(QWidget *parent):
@@ -29,7 +30,7 @@ void BibleView::setTranslation(Translation *translation)
 
 void BibleView::loadChapter(const QString& bookCode, int chapterNo)
 {
-    QByteArray fromCache = _cache.loadChapter(_translation, bookCode, chapterNo);
+    QByteArray fromCache = Cache::instance()->loadChapter(_translation, bookCode, chapterNo);
 
     if (! fromCache.isEmpty())
         displayHtml(fromCache);
@@ -47,7 +48,7 @@ void BibleView::onChapterRequestFinished(QByteArray html)
 
     displayHtml(html);
 
-    _cache.saveChapter(
+    Cache::instance()->saveChapter(
         request->translation(),
         request->bookCode(),
         request->chapterNo(),

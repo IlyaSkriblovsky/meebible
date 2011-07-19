@@ -3,8 +3,6 @@
 
 #include <QWebView>
 
-#include "Cache.h"
-
 class Translation;
 
 
@@ -23,7 +21,6 @@ public slots:
 
 private:
     Translation* _translation;
-    Cache _cache;
 
 private slots:
     void onChapterRequestFinished(QByteArray html);

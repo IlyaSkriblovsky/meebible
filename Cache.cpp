@@ -11,8 +11,25 @@
 #include "Language.h"
 
 
+Cache* Cache::_instance = 0;
+
+
+Cache* Cache::instance()
+{
+    if (_instance)
+        return _instance;
+
+    return new Cache;
+}
+
+
 Cache::Cache()
 {
+    if (_instance)
+        qDebug() << "Duplicate Cache instance";
+    _instance = this;
+
+
     _db = QSqlDatabase::addDatabase("QSQLITE", "cache");
     _db.setDatabaseName(Paths::cacheDB());
     if (! _db.open())
