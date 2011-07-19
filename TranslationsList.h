@@ -12,6 +12,7 @@ class TranslationsList
 {
 public:
     TranslationsList();
+    ~TranslationsList();
 
     void addTranslation(const Language *lang, Translation *translation);
 

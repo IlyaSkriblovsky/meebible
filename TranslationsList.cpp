@@ -1,7 +1,17 @@
 #include "TranslationsList.h"
 
+#include "Translation.h"
+
+
 TranslationsList::TranslationsList()
 {
+}
+
+
+TranslationsList::~TranslationsList()
+{
+    for (int i = 0; i < _translations.size(); ++i)
+        delete _translations[i].second;
 }
 
 

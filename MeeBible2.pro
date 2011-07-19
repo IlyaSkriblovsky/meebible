@@ -27,7 +27,10 @@ SOURCES += main.cpp \
     Paths.cpp \
     MainWindow.cpp \
     Place.cpp \
-    TranslationDialog.cpp
+    TranslationDialog.cpp \
+    BOSource.cpp \
+    BORusTranslation.cpp \
+    BOChapterRequest.cpp
 
 HEADERS += \
     TranslationsList.h \
@@ -43,7 +46,10 @@ HEADERS += \
     Paths.h \
     MainWindow.h \
     Place.h \
-    TranslationDialog.h
+    TranslationDialog.h \
+    BOSource.h \
+    BORusTranslation.h \
+    BOChapterRequest.h
 
 RESOURCES += \
     MeeBible2.qrc
@@ -52,4 +58,6 @@ OTHER_FILES += \
     createlangs.sql \
     createnwt.sql \
     nwt.xslt \
-    style.css
+    style.css \
+    createborus.sql \
+    bo.xslt
