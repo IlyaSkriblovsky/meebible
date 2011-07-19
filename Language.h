@@ -17,6 +17,7 @@ public:
     static void load();
 
     static const Language* langByCode(const QString& code);
+    static QList<const Language*> allLanguages();
 
 private:
     static QList<Language> _allLanguages;

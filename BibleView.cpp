@@ -23,10 +23,16 @@ BibleView::BibleView(QWidget *parent):
 }
 
 
+Translation* BibleView::translation() const
+{
+    return _translation;
+}
+
 void BibleView::setTranslation(Translation *translation)
 {
     _translation = translation;
 }
+
 
 void BibleView::loadChapter(const QString& bookCode, int chapterNo)
 {

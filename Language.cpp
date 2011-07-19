@@ -30,6 +30,7 @@ void Language::load()
         QCoreApplication::exit(1);
     }
 
+
     QSqlQuery select("SELECT * FROM langs ORDER BY engname", db);
     while (select.next())
         _allLanguages.append(Language(
@@ -47,4 +48,15 @@ const Language* Language::langByCode(const QString &code)
             return &_allLanguages[i];
 
     return 0;
+}
+
+
+QList<const Language*> Language::allLanguages()
+{
+    QList<const Language*> list;
+
+    for (int i = 0; i < _allLanguages.size(); i++)
+        list.append(&_allLanguages[i]);
+
+    return list;
 }

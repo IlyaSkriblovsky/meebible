@@ -3,6 +3,10 @@
 
 #include <QMainWindow>
 
+class BibleView;
+class Translation;
+
+
 class MainWindow: public QMainWindow
 {
     Q_OBJECT
@@ -10,6 +14,12 @@ class MainWindow: public QMainWindow
 public:
     MainWindow(QWidget *parent = 0);
 
+    void setTranslation(Translation* translation);
+
+    void showChapter(const QString& bookCode, int chapterNo);
+
+private:
+    BibleView* _bibleView;
 };
 
 #endif // MAINWINDOW_H

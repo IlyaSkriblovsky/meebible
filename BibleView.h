@@ -15,6 +15,7 @@ public:
 
 public slots:
     void setTranslation(Translation *translation);
+    Translation* translation() const;
 
     void loadChapter(const QString& bookCode, int chapterNo);
 

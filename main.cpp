@@ -3,6 +3,7 @@
 
 #include "Language.h"
 #include "TranslationsList.h"
+#include "Translation.h"
 #include "NWTSource.h"
 #include "Cache.h"
 #include "Paths.h"
@@ -29,7 +30,11 @@ int main(int argc, char *argv[])
     mainWindow.show();
 
     TranslationDialog dialog(&translationsList);
-    dialog.exec();
+    if (dialog.exec() == QDialog::Accepted)
+        mainWindow.setTranslation(dialog.selectedTranslation());
+
+
+    mainWindow.showChapter("mt", 5);
 
     return app.exec();
 }
