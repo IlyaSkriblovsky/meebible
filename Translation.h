@@ -23,6 +23,7 @@ public:
 
     virtual QString bookName(const QString& bookCode) const = 0;
     virtual QList<QString> bookCodes() const = 0;
+    virtual bool hasBook(const QString& bookCode) const = 0;
 
     virtual int chaptersInBook(const QString& bookCode) const = 0;
     virtual int versesInChapter(const QString& bookCode, int chapterNo) const = 0;

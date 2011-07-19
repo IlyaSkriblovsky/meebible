@@ -1,5 +1,7 @@
 #include "Place.h"
 
+#include <QDebug>
+
 #include "Translation.h"
 
 
@@ -54,4 +56,60 @@ QString Place::toString(const Translation* translation) const
             .arg(translation->bookName(_bookCode))
             .arg(_chapterNo)
             .arg(verseString);
+}
+
+
+
+Place Place::prevChapter(const Translation* translation) const
+{
+    if (_chapterNo > 1)
+        return Place(_bookCode, _chapterNo - 1);
+
+    QList<QString> bookCodes = translation->bookCodes();
+    int thisIndex = bookCodes.indexOf(_bookCode);
+
+    if (thisIndex == -1)
+        return Place("xxx", 0);
+
+    if (thisIndex == 0)
+        return Place(_bookCode, _chapterNo);
+
+    QString prevCode = bookCodes.at(thisIndex - 1);
+    return Place(prevCode, translation->chaptersInBook(prevCode));
+}
+
+Place Place::nextChapter(const Translation* translation) const
+{
+    if (_chapterNo < translation->chaptersInBook(_bookCode))
+        return Place(_bookCode, _chapterNo + 1);
+
+    QList<QString> bookCodes = translation->bookCodes();
+    int thisIndex = bookCodes.indexOf(_bookCode);
+
+    if (thisIndex == -1)
+        return Place("xxx", 0);
+
+    if (thisIndex == bookCodes.size() - 1)
+        return Place(_bookCode, _chapterNo);
+
+    QString nextCode = bookCodes.at(thisIndex + 1);
+    return Place(nextCode, 1);
+}
+
+
+bool Place::isValid(const Translation* translation) const
+{
+    if (! translation->hasBook(_bookCode)) return false;
+
+    if (_chapterNo < 1 || _chapterNo > translation->chaptersInBook(_bookCode)) return false;
+
+    QList<int> list = _verses.toList();
+    if (list.size() > 0)
+    {
+        qSort(list);
+        if (list[0] < 1) return false;
+        if (list[list.size() - 1] > translation->versesInChapter(_bookCode, _chapterNo)) return false;
+    }
+
+    return true;
 }

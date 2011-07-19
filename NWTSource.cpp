@@ -55,6 +55,17 @@ QList<QString> NWTSource::bookCodes() const
     return result;
 }
 
+bool NWTSource::hasBook(const QString& bookCode) const
+{
+    QSqlQuery select(_db);
+    select.prepare("SELECT count(*) FROM books WHERE bookCode=?");
+    select.addBindValue(bookCode);
+    select.exec();
+    select.next();
+
+    return select.value(0).toInt() != 0;
+}
+
 
 QString NWTSource::bookName(const Language *lang, const QString &bookCode) const
 {

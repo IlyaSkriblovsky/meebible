@@ -23,6 +23,7 @@ public:
 
     QString bookName(const Language *lang, const QString& bookCode) const;
     QList<QString> bookCodes() const;
+    bool hasBook(const QString& bookCode) const;
 
     int chaptersInBook(const QString& bookCode) const;
     int versesInChapter(const QString& bookCode, int chapterNo) const;

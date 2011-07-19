@@ -43,6 +43,11 @@ QList<QString> NWTranslation::bookCodes() const
     return _source->bookCodes();
 }
 
+bool NWTranslation::hasBook(const QString& bookCode) const
+{
+    return _source->hasBook(bookCode);
+}
+
 int NWTranslation::chaptersInBook(const QString &bookCode) const
 {
     return _source->chaptersInBook(bookCode);

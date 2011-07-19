@@ -15,6 +15,11 @@ public:
 
     QString toString(const Translation* translation) const;
 
+    bool isValid(const Translation* translation) const;
+
+    Place prevChapter(const Translation* translation) const;
+    Place nextChapter(const Translation* translation) const;
+
 private:
     QString _bookCode;
     int _chapterNo;
