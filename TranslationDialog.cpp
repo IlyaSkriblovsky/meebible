@@ -87,10 +87,7 @@ void TranslationDialog::onCurrentTransChanged(int currentRow)
     _okButton->setEnabled(currentRow != -1);
 
     if (currentRow == -1)
-    {
-        _transList = 0;
-        return;
-    }
-
-    _curTrans = _list->translationsForLang(_curLang)[currentRow];
+        _curTrans = 0;
+    else
+        _curTrans = _list->translationsForLang(_curLang)[currentRow];
 }
