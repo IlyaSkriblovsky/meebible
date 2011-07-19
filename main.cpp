@@ -7,13 +7,14 @@
 #include "Translation.h"
 #include "BibleView.h"
 #include "Cache.h"
+#include "Paths.h"
 
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    Cache cache;
+    Paths::init();
 
     Language::load();
 

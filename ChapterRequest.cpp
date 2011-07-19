@@ -27,3 +27,19 @@ void ChapterRequest::onNReplyFinished()
 {
     finished(_nreply->readAll());
 }
+
+
+Translation* ChapterRequest::translation() const
+{
+    return _translation;
+}
+
+QString ChapterRequest::bookCode() const
+{
+    return _bookCode;
+}
+
+int ChapterRequest::chapterNo() const
+{
+    return _chapterNo;
+}

@@ -6,6 +6,7 @@
 
 
 class ChapterRequest;
+class Language;
 
 
 class Translation: public QObject
@@ -15,6 +16,9 @@ class Translation: public QObject
 public:
     virtual ~Translation();
 
+    virtual const Language* language() const = 0;
+
+    virtual QString code() const = 0;
     virtual QString name() const = 0;
 
     virtual QString bookName(const QString& bookCode) const = 0;

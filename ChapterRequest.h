@@ -19,6 +19,10 @@ public:
         QNetworkReply *nreply
     );
 
+    Translation* translation() const;
+    QString bookCode() const;
+    int chapterNo() const;
+
 
 signals:
     void finished(QByteArray html);

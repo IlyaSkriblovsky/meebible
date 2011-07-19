@@ -17,6 +17,9 @@ public:
     NWTranslation(const NWTSource *source, const Language *lang, const QString& urlPrefix);
     virtual ~NWTranslation();
 
+    virtual const Language* language() const;
+
+    virtual QString code() const;
     virtual QString name() const;
 
     virtual QString bookName(const QString& bookCode) const;

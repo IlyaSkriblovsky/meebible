@@ -15,6 +15,18 @@ NWTranslation::~NWTranslation()
 }
 
 
+const Language* NWTranslation::language() const
+{
+    return _lang;
+}
+
+
+QString NWTranslation::code() const
+{
+    return "nwt";
+}
+
+
 QString NWTranslation::name() const
 {
     return "New World Translation";

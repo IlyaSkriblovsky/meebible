@@ -29,8 +29,15 @@ void BibleView::setTranslation(Translation *translation)
 
 void BibleView::loadChapter(const QString& bookCode, int chapterNo)
 {
-    ChapterRequest* request = _translation->requestChapter(bookCode, chapterNo);
-    connect(request, SIGNAL(finished(QByteArray)), this, SLOT(onChapterRequestFinished(QByteArray)));
+    QByteArray fromCache = _cache.loadChapter(_translation, bookCode, chapterNo);
+
+    if (! fromCache.isEmpty())
+        displayHtml(fromCache);
+    else
+    {
+        ChapterRequest* request = _translation->requestChapter(bookCode, chapterNo);
+        connect(request, SIGNAL(finished(QByteArray)), this, SLOT(onChapterRequestFinished(QByteArray)));
+    }
 }
 
 
@@ -38,7 +45,20 @@ void BibleView::onChapterRequestFinished(QByteArray html)
 {
     ChapterRequest* request = dynamic_cast<ChapterRequest*>(sender());
 
-    setContent(html);
+    displayHtml(html);
+
+    _cache.saveChapter(
+        request->translation(),
+        request->bookCode(),
+        request->chapterNo(),
+        html
+    );
 
     request->deleteLater();
+}
+
+
+void BibleView::displayHtml(QByteArray html)
+{
+    setContent(html);
 }
