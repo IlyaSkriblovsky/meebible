@@ -26,7 +26,8 @@ SOURCES += main.cpp \
     Cache.cpp \
     Paths.cpp \
     MainWindow.cpp \
-    Place.cpp
+    Place.cpp \
+    TranslationDialog.cpp
 
 HEADERS += \
     TranslationsList.h \
@@ -41,7 +42,8 @@ HEADERS += \
     Cache.h \
     Paths.h \
     MainWindow.h \
-    Place.h
+    Place.h \
+    TranslationDialog.h
 
 RESOURCES += \
     MeeBible2.qrc
