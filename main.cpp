@@ -4,10 +4,10 @@
 #include "Language.h"
 #include "TranslationsList.h"
 #include "NWTSource.h"
-#include "Translation.h"
-#include "BibleView.h"
 #include "Cache.h"
 #include "Paths.h"
+#include "MainWindow.h"
+#include "Place.h"
 
 
 int main(int argc, char *argv[])
@@ -25,11 +25,12 @@ int main(int argc, char *argv[])
     nwtSource.addTranslationsToList(&translationsList);
 
 
-    BibleView view;
-    view.setTranslation(translationsList.translationsForLang(Language::langByCode("u"))[0]);
-    view.loadChapter("mt", 5);
+    QSet<int> verses;
+    qDebug() << Place("mt", 5, verses).toString(translationsList.translationsForLang(Language::langByCode("u"))[0]);
 
-    view.show();
+
+    MainWindow mainWindow;
+    mainWindow.show();
 
     return app.exec();
 }

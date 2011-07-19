@@ -16,7 +16,9 @@ public:
 
     void saveChapter(const Translation* translation, const QString& bookCode, int chapterNo, QByteArray html);
 
-    QByteArray loadChapter(const Translation* translatoin, const QString& bookCode, int chapterNo);
+    QByteArray loadChapter(const Translation* translation, const QString& bookCode, int chapterNo);
+
+    bool hasChapter(const Translation* translation, const QString& bookCode, int chapterNo);
 
 private:
     static Cache* _instance;

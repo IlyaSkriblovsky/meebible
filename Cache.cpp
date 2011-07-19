@@ -68,3 +68,19 @@ QByteArray Cache::loadChapter(const Translation *translation, const QString& boo
     else
         return QByteArray();
 }
+
+
+bool Cache::hasChapter(const Translation* translation, const QString& bookCode, int chapterNo)
+{
+    QSqlQuery select(_db);
+    select.prepare("SELECT count(*) FROM html WHERE transCode=:transCode AND langCode=:langCode AND bookCode=:bookCode AND chapterNo=:chapterNo");
+    select.bindValue(":transCode", translation->code());
+    select.bindValue(":langCode", translation->language()->code());
+    select.bindValue(":bookCode", bookCode);
+    select.bindValue(":chapterNo", chapterNo);
+    if (! select.exec())
+        qDebug() << "Selection from cache failed";
+
+    select.next();
+    return select.value(0).toBool();
+}

@@ -24,7 +24,9 @@ SOURCES += main.cpp \
     NWTChapterRequest.cpp \
     BibleView.cpp \
     Cache.cpp \
-    Paths.cpp
+    Paths.cpp \
+    MainWindow.cpp \
+    Place.cpp
 
 HEADERS += \
     TranslationsList.h \
@@ -37,7 +39,9 @@ HEADERS += \
     NWTChapterRequest.h \
     BibleView.h \
     Cache.h \
-    Paths.h
+    Paths.h \
+    MainWindow.h \
+    Place.h
 
 RESOURCES += \
     MeeBible2.qrc
