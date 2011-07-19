@@ -6,11 +6,14 @@
 #include "NWTSource.h"
 #include "Translation.h"
 #include "BibleView.h"
+#include "Cache.h"
 
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
+
+    Cache cache;
 
     Language::load();
 

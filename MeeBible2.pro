@@ -22,7 +22,8 @@ SOURCES += main.cpp \
     NWTSource.cpp \
     NWTranslation.cpp \
     NWTChapterRequest.cpp \
-    BibleView.cpp
+    BibleView.cpp \
+    Cache.cpp
 
 HEADERS += \
     TranslationsList.h \
@@ -33,7 +34,8 @@ HEADERS += \
     NWTSource.h \
     NWTranslation.h \
     NWTChapterRequest.h \
-    BibleView.h
+    BibleView.h \
+    Cache.h
 
 RESOURCES += \
     MeeBible2.qrc
