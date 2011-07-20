@@ -13,7 +13,11 @@
 #include "Language.h"
 
 
-TranslationDialog::TranslationDialog(TranslationsList *list, QWidget *parent)
+TranslationDialog::TranslationDialog(
+    TranslationsList *list,
+    const Translation* selectedTranslation,
+    QWidget *parent
+)
     : QDialog(parent), _list(list), _curLang(0), _curTrans(0)
 {
     QDialogButtonBox* buttonBox = new QDialogButtonBox(
@@ -34,8 +38,18 @@ TranslationDialog::TranslationDialog(TranslationsList *list, QWidget *parent)
 
 
     _langs = Language::allLanguages();
+    const Language* selectedLanguage = selectedTranslation->language();
     for (int i = 0; i < _langs.size(); i++)
+    {
         _langsList->addItem(_langs[i]->engname());
+
+        if (_langs[i] == selectedLanguage)
+        {
+            _langsList->setCurrentRow(i);
+            _curLang = selectedLanguage;
+            displayTrans(selectedTranslation);
+        }
+    }
 
     connect(_langsList, SIGNAL(currentRowChanged(int)), this, SLOT(onCurrentLangChanged(int)));
     connect(_transList, SIGNAL(currentRowChanged(int)), this, SLOT(onCurrentTransChanged(int)));
@@ -72,14 +86,12 @@ Translation* TranslationDialog::selectedTranslation() const
 
 void TranslationDialog::onCurrentLangChanged(int currentRow)
 {
-    _curLang = _langs[currentRow];
+    if (currentRow == -1)
+        _curLang = 0;
+    else
+        _curLang = _langs[currentRow];
 
-    _transList->clear();
-    if (currentRow == -1) return;
-
-    QList<Translation*> trans = _list->translationsForLang(_curLang);
-    for (int i = 0; i < trans.size(); i++)
-        _transList->addItem(trans[i]->name());
+    displayTrans(0);
 }
 
 void TranslationDialog::onCurrentTransChanged(int currentRow)
@@ -90,4 +102,22 @@ void TranslationDialog::onCurrentTransChanged(int currentRow)
         _curTrans = 0;
     else
         _curTrans = _list->translationsForLang(_curLang)[currentRow];
+}
+
+void TranslationDialog::displayTrans(const Translation* selected)
+{
+    _transList->clear();
+
+    if (_curLang == 0) return;
+
+    QList<Translation*> trans = _list->translationsForLang(_curLang);
+    for (int i = 0; i < trans.size(); i++)
+    {
+        _transList->addItem(trans[i]->name());
+        if (trans[i] == selected)
+        {
+            _transList->setCurrentRow(i);
+            onCurrentTransChanged(i);
+        }
+    }
 }

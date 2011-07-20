@@ -17,7 +17,11 @@ class TranslationDialog: public QDialog
     Q_OBJECT
 
 public:
-    TranslationDialog(TranslationsList *list, QWidget *parent = 0);
+    TranslationDialog(
+        TranslationsList *list,
+        const Translation* selectedTranslation,
+        QWidget *parent = 0
+    );
 
     const Language* selectedLanguage() const;
     Translation* selectedTranslation() const;
@@ -32,6 +36,9 @@ private:
 
     QListWidget* _langsList;
     QListWidget* _transList;
+
+
+    void displayTrans(const Translation* selected);
 
 private slots:
     void onCurrentLangChanged(int currentRow);

@@ -34,7 +34,10 @@ int main(int argc, char *argv[])
     MainWindow mainWindow;
     mainWindow.show();
 
-    TranslationDialog dialog(&translationsList);
+    TranslationDialog dialog(
+        &translationsList,
+        translationsList.translationsForLang(Language::langByCode("u"))[1]
+    );
     if (dialog.exec() == QDialog::Accepted)
     {
         mainWindow.setTranslation(dialog.selectedTranslation());

@@ -36,6 +36,8 @@ void BibleView::setTranslation(Translation *translation)
 
 void BibleView::loadChapter(const QString& bookCode, int chapterNo)
 {
+    if (! _translation) return;
+
     QByteArray fromCache = Cache::instance()->loadChapter(_translation, bookCode, chapterNo);
 
     if (! fromCache.isEmpty())
@@ -43,7 +45,9 @@ void BibleView::loadChapter(const QString& bookCode, int chapterNo)
     else
     {
         ChapterRequest* request = _translation->requestChapter(bookCode, chapterNo);
-        connect(request, SIGNAL(finished(QByteArray)), this, SLOT(onChapterRequestFinished(QByteArray)));
+
+        if (request)
+            connect(request, SIGNAL(finished(QByteArray)), this, SLOT(onChapterRequestFinished(QByteArray)));
     }
 }
 
