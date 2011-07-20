@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core sql network xmlpatterns webkit gui
+QT       += core sql network xml xmlpatterns webkit gui
 
 TARGET = MeeBible2
 CONFIG   += console

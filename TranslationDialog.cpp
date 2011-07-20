@@ -20,14 +20,16 @@ TranslationDialog::TranslationDialog(
 )
     : QDialog(parent), _list(list), _curLang(0), _curTrans(0)
 {
-    QDialogButtonBox* buttonBox = new QDialogButtonBox(
-        QDialogButtonBox::Cancel,
-        Qt::Horizontal,
-        this
-    );
+    QDialogButtonBox* buttonBox = new QDialogButtonBox(Qt::Horizontal, this);
+
+    QPushButton* cancelButton = new QPushButton("Cancel");
+    cancelButton->setAutoDefault(false);
 
     _okButton = new QPushButton("OK");
+    _okButton->setDefault(true);
     _okButton->setEnabled(false);
+
+    buttonBox->addButton(cancelButton, QDialogButtonBox::RejectRole);
     buttonBox->addButton(_okButton, QDialogButtonBox::AcceptRole);
 
     connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
