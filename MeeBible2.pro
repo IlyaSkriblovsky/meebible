@@ -30,7 +30,8 @@ SOURCES += main.cpp \
     TranslationDialog.cpp \
     BOSource.cpp \
     BORusTranslation.cpp \
-    BOChapterRequest.cpp
+    BOChapterRequest.cpp \
+    EasyXml.cpp
 
 HEADERS += \
     TranslationsList.h \
@@ -49,7 +50,8 @@ HEADERS += \
     TranslationDialog.h \
     BOSource.h \
     BORusTranslation.h \
-    BOChapterRequest.h
+    BOChapterRequest.h \
+    EasyXml.h
 
 RESOURCES += \
     MeeBible2.qrc
