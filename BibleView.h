@@ -3,6 +3,8 @@
 
 #include <QWebView>
 
+#include "Place.h"
+
 class Translation;
 
 
@@ -18,6 +20,9 @@ public:
 
     QString bookCode() const { return _bookCode; }
     int chapterNo() const { return _chapterNo; }
+    bool validLocation() const;
+
+    Place selectedPlace();
 
 public slots:
     void loadChapter(const QString& bookCode, int chapterNo);
@@ -31,11 +36,16 @@ private:
     QString _bookCode;
     int _chapterNo;
 
+    QString _js;
+
 private slots:
     void onChapterRequestFinished(QString html);
 
     void displayHtml(QString html);
     void clearDisplay(const QString& error = QString());
+
+    void onJavaScriptWindowObjectCleared();
+    void onLoadFinished(bool ok);
 };
 
 #endif // BIBLEVIEW_H

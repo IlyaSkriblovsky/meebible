@@ -31,7 +31,8 @@ SOURCES += main.cpp \
     BOSource.cpp \
     BORusTranslation.cpp \
     BOChapterRequest.cpp \
-    EasyXml.cpp
+    EasyXml.cpp \
+    BibleWebPage.cpp
 
 HEADERS += \
     TranslationsList.h \
@@ -51,7 +52,8 @@ HEADERS += \
     BOSource.h \
     BORusTranslation.h \
     BOChapterRequest.h \
-    EasyXml.h
+    EasyXml.h \
+    BibleWebPage.h
 
 RESOURCES += \
     MeeBible2.qrc
@@ -62,4 +64,5 @@ OTHER_FILES += \
     nwt.xslt \
     style.css \
     createborus.sql \
-    bo.xslt
+    bo.xslt \
+    script.js

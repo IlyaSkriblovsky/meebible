@@ -5,6 +5,11 @@
 #include "Translation.h"
 
 
+Place::Place()
+    : _chapterNo(0)
+{
+}
+
 Place::Place(const QString& bookCode, int chapterNo, const QSet<int>& verses)
     : _bookCode(bookCode), _chapterNo(chapterNo), _verses(verses)
 {

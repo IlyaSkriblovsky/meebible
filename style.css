@@ -1,6 +1,12 @@
 .verse
 {
     display: inline;
+    cursor: pointer
+}
+
+.verse.selected
+{
+    background: #ffc;
 }
 
 .verse-label

@@ -3,15 +3,19 @@
 #include <QDebug>
 #include <QFile>
 
+#include <QWebFrame>
+
 #include "ChapterRequest.h"
 #include "Translation.h"
 #include "Cache.h"
-#include "Place.h"
+#include "BibleWebPage.h"
 
 
 BibleView::BibleView(QWidget *parent):
     QWebView(parent), _translation(0), _chapterNo(0)
 {
+    setPage(new BibleWebPage(this));
+
     QFile css(":/style.css");
     css.open(QIODevice::ReadOnly);
     QByteArray cssContent = css.readAll();
@@ -21,6 +25,14 @@ BibleView::BibleView(QWidget *parent):
             QString::fromAscii(cssContent.toBase64())
         )
     ));
+
+    QFile script(":/script.js");
+    script.open(QIODevice::ReadOnly);
+    _js = QString::fromUtf8(script.readAll());
+
+
+    connect(page()->mainFrame(), SIGNAL(javaScriptWindowObjectCleared()), this, SLOT(onJavaScriptWindowObjectCleared()));
+    connect(this, SIGNAL(loadFinished(bool)), this, SLOT(onLoadFinished(bool)));
 }
 
 
@@ -95,28 +107,53 @@ void BibleView::clearDisplay(const QString& error)
 }
 
 
+bool BibleView::validLocation() const
+{
+    if (_translation == 0) return false;
+    return Place(_bookCode, _chapterNo).isValid(_translation);
+}
+
+
 void BibleView::loadPrevChapter()
 {
-    if (_translation == 0) return;
+    if (! validLocation()) return;
 
-    Place cur = Place(_bookCode, _chapterNo);
-    if (! cur.isValid(_translation))
-        return;
-
-    Place next = cur.prevChapter(_translation);
+    Place next = Place(_bookCode, _chapterNo).prevChapter(_translation);
 
     loadChapter(next.bookCode(), next.chapterNo());
 }
 
 void BibleView::loadNextChapter()
 {
-    if (_translation == 0) return;
+    if (! validLocation()) return;
 
-    Place cur = Place(_bookCode, _chapterNo);
-    if (! cur.isValid(_translation))
-        return;
-
-    Place prev = cur.nextChapter(_translation);
+    Place prev = Place(_bookCode, _chapterNo).nextChapter(_translation);
 
     loadChapter(prev.bookCode(), prev.chapterNo());
+}
+
+
+
+void BibleView::onJavaScriptWindowObjectCleared()
+{
+    //
+}
+
+void BibleView::onLoadFinished(bool ok)
+{
+    page()->mainFrame()->evaluateJavaScript(_js);
+}
+
+
+Place BibleView::selectedPlace()
+{
+    if (! validLocation()) return Place();
+
+    QStringList jsList = page()->mainFrame()->evaluateJavaScript("selectedVersesList()").toString().split(",", QString::SkipEmptyParts);
+
+    QSet<int> verses;
+    for (int i = 0; i < jsList.size(); i++)
+        verses += jsList[i].toInt();
+
+    return Place(_bookCode, _chapterNo, verses);
 }

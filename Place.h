@@ -11,6 +11,7 @@ class Translation;
 class Place
 {
 public:
+    Place();
     Place(const QString& bookCode, int chapterNo, const QSet<int>& verses = QSet<int>());
 
     QString bookCode() const { return _bookCode; }

@@ -57,5 +57,5 @@ void MainWindow::onActSelectTranslation()
 
 void MainWindow::onActDbg()
 {
-    qDebug() << _bibleView->translation()->bookCodes();
+    qDebug() << _bibleView->selectedPlace().toString(_bibleView->translation());
 }
