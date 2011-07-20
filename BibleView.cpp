@@ -41,7 +41,7 @@ void BibleView::setTranslation(Translation *translation)
     if (Place(_bookCode, _chapterNo).isValid(_translation))
         loadChapter(_bookCode, _chapterNo);
     else
-        clearDisplay(origPlaceName.isEmpty() ? "" : QString("This translation doesn't contain %1").arg(origBookName));
+        clearDisplay(origBookName.isEmpty() ? "" : QString("This translation doesn't contain %1").arg(origBookName));
 }
 
 
