@@ -55,7 +55,7 @@ QList<QString> BORusTranslation::bookCodes() const
 {
     QList<QString> result;
 
-    QSqlQuery select("SELECT booCode FROM books ORDER BY no", _db);
+    QSqlQuery select("SELECT bookCode FROM books ORDER BY no", _db);
     while (select.next())
         result.append(select.value(0).toString());
 

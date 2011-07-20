@@ -13,6 +13,10 @@ class Place
 public:
     Place(const QString& bookCode, int chapterNo, const QSet<int>& verses = QSet<int>());
 
+    QString bookCode() const { return _bookCode; }
+    int chapterNo() const { return _chapterNo; }
+    QSet<int> verses() const { return _verses; }
+
     QString toString(const Translation* translation) const;
 
     bool isValid(const Translation* translation) const;

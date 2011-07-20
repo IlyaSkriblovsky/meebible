@@ -3,8 +3,11 @@
 
 #include <QMainWindow>
 
+class QAction;
+
 class BibleView;
 class Translation;
+class TranslationsList;
 
 
 class MainWindow: public QMainWindow
@@ -12,7 +15,7 @@ class MainWindow: public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = 0);
+    MainWindow(TranslationsList* transList, QWidget *parent = 0);
 
     void setTranslation(Translation* translation);
 
@@ -20,6 +23,19 @@ public:
 
 private:
     BibleView* _bibleView;
+
+    QAction* _actSelectTranslation;
+    QAction* _actPrevChapter;
+    QAction* _actNextChapter;
+
+    QAction* _actDbg;
+
+    TranslationsList* _translationsList;
+
+private slots:
+    void onActSelectTranslation();
+
+    void onActDbg();
 };
 
 #endif // MAINWINDOW_H

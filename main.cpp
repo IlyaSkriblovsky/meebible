@@ -31,26 +31,11 @@ int main(int argc, char *argv[])
     BOSource boSource;
     boSource.addTranslationsToList(&translationsList);
 
-    MainWindow mainWindow;
+    MainWindow mainWindow(&translationsList);
+    mainWindow.setTranslation(translationsList.translationsForLang(Language::langByCode("u"))[1]);
     mainWindow.show();
 
-    TranslationDialog dialog(
-        &translationsList,
-        translationsList.translationsForLang(Language::langByCode("u"))[1]
-    );
-    if (dialog.exec() == QDialog::Accepted)
-    {
-        mainWindow.setTranslation(dialog.selectedTranslation());
-
-        qDebug() << dialog.selectedTranslation()->bookName("1ch");
-
-        BORusTranslation *bo = dynamic_cast<BORusTranslation*>(dialog.selectedTranslation());
-        if (bo)
-            qDebug() << bo->chapterUrl("de", 5);
-    }
-
-
-    mainWindow.showChapter("mt", 5);
+    mainWindow.showChapter("mt", 27);
 
     return app.exec();
 }

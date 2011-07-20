@@ -13,20 +13,29 @@ class BibleView: public QWebView
 public:
     explicit BibleView(QWidget *parent = 0);
 
-public slots:
     void setTranslation(Translation *translation);
     Translation* translation() const;
 
+    QString bookCode() const { return _bookCode; }
+    int chapterNo() const { return _chapterNo; }
+
+public slots:
     void loadChapter(const QString& bookCode, int chapterNo);
 
+    void loadNextChapter();
+    void loadPrevChapter();
 
 private:
     Translation* _translation;
+
+    QString _bookCode;
+    int _chapterNo;
 
 private slots:
     void onChapterRequestFinished(QByteArray html);
 
     void displayHtml(QByteArray html);
+    void clearDisplay(const QString& error = QString());
 };
 
 #endif // BIBLEVIEW_H
