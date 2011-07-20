@@ -8,6 +8,8 @@
 #include <QDomDocument>
 
 #include "BORusTranslation.h"
+#include "EasyXml.h"
+
 
 BOChapterRequest::BOChapterRequest(
     BORusTranslation *translation,
@@ -22,57 +24,63 @@ BOChapterRequest::BOChapterRequest(
 
 void BOChapterRequest::onNReplyFinished()
 {
-//    QByteArray content = _nreply->readAll();
-//
-//    QXmlQuery query(QXmlQuery::XSLT20);
-//    query.setFocus(QString::fromUtf8(content));
-//
-//    QFile xslt(":/bo.xslt");
-//    xslt.open(QIODevice::ReadOnly);
-//    query.setQuery(&xslt);
-//
-//    QBuffer buffer;
-//    buffer.open(QIODevice::WriteOnly);
-//
-//    query.evaluateTo(&buffer);
-//
-//    buffer.close();
-//
-//    finished(buffer.buffer());
-
     QString content = QString::fromUtf8(_nreply->readAll());
 
-    qDebug() << content;
-    qDebug() << "=============";
+    EasyElement* body = tag("body")->append(
+        tag("h3")
+        ->text(
+            QString("%1 %2:1-%3")
+                .arg(translation()->bookName(bookCode()))
+                .arg(chapterNo())
+                .arg(translation()->versesInChapter(bookCode(), chapterNo()))
+        )
+    );
 
     QRegExp re("<span id=\"v(\\d+)\" class=\"v\"><sup>[^<]*</sup>([^<]*)<br /></span>");
 
     int pos = 0;
     while ((pos = re.indexIn(content, pos)) != -1)
     {
-        qDebug() << re.cap(1) << re.cap(2);
         pos += re.matchedLength();
+
+        body->append(
+            tag("div")
+            ->attr("class", "par")
+            ->append(
+                tag("div")
+                ->attr("class", "verse")
+                ->attr("verse", re.cap(1))
+                ->append(
+                    tag("div")
+                    ->attr("class", "verse-label")
+                    ->text(re.cap(1))
+                )
+                ->text(re.cap(2))
+            )
+        );
     }
 
 
     QDomDocument doc;
-    QDomElement html = doc.createElement("html");
-    doc.appendChild(html);
 
-    QDomElement body = doc.createElement("body");
-    html.appendChild(body);
-
-    QDomElement h3 = doc.createElement("h3");
-    body.appendChild(h3);
-
-    QDomText chapter = doc.createTextNode(
-        QString("%1 %2:1-%3")
-            .arg(translation()->bookName(bookCode()))
-            .arg(chapterNo())
-            .arg(translation()->versesInChapter(bookCode(), chapterNo()))
-    );
-
-    h3.appendChild(chapter);
+    tag("html")
+    ->append(
+        tag("head")
+        ->append(
+            tag("meta")
+            ->attr("http-equiv", "Content-Type")
+            ->attr("content", "text/html; charset=utf-8")
+        )
+        ->append(
+            tag("style")
+            ->text(
+                ".par { margin-left: .8em; text-indent: -1em; }"
+            )
+        )
+    )
+    ->append(body)
+    ->appendTo(doc)
+    ->del();
 
 
     finished(doc.toString().toUtf8());
