@@ -52,7 +52,7 @@ void BibleView::loadChapter(const QString& bookCode, int chapterNo)
     _bookCode = bookCode;
     _chapterNo = chapterNo;
 
-    QByteArray fromCache = Cache::instance()->loadChapter(_translation, bookCode, chapterNo);
+    QString fromCache = Cache::instance()->loadChapter(_translation, bookCode, chapterNo);
 
     if (! fromCache.isEmpty())
         displayHtml(fromCache);
@@ -61,12 +61,12 @@ void BibleView::loadChapter(const QString& bookCode, int chapterNo)
         ChapterRequest* request = _translation->requestChapter(bookCode, chapterNo);
 
         if (request)
-            connect(request, SIGNAL(finished(QByteArray)), this, SLOT(onChapterRequestFinished(QByteArray)));
+            connect(request, SIGNAL(finished(QString)), this, SLOT(onChapterRequestFinished(QString)));
     }
 }
 
 
-void BibleView::onChapterRequestFinished(QByteArray html)
+void BibleView::onChapterRequestFinished(QString html)
 {
     ChapterRequest* request = dynamic_cast<ChapterRequest*>(sender());
 
@@ -84,9 +84,9 @@ void BibleView::onChapterRequestFinished(QByteArray html)
 }
 
 
-void BibleView::displayHtml(QByteArray html)
+void BibleView::displayHtml(QString html)
 {
-    setContent(html);
+    setHtml(html);
 }
 
 void BibleView::clearDisplay(const QString& error)

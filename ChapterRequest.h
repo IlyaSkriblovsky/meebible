@@ -25,7 +25,7 @@ public:
 
 
 signals:
-    void finished(QByteArray html);
+    void finished(QString html);
 
 
 protected:

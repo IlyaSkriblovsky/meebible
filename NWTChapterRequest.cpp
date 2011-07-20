@@ -31,13 +31,9 @@ void NWTChapterRequest::onNReplyFinished()
     xslt.open(QIODevice::ReadOnly);
     query.setQuery(&xslt);
 
-    QBuffer buffer;
-    buffer.open(QIODevice::WriteOnly);
+    QString output;
 
-    query.evaluateTo(&buffer);
+    query.evaluateTo(&output);
 
-    buffer.close();
-
-
-    finished(buffer.buffer());
+    finished(output);
 }

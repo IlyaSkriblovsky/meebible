@@ -25,7 +25,7 @@ ChapterRequest::ChapterRequest(
 
 void ChapterRequest::onNReplyFinished()
 {
-    finished(_nreply->readAll());
+    finished(QString::fromUtf8(_nreply->readAll()));
 }
 
 

@@ -2,7 +2,6 @@
 #define CACHE_H
 
 #include <QSqlDatabase>
-#include <QByteArray>
 
 class Translation;
 
@@ -14,9 +13,9 @@ public:
 
     Cache();
 
-    void saveChapter(const Translation* translation, const QString& bookCode, int chapterNo, QByteArray html);
+    void saveChapter(const Translation* translation, const QString& bookCode, int chapterNo, QString html);
 
-    QByteArray loadChapter(const Translation* translation, const QString& bookCode, int chapterNo);
+    QString loadChapter(const Translation* translation, const QString& bookCode, int chapterNo);
 
     bool hasChapter(const Translation* translation, const QString& bookCode, int chapterNo);
 

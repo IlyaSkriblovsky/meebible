@@ -38,7 +38,7 @@ Cache::Cache()
     _db.exec("CREATE TABLE IF NOT EXISTS html (transCode VARCHAR, langCode VARCHAR, bookCode VARCHAR, chapterNo INTEGER, html, PRIMARY KEY (transCode, langCode, bookCode, chapterNo))");
 }
 
-void Cache::saveChapter(const Translation* translation, const QString& bookCode, int chapterNo, QByteArray html)
+void Cache::saveChapter(const Translation* translation, const QString& bookCode, int chapterNo, QString html)
 {
     QSqlQuery insert(_db);
     insert.prepare("REPLACE INTO html VALUES (:transCode, :langCode, :bookCode, :chapterNo, :html)");
@@ -52,7 +52,7 @@ void Cache::saveChapter(const Translation* translation, const QString& bookCode,
 }
 
 
-QByteArray Cache::loadChapter(const Translation *translation, const QString& bookCode, int chapterNo)
+QString Cache::loadChapter(const Translation *translation, const QString& bookCode, int chapterNo)
 {
     QSqlQuery select(_db);
     select.prepare("SELECT html FROM html WHERE transCode=:transCode AND langCode=:langCode AND bookCode=:bookCode AND chapterNo=:chapterNo");
@@ -64,9 +64,9 @@ QByteArray Cache::loadChapter(const Translation *translation, const QString& boo
         qDebug() << "Selection from cache failed";
 
     if (select.next())
-        return select.value(0).toByteArray();
+        return select.value(0).toString();
     else
-        return QByteArray();
+        return QString();
 }
 
 

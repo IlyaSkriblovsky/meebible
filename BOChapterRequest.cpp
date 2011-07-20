@@ -83,5 +83,5 @@ void BOChapterRequest::onNReplyFinished()
     ->del();
 
 
-    finished(doc.toString().toUtf8());
+    finished(doc.toString());
 }

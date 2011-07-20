@@ -32,9 +32,9 @@ private:
     int _chapterNo;
 
 private slots:
-    void onChapterRequestFinished(QByteArray html);
+    void onChapterRequestFinished(QString html);
 
-    void displayHtml(QByteArray html);
+    void displayHtml(QString html);
     void clearDisplay(const QString& error = QString());
 };
 
