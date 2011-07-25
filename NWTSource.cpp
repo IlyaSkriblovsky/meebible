@@ -20,8 +20,6 @@ NWTSource::NWTSource()
         qDebug() << "Cannot open nwt db";
         QCoreApplication::exit(1);
     }
-
-    _nam = new QNetworkAccessManager(this);
 }
 
 
@@ -102,10 +100,4 @@ int NWTSource::versesInChapter(const QString &bookCode, int chapterNo) const
     select.next();
 
     return select.value(0).toInt();
-}
-
-
-QNetworkReply* NWTSource::requestChapter(const QString& url) const
-{
-    return _nam->get(QNetworkRequest(QUrl(url)));
 }

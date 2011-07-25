@@ -19,8 +19,6 @@ BORusTranslation::BORusTranslation()
         qDebug() << "Cannot open bo db";
         QCoreApplication::exit(1);
     }
-
-    _nam = new QNetworkAccessManager(this);
 }
 
 
@@ -113,11 +111,11 @@ QString BORusTranslation::chapterUrl(const QString &bookCode, int chapterNo) con
 }
 
 
-ChapterRequest* BORusTranslation::requestChapter(const QString &bookCode, int chapterNo)
+ChapterRequest* BORusTranslation::requestChapter(QNetworkAccessManager* nam, const QString &bookCode, int chapterNo)
 {
     return new BOChapterRequest(
         this, bookCode, chapterNo,
-        _nam->get(QNetworkRequest(QUrl(
+        nam->get(QNetworkRequest(QUrl(
             chapterUrl(bookCode, chapterNo)
         )))
     );

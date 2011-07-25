@@ -28,13 +28,9 @@ public:
     int chaptersInBook(const QString& bookCode) const;
     int versesInChapter(const QString& bookCode, int chapterNo) const;
 
-    QNetworkReply* requestChapter(const QString& url) const;
-
 
 private:
     QSqlDatabase _db;
-
-    QNetworkAccessManager* _nam;
 };
 
 #endif // NWTSOURCE_H

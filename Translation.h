@@ -4,6 +4,8 @@
 #include <QObject>
 #include <QString>
 
+class QNetworkAccessManager;
+
 
 class ChapterRequest;
 class Language;
@@ -28,7 +30,7 @@ public:
     virtual int chaptersInBook(const QString& bookCode) const = 0;
     virtual int versesInChapter(const QString& bookCode, int chapterNo) const = 0;
 
-    virtual ChapterRequest* requestChapter(const QString& bookCode, int chapterNo) = 0;
+    virtual ChapterRequest* requestChapter(QNetworkAccessManager* nam, const QString& bookCode, int chapterNo) = 0;
 };
 
 #endif // TRANSLATION_H

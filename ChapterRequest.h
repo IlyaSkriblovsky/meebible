@@ -1,7 +1,7 @@
 #ifndef CHAPTERREQUEST_H
 #define CHAPTERREQUEST_H
 
-#include <QtNetwork>
+#include <QNetworkReply>
 
 
 class Translation;
@@ -22,6 +22,8 @@ public:
     Translation* translation() const;
     QString bookCode() const;
     int chapterNo() const;
+
+    QNetworkReply::NetworkError error() const;
 
 
 signals:

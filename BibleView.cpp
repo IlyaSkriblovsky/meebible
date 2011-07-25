@@ -4,6 +4,7 @@
 #include <QFile>
 
 #include <QWebFrame>
+#include <QNetworkAccessManager>
 
 #include "ChapterRequest.h"
 #include "Translation.h"
@@ -29,6 +30,9 @@ BibleView::BibleView(QWidget *parent):
     QFile script(":/script.js");
     script.open(QIODevice::ReadOnly);
     _js = QString::fromUtf8(script.readAll());
+
+
+    _nam = new QNetworkAccessManager(this);
 
 
     connect(page()->mainFrame(), SIGNAL(javaScriptWindowObjectCleared()), this, SLOT(onJavaScriptWindowObjectCleared()));
@@ -70,7 +74,7 @@ void BibleView::loadChapter(const QString& bookCode, int chapterNo)
         displayHtml(fromCache);
     else
     {
-        ChapterRequest* request = _translation->requestChapter(bookCode, chapterNo);
+        ChapterRequest* request = _translation->requestChapter(_nam, bookCode, chapterNo);
 
         if (request)
             connect(request, SIGNAL(finished(QString)), this, SLOT(onChapterRequestFinished(QString)));
@@ -141,6 +145,8 @@ void BibleView::onJavaScriptWindowObjectCleared()
 
 void BibleView::onLoadFinished(bool ok)
 {
+    Q_UNUSED(ok)
+
     page()->mainFrame()->evaluateJavaScript(_js);
 }
 

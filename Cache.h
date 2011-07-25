@@ -19,6 +19,8 @@ public:
 
     bool hasChapter(const Translation* translation, const QString& bookCode, int chapterNo);
 
+    int totalChaptersInCache(const Translation* translation);
+
 private:
     static Cache* _instance;
 

@@ -43,3 +43,8 @@ int ChapterRequest::chapterNo() const
 {
     return _chapterNo;
 }
+
+QNetworkReply::NetworkError ChapterRequest::error() const
+{
+    return _nreply->error();
+}

@@ -84,3 +84,15 @@ bool Cache::hasChapter(const Translation* translation, const QString& bookCode, 
     select.next();
     return select.value(0).toBool();
 }
+
+
+int Cache::totalChaptersInCache(const Translation *translation)
+{
+    QSqlQuery select(_db);
+    select.prepare("SELECT count(*) FROM html WHERE transCode=:transCode");
+    select.addBindValue(translation->code());
+    select.exec();
+    select.next();
+
+    return select.value(0).toInt();
+}

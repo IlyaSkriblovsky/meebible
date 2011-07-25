@@ -7,6 +7,8 @@
 
 #include <QDomDocument>
 
+#include <QRegExp>
+
 #include "BORusTranslation.h"
 #include "EasyXml.h"
 

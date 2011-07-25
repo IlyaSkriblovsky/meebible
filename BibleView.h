@@ -3,6 +3,8 @@
 
 #include <QWebView>
 
+class QNetworkAccessManager;
+
 #include "Place.h"
 
 class Translation;
@@ -37,6 +39,8 @@ private:
     int _chapterNo;
 
     QString _js;
+
+    QNetworkAccessManager* _nam;
 
 private slots:
     void onChapterRequestFinished(QString html);

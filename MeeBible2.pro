@@ -32,7 +32,9 @@ SOURCES += main.cpp \
     BORusTranslation.cpp \
     BOChapterRequest.cpp \
     EasyXml.cpp \
-    BibleWebPage.cpp
+    BibleWebPage.cpp \
+    Fetcher.cpp \
+    FetcherDialog.cpp
 
 HEADERS += \
     TranslationsList.h \
@@ -53,7 +55,9 @@ HEADERS += \
     BORusTranslation.h \
     BOChapterRequest.h \
     EasyXml.h \
-    BibleWebPage.h
+    BibleWebPage.h \
+    Fetcher.h \
+    FetcherDialog.h
 
 RESOURCES += \
     MeeBible2.qrc

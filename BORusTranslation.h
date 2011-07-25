@@ -27,13 +27,11 @@ public:
 
     QString chapterUrl(const QString& bookCode, int chapterNo) const;
 
-    virtual ChapterRequest* requestChapter(const QString &bookCode, int chapterNo);
+    virtual ChapterRequest* requestChapter(QNetworkAccessManager* nam, const QString &bookCode, int chapterNo);
 
 
 private:
     QSqlDatabase _db;
-
-    QNetworkAccessManager* _nam;
 };
 
 #endif // BORUSTRANSLATION_H

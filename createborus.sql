@@ -985,6 +985,7 @@ INSERT INTO chapterSize VALUES ('zep', 1, 18);
 INSERT INTO chapterSize VALUES ('zep', 2, 15);
 INSERT INTO chapterSize VALUES ('zep', 3, 20);
 INSERT INTO chapterSize VALUES ('hag', 1, 15);
+INSERT INTO chapterSize VALUES ('hag', 2, 23);
 INSERT INTO chapterSize VALUES ('zec', 1, 21);
 INSERT INTO chapterSize VALUES ('zec', 2, 13);
 INSERT INTO chapterSize VALUES ('zec', 3, 10);

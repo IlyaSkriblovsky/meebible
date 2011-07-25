@@ -7,6 +7,7 @@
 #include "BibleView.h"
 #include "Translation.h"
 #include "TranslationDialog.h"
+#include "FetcherDialog.h"
 
 
 MainWindow::MainWindow(TranslationsList* transList, QWidget *parent)
@@ -57,5 +58,10 @@ void MainWindow::onActSelectTranslation()
 
 void MainWindow::onActDbg()
 {
-    qDebug() << _bibleView->selectedPlace().toString(_bibleView->translation());
+    FetcherDialog dialog(_bibleView->translation(), this);
+
+    if (dialog.exec() == QDialog::Accepted)
+        qDebug() << "Accepted";
+    else
+        qDebug() << "Rejected";
 }
