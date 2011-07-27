@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core sql network xml xmlpatterns webkit gui
+QT       += core sql network xml xmlpatterns webkit gui declarative
 
 TARGET = MeeBible2
 CONFIG   += console
@@ -25,16 +25,16 @@ SOURCES += main.cpp \
     BibleView.cpp \
     Cache.cpp \
     Paths.cpp \
-    MainWindow.cpp \
+#    MainWindow.cpp \
     Place.cpp \
-    TranslationDialog.cpp \
+#    TranslationDialog.cpp \
     BOSource.cpp \
     BORusTranslation.cpp \
     BOChapterRequest.cpp \
     EasyXml.cpp \
     BibleWebPage.cpp \
     Fetcher.cpp \
-    FetcherDialog.cpp
+#    FetcherDialog.cpp
 
 HEADERS += \
     TranslationsList.h \
@@ -48,16 +48,16 @@ HEADERS += \
     BibleView.h \
     Cache.h \
     Paths.h \
-    MainWindow.h \
+#    MainWindow.h \
     Place.h \
-    TranslationDialog.h \
+#    TranslationDialog.h \
     BOSource.h \
     BORusTranslation.h \
     BOChapterRequest.h \
     EasyXml.h \
     BibleWebPage.h \
     Fetcher.h \
-    FetcherDialog.h
+#    FetcherDialog.h
 
 RESOURCES += \
     MeeBible2.qrc
@@ -69,4 +69,5 @@ OTHER_FILES += \
     style.css \
     createborus.sql \
     bo.xslt \
-    script.js
+    script.js \
+    qml/main.qml

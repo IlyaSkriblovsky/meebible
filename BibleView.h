@@ -1,7 +1,7 @@
 #ifndef BIBLEVIEW_H
 #define BIBLEVIEW_H
 
-#include <QWebView>
+#include <QGraphicsWebView>
 
 class QNetworkAccessManager;
 
@@ -10,14 +10,14 @@ class QNetworkAccessManager;
 class Translation;
 
 
-class BibleView: public QWebView
+class BibleView: public QGraphicsWebView
 {
     Q_OBJECT
 
 public:
-    explicit BibleView(QWidget *parent = 0);
+    explicit BibleView(QGraphicsItem *parent = 0);
 
-    void setTranslation(Translation *translation);
+    Q_INVOKABLE void setTranslation(Translation *translation);
     Translation* translation() const;
 
     QString bookCode() const { return _bookCode; }

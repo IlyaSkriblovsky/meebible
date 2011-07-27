@@ -12,8 +12,8 @@
 #include "BibleWebPage.h"
 
 
-BibleView::BibleView(QWidget *parent):
-    QWebView(parent), _translation(0), _chapterNo(0)
+BibleView::BibleView(QGraphicsItem *parent):
+    QGraphicsWebView(parent), _translation(0), _chapterNo(0)
 {
     setPage(new BibleWebPage(this));
 
@@ -63,7 +63,11 @@ void BibleView::setTranslation(Translation *translation)
 
 void BibleView::loadChapter(const QString& bookCode, int chapterNo)
 {
-    if (! _translation) return;
+    if (! _translation)
+    {
+        qDebug() << "BibleView::loadChapter while translation == null";
+        return;
+    }
 
     _bookCode = bookCode;
     _chapterNo = chapterNo;
