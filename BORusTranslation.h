@@ -8,10 +8,13 @@
 class QNetworkAccessManager;
 
 
+class Language;
+
+
 class BORusTranslation : public Translation
 {
 public:
-    BORusTranslation();
+    BORusTranslation(const Language* language);
 
     virtual const Language* language() const;
 
@@ -32,6 +35,8 @@ public:
 
 private:
     QSqlDatabase _db;
+
+    const Language* _language;
 };
 
 #endif // BORUSTRANSLATION_H

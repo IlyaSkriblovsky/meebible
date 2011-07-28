@@ -16,6 +16,7 @@ TEMPLATE = app
 SOURCES += main.cpp \
     TranslationsList.cpp \
     Language.cpp \
+    Languages.cpp \
     Translation.cpp \
     ChapterRequest.cpp \
     Source.cpp \
@@ -39,6 +40,7 @@ SOURCES += main.cpp \
 HEADERS += \
     TranslationsList.h \
     Language.h \
+    Languages.h \
     Translation.h \
     ChapterRequest.h \
     Source.h \
@@ -57,7 +59,8 @@ HEADERS += \
     EasyXml.h \
     BibleWebPage.h \
     Fetcher.h \
-#    FetcherDialog.h
+#    FetcherDialog.h \
+    Utils.h
 
 RESOURCES += \
     MeeBible2.qrc

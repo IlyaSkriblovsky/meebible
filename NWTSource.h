@@ -10,6 +10,7 @@ class QNetworkReply;
 
 
 class TranslationsList;
+class Languages;
 class Language;
 
 
@@ -18,7 +19,7 @@ class NWTSource : public Source
 public:
     NWTSource();
 
-    virtual void addTranslationsToList(TranslationsList *list);
+    virtual void addTranslationsToList(Languages* languages, TranslationsList *list);
 
 
     QString bookName(const Language *lang, const QString& bookCode) const;

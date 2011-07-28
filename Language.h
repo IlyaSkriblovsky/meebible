@@ -1,12 +1,17 @@
 #ifndef LANGUAGE_H
 #define LANGUAGE_H
 
-#include <QList>
-#include <QString>
+#include <QObject>
 
 
-class Language
+class Language: public QObject
 {
+    Q_OBJECT
+
+    Q_PROPERTY(QString code READ code NOTIFY codeChanged)
+    Q_PROPERTY(QString engname READ engname NOTIFY engnameChanged)
+    Q_PROPERTY(QString selfname READ selfname NOTIFY selfnameChanged)
+
 public:
     Language(const QString& code, const QString& engname, const QString& selfname);
 
@@ -14,14 +19,12 @@ public:
     QString engname() const { return _engname; }
     QString selfname() const { return _selfname; }
 
-    static void load();
-
-    static const Language* langByCode(const QString& code);
-    static QList<const Language*> allLanguages();
+signals:
+    void codeChanged();
+    void engnameChanged();
+    void selfnameChanged();
 
 private:
-    static QList<Language> _allLanguages;
-
     QString _code;
     QString _engname;
     QString _selfname;

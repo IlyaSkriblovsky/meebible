@@ -15,6 +15,9 @@ class Translation: public QObject
 {
     Q_OBJECT
 
+    Q_PROPERTY(QString code READ code)
+    Q_PROPERTY(QString name READ name)
+
 public:
     virtual ~Translation();
 

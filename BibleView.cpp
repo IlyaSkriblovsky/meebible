@@ -75,13 +75,17 @@ void BibleView::loadChapter(const QString& bookCode, int chapterNo)
     QString fromCache = Cache::instance()->loadChapter(_translation, bookCode, chapterNo);
 
     if (! fromCache.isEmpty())
+    {
         displayHtml(fromCache);
+    }
     else
     {
         ChapterRequest* request = _translation->requestChapter(_nam, bookCode, chapterNo);
 
         if (request)
             connect(request, SIGNAL(finished(QString)), this, SLOT(onChapterRequestFinished(QString)));
+
+        loading();
     }
 }
 
@@ -107,6 +111,7 @@ void BibleView::onChapterRequestFinished(QString html)
 void BibleView::displayHtml(QString html)
 {
     setHtml(html);
+    chapterLoaded();
 }
 
 void BibleView::clearDisplay(const QString& error)
@@ -166,4 +171,16 @@ Place BibleView::selectedPlace()
         verses += jsList[i].toInt();
 
     return Place(_bookCode, _chapterNo, verses);
+}
+
+
+
+int BibleView::preferredWidth()
+{
+    return page()->preferredContentsSize().width();
+}
+
+void BibleView::setPreferredWidth(int width)
+{
+    page()->setPreferredContentsSize(QSize(width, 100));
 }

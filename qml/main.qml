@@ -1,48 +1,160 @@
 import QtQuick 1.0
 import MeeBible 0.1
+import com.meego 1.0
 
-Rectangle {
-    width: 500
-    height: 500
+PageStackWindow {
 
-    MouseArea {
-        id: button
-
-        anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.right: parent.right
-        height: 50
-        width: parent.width
-
-        onClicked: {
-            console.log('qwe')
-            bibleView.setTranslation(dflTranslation)
-            bibleView.loadChapter("mt", 5)
-        }
+    initialPage: Page {
+        id: page
 
         Rectangle {
             anchors.fill: parent
-            color: 'red'
+
+            clip: true
+
+            Flickable {
+                id: flickable
+
+                anchors.fill: parent
+
+                contentWidth: bibleView.width
+                contentHeight:  bibleView.height
+
+                BibleView {
+                    id: bibleView
+
+                    width: page.width
+
+                    resizesToContents: true
+                    preferredWidth: parent.width
+
+                    url: "about:blank"
+
+                    onChapterLoaded: { flickable.contentY = 0; page.state = "normal" }
+                    onLoading: page.state = "loading"
+                }
+            }
+            ScrollDecorator { flickableItem: flickable }
         }
-    }
 
-    Rectangle {
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: button.bottom
-        anchors.bottom: parent.bottom
 
-        clip: true
+        Rectangle {
+            id: busyIndicator
 
-        Flickable {
             anchors.fill: parent
 
-            contentWidth: bibleView.width
-            contentHeight:  bibleView.height
+            color: '#fff'
 
-            BibleView {
-                id: bibleView
+            BusyIndicator {
+                anchors.centerIn: parent
+
+                running: true
+
+                platformStyle: BusyIndicatorStyle {
+                    size: "large"
+                }
+            }
+
+            state: "invisible"
+
+            states: [
+                State {
+                    name: "invisible"
+
+                    PropertyChanges {
+                        target: busyIndicator
+                        opacity: 0.0
+                    }
+                },
+                State {
+                    name: "visible"
+
+                    PropertyChanges {
+                        target: busyIndicator
+                        opacity: 0.7
+                    }
+                }
+            ]
+
+            transitions: Transition {
+                NumberAnimation {
+                    properties: "opacity"
+                    duration: 100
+                }
             }
         }
+
+
+        LanguageDialog {
+            id: languageDialog
+
+            onAccepted: transDialog.open()
+        }
+
+        TranslationDialog {
+            id: transDialog
+
+            languageCode: languageDialog.selectedLanguageCode
+
+            onAccepted: bibleView.setTranslation(translation())
+        }
+
+
+        tools: ToolBarLayout {
+            ToolIcon {
+                platformIconId: "toolbar-previous"
+
+                onClicked: bibleView.loadPrevChapter()
+            }
+
+            ToolIcon {
+                platformIconId: "toolbar-select-text"
+
+                onClicked: languageDialog.open()
+            }
+
+            ToolIcon {
+                platformIconId: "toolbar-view-menu"
+
+                onClicked: transDialog.open()
+            }
+
+            ToolIcon {
+                id: updatebutton
+                platformIconId: "toolbar-update"
+
+                onClicked: {
+                    bibleView.loadChapter("mt", 5)
+                }
+            }
+
+            ToolIcon {
+                platformIconId: "toolbar-next"
+
+                onClicked: bibleView.loadNextChapter()
+            }
+        }
+
+
+        state: "normal"
+
+        states: [
+            State {
+                name: "normal"
+
+                PropertyChanges {
+                    target: busyIndicator
+                    state: "invisible"
+                }
+            },
+            State {
+                name: "loading"
+
+                PropertyChanges {
+                    target: busyIndicator
+                    state: "visible"
+                }
+            }
+        ]
     }
 }

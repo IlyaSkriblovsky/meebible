@@ -1,7 +1,7 @@
 #include "BOSource.h"
 
 #include "TranslationsList.h"
-#include "Language.h"
+#include "Languages.h"
 #include "BORusTranslation.h"
 
 
@@ -9,7 +9,8 @@ BOSource::BOSource()
 {
 }
 
-void BOSource::addTranslationsToList(TranslationsList *list)
+void BOSource::addTranslationsToList(Languages* languages, TranslationsList *list)
 {
-    list->addTranslation(Language::langByCode("u"), new BORusTranslation());
+    const Language* russian = languages->langByCode("u");
+    list->addTranslation(russian, new BORusTranslation(russian));
 }

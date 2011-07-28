@@ -50,6 +50,7 @@ int main(int argc, char *argv[])
 
 #include "Paths.h"
 #include "Cache.h"
+#include "Languages.h"
 #include "Language.h"
 #include "NWTSource.h"
 #include "BOSource.h"
@@ -66,27 +67,31 @@ int main(int argc, char *argv[])
     Paths::init();
     Cache cache;
 
-    Language::load();
+    Languages languages;
 
-    TranslationsList translationsList;
+    TranslationsList translations;
 
     NWTSource nwtSource;
-    nwtSource.addTranslationsToList(&translationsList);
+    nwtSource.addTranslationsToList(&languages, &translations);
     BOSource boSource;
-    boSource.addTranslationsToList(&translationsList);
-
-    Translation* translation = translationsList.translationsForLang(Language::langByCode("u"))[0];
+    boSource.addTranslationsToList(&languages, &translations);
 
     QDeclarativeEngine engine;
 
+    qmlRegisterType<TranslationsList>();
     qmlRegisterType<Translation>();
+    qmlRegisterType<Languages>();
+    qmlRegisterType<Language>();
     qmlRegisterType<BibleView>("MeeBible", 0, 1, "BibleView");
 
     QDeclarativeView view;
-    view.rootContext()->setContextProperty("dflTranslation", (QObject*)translation);
+
+    view.rootContext()->setContextProperty("translations", &translations);
+    view.rootContext()->setContextProperty("languages", &languages);
+    view.rootContext()->setContextProperty("ten", 10);
     view.setSource(QUrl::fromLocalFile("../MeeBible2/qml/main.qml"));
 
-    view.show();
+    view.showFullScreen();
 
     return app.exec();
 }

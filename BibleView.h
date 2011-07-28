@@ -14,6 +14,8 @@ class BibleView: public QGraphicsWebView
 {
     Q_OBJECT
 
+    Q_PROPERTY(int preferredWidth READ preferredWidth WRITE setPreferredWidth)
+
 public:
     explicit BibleView(QGraphicsItem *parent = 0);
 
@@ -26,11 +28,19 @@ public:
 
     Place selectedPlace();
 
+    int preferredWidth();
+    void setPreferredWidth(int width);
+
 public slots:
     void loadChapter(const QString& bookCode, int chapterNo);
 
     void loadNextChapter();
     void loadPrevChapter();
+
+
+signals:
+    void chapterLoaded();
+    void loading();
 
 private:
     Translation* _translation;

@@ -5,6 +5,7 @@
 
 
 class TranslationsList;
+class Languages;
 
 
 class Source: public QObject
@@ -12,7 +13,7 @@ class Source: public QObject
     Q_OBJECT
 
 public:
-    virtual void addTranslationsToList(TranslationsList *list) = 0;
+    virtual void addTranslationsToList(Languages* languages, TranslationsList *list) = 0;
 };
 
 #endif // SOURCE_H

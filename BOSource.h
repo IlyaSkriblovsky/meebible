@@ -4,6 +4,7 @@
 #include "Source.h"
 
 class TranslationsList;
+class Languages;
 
 
 class BOSource : public Source
@@ -11,7 +12,7 @@ class BOSource : public Source
 public:
     BOSource();
 
-    virtual void addTranslationsToList(TranslationsList *list);
+    virtual void addTranslationsToList(Languages* languages, TranslationsList *list);
 };
 
 #endif // BOSOURCE_H

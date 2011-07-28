@@ -10,7 +10,8 @@
 #include "Language.h"
 #include "BOChapterRequest.h"
 
-BORusTranslation::BORusTranslation()
+BORusTranslation::BORusTranslation(const Language* language)
+    : _language(language)
 {
     _db = QSqlDatabase::addDatabase("QSQLITE", "bo");
     _db.setDatabaseName("../MeeBible2/bo.sqlite");
@@ -24,7 +25,7 @@ BORusTranslation::BORusTranslation()
 
 const Language* BORusTranslation::language() const
 {
-    return Language::langByCode("u");
+    return _language;
 }
 
 QString BORusTranslation::code() const

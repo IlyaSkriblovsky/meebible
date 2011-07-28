@@ -7,7 +7,7 @@
 
 
 #include "TranslationsList.h"
-#include "Language.h"
+#include "Languages.h"
 #include "NWTranslation.h"
 
 
@@ -23,13 +23,13 @@ NWTSource::NWTSource()
 }
 
 
-void NWTSource::addTranslationsToList(TranslationsList *list)
+void NWTSource::addTranslationsToList(Languages* languages, TranslationsList *list)
 {
     QSqlQuery select("SELECT langCode, urlPrefix FROM langs", _db);
 
     while (select.next())
     {
-        const Language *lang = Language::langByCode(select.value(0).toString());
+        const Language *lang = languages->langByCode(select.value(0).toString());
         list->addTranslation(
             lang,
             new NWTranslation(

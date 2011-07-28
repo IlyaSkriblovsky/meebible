@@ -1,6 +1,10 @@
 #include "TranslationsList.h"
 
+#include <QDebug>
+
 #include "Translation.h"
+#include "Utils.h"
+#include "Language.h"
 
 
 TranslationsList::TranslationsList()
@@ -24,9 +28,18 @@ QList<Translation*> TranslationsList::translationsForLang(const Language *lang)
 {
     QList<Translation*> result;
 
+
     for (int i = 0; i < _translations.size(); ++i)
-        if (_translations[i].first == lang)
+    {
+        if (_translations[i].first->code() == lang->code())
             result.append(_translations[i].second);
+    }
 
     return result;
+}
+
+
+QVariantList TranslationsList::translationsForLang_js(Language* lang)
+{
+    return Utils::objectListToVariantList(translationsForLang(lang));
 }

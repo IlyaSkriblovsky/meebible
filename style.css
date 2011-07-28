@@ -1,3 +1,12 @@
+html
+{
+    -webkit-user-select: none;
+    user-select: none;
+
+    font-size: 200%;
+    font-family: Arial;
+}
+
 .verse
 {
     display: inline;
@@ -22,5 +31,5 @@
 .par
 {
     margin-top: .8em;
-    text-indent: 1em;
+/*    text-indent: 1em; */
 }
