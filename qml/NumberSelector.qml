@@ -24,6 +24,8 @@ Column {
         TextField {
             id: field
 
+            text: slider.minimumValue
+
             inputMethodHints: Qt.ImhDigitsOnly
 
             validator: IntValidator {

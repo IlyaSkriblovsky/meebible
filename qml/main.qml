@@ -102,7 +102,7 @@ PageStackWindow {
             onAccepted: {
                 bibleView.setTranslation(translation())
 
-                placeDialog.model = translation()
+                placeDialog.bookModel = translation()
             }
         }
 
@@ -111,7 +111,7 @@ PageStackWindow {
             id: placeDialog
 
             onAccepted: {
-                console.log(bookCode())
+                console.log('(' + bookCode() + ') ' + bookName() + ' ' + chapterNo() + ':' + verseNo())
             }
         }
 
