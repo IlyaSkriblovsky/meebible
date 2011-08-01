@@ -13,6 +13,8 @@ class Language;
 
 class BORusTranslation : public Translation
 {
+    Q_OBJECT
+
 public:
     BORusTranslation(const Language* language);
 
@@ -22,7 +24,7 @@ public:
     virtual QString name() const;
 
     virtual QString bookName(const QString &bookCode) const;
-    virtual QList<QString> bookCodes() const;
+    Q_INVOKABLE virtual QStringList bookCodes() const;
     virtual bool hasBook(const QString &bookCode) const;
 
     virtual int chaptersInBook(const QString &bookCode) const;

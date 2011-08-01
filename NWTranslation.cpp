@@ -35,10 +35,13 @@ QString NWTranslation::name() const
 
 QString NWTranslation::bookName(const QString &bookCode) const
 {
-    return _source->bookName(_lang, bookCode);
+    if (_bookNames.size() == 0)
+        _bookNames = _source->bookNames(_lang);
+
+    return _bookNames.value(bookCode);
 }
 
-QList<QString> NWTranslation::bookCodes() const
+QStringList NWTranslation::bookCodes() const
 {
     return _source->bookCodes();
 }

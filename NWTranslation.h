@@ -2,6 +2,7 @@
 #define NWTRANSLATION_H
 
 #include <QNetworkAccessManager>
+#include <QMap>
 
 
 #include "Translation.h"
@@ -13,6 +14,8 @@ class NWTSource;
 
 class NWTranslation : public Translation
 {
+    Q_OBJECT
+
 public:
     NWTranslation(const NWTSource *source, const Language *lang, const QString& urlPrefix);
     virtual ~NWTranslation();
@@ -23,7 +26,7 @@ public:
     virtual QString name() const;
 
     virtual QString bookName(const QString& bookCode) const;
-    virtual QList<QString> bookCodes() const;
+    Q_INVOKABLE virtual QStringList bookCodes() const;
     virtual bool hasBook(const QString& bookCode) const;
 
     virtual int chaptersInBook(const QString &bookCode) const;
@@ -37,6 +40,8 @@ private:
     const NWTSource* _source;
     const Language* _lang;
     QString _urlPrefix;
+
+    mutable QMap<QString, QString> _bookNames;
 };
 
 #endif // NWTRANSLATION_H

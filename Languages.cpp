@@ -28,6 +28,14 @@ Languages::Languages()
             select.value(1).toString(),
             select.value(2).toString()
         ));
+
+
+    QHash<int, QByteArray> roleNames;
+    roleNames[Qt::DisplayRole] = "value";
+    roleNames[CodeRole] = "code";
+    roleNames[EngnameRole] = "engname";
+    roleNames[SelfnameRole] = "selfname";
+    setRoleNames(roleNames);
 }
 
 Languages::~Languages()
@@ -49,13 +57,43 @@ Language* Languages::langByCode(const QString& code)
 }
 
 
-QList<Language*> Languages::all()
+int Languages::rowCount(const QModelIndex& index) const
 {
-    return _languages;
+    Q_UNUSED(index)
+
+    return _languages.size();
+}
+
+QVariant Languages::data(const QModelIndex& index, int role) const
+{
+    if (index.row() < 0 || index.row() >= _languages.size())
+        return QVariant();
+
+    switch (role)
+    {
+        case Qt::DisplayRole:
+        {
+            Language* lang = _languages.at(index.row());
+            return lang->engname() + " (" + lang->selfname() + ")";
+        }
+
+        case SelfnameRole:
+            return _languages.at(index.row())->selfname();
+
+        case CodeRole:
+            return _languages.at(index.row())->code();
+
+        case EngnameRole:
+            return _languages.at(index.row())->engname();
+    }
+
+    return QVariant();
 }
 
 
-QVariantList Languages::all_js()
+Language* Languages::langAt(int row) const
 {
-    return Utils::objectListToVariantList(_languages);
+    Language* z = _languages.at(row);
+    qDebug() << "z=" << z;
+    return z;
 }

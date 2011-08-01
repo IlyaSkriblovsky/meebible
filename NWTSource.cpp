@@ -6,7 +6,6 @@
 #include <QNetworkReply>
 
 
-#include "TranslationsList.h"
 #include "Languages.h"
 #include "NWTranslation.h"
 
@@ -20,18 +19,23 @@ NWTSource::NWTSource()
         qDebug() << "Cannot open nwt db";
         QCoreApplication::exit(1);
     }
+
+
+
+    QSqlQuery select("SELECT bookCode FROM books ORDER BY no", _db);
+    while (select.next())
+        _bookCodes.append(select.value(0).toString());
 }
 
 
-void NWTSource::addTranslationsToList(Languages* languages, TranslationsList *list)
+void NWTSource::addTranslationsToList(Languages* languages)
 {
     QSqlQuery select("SELECT langCode, urlPrefix FROM langs", _db);
 
     while (select.next())
     {
-        const Language *lang = languages->langByCode(select.value(0).toString());
-        list->addTranslation(
-            lang,
+        Language *lang = languages->langByCode(select.value(0).toString());
+        lang->addTranslation(
             new NWTranslation(
                 this,
                 lang,
@@ -42,15 +46,9 @@ void NWTSource::addTranslationsToList(Languages* languages, TranslationsList *li
 }
 
 
-QList<QString> NWTSource::bookCodes() const
+QStringList NWTSource::bookCodes() const
 {
-    QList<QString> result;
-
-    QSqlQuery select("SELECT bookCode FROM books ORDER BY no", _db);
-    while (select.next())
-        result.append(select.value(0).toString());
-
-    return result;
+    return _bookCodes;
 }
 
 bool NWTSource::hasBook(const QString& bookCode) const
@@ -75,6 +73,21 @@ QString NWTSource::bookName(const Language *lang, const QString &bookCode) const
     select.next();
 
     return select.value(0).toString();
+}
+
+
+QMap<QString, QString> NWTSource::bookNames(const Language* lang) const
+{
+    QSqlQuery select(_db);
+    select.prepare("SELECT bookCode, name FROM bookNames WHERE langCode=?");
+    select.addBindValue(lang->code());
+    select.exec();
+
+    QMap<QString, QString> names;
+    while (select.next())
+        names[select.value(0).toString()] = select.value(1).toString();
+
+    return names;
 }
 
 

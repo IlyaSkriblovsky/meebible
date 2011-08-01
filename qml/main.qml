@@ -1,4 +1,4 @@
-import QtQuick 1.0
+import QtQuick 1.1
 import MeeBible 0.1
 import com.meego 1.0
 
@@ -26,12 +26,14 @@ PageStackWindow {
                     width: page.width
 
                     resizesToContents: true
-                    preferredWidth: parent.width
+                    preferredWidth: page.width
 
                     url: "about:blank"
 
                     onChapterLoaded: { flickable.contentY = 0; page.state = "normal" }
                     onLoading: page.state = "loading"
+
+                    Component.onCompleted: loadChapter('mt', 5)
                 }
             }
             ScrollDecorator { flickableItem: flickable }
@@ -88,15 +90,29 @@ PageStackWindow {
         LanguageDialog {
             id: languageDialog
 
-            onAccepted: transDialog.open()
+            onAccepted: {
+                transDialog.model = language()
+                transDialog.open()
+            }
         }
 
         TranslationDialog {
             id: transDialog
 
-            languageCode: languageDialog.selectedLanguageCode
+            onAccepted: {
+                bibleView.setTranslation(translation())
 
-            onAccepted: bibleView.setTranslation(translation())
+                placeDialog.model = translation()
+            }
+        }
+
+
+        PlaceDialog {
+            id: placeDialog
+        }
+
+        Loader {
+            id: sheetTest
         }
 
 
@@ -124,7 +140,9 @@ PageStackWindow {
                 platformIconId: "toolbar-update"
 
                 onClicked: {
-                    bibleView.loadChapter("mt", 5)
+//                    sheetTest.source = "SheetTest.qml"
+//                    sheetTest.item.open()
+                    placeDialog.open()
                 }
             }
 

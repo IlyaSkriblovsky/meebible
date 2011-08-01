@@ -1,6 +1,8 @@
 #include "TranslationsList.h"
 
 #include <QDebug>
+#include <QHash>
+#include <QByteArray>
 
 #include "Translation.h"
 #include "Utils.h"
@@ -9,6 +11,11 @@
 
 TranslationsList::TranslationsList()
 {
+    QHash<int, QByteArray> roleNames;
+    roleNames[LanguageRole] = "language";
+    roleNames[TranslationRole] = "translation";
+    roleNames[LanguageCodeRole] = "languageCode";
+    roleNames[TranslationNameRole] = "translationName";
 }
 
 
@@ -19,9 +26,9 @@ TranslationsList::~TranslationsList()
 }
 
 
-void TranslationsList::addTranslation(const Language *lang, Translation *translation)
+void TranslationsList::addTranslation(Language *lang, Translation *translation)
 {
-    _translations.append(QPair<const Language*, Translation*>(lang, translation));
+    _translations.append(QPair<Language*, Translation*>(lang, translation));
 }
 
 QList<Translation*> TranslationsList::translationsForLang(const Language *lang)
@@ -39,7 +46,29 @@ QList<Translation*> TranslationsList::translationsForLang(const Language *lang)
 }
 
 
-QVariantList TranslationsList::translationsForLang_js(Language* lang)
+
+int TranslationsList::rowCount(const QModelIndex& index) const
 {
-    return Utils::objectListToVariantList(translationsForLang(lang));
+    Q_UNUSED(index)
+
+    return _translations.size();
+}
+
+QVariant TranslationsList::data(const QModelIndex& index, int role) const
+{
+    if (index.row() < 0  ||  index.row() >= _translations.size())
+        return QVariant();
+
+    switch (role)
+    {
+        case LanguageRole: return QVariant::fromValue((QObject*)_translations.at(index.row()).first);
+        case LanguageCodeRole: return _translations.at(index.row()).first->code();
+
+        case TranslationRole: return QVariant::fromValue((QObject*)_translations.at(index.row()).second);
+
+        case Qt::DisplayRole:
+        case TranslationNameRole: return _translations.at(index.row()).second->name();
+    }
+
+    return QVariant();
 }

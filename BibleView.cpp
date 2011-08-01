@@ -7,6 +7,7 @@
 #include <QNetworkAccessManager>
 
 #include "ChapterRequest.h"
+#include "Language.h"
 #include "Translation.h"
 #include "Cache.h"
 #include "BibleWebPage.h"
@@ -63,14 +64,14 @@ void BibleView::setTranslation(Translation *translation)
 
 void BibleView::loadChapter(const QString& bookCode, int chapterNo)
 {
+    _bookCode = bookCode;
+    _chapterNo = chapterNo;
+
     if (! _translation)
     {
         qDebug() << "BibleView::loadChapter while translation == null";
         return;
     }
-
-    _bookCode = bookCode;
-    _chapterNo = chapterNo;
 
     QString fromCache = Cache::instance()->loadChapter(_translation, bookCode, chapterNo);
 

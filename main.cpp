@@ -54,7 +54,6 @@ int main(int argc, char *argv[])
 #include "Language.h"
 #include "NWTSource.h"
 #include "BOSource.h"
-#include "TranslationsList.h"
 #include "Translation.h"
 #include "BibleView.h"
 
@@ -69,24 +68,22 @@ int main(int argc, char *argv[])
 
     Languages languages;
 
-    TranslationsList translations;
 
     NWTSource nwtSource;
-    nwtSource.addTranslationsToList(&languages, &translations);
+    nwtSource.addTranslationsToList(&languages);
     BOSource boSource;
-    boSource.addTranslationsToList(&languages, &translations);
+    boSource.addTranslationsToList(&languages);
 
     QDeclarativeEngine engine;
 
-    qmlRegisterType<TranslationsList>();
-    qmlRegisterType<Translation>();
-    qmlRegisterType<Languages>();
     qmlRegisterType<Language>();
+    qmlRegisterUncreatableType<Translation>("MeeBible", 0, 1, "Translation", "Translation is abstract");
     qmlRegisterType<BibleView>("MeeBible", 0, 1, "BibleView");
 
     QDeclarativeView view;
 
-    view.rootContext()->setContextProperty("translations", &translations);
+    qDebug() << languages.rowCount();
+
     view.rootContext()->setContextProperty("languages", &languages);
     view.rootContext()->setContextProperty("ten", 10);
     view.setSource(QUrl::fromLocalFile("../MeeBible2/qml/main.qml"));

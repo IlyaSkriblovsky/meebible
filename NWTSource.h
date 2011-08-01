@@ -4,12 +4,12 @@
 #include "Source.h"
 
 #include <QSqlDatabase>
-#include <QNetworkAccessManager>
+#include <QMap>
+#include <QStringList>
 
 class QNetworkReply;
 
 
-class TranslationsList;
 class Languages;
 class Language;
 
@@ -19,19 +19,24 @@ class NWTSource : public Source
 public:
     NWTSource();
 
-    virtual void addTranslationsToList(Languages* languages, TranslationsList *list);
+    virtual void addTranslationsToList(Languages* languages);
 
 
     QString bookName(const Language *lang, const QString& bookCode) const;
-    QList<QString> bookCodes() const;
+    QStringList bookCodes() const;
     bool hasBook(const QString& bookCode) const;
 
     int chaptersInBook(const QString& bookCode) const;
     int versesInChapter(const QString& bookCode, int chapterNo) const;
 
 
+    QMap<QString, QString> bookNames(const Language *lang) const;
+
+
 private:
     QSqlDatabase _db;
+
+    QStringList _bookCodes;
 };
 
 #endif // NWTSOURCE_H

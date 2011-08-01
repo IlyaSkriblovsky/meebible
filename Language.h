@@ -1,10 +1,12 @@
 #ifndef LANGUAGE_H
 #define LANGUAGE_H
 
-#include <QObject>
+#include <QAbstractListModel>
+
+class Translation;
 
 
-class Language: public QObject
+class Language: public QAbstractListModel
 {
     Q_OBJECT
 
@@ -13,11 +15,25 @@ class Language: public QObject
     Q_PROPERTY(QString selfname READ selfname NOTIFY selfnameChanged)
 
 public:
+    enum Roles {
+        TranslationRole = Qt::UserRole + 1,
+        TranslationNameRole
+    };
+
     Language(const QString& code, const QString& engname, const QString& selfname);
 
     QString code() const { return _code; }
     QString engname() const { return _engname; }
     QString selfname() const { return _selfname; }
+
+    void addTranslation(Translation* translation);
+
+
+    virtual int rowCount(const QModelIndex& index = QModelIndex()) const;
+    virtual QVariant data(const QModelIndex& index, int role) const;
+
+    Q_INVOKABLE Translation* translationAt(int row) const;
+
 
 signals:
     void codeChanged();
@@ -28,6 +44,8 @@ private:
     QString _code;
     QString _engname;
     QString _selfname;
+
+    QList<Translation*> _translations;
 };
 
 #endif // LANGUAGE_H

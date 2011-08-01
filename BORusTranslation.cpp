@@ -50,9 +50,9 @@ QString BORusTranslation::bookName(const QString &bookCode) const
     return select.value(0).toString();
 }
 
-QList<QString> BORusTranslation::bookCodes() const
+QStringList BORusTranslation::bookCodes() const
 {
-    QList<QString> result;
+    QStringList result;
 
     QSqlQuery select("SELECT bookCode FROM books ORDER BY no", _db);
     while (select.next())
