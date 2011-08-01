@@ -45,3 +45,29 @@ QVariant Translation::data(const QModelIndex& index, int role) const
 
     return QVariant();
 }
+
+
+
+int Translation::chaptersInBook(const QString& bookCode) const
+{
+    return verseCounts(bookCode).size();
+}
+
+int Translation::versesInChapter(const QString& bookCode, int chapterNo) const
+{
+    return verseCounts(bookCode).at(chapterNo - 1);
+}
+
+
+
+QString Translation::bookCodeAt(int row) const
+{
+    return bookCodes().at(row);
+}
+
+
+
+bool Translation::hasBook(const QString& bookCode) const
+{
+    return bookCodes().indexOf(bookCode) != -1;
+}

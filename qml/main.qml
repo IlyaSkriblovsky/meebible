@@ -109,6 +109,10 @@ PageStackWindow {
 
         PlaceDialog {
             id: placeDialog
+
+            onAccepted: {
+                console.log(bookCode())
+            }
         }
 
         Loader {
@@ -140,8 +144,6 @@ PageStackWindow {
                 platformIconId: "toolbar-update"
 
                 onClicked: {
-//                    sheetTest.source = "SheetTest.qml"
-//                    sheetTest.item.open()
                     placeDialog.open()
                 }
             }

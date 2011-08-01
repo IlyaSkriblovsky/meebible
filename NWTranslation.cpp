@@ -46,19 +46,10 @@ QStringList NWTranslation::bookCodes() const
     return _source->bookCodes();
 }
 
-bool NWTranslation::hasBook(const QString& bookCode) const
-{
-    return _source->hasBook(bookCode);
-}
 
-int NWTranslation::chaptersInBook(const QString &bookCode) const
+QList<int> NWTranslation::verseCounts(const QString& bookCode) const
 {
-    return _source->chaptersInBook(bookCode);
-}
-
-int NWTranslation::versesInChapter(const QString &bookCode, int chapterNo) const
-{
-    return _source->versesInChapter(bookCode, chapterNo);
+    return _source->verseCounts(bookCode);
 }
 
 

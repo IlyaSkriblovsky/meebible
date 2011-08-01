@@ -27,10 +27,8 @@ public:
 
     virtual QString bookName(const QString& bookCode) const;
     Q_INVOKABLE virtual QStringList bookCodes() const;
-    virtual bool hasBook(const QString& bookCode) const;
 
-    virtual int chaptersInBook(const QString &bookCode) const;
-    virtual int versesInChapter(const QString &bookCode, int chapterNo) const;
+    virtual QList<int> verseCounts(const QString& bookCode) const;
 
     QString chapterUrl(const QString& bookCode, int chapterNo) const;
 

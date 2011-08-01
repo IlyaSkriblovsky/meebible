@@ -10,6 +10,14 @@
 #include "Language.h"
 #include "BOChapterRequest.h"
 
+
+//
+// This class uses lazy loading of data. Do NOT use _bookCodes, _bookNames
+// or _verseCounts directly anywhere (except in corresponding getters).
+// Always use public getters which would load data from DB on first call.
+//
+
+
 BORusTranslation::BORusTranslation(const Language* language)
     : _language(language)
 {
@@ -20,6 +28,8 @@ BORusTranslation::BORusTranslation(const Language* language)
         qDebug() << "Cannot open bo db";
         QCoreApplication::exit(1);
     }
+
+
 }
 
 
@@ -41,73 +51,47 @@ QString BORusTranslation::name() const
 
 QString BORusTranslation::bookName(const QString &bookCode) const
 {
-    QSqlQuery select(_db);
-    select.prepare("SELECT name FROM books WHERE bookCode=:bookCode");
-    select.addBindValue(bookCode);
-    select.exec();
-    select.next();
+    if (_bookNames.size() == 0)
+    {
+        QSqlQuery select("SELECT bookCode, name FROM books", _db);
+        select.exec();
+        
+        while (select.next())
+        {
+            _bookNames[select.value(0).toString()] = select.value(1).toString();
+        }
+    }
 
-    return select.value(0).toString();
+    qDebug() << _bookNames.value(bookCode);
+
+    return _bookNames.value(bookCode);
 }
 
 QStringList BORusTranslation::bookCodes() const
 {
-    QStringList result;
+    if (_bookCodes.size() == 0)
+    {
+        QSqlQuery select("SELECT bookCode FROM books ORDER BY no", _db);
+        select.exec();
 
-    QSqlQuery select("SELECT bookCode FROM books ORDER BY no", _db);
-    while (select.next())
-        result.append(select.value(0).toString());
+        while (select.next())
+            _bookCodes.append(select.value(0).toString());
+    }
 
-    return result;
+    qDebug() << _bookCodes.size();
+
+    return _bookCodes;
 }
 
-bool BORusTranslation::hasBook(const QString &bookCode) const
-{
-    QSqlQuery select(_db);
-    select.prepare("SELECT count(*) FROM books WHERE bookCode=:bookCode");
-    select.addBindValue(bookCode);
-    select.exec();
-    select.next();
-
-    return select.value(0).toInt() != 0;
-}
-
-
-int BORusTranslation::chaptersInBook(const QString &bookCode) const
-{
-    QSqlQuery select(_db);
-    select.prepare("SELECT count(*) FROM chapterSize WHERE bookCode=:bookCode");
-    select.addBindValue(bookCode);
-    select.exec();
-    select.next();
-
-    return select.value(0).toInt();
-}
-
-int BORusTranslation::versesInChapter(const QString &bookCode, int chapterNo) const
-{
-    QSqlQuery select(_db);
-    select.prepare("SELECT verses FROM chapterSize WHERE bookCode=:bookCode AND chapterNo=:chapterNo");
-    select.addBindValue(bookCode);
-    select.addBindValue(chapterNo);
-    select.exec();
-
-    if (! select.next())
-        qDebug() << "Cannot load verseCount for bo bookCode=" << bookCode << " chapterNo=" << chapterNo;
-
-    return select.value(0).toInt();
-}
 
 QString BORusTranslation::chapterUrl(const QString &bookCode, int chapterNo) const
 {
-    QSqlQuery select(_db);
-    select.prepare("SELECT no FROM books WHERE bookCode=:bookCode");
-    select.addBindValue(bookCode);
-    select.exec();
-    select.next();
+    int no = bookCodes().indexOf(bookCode);
+    if (no == -1)
+        return "<illegal url>";
 
     return QString("http://bibleonline.ru/bible/rus/%1/%2/")
-            .arg(select.value(0).toInt(), 2, 10, QChar('0'))
+            .arg(no, 2, 10, QChar('0'))
             .arg(chapterNo, 2, 10, QChar('0'));
 }
 
@@ -120,4 +104,29 @@ ChapterRequest* BORusTranslation::requestChapter(QNetworkAccessManager* nam, con
             chapterUrl(bookCode, chapterNo)
         )))
     );
+}
+
+
+QList<int> BORusTranslation::verseCounts(const QString& bookCode) const
+{
+    if (_verseCounts.size() == 0)
+    {
+        QStringList bcs = bookCodes();
+        for (int i = 0; i < bcs.size(); i++)
+        {
+            QString bookCode = bcs[i];
+
+            QSqlQuery select("SELECT verses FROM chapterSize WHERE bookCode = ? ORDER BY chapterNo", _db);
+            select.addBindValue(bookCode);
+            select.exec();
+
+            QList<int> verseCounts;
+            while (select.next())
+                verseCounts.append(select.value(0).toInt());
+
+            _verseCounts[bookCode] = verseCounts;
+        }
+    }
+
+    return _verseCounts.value(bookCode);
 }

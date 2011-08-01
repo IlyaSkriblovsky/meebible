@@ -4,6 +4,7 @@
 #include "Translation.h"
 
 #include <QSqlDatabase>
+#include <QMap>
 
 class QNetworkAccessManager;
 
@@ -25,10 +26,8 @@ public:
 
     virtual QString bookName(const QString &bookCode) const;
     Q_INVOKABLE virtual QStringList bookCodes() const;
-    virtual bool hasBook(const QString &bookCode) const;
 
-    virtual int chaptersInBook(const QString &bookCode) const;
-    virtual int versesInChapter(const QString &bookCode, int chapterNo) const;
+    virtual QList<int> verseCounts(const QString& bookCode) const;
 
     QString chapterUrl(const QString& bookCode, int chapterNo) const;
 
@@ -39,6 +38,11 @@ private:
     QSqlDatabase _db;
 
     const Language* _language;
+
+    mutable QStringList _bookCodes;
+    mutable QMap<QString, QList<int> > _verseCounts;
+
+    mutable QMap<QString, QString> _bookNames;
 };
 
 #endif // BORUSTRANSLATION_H

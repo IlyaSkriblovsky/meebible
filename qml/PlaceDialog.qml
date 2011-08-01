@@ -4,4 +4,9 @@ import com.meego 1.0
 
 ModelSelectionDialog {
     titleText: "Select Book"
+
+
+    function bookCode() {
+        return model.bookCodeAt(selectedIndex)
+    }
 }

@@ -10,6 +10,13 @@
 #include "NWTranslation.h"
 
 
+//
+// This class uses lazy loading of data. Do NOT use _bookCodes, _bookNames
+// or _verseCounts directly anywhere (except in corresponding getters).
+// Always use public getters which would load data from DB on first call.
+//
+
+
 NWTSource::NWTSource()
 {
     _db = QSqlDatabase::addDatabase("QSQLITE", "nwt");
@@ -19,12 +26,6 @@ NWTSource::NWTSource()
         qDebug() << "Cannot open nwt db";
         QCoreApplication::exit(1);
     }
-
-
-
-    QSqlQuery select("SELECT bookCode FROM books ORDER BY no", _db);
-    while (select.next())
-        _bookCodes.append(select.value(0).toString());
 }
 
 
@@ -48,19 +49,16 @@ void NWTSource::addTranslationsToList(Languages* languages)
 
 QStringList NWTSource::bookCodes() const
 {
+    if (_bookCodes.size() == 0)
+    {
+        QSqlQuery select("SELECT bookCode FROM books ORDER BY no", _db);
+        while (select.next())
+            _bookCodes.append(select.value(0).toString());
+    }
+
     return _bookCodes;
 }
 
-bool NWTSource::hasBook(const QString& bookCode) const
-{
-    QSqlQuery select(_db);
-    select.prepare("SELECT count(*) FROM books WHERE bookCode=?");
-    select.addBindValue(bookCode);
-    select.exec();
-    select.next();
-
-    return select.value(0).toInt() != 0;
-}
 
 
 QString NWTSource::bookName(const Language *lang, const QString &bookCode) const
@@ -91,26 +89,26 @@ QMap<QString, QString> NWTSource::bookNames(const Language* lang) const
 }
 
 
-int NWTSource::chaptersInBook(const QString &bookCode) const
+
+QList<int> NWTSource::verseCounts(const QString& bookCode) const
 {
-    QSqlQuery select(_db);
-    select.prepare("SELECT count(*) FROM chapterSize WHERE bookCode=?");
-    select.bindValue(0, bookCode);
-    select.exec();
-    select.next();
+    if (_verseCounts.size() == 0)
+    {
+        QStringList bcs = bookCodes();
+        for (int i = 0; i < bcs.size(); i++)
+        {
+            QString bookCode = bcs[i];
+            QSqlQuery select("SELECT verses FROM chapterSize WHERE bookCode = ? ORDER BY chapterNo", _db);
+            select.addBindValue(bookCode);
+            select.exec();
 
-    return select.value(0).toInt();
-}
+            QList<int> verseCounts;
+            while (select.next())
+                verseCounts.append(select.value(0).toInt());
 
+            _verseCounts[bookCode] = verseCounts;
+        }
+    }
 
-int NWTSource::versesInChapter(const QString &bookCode, int chapterNo) const
-{
-    QSqlQuery select(_db);
-    select.prepare("SELECT verses FROM chapterSize WHERE bookCode=? AND chapterNo=?");
-    select.bindValue(0, bookCode);
-    select.bindValue(1, chapterNo);
-    select.exec();
-    select.next();
-
-    return select.value(0).toInt();
+    return _verseCounts.value(bookCode);
 }

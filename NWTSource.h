@@ -24,10 +24,8 @@ public:
 
     QString bookName(const Language *lang, const QString& bookCode) const;
     QStringList bookCodes() const;
-    bool hasBook(const QString& bookCode) const;
 
-    int chaptersInBook(const QString& bookCode) const;
-    int versesInChapter(const QString& bookCode, int chapterNo) const;
+    QList<int> verseCounts(const QString& bookCode) const;
 
 
     QMap<QString, QString> bookNames(const Language *lang) const;
@@ -36,7 +34,9 @@ public:
 private:
     QSqlDatabase _db;
 
-    QStringList _bookCodes;
+    mutable QStringList _bookCodes;
+
+    mutable QMap<QString, QList<int> > _verseCounts;
 };
 
 #endif // NWTSOURCE_H
