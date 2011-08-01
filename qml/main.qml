@@ -112,6 +112,7 @@ PageStackWindow {
 
             onAccepted: {
                 console.log('(' + bookCode() + ') ' + bookName() + ' ' + chapterNo() + ':' + verseNo())
+                bibleView.loadChapter(bookCode(), chapterNo())
             }
         }
 
