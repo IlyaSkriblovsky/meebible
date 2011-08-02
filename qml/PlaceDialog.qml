@@ -4,16 +4,6 @@ import QtQuick 1.1
 import "/usr/lib/qt4/imports/com/meego/" 1.0
 
 
-// ModelSelectionDialog {
-//     titleText: "Select Book"
-// 
-// 
-//     function bookCode() {
-//         return model.bookCodeAt(selectedIndex)
-//     }
-// }
-
-
 CommonDialog {
     id: dialog
 

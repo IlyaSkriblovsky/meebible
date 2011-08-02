@@ -57,15 +57,9 @@ PageStackWindow {
         }
 
         ToolIcon {
-            platformIconId: "toolbar-select-text"
+            platformIconId: "toolbar-next"
 
-            onClicked: languageDialog.open()
-        }
-
-        ToolIcon {
-            platformIconId: "toolbar-view-menu"
-
-            onClicked: transDialog.open()
+            onClicked: biblePage.loadNextChapter()
         }
 
         ToolIcon {
@@ -78,18 +72,33 @@ PageStackWindow {
         }
 
         ToolIcon {
-            id: fetcherbutton
-            platformIconId: "toolbar-down"
+            platformIconId: "toolbar-view-menu"
 
-            onClicked: {
-                fetcherDialog.start(transDialog.translation())
-            }
+            onClicked: menu.status == DialogStatus.Closed ? menu.open() : menu.close()
         }
+    }
 
-        ToolIcon {
-            platformIconId: "toolbar-next"
 
-            onClicked: biblePage.loadNextChapter()
+    Menu {
+        id: menu
+
+        visualParent: pageStack
+
+        MenuLayout {
+            MenuItem {
+                text: "Select Language"
+                onClicked: languageDialog.open()
+            }
+
+            MenuItem {
+                text: "Select Translation"
+                onClicked: transDialog.open()
+            }
+
+            MenuItem {
+                text: "Download Bible"
+                onClicked: FetcherDialog.start(transDialog.translation())
+            }
         }
     }
 }
