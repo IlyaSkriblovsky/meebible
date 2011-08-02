@@ -116,8 +116,8 @@ PageStackWindow {
             }
         }
 
-        Loader {
-            id: sheetTest
+        FetcherDialog {
+            id: fetcherDialog
         }
 
 
@@ -146,6 +146,15 @@ PageStackWindow {
 
                 onClicked: {
                     placeDialog.open()
+                }
+            }
+
+            ToolIcon {
+                id: fetcherbutton
+                platformIconId: "toolbar-down"
+
+                onClicked: {
+                    fetcherDialog.start(transDialog.translation())
                 }
             }
 

@@ -26,6 +26,13 @@ BOChapterRequest::BOChapterRequest(
 
 void BOChapterRequest::onNReplyFinished()
 {
+    if (error() == QNetworkReply::NoError)
+    {
+        finished("");
+        return;
+    }
+
+
     QString content = QString::fromUtf8(_nreply->readAll());
 
     EasyElement* body = tag("body")->append(

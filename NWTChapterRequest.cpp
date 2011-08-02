@@ -22,6 +22,13 @@ NWTChapterRequest::NWTChapterRequest(
 
 void NWTChapterRequest::onNReplyFinished()
 {
+    if (error() == QNetworkReply::NoError)
+    {
+        finished("");
+        return;
+    }
+
+
     QByteArray content = _nreply->readAll();
 
     QXmlQuery query(QXmlQuery::XSLT20);

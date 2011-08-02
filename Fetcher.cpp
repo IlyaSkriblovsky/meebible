@@ -8,19 +8,37 @@
 #include "Cache.h"
 
 
+Fetcher::Fetcher(QObject *parent):
+    QObject(parent), _translation(0)
+{
+    init();
+}
+
+
 Fetcher::Fetcher(Translation* translation, QObject *parent):
     QObject(parent), _translation(translation)
+{
+    init();
+}
+
+
+void Fetcher::init()
 {
     _nam = new QNetworkAccessManager(this);
 
     _running = false;
     _currentBook = 0;
+}
 
-    _bookCodes = _translation->bookCodes();
 
-    _chaptersInTranslation = 0;
-    for (int i = 0; i < _bookCodes.size(); ++i)
-        _chaptersInTranslation += _translation->chaptersInBook(_bookCodes[i]);
+Translation* Fetcher::translation() const
+{
+    return _translation;
+}
+
+void Fetcher::setTranslation(Translation* translation)
+{
+    _translation = translation;
 }
 
 
@@ -28,7 +46,14 @@ bool Fetcher::start()
 {
     if (_running) return false;
 
+    _stopped = false;
     _running = true;
+
+    QStringList bookCodes = _translation->bookCodes();
+
+    _chaptersInTranslation = 0;
+    for (int i = 0; i < bookCodes.size(); ++i)
+        _chaptersInTranslation += _translation->chaptersInBook(bookCodes[i]);
 
     _overallFinishedChapters = Cache::instance()->totalChaptersInCache(_translation);
 
@@ -40,6 +65,7 @@ bool Fetcher::start()
     if (! _running)
     {
         // nextBook decided that we have nothing to do
+        qDebug() << "Nothing to download";
         return false;
     }
 
@@ -47,20 +73,33 @@ bool Fetcher::start()
 }
 
 
-void Fetcher::nextBook(int chapter)
+void Fetcher::stop()
 {
-    if (chapter == -1)
+    _stopped = true;
+}
+
+
+void Fetcher::nextBook(int book)
+{
+    if (_stopped)
+    {
+        return;
+    }
+
+    if (book == -1)
         _currentBook += 1;
     else
         _currentBook = 0;
 
-    if (_currentBook == _bookCodes.size())
+    if (_currentBook == _translation->bookCodes().size())
     {
         finish();
         return;
     }
 
-    QString bookCode = _bookCodes[_currentBook];
+    qDebug() << "nextBook" << book;
+
+    QString bookCode = _translation->bookCodes()[_currentBook];
 
     _finishedChapters = 0;
     _chaptersInCurrentBook = _translation->chaptersInBook(bookCode);
@@ -106,6 +145,8 @@ void Fetcher::onChapterRequestFinished(QString html)
 
     if (request->error() == QNetworkReply::NoError)
         Cache::instance()->saveChapter(_translation, request->bookCode(), request->chapterNo(), html);
+    else
+        qDebug() << "Error" << request->error();
 
 
     if (_finishedChapters == _chaptersInCurrentBook)

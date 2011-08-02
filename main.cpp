@@ -56,6 +56,7 @@ int main(int argc, char *argv[])
 #include "BOSource.h"
 #include "Translation.h"
 #include "BibleView.h"
+#include "Fetcher.h"
 
 int main(int argc, char *argv[])
 {
@@ -79,6 +80,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<Language>();
     qmlRegisterUncreatableType<Translation>("MeeBible", 0, 1, "Translation", "Translation is abstract");
     qmlRegisterType<BibleView>("MeeBible", 0, 1, "BibleView");
+    qmlRegisterType<Fetcher>("MeeBible", 0, 1, "Fetcher");
 
     QDeclarativeView view;
 

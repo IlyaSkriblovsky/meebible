@@ -5,17 +5,25 @@
 
 class QNetworkAccessManager;
 
-class Translation;
+#include "Translation.h"
 
 
 class Fetcher : public QObject
 {
     Q_OBJECT
 
+    Q_PROPERTY(Translation* translation READ translation WRITE setTranslation)
+
 public:
+    explicit Fetcher(QObject *parent = 0);
     explicit Fetcher(Translation* translation, QObject *parent = 0);
 
+    Translation* translation() const;
+    void setTranslation(Translation* translation);
+
+public slots:
     bool start();
+    void stop();
 
 signals:
     void update(const QString& text, double bookPercent, double overallPercent);
@@ -27,6 +35,7 @@ private:
     QNetworkAccessManager* _nam;
 
     bool _running;
+    bool _stopped;
     int _currentBook;
 
     int _overallFinishedChapters;
@@ -35,9 +44,9 @@ private:
     int _chaptersInCurrentBook;
     int _finishedChapters;
 
-    QList<QString> _bookCodes;
+    void init();
 
-    void nextBook(int chapter = -1);
+    void nextBook(int book = -1);
     void finish();
 
 private slots:
