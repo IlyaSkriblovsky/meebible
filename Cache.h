@@ -21,6 +21,9 @@ public:
 
     int totalChaptersInCache(const Translation* translation);
 
+
+    void test(const Translation* translation);
+
 private:
     static Cache* _instance;
 

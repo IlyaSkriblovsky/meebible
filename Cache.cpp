@@ -10,6 +10,8 @@
 #include "Translation.h"
 #include "Language.h"
 
+#include "SqliteUnicodeSearch.h"
+
 
 Cache* Cache::_instance = 0;
 
@@ -34,6 +36,8 @@ Cache::Cache()
     _db.setDatabaseName(Paths::cacheDB());
     if (! _db.open())
         qDebug() << "Cannot open cache DB";
+
+    SqliteUnicodeSearch::installUnicodeSearch(_db);
 
     _db.exec("CREATE TABLE IF NOT EXISTS html (transCode VARCHAR, langCode VARCHAR, bookCode VARCHAR, chapterNo INTEGER, html, PRIMARY KEY (transCode, langCode, bookCode, chapterNo))");
 }
@@ -96,4 +100,21 @@ int Cache::totalChaptersInCache(const Translation *translation)
     select.next();
 
     return select.value(0).toInt();
+}
+
+
+
+void Cache::test(const Translation* translation)
+{
+    qDebug() << "TEST";
+
+    QSqlQuery select(_db);
+    select.prepare("SELECT bookCode, chapterNo, langCode, transCode FROM html WHERE langCode=:langCode AND transCode=:transCode AND html LIKE :needle");
+    select.addBindValue(translation->language()->code());
+    select.addBindValue(translation->code());
+    select.addBindValue("beerf");
+    select.exec();
+
+    while (select.next())
+        qDebug() << "FOUND" << select.value(0).toString() << select.value(1).toInt() << select.value(2).toString() << select.value(3).toString();
 }

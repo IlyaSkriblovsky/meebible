@@ -1,9 +1,3 @@
-#-------------------------------------------------
-#
-# Project created by QtCreator 2011-07-17T11:43:14
-#
-#-------------------------------------------------
-
 QT       += core sql network xml xmlpatterns webkit gui declarative
 
 TARGET = MeeBible2
@@ -11,6 +5,8 @@ CONFIG   += console
 CONFIG   -= app_bundle
 
 TEMPLATE = app
+
+LIBS += -licutu
 
 
 SOURCES += main.cpp \
@@ -35,7 +31,8 @@ SOURCES += main.cpp \
     EasyXml.cpp \
     BibleWebPage.cpp \
     Fetcher.cpp \
-#    FetcherDialog.cpp
+#    FetcherDialog.cpp \
+    SqliteUnicodeSearch.cpp
 
 HEADERS += \
     TranslationsList.h \
@@ -60,7 +57,8 @@ HEADERS += \
     BibleWebPage.h \
     Fetcher.h \
 #    FetcherDialog.h \
-    Utils.h
+    Utils.h \
+    SqliteUnicodeSearch.h
 
 RESOURCES += \
     MeeBible2.qrc

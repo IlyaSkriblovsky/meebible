@@ -65,6 +65,7 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 
     Paths::init();
+
     Cache cache;
 
     Languages languages;
@@ -91,6 +92,10 @@ int main(int argc, char *argv[])
     view.setSource(QUrl::fromLocalFile("../MeeBible2/qml/main.qml"));
 
     view.showFullScreen();
+
+
+
+    cache.test(languages.langByCode("af")->translationAt(0));
 
     return app.exec();
 }
