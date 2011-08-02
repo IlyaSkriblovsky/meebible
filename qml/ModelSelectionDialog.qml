@@ -18,7 +18,7 @@ CommonDialog {
         width: parent.width
         anchors.horizontalCenter: parent.horizontalCenter
 
-        height: dialog.parent.height * 0.8
+        height: dialog.parent.height * 0.7
 //        height: listView.height < dialog.parent.height * 0.8 ? listView.height : dialog.parent.height * 0.8
 
         ListView {

@@ -18,6 +18,7 @@ class BibleView: public QGraphicsWebView
 
 public:
     explicit BibleView(QGraphicsItem *parent = 0);
+    ~BibleView();
 
     Q_INVOKABLE void setTranslation(Translation *translation);
     Translation* translation() const;

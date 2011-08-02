@@ -1,190 +1,95 @@
 import QtQuick 1.1
-import MeeBible 0.1
 import com.meego 1.0
+import MeeBible 0.1
 
 PageStackWindow {
+    id: window
 
-    initialPage: Page {
-        id: page
+    initialPage: BibleViewPage {
+        id: biblePage
 
-        Rectangle {
-            anchors.fill: parent
+        tools: commonTools
+    }
 
-            clip: true
 
-            Flickable {
-                id: flickable
+    LanguageDialog {
+        id: languageDialog
 
-                anchors.fill: parent
+        onAccepted: {
+            transDialog.model = language()
+            transDialog.open()
+        }
+    }
 
-                contentWidth: bibleView.width
-                contentHeight:  bibleView.height
+    TranslationDialog {
+        id: transDialog
 
-                BibleView {
-                    id: bibleView
+        onAccepted: {
+            biblePage.setTranslation(translation())
 
-                    width: page.width
+            placeDialog.bookModel = translation()
+        }
+    }
 
-                    resizesToContents: true
-                    preferredWidth: page.width
 
-                    url: "about:blank"
+    PlaceDialog {
+        id: placeDialog
 
-                    onChapterLoaded: { flickable.contentY = 0; page.state = "normal" }
-                    onLoading: page.state = "loading"
+        onAccepted: {
+            console.log('(' + bookCode() + ') ' + bookName() + ' ' + chapterNo() + ':' + verseNo())
+            biblePage.loadChapter(bookCode(), chapterNo())
+        }
+    }
 
-                    Component.onCompleted: loadChapter('mt', 5)
-                }
-            }
-            ScrollDecorator { flickableItem: flickable }
+    FetcherDialog {
+        id: fetcherDialog
+    }
+
+
+
+    ToolBarLayout {
+        id: commonTools
+
+        ToolIcon {
+            platformIconId: "toolbar-previous"
+
+            onClicked: biblePage.loadPrevChapter()
         }
 
+        ToolIcon {
+            platformIconId: "toolbar-select-text"
 
-        Rectangle {
-            id: busyIndicator
+            onClicked: languageDialog.open()
+        }
 
-            anchors.fill: parent
+        ToolIcon {
+            platformIconId: "toolbar-view-menu"
 
-            color: '#fff'
+            onClicked: transDialog.open()
+        }
 
-            BusyIndicator {
-                anchors.centerIn: parent
+        ToolIcon {
+            id: updatebutton
+            platformIconId: "toolbar-update"
 
-                running: true
-
-                platformStyle: BusyIndicatorStyle {
-                    size: "large"
-                }
-            }
-
-            state: "invisible"
-
-            states: [
-                State {
-                    name: "invisible"
-
-                    PropertyChanges {
-                        target: busyIndicator
-                        opacity: 0.0
-                    }
-                },
-                State {
-                    name: "visible"
-
-                    PropertyChanges {
-                        target: busyIndicator
-                        opacity: 0.7
-                    }
-                }
-            ]
-
-            transitions: Transition {
-                NumberAnimation {
-                    properties: "opacity"
-                    duration: 100
-                }
+            onClicked: {
+                placeDialog.open()
             }
         }
 
+        ToolIcon {
+            id: fetcherbutton
+            platformIconId: "toolbar-down"
 
-        LanguageDialog {
-            id: languageDialog
-
-            onAccepted: {
-                transDialog.model = language()
-                transDialog.open()
+            onClicked: {
+                fetcherDialog.start(transDialog.translation())
             }
         }
 
-        TranslationDialog {
-            id: transDialog
+        ToolIcon {
+            platformIconId: "toolbar-next"
 
-            onAccepted: {
-                bibleView.setTranslation(translation())
-
-                placeDialog.bookModel = translation()
-            }
+            onClicked: biblePage.loadNextChapter()
         }
-
-
-        PlaceDialog {
-            id: placeDialog
-
-            onAccepted: {
-                console.log('(' + bookCode() + ') ' + bookName() + ' ' + chapterNo() + ':' + verseNo())
-                bibleView.loadChapter(bookCode(), chapterNo())
-            }
-        }
-
-        FetcherDialog {
-            id: fetcherDialog
-        }
-
-
-        tools: ToolBarLayout {
-            ToolIcon {
-                platformIconId: "toolbar-previous"
-
-                onClicked: bibleView.loadPrevChapter()
-            }
-
-            ToolIcon {
-                platformIconId: "toolbar-select-text"
-
-                onClicked: languageDialog.open()
-            }
-
-            ToolIcon {
-                platformIconId: "toolbar-view-menu"
-
-                onClicked: transDialog.open()
-            }
-
-            ToolIcon {
-                id: updatebutton
-                platformIconId: "toolbar-update"
-
-                onClicked: {
-                    placeDialog.open()
-                }
-            }
-
-            ToolIcon {
-                id: fetcherbutton
-                platformIconId: "toolbar-down"
-
-                onClicked: {
-                    fetcherDialog.start(transDialog.translation())
-                }
-            }
-
-            ToolIcon {
-                platformIconId: "toolbar-next"
-
-                onClicked: bibleView.loadNextChapter()
-            }
-        }
-
-
-        state: "normal"
-
-        states: [
-            State {
-                name: "normal"
-
-                PropertyChanges {
-                    target: busyIndicator
-                    state: "invisible"
-                }
-            },
-            State {
-                name: "loading"
-
-                PropertyChanges {
-                    target: busyIndicator
-                    state: "visible"
-                }
-            }
-        ]
     }
 }

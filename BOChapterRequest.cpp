@@ -26,7 +26,7 @@ BOChapterRequest::BOChapterRequest(
 
 void BOChapterRequest::onNReplyFinished()
 {
-    if (error() == QNetworkReply::NoError)
+    if (error() != QNetworkReply::NoError)
     {
         finished("");
         return;

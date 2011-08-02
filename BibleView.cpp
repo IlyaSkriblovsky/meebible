@@ -16,6 +16,8 @@
 BibleView::BibleView(QGraphicsItem *parent):
     QGraphicsWebView(parent), _translation(0), _chapterNo(0)
 {
+    qDebug() << "BibleView::BibleView()";
+
     setPage(new BibleWebPage(this));
 
     QFile css(":/style.css");
@@ -38,6 +40,12 @@ BibleView::BibleView(QGraphicsItem *parent):
 
     connect(page()->mainFrame(), SIGNAL(javaScriptWindowObjectCleared()), this, SLOT(onJavaScriptWindowObjectCleared()));
     connect(this, SIGNAL(loadFinished(bool)), this, SLOT(onLoadFinished(bool)));
+}
+
+
+BibleView::~BibleView()
+{
+    qDebug() << "~~~ BibleView::~BibleView()";
 }
 
 
@@ -95,15 +103,20 @@ void BibleView::onChapterRequestFinished(QString html)
 {
     ChapterRequest* request = dynamic_cast<ChapterRequest*>(sender());
 
-    if (request->bookCode() == _bookCode && request->chapterNo() == _chapterNo)
-        displayHtml(html);
+    if (request->error() != QNetworkReply::NoError)
+        clearDisplay("<h3>Cannot load chapter</h3> Please check your internet conncetion");
+    else
+    {
+        if (request->bookCode() == _bookCode && request->chapterNo() == _chapterNo)
+            displayHtml(html);
 
-    Cache::instance()->saveChapter(
-        request->translation(),
-        request->bookCode(),
-        request->chapterNo(),
-        html
-    );
+        Cache::instance()->saveChapter(
+            request->translation(),
+            request->bookCode(),
+            request->chapterNo(),
+            html
+        );
+    }
 
     request->deleteLater();
 }
