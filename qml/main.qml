@@ -9,6 +9,15 @@ PageStackWindow {
         id: biblePage
 
         tools: commonTools
+
+        SearchDialog {
+            id: searchDialog
+
+            onPlaceSelected: {
+                close()
+                biblePage.loadChapter(bookCode, chapterNo)
+            }
+        }
     }
 
 
@@ -47,16 +56,6 @@ PageStackWindow {
 
 
 
-    Connections {
-        target: cache
-
-        onMatchFound: {
-            console.log(transDialog.translation().bookName(bookCode) + ' ' + chapterNo)
-        }
-    }
-
-
-
     ToolBarLayout {
         id: commonTools
 
@@ -81,7 +80,11 @@ PageStackWindow {
         ToolIcon {
             platformIconId: "toolbar-search"
 
-            onClicked: cache.search(transDialog.translation(), "gelukk")
+//            onClicked: cache.search(transDialog.translation(), "gelukk")
+            onClicked: {
+                searchDialog.translation = transDialog.translation()
+                searchDialog.open()
+            }
         }
 
         ToolIcon {
