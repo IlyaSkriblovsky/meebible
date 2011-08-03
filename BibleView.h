@@ -41,6 +41,7 @@ public slots:
 
 signals:
     void chapterLoaded();
+    void chapterLoadingError();
     void loading();
 
 private:

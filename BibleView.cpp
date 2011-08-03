@@ -104,7 +104,10 @@ void BibleView::onChapterRequestFinished(QString html)
     ChapterRequest* request = dynamic_cast<ChapterRequest*>(sender());
 
     if (request->error() != QNetworkReply::NoError)
+    {
         clearDisplay("<h3>Cannot load chapter</h3> Please check your internet conncetion");
+        chapterLoadingError();
+    }
     else
     {
         if (request->bookCode() == _bookCode && request->chapterNo() == _chapterNo)

@@ -24,6 +24,8 @@ void SqliteUnicodeSearch::installUnicodeSearch(const QSqlDatabase& db)
 {
     sqlite3* sqdb = db.driver()->handle().value<sqlite3*>();
 
+    qDebug() << "Threading:" << sqlite3_threadsafe();
+
     if (collator != 0)
         ucol_close(collator);
 

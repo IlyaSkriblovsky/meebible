@@ -32,7 +32,8 @@ SOURCES += main.cpp \
     BibleWebPage.cpp \
     Fetcher.cpp \
 #    FetcherDialog.cpp \
-    SqliteUnicodeSearch.cpp
+    SqliteUnicodeSearch.cpp \
+    SearchThread.cpp
 
 HEADERS += \
     TranslationsList.h \
@@ -58,7 +59,8 @@ HEADERS += \
     Fetcher.h \
 #    FetcherDialog.h \
     Utils.h \
-    SqliteUnicodeSearch.h
+    SqliteUnicodeSearch.h \
+    SearchThread.h
 
 RESOURCES += \
     MeeBible2.qrc

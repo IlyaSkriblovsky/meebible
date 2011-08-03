@@ -36,6 +36,7 @@ Page {
                 url: "about:blank"
 
                 onChapterLoaded: { flickable.contentY = 0; page.state = "normal" }
+                onChapterLoadingError: { flickable.contentY = 0; page.state = "normal" }
                 onLoading: page.state = "loading"
 
                 Component.onCompleted: loadChapter('mt', 5)

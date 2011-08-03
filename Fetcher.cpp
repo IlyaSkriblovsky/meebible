@@ -44,7 +44,7 @@ void Fetcher::setTranslation(Translation* translation)
 
 bool Fetcher::start()
 {
-    if (_running) return false;
+    if (_running && !_stopped) return false;
 
     _stopped = false;
     _running = true;

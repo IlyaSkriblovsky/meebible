@@ -47,6 +47,16 @@ PageStackWindow {
 
 
 
+    Connections {
+        target: cache
+
+        onMatchFound: {
+            console.log(transDialog.translation().bookName(bookCode) + ' ' + chapterNo)
+        }
+    }
+
+
+
     ToolBarLayout {
         id: commonTools
 
@@ -63,12 +73,15 @@ PageStackWindow {
         }
 
         ToolIcon {
-            id: updatebutton
             platformIconId: "toolbar-update"
 
-            onClicked: {
-                placeDialog.open()
-            }
+            onClicked: placeDialog.open()
+        }
+
+        ToolIcon {
+            platformIconId: "toolbar-search"
+
+            onClicked: cache.search(transDialog.translation(), "gelukk")
         }
 
         ToolIcon {
@@ -97,7 +110,7 @@ PageStackWindow {
 
             MenuItem {
                 text: "Download Bible"
-                onClicked: FetcherDialog.start(transDialog.translation())
+                onClicked: fetcherDialog.start(transDialog.translation())
             }
         }
     }

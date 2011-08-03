@@ -88,14 +88,11 @@ int main(int argc, char *argv[])
     qDebug() << languages.rowCount();
 
     view.rootContext()->setContextProperty("languages", &languages);
-    view.rootContext()->setContextProperty("ten", 10);
+    view.rootContext()->setContextProperty("cache", &cache);
     view.setSource(QUrl::fromLocalFile("../MeeBible2/qml/main.qml"));
 
     view.showFullScreen();
 
-
-
-    cache.test(languages.langByCode("af")->translationAt(0));
 
     return app.exec();
 }

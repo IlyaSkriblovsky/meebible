@@ -12,6 +12,8 @@
 
 #include "SqliteUnicodeSearch.h"
 
+#include "SearchThread.h"
+
 
 Cache* Cache::_instance = 0;
 
@@ -39,16 +41,37 @@ Cache::Cache()
 
     SqliteUnicodeSearch::installUnicodeSearch(_db);
 
-    _db.exec("CREATE TABLE IF NOT EXISTS html (transCode VARCHAR, langCode VARCHAR, bookCode VARCHAR, chapterNo INTEGER, html, PRIMARY KEY (transCode, langCode, bookCode, chapterNo))");
+    _db.exec(
+        "CREATE TABLE IF NOT EXISTS html ( "
+            "transCode VARCHAR, "
+            "langCode VARCHAR, "
+            "bookCode VARCHAR, "
+            "bookNo INTEGER, "
+            "chapterNo INTEGER, "
+            "html, "
+            "PRIMARY KEY (transCode, langCode, bookCode, chapterNo)"
+        ")"
+    );
+    _db.exec(
+        "CREATE INDEX IF NOT EXISTS lc_tc_bn_cn ON html "
+        "(langCode, transCode, bookNo, chapterNo)"
+    );
 }
+
+
+Cache::~Cache()
+{
+}
+
 
 void Cache::saveChapter(const Translation* translation, const QString& bookCode, int chapterNo, QString html)
 {
     QSqlQuery insert(_db);
-    insert.prepare("REPLACE INTO html VALUES (:transCode, :langCode, :bookCode, :chapterNo, :html)");
+    insert.prepare("REPLACE INTO html VALUES (:transCode, :langCode, :bookCode, :bookNo, :chapterNo, :html)");
     insert.bindValue(":transCode", translation->code());
     insert.bindValue(":langCode", translation->language()->code());
     insert.bindValue(":bookCode", bookCode);
+    insert.bindValue(":bookNo", translation->bookCodes().indexOf(bookCode));
     insert.bindValue(":chapterNo", chapterNo);
     insert.bindValue(":html", html);
     if (! insert.exec())
@@ -104,6 +127,7 @@ int Cache::totalChaptersInCache(const Translation *translation)
 
 
 
+/*
 void Cache::test(const Translation* translation)
 {
     qDebug() << "TEST";
@@ -117,4 +141,30 @@ void Cache::test(const Translation* translation)
 
     while (select.next())
         qDebug() << "FOUND" << select.value(0).toString() << select.value(1).toInt() << select.value(2).toString() << select.value(3).toString();
+}
+*/
+
+
+void Cache::search(Translation* translation, const QString& text)
+{
+    qDebug() << "SEARCH(" << text << ")";
+
+    searchStarted();
+
+    SearchThread* thread = new SearchThread(translation, text);
+    connect(thread, SIGNAL(matchFound(QString, int)), this, SLOT(onThreadMatchFound(QString, int)));
+    connect(thread, SIGNAL(finished()), this, SLOT(onThreadFinished()));
+    connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+
+    thread->start();
+}
+
+void Cache::onThreadMatchFound(const QString& bookCode, int chapterNo)
+{
+    matchFound(bookCode, chapterNo);
+}
+
+void Cache::onThreadFinished()
+{
+    searchFinished();
 }
