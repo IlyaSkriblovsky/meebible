@@ -15,7 +15,7 @@ public:
     ~SearchThread();
 
 signals:
-    void matchFound(QString bookCode, int chapterNo);
+    void matchFound(QString bookCode, int chapterNo, QString match);
 
 protected:
     void run();

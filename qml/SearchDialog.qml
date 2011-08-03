@@ -144,7 +144,7 @@ Sheet {
             onMatchFound: {
                 results.append({
                     title: translation.bookName(bookCode) + ' ' + chapterNo,
-                    subtitle: '',
+                    subtitle: match,
                     bookCode: bookCode,
                     chapterNo: chapterNo
                 })

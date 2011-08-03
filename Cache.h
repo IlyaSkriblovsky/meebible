@@ -32,7 +32,7 @@ public slots:
 
 signals:
     void searchStarted();
-    void matchFound(QString bookCode, int chapterNo);
+    void matchFound(QString bookCode, int chapterNo, QString match);
     void searchFinished();
 
 
@@ -43,7 +43,7 @@ private:
     QSqlDatabase _db;
 
 private slots:
-    void onThreadMatchFound(const QString& bookCode, int chapterNo);
+    void onThreadMatchFound(const QString& bookCode, int chapterNo, QString match);
     void onThreadFinished();
 };
 

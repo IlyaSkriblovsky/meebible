@@ -5,6 +5,7 @@
 
 #include <QSqlQuery>
 #include <QVariant>
+#include <QRegExp>
 
 #include "Paths.h"
 #include "Translation.h"
@@ -152,16 +153,20 @@ void Cache::search(Translation* translation, const QString& text)
     searchStarted();
 
     SearchThread* thread = new SearchThread(translation, text);
-    connect(thread, SIGNAL(matchFound(QString, int)), this, SLOT(onThreadMatchFound(QString, int)));
+    connect(thread, SIGNAL(matchFound(QString, int, QString)), this, SLOT(onThreadMatchFound(QString, int, QString)));
     connect(thread, SIGNAL(finished()), this, SLOT(onThreadFinished()));
     connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
 
     thread->start();
 }
 
-void Cache::onThreadMatchFound(const QString& bookCode, int chapterNo)
+void Cache::onThreadMatchFound(const QString& bookCode, int chapterNo, QString match)
 {
-    matchFound(bookCode, chapterNo);
+    // FIXME!!!
+//    match.replace(QRegExp("^[^<]*>"), " ");
+//    match.replace(QRegExp("<[^>]*>"), " ");
+//    match.replace(QRegExp("<[^>]*$"), " ");
+    matchFound(bookCode, chapterNo, match);
 }
 
 void Cache::onThreadFinished()

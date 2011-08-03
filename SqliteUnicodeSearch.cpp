@@ -35,7 +35,7 @@ void SqliteUnicodeSearch::installUnicodeSearch(const QSqlDatabase& db)
 
     sqlite3_create_function(
         sqdb,
-        "like",
+        "unicodeMatch",
         2,
         SQLITE_ANY,
         collator,
@@ -50,29 +50,55 @@ void SqliteUnicodeSearch::installUnicodeSearch(const QSqlDatabase& db)
 
 void unicode_like(sqlite3_context *ctx, int n, sqlite3_value **args)
 {
+    Q_UNUSED(n);
     Q_ASSERT(n == 2);
 
     UErrorCode err = U_ZERO_ERROR;
 
     UCollator *collator = (UCollator*)sqlite3_user_data(ctx);
 
+    UChar* needle = (UChar*)sqlite3_value_text16(args[0]);
+    UChar* haystack = (UChar*)sqlite3_value_text16(args[1]);
+
     UStringSearch *search = usearch_openFromCollator(
-        (UChar*)sqlite3_value_text16(args[0]),
+        needle,
         -1,
-        (UChar*)sqlite3_value_text16(args[1]),
+        haystack,
         -1,
         collator,
         0,
         &err
     );
 
-    int result = 0;
+
+
+/*
+    int count = 0;
 
     int pos = usearch_first(search, &err);
-    if (pos != -1)
-        result = 1;
+
+    while (pos != USEARCH_DONE)
+    {
+        count++;
+
+        qDebug() << QString::fromUtf16(&haystack[pos-10], 40);
+
+        pos = usearch_next(search, &err);
+    }
 
     usearch_close(search);
 
-    sqlite3_result_int(ctx, result);
+    sqlite3_result_int(ctx, count);
+*/
+
+    int pos = usearch_first(search, &err);
+    usearch_close(search);
+
+    if (pos == USEARCH_DONE)
+        sqlite3_result_null(ctx);
+    else
+    {
+        qDebug() << "got" << QString::fromUtf16(&haystack[pos - 10], 40);
+        sqlite3_result_text16(ctx, &haystack[pos > 10 ? pos - 10 : 0], 80, 0);
+    }
 }
