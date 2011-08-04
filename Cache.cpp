@@ -5,7 +5,6 @@
 
 #include <QSqlQuery>
 #include <QVariant>
-#include <QRegExp>
 
 #include "Paths.h"
 #include "Translation.h"
@@ -50,6 +49,7 @@ Cache::Cache()
             "bookNo INTEGER, "
             "chapterNo INTEGER, "
             "html, "
+            "text, "
             "PRIMARY KEY (transCode, langCode, bookCode, chapterNo)"
         ")"
     );
@@ -57,6 +57,11 @@ Cache::Cache()
         "CREATE INDEX IF NOT EXISTS lc_tc_bn_cn ON html "
         "(langCode, transCode, bookNo, chapterNo)"
     );
+
+
+    _stripTags = QRegExp("<.*>");
+    _stripTags.setMinimal(true);
+    _stripSpaces = QRegExp("\\s+");
 }
 
 
@@ -68,13 +73,19 @@ Cache::~Cache()
 void Cache::saveChapter(const Translation* translation, const QString& bookCode, int chapterNo, QString html)
 {
     QSqlQuery insert(_db);
-    insert.prepare("REPLACE INTO html VALUES (:transCode, :langCode, :bookCode, :bookNo, :chapterNo, :html)");
+    insert.prepare("REPLACE INTO html VALUES (:transCode, :langCode, :bookCode, :bookNo, :chapterNo, :html, :text)");
     insert.bindValue(":transCode", translation->code());
     insert.bindValue(":langCode", translation->language()->code());
     insert.bindValue(":bookCode", bookCode);
     insert.bindValue(":bookNo", translation->bookCodes().indexOf(bookCode));
     insert.bindValue(":chapterNo", chapterNo);
     insert.bindValue(":html", html);
+
+    QString text = html;
+    text.replace(_stripTags, " ");
+    text.replace(_stripSpaces, " ");
+    insert.bindValue(":text", text);
+
     if (! insert.exec())
         qDebug() << "Insertion into cache failed";
 }
@@ -162,10 +173,6 @@ void Cache::search(Translation* translation, const QString& text)
 
 void Cache::onThreadMatchFound(const QString& bookCode, int chapterNo, QString match)
 {
-    // FIXME!!!
-//    match.replace(QRegExp("^[^<]*>"), " ");
-//    match.replace(QRegExp("<[^>]*>"), " ");
-//    match.replace(QRegExp("<[^>]*$"), " ");
     matchFound(bookCode, chapterNo, match);
 }
 

@@ -2,6 +2,7 @@
 #define CACHE_H
 
 #include <QObject>
+#include <QRegExp>
 #include <QSqlDatabase>
 
 class Translation;
@@ -39,8 +40,10 @@ signals:
 private:
     static Cache* _instance;
 
-
     QSqlDatabase _db;
+
+    QRegExp _stripTags;
+    QRegExp _stripSpaces;
 
 private slots:
     void onThreadMatchFound(const QString& bookCode, int chapterNo, QString match);

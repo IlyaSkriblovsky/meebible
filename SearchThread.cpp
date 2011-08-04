@@ -31,7 +31,7 @@ void SearchThread::run()
 
     QSqlQuery select(_db);
     select.prepare(
-        "SELECT bookCode, chapterNo, unicodeMatch(:needle, html) as match "
+        "SELECT bookCode, chapterNo, unicodeMatch(:needle, text) as match "
         "FROM html "
         "WHERE langCode=:langCode AND transCode=:transCode AND match IS NOT NULL "
         "ORDER BY bookNo, chapterNo"

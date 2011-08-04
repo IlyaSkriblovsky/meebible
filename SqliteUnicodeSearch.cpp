@@ -98,7 +98,9 @@ void unicode_like(sqlite3_context *ctx, int n, sqlite3_value **args)
         sqlite3_result_null(ctx);
     else
     {
-        qDebug() << "got" << QString::fromUtf16(&haystack[pos - 10], 40);
-        sqlite3_result_text16(ctx, &haystack[pos > 10 ? pos - 10 : 0], 80, 0);
+        int begin = pos > 20 ? pos - 20 : 0;
+        int textlen = sqlite3_value_bytes16(args[1]) / 2;
+        int len = begin + 45 <= textlen ? 45 : textlen - begin;
+        sqlite3_result_text16(ctx, &haystack[begin], len * 2, 0);
     }
 }
