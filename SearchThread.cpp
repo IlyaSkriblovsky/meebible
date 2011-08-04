@@ -31,7 +31,7 @@ void SearchThread::run()
 
     QSqlQuery select(_db);
     select.prepare(
-        "SELECT bookCode, chapterNo, unicodeMatch(:needle, text) as match "
+        "SELECT bookCode, chapterNo, unicodeMatch(:needle, text) as match, matchCount() "
         "FROM html "
         "WHERE langCode=:langCode AND transCode=:transCode AND match IS NOT NULL "
         "ORDER BY bookNo, chapterNo"
@@ -46,8 +46,13 @@ void SearchThread::run()
 
     while (select.next())
     {
-        qDebug() << select.value(2).toString();
-        matchFound(select.value(0).toString(), select.value(1).toInt(), select.value(2).toString());
+        qDebug() << select.value(2).toString() << select.value(3).toInt();
+        matchFound(
+            select.value(0).toString(),
+            select.value(1).toInt(),
+            select.value(2).toString(),
+            select.value(3).toInt()
+        );
     }
 
     qDebug() << "done";

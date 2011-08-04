@@ -139,41 +139,21 @@ int Cache::totalChaptersInCache(const Translation *translation)
 
 
 
-/*
-void Cache::test(const Translation* translation)
-{
-    qDebug() << "TEST";
-
-    QSqlQuery select(_db);
-    select.prepare("SELECT bookCode, chapterNo, langCode, transCode FROM html WHERE langCode=:langCode AND transCode=:transCode AND html LIKE :needle");
-    select.addBindValue(translation->language()->code());
-    select.addBindValue(translation->code());
-    select.addBindValue("beerf");
-    select.exec();
-
-    while (select.next())
-        qDebug() << "FOUND" << select.value(0).toString() << select.value(1).toInt() << select.value(2).toString() << select.value(3).toString();
-}
-*/
-
-
 void Cache::search(Translation* translation, const QString& text)
 {
-    qDebug() << "SEARCH(" << text << ")";
-
     searchStarted();
 
     SearchThread* thread = new SearchThread(translation, text);
-    connect(thread, SIGNAL(matchFound(QString, int, QString)), this, SLOT(onThreadMatchFound(QString, int, QString)));
+    connect(thread, SIGNAL(matchFound(QString, int, QString, int)), this, SLOT(onThreadMatchFound(QString, int, QString, int)));
     connect(thread, SIGNAL(finished()), this, SLOT(onThreadFinished()));
     connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
 
     thread->start();
 }
 
-void Cache::onThreadMatchFound(const QString& bookCode, int chapterNo, QString match)
+void Cache::onThreadMatchFound(const QString& bookCode, int chapterNo, QString match, int matchCount)
 {
-    matchFound(bookCode, chapterNo, match);
+    matchFound(bookCode, chapterNo, match, matchCount);
 }
 
 void Cache::onThreadFinished()

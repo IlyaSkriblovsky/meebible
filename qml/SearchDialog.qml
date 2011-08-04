@@ -27,6 +27,7 @@ Sheet {
 
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.right
+            anchors.rightMargin: 10
 
             onClicked: dialog.reject()
         },
@@ -88,28 +89,6 @@ Sheet {
                 }
             }
 
-            Image {
-                id: clear
-
-                source: "image://theme/icon-m-input-clear"
-
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.right: parent.right
-                anchors.rightMargin: 10
-
-                width: 48
-                height: 48
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        field.text = ""
-                        field.forceActiveFocus()
-                        results.clear()
-                    }
-                }
-            }
-
             state: "idle"
 
             states: [
@@ -118,12 +97,7 @@ Sheet {
 
                     PropertyChanges {
                         target: image
-                        visible: field.text == ""
-                    }
-
-                    PropertyChanges {
-                        target: clear
-                        visible: field.text != ""
+                        visible: true
                     }
 
                     PropertyChanges {
@@ -136,11 +110,6 @@ Sheet {
 
                     PropertyChanges {
                         target: image
-                        visible: false
-                    }
-
-                    PropertyChanges {
-                        target: clear
                         visible: false
                     }
 
@@ -178,16 +147,14 @@ Sheet {
                     title: translation.bookName(bookCode) + ' ' + chapterNo,
                     subtitle: match,
                     bookCode: bookCode,
-                    chapterNo: chapterNo
+                    chapterNo: chapterNo,
+                    matchCount: matchCount
                 })
             }
         }
 
 
         anchors.fill: parent
-
-        anchors.leftMargin: 10
-        anchors.rightMargin: 10
 
 
 
@@ -198,15 +165,29 @@ Sheet {
 
             clip: true
 
+            cacheBuffer: 70
+
             model: ListModel {
                 id: results
             }
 
             delegate: ListDelegate {
                 onClicked: dialog.placeSelected(bookCode, chapterNo)
+
+                clip: true
+
+                x: 10
+                width: parent.width - 20
+
+                CountBubble {
+                    value: matchCount
+                    anchors.right: parent.right
+                    anchors.top: parent.top
+                    anchors.topMargin: 15
+                }
             }
         }
-        ScrollDecorator { flickableItem: list }
+        ScrollDecorator { flickableItem: list; __rightPageMargin: 30 }
 
         Item {
             id: nothing

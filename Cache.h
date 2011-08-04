@@ -33,7 +33,7 @@ public slots:
 
 signals:
     void searchStarted();
-    void matchFound(QString bookCode, int chapterNo, QString match);
+    void matchFound(QString bookCode, int chapterNo, QString match, int matchCount);
     void searchFinished();
 
 
@@ -46,7 +46,7 @@ private:
     QRegExp _stripSpaces;
 
 private slots:
-    void onThreadMatchFound(const QString& bookCode, int chapterNo, QString match);
+    void onThreadMatchFound(const QString& bookCode, int chapterNo, QString match, int matchCount);
     void onThreadFinished();
 };
 
