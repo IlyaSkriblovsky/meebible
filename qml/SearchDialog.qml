@@ -88,6 +88,28 @@ Sheet {
                 }
             }
 
+            Image {
+                id: clear
+
+                source: "image://theme/icon-m-input-clear"
+
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.right: parent.right
+                anchors.rightMargin: 10
+
+                width: 48
+                height: 48
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        field.text = ""
+                        field.forceActiveFocus()
+                        results.clear()
+                    }
+                }
+            }
+
             state: "idle"
 
             states: [
@@ -96,7 +118,12 @@ Sheet {
 
                     PropertyChanges {
                         target: image
-                        visible: true
+                        visible: field.text == ""
+                    }
+
+                    PropertyChanges {
+                        target: clear
+                        visible: field.text != ""
                     }
 
                     PropertyChanges {
@@ -109,6 +136,11 @@ Sheet {
 
                     PropertyChanges {
                         target: image
+                        visible: false
+                    }
+
+                    PropertyChanges {
+                        target: clear
                         visible: false
                     }
 
