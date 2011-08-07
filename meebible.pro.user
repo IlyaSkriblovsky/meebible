@@ -358,7 +358,16 @@
       <value key="Qt4ProjectManager.MakeStep.MakeArguments" type="QString"></value>
       <value key="Qt4ProjectManager.MakeStep.MakeCommand" type="QString"></value>
      </valuemap>
-     <value key="ProjectExplorer.BuildStepList.StepsCount" type="int">2</value>
+     <valuemap key="ProjectExplorer.BuildStepList.Step.2" type="QVariantMap">
+      <value key="ProjectExplorer.ProcessStep.Arguments" type="QString">-f %{sourceDir}/db.make SRCDIR=%{sourceDir}</value>
+      <value key="ProjectExplorer.ProcessStep.Command" type="QString">make</value>
+      <value key="ProjectExplorer.ProcessStep.Enabled" type="bool">true</value>
+      <value key="ProjectExplorer.ProcessStep.WorkingDirectory" type="QString">%{buildDir}</value>
+      <value key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName" type="QString">Особый</value>
+      <value key="ProjectExplorer.ProjectConfiguration.DisplayName" type="QString"></value>
+      <value key="ProjectExplorer.ProjectConfiguration.Id" type="QString">ProjectExplorer.ProcessStep</value>
+     </valuemap>
+     <value key="ProjectExplorer.BuildStepList.StepsCount" type="int">3</value>
      <value key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName" type="QString">Сборка</value>
      <value key="ProjectExplorer.ProjectConfiguration.DisplayName" type="QString"></value>
      <value key="ProjectExplorer.ProjectConfiguration.Id" type="QString">ProjectExplorer.BuildSteps.Build</value>
@@ -372,7 +381,16 @@
       <value key="Qt4ProjectManager.MakeStep.MakeArguments" type="QString">clean</value>
       <value key="Qt4ProjectManager.MakeStep.MakeCommand" type="QString"></value>
      </valuemap>
-     <value key="ProjectExplorer.BuildStepList.StepsCount" type="int">1</value>
+     <valuemap key="ProjectExplorer.BuildStepList.Step.1" type="QVariantMap">
+      <value key="ProjectExplorer.ProcessStep.Arguments" type="QString">-f %{sourceDir}/db.make SRCDIR=%{sourceDir} clean</value>
+      <value key="ProjectExplorer.ProcessStep.Command" type="QString">make</value>
+      <value key="ProjectExplorer.ProcessStep.Enabled" type="bool">true</value>
+      <value key="ProjectExplorer.ProcessStep.WorkingDirectory" type="QString">%{buildDir}</value>
+      <value key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName" type="QString">Особый</value>
+      <value key="ProjectExplorer.ProjectConfiguration.DisplayName" type="QString"></value>
+      <value key="ProjectExplorer.ProjectConfiguration.Id" type="QString">ProjectExplorer.ProcessStep</value>
+     </valuemap>
+     <value key="ProjectExplorer.BuildStepList.StepsCount" type="int">2</value>
      <value key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName" type="QString">Очистка</value>
      <value key="ProjectExplorer.ProjectConfiguration.DisplayName" type="QString"></value>
      <value key="ProjectExplorer.ProjectConfiguration.Id" type="QString">ProjectExplorer.BuildSteps.Clean</value>
@@ -452,12 +470,24 @@
       <value key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName" type="QString">Установить на устройство Harmattan</value>
       <value key="ProjectExplorer.ProjectConfiguration.DisplayName" type="QString"></value>
       <value key="ProjectExplorer.ProjectConfiguration.Id" type="QString">Qt4ProjectManager.MaemoDeployStep</value>
-      <value key="Qt4ProjectManager.MaemoRunConfiguration.DeployToSysroot" type="bool">true</value>
+      <value key="Qt4ProjectManager.MaemoRunConfiguration.DeployToSysroot" type="bool">false</value>
       <value key="Qt4ProjectManager.MaemoRunConfiguration.DeviceId" type="qulonglong">2</value>
-      <valuelist key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedFiles" type="QVariantList"/>
-      <valuelist key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedHosts" type="QVariantList"/>
-      <valuelist key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedRemotePaths" type="QVariantList"/>
-      <valuelist key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedTimes" type="QVariantList"/>
+      <valuelist key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedFiles" type="QVariantList">
+       <value type="QString">/home/ilya/meebible-build-harmattan/meebible_0_0_1_armel.deb</value>
+       <value type="QString">/home/ilya/meebible-build-harmattan/meebible_0_3_0_armel.deb</value>
+      </valuelist>
+      <valuelist key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedHosts" type="QVariantList">
+       <value type="QString">192.168.0.100</value>
+       <value type="QString">192.168.0.100</value>
+      </valuelist>
+      <valuelist key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedRemotePaths" type="QVariantList">
+       <value type="QString"></value>
+       <value type="QString"></value>
+      </valuelist>
+      <valuelist key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedTimes" type="QVariantList">
+       <value type="QDateTime">2011-08-07T23:57:04</value>
+       <value type="QDateTime">2011-08-08T00:33:33</value>
+      </valuelist>
      </valuemap>
      <value key="ProjectExplorer.BuildStepList.StepsCount" type="int">2</value>
      <value key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName" type="QString">Установка</value>

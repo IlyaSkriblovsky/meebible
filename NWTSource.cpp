@@ -8,6 +8,7 @@
 
 #include "Languages.h"
 #include "NWTranslation.h"
+#include "Paths.h"
 
 
 //
@@ -20,7 +21,7 @@
 NWTSource::NWTSource()
 {
     _db = QSqlDatabase::addDatabase("QSQLITE", "nwt");
-    _db.setDatabaseName("../MeeBible2/nwt.sqlite");
+    _db.setDatabaseName(Paths::nwtDB());
     if (! _db.open())
     {
         qDebug() << "Cannot open nwt db";

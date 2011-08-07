@@ -8,12 +8,13 @@
 #include <QVariant>
 
 #include "Utils.h"
+#include "Paths.h"
 
 
 Languages::Languages()
 {
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "langs");
-    db.setDatabaseName("../MeeBible2/langs.sqlite");
+    db.setDatabaseName(Paths::langsDB());
     if (! db.open())
     {
         qDebug() << "Cannot open langs db";

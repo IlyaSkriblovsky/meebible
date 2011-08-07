@@ -89,7 +89,7 @@ int main(int argc, char *argv[])
 
     view.rootContext()->setContextProperty("languages", &languages);
     view.rootContext()->setContextProperty("cache", &cache);
-    view.setSource(QUrl::fromLocalFile("../MeeBible2/qml/main.qml"));
+    view.setSource(QUrl::fromLocalFile(Paths::qmlMain()));
 
     view.showFullScreen();
 

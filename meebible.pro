@@ -79,9 +79,42 @@ OTHER_FILES += \
     qtc_packaging/debian_harmattan/copyright \
     qtc_packaging/debian_harmattan/control \
     qtc_packaging/debian_harmattan/compat \
-    qtc_packaging/debian_harmattan/changelog
+    qtc_packaging/debian_harmattan/changelog \
+    db.make \
+    qml/TranslationDialog.qml \
+    qml/SimpleListDelegate.qml \
+    qml/SheetTest.qml \
+    qml/SearchDialog.qml \
+    qml/PlaceDialog.qml \
+    qml/NumberSelector.qml \
+    qml/ModelSelectionDialog.qml \
+    qml/LanguageDialog.qml \
+    qml/FetcherDialog.qml \
+    qml/BibleViewPage.qml
 
 unix:!symbian:!maemo5 {
     target.path = /opt/meebible/bin
     INSTALLS += target
+}
+
+unix:!symbian:!maemo5 {
+    desktopfile.files = $${TARGET}.desktop
+    desktopfile.path = /usr/share/applications
+    INSTALLS += desktopfile
+}
+
+unix:!symbian:!maemo5 {
+    icon.files = meebible.png
+    icon.path = /usr/share/icons/hicolor/64x64/apps
+    INSTALLS += icon
+}
+
+unix {
+    db.files = langs.sqlite nwt.sqlite bo.sqlite
+    db.path = /opt/meebible/share
+    INSTALLS += db
+
+    qml.files = qml/*
+    qml.path = /opt/meebible/qml
+    INSTALLS += qml
 }

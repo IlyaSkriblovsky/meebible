@@ -12,9 +12,17 @@ public:
 
     static QString cacheDB();
 
+    static QString nwtDB();
+    static QString boDB();
+    static QString langsDB();
+
+    static QString qmlMain();
+
 
 private:
     static QDir _cacheDir;
+    static QDir _shareDir;
+    static QDir _qmlDir;
 };
 
 #endif // PATHS_H

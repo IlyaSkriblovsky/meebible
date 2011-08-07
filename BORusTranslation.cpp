@@ -9,6 +9,7 @@
 
 #include "Language.h"
 #include "BOChapterRequest.h"
+#include "Paths.h"
 
 
 //
@@ -22,7 +23,7 @@ BORusTranslation::BORusTranslation(const Language* language)
     : _language(language)
 {
     _db = QSqlDatabase::addDatabase("QSQLITE", "bo");
-    _db.setDatabaseName("../MeeBible2/bo.sqlite");
+    _db.setDatabaseName(Paths::boDB());
     if (! _db.open())
     {
         qDebug() << "Cannot open bo db";
