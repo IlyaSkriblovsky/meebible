@@ -1,6 +1,6 @@
 QT       += core sql network xml xmlpatterns webkit gui declarative
 
-TARGET = MeeBible2
+TARGET = meebible
 CONFIG   += console
 CONFIG   -= app_bundle
 
@@ -63,7 +63,7 @@ HEADERS += \
     SearchThread.h
 
 RESOURCES += \
-    MeeBible2.qrc
+    meebible.qrc
 
 OTHER_FILES += \
     createlangs.sql \
