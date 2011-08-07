@@ -6,7 +6,7 @@ CONFIG   -= app_bundle
 
 TEMPLATE = app
 
-LIBS += -licutu
+LIBS += -licutu -lsqlite3
 
 
 SOURCES += main.cpp \
