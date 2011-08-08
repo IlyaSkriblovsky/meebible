@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS langs;
 CREATE TABLE langs (langCode VARCHAR PRIMARY KEY, urlPrefix VARCHAR);
 BEGIN TRANSACTION;
 INSERT INTO langs VALUES ('af', '/af/bybel/');
@@ -43,6 +44,7 @@ INSERT INTO langs VALUES ('zu', '/zu/ibhayibheli/');
 COMMIT TRANSACTION;
 
 
+DROP TABLE IF EXISTS books;
 CREATE TABLE books (bookCode VARCHAR PRIMARY KEY, no INTEGER);
 BEGIN TRANSACTION;
 INSERT INTO books VALUES ('ge', 1);
@@ -114,6 +116,7 @@ INSERT INTO books VALUES ('re', 66);
 COMMIT TRANSACTION;
 
 
+DROP TABLE IF EXISTS bookNames;
 CREATE TABLE bookNames (bookcode VARCHAR, langcode VARCHAR, name VARCHAR, PRIMARY KEY (bookcode, langcode));
 BEGIN TRANSACTION;
 INSERT INTO bookNames VALUES ('ge', 'af', 'Genesis');
@@ -2824,6 +2827,7 @@ INSERT INTO bookNames VALUES ('re', 'zu', 'IsAmbulo');
 COMMIT TRANSACTION;
 
 
+DROP TABLE IF EXISTS chapterSize;
 CREATE TABLE chapterSize (bookCode VARCHAR, chapterNo INTEGER, verses INTEGER, PRIMARY KEY (bookCode, chapterNo));
 BEGIN TRANSACTION;
 INSERT INTO chapterSize VALUES ('ge', 1, 31);
@@ -4082,3 +4086,6 @@ INSERT INTO chapterSize VALUES ('re', 21, 27);
 INSERT INTO chapterSize VALUES ('re', 22, 21);
 
 COMMIT TRANSACTION;
+
+
+VACUUM;

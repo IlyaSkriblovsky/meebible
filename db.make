@@ -8,7 +8,7 @@ nwt.sqlite: nwt.sql
 	sqlite3 $@ <$<
 
 
-bo.sqlite: borus.sql
+bo.sqlite: bo.sql
 	sqlite3 $@ <$<
 
 
