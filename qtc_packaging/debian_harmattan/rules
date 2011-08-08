@@ -49,7 +49,7 @@ install: build
 	dh_installdirs
 
 	# Add here commands to install the package into debian/meebible.
-	$(MAKE) INSTALL_ROOT="$(CURDIR)"/debian/meebible install
+	$(MAKE)  INSTALL_ROOT="$(CURDIR)"/debian/meebible install
 
 
 # Build architecture-independent files here.
