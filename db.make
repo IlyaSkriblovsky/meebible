@@ -1,14 +1,14 @@
 all: langs.sqlite nwt.sqlite bo.sqlite
 
-langs.sqlite: $(SRCDIR)/createlangs.sql
+langs.sqlite: langs.sql
 	sqlite3 $@ <$<
 
 
-nwt.sqlite: $(SRCDIR)/createnwt.sql
+nwt.sqlite: nwt.sql
 	sqlite3 $@ <$<
 
 
-bo.sqlite: $(SRCDIR)/createborus.sql
+bo.sqlite: borus.sql
 	sqlite3 $@ <$<
 
 
