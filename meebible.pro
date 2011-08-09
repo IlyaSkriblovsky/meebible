@@ -1,11 +1,14 @@
 QT       += core sql network xml xmlpatterns webkit gui declarative
 
+# DEFINES += DEBUGPATHS
+
 TARGET = meebible
 CONFIG   += console
 CONFIG   -= app_bundle
 
 TEMPLATE = app
 
+INCLUDEPATH += /usr/include/applauncherd
 LIBS += -licutu -lsqlite3
 
 
@@ -109,7 +112,7 @@ unix:!symbian:!maemo5 {
     INSTALLS += icon
 }
 
-unix {
+unix:!symbian:!maemo5 {
     db.files = langs.sqlite nwt.sqlite bo.sqlite
     db.path = /opt/meebible/share
     INSTALLS += db
@@ -117,4 +120,6 @@ unix {
     qml.files = qml/*
     qml.path = /opt/meebible/qml
     INSTALLS += qml
+
+    CONFIG += qdeclarative-boostable
 }

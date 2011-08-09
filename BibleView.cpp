@@ -6,6 +6,8 @@
 #include <QWebFrame>
 #include <QNetworkAccessManager>
 
+#include <QElapsedTimer>
+
 #include "ChapterRequest.h"
 #include "Language.h"
 #include "Translation.h"
@@ -16,6 +18,9 @@
 BibleView::BibleView(QGraphicsItem *parent):
     QGraphicsWebView(parent), _translation(0), _chapterNo(0)
 {
+    QElapsedTimer timer;
+    timer.start();
+
     qDebug() << "BibleView::BibleView()";
 
     setPage(new BibleWebPage(this));
@@ -40,6 +45,8 @@ BibleView::BibleView(QGraphicsItem *parent):
 
     connect(page()->mainFrame(), SIGNAL(javaScriptWindowObjectCleared()), this, SLOT(onJavaScriptWindowObjectCleared()));
     connect(this, SIGNAL(loadFinished(bool)), this, SLOT(onLoadFinished(bool)));
+
+    qDebug() << "BibleView():" << timer.elapsed();
 }
 
 
