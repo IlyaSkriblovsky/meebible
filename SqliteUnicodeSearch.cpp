@@ -131,5 +131,7 @@ void unicode_like(sqlite3_context *ctx, int n, sqlite3_value **args)
 
 void matchCount(sqlite3_context *ctx, int n, sqlite3_value **args)
 {
+    Q_UNUSED(n)
+    Q_UNUSED(args)
     sqlite3_result_int(ctx, count);
 }
