@@ -74,7 +74,7 @@ COMMIT TRANSACTION;
 
 
 DROP TABLE IF EXISTS chapterSize;
-CREATE TABLE chapterSize (bookCode VARCHAR, chapterNo INTEGER, verses INTEGER);
+CREATE TABLE chapterSize (bookCode VARCHAR, chapterNo INTEGER, verses INTEGER, PRIMARY KEY (bookCode, chapterNo));
 BEGIN TRANSACTION;
 
 INSERT INTO chapterSize VALUES ('ge', 1, 31);

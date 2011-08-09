@@ -91,6 +91,8 @@ QString BORusTranslation::chapterUrl(const QString &bookCode, int chapterNo) con
     if (no == -1)
         return "<illegal url>";
 
+    no += 1;
+
     return QString("http://bibleonline.ru/bible/rus/%1/%2/")
             .arg(no, 2, 10, QChar('0'))
             .arg(chapterNo, 2, 10, QChar('0'));
