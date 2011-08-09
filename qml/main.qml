@@ -10,48 +10,87 @@ PageStackWindow {
 
         tools: commonTools
 
-        SearchDialog {
+        Loader {
             id: searchDialog
 
-            onPlaceSelected: {
-                close()
-                biblePage.loadChapter(bookCode, chapterNo)
+            function load() { source = "SearchDialog.qml" }
+            function open() { load(); item.open() }
+
+            Connections {
+                target: searchDialog.item
+                onPlaceSelected: {
+                    searchDialog.item.close()
+                    biblePage.loadChapter(bookCode, chapterNo)
+                }
             }
         }
     }
 
 
-    LanguageDialog {
+    Loader {
         id: languageDialog
 
-        onAccepted: {
-            transDialog.model = language()
-            transDialog.open()
+        width: 10
+        height: 10
+
+        function load() { source = "LanguageDialog.qml" }
+
+        function open() { load(); item.open() }
+
+        Connections {
+            target: languageDialog.item
+            onAccepted: {
+                transDialog.load()
+                transDialog.item.model = languageDialog.item.language()
+                transDialog.open()
+            }
         }
     }
 
-    TranslationDialog {
+    Loader {
         id: transDialog
 
-        onAccepted: {
-            biblePage.setTranslation(translation())
+        width: 10; height: 10
 
-            placeDialog.bookModel = translation()
+        function load() { source = "TranslationDialog.qml" }
+
+        function open() { load(); item.open() }
+
+        Connections {
+            target: transDialog.item
+            onAccepted: {
+                biblePage.setTranslation(transDialog.item.translation())
+                placeDialog.load()
+                placeDialog.item.bookModel = transDialog.item.translation()
+            }
         }
     }
 
 
-    PlaceDialog {
+    Loader {
         id: placeDialog
 
-        onAccepted: {
-            console.log('(' + bookCode() + ') ' + bookName() + ' ' + chapterNo() + ':' + verseNo())
-            biblePage.loadChapter(bookCode(), chapterNo())
+        width: 10; height: 10
+
+        function load() { source = "PlaceDialog.qml" }
+
+        function open() { load(); item.open() }
+
+        Connections {
+            target: placeDialog.item
+            onAccepted: {
+                biblePage.loadChapter(placeDialog.item.bookCode(), placeDialog.item.chapterNo())
+            }
         }
     }
 
-    FetcherDialog {
+    Loader {
         id: fetcherDialog
+
+        function load() { source = "FetcherDialog.qml" }
+        function open() { load(); item.open() }
+
+        function start(translation) { load(); item.start(translation) }
     }
 
 
@@ -82,7 +121,8 @@ PageStackWindow {
 
 //            onClicked: cache.search(transDialog.translation(), "gelukk")
             onClicked: {
-                searchDialog.translation = transDialog.translation()
+                searchDialog.load()
+                searchDialog.item.translation = transDialog.item.translation()
                 searchDialog.open()
             }
         }
@@ -113,7 +153,7 @@ PageStackWindow {
 
             MenuItem {
                 text: "Download Bible"
-                onClicked: fetcherDialog.start(transDialog.translation())
+                onClicked: fetcherDialog.start(transDialog.item.translation())
             }
         }
     }
