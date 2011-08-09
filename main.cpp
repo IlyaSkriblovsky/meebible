@@ -84,6 +84,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<Fetcher>("MeeBible", 0, 1, "Fetcher");
 
     QDeclarativeView view;
+    view.setAttribute(Qt::WA_NoSystemBackground);
 
     qDebug() << languages.rowCount();
 
