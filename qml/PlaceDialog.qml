@@ -58,6 +58,8 @@ CommonDialog {
 
             clip: true
 
+            model: settings.translation
+
             cacheBuffer: 70
 
             delegate: SimpleListDelegate {

@@ -40,8 +40,8 @@ PageStackWindow {
         Connections {
             target: languageDialog.item
             onAccepted: {
-                transDialog.load()
-                transDialog.item.model = languageDialog.item.language()
+                settings.language = languageDialog.item.language()
+
                 transDialog.open()
             }
         }
@@ -58,11 +58,7 @@ PageStackWindow {
 
         Connections {
             target: transDialog.item
-            onAccepted: {
-                biblePage.setTranslation(transDialog.item.translation())
-                placeDialog.load()
-                placeDialog.item.bookModel = transDialog.item.translation()
-            }
+            onAccepted: settings.translation = transDialog.item.translation()
         }
     }
 
@@ -78,9 +74,7 @@ PageStackWindow {
 
         Connections {
             target: placeDialog.item
-            onAccepted: {
-                biblePage.loadChapter(placeDialog.item.bookCode(), placeDialog.item.chapterNo())
-            }
+            onAccepted: biblePage.loadChapter(placeDialog.item.bookCode(), placeDialog.item.chapterNo())
         }
     }
 
@@ -92,7 +86,7 @@ PageStackWindow {
         function load() { source = "FetcherDialog.qml" }
         function open() { load(); item.open() }
 
-        function start(translation) { load(); item.start(translation) }
+        function start() { load(); item.start() }
     }
 
 
@@ -121,12 +115,7 @@ PageStackWindow {
         ToolIcon {
             platformIconId: "toolbar-search"
 
-//            onClicked: cache.search(transDialog.translation(), "gelukk")
-            onClicked: {
-                searchDialog.load()
-                searchDialog.item.translation = transDialog.item.translation()
-                searchDialog.open()
-            }
+            onClicked: searchDialog.open()
         }
 
         ToolIcon {
@@ -155,7 +144,7 @@ PageStackWindow {
 
             MenuItem {
                 text: "Download Bible"
-                onClicked: fetcherDialog.start(transDialog.item.translation())
+                onClicked: fetcherDialog.start()
             }
         }
     }

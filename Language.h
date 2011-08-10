@@ -34,6 +34,8 @@ public:
 
     Q_INVOKABLE Translation* translationAt(int row) const;
 
+    Translation* translationByCode(const QString& code) const;
+
 
 signals:
     void codeChanged();

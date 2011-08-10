@@ -16,6 +16,8 @@ class BibleView: public QGraphicsWebView
 
     Q_PROPERTY(int preferredWidth READ preferredWidth WRITE setPreferredWidth)
 
+    Q_PROPERTY(Translation* translation READ translation WRITE setTranslation NOTIFY translationChanged)
+
 public:
     explicit BibleView(QGraphicsItem *parent = 0);
     ~BibleView();
@@ -43,6 +45,8 @@ signals:
     void chapterLoaded();
     void chapterLoadingError();
     void loading();
+
+    void translationChanged();
 
 private:
     Translation* _translation;

@@ -7,7 +7,7 @@ Sheet {
     id: dialog
 
 
-    property QtObject translation: null
+    property QtObject translation: settings.translation
 
     signal placeSelected(string bookCode, int chapterNo)
 

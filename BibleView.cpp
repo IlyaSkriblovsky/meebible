@@ -63,6 +63,8 @@ Translation* BibleView::translation() const
 
 void BibleView::setTranslation(Translation *translation)
 {
+    if (_translation == translation) return;
+
     QString origBookName;
 
     if (_translation)
@@ -74,6 +76,8 @@ void BibleView::setTranslation(Translation *translation)
         loadChapter(_bookCode, _chapterNo);
     else
         clearDisplay(origBookName.isEmpty() ? "" : QString("This translation doesn't contain %1").arg(origBookName));
+
+    translationChanged();
 }
 
 

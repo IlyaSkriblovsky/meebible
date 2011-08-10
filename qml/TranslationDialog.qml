@@ -6,6 +6,7 @@ ModelSelectionDialog {
 
     listHeight: 150
 
+    model: settings.language
 
     function translation() {
         return model.translationAt(selectedIndex)

@@ -61,6 +61,7 @@ int main(int argc, char *argv[])
 #include "Translation.h"
 #include "BibleView.h"
 #include "Fetcher.h"
+#include "Settings.h"
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
@@ -68,8 +69,9 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     timer.start();
     qDebug() << "Hello, World!";
 
-//    QApplication app(argc, argv);
     QApplication *app = MDeclarativeCache::qApplication(argc, argv);
+    app->setOrganizationName("MeeBible");
+    app->setApplicationName("MeeBible");
 
     qDebug() << "1" << timer.elapsed();
 
@@ -95,6 +97,8 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     boSource.addTranslationsToList(&languages);
     qDebug() << "8" << timer.elapsed();
 
+    Settings settings(&languages);
+
     QDeclarativeEngine engine;
 
     qDebug() << "9" << timer.elapsed();
@@ -106,7 +110,6 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     qDebug() << "10" << timer.elapsed();
 
-//    QDeclarativeView view;
     QDeclarativeView* view = MDeclarativeCache::qDeclarativeView();
     view->setAttribute(Qt::WA_NoSystemBackground);
 
@@ -114,6 +117,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     view->rootContext()->setContextProperty("languages", &languages);
     view->rootContext()->setContextProperty("cache", &cache);
+    view->rootContext()->setContextProperty("settings", &settings);
 
     qDebug() << "12" << timer.elapsed();
 

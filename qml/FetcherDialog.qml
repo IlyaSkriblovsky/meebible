@@ -13,7 +13,9 @@ CommonDialog {
 
     titleText: "Downloading Bible"
 
-    property Fetcher fetcher: Fetcher { }
+    property Fetcher fetcher: Fetcher {
+        translation: settings.translation
+    }
 
     Connections {
         target: fetcher
@@ -27,9 +29,8 @@ CommonDialog {
         onFinished: dialog.accept()
     }
 
-    function start(translation) {
+    function start() {
         label.text = "Connecting..."
-        fetcher.translation = translation
         if (fetcher.start() == false)
         {
             nothingToDo.open()

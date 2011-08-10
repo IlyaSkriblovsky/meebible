@@ -36,7 +36,8 @@ SOURCES += main.cpp \
     Fetcher.cpp \
 #    FetcherDialog.cpp \
     SqliteUnicodeSearch.cpp \
-    SearchThread.cpp
+    SearchThread.cpp \
+    Settings.cpp
 
 HEADERS += \
     TranslationsList.h \
@@ -63,7 +64,8 @@ HEADERS += \
 #    FetcherDialog.h \
     Utils.h \
     SqliteUnicodeSearch.h \
-    SearchThread.h
+    SearchThread.h \
+    Settings.h
 
 RESOURCES += \
     meebible.qrc

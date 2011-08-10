@@ -11,8 +11,7 @@ QDir Paths::_qmlDir;
 void Paths::init()
 {
     _cacheDir = QDir(QDesktopServices::storageLocation(QDesktopServices::CacheLocation));
-    _cacheDir.mkpath("MeeBible");
-    _cacheDir.cd("MeeBible");
+    _cacheDir.mkpath(".");
 
 #ifdef DEBUGPATHS
     _shareDir = QDir("../MeeBible");

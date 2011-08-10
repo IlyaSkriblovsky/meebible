@@ -54,3 +54,13 @@ Translation* Language::translationAt(int row) const
 {
     return _translations.at(row);
 }
+
+
+Translation* Language::translationByCode(const QString& code) const
+{
+    for (int i = 0; i < _translations.size(); i++)
+        if (_translations[i]->code() == code)
+            return _translations[i];
+
+    return 0;
+}
