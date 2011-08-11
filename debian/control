@@ -1,0 +1,12 @@
+Source: meebible
+Section: unknown
+Priority: extra
+Maintainer: Ilya Skriblovsky <Ilya.Skriblovsky@gmail.com>
+Build-Depends: debhelper (>= 7), libqt4-dev
+Standards-Version: 3.8.4
+Homepage: http://projects.developer.nokia.com/meebible
+
+Package: meebible
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Bible reader for MeeGo Harmattan
