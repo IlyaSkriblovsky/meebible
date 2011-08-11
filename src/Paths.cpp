@@ -18,7 +18,7 @@ void Paths::init()
     _qmlDir = QDir("../MeeBible/qml");
 #else
     _shareDir = QDir(INSTALLPREFIX"/share");
-    _qmlDir = QDir(INSTALLPREFIX"/opt/meebible/qml");
+    _qmlDir = QDir(INSTALLPREFIX"/qml");
 #endif
 }
 

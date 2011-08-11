@@ -13,6 +13,7 @@ INSTALLS += target
 
 
 
+CONFIG += qdeclarative-boostable
 CONFIG   += console
 CONFIG   -= app_bundle
 
@@ -128,5 +129,4 @@ HEADERS += \
 #     qml.path = /opt/meebible/qml
 #     INSTALLS += qml
 # 
-#     CONFIG += qdeclarative-boostable
 # }

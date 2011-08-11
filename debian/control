@@ -1,5 +1,5 @@
 Source: meebible
-Section: unknown
+Section: user/office
 Priority: extra
 Maintainer: Ilya Skriblovsky <Ilya.Skriblovsky@gmail.com>
 Build-Depends: debhelper (>= 7), libqt4-dev, applauncherd-dev
@@ -10,3 +10,5 @@ Package: meebible
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Bible reader for MeeGo Harmattan
+Version: 0.3.0
+XSBC-Maemo-Display-Name: MeeBible

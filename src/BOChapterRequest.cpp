@@ -45,7 +45,8 @@ void BOChapterRequest::onNReplyFinished()
         )
     );
 
-    QRegExp re("<span id=\"v(\\d+)\" class=\"v\"><sup>[^<]*</sup>([^<]*)<br /></span>");
+    QRegExp re("<span id=\"v(\\d+)\" class=\"v\"><sup>[^<]*</sup>(.*)<br /></span>");
+    re.setMinimal(true);
 
     int pos = 0;
     while ((pos = re.indexIn(content, pos)) != -1)
