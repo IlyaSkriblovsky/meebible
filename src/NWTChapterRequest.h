@@ -18,6 +18,10 @@ public:
 
 protected:
     virtual void onNReplyFinished();
+
+
+    static QString _xslt;
+    static QString xslt();
 };
 
 #endif // NWTCHAPTERREQUEST_H

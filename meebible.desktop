@@ -4,7 +4,7 @@ Version=1.0
 Type=Application
 Terminal=false
 Name=meebible
-Exec=/usr/bin/single-instance /opt/meebible/bin/meebible
+Exec=/usr/bin/invoker --type=d --splash=/opt/meebible/share/splash.png --splash-landscape=/opt/meebible/share/splash-ls.png /opt/meebible/bin/meebible
 Icon=/usr/share/icons/hicolor/64x64/apps/meebible.png
 X-Window-Icon=
 X-HildonDesk-ShowInToolbar=true

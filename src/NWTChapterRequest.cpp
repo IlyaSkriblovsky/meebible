@@ -7,6 +7,10 @@
 #include <QBuffer>
 
 #include "NWTranslation.h"
+#include "Paths.h"
+
+
+QString NWTChapterRequest::_xslt;
 
 
 NWTChapterRequest::NWTChapterRequest(
@@ -17,6 +21,19 @@ NWTChapterRequest::NWTChapterRequest(
 )
     : ChapterRequest(translation, bookCode, chapterNo, nreply)
 {
+}
+
+
+QString NWTChapterRequest::xslt()
+{
+    if (_xslt.length() == 0)
+    {
+        QFile f(Paths::nwt_xslt());
+        f.open(QIODevice::ReadOnly);
+        _xslt = QString::fromUtf8(f.readAll());
+    }
+
+    return _xslt;
 }
 
 
@@ -34,9 +51,7 @@ void NWTChapterRequest::onNReplyFinished()
     QXmlQuery query(QXmlQuery::XSLT20);
     query.setFocus(QString::fromUtf8(content));
 
-    QFile xslt(":/nwt.xslt");
-    xslt.open(QIODevice::ReadOnly);
-    query.setQuery(&xslt);
+    query.setQuery(xslt());
 
     QString output;
 

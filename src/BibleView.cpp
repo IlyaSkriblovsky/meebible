@@ -13,6 +13,7 @@
 #include "Translation.h"
 #include "Cache.h"
 #include "BibleWebPage.h"
+#include "Paths.h"
 
 
 BibleView::BibleView(QGraphicsItem *parent):
@@ -25,7 +26,7 @@ BibleView::BibleView(QGraphicsItem *parent):
 
     setPage(new BibleWebPage(this));
 
-    QFile css(":/style.css");
+    QFile css(Paths::style_css());
     css.open(QIODevice::ReadOnly);
     QByteArray cssContent = css.readAll();
 
@@ -35,7 +36,7 @@ BibleView::BibleView(QGraphicsItem *parent):
         )
     ));
 
-    QFile script(":/script.js");
+    QFile script(Paths::script_js());
     script.open(QIODevice::ReadOnly);
     _js = QString::fromUtf8(script.readAll());
 

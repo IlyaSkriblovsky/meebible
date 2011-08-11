@@ -17,8 +17,8 @@ void Paths::init()
     _shareDir = QDir("../MeeBible");
     _qmlDir = QDir("../MeeBible/qml");
 #else
-    _shareDir = QDir("/opt/meebible/share");
-    _qmlDir = QDir("/opt/meebible/qml");
+    _shareDir = QDir(INSTALLPREFIX"/share");
+    _qmlDir = QDir(INSTALLPREFIX"/opt/meebible/qml");
 #endif
 }
 
@@ -48,4 +48,20 @@ QString Paths::langsDB()
 QString Paths::qmlMain()
 {
     return _qmlDir.filePath("main.qml");
+}
+
+
+QString Paths::script_js()
+{
+    return _shareDir.filePath("script.js");
+}
+
+QString Paths::style_css()
+{
+    return _shareDir.filePath("style.css");
+}
+
+QString Paths::nwt_xslt()
+{
+    return _shareDir.filePath("nwt.xslt");
 }

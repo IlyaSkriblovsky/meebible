@@ -18,6 +18,11 @@ public:
 
     static QString qmlMain();
 
+    static QString script_js();
+    static QString style_css();
+
+    static QString nwt_xslt();
+
 
 private:
     static QDir _cacheDir;

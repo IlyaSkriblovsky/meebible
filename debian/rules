@@ -28,7 +28,7 @@ install: build
 	dh_testroot
 	dh_clean -k
 	dh_installdirs
-	cd buildddir && $(MAKE) INSTALL_ROOT=$(CURDIR)/debian/$(APPNAME) install
+	cd builddir && $(MAKE) INSTALL_ROOT=$(CURDIR)/debian/$(APPNAME) install
 
 build-indep: build install
 
@@ -39,7 +39,8 @@ binary-arch: build install
 	dh_installexamples
 	dh_installman
 	dh_link
-	dh_strip --dbg-package=$(APPNAME)-dbg
+#	dh_strip --dbg-package=$(APPNAME)-dbg
+	dh_strip
 	dh_compress
 	dh_fixperms
 	dh_installdeb

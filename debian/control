@@ -2,7 +2,7 @@ Source: meebible
 Section: unknown
 Priority: extra
 Maintainer: Ilya Skriblovsky <Ilya.Skriblovsky@gmail.com>
-Build-Depends: debhelper (>= 7), libqt4-dev
+Build-Depends: debhelper (>= 7), libqt4-dev, applauncherd-dev
 Standards-Version: 3.8.4
 Homepage: http://projects.developer.nokia.com/meebible
 
