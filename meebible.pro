@@ -1,6 +1,6 @@
 QT       += core sql network xml xmlpatterns webkit gui declarative
 
-DEFINES += DEBUGPATHS
+# DEFINES += DEBUGPATHS
 
 TARGET = meebible
 CONFIG   += console
