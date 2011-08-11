@@ -18,8 +18,8 @@ class BibleView: public QGraphicsWebView
 
     Q_PROPERTY(Translation* translation READ translation WRITE setTranslation NOTIFY translationChanged)
 
-    Q_PROPERTY(QString bookCode READ bookCode WRITE setBookCode)
-    Q_PROPERTY(int chapterNo READ chapterNo WRITE setChapterNo)
+    Q_PROPERTY(QString bookCode READ bookCode WRITE setBookCode NOTIFY bookCodeChanged)
+    Q_PROPERTY(int chapterNo READ chapterNo WRITE setChapterNo NOTIFY chapterNoChanged)
 
 public:
     explicit BibleView(QGraphicsItem *parent = 0);
@@ -32,8 +32,8 @@ public:
     int chapterNo() const { return _chapterNo; }
     bool validLocation() const;
 
-    void setBookCode(const QString& bookCode) { _bookCode = bookCode; }
-    void setChapterNo(int chapterNo) { _chapterNo = chapterNo; }
+    void setBookCode(const QString& bookCode) { _bookCode = bookCode; bookCodeChanged(); }
+    void setChapterNo(int chapterNo) { _chapterNo = chapterNo; chapterNoChanged(); }
 
     Place selectedPlace();
 
@@ -54,6 +54,9 @@ signals:
     void loading();
 
     void translationChanged();
+
+    void bookCodeChanged();
+    void chapterNoChanged();
 
 private:
     Translation* _translation;

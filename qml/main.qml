@@ -75,10 +75,7 @@ PageStackWindow {
         Connections {
             target: placeDialog.item
             onAccepted: {
-                // biblePage.loadChapter(placeDialog.item.bookCode(), placeDialog.item.chapterNo())
-                settings.bookCode = placeDialog.item.bookCode()
-                settings.chapterNo = placeDialog.item.chapterNo()
-                biblePage.loadChapter()
+                biblePage.setAndLoad(placeDialog.item.bookCode(), placeDialog.item.chapterNo())
             }
         }
     }

@@ -8,8 +8,30 @@ Page {
 
     function setTranslation(translation) { bibleView.setTranslation(translation) }
     function loadChapter() { bibleView.loadChapter() }
+    function setAndLoad(bookCode, chapterNo) { bibleView.setAndLoad(bookCode, chapterNo) }
     function loadPrevChapter() { bibleView.loadPrevChapter() }
     function loadNextChapter() { bibleView.loadNextChapter() }
+
+
+    property bool created: false
+
+    Binding {
+        target: settings
+        property: "bookCode"
+        value: bibleView.bookCode
+        when: created
+    }
+    Binding {
+        target: settings
+        property: "chapterNo"
+        value: bibleView.chapterNo
+        when: created
+    }
+    Component.onCompleted: {
+        bibleView.bookCode = settings.bookCode
+        bibleView.chapterNo = settings.chapterNo
+        created = true
+    }
 
 
     Rectangle {
@@ -37,8 +59,7 @@ Page {
 
                 translation: settings.translation
 
-                bookCode: settings.bookCode
-                chapterNo: settings.chapterNo
+
 
                 onChapterLoaded: { flickable.contentY = 0; page.state = "normal" }
                 onChapterLoadingError: { flickable.contentY = 0; page.state = "normal" }
