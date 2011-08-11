@@ -72,27 +72,37 @@ void BibleView::setTranslation(Translation *translation)
 
     _translation = translation;
 
-    if (Place(_bookCode, _chapterNo).isValid(_translation))
-        loadChapter(_bookCode, _chapterNo);
-    else
-        clearDisplay(origBookName.isEmpty() ? "" : QString("This translation doesn't contain %1").arg(origBookName));
+    loadChapter();
 
     translationChanged();
 }
 
 
-void BibleView::loadChapter(const QString& bookCode, int chapterNo)
+void BibleView::setAndLoad(const QString& bookCode, int chapterNo)
 {
-    _bookCode = bookCode;
-    _chapterNo = chapterNo;
+    setBookCode(bookCode);
+    setChapterNo(chapterNo);
 
+    loadChapter();
+}
+
+void BibleView::loadChapter()
+{
     if (! _translation)
     {
         qDebug() << "BibleView::loadChapter while translation == null";
         return;
     }
 
-    QString fromCache = Cache::instance()->loadChapter(_translation, bookCode, chapterNo);
+    if (! Place(_bookCode, _chapterNo).isValid(_translation))
+    {
+//        clearDisplay(origBookName.isEmpty() ? "" : QString("This translation doesn't contain %1").arg(origBookName));
+        clearDisplay("Current translation doesn't contain this book");
+        qDebug() << "Absent" << _translation << _bookCode << _chapterNo;
+        return;
+    }
+
+    QString fromCache = Cache::instance()->loadChapter(_translation, _bookCode, _chapterNo);
 
     if (! fromCache.isEmpty())
     {
@@ -100,7 +110,7 @@ void BibleView::loadChapter(const QString& bookCode, int chapterNo)
     }
     else
     {
-        ChapterRequest* request = _translation->requestChapter(_nam, bookCode, chapterNo);
+        ChapterRequest* request = _translation->requestChapter(_nam, _bookCode, _chapterNo);
 
         if (request)
             connect(request, SIGNAL(finished(QString)), this, SLOT(onChapterRequestFinished(QString)));
@@ -161,7 +171,7 @@ void BibleView::loadPrevChapter()
 
     Place next = Place(_bookCode, _chapterNo).prevChapter(_translation);
 
-    loadChapter(next.bookCode(), next.chapterNo());
+    setAndLoad(next.bookCode(), next.chapterNo());
 }
 
 void BibleView::loadNextChapter()
@@ -170,7 +180,7 @@ void BibleView::loadNextChapter()
 
     Place prev = Place(_bookCode, _chapterNo).nextChapter(_translation);
 
-    loadChapter(prev.bookCode(), prev.chapterNo());
+    setAndLoad(prev.bookCode(), prev.chapterNo());
 }
 
 

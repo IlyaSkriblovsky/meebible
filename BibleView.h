@@ -18,6 +18,9 @@ class BibleView: public QGraphicsWebView
 
     Q_PROPERTY(Translation* translation READ translation WRITE setTranslation NOTIFY translationChanged)
 
+    Q_PROPERTY(QString bookCode READ bookCode WRITE setBookCode)
+    Q_PROPERTY(int chapterNo READ chapterNo WRITE setChapterNo)
+
 public:
     explicit BibleView(QGraphicsItem *parent = 0);
     ~BibleView();
@@ -29,13 +32,17 @@ public:
     int chapterNo() const { return _chapterNo; }
     bool validLocation() const;
 
+    void setBookCode(const QString& bookCode) { _bookCode = bookCode; }
+    void setChapterNo(int chapterNo) { _chapterNo = chapterNo; }
+
     Place selectedPlace();
 
     int preferredWidth();
     void setPreferredWidth(int width);
 
 public slots:
-    void loadChapter(const QString& bookCode, int chapterNo);
+    void loadChapter();
+    void setAndLoad(const QString& bookCode, int chapterNo);
 
     void loadNextChapter();
     void loadPrevChapter();

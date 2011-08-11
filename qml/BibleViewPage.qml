@@ -7,7 +7,7 @@ Page {
 
 
     function setTranslation(translation) { bibleView.setTranslation(translation) }
-    function loadChapter(bookCode, chapterNo) { bibleView.loadChapter(bookCode, chapterNo) }
+    function loadChapter() { bibleView.loadChapter() }
     function loadPrevChapter() { bibleView.loadPrevChapter() }
     function loadNextChapter() { bibleView.loadNextChapter() }
 
@@ -37,11 +37,14 @@ Page {
 
                 translation: settings.translation
 
+                bookCode: settings.bookCode
+                chapterNo: settings.chapterNo
+
                 onChapterLoaded: { flickable.contentY = 0; page.state = "normal" }
                 onChapterLoadingError: { flickable.contentY = 0; page.state = "normal" }
                 onLoading: page.state = "loading"
 
-                Component.onCompleted: loadChapter('mt', 5)
+                Component.onCompleted: loadChapter()
             }
         }
         ScrollDecorator { flickableItem: flickable }

@@ -18,6 +18,10 @@ Settings::Settings(Languages* langs, QObject* parent):
             _settings.value("General/transCode").toString()
         );
     }
+
+
+    _bookCode = _settings.value("General/bookCode").toString();
+    _chapterNo = _settings.value("General/chapterNo").toInt();
 }
 
 
@@ -25,6 +29,9 @@ Settings::~Settings()
 {
     _settings.setValue("General/langCode", _language ? _language->code() : "");
     _settings.setValue("General/transCode", _translation ? _translation->code() : "");
+
+    _settings.setValue("General/bookCode", _bookCode);
+    _settings.setValue("General/chapterNo", _chapterNo);
 }
 
 
@@ -54,4 +61,32 @@ void Settings::setTranslation(Translation* translation)
 
     _translation = translation;
     translationChanged();
+}
+
+
+QString Settings::bookCode() const
+{
+    return _bookCode;
+}
+
+void Settings::setBookCode(const QString& bookCode)
+{
+    if (_bookCode == bookCode) return;
+
+    _bookCode = bookCode;
+    bookCodeChanged();
+}
+
+
+int Settings::chapterNo() const
+{
+    return _chapterNo;
+}
+
+void Settings::setChapterNo(int chapterNo)
+{
+    if (_chapterNo == chapterNo) return;
+
+    _chapterNo = chapterNo;
+    chapterNoChanged();
 }
