@@ -8,7 +8,8 @@ SHAREFILES = \
     script.js       \
     style.css       \
     splash.png      \
-    splash-ls.png
+    splash-ls.png   \
+    welcome.html
 
 shares.files = $$SHAREFILES
 shares.path = /opt/meebible/share

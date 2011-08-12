@@ -89,9 +89,9 @@ void BibleView::setAndLoad(const QString& bookCode, int chapterNo)
 
 void BibleView::loadChapter()
 {
-    if (! _translation)
+    if (_translation == 0 || _bookCode.length() == 0)
     {
-        qDebug() << "BibleView::loadChapter while translation == null";
+        setUrl(QUrl::fromLocalFile(Paths::welcome_html()));
         return;
     }
 

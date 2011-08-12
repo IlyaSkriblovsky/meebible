@@ -65,3 +65,9 @@ QString Paths::nwt_xslt()
 {
     return _shareDir.filePath("nwt.xslt");
 }
+
+
+QString Paths::welcome_html()
+{
+    return _shareDir.filePath("welcome.html");
+}
