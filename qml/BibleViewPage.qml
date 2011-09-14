@@ -8,7 +8,7 @@ Page {
 
     function setTranslation(translation) { bibleView.setTranslation(translation) }
     function loadChapter() { bibleView.loadChapter() }
-    function setAndLoad(bookCode, chapterNo) { bibleView.setAndLoad(bookCode, chapterNo) }
+    function setAndLoad(bookCode, chapterNo, verseNo) { bibleView.setAndLoad(bookCode, chapterNo, verseNo) }
     function loadPrevChapter() { bibleView.loadPrevChapter() }
     function loadNextChapter() { bibleView.loadNextChapter() }
 
@@ -61,11 +61,22 @@ Page {
 
 
 
+                Component.onCompleted: loadChapter()
+
                 onChapterLoaded: { flickable.contentY = 0; page.state = "normal" }
                 onChapterLoadingError: { flickable.contentY = 0; page.state = "normal" }
                 onLoading: page.state = "loading"
 
-                Component.onCompleted: loadChapter()
+                onNeedToScroll: {
+                    var maxY = flickable.contentHeight - flickable.height
+                    if (y < maxY)
+                        flickable.contentY = y
+                    else
+                        if (maxY < 0)
+                            flickable.contentY = 0
+                        else
+                            flickable.contentY = maxY
+                }
             }
         }
         ScrollDecorator { flickableItem: flickable }

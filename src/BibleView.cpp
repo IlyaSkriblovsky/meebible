@@ -22,8 +22,6 @@ BibleView::BibleView(QGraphicsItem *parent):
     QElapsedTimer timer;
     timer.start();
 
-    qDebug() << "BibleView::BibleView()";
-
     setPage(new BibleWebPage(this));
 
     QFile css(Paths::style_css());
@@ -46,14 +44,11 @@ BibleView::BibleView(QGraphicsItem *parent):
 
     connect(page()->mainFrame(), SIGNAL(javaScriptWindowObjectCleared()), this, SLOT(onJavaScriptWindowObjectCleared()));
     connect(this, SIGNAL(loadFinished(bool)), this, SLOT(onLoadFinished(bool)));
-
-    qDebug() << "BibleView():" << timer.elapsed();
 }
 
 
 BibleView::~BibleView()
 {
-    qDebug() << "~~~ BibleView::~BibleView()";
 }
 
 
@@ -79,10 +74,12 @@ void BibleView::setTranslation(Translation *translation)
 }
 
 
-void BibleView::setAndLoad(const QString& bookCode, int chapterNo)
+void BibleView::setAndLoad(const QString& bookCode, int chapterNo, int verseNo)
 {
     setBookCode(bookCode);
     setChapterNo(chapterNo);
+
+    _verseNo = verseNo;
 
     loadChapter();
 }
@@ -107,7 +104,7 @@ void BibleView::loadChapter()
 
     if (! fromCache.isEmpty())
     {
-        displayHtml(fromCache);
+        displayHtml(fromCache, _verseNo);
     }
     else
     {
@@ -133,7 +130,7 @@ void BibleView::onChapterRequestFinished(QString html)
     else
     {
         if (request->bookCode() == _bookCode && request->chapterNo() == _chapterNo)
-            displayHtml(html);
+            displayHtml(html, _verseNo);
 
         Cache::instance()->saveChapter(
             request->translation(),
@@ -147,10 +144,17 @@ void BibleView::onChapterRequestFinished(QString html)
 }
 
 
-void BibleView::displayHtml(QString html)
+void BibleView::displayHtml(QString html, int verseNo)
 {
     setHtml(html);
     chapterLoaded();
+    if (verseNo > 1)
+    {
+        page()->mainFrame()->evaluateJavaScript(QString("selectVerse(%1)").arg(verseNo)).toInt();
+        needToScroll(page()->mainFrame()->evaluateJavaScript(QString("verseOffset(%1)").arg(verseNo)).toInt());
+    }
+    else
+        needToScroll(0);
 }
 
 void BibleView::clearDisplay(const QString& error)
@@ -172,7 +176,7 @@ void BibleView::loadPrevChapter()
 
     Place next = Place(_bookCode, _chapterNo).prevChapter(_translation);
 
-    setAndLoad(next.bookCode(), next.chapterNo());
+    setAndLoad(next.bookCode(), next.chapterNo(), 1);
 }
 
 void BibleView::loadNextChapter()
@@ -181,7 +185,7 @@ void BibleView::loadNextChapter()
 
     Place prev = Place(_bookCode, _chapterNo).nextChapter(_translation);
 
-    setAndLoad(prev.bookCode(), prev.chapterNo());
+    setAndLoad(prev.bookCode(), prev.chapterNo(), 1);
 }
 
 

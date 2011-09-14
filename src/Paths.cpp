@@ -14,8 +14,8 @@ void Paths::init()
     _cacheDir.mkpath(".");
 
 #ifdef DEBUGPATHS
-    _shareDir = QDir("../MeeBible");
-    _qmlDir = QDir("../MeeBible/qml");
+    _shareDir = QDir("share");
+    _qmlDir = QDir("qml");
 #else
     _shareDir = QDir(INSTALLPREFIX"/share");
     _qmlDir = QDir(INSTALLPREFIX"/qml");

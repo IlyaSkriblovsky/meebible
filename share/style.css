@@ -15,7 +15,11 @@ html
 
 .verse.selected
 {
-    background: #ffc;
+    background: #ffb;
+}
+.verse.selected .verse-label
+{
+    color: #c00;
 }
 
 .verse-label

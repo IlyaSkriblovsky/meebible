@@ -42,7 +42,7 @@ public:
 
 public slots:
     void loadChapter();
-    void setAndLoad(const QString& bookCode, int chapterNo);
+    void setAndLoad(const QString& bookCode, int chapterNo, int verseNo);
 
     void loadNextChapter();
     void loadPrevChapter();
@@ -58,11 +58,14 @@ signals:
     void bookCodeChanged();
     void chapterNoChanged();
 
+    void needToScroll(int y);
+
 private:
     Translation* _translation;
 
     QString _bookCode;
     int _chapterNo;
+    int _verseNo;
 
     QString _js;
 
@@ -71,7 +74,7 @@ private:
 private slots:
     void onChapterRequestFinished(QString html);
 
-    void displayHtml(QString html);
+    void displayHtml(QString html, int verseNo = 0);
     void clearDisplay(const QString& error = QString());
 
     void onJavaScriptWindowObjectCleared();

@@ -1,17 +1,16 @@
-document.body.onclick = function() {
-    var target = event.target
-
-    while (target  &&  ! isVerseDiv(target))
-        target = target.parentNode
-
-    if (! target)
-        return
-
-    var verse = parseInt(target.getAttribute('verse'))
-
-    toggleVerse(verse)
-}
-
+// document.body.onclick = function() {
+//     var target = event.target
+// 
+//     while (target  &&  ! isVerseDiv(target))
+//         target = target.parentNode
+// 
+//     if (! target)
+//         return
+// 
+//     var verse = parseInt(target.getAttribute('verse'))
+// 
+//     toggleVerse(verse)
+// }
 
 
 var selectedVerses = {}
@@ -69,4 +68,12 @@ function selectedVersesList()
         if (selectedVerses[verse])
             result.push(verse)
     return result.join(',')
+}
+
+
+
+function verseOffset(verse)
+{
+    var divs = verseDivs(verse)
+    return divs[0].offsetTop - 20
 }

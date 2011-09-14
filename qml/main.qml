@@ -20,7 +20,7 @@ PageStackWindow {
                 target: searchDialog.item
                 onPlaceSelected: {
                     searchDialog.item.close()
-                    biblePage.loadChapter(bookCode, chapterNo)
+                    biblePage.setAndLoad(bookCode, chapterNo)
                 }
             }
         }
@@ -75,7 +75,11 @@ PageStackWindow {
         Connections {
             target: placeDialog.item
             onAccepted: {
-                biblePage.setAndLoad(placeDialog.item.bookCode(), placeDialog.item.chapterNo())
+                biblePage.setAndLoad(
+                    placeDialog.item.bookCode(),
+                    placeDialog.item.chapterNo(),
+                    placeDialog.item.verseNo()
+                )
             }
         }
     }
