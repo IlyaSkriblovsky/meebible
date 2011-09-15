@@ -42,7 +42,7 @@ public:
 
 public slots:
     void loadChapter();
-    void setAndLoad(const QString& bookCode, int chapterNo, int verseNo);
+    void setAndLoad(const QString& bookCode, int chapterNo, int verseNo, const QString& highlight);
 
     void loadNextChapter();
     void loadPrevChapter();
@@ -68,6 +68,8 @@ private:
     int _verseNo;
 
     QString _js;
+
+    QString _highlight;
 
     QNetworkAccessManager* _nam;
 

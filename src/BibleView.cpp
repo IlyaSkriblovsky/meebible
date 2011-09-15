@@ -15,6 +15,8 @@
 #include "BibleWebPage.h"
 #include "Paths.h"
 
+#include "SqliteUnicodeSearch.h"
+
 
 BibleView::BibleView(QGraphicsItem *parent):
     QGraphicsWebView(parent), _translation(0), _chapterNo(0)
@@ -74,12 +76,13 @@ void BibleView::setTranslation(Translation *translation)
 }
 
 
-void BibleView::setAndLoad(const QString& bookCode, int chapterNo, int verseNo)
+void BibleView::setAndLoad(const QString& bookCode, int chapterNo, int verseNo, const QString& highlight)
 {
     setBookCode(bookCode);
     setChapterNo(chapterNo);
 
     _verseNo = verseNo;
+    _highlight = highlight;
 
     loadChapter();
 }
@@ -146,7 +149,7 @@ void BibleView::onChapterRequestFinished(QString html)
 
 void BibleView::displayHtml(QString html, int verseNo)
 {
-    setHtml(html);
+    setHtml(SqliteUnicodeSearch::highlightMatches(html, _highlight));
     chapterLoaded();
     if (verseNo > 1)
     {
@@ -176,7 +179,7 @@ void BibleView::loadPrevChapter()
 
     Place next = Place(_bookCode, _chapterNo).prevChapter(_translation);
 
-    setAndLoad(next.bookCode(), next.chapterNo(), 1);
+    setAndLoad(next.bookCode(), next.chapterNo(), 1, "");
 }
 
 void BibleView::loadNextChapter()
@@ -185,7 +188,7 @@ void BibleView::loadNextChapter()
 
     Place prev = Place(_bookCode, _chapterNo).nextChapter(_translation);
 
-    setAndLoad(prev.bookCode(), prev.chapterNo(), 1);
+    setAndLoad(prev.bookCode(), prev.chapterNo(), 1, "");
 }
 
 

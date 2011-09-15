@@ -25,8 +25,6 @@ void SqliteUnicodeSearch::installUnicodeSearch(const QSqlDatabase& db)
 {
     sqlite3* sqdb = db.driver()->handle().value<sqlite3*>();
 
-    qDebug() << "Threading:" << sqlite3_threadsafe();
-
     if (collator != 0)
         ucol_close(collator);
 
@@ -84,25 +82,6 @@ void unicode_like(sqlite3_context *ctx, int n, sqlite3_value **args)
 
 
 
-/*
-    int count = 0;
-
-    int pos = usearch_first(search, &err);
-
-    while (pos != USEARCH_DONE)
-    {
-        count++;
-
-        qDebug() << QString::fromUtf16(&haystack[pos-10], 40);
-
-        pos = usearch_next(search, &err);
-    }
-
-    usearch_close(search);
-
-    sqlite3_result_int(ctx, count);
-*/
-
     count = 0;
 
     int pos = usearch_first(search, &err);
@@ -134,4 +113,41 @@ void matchCount(sqlite3_context *ctx, int n, sqlite3_value **args)
     Q_UNUSED(n)
     Q_UNUSED(args)
     sqlite3_result_int(ctx, count);
+}
+
+
+QString SqliteUnicodeSearch::highlightMatches(const QString& html, const QString& needle)
+{
+    if (needle == "")
+        return html;
+
+    UErrorCode err = U_ZERO_ERROR;
+
+    UChar* needle_c = (UChar*)needle.utf16();
+    UChar* html_c = (UChar*)html.utf16();
+
+    UStringSearch *search = usearch_openFromCollator(
+        needle_c, -1,
+        html_c, -1,
+        collator,
+        0, &err
+    );
+
+
+    QString result = html;
+
+    int pos = usearch_last(search, &err);
+
+    while (pos != USEARCH_DONE)
+    {
+        result.insert(pos + usearch_getMatchedLength(search), "</span>");
+        result.insert(pos, "<span class=\"match\">");
+
+        pos = usearch_previous(search, &err);
+    }
+
+
+    usearch_close(search);
+
+    return result;
 }

@@ -20,7 +20,9 @@ PageStackWindow {
                 target: searchDialog.item
                 onPlaceSelected: {
                     searchDialog.item.close()
-                    biblePage.setAndLoad(bookCode, chapterNo)
+                    biblePage.setAndLoad(
+                        bookCode, chapterNo, 1, searchDialog.item.query
+                    )
                 }
             }
         }

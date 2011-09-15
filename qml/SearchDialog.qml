@@ -9,6 +9,8 @@ Sheet {
 
     property QtObject translation: settings.translation
 
+    property alias query: field.text
+
     signal placeSelected(string bookCode, int chapterNo)
 
 

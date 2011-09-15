@@ -8,7 +8,7 @@ Page {
 
     function setTranslation(translation) { bibleView.setTranslation(translation) }
     function loadChapter() { bibleView.loadChapter() }
-    function setAndLoad(bookCode, chapterNo, verseNo) { bibleView.setAndLoad(bookCode, chapterNo, verseNo) }
+    function setAndLoad(bookCode, chapterNo, verseNo, highlight) { bibleView.setAndLoad(bookCode, chapterNo, verseNo, highlight) }
     function loadPrevChapter() { bibleView.loadPrevChapter() }
     function loadNextChapter() { bibleView.loadNextChapter() }
 
