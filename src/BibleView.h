@@ -47,8 +47,6 @@ public:
 
 
     bool searchMode() const { return _searchMode; }
-    Q_INVOKABLE void startSearchMode(const QString& needle);
-    Q_INVOKABLE void stopSearchMode();
 
     QString searchNeedle() const { return _searchNeedle; }
 
@@ -63,6 +61,11 @@ public slots:
 
     void loadNextChapter();
     void loadPrevChapter();
+
+    void startSearchMode(const QString& needle);
+    void stopSearchMode();
+
+    void showWelcomeScreen();
 
 
 signals:

@@ -349,6 +349,11 @@ Page {
                 text: "Download Bible"
                 onClicked: fetcherDialog.start()
             }
+
+            MenuItem {
+                text: "About MeeBible"
+                onClicked: bibleView.showWelcomeScreen()
+            }
         }
     }
 }
