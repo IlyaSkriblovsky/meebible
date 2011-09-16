@@ -6,13 +6,6 @@ Page {
     id: page
 
 
-    function setTranslation(translation) { bibleView.setTranslation(translation) }
-    function loadChapter() { bibleView.loadChapter() }
-    function setAndLoad(bookCode, chapterNo, verseNo, highlight) { bibleView.setAndLoad(bookCode, chapterNo, verseNo, highlight) }
-    function loadPrevChapter() { bibleView.loadPrevChapter() }
-    function loadNextChapter() { bibleView.loadNextChapter() }
-    function startSearchMode(needle) { bibleView.startSearchMode(needle) }
-
 
     property bool created: false
 
@@ -213,13 +206,7 @@ Page {
 
         Connections {
             target: placeDialog.item
-            onAccepted: {
-                biblePage.setAndLoad(
-                    placeDialog.item.bookCode(),
-                    placeDialog.item.chapterNo(),
-                    placeDialog.item.verseNo()
-                )
-            }
+            onAccepted: bibleView.setAndLoad(placeDialog.item.bookCode(), placeDialog.item.chapterNo(), placeDialog.item.verseNo())
         }
     }
 
@@ -246,10 +233,8 @@ Page {
             target: searchDialog.item
             onPlaceSelected: {
                 searchDialog.item.close()
-                biblePage.setAndLoad(
-                    bookCode, chapterNo, 1
-                )
-                biblePage.startSearchMode(searchDialog.item.query)
+                bibleView.setAndLoad(bookCode, chapterNo, 1)
+                bibleView.startSearchMode(searchDialog.item.query)
             }
         }
     }
@@ -267,7 +252,7 @@ Page {
 
             visible: ! bibleView.searchMode
 
-            onClicked: biblePage.loadPrevChapter()
+            onClicked: bibleView.loadPrevChapter()
         }
 
         ToolIcon {
@@ -275,7 +260,7 @@ Page {
 
             visible: ! bibleView.searchMode
 
-            onClicked: biblePage.loadNextChapter()
+            onClicked: bibleView.loadNextChapter()
         }
 
         ToolIcon {
