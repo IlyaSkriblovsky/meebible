@@ -37,27 +37,6 @@ Sheet {
             clip: true
 
             model: ListModel {
-                ListElement { title: "Qweadsasdads"; subtitle: "Ksdfghj" }
-                ListElement { title: "Qweadsasdads"; subtitle: "Ksdfghj" }
-                ListElement { title: "Qweadsasdads"; subtitle: "Ksdfghj" }
-                ListElement { title: "Qweadsasdads"; subtitle: "Ksdfghj" }
-                ListElement { title: "Qweadsasdads"; subtitle: "Ksdfghj" }
-                ListElement { title: "Qweadsasdads"; subtitle: "Ksdfghj" }
-                ListElement { title: "Qweadsasdads"; subtitle: "Ksdfghj" }
-                ListElement { title: "Qweadsasdads"; subtitle: "Ksdfghj" }
-                ListElement { title: "Qweadsasdads"; subtitle: "Ksdfghj" }
-                ListElement { title: "Qweadsasdads"; subtitle: "Ksdfghj" }
-                ListElement { title: "Qweadsasdads"; subtitle: "Ksdfghj" }
-                ListElement { title: "Qweadsasdads"; subtitle: "Ksdfghj" }
-                ListElement { title: "Qweadsasdads"; subtitle: "Ksdfghj" }
-                ListElement { title: "Qweadsasdads"; subtitle: "Ksdfghj" }
-                ListElement { title: "Qweadsasdads"; subtitle: "Ksdfghj" }
-                ListElement { title: "Qweadsasdads"; subtitle: "Ksdfghj" }
-                ListElement { title: "Qweadsasdads"; subtitle: "Ksdfghj" }
-                ListElement { title: "Qweadsasdads"; subtitle: "Ksdfghj" }
-                ListElement { title: "Qweadsasdads"; subtitle: "Ksdfghj" }
-                ListElement { title: "Qweadsasdads"; subtitle: "Ksdfghj" }
-                ListElement { title: "Qweadsasdads"; subtitle: "Ksdfghj" }
             }
 
             focus: true
@@ -110,11 +89,6 @@ Sheet {
             minimum: 1
             maximum: 50
             value: "20"
-        }
-
-        Connections {
-            target: screen
-            onCurrentOrientationChanged: console.log(screen.currentOrientation)
         }
 
         state: screen.currentOrientation == Screen.Portrait ? "portrait" : "landscape"

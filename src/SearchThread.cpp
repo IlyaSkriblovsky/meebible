@@ -19,7 +19,6 @@ SearchThread::SearchThread(const Translation* translation, const QString& needle
 
 SearchThread::~SearchThread()
 {
-    qDebug() << "~~~ SearchThread::~SearchThread()";
 }
 
 #include <QElapsedTimer>
@@ -42,11 +41,8 @@ void SearchThread::run()
     if (! select.exec())
         qDebug() << select.lastError().text();
 
-    qDebug() << "start";
-
     while (select.next())
     {
-        qDebug() << select.value(2).toString() << select.value(3).toInt();
         matchFound(
             select.value(0).toString(),
             select.value(1).toInt(),
@@ -54,8 +50,4 @@ void SearchThread::run()
             select.value(3).toInt()
         );
     }
-
-    qDebug() << "done";
-
-    qDebug() << "elapsed:" << timer.elapsed();
 }

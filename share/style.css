@@ -42,3 +42,8 @@ html
 {
     background: #8f8;
 }
+
+.match.current
+{
+    background: #f88;
+}

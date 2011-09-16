@@ -63,8 +63,6 @@ QString BORusTranslation::bookName(const QString &bookCode) const
         }
     }
 
-    qDebug() << _bookNames.value(bookCode);
-
     return _bookNames.value(bookCode);
 }
 
@@ -78,8 +76,6 @@ QStringList BORusTranslation::bookCodes() const
         while (select.next())
             _bookCodes.append(select.value(0).toString());
     }
-
-    qDebug() << _bookCodes.size();
 
     return _bookCodes;
 }

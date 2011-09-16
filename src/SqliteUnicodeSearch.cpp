@@ -116,7 +116,7 @@ void matchCount(sqlite3_context *ctx, int n, sqlite3_value **args)
 }
 
 
-QString SqliteUnicodeSearch::highlightMatches(const QString& html, const QString& needle)
+QString SqliteUnicodeSearch::highlightMatches(const QString& html, const QString& needle, int* matchCount)
 {
     if (needle == "")
         return html;
@@ -136,18 +136,24 @@ QString SqliteUnicodeSearch::highlightMatches(const QString& html, const QString
 
     QString result = html;
 
+    int count = 0;
     int pos = usearch_last(search, &err);
 
     while (pos != USEARCH_DONE)
     {
         result.insert(pos + usearch_getMatchedLength(search), "</span>");
-        result.insert(pos, "<span class=\"match\">");
+        result.insert(pos, QString("<span id=\"match-%1\" class=\"match\">").arg(count + 1));
+
+        count++;
 
         pos = usearch_previous(search, &err);
     }
 
 
     usearch_close(search);
+
+    if (matchCount != 0)
+        *matchCount = count;
 
     return result;
 }

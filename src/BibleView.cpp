@@ -46,6 +46,12 @@ BibleView::BibleView(QGraphicsItem *parent):
 
     connect(page()->mainFrame(), SIGNAL(javaScriptWindowObjectCleared()), this, SLOT(onJavaScriptWindowObjectCleared()));
     connect(this, SIGNAL(loadFinished(bool)), this, SLOT(onLoadFinished(bool)));
+
+
+    _searchMode = false;
+    _searchNeedle = "";
+    _matchCount = 0;
+    _matchIndex = 0;
 }
 
 
@@ -76,13 +82,12 @@ void BibleView::setTranslation(Translation *translation)
 }
 
 
-void BibleView::setAndLoad(const QString& bookCode, int chapterNo, int verseNo, const QString& highlight)
+void BibleView::setAndLoad(const QString& bookCode, int chapterNo, int verseNo)
 {
     setBookCode(bookCode);
     setChapterNo(chapterNo);
 
     _verseNo = verseNo;
-    _highlight = highlight;
 
     loadChapter();
 }
@@ -107,7 +112,9 @@ void BibleView::loadChapter()
 
     if (! fromCache.isEmpty())
     {
-        displayHtml(fromCache, _verseNo);
+        displayHtml(fromCache);
+        chapterLoaded();
+        scrollToVerse(_verseNo);
     }
     else
     {
@@ -133,7 +140,11 @@ void BibleView::onChapterRequestFinished(QString html)
     else
     {
         if (request->bookCode() == _bookCode && request->chapterNo() == _chapterNo)
-            displayHtml(html, _verseNo);
+        {
+            displayHtml(html);
+            chapterLoaded();
+            scrollToVerse(_verseNo);
+        }
 
         Cache::instance()->saveChapter(
             request->translation(),
@@ -147,10 +158,16 @@ void BibleView::onChapterRequestFinished(QString html)
 }
 
 
-void BibleView::displayHtml(QString html, int verseNo)
+void BibleView::displayHtml(QString html)
 {
-    setHtml(SqliteUnicodeSearch::highlightMatches(html, _highlight));
-    chapterLoaded();
+    _html = html;
+    setHtml(_html);
+
+    stopSearchMode();
+}
+
+void BibleView::scrollToVerse(int verseNo)
+{
     if (verseNo > 1)
     {
         page()->mainFrame()->evaluateJavaScript(QString("selectVerse(%1)").arg(verseNo)).toInt();
@@ -179,7 +196,7 @@ void BibleView::loadPrevChapter()
 
     Place next = Place(_bookCode, _chapterNo).prevChapter(_translation);
 
-    setAndLoad(next.bookCode(), next.chapterNo(), 1, "");
+    setAndLoad(next.bookCode(), next.chapterNo(), 1);
 }
 
 void BibleView::loadNextChapter()
@@ -188,7 +205,7 @@ void BibleView::loadNextChapter()
 
     Place prev = Place(_bookCode, _chapterNo).nextChapter(_translation);
 
-    setAndLoad(prev.bookCode(), prev.chapterNo(), 1, "");
+    setAndLoad(prev.bookCode(), prev.chapterNo(), 1);
 }
 
 
@@ -229,4 +246,40 @@ int BibleView::preferredWidth()
 void BibleView::setPreferredWidth(int width)
 {
     page()->setPreferredContentsSize(QSize(width, 100));
+}
+
+
+
+
+/////////////////////////////////////////
+
+void BibleView::startSearchMode(const QString& needle)
+{
+    _searchNeedle = needle;
+    searchNeedleChanged();
+
+    displayHtml(SqliteUnicodeSearch::highlightMatches(_html, needle, &_matchCount));
+    matchCountChanged();
+
+    _searchMode = true;
+    searchModeChanged();
+
+    setMatchIndex(0);
+}
+
+
+void BibleView::stopSearchMode()
+{
+    _searchMode = false;
+    searchModeChanged();
+}
+
+void BibleView::setMatchIndex(int index)
+{
+    ensureVisible(page()->mainFrame()->evaluateJavaScript(QString("highlightMatch(%1)").arg(
+        index - _matchCount
+    )).toInt());
+
+    _matchIndex = index;
+    matchIndexChanged();
 }

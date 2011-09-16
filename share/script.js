@@ -77,3 +77,26 @@ function verseOffset(verse)
     var divs = verseDivs(verse)
     return divs[0].offsetTop - 20
 }
+
+
+var currentMatchIndex = 0
+
+
+function highlightMatch(matchIndex)
+{
+    var span
+
+    span = document.getElementById('match' + currentMatchIndex)
+    if (span) span.className = "match"
+
+    currentMatchIndex = matchIndex
+
+    span = document.getElementById('match' + currentMatchIndex)
+    if (span)
+    {
+        span.className = "match current"
+        return span.offsetTop - 50
+    }
+    else
+        return 0;
+}

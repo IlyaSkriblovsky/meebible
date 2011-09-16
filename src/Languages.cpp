@@ -94,7 +94,5 @@ QVariant Languages::data(const QModelIndex& index, int role) const
 
 Language* Languages::langAt(int row) const
 {
-    Language* z = _languages.at(row);
-    qDebug() << "z=" << z;
-    return z;
+    return _languages.at(row);
 }

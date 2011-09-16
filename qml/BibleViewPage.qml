@@ -11,6 +11,7 @@ Page {
     function setAndLoad(bookCode, chapterNo, verseNo, highlight) { bibleView.setAndLoad(bookCode, chapterNo, verseNo, highlight) }
     function loadPrevChapter() { bibleView.loadPrevChapter() }
     function loadNextChapter() { bibleView.loadNextChapter() }
+    function startSearchMode(needle) { bibleView.startSearchMode(needle) }
 
 
     property bool created: false
@@ -37,7 +38,6 @@ Page {
     Rectangle {
         anchors.fill: parent
 
-        clip: true
 
         Flickable {
             id: flickable
@@ -67,7 +67,9 @@ Page {
                 onChapterLoadingError: { flickable.contentY = 0; page.state = "normal" }
                 onLoading: page.state = "loading"
 
-                onNeedToScroll: {
+
+                function scrollTo(y)
+                {
                     var maxY = flickable.contentHeight - flickable.height
                     if (y < maxY)
                         flickable.contentY = y
@@ -76,6 +78,18 @@ Page {
                             flickable.contentY = 0
                         else
                             flickable.contentY = maxY
+                }
+
+                onNeedToScroll: {
+                    scrollTo(y)
+                }
+
+                onEnsureVisible: {
+                    var gap = 30
+                    if (y > flickable.contentY && y < flickable.contentY + flickable.height - 30)
+                        return
+
+                    scrollTo(y)
                 }
             }
         }
@@ -149,4 +163,207 @@ Page {
             }
         }
     ]
+
+
+
+    Loader {
+        id: languageDialog
+
+        width: 10
+        height: 10
+
+        function load() { source = "LanguageDialog.qml" }
+
+        function open() { load(); item.open() }
+
+        Connections {
+            target: languageDialog.item
+            onAccepted: {
+                settings.language = languageDialog.item.language()
+
+                transDialog.open()
+            }
+        }
+    }
+
+    Loader {
+        id: transDialog
+
+        width: 10; height: 10
+
+        function load() { source = "TranslationDialog.qml" }
+
+        function open() { load(); item.open() }
+
+        Connections {
+            target: transDialog.item
+            onAccepted: settings.translation = transDialog.item.translation()
+        }
+    }
+
+
+    Loader {
+        id: placeDialog
+
+        width: 10; height: 10
+
+        function load() { source = "PlaceDialog.qml" }
+
+        function open() { load(); item.open() }
+
+        Connections {
+            target: placeDialog.item
+            onAccepted: {
+                biblePage.setAndLoad(
+                    placeDialog.item.bookCode(),
+                    placeDialog.item.chapterNo(),
+                    placeDialog.item.verseNo()
+                )
+            }
+        }
+    }
+
+    Loader {
+        id: fetcherDialog
+
+        width: 10; height: 10
+
+        function load() { source = "FetcherDialog.qml" }
+        function open() { load(); item.open() }
+
+        function start() { load(); item.start() }
+    }
+
+
+
+    Loader {
+        id: searchDialog
+
+        function load() { source = "SearchDialog.qml" }
+        function open() { load(); item.open() }
+
+        Connections {
+            target: searchDialog.item
+            onPlaceSelected: {
+                searchDialog.item.close()
+                biblePage.setAndLoad(
+                    bookCode, chapterNo, 1
+                )
+                biblePage.startSearchMode(searchDialog.item.query)
+            }
+        }
+    }
+
+
+
+    tools: commonTools
+
+
+    ToolBarLayout {
+        id: commonTools
+
+        ToolIcon {
+            platformIconId: "toolbar-previous"
+
+            visible: ! bibleView.searchMode
+
+            onClicked: biblePage.loadPrevChapter()
+        }
+
+        ToolIcon {
+            platformIconId: "toolbar-next"
+
+            visible: ! bibleView.searchMode
+
+            onClicked: biblePage.loadNextChapter()
+        }
+
+        ToolIcon {
+            platformIconId: "toolbar-update"
+
+            visible: ! bibleView.searchMode
+
+            onClicked: placeDialog.open()
+        }
+
+        ToolIcon {
+            platformIconId: "toolbar-search"
+
+            visible: ! bibleView.searchMode
+
+            onClicked: searchDialog.open()
+        }
+
+        ToolIcon {
+            platformIconId: "toolbar-view-menu"
+
+            visible: ! bibleView.searchMode
+
+            onClicked: menu.status == DialogStatus.Closed ? menu.open() : menu.close()
+        }
+
+        ToolIcon {
+            platformIconId: "toolbar-up"
+
+            visible: bibleView.searchMode
+
+            onClicked: {
+                if (bibleView.matchIndex > 0)
+                    bibleView.matchIndex = bibleView.matchIndex - 1
+                else
+                    bibleView.matchIndex = bibleView.matchCount - 1
+            }
+        }
+
+        Label {
+            text: (bibleView.matchIndex + 1) + ' / ' + bibleView.matchCount
+
+            visible: bibleView.searchMode
+        }
+
+        ToolIcon {
+            platformIconId: "toolbar-down"
+
+            visible: bibleView.searchMode
+
+            onClicked: {
+                if (bibleView.matchIndex < bibleView.matchCount - 1)
+                    bibleView.matchIndex = bibleView.matchIndex + 1
+                else
+                    bibleView.matchIndex = 0
+            }
+        }
+
+        ToolButton {
+            text: "Done"
+
+            visible: bibleView.searchMode
+
+            onClicked: bibleView.stopSearchMode()
+        }
+    }
+
+
+    Menu {
+        id: menu
+
+        visualParent: pageStack
+
+        MenuLayout {
+            MenuItem {
+                text: "Select Language"
+                onClicked: languageDialog.open()
+            }
+
+            MenuItem {
+                text: "Select Translation"
+                onClicked: transDialog.open()
+            }
+
+            MenuItem {
+                text: "Download Bible"
+                onClicked: fetcherDialog.start()
+            }
+        }
+    }
 }

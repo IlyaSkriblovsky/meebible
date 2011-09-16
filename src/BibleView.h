@@ -21,6 +21,11 @@ class BibleView: public QGraphicsWebView
     Q_PROPERTY(QString bookCode READ bookCode WRITE setBookCode NOTIFY bookCodeChanged)
     Q_PROPERTY(int chapterNo READ chapterNo WRITE setChapterNo NOTIFY chapterNoChanged)
 
+    Q_PROPERTY(bool searchMode READ searchMode NOTIFY searchModeChanged)
+    Q_PROPERTY(QString searchNeedle READ searchNeedle NOTIFY searchNeedleChanged)
+    Q_PROPERTY(int matchCount READ matchCount NOTIFY matchCountChanged)
+    Q_PROPERTY(int matchIndex READ matchIndex WRITE setMatchIndex NOTIFY matchIndexChanged)
+
 public:
     explicit BibleView(QGraphicsItem *parent = 0);
     ~BibleView();
@@ -40,9 +45,21 @@ public:
     int preferredWidth();
     void setPreferredWidth(int width);
 
+
+    bool searchMode() const { return _searchMode; }
+    Q_INVOKABLE void startSearchMode(const QString& needle);
+    Q_INVOKABLE void stopSearchMode();
+
+    QString searchNeedle() const { return _searchNeedle; }
+
+    int matchCount() const { return _matchCount; }
+
+    int matchIndex() const { return _matchIndex; }
+    void setMatchIndex(int index);
+
 public slots:
     void loadChapter();
-    void setAndLoad(const QString& bookCode, int chapterNo, int verseNo, const QString& highlight);
+    void setAndLoad(const QString& bookCode, int chapterNo, int verseNo);
 
     void loadNextChapter();
     void loadPrevChapter();
@@ -59,6 +76,12 @@ signals:
     void chapterNoChanged();
 
     void needToScroll(int y);
+    void ensureVisible(int y);
+
+    void searchModeChanged();
+    void searchNeedleChanged();
+    void matchCountChanged();
+    void matchIndexChanged();
 
 private:
     Translation* _translation;
@@ -68,15 +91,26 @@ private:
     int _verseNo;
 
     QString _js;
-
-    QString _highlight;
+    QString _html;
 
     QNetworkAccessManager* _nam;
+
+
+    // Search matching
+
+    bool _searchMode;
+    QString _searchNeedle;
+    int _matchCount;
+    int _matchIndex;
+
+
+    void scrollToVerse(int verseNo);
+
 
 private slots:
     void onChapterRequestFinished(QString html);
 
-    void displayHtml(QString html, int verseNo = 0);
+    void displayHtml(QString html);
     void clearDisplay(const QString& error = QString());
 
     void onJavaScriptWindowObjectCleared();

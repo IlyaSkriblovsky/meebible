@@ -10,7 +10,7 @@ namespace SqliteUnicodeSearch
 
     void installUnicodeSearch(const QSqlDatabase& db);
 
-    QString highlightMatches(const QString& html, const QString& needle);
+    QString highlightMatches(const QString& html, const QString& needle, int* matchCount);
 }
 
 #endif

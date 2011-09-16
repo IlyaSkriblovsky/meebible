@@ -97,8 +97,6 @@ void Fetcher::nextBook(int book)
         return;
     }
 
-    qDebug() << "nextBook" << book;
-
     QString bookCode = _translation->bookCodes()[_currentBook];
 
     _finishedChapters = 0;
@@ -123,7 +121,6 @@ void Fetcher::nextBook(int book)
 
 void Fetcher::finish()
 {
-    qDebug() << "finish";
     _running = false;
     finished();
 }
@@ -140,7 +137,6 @@ void Fetcher::onChapterRequestFinished(QString html)
     double bookPercent = (double)_finishedChapters / _chaptersInCurrentBook;
     double overallPercent = (double)_overallFinishedChapters / _chaptersInTranslation;
     update(_translation->bookName(request->bookCode()), bookPercent, overallPercent);
-    qDebug() << _translation->bookName(request->bookCode()) << request->chapterNo() << bookPercent << overallPercent;
 
 
     if (request->error() == QNetworkReply::NoError)
