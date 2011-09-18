@@ -8,6 +8,8 @@
 
 #include <QElapsedTimer>
 
+#include <QDesktopServices>
+
 #include "ChapterRequest.h"
 #include "Language.h"
 #include "Translation.h"
@@ -24,7 +26,12 @@ BibleView::BibleView(QGraphicsItem *parent):
     QElapsedTimer timer;
     timer.start();
 
-    setPage(new BibleWebPage(this));
+
+    BibleWebPage* page = new BibleWebPage(this);
+    page->setLinkDelegationPolicy(QWebPage::DelegateExternalLinks);
+    connect(page, SIGNAL(linkClicked(const QUrl&)), this, SLOT(onLinkClicked(const QUrl&)));
+    setPage(page);
+
 
     QFile css(Paths::style_css());
     css.open(QIODevice::ReadOnly);
@@ -44,7 +51,7 @@ BibleView::BibleView(QGraphicsItem *parent):
     _nam = new QNetworkAccessManager(this);
 
 
-    connect(page()->mainFrame(), SIGNAL(javaScriptWindowObjectCleared()), this, SLOT(onJavaScriptWindowObjectCleared()));
+    connect(page->mainFrame(), SIGNAL(javaScriptWindowObjectCleared()), this, SLOT(onJavaScriptWindowObjectCleared()));
     connect(this, SIGNAL(loadFinished(bool)), this, SLOT(onLoadFinished(bool)));
 
 
@@ -79,6 +86,7 @@ void BibleView::setTranslation(Translation *translation)
     loadChapter();
 
     translationChanged();
+    titleChanged();
 }
 
 
@@ -291,4 +299,24 @@ void BibleView::showWelcomeScreen()
 {
     qDebug() << QUrl::fromLocalFile(Paths::welcome_html());
     setUrl(QUrl::fromLocalFile(Paths::welcome_html()));
+}
+
+
+
+void BibleView::onLinkClicked(const QUrl& url)
+{
+    if (url.scheme() == "mailto" || url.scheme() == "http")
+        QDesktopServices::openUrl(url);
+}
+
+
+
+
+QString BibleView::title() const
+{
+    Place place(_bookCode, _chapterNo);
+    if (_translation == 0 || ! place.isValid(_translation))
+        return "Unknown";
+
+    return place.toString(_translation);
 }

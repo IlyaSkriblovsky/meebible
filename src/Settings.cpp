@@ -22,6 +22,8 @@ Settings::Settings(Languages* langs, QObject* parent):
 
     _bookCode = _settings.value("General/bookCode").toString();
     _chapterNo = _settings.value("General/chapterNo").toInt();
+
+    _floatingHeader = _settings.value("General/floatingHeader", true).toBool();
 }
 
 Settings::~Settings()
@@ -87,4 +89,21 @@ void Settings::setChapterNo(int chapterNo)
     _chapterNo = chapterNo;
     _settings.setValue("General/chapterNo", _chapterNo);
     chapterNoChanged();
+}
+
+
+
+bool Settings::floatingHeader() const
+{
+    return _floatingHeader;
+}
+
+void Settings::setFloatingHeader(bool show)
+{
+    if (_floatingHeader != show)
+    {
+        _floatingHeader = show;
+        _settings.setValue("General/floatingHeader", _floatingHeader);
+        floatingHeaderChanged();
+    }
 }

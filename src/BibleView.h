@@ -26,6 +26,8 @@ class BibleView: public QGraphicsWebView
     Q_PROPERTY(int matchCount READ matchCount NOTIFY matchCountChanged)
     Q_PROPERTY(int matchIndex READ matchIndex WRITE setMatchIndex NOTIFY matchIndexChanged)
 
+    Q_PROPERTY(QString title READ title NOTIFY titleChanged)
+
 public:
     explicit BibleView(QGraphicsItem *parent = 0);
     ~BibleView();
@@ -37,8 +39,8 @@ public:
     int chapterNo() const { return _chapterNo; }
     bool validLocation() const;
 
-    void setBookCode(const QString& bookCode) { _bookCode = bookCode; bookCodeChanged(); }
-    void setChapterNo(int chapterNo) { _chapterNo = chapterNo; chapterNoChanged(); }
+    void setBookCode(const QString& bookCode) { _bookCode = bookCode; bookCodeChanged(); titleChanged(); }
+    void setChapterNo(int chapterNo) { _chapterNo = chapterNo; chapterNoChanged(); titleChanged(); }
 
     Place selectedPlace();
 
@@ -54,6 +56,8 @@ public:
 
     int matchIndex() const { return _matchIndex; }
     void setMatchIndex(int index);
+
+    QString title() const;
 
 public slots:
     void loadChapter();
@@ -85,6 +89,8 @@ signals:
     void searchNeedleChanged();
     void matchCountChanged();
     void matchIndexChanged();
+
+    void titleChanged();
 
 private:
     Translation* _translation;
@@ -118,6 +124,8 @@ private slots:
 
     void onJavaScriptWindowObjectCleared();
     void onLoadFinished(bool ok);
+
+    void onLinkClicked(const QUrl& url);
 };
 
 #endif // BIBLEVIEW_H

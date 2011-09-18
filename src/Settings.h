@@ -18,6 +18,8 @@ class Settings: public QObject
     Q_PROPERTY(QString bookCode READ bookCode WRITE setBookCode NOTIFY bookCodeChanged)
     Q_PROPERTY(int chapterNo READ chapterNo WRITE setChapterNo NOTIFY chapterNoChanged)
 
+    Q_PROPERTY(bool floatingHeader READ floatingHeader WRITE setFloatingHeader NOTIFY floatingHeaderChanged)
+
     public:
         Settings(Languages* langs, QObject* parent = 0);
         ~Settings();
@@ -35,6 +37,9 @@ class Settings: public QObject
         int chapterNo() const;
         void setChapterNo(int chapterNo);
 
+        bool floatingHeader() const;
+        void setFloatingHeader(bool show);
+
 
     signals:
         void languageChanged();
@@ -42,6 +47,8 @@ class Settings: public QObject
 
         void bookCodeChanged();
         void chapterNoChanged();
+
+        void floatingHeaderChanged();
 
 
     private:
@@ -52,6 +59,8 @@ class Settings: public QObject
 
         QString _bookCode;
         int _chapterNo;
+
+        bool _floatingHeader;
 };
 
 #endif // SETTINGS_H

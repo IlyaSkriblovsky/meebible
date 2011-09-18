@@ -28,17 +28,35 @@ Page {
     }
 
 
-    Rectangle {
-        anchors.fill: parent
+    Header {
+        id: header
+        text: bibleView.title
+        height: settings.floatingHeader ? 0 : 70
+        visible: ! settings.floatingHeader
+    }
 
 
-        Flickable {
-            id: flickable
+    Flickable {
+        id: flickable
 
-            anchors.fill: parent
+        anchors.top: header.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
 
-            contentWidth: bibleView.width
-            contentHeight:  bibleView.height
+        contentWidth: column.width
+        contentHeight:  column.height
+
+        clip: true
+
+        Column {
+            id: column
+
+            Header {
+                text: bibleView.title
+                height: settings.floatingHeader ? 70 : 0
+                visible: settings.floatingHeader
+            }
 
             BibleView {
                 id: bibleView
@@ -86,8 +104,8 @@ Page {
                 }
             }
         }
-        ScrollDecorator { flickableItem: flickable }
     }
+    ScrollDecorator { flickableItem: flickable }
 
 
     Rectangle {
@@ -160,42 +178,6 @@ Page {
 
 
     Loader {
-        id: languageDialog
-
-        width: 10
-        height: 10
-
-        function load() { source = "LanguageDialog.qml" }
-
-        function open() { load(); item.open() }
-
-        Connections {
-            target: languageDialog.item
-            onAccepted: {
-                settings.language = languageDialog.item.language()
-
-                transDialog.open()
-            }
-        }
-    }
-
-    Loader {
-        id: transDialog
-
-        width: 10; height: 10
-
-        function load() { source = "TranslationDialog.qml" }
-
-        function open() { load(); item.open() }
-
-        Connections {
-            target: transDialog.item
-            onAccepted: settings.translation = transDialog.item.translation()
-        }
-    }
-
-
-    Loader {
         id: placeDialog
 
         width: 10; height: 10
@@ -208,17 +190,6 @@ Page {
             target: placeDialog.item
             onAccepted: bibleView.setAndLoad(placeDialog.item.bookCode(), placeDialog.item.chapterNo(), placeDialog.item.verseNo())
         }
-    }
-
-    Loader {
-        id: fetcherDialog
-
-        width: 10; height: 10
-
-        function load() { source = "FetcherDialog.qml" }
-        function open() { load(); item.open() }
-
-        function start() { load(); item.start() }
     }
 
 
@@ -329,6 +300,15 @@ Page {
     }
 
 
+    SettingsPage {
+        id: settingsPage
+    }
+
+    AboutPage {
+        id: aboutPage
+    }
+
+
     Menu {
         id: menu
 
@@ -336,23 +316,13 @@ Page {
 
         MenuLayout {
             MenuItem {
-                text: "Select Language"
-                onClicked: languageDialog.open()
-            }
-
-            MenuItem {
-                text: "Select Translation"
-                onClicked: transDialog.open()
-            }
-
-            MenuItem {
-                text: "Download Bible"
-                onClicked: fetcherDialog.start()
+                text: "Settings"
+                onClicked: pageStack.push(settingsPage)
             }
 
             MenuItem {
                 text: "About MeeBible"
-                onClicked: bibleView.showWelcomeScreen()
+                onClicked: pageStack.push(aboutPage)
             }
         }
     }

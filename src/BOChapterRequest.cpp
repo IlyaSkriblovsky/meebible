@@ -35,15 +35,16 @@ void BOChapterRequest::onNReplyFinished()
 
     QString content = QString::fromUtf8(_nreply->readAll());
 
-    EasyElement* body = tag("body")->append(
-        tag("h3")
-        ->text(
-            QString("%1 %2:1-%3")
-                .arg(translation()->bookName(bookCode()))
-                .arg(chapterNo())
-                .arg(translation()->versesInChapter(bookCode(), chapterNo()))
-        )
-    );
+    EasyElement* body = tag("body");
+//        ->append(
+//            tag("h3")
+//            ->text(
+//                QString("%1 %2:1-%3")
+//                    .arg(translation()->bookName(bookCode()))
+//                    .arg(chapterNo())
+//                    .arg(translation()->versesInChapter(bookCode(), chapterNo()))
+//            )
+//        );
 
     QRegExp re("<span id=\"v(\\d+)\" class=\"v\"><sup>[^<]*</sup>(.*)<br /></span>");
     re.setMinimal(true);
