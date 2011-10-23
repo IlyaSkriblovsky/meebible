@@ -12,6 +12,8 @@ class Cache: public QObject
 {
     Q_OBJECT
 
+    Q_PROPERTY(bool searchInProgress READ searchInProgress NOTIFY searchInProgressChanged)
+
 public:
     static Cache* instance();
 
@@ -27,6 +29,9 @@ public:
     int totalChaptersInCache(const Translation* translation);
 
 
+    bool searchInProgress() const { return _searchInProgress; }
+
+
 public slots:
     void search(Translation* translation, const QString& text);
 
@@ -35,6 +40,7 @@ signals:
     void searchStarted();
     void matchFound(QString bookCode, int chapterNo, QString match, int matchCount);
     void searchFinished();
+    void searchInProgressChanged();
 
 
 private:
@@ -44,6 +50,8 @@ private:
 
     QRegExp _stripTags;
     QRegExp _stripSpaces;
+
+    bool _searchInProgress;
 
 private slots:
     void onThreadMatchFound(const QString& bookCode, int chapterNo, QString match, int matchCount);

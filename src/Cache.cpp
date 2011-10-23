@@ -28,6 +28,7 @@ Cache* Cache::instance()
 
 
 Cache::Cache()
+    : _searchInProgress(false)
 {
     if (_instance)
         qDebug() << "Duplicate Cache instance";
@@ -141,6 +142,12 @@ int Cache::totalChaptersInCache(const Translation *translation)
 
 void Cache::search(Translation* translation, const QString& text)
 {
+    if (_searchInProgress)
+        return;
+
+    _searchInProgress = true;
+    searchInProgressChanged();
+
     searchStarted();
 
     SearchThread* thread = new SearchThread(translation, text);
@@ -158,5 +165,8 @@ void Cache::onThreadMatchFound(const QString& bookCode, int chapterNo, QString m
 
 void Cache::onThreadFinished()
 {
+    _searchInProgress = false;
+    searchInProgressChanged();
+
     searchFinished();
 }

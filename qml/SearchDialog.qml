@@ -91,7 +91,7 @@ Sheet {
                 }
             }
 
-            state: "idle"
+            state: cache.searchInProgress ? "busy" : "idle"
 
             states: [
                 State {
@@ -133,13 +133,10 @@ Sheet {
 
             onSearchStarted: {
                 item.state = "list"
-                field.state = "busy"
 
                 results.clear()
             }
             onSearchFinished: {
-                field.state = "idle"
-
                 if (results.count == 0)
                     item.state = "nothing"
             }
@@ -200,8 +197,9 @@ Sheet {
                 anchors.centerIn: parent
 
                 text: "Nothing found"
-                color: '#666'
-                font.pixelSize: 40
+                color: '#888'
+                font.pixelSize: 60
+                font.family: "Nokia Pure Text Light"
             }
         }
 

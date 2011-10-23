@@ -99,10 +99,11 @@ Page {
 
                 onEnsureVisible: {
                     var gap = 30
-                    if (y > flickable.contentY && y < flickable.contentY + flickable.height - 30)
+                    var flickY = y + bibleView.y
+                    if (flickY > flickable.contentY && flickY < flickable.contentY + flickable.height - 30)
                         return
 
-                    scrollTo(y)
+                    scrollTo(flickY)
                 }
             }
         }
@@ -245,22 +246,6 @@ Page {
         }
 
         ToolIcon {
-            platformIconId: "toolbar-search"
-
-            visible: ! bibleView.searchMode
-
-            onClicked: searchDialog.open()
-        }
-
-        ToolIcon {
-            platformIconId: "toolbar-view-menu"
-
-            visible: ! bibleView.searchMode
-
-            onClicked: menu.status == DialogStatus.Closed ? menu.open() : menu.close()
-        }
-
-        ToolIcon {
             platformIconId: "toolbar-up"
 
             visible: bibleView.searchMode
@@ -292,12 +277,26 @@ Page {
             }
         }
 
+        ToolIcon {
+            platformIconId: "toolbar-search"
+
+            onClicked: searchDialog.open()
+        }
+
         ToolButton {
             text: "Done"
 
             visible: bibleView.searchMode
 
             onClicked: bibleView.stopSearchMode()
+        }
+
+        ToolIcon {
+            platformIconId: "toolbar-view-menu"
+
+            visible: ! bibleView.searchMode
+
+            onClicked: menu.status == DialogStatus.Closed ? menu.open() : menu.close()
         }
     }
 
