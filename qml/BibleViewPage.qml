@@ -1,5 +1,5 @@
 import QtQuick 1.1
-import com.meego 1.0
+import com.nokia.meego 1.0
 import MeeBible 0.1
 
 Page {
@@ -46,6 +46,8 @@ Page {
 
         contentWidth: column.width
         contentHeight:  column.height
+
+        flickableDirection: Flickable.VerticalFlick
 
         clip: true
 

@@ -2,7 +2,7 @@ TEMPLATE = app
 
 QT += core sql network xml xmlpatterns webkit gui declarative
 
-DEFINES += DEBUGPATHS
+# DEFINES += DEBUGPATHS
 
 DEFINES += INSTALLPREFIX=\\\"/opt/meebible\\\"
 
@@ -18,7 +18,7 @@ CONFIG   += console
 CONFIG   -= app_bundle
 
 INCLUDEPATH += /usr/include/applauncherd
-LIBS += -licutu -lsqlite3 -lmdeclarativecache
+LIBS += -licui18n -lsqlite3 -lmdeclarativecache
 
 
 SOURCES += main.cpp \

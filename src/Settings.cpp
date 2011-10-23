@@ -8,20 +8,20 @@
 Settings::Settings(Languages* langs, QObject* parent):
     QObject(parent)
 {
-    _language = langs->langByCode(_settings.value("General/langCode").toString());
+    _language = langs->langByCode(_settings.value("General/langCode", "e").toString());
 
     if (_language == 0)
         _translation = 0;
     else
     {
         _translation = _language->translationByCode(
-            _settings.value("General/transCode").toString()
+            _settings.value("General/transCode", "nwt").toString()
         );
     }
 
 
-    _bookCode = _settings.value("General/bookCode").toString();
-    _chapterNo = _settings.value("General/chapterNo").toInt();
+    _bookCode = _settings.value("General/bookCode", "ge").toString();
+    _chapterNo = _settings.value("General/chapterNo", 1).toInt();
 
     _floatingHeader = _settings.value("General/floatingHeader", true).toBool();
 }
