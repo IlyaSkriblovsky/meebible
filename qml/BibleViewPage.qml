@@ -21,9 +21,16 @@ Page {
         value: bibleView.chapterNo
         when: created
     }
+    Binding {
+        target: settings
+        property: "fontSize"
+        value: fontSizeSlider.value
+        when: created
+    }
     Component.onCompleted: {
         bibleView.bookCode = settings.bookCode
         bibleView.chapterNo = settings.chapterNo
+        fontSizeSlider.value = settings.fontSize
         created = true
     }
 
@@ -72,6 +79,8 @@ Page {
 
                 translation: settings.translation
 
+                // fontSize: fontSizeSlider.value
+
 
 
                 Component.onCompleted: loadChapter()
@@ -98,12 +107,15 @@ Page {
                 }
 
                 onEnsureVisible: {
-                    var gap = 30
+                    var gap = 50
                     var flickY = y + bibleView.y
-                    if (flickY > flickable.contentY && flickY < flickable.contentY + flickable.height - 30)
+                    if (
+                        flickY > flickable.contentY + gap &&
+                        flickY < flickable.contentY + flickable.height - bibleView.fontSize
+                       )
                         return
 
-                    scrollTo(flickY)
+                    scrollTo(flickY - gap)
                 }
             }
         }
@@ -215,40 +227,38 @@ Page {
 
 
 
-    tools: commonTools
 
-
-    ToolBarLayout {
-        id: commonTools
+    tools: ToolBarLayout {
+        id: tools
 
         ToolIcon {
-            platformIconId: "toolbar-previous"
+            id: prevButton
 
-            visible: ! bibleView.searchMode
+            platformIconId: "toolbar-previous"
 
             onClicked: bibleView.loadPrevChapter()
         }
 
         ToolIcon {
-            platformIconId: "toolbar-next"
+            id: nextButton
 
-            visible: ! bibleView.searchMode
+            platformIconId: "toolbar-next"
 
             onClicked: bibleView.loadNextChapter()
         }
 
         ToolIcon {
-            platformIconId: "toolbar-update"
+            id: placeButton
 
-            visible: ! bibleView.searchMode
+            platformIconId: "toolbar-list"
 
             onClicked: placeDialog.open()
         }
 
         ToolIcon {
-            platformIconId: "toolbar-up"
+            id: prevMatchButton
 
-            visible: bibleView.searchMode
+            platformIconId: "toolbar-up"
 
             onClicked: {
                 if (bibleView.matchIndex > 0)
@@ -259,15 +269,19 @@ Page {
         }
 
         Label {
+            id: matchCountLabel
+
+            anchors.verticalCenter: parent.verticalCenter
+
             text: (bibleView.matchIndex + 1) + ' / ' + bibleView.matchCount
 
-            visible: bibleView.searchMode
+            font.pixelSize: 30
         }
 
         ToolIcon {
-            platformIconId: "toolbar-down"
+            id: nextMatchButton
 
-            visible: bibleView.searchMode
+            platformIconId: "toolbar-down"
 
             onClicked: {
                 if (bibleView.matchIndex < bibleView.matchCount - 1)
@@ -278,26 +292,120 @@ Page {
         }
 
         ToolIcon {
+            id: searchButton
+
             platformIconId: "toolbar-search"
 
             onClicked: searchDialog.open()
         }
 
+        ToolIcon {
+            id: fontButton
+
+            platformIconId: "toolbar-select-text"
+
+            onClicked: tools.state = "fontSizeMode"
+        }
+
+
+        Slider {
+            id: fontSizeSlider
+            minimumValue: 16
+            maximumValue: 70
+            stepSize: 1.0
+
+            anchors.left: parent.left
+            anchors.right: doneButton.left
+
+            onValueChanged: {
+                var factor = parseFloat(value) / bibleView.fontSize
+                bibleView.fontSize = value
+                flickable.contentY *= factor * factor
+            }
+        }
+
         ToolButton {
+            id: doneButton
+
             text: "Done"
 
-            visible: bibleView.searchMode
+            anchors.verticalCenter: parent.verticalCenter
 
-            onClicked: bibleView.stopSearchMode()
+            onClicked: {
+                if (bibleView.searchMode)
+                    bibleView.stopSearchMode()
+
+                tools.state = "normal"
+            }
         }
 
         ToolIcon {
-            platformIconId: "toolbar-view-menu"
+            id: menuButton
 
-            visible: ! bibleView.searchMode
+            platformIconId: "toolbar-view-menu"
 
             onClicked: menu.status == DialogStatus.Closed ? menu.open() : menu.close()
         }
+
+        state: "normal"
+
+
+        Connections {
+            target: bibleView
+            onSearchModeChanged: {
+                if (bibleView.searchMode)
+                    tools.state = "searchMode"
+            }
+        }
+
+
+        states: [
+            State {
+                name: "normal"
+
+                PropertyChanges { target: prevButton;       visible: true; }
+                PropertyChanges { target: nextButton;       visible: true; }
+                PropertyChanges { target: placeButton;      visible: true; }
+                PropertyChanges { target: prevMatchButton;  visible: false; }
+                PropertyChanges { target: matchCountLabel;  visible: false; }
+                PropertyChanges { target: nextMatchButton;  visible: false; }
+                PropertyChanges { target: searchButton;     visible: true; }
+                PropertyChanges { target: fontButton;       visible: true; }
+                PropertyChanges { target: fontSizeSlider;   visible: false; }
+                PropertyChanges { target: doneButton;       visible: false; }
+                PropertyChanges { target: menuButton;       visible: true; }
+            },
+            State {
+                name: "searchMode"
+
+                PropertyChanges { target: prevButton;       visible: false; }
+                PropertyChanges { target: nextButton;       visible: false; }
+                PropertyChanges { target: placeButton;      visible: false; }
+                PropertyChanges { target: prevMatchButton;  visible: true; }
+                PropertyChanges { target: matchCountLabel;  visible: true; }
+                PropertyChanges { target: nextMatchButton;  visible: true; }
+                PropertyChanges { target: searchButton;     visible: true; }
+                PropertyChanges { target: fontButton;       visible: false; }
+                PropertyChanges { target: fontSizeSlider;   visible: false; }
+                PropertyChanges { target: doneButton;       visible: true; }
+                PropertyChanges { target: menuButton;       visible: false; }
+            },
+            State {
+                name: "fontSizeMode"
+
+                PropertyChanges { target: prevButton;       visible: false; }
+                PropertyChanges { target: nextButton;       visible: false; }
+                PropertyChanges { target: placeButton;      visible: false; }
+                PropertyChanges { target: prevMatchButton;  visible: false; }
+                PropertyChanges { target: matchCountLabel;  visible: false; }
+                PropertyChanges { target: nextMatchButton;  visible: false; }
+                PropertyChanges { target: searchButton;     visible: false; }
+                PropertyChanges { target: fontButton;       visible: false; }
+                PropertyChanges { target: fontSizeSlider;   visible: true; }
+                PropertyChanges { target: doneButton;       visible: true; }
+                PropertyChanges { target: menuButton;       visible: false; }
+            }
+        ]
     }
 
 

@@ -36,7 +36,7 @@
 
     <xsl:template match="p">
         <div class="par">
-            <xsl:apply-templates select="span" />
+            <xsl:apply-templates />
         </div>
     </xsl:template>
 
@@ -44,11 +44,12 @@
         <div class="verse">
             <xsl:attribute name="verse"><xsl:value-of select="substring-after(substring-before(@id, '-'), 'vs')"/></xsl:attribute>
             <xsl:attribute name="part"><xsl:value-of select="substring-after(@id, '-')"/></xsl:attribute>
-            <xsl:value-of select="."/>
+
+            <xsl:apply-templates/>
         </div>
     </xsl:template>
 
-    <xsl:template match="span[contains(@id, 'vs')]">
+    <xsl:template match="span[contains(@id, 'vs') and not(contains(@id, '-'))]">
         <div class="verse">
             <xsl:attribute name="verse">
                 <xsl:value-of select="substring-after(@id, 'vs')"/>
@@ -57,6 +58,9 @@
 
             <xsl:apply-templates/>
         </div>
+    </xsl:template>
+
+    <xsl:template match="a[@class='vsAnchor']">
     </xsl:template>
 
     <xsl:template match="i">

@@ -3,8 +3,7 @@ html
     -webkit-user-select: none;
     user-select: none;
 
-    font-size: 150%;
-    font-family: Arial;
+    font-family: sans-serif;
 }
 
 .verse
@@ -36,6 +35,26 @@ html
 {
     margin-top: .8em;
 /*    text-indent: 1em; */
+}
+
+.smallcaps
+{
+    text-transform: uppercase;
+    font-size: 80%;
+}
+
+.z
+{
+    display: block;
+    margin-left: 60px;
+    text-indent: -20px;
+}
+
+.superscript
+{
+    text-align: center;
+    font-style: italic;
+    font-size: 90%;
 }
 
 .match

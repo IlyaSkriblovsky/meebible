@@ -24,6 +24,8 @@ Settings::Settings(Languages* langs, QObject* parent):
     _chapterNo = _settings.value("General/chapterNo", 1).toInt();
 
     _floatingHeader = _settings.value("General/floatingHeader", true).toBool();
+
+    _fontSize = _settings.value("General/fontSize", 30).toInt();
 }
 
 Settings::~Settings()
@@ -105,5 +107,22 @@ void Settings::setFloatingHeader(bool show)
         _floatingHeader = show;
         _settings.setValue("General/floatingHeader", _floatingHeader);
         floatingHeaderChanged();
+    }
+}
+
+
+
+int Settings::fontSize() const
+{
+    return _fontSize;
+}
+
+void Settings::setFontSize(int size)
+{
+    if (_fontSize != size)
+    {
+        _fontSize = size;
+        _settings.setValue("General/fontSize", _fontSize);
+        fontSizeChanged();
     }
 }

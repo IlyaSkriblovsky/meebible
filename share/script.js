@@ -95,8 +95,15 @@ function highlightMatch(matchIndex)
     if (span)
     {
         span.className = "match current"
-        return span.offsetTop - 50
+        return span.offsetTop
     }
     else
         return 0;
+}
+
+
+
+function setFontSize(factor)
+{
+    document.body.style.fontSize = factor + 'px'
 }

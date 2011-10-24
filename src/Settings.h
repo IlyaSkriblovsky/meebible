@@ -20,6 +20,8 @@ class Settings: public QObject
 
     Q_PROPERTY(bool floatingHeader READ floatingHeader WRITE setFloatingHeader NOTIFY floatingHeaderChanged)
 
+    Q_PROPERTY(int fontSize READ fontSize WRITE setFontSize NOTIFY fontSizeChanged)
+
     public:
         Settings(Languages* langs, QObject* parent = 0);
         ~Settings();
@@ -40,6 +42,9 @@ class Settings: public QObject
         bool floatingHeader() const;
         void setFloatingHeader(bool show);
 
+        int fontSize() const;
+        void setFontSize(int size);
+
 
     signals:
         void languageChanged();
@@ -49,6 +54,8 @@ class Settings: public QObject
         void chapterNoChanged();
 
         void floatingHeaderChanged();
+
+        void fontSizeChanged();
 
 
     private:
@@ -61,6 +68,8 @@ class Settings: public QObject
         int _chapterNo;
 
         bool _floatingHeader;
+
+        int _fontSize;
 };
 
 #endif // SETTINGS_H

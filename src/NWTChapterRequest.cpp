@@ -46,7 +46,7 @@ void NWTChapterRequest::onNReplyFinished()
     }
 
 
-    QByteArray content = QString::fromUtf8(_nreply->readAll());
+    QString content = QString::fromUtf8(_nreply->readAll());
 
     content = "<!DOCTYPE html ["
         "<!ENTITY nbsp \"&#160;\">"

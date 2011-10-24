@@ -21,7 +21,7 @@
 
 
 BibleView::BibleView(QGraphicsItem *parent):
-    QGraphicsWebView(parent), _translation(0), _chapterNo(0)
+    QGraphicsWebView(parent), _translation(0), _chapterNo(0), _fontSize(30)
 {
     QElapsedTimer timer;
     timer.start();
@@ -104,7 +104,7 @@ void BibleView::loadChapter()
 {
     if (_translation == 0 || _bookCode.length() == 0)
     {
-        showWelcomeScreen();
+//        showWelcomeScreen();
         return;
     }
 
@@ -228,6 +228,7 @@ void BibleView::onLoadFinished(bool ok)
     Q_UNUSED(ok)
 
     page()->mainFrame()->evaluateJavaScript(_js);
+    page()->mainFrame()->evaluateJavaScript(QString("setFontSize(%1)").arg(_fontSize));
 }
 
 
@@ -319,4 +320,13 @@ QString BibleView::title() const
         return "Unknown";
 
     return place.toString(_translation);
+}
+
+
+
+void BibleView::setFontSize(int value)
+{
+    page()->mainFrame()->evaluateJavaScript(QString("setFontSize(%1)").arg(value));
+    _fontSize = value;
+    fontSizeChanged();
 }

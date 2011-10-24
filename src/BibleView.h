@@ -28,6 +28,8 @@ class BibleView: public QGraphicsWebView
 
     Q_PROPERTY(QString title READ title NOTIFY titleChanged)
 
+    Q_PROPERTY(int fontSize READ fontSize WRITE setFontSize NOTIFY fontSizeChanged)
+
 public:
     explicit BibleView(QGraphicsItem *parent = 0);
     ~BibleView();
@@ -58,6 +60,11 @@ public:
     void setMatchIndex(int index);
 
     QString title() const;
+
+
+    int fontSize() const { return _fontSize; }
+    void setFontSize(int value);
+
 
 public slots:
     void loadChapter();
@@ -92,6 +99,8 @@ signals:
 
     void titleChanged();
 
+    void fontSizeChanged();
+
 private:
     Translation* _translation;
 
@@ -103,6 +112,9 @@ private:
     QString _html;
 
     QNetworkAccessManager* _nam;
+
+
+    int _fontSize;
 
 
     // Search matching
