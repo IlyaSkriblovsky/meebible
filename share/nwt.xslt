@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xsl:stylesheet>
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <xsl:template match="head">
     </xsl:template>
@@ -46,13 +48,33 @@
         </div>
     </xsl:template>
 
-    <xsl:template match="span">
+    <xsl:template match="span[contains(@id, 'vs')]">
         <div class="verse">
             <xsl:attribute name="verse">
                 <xsl:value-of select="substring-after(@id, 'vs')"/>
             </xsl:attribute>
             <div class="verse-label"><xsl:value-of select="substring-after(@id, 'vs')"/></div>
-            <xsl:value-of select="."/>
+
+            <xsl:apply-templates/>
         </div>
+    </xsl:template>
+
+    <xsl:template match="i">
+        <i><xsl:apply-templates/></i>
+    </xsl:template>
+
+    <xsl:template match="span[@class='small']">
+        <span class="smallcaps"><xsl:apply-templates/></span>
+    </xsl:template>
+
+    <!-- Second level poetry lines -->
+    <xsl:template match="span[@class='z']">
+        <span class="z"><xsl:apply-templates/></span>
+    </xsl:template>
+
+
+    <!-- Poetry superscripts -->
+    <xsl:template match="p[@class='w']">
+        <div class="superscript"><xsl:apply-templates/></div>
     </xsl:template>
 </xsl:stylesheet>

@@ -46,10 +46,17 @@ void NWTChapterRequest::onNReplyFinished()
     }
 
 
-    QByteArray content = _nreply->readAll();
+    QByteArray content = QString::fromUtf8(_nreply->readAll());
+
+    content = "<!DOCTYPE html ["
+        "<!ENTITY nbsp \"&#160;\">"
+        "<!ENTITY acute \"&#180;\">"
+        "<!ENTITY middot \"&#183;\">"
+        "]>\n"
+    + content;
 
     QXmlQuery query(QXmlQuery::XSLT20);
-    query.setFocus(QString::fromUtf8(content));
+    query.setFocus(content);
 
     query.setQuery(xslt());
 
