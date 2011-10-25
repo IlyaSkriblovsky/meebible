@@ -2,7 +2,7 @@ TEMPLATE = app
 
 QT += core sql network xml xmlpatterns webkit gui declarative
 
-DEFINES += DEBUGPATHS
+# DEFINES += DEBUGPATHS
 
 DEFINES += INSTALLPREFIX=\\\"/opt/meebible\\\"
 
