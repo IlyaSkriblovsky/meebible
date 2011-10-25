@@ -227,37 +227,124 @@ Page {
 
 
 
+    Connections {
+        target: bibleView
+        onSearchModeChanged: {
+            if (bibleView.searchMode)
+                page.pageStack.toolBar.tools = searchTools
+            else
+                page.pageStack.toolBar.tools = commonTools
+        }
+    }
+
+
 
     tools: ToolBarLayout {
-        id: tools
+        id: commonTools
 
         ToolIcon {
-            id: prevButton
-
             platformIconId: "toolbar-previous"
-
             onClicked: bibleView.loadPrevChapter()
         }
 
         ToolIcon {
-            id: nextButton
-
-            platformIconId: "toolbar-next"
-
-            onClicked: bibleView.loadNextChapter()
-        }
-
-        ToolIcon {
-            id: placeButton
-
             platformIconId: "toolbar-list"
-
             onClicked: placeDialog.open()
         }
 
         ToolIcon {
-            id: prevMatchButton
+            platformIconId: "toolbar-next"
+            onClicked: bibleView.loadNextChapter()
+        }
 
+
+        ToolIcon {
+            platformIconId: "toolbar-search"
+            onClicked: searchDialog.open()
+        }
+
+        ToolIcon {
+            platformIconId: "toolbar-select-text"
+            onClicked: page.pageStack.toolBar.tools = fontTools
+        }
+
+        ToolIcon {
+            platformIconId: "toolbar-view-menu"
+            onClicked: menu.status == DialogStatus.Closed ? menu.open() : menu.close()
+        }
+    }
+
+
+    ToolBarLayout {
+        id: fontTools
+
+        visible: false
+
+
+        ToolButton {
+            id: fontSizeSmaller
+            text: "–"
+
+            anchors.left: parent.left
+            anchors.leftMargin: 10
+            width: 50
+
+            onClicked: fontSizeSlider.value -= 2
+        }
+
+
+        Slider {
+            id: fontSizeSlider
+            minimumValue: 16
+            maximumValue: 70
+            stepSize: 1.0
+
+            valueIndicatorVisible: true
+
+            anchors.left: fontSizeSmaller.right
+            anchors.right: fontSizeBigger.left
+
+            onValueChanged: {
+                var factor = parseFloat(value) / bibleView.fontSize
+                bibleView.fontSize = value
+                flickable.contentY *= factor * factor
+            }
+        }
+
+        ToolButton {
+            id: fontSizeBigger
+            text: "+"
+
+            anchors.right: fontDoneButton.left
+            anchors.rightMargin: 10
+
+            anchors.verticalCenter: parent.verticalCenter
+            width: 50
+
+            onClicked: fontSizeSlider.value += 2
+        }
+
+        ToolButton {
+            id: fontDoneButton
+            text: "OK"
+
+            anchors.verticalCenter: parent.verticalCenter
+
+            anchors.right: parent.right
+            anchors.rightMargin: 10
+            width: 70
+
+            onClicked: page.pageStack.toolBar.tools = commonTools
+        }
+    }
+
+
+    ToolBarLayout {
+        id: searchTools
+
+        visible: false
+
+        ToolIcon {
             platformIconId: "toolbar-up"
 
             onClicked: {
@@ -279,8 +366,6 @@ Page {
         }
 
         ToolIcon {
-            id: nextMatchButton
-
             platformIconId: "toolbar-down"
 
             onClicked: {
@@ -292,120 +377,19 @@ Page {
         }
 
         ToolIcon {
-            id: searchButton
-
             platformIconId: "toolbar-search"
 
             onClicked: searchDialog.open()
         }
 
-        ToolIcon {
-            id: fontButton
-
-            platformIconId: "toolbar-select-text"
-
-            onClicked: tools.state = "fontSizeMode"
-        }
-
-
-        Slider {
-            id: fontSizeSlider
-            minimumValue: 16
-            maximumValue: 70
-            stepSize: 1.0
-
-            anchors.left: parent.left
-            anchors.right: doneButton.left
-
-            onValueChanged: {
-                var factor = parseFloat(value) / bibleView.fontSize
-                bibleView.fontSize = value
-                flickable.contentY *= factor * factor
-            }
-        }
-
         ToolButton {
-            id: doneButton
-
             text: "Done"
 
             anchors.verticalCenter: parent.verticalCenter
+            anchors.rightMargin: 20
 
-            onClicked: {
-                if (bibleView.searchMode)
-                    bibleView.stopSearchMode()
-
-                tools.state = "normal"
-            }
+            onClicked: bibleView.stopSearchMode()
         }
-
-        ToolIcon {
-            id: menuButton
-
-            platformIconId: "toolbar-view-menu"
-
-            onClicked: menu.status == DialogStatus.Closed ? menu.open() : menu.close()
-        }
-
-        state: "normal"
-
-
-        Connections {
-            target: bibleView
-            onSearchModeChanged: {
-                if (bibleView.searchMode)
-                    tools.state = "searchMode"
-            }
-        }
-
-
-        states: [
-            State {
-                name: "normal"
-
-                PropertyChanges { target: prevButton;       visible: true; }
-                PropertyChanges { target: nextButton;       visible: true; }
-                PropertyChanges { target: placeButton;      visible: true; }
-                PropertyChanges { target: prevMatchButton;  visible: false; }
-                PropertyChanges { target: matchCountLabel;  visible: false; }
-                PropertyChanges { target: nextMatchButton;  visible: false; }
-                PropertyChanges { target: searchButton;     visible: true; }
-                PropertyChanges { target: fontButton;       visible: true; }
-                PropertyChanges { target: fontSizeSlider;   visible: false; }
-                PropertyChanges { target: doneButton;       visible: false; }
-                PropertyChanges { target: menuButton;       visible: true; }
-            },
-            State {
-                name: "searchMode"
-
-                PropertyChanges { target: prevButton;       visible: false; }
-                PropertyChanges { target: nextButton;       visible: false; }
-                PropertyChanges { target: placeButton;      visible: false; }
-                PropertyChanges { target: prevMatchButton;  visible: true; }
-                PropertyChanges { target: matchCountLabel;  visible: true; }
-                PropertyChanges { target: nextMatchButton;  visible: true; }
-                PropertyChanges { target: searchButton;     visible: true; }
-                PropertyChanges { target: fontButton;       visible: false; }
-                PropertyChanges { target: fontSizeSlider;   visible: false; }
-                PropertyChanges { target: doneButton;       visible: true; }
-                PropertyChanges { target: menuButton;       visible: false; }
-            },
-            State {
-                name: "fontSizeMode"
-
-                PropertyChanges { target: prevButton;       visible: false; }
-                PropertyChanges { target: nextButton;       visible: false; }
-                PropertyChanges { target: placeButton;      visible: false; }
-                PropertyChanges { target: prevMatchButton;  visible: false; }
-                PropertyChanges { target: matchCountLabel;  visible: false; }
-                PropertyChanges { target: nextMatchButton;  visible: false; }
-                PropertyChanges { target: searchButton;     visible: false; }
-                PropertyChanges { target: fontButton;       visible: false; }
-                PropertyChanges { target: fontSizeSlider;   visible: true; }
-                PropertyChanges { target: doneButton;       visible: true; }
-                PropertyChanges { target: menuButton;       visible: false; }
-            }
-        ]
     }
 
 
