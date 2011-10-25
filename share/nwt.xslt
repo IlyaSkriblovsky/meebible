@@ -68,7 +68,7 @@
     </xsl:template>
 
     <xsl:template match="span[@class='small']">
-        <span class="smallcaps"><xsl:apply-templates/></span>
+        <span class="small"><xsl:apply-templates/></span>
     </xsl:template>
 
     <!-- Second level poetry lines -->

@@ -121,8 +121,8 @@ void BibleView::loadChapter()
     if (! fromCache.isEmpty())
     {
         displayHtml(fromCache);
-        chapterLoaded();
         scrollToVerse(_verseNo);
+        chapterLoaded();
     }
     else
     {
@@ -142,7 +142,7 @@ void BibleView::onChapterRequestFinished(QString html)
 
     if (request->error() != QNetworkReply::NoError)
     {
-        clearDisplay("<h3>Cannot load chapter</h3> Please check your internet conncetion");
+        clearDisplay("<h3>Cannot load chapter</h3> Please check your internet connection");
         chapterLoadingError();
     }
     else
@@ -150,8 +150,8 @@ void BibleView::onChapterRequestFinished(QString html)
         if (request->bookCode() == _bookCode && request->chapterNo() == _chapterNo)
         {
             displayHtml(html);
-            chapterLoaded();
             scrollToVerse(_verseNo);
+            chapterLoaded();
         }
 
         Cache::instance()->saveChapter(

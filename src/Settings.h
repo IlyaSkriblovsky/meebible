@@ -22,6 +22,8 @@ class Settings: public QObject
 
     Q_PROPERTY(int fontSize READ fontSize WRITE setFontSize NOTIFY fontSizeChanged)
 
+    Q_PROPERTY(int scrollPos READ scrollPos WRITE setScrollPos NOTIFY scrollPosChanged)
+
     public:
         Settings(Languages* langs, QObject* parent = 0);
         ~Settings();
@@ -45,6 +47,9 @@ class Settings: public QObject
         int fontSize() const;
         void setFontSize(int size);
 
+        int scrollPos() const;
+        void setScrollPos(int pos);
+
 
     signals:
         void languageChanged();
@@ -56,6 +61,8 @@ class Settings: public QObject
         void floatingHeaderChanged();
 
         void fontSizeChanged();
+
+        void scrollPosChanged();
 
 
     private:
@@ -70,6 +77,8 @@ class Settings: public QObject
         bool _floatingHeader;
 
         int _fontSize;
+
+        int _scrollPos;
 };
 
 #endif // SETTINGS_H

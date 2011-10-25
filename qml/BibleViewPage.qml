@@ -8,6 +8,7 @@ Page {
 
 
     property bool created: false
+    property bool firstScrollPosSet: false
 
     Binding {
         target: settings
@@ -26,6 +27,12 @@ Page {
         property: "fontSize"
         value: fontSizeSlider.value
         when: created
+    }
+    Binding {
+        target: settings
+        property: "scrollPos"
+        value: flickable.contentY
+        when: firstScrollPosSet
     }
     Component.onCompleted: {
         bibleView.bookCode = settings.bookCode
@@ -58,6 +65,15 @@ Page {
 
         clip: true
 
+        // This applies only to setting contentY programmaticaly
+        Behavior on contentY {
+            SmoothedAnimation {
+                duration: 200
+            }
+
+            enabled: bibleView.searchMode
+        }
+
         Column {
             id: column
 
@@ -85,7 +101,17 @@ Page {
 
                 Component.onCompleted: loadChapter()
 
-                onChapterLoaded: { flickable.contentY = 0; page.state = "normal" }
+                onChapterLoaded: {
+                    if (! firstScrollPosSet)
+                    {
+                        flickable.contentY = settings.scrollPos
+                        firstScrollPosSet = true
+                    }
+                    else
+                        flickable.contentY = 0
+                    page.state = "normal"
+                }
+
                 onChapterLoadingError: { flickable.contentY = 0; page.state = "normal" }
                 onLoading: page.state = "loading"
 
@@ -199,7 +225,7 @@ Page {
 
         function load() { source = "PlaceDialog.qml" }
 
-        function open() { load(); item.open() }
+        function open() { load(); item.open(bibleView.bookCode, bibleView.chapterNo) }
 
         Connections {
             target: placeDialog.item
@@ -231,9 +257,9 @@ Page {
         target: bibleView
         onSearchModeChanged: {
             if (bibleView.searchMode)
-                page.pageStack.toolBar.tools = searchTools
+                page.pageStack.toolBar.setTools(searchTools, "set")
             else
-                page.pageStack.toolBar.tools = commonTools
+                page.pageStack.toolBar.setTools(commonTools, "replace")
         }
     }
 
@@ -265,7 +291,7 @@ Page {
 
         ToolIcon {
             platformIconId: "toolbar-select-text"
-            onClicked: page.pageStack.toolBar.tools = fontTools
+            onClicked: page.pageStack.toolBar.setTools(fontTools, "replace")
         }
 
         ToolIcon {
@@ -296,7 +322,7 @@ Page {
         Slider {
             id: fontSizeSlider
             minimumValue: 16
-            maximumValue: 70
+            maximumValue: 60
             stepSize: 1.0
 
             valueIndicatorVisible: true
@@ -334,7 +360,7 @@ Page {
             anchors.rightMargin: 10
             width: 70
 
-            onClicked: page.pageStack.toolBar.tools = commonTools
+            onClicked: page.pageStack.toolBar.setTools(commonTools, "replace")
         }
     }
 

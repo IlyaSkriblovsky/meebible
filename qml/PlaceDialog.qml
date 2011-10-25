@@ -12,10 +12,18 @@ CommonDialog {
     property alias bookModel: bookList.model
 
 
-    function open() {
+
+
+    function open(bookCode, chapterNo) {
         contentItem.state = "bookSelection"
         if (status == DialogStatus.Closed)
-            status = DialogStatus.Opening;
+            status = DialogStatus.Opening
+
+        bookList.currentIndex = bookModel.bookCodes().indexOf(bookCode)
+        bookList.positionViewAtIndex(bookList.currentIndex, ListView.Center)
+
+        chaptersList.currentIndex = chapterNo-1
+        chaptersList.positionViewAtIndex(chaptersList.currentIndex, ListView.Contain)
     }
 
 
@@ -66,32 +74,39 @@ CommonDialog {
                 selectable: true
 
                 onClicked: {
-                    chaptersModel.clear()
-                    var chaptersCount = bookList.model.chaptersInBook(bookList.model.bookCodeAt(index))
-                    for (var i = 1; i <= chaptersCount; i++)
-                        chaptersModel.append({ value: i })
-
-
-                    chaptersList.currentIndex = 0
-
                     contentItem.state = "chapterSelection"
                 }
+            }
+
+
+            onCurrentIndexChanged: {
+                var bookCode = bookList.model.bookCodeAt(currentIndex)
+
+                chaptersModel.clear()
+                var chaptersCount = bookList.model.chaptersInBook(bookCode)
+                for (var i = 1; i <= chaptersCount; i++)
+                    chaptersModel.append({ value: i })
             }
         }
         ScrollDecorator { flickableItem: bookList }
 
 
         Item {
+            id: secondPage
+
             anchors.left: bookList.right
             width: parent.width
             height: parent.height
+
+
+            anchors.bottom: parent.bottom
 
 
 
             Item {
                 id: chapterLabel
 
-                height: _chapterLabel.height
+                height: 30
 
                 anchors.left: parent.left
                 anchors.right: parent.horizontalCenter
@@ -100,6 +115,7 @@ CommonDialog {
                     id: _chapterLabel
 
                     anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
 
                     text: "Chapter:"
                     color: "white"
@@ -108,7 +124,7 @@ CommonDialog {
             Item {
                 id: verseLabel
 
-                height: _verseLabel.height
+                height: chapterLabel.height
 
                 anchors.left: parent.horizontalCenter
                 anchors.right: parent.right
@@ -117,6 +133,7 @@ CommonDialog {
                     id: _verseLabel
 
                     anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
 
                     text: "Verse:"
                     color: "white"
@@ -130,7 +147,7 @@ CommonDialog {
                 anchors.left: parent.left
                 anchors.right: parent.horizontalCenter
                 anchors.top: chapterLabel.bottom
-                anchors.bottom: backButton.top
+                anchors.bottom: spacer.top
 
                 model: ListModel {
                     id: chaptersModel
@@ -149,9 +166,6 @@ CommonDialog {
                     if (currentIndex == -1)
                         return
 
-                    console.log('bookCode=' + bookList.model.bookCodeAt(bookList.currentIndex))
-                    console.log('currentIndex=' + currentIndex)
-
                     var versesCount = bookList.model.versesInChapter(
                         bookList.model.bookCodeAt(bookList.currentIndex),
                         currentIndex + 1
@@ -168,7 +182,7 @@ CommonDialog {
                 anchors.left: parent.horizontalCenter
                 anchors.right: parent.right
                 anchors.top: verseLabel.bottom
-                anchors.bottom: acceptButton.top
+                anchors.bottom: spacer.top
 
                 model: ListModel {
                     id: versesModel
@@ -185,13 +199,23 @@ CommonDialog {
             ScrollDecorator { flickableItem: versesList }
 
 
+            Rectangle {
+                id: spacer
 
-            id: buttonRow
+                height: 10
 
-            anchors.bottom: parent.bottom
+                visible: false
+
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.bottom: backButton.top
+            }
+
 
             Button {
                 id: backButton
+
+                __dialogButton: true
 
                 anchors.left: parent.left
                 width: parent.width / 4
@@ -209,7 +233,10 @@ CommonDialog {
             Button {
                 id: acceptButton
 
+                __dialogButton: true
+
                 anchors.left: backButton.right
+                anchors.leftMargin: 20
                 anchors.right: parent.right
                 anchors.bottom: parent.bottom
 
@@ -249,4 +276,6 @@ CommonDialog {
             AnchorAnimation { duration: 200 }
         }
     }
+
+    buttons: Item { }
 }

@@ -26,10 +26,19 @@ Settings::Settings(Languages* langs, QObject* parent):
     _floatingHeader = _settings.value("General/floatingHeader", true).toBool();
 
     _fontSize = _settings.value("General/fontSize", 30).toInt();
+
+    _scrollPos = _settings.value("General/scrollPos", 0).toInt();
 }
 
 Settings::~Settings()
 {
+    _settings.setValue("General/langCode", _language ? _language->code() : "");
+    _settings.setValue("General/transCode", _translation ? _translation->code() : "");
+    _settings.setValue("General/bookCode", _bookCode);
+    _settings.setValue("General/chapterNo", _chapterNo);
+    _settings.setValue("General/floatingHeader", _floatingHeader);
+    _settings.setValue("General/fontSize", _fontSize);
+    _settings.setValue("General/scrollPos", _scrollPos);
 }
 
 
@@ -44,7 +53,6 @@ void Settings::setLanguage(Language* lang)
     if (_language == lang) return;
 
     _language = lang;
-    _settings.setValue("General/langCode", _language ? _language->code() : "");
     languageChanged();
 }
 
@@ -59,7 +67,6 @@ void Settings::setTranslation(Translation* translation)
     if (_translation == translation) return;
 
     _translation = translation;
-    _settings.setValue("General/transCode", _translation ? _translation->code() : "");
     translationChanged();
 }
 
@@ -74,7 +81,6 @@ void Settings::setBookCode(const QString& bookCode)
     if (_bookCode == bookCode) return;
 
     _bookCode = bookCode;
-    _settings.setValue("General/bookCode", _bookCode);
     bookCodeChanged();
 }
 
@@ -89,7 +95,6 @@ void Settings::setChapterNo(int chapterNo)
     if (_chapterNo == chapterNo) return;
 
     _chapterNo = chapterNo;
-    _settings.setValue("General/chapterNo", _chapterNo);
     chapterNoChanged();
 }
 
@@ -105,7 +110,6 @@ void Settings::setFloatingHeader(bool show)
     if (_floatingHeader != show)
     {
         _floatingHeader = show;
-        _settings.setValue("General/floatingHeader", _floatingHeader);
         floatingHeaderChanged();
     }
 }
@@ -122,7 +126,22 @@ void Settings::setFontSize(int size)
     if (_fontSize != size)
     {
         _fontSize = size;
-        _settings.setValue("General/fontSize", _fontSize);
         fontSizeChanged();
+    }
+}
+
+
+
+int Settings::scrollPos() const
+{
+    return _scrollPos;
+}
+
+void Settings::setScrollPos(int pos)
+{
+    if (_scrollPos != pos)
+    {
+        _scrollPos = pos;
+        scrollPosChanged();
     }
 }

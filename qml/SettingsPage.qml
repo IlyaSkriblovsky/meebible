@@ -78,7 +78,7 @@ Page {
             }
 
             Label {
-                text: "Floating header in reading mode"
+                text: "Scroll header with the text"
                 width: parent.width
                 font.bold: true
 
