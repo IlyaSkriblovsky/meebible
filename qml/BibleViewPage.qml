@@ -107,8 +107,7 @@ Page {
                         flickable.contentY = settings.scrollPos
                         firstScrollPosSet = true
                     }
-                    else
-                        flickable.contentY = 0
+
                     page.state = "normal"
                 }
 
@@ -259,7 +258,8 @@ Page {
             if (bibleView.searchMode)
                 page.pageStack.toolBar.setTools(searchTools, "set")
             else
-                page.pageStack.toolBar.setTools(commonTools, "replace")
+                if (! fontTools.visible)
+                    page.pageStack.toolBar.setTools(commonTools, "replace")
         }
     }
 
