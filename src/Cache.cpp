@@ -63,6 +63,8 @@ Cache::Cache()
     _stripTags = QRegExp("<.*>");
     _stripTags.setMinimal(true);
     _stripSpaces = QRegExp("\\s+");
+    _stripStyles = QRegExp("<style>.*</style>");
+    _stripStyles.setMinimal(true);
 }
 
 
@@ -83,6 +85,7 @@ void Cache::saveChapter(const Translation* translation, const QString& bookCode,
     insert.bindValue(":html", html);
 
     QString text = html;
+    text.replace(_stripStyles, " ");
     text.replace(_stripTags, " ");
     text.replace(_stripSpaces, " ");
     insert.bindValue(":text", text);

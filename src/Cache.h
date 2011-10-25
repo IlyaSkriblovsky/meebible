@@ -50,6 +50,7 @@ private:
 
     QRegExp _stripTags;
     QRegExp _stripSpaces;
+    QRegExp _stripStyles;
 
     bool _searchInProgress;
 

@@ -68,7 +68,7 @@ Page {
         // This applies only to setting contentY programmaticaly
         Behavior on contentY {
             SmoothedAnimation {
-                duration: 200
+                velocity: 5000
             }
 
             enabled: bibleView.searchMode

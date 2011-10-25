@@ -86,6 +86,7 @@ void BOChapterRequest::onNReplyFinished()
             tag("style")
             ->text(
                 ".par { margin-left: .8em; text-indent: -1em; }"
+                ".verse-label { min-width: 2.5ex; }"
             )
         )
     )
@@ -94,5 +95,13 @@ void BOChapterRequest::onNReplyFinished()
     ->del();
 
 
-    finished(doc.toString());
+    QString html = doc.toString();
+
+    html.replace("&lt;i&gt;", "<i>");
+    html.replace("&lt;/i&gt;", "</i>");
+    html.replace("&lt;i>", "<i>");
+    html.replace("&lt;/i>", "</i>");
+
+
+    finished(html);
 }
