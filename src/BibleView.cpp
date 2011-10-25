@@ -270,8 +270,11 @@ void BibleView::startSearchMode(const QString& needle)
     displayHtml(SqliteUnicodeSearch::highlightMatches(_html, needle, &_matchCount));
     matchCountChanged();
 
-    _searchMode = true;
-    searchModeChanged();
+    if (_searchMode == false)
+    {
+        _searchMode = true;
+        searchModeChanged();
+    }
 
     setMatchIndex(0);
 }
@@ -279,8 +282,11 @@ void BibleView::startSearchMode(const QString& needle)
 
 void BibleView::stopSearchMode()
 {
-    _searchMode = false;
-    searchModeChanged();
+    if (_searchMode == true)
+    {
+        _searchMode = false;
+        searchModeChanged();
+    }
 }
 
 void BibleView::setMatchIndex(int index)
