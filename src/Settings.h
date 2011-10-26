@@ -86,6 +86,8 @@ class Settings: public QObject
         int _fontSize;
 
         int _scrollPos;
+
+        bool _fullscreen;
 };
 
 #endif // SETTINGS_H

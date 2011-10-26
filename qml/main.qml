@@ -8,16 +8,20 @@ PageStackWindow {
     property bool created: false
 
     Binding {
-        target: settings,
+        target: settings
         property: "fullscreen"
         value: ! window.showStatusBar
         when: created
     }
 
-    Component.onCompleted {
-        window.showStatusBar = ! settings.fullscreen
-        created = true
+    Binding {
+        target: window
+        property: "showStatusBar"
+        value: ! settings.fullscreen
+        when: ! created
     }
+
+    Component.onCompleted: created = true
 
     initialPage: BibleViewPage {
         id: biblePage
