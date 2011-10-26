@@ -239,7 +239,7 @@ Page {
 
         titleText: "Please notice"
 
-        message: "Full-text search works only for downloaded chapters. If you want to search whole Bible you must download it first using app menu."
+        message: "Full-text search works only for downloaded chapters. If you want to search whole Bible you must download it first using the app menu."
 
         acceptButtonText: "OK"
     }
@@ -255,7 +255,7 @@ Page {
             if (! settings.searchNoticeShown)
             {
                 searchNotice.open()
-                settings.searchNotice = true
+                settings.searchNoticeShown = true
             }
         }
 
