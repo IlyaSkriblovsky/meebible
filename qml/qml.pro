@@ -1,6 +1,6 @@
 TEMPLATE = subdirs
 
-qml.files = *.qml
+qml.files = *.qml *.png
 qml.path = /opt/meebible/qml
 
 INSTALLS += qml
