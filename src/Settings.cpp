@@ -28,6 +28,8 @@ Settings::Settings(Languages* langs, QObject* parent):
     _fontSize = _settings.value("General/fontSize", 30).toInt();
 
     _scrollPos = _settings.value("General/scrollPos", 0).toInt();
+
+    _fullscreen = _settings.value("General/fullscreen", false).toBool();
 }
 
 Settings::~Settings()
@@ -39,6 +41,7 @@ Settings::~Settings()
     _settings.setValue("General/floatingHeader", _floatingHeader);
     _settings.setValue("General/fontSize", _fontSize);
     _settings.setValue("General/scrollPos", _scrollPos);
+    _settings.setValue("General/fullscreen", _fullscreen);
 }
 
 
@@ -143,5 +146,21 @@ void Settings::setScrollPos(int pos)
     {
         _scrollPos = pos;
         scrollPosChanged();
+    }
+}
+
+
+
+bool Settings::fullscreen() const
+{
+    return _fullscreen;
+}
+
+void Settings::setFullscreen(bool fs)
+{
+    if (_fullscreen != fs)
+    {
+        _fullscreen = fs;
+        fullscreenChanged();
     }
 }

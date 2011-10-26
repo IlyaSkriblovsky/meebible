@@ -435,6 +435,11 @@ Page {
 
         MenuLayout {
             MenuItem {
+                text: window.showStatusBar ? "Fullscreen" : "Unfullscreen"
+                onClicked: window.showStatusBar = ! window.showStatusBar
+            }
+
+            MenuItem {
                 text: "Settings"
                 onClicked: pageStack.push(settingsPage)
             }

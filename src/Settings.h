@@ -24,6 +24,8 @@ class Settings: public QObject
 
     Q_PROPERTY(int scrollPos READ scrollPos WRITE setScrollPos NOTIFY scrollPosChanged)
 
+    Q_PROPERTY(int fullscreen READ fullscreen WRITE setFullscreen NOTIFY fullscreenChanged)
+
     public:
         Settings(Languages* langs, QObject* parent = 0);
         ~Settings();
@@ -50,6 +52,9 @@ class Settings: public QObject
         int scrollPos() const;
         void setScrollPos(int pos);
 
+        bool fullscreen() const;
+        void setFullscreen(bool fs);
+
 
     signals:
         void languageChanged();
@@ -63,6 +68,8 @@ class Settings: public QObject
         void fontSizeChanged();
 
         void scrollPosChanged();
+
+        void fullscreenChanged();
 
 
     private:
