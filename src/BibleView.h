@@ -29,6 +29,7 @@ class BibleView: public QGraphicsWebView
     Q_PROPERTY(QString title READ title NOTIFY titleChanged)
 
     Q_PROPERTY(int fontSize READ fontSize WRITE setFontSize NOTIFY fontSizeChanged)
+    Q_PROPERTY(float lineSpacing READ lineSpacing WRITE setLineSpacing NOTIFY lineSpacingChanged)
 
 public:
     explicit BibleView(QGraphicsItem *parent = 0);
@@ -64,6 +65,8 @@ public:
 
     int fontSize() const { return _fontSize; }
     void setFontSize(int value);
+    float lineSpacing() const { return _lineSpacing; }
+    void setLineSpacing(float value);
 
 
 public slots:
@@ -100,6 +103,7 @@ signals:
     void titleChanged();
 
     void fontSizeChanged();
+    void lineSpacingChanged();
 
 private:
     Translation* _translation;
@@ -115,6 +119,7 @@ private:
 
 
     int _fontSize;
+    float _lineSpacing;
 
 
     // Search matching
@@ -126,6 +131,9 @@ private:
 
 
     void scrollToVerse(int verseNo);
+
+    void applyFontSize();
+    void applyLineSpacing();
 
 
 private slots:

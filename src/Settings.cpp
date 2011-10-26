@@ -26,6 +26,7 @@ Settings::Settings(Languages* langs, QObject* parent):
     _floatingHeader = _settings.value("General/floatingHeader", true).toBool();
 
     _fontSize = _settings.value("General/fontSize", 30).toInt();
+    _lineSpacing = _settings.value("General/lineSpacing", 1.3).toFloat();
 
     _scrollPos = _settings.value("General/scrollPos", 0).toInt();
 
@@ -42,6 +43,7 @@ Settings::~Settings()
     _settings.setValue("General/chapterNo", _chapterNo);
     _settings.setValue("General/floatingHeader", _floatingHeader);
     _settings.setValue("General/fontSize", _fontSize);
+    _settings.setValue("General/lineSpacing", _lineSpacing);
     _settings.setValue("General/scrollPos", _scrollPos);
     _settings.setValue("General/fullscreen", _fullscreen);
 
@@ -134,6 +136,21 @@ void Settings::setFontSize(int size)
     {
         _fontSize = size;
         fontSizeChanged();
+    }
+}
+
+
+float Settings::lineSpacing() const
+{
+    return _lineSpacing;
+}
+
+void Settings::setLineSpacing(float spacing)
+{
+    if (_lineSpacing != spacing)
+    {
+        _lineSpacing = spacing;
+        lineSpacingChanged();
     }
 }
 

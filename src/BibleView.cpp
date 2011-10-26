@@ -228,7 +228,8 @@ void BibleView::onLoadFinished(bool ok)
     Q_UNUSED(ok)
 
     page()->mainFrame()->evaluateJavaScript(_js);
-    page()->mainFrame()->evaluateJavaScript(QString("setFontSize(%1)").arg(_fontSize));
+    applyFontSize();
+    applyLineSpacing();
 }
 
 
@@ -332,7 +333,24 @@ QString BibleView::title() const
 
 void BibleView::setFontSize(int value)
 {
-    page()->mainFrame()->evaluateJavaScript(QString("setFontSize(%1)").arg(value));
     _fontSize = value;
+    applyFontSize();
     fontSizeChanged();
+}
+
+void BibleView::applyFontSize()
+{
+    page()->mainFrame()->evaluateJavaScript(QString("setFontSize(%1)").arg(_fontSize));
+}
+
+void BibleView::setLineSpacing(float value)
+{
+    _lineSpacing = value;
+    applyLineSpacing();
+    lineSpacingChanged();
+}
+
+void BibleView::applyLineSpacing()
+{
+    page()->mainFrame()->evaluateJavaScript(QString("setLineSpacing(%1)").arg(_lineSpacing));
 }

@@ -30,6 +30,12 @@ Page {
     }
     Binding {
         target: settings
+        property: "lineSpacing"
+        value: lineSpacingSlider.value
+        when: created
+    }
+    Binding {
+        target: settings
         property: "scrollPos"
         value: flickable.contentY
         when: firstScrollPosSet
@@ -38,6 +44,7 @@ Page {
         bibleView.bookCode = settings.bookCode
         bibleView.chapterNo = settings.chapterNo
         fontSizeSlider.value = settings.fontSize
+        lineSpacingSlider.value = settings.lineSpacing
         created = true
     }
 
@@ -96,8 +103,6 @@ Page {
                 url: "about:blank"
 
                 translation: settings.translation
-
-                // fontSize: fontSizeSlider.value
 
 
 
@@ -390,6 +395,70 @@ Page {
 
 
     ToolBarLayout {
+        id: lineSpacingTools
+
+        visible: false
+
+
+        ToolButton {
+            id: lineSpacingSmaller
+            text: "–"
+
+            anchors.left: parent.left
+            anchors.leftMargin: 10
+            width: 50
+
+            onClicked: lineSpacingSlider.value -= 0.2
+        }
+
+
+        Slider {
+            id: lineSpacingSlider
+            minimumValue: 0.8
+            maximumValue: 2
+            stepSize: 0.1
+
+            valueIndicatorVisible: true
+
+            anchors.left: lineSpacingSmaller.right
+            anchors.right: lineSpacingBigger.left
+
+            onValueChanged: {
+                var factor = parseFloat(value) / bibleView.lineSpacing
+                bibleView.lineSpacing = value
+                flickable.contentY *= factor
+            }
+        }
+
+        ToolButton {
+            id: lineSpacingBigger
+            text: "+"
+
+            anchors.right: lineSpacingDoneButton.left
+            anchors.rightMargin: 10
+
+            anchors.verticalCenter: parent.verticalCenter
+            width: 50
+
+            onClicked: lineSpacingSlider.value += 0.2
+        }
+
+        ToolButton {
+            id: lineSpacingDoneButton
+            text: "OK"
+
+            anchors.verticalCenter: parent.verticalCenter
+
+            anchors.right: parent.right
+            anchors.rightMargin: 10
+            width: 70
+
+            onClicked: page.pageStack.toolBar.setTools(commonTools, "replace")
+        }
+    }
+
+
+    ToolBarLayout {
         id: searchTools
 
         visible: false
@@ -483,13 +552,18 @@ Page {
 
         MenuLayout {
             MenuItem {
-                text: window.showStatusBar ? "Fullscreen" : "Unfullscreen"
-                onClicked: window.showStatusBar = ! window.showStatusBar
+                text: "Font size"
+                onClicked: page.pageStack.toolBar.setTools(fontTools, "replace")
             }
 
             MenuItem {
-                text: "Font size"
-                onClicked: page.pageStack.toolBar.setTools(fontTools, "replace")
+                text: "Line spacing"
+                onClicked: page.pageStack.toolBar.setTools(lineSpacingTools, "replace")
+            }
+
+            MenuItem {
+                text: window.showStatusBar ? "Fullscreen" : "Unfullscreen"
+                onClicked: window.showStatusBar = ! window.showStatusBar
             }
 
             MenuItem {

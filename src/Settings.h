@@ -21,6 +21,7 @@ class Settings: public QObject
     Q_PROPERTY(bool floatingHeader READ floatingHeader WRITE setFloatingHeader NOTIFY floatingHeaderChanged)
 
     Q_PROPERTY(int fontSize READ fontSize WRITE setFontSize NOTIFY fontSizeChanged)
+    Q_PROPERTY(float lineSpacing READ lineSpacing WRITE setLineSpacing NOTIFY lineSpacingChanged)
 
     Q_PROPERTY(int scrollPos READ scrollPos WRITE setScrollPos NOTIFY scrollPosChanged)
 
@@ -51,6 +52,9 @@ class Settings: public QObject
         int fontSize() const;
         void setFontSize(int size);
 
+        float lineSpacing() const;
+        void setLineSpacing(float spacing);
+
         int scrollPos() const;
         void setScrollPos(int pos);
 
@@ -71,6 +75,7 @@ class Settings: public QObject
         void floatingHeaderChanged();
 
         void fontSizeChanged();
+        void lineSpacingChanged();
 
         void scrollPosChanged();
 
@@ -89,6 +94,7 @@ class Settings: public QObject
         bool _floatingHeader;
 
         int _fontSize;
+        float _lineSpacing;
 
         int _scrollPos;
 
