@@ -158,9 +158,9 @@ Page {
         color: '#fff'
 
         BusyIndicator {
-            anchors.centerIn: parent
+            id: realBusyIndicator
 
-            running: true
+            anchors.centerIn: parent
 
             platformStyle: BusyIndicatorStyle {
                 size: "large"
@@ -177,6 +177,10 @@ Page {
                     target: busyIndicator
                     opacity: 0.0
                 }
+                PropertyChanges {
+                    target: realBusyIndicator
+                    running: false
+                }
             },
             State {
                 name: "visible"
@@ -184,6 +188,10 @@ Page {
                 PropertyChanges {
                     target: busyIndicator
                     opacity: 0.7
+                }
+                PropertyChanges {
+                    target: realBusyIndicator
+                    running: true
                 }
             }
         ]
