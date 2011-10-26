@@ -45,6 +45,7 @@ Page {
     Header {
         id: header
         text: bibleView.title
+        withIcon: true
         height: settings.floatingHeader ? 0 : 70
         visible: ! settings.floatingHeader
     }
@@ -79,6 +80,7 @@ Page {
 
             Header {
                 text: bibleView.title
+                withIcon: true
                 height: settings.floatingHeader ? 70 : 0
                 visible: settings.floatingHeader
             }

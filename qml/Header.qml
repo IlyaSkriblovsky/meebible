@@ -7,6 +7,7 @@ Rectangle {
 
 
     property alias text: label.text
+    property bool withIcon: false
 
 
     gradient: Gradient {
@@ -16,6 +17,19 @@ Rectangle {
 
     width: parent.width
     height: 70
+
+    Image {
+        id: icon
+        anchors.left: parent.left
+        anchors.leftMargin: 3
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        width: withIcon ? height : 0
+
+        visible: withIcon
+
+        source: withIcon ? "header.png" : ""
+    }
 
     Label {
         x: label.x
@@ -28,8 +42,8 @@ Rectangle {
     Label {
         id: label
         anchors.verticalCenter: parent.verticalCenter
-        anchors.left: parent.left
-        anchors.leftMargin: 10
+        anchors.left: icon.right
+        anchors.leftMargin: withIcon ? 5 : 20
         font.pixelSize: 32
         color: '#eee'
     }
