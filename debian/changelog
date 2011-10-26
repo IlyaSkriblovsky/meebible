@@ -1,3 +1,9 @@
+meebible (1.0.0) unstable; urgency=low
+
+  * Many improvements
+
+ -- Ilya Skriblovsky <Ilya.Skriblovsky@gmail.com>  Thu, 26 Oct 2011 13:29:00 +0400
+
 meebible (0.3.0-1) unstable; urgency=low
 
   * Initial release
