@@ -26,6 +26,8 @@ class Settings: public QObject
 
     Q_PROPERTY(int fullscreen READ fullscreen WRITE setFullscreen NOTIFY fullscreenChanged)
 
+    Q_PROPERTY(bool searchNoticeShown READ searchNoticeShown WRITE setSearchNoticeShown)
+
     public:
         Settings(Languages* langs, QObject* parent = 0);
         ~Settings();
@@ -54,6 +56,9 @@ class Settings: public QObject
 
         bool fullscreen() const;
         void setFullscreen(bool fs);
+
+        bool searchNoticeShown() const;
+        void setSearchNoticeShown(bool shown);
 
 
     signals:
@@ -88,6 +93,8 @@ class Settings: public QObject
         int _scrollPos;
 
         bool _fullscreen;
+
+        bool _searchNoticeShown;
 };
 
 #endif // SETTINGS_H

@@ -30,6 +30,8 @@ Settings::Settings(Languages* langs, QObject* parent):
     _scrollPos = _settings.value("General/scrollPos", 0).toInt();
 
     _fullscreen = _settings.value("General/fullscreen", false).toBool();
+
+    _searchNoticeShown = _settings.value("Notices/searchNoticeShown", false).toBool();
 }
 
 Settings::~Settings()
@@ -42,6 +44,8 @@ Settings::~Settings()
     _settings.setValue("General/fontSize", _fontSize);
     _settings.setValue("General/scrollPos", _scrollPos);
     _settings.setValue("General/fullscreen", _fullscreen);
+
+    _settings.setValue("Notices/searchNoticeShown", _searchNoticeShown);
 }
 
 
@@ -164,3 +168,7 @@ void Settings::setFullscreen(bool fs)
         fullscreenChanged();
     }
 }
+
+
+bool Settings::searchNoticeShown() const { return _searchNoticeShown; }
+void Settings::setSearchNoticeShown(bool shown) { _searchNoticeShown = shown; }

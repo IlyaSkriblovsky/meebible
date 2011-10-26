@@ -1,8 +1,9 @@
 import QtQuick 1.1
 import com.nokia.meego 1.0
-import com.meego.extras 1.0
+import com.nokia.extras 1.1
 
 Page {
+    id: settingsPage
 
     TumblerButtonStyle {
         id: tumblerStyleBlue
@@ -28,61 +29,83 @@ Page {
         anchors.top: header.bottom
         anchors.bottom: parent.bottom
 
-        contentWidth: width
-        contentHeight: column.height + 20
+        flickableDirection: Flickable.VerticalFlick
+
+        contentWidth: column.width + 20
+        contentHeight: column.height + 40
 
         Column {
             id: column
 
             x: 10
-            y: 10
-            width: parent.width - 20
+            width: settingsPage.width - 20
 
-            spacing: 20
+            y: 20
 
-            Label {
-                text: "Language:"
-                font.bold: true
-            }
+            spacing: 40
 
-            TumblerButton {
-                text: settings.language.selfname
+            Column {
+                id: language
 
-                x: 40
-                width: parent.width - 80
-
-                style: tumblerStyleBlue
-
-                onClicked: languageDialog.open()
-            }
-
-            Label {
-                text: "Translation:"
-                font.bold: true
-            }
-
-            TumblerButton {
-                text: settings.translation.name
-
-                x: 40
-                width: parent.width - 80
-
-                style: tumblerStyleBlue
-
-                onClicked: transDialog.open()
-            }
-
-            Rectangle {
-                width: 1
-                height: 10
-            }
-
-            Label {
-                text: "Scroll header with the text"
                 width: parent.width
-                font.bold: true
+
+                spacing: 20
+
+                Label {
+                    text: "Language"
+                    font.bold: true
+                }
+
+                TumblerButton {
+                    text: settings.language.selfname
+
+                    x: 40
+                    width: parent.width - 80
+
+                    style: tumblerStyleBlue
+
+                    onClicked: languageDialog.open()
+                }
+            }
+
+            Column {
+                id: translation
+
+                width: parent.width
+
+                spacing: 20
+
+                Label {
+                    text: "Translation"
+                    font.bold: true
+                }
+
+                TumblerButton {
+                    text: settings.translation.name
+
+                    x: 40
+                    width: parent.width - 80
+
+                    style: tumblerStyleBlue
+
+                    onClicked: transDialog.open()
+                }
+            }
+
+            Item {
+                width: parent.width
+                height: floatingHeaderSwitch.height
+
+                Label {
+                    text: "Scroll header with the text"
+                    font.bold: true
+
+                    anchors.verticalCenter: parent.verticalCenter
+                }
 
                 Switch {
+                    id: floatingHeaderSwitch
+
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
 
@@ -90,36 +113,6 @@ Page {
 
                     onCheckedChanged: settings.floatingHeader = checked
                 }
-            }
-
-            Rectangle {
-                height: 2
-                width: parent.width
-                color: '#fff'
-
-                Rectangle {
-                    height: 1
-                    width: parent.width
-                    color: '#d6cfd6'
-                }
-            }
-
-            Label {
-                text: "Bible chapters are usually downloaded when you open them for the first time. But you can also download full Bible text at once. This may take 10–15 minutes and you'd better to do it over WiFi network."
-                width: parent.width
-            }
-
-            Label {
-                text: "<b>Note:</b> you have to download full text if you want to use search feature"
-                width: parent.width
-            }
-
-            Button {
-                text: "Download Bible"
-                x: 50
-                width: parent.width - 100
-
-                onClicked: fetcherDialog.start()
             }
         }
     }
@@ -159,17 +152,6 @@ Page {
             target: transDialog.item
             onAccepted: settings.translation = transDialog.item.translation()
         }
-    }
-
-    Loader {
-        id: fetcherDialog
-
-        width: 10; height: 10
-
-        function load() { source = "FetcherDialog.qml" }
-        function open() { load(); item.open() }
-
-        function start() { load(); item.start() }
     }
 
 

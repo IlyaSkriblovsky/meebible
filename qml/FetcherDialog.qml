@@ -3,7 +3,7 @@ import QtQuick 1.1
 // This is for CommonDialog
 import "/usr/lib/qt4/imports/com/nokia/meego/" 1.0
 
-import com.meego.extras 1.0
+import com.nokia.extras 1.1
 
 import MeeBible 0.1
 

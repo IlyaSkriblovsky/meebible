@@ -234,11 +234,30 @@ Page {
 
 
 
+    QueryDialog {
+        id: searchNotice
+
+        titleText: "Please notice"
+
+        message: "Full-text search works only for downloaded chapters. If you want to search whole Bible you must download it first using app menu."
+
+        acceptButtonText: "OK"
+    }
+
+
     Loader {
         id: searchDialog
 
         function load() { source = "SearchDialog.qml" }
-        function open() { load(); item.open() }
+        function open() {
+            load()
+            item.open()
+            if (! settings.searchNoticeShown)
+            {
+                searchNotice.open()
+                settings.searchNotice = true
+            }
+        }
 
         Connections {
             target: searchDialog.item
@@ -287,11 +306,6 @@ Page {
         ToolIcon {
             platformIconId: "toolbar-search"
             onClicked: searchDialog.open()
-        }
-
-        ToolIcon {
-            platformIconId: "toolbar-select-text"
-            onClicked: page.pageStack.toolBar.setTools(fontTools, "replace")
         }
 
         ToolIcon {
@@ -419,6 +433,30 @@ Page {
     }
 
 
+    Loader {
+        id: fetcherDialog
+
+        width: 10; height: 10
+
+        function load() { source = "FetcherDialog.qml" }
+        function open() { load(); item.open() }
+
+        function start() { load(); item.start() }
+    }
+
+    QueryDialog {
+        id: downloadConfirmDialog
+
+        titleText: "Are you ready to download whole Bible?"
+        message: "This may take 10–15 minutes and you'd better do it over Wi-Fi connection"
+
+        acceptButtonText: "Download"
+        rejectButtonText: "Cancel"
+
+        onAccepted: fetcherDialog.start()
+    }
+
+
     SettingsPage {
         id: settingsPage
     }
@@ -437,6 +475,16 @@ Page {
             MenuItem {
                 text: window.showStatusBar ? "Fullscreen" : "Unfullscreen"
                 onClicked: window.showStatusBar = ! window.showStatusBar
+            }
+
+            MenuItem {
+                text: "Font size"
+                onClicked: page.pageStack.toolBar.setTools(fontTools, "replace")
+            }
+
+            MenuItem {
+                text: "Download Bible"
+                onClicked: downloadConfirmDialog.open()
             }
 
             MenuItem {
