@@ -230,6 +230,7 @@ void BibleView::onLoadFinished(bool ok)
     page()->mainFrame()->evaluateJavaScript(_js);
     applyFontSize();
     applyLineSpacing();
+    applyInverted();
 }
 
 
@@ -353,4 +354,17 @@ void BibleView::setLineSpacing(float value)
 void BibleView::applyLineSpacing()
 {
     page()->mainFrame()->evaluateJavaScript(QString("setLineSpacing(%1)").arg(_lineSpacing));
+}
+
+
+
+void BibleView::setInverted(bool inverted)
+{
+    _inverted = inverted;
+    applyInverted();
+}
+
+void BibleView::applyInverted()
+{
+    page()->mainFrame()->evaluateJavaScript(QString("setInverted(%1)").arg(_inverted));
 }

@@ -20,17 +20,14 @@ Settings::Settings(Languages* langs, QObject* parent):
     }
 
 
-    _bookCode = _settings.value("General/bookCode", "ge").toString();
-    _chapterNo = _settings.value("General/chapterNo", 1).toInt();
-
-    _floatingHeader = _settings.value("General/floatingHeader", true).toBool();
-
-    _fontSize = _settings.value("General/fontSize", 30).toInt();
-    _lineSpacing = _settings.value("General/lineSpacing", 1.3).toFloat();
-
-    _scrollPos = _settings.value("General/scrollPos", 0).toInt();
-
-    _fullscreen = _settings.value("General/fullscreen", false).toBool();
+    _bookCode =         _settings.value("General/bookCode", "ge").toString();
+    _chapterNo =        _settings.value("General/chapterNo", 1).toInt();
+    _floatingHeader =   _settings.value("General/floatingHeader", true).toBool();
+    _fontSize =         _settings.value("General/fontSize", 30).toInt();
+    _lineSpacing =      _settings.value("General/lineSpacing", 1.3).toFloat();
+    _scrollPos =        _settings.value("General/scrollPos", 0).toInt();
+    _fullscreen =       _settings.value("General/fullscreen", false).toBool();
+    _inverted =         _settings.value("General/inverted", false).toBool();
 
     _searchNoticeShown = _settings.value("Notices/searchNoticeShown", false).toBool();
 }
@@ -46,6 +43,7 @@ Settings::~Settings()
     _settings.setValue("General/lineSpacing", _lineSpacing);
     _settings.setValue("General/scrollPos", _scrollPos);
     _settings.setValue("General/fullscreen", _fullscreen);
+    _settings.setValue("General/inverted", _inverted);
 
     _settings.setValue("Notices/searchNoticeShown", _searchNoticeShown);
 }
@@ -189,3 +187,13 @@ void Settings::setFullscreen(bool fs)
 
 bool Settings::searchNoticeShown() const { return _searchNoticeShown; }
 void Settings::setSearchNoticeShown(bool shown) { _searchNoticeShown = shown; }
+
+
+void Settings::setInverted(bool inverted)
+{
+    if (_inverted != inverted)
+    {
+        _inverted = inverted;
+        invertedChanged();
+    }
+}

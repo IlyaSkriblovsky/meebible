@@ -5,6 +5,21 @@ import com.nokia.extras 1.1
 Page {
     id: settingsPage
 
+
+    property bool __created: false
+
+    Binding {
+        target: settings
+        property: 'inverted'
+        value: theme.inverted
+        when: __created
+    }
+    Component.onCompleted: {
+        theme.inverted = settings.inverted
+        __created = true
+    }
+
+
     TumblerButtonStyle {
         id: tumblerStyleBlue
 

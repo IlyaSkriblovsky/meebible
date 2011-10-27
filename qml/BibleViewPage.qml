@@ -104,6 +104,7 @@ Page {
 
                 translation: settings.translation
 
+                inverted: theme.inverted
 
 
                 Component.onCompleted: loadChapter()

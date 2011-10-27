@@ -31,6 +31,8 @@ class BibleView: public QGraphicsWebView
     Q_PROPERTY(int fontSize READ fontSize WRITE setFontSize NOTIFY fontSizeChanged)
     Q_PROPERTY(float lineSpacing READ lineSpacing WRITE setLineSpacing NOTIFY lineSpacingChanged)
 
+    Q_PROPERTY(bool inverted READ inverted WRITE setInverted)
+
 public:
     explicit BibleView(QGraphicsItem *parent = 0);
     ~BibleView();
@@ -67,6 +69,9 @@ public:
     void setFontSize(int value);
     float lineSpacing() const { return _lineSpacing; }
     void setLineSpacing(float value);
+
+    bool inverted() const { return _inverted; }
+    void setInverted(bool inverted);
 
 
 public slots:
@@ -121,6 +126,8 @@ private:
     int _fontSize;
     float _lineSpacing;
 
+    bool _inverted;
+
 
     // Search matching
 
@@ -134,6 +141,7 @@ private:
 
     void applyFontSize();
     void applyLineSpacing();
+    void applyInverted();
 
 
 private slots:

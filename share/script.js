@@ -112,3 +112,8 @@ function setLineSpacing(spacing, preserveScroll)
 {
     document.body.style.lineHeight = spacing
 }
+
+function setInverted(inverted)
+{
+    document.body.className = inverted ? 'inverted' : ''
+}

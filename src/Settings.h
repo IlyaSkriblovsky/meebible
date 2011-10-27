@@ -29,6 +29,8 @@ class Settings: public QObject
 
     Q_PROPERTY(bool searchNoticeShown READ searchNoticeShown WRITE setSearchNoticeShown)
 
+    Q_PROPERTY(bool inverted READ inverted WRITE setInverted NOTIFY invertedChanged)
+
     public:
         Settings(Languages* langs, QObject* parent = 0);
         ~Settings();
@@ -65,6 +67,10 @@ class Settings: public QObject
         void setSearchNoticeShown(bool shown);
 
 
+        bool inverted() const { return _inverted; }
+        void setInverted(bool inverted);
+
+
     signals:
         void languageChanged();
         void translationChanged();
@@ -80,6 +86,8 @@ class Settings: public QObject
         void scrollPosChanged();
 
         void fullscreenChanged();
+
+        void invertedChanged();
 
 
     private:
@@ -101,6 +109,8 @@ class Settings: public QObject
         bool _fullscreen;
 
         bool _searchNoticeShown;
+
+        bool _inverted;
 };
 
 #endif // SETTINGS_H
