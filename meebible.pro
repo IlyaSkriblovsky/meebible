@@ -9,4 +9,7 @@ desktop.path = /usr/share/applications
 icon.files = meebible.png
 icon.path = /usr/share/icons/hicolor/64x64/apps
 
-INSTALLS += desktop icon
+invoker.files = meebible-invoker.sh
+invoker.path = /opt/meebible/bin
+
+INSTALLS += desktop icon invoker
