@@ -1,8 +1,8 @@
 TEMPLATE = subdirs
 
-TRANSLATIONS = meebible_ru.ts
+COMPILEDTRANSLATIONS = meebible_ru.qm
 
-translations.files = $$TRANSLATIONS
+translations.files = $$COMPILEDTRANSLATIONS
 translations.path = /opt/meebible/translations
 
 INSTALLS += translations
