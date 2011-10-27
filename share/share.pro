@@ -9,6 +9,8 @@ SHAREFILES = \
     style.css       \
     splash.png      \
     splash-ls.png   \
+    splash-inverted.png      \
+    splash-ls-inverted.png   \
     welcome.html
 
 shares.files = $$SHAREFILES
