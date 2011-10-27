@@ -23,11 +23,14 @@ public:
 
     static QString nwt_xslt();
 
+    static QString translationFile(const QString& locale);
+
 
 private:
     static QDir _cacheDir;
     static QDir _shareDir;
     static QDir _qmlDir;
+    static QDir _translationsDir;
 };
 
 #endif // PATHS_H

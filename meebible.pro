@@ -1,6 +1,6 @@
 TEMPLATE = subdirs
 
-SUBDIRS = src share qml
+SUBDIRS = src share qml translations
 
 TRANSLATIONS += translations/meebible_ru.ts
 

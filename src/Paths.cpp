@@ -6,6 +6,7 @@
 QDir Paths::_cacheDir;
 QDir Paths::_shareDir;
 QDir Paths::_qmlDir;
+QDir Paths::_translationsDir;
 
 
 void Paths::init()
@@ -16,9 +17,11 @@ void Paths::init()
 #ifdef DEBUGPATHS
     _shareDir = QDir("share");
     _qmlDir = QDir("qml");
+    _translationsDir = QDir("translations");
 #else
     _shareDir = QDir(INSTALLPREFIX"/share");
     _qmlDir = QDir(INSTALLPREFIX"/qml");
+    _translationsDir = QDir(INSTALLPREFIX"/translations");
 #endif
 }
 
@@ -64,4 +67,10 @@ QString Paths::style_css()
 QString Paths::nwt_xslt()
 {
     return _shareDir.filePath("nwt.xslt");
+}
+
+
+QString Paths::translationFile(const QString& locale)
+{
+    return _translationsDir.filePath(QString("meebible_%1").arg(locale));
 }

@@ -52,6 +52,9 @@ int main(int argc, char *argv[])
 #include <MDeclarativeCache>
 #include <QElapsedTimer>
 
+#include <QTranslator>
+#include <QLocale>
+
 #include "Paths.h"
 #include "Cache.h"
 #include "Languages.h"
@@ -73,6 +76,11 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     app->setApplicationName("MeeBible");
 
     Paths::init();
+
+    QTranslator translator;
+//    translator.load(Paths::translationFile("ru"));
+    translator.load(Paths::translationFile(QLocale::system().name()));
+    app->installTranslator(&translator);
 
     Cache cache;
 
