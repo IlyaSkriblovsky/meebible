@@ -77,6 +77,7 @@ Page {
         Behavior on contentY {
             SmoothedAnimation {
                 velocity: 5000
+                duration: 500
             }
 
             enabled: bibleView.searchMode
