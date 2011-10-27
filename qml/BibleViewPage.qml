@@ -529,7 +529,7 @@ Page {
         id: downloadConfirmDialog
 
         titleText: qsTr("Are you ready to download whole Bible?")
-        message: qsTr("This may take 10–15 minutes and you'd better do it over Wi-Fi connection")
+        message: qsTr("This may take 10—15 minutes and you'd better do it over Wi-Fi connection")
 
         acceptButtonText: qsTr("Download")
         rejectButtonText: qsTr("Cancel")
