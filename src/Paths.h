@@ -23,8 +23,6 @@ public:
 
     static QString nwt_xslt();
 
-    static QString welcome_html();
-
 
 private:
     static QDir _cacheDir;

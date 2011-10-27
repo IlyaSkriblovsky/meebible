@@ -104,7 +104,6 @@ void BibleView::loadChapter()
 {
     if (_translation == 0 || _bookCode.length() == 0)
     {
-//        showWelcomeScreen();
         return;
     }
 
@@ -302,13 +301,6 @@ void BibleView::setMatchIndex(int index)
 }
 
 /////////////////////////////////////////
-
-
-void BibleView::showWelcomeScreen()
-{
-    qDebug() << QUrl::fromLocalFile(Paths::welcome_html());
-    setUrl(QUrl::fromLocalFile(Paths::welcome_html()));
-}
 
 
 

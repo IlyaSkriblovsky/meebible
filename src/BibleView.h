@@ -84,8 +84,6 @@ public slots:
     void startSearchMode(const QString& needle);
     void stopSearchMode();
 
-    void showWelcomeScreen();
-
 
 signals:
     void chapterLoaded();
