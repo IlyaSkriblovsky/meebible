@@ -103,7 +103,11 @@
     </message>
     <message>
         <source>This may take 10—15 minutes and you&apos;d better do it over Wi-Fi connection</source>
-        <translation>Это займёт 10—15 минут и лучше делать это через Wi-Fi-соединение</translation>
+        <translation type="obsolete">Это займёт 10—15 минут и лучше делать это через Wi-Fi-соединение</translation>
+    </message>
+    <message>
+        <source>This may take 10-15 minutes and you&apos;d better do it over Wi-Fi connection</source>
+        <translation>Это займёт 10-15 минут и лучше делать это через Wi-Fi-соединение</translation>
     </message>
 </context>
 <context>
