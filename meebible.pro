@@ -2,6 +2,8 @@ TEMPLATE = subdirs
 
 SUBDIRS = src share qml
 
+TRANSLATIONS += translations/meebible_ru.ts
+
 
 desktop.files = meebible.desktop
 desktop.path = /usr/share/applications

@@ -29,7 +29,7 @@ QString NWTranslation::code() const
 
 QString NWTranslation::name() const
 {
-    return "New World Translation";
+    return tr("New World Translation");
 }
 
 

@@ -110,7 +110,7 @@ void BibleView::loadChapter()
     if (! Place(_bookCode, _chapterNo).isValid(_translation))
     {
 //        clearDisplay(origBookName.isEmpty() ? "" : QString("This translation doesn't contain %1").arg(origBookName));
-        clearDisplay("Current translation doesn't contain this book");
+        clearDisplay(tr("Current translation doesn't contain this book"));
         qDebug() << "Absent" << _translation << _bookCode << _chapterNo;
         return;
     }
@@ -141,7 +141,7 @@ void BibleView::onChapterRequestFinished(QString html)
 
     if (request->error() != QNetworkReply::NoError)
     {
-        clearDisplay("<h3>Cannot load chapter</h3> Please check your internet connection");
+        clearDisplay(tr("<h3>Cannot load chapter</h3> Please check your internet connection"));
         chapterLoadingError();
     }
     else
