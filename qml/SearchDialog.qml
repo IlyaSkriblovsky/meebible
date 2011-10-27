@@ -88,6 +88,7 @@ Sheet {
 
                 platformStyle: BusyIndicatorStyle {
                     size: "medium"
+                    inverted: false
                 }
             }
 

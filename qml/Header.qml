@@ -54,7 +54,7 @@ Rectangle {
         y: 68
         width: parent.width
         height: 1
-        color: '#000' // Qt.darker('#313131', 1.2)
+        color: theme.inverted ? '#222' : '#000'
     }
 
     Rectangle {
@@ -62,6 +62,6 @@ Rectangle {
         y: 69
         width: parent.width
         height: 1
-        color: '#fff'
+        color: theme.inverted ? '#000' : '#fff'
     }
 }

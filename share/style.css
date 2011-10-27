@@ -6,6 +6,12 @@ html
     font-family: sans-serif;
 }
 
+html.inverted
+{
+    background: black;
+    color: white;
+}
+
 .verse
 {
     display: inline;

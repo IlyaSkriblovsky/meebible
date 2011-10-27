@@ -160,7 +160,7 @@ Page {
 
         anchors.fill: parent
 
-        color: '#fff'
+        color: theme.inverted ? '#000' : '#fff'
 
         BusyIndicator {
             id: realBusyIndicator
@@ -192,7 +192,7 @@ Page {
 
                 PropertyChanges {
                     target: busyIndicator
-                    opacity: 0.7
+                    opacity: 0.8
                 }
                 PropertyChanges {
                     target: realBusyIndicator
@@ -559,11 +559,6 @@ Page {
             MenuItem {
                 text: "Line spacing"
                 onClicked: page.pageStack.toolBar.setTools(lineSpacingTools, "replace")
-            }
-
-            MenuItem {
-                text: window.showStatusBar ? "Fullscreen" : "Unfullscreen"
-                onClicked: window.showStatusBar = ! window.showStatusBar
             }
 
             MenuItem {

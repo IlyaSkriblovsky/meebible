@@ -8,7 +8,7 @@ Page {
     TumblerButtonStyle {
         id: tumblerStyleBlue
 
-        textColor: '#006'
+        textColor: theme.inverted ? '#aaf' : '#006'
     }
 
 
@@ -92,27 +92,25 @@ Page {
                 }
             }
 
-            Item {
-                width: parent.width
-                height: floatingHeaderSwitch.height
+            LabeledSwitch {
+                text: "Scroll header with the text"
 
-                Label {
-                    text: "Scroll header with the text"
-                    font.bold: true
+                checked: settings.floatingHeader
+                onCheckedChanged: settings.floatingHeader = checked
+            }
 
-                    anchors.verticalCenter: parent.verticalCenter
-                }
+            LabeledSwitch {
+                text: "Fullscreen"
 
-                Switch {
-                    id: floatingHeaderSwitch
+                checked: ! window.showStatusBar
+                onCheckedChanged: window.showStatusBar = ! checked
+            }
 
-                    anchors.right: parent.right
-                    anchors.verticalCenter: parent.verticalCenter
+            LabeledSwitch {
+                text: "Inverted theme"
 
-                    checked: settings.floatingHeader
-
-                    onCheckedChanged: settings.floatingHeader = checked
-                }
+                checked: theme.inverted
+                onCheckedChanged: theme.inverted = checked
             }
         }
     }
