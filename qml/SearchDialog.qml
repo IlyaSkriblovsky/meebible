@@ -22,6 +22,12 @@ Sheet {
     }
 
 
+    onVisibleChanged: {
+        if (visible && field.text == "")
+            field.forceActiveFocus()
+    }
+
+
     buttons: [
         SheetButton {
             id: close
@@ -60,21 +66,22 @@ Sheet {
             Image {
                 id: image
 
+                // source: field.text.length > 0 ? "image://theme/icon-m-input-clear" : "image://theme/icon-m-common-search"
                 source: "image://theme/icon-m-common-search"
 
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
                 anchors.rightMargin: 10
 
-                width: 48
-                height: 48
+                width: height
 
 
-                MouseArea {
-                    anchors.fill: parent
-
-                    onClicked: dialog.startSearch()
-                }
+//              It seems like MouseArea doesn't work in TextField in 39-5 firmware :(
+//                MouseArea {
+//                    anchors.fill: parent
+//
+//                    onClicked: field.visible = false // dialog.startSearch()
+//                }
             }
 
             BusyIndicator {
@@ -179,11 +186,28 @@ Sheet {
                 x: 10
                 width: parent.width - 20
 
-                CountBubble {
-                    value: matchCount
+                // com.nokia.extras.CountBubble doesn't works well with inverted theme
+                Item {
                     anchors.right: parent.right
                     anchors.top: parent.top
                     anchors.topMargin: 15
+
+                    width: 25
+                    height: 25
+
+                    BorderImage {
+                        source: "image://theme/meegotouch-countbubble-background"
+                        anchors.fill: parent
+                        border { left: 10; top: 10; right: 10; bottom: 10 }
+                    }
+
+                    Text {
+                        text: matchCount
+                        color: theme.inverted ? '#fff' : '#000'
+                        font.pixelSize: 15
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.horizontalCenter: parent.horizontalCenter
+                    }
                 }
             }
         }
@@ -198,7 +222,7 @@ Sheet {
                 anchors.centerIn: parent
 
                 text: "Nothing found"
-                color: '#888'
+                color: theme.inverted ? '#444' : '#888'
                 font.pixelSize: 60
                 font.family: "Nokia Pure Text Light"
             }

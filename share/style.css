@@ -3,10 +3,10 @@ html
     -webkit-user-select: none;
     user-select: none;
 
-    font-family: sans-serif;
+    font-family: Nokia ;
 }
 
-html.inverted
+body.inverted
 {
     background: black;
     color: white;
@@ -18,14 +18,12 @@ html.inverted
     cursor: pointer
 }
 
-.verse.selected
-{
-    background: #ffb;
-}
-.verse.selected .verse-label
-{
-    color: #c00;
-}
+.verse.selected { background: #ffb; }
+.verse.selected .verse-label { color: #c00; }
+
+.inverted .verse.selected { background: #444; }
+.inverted .verse.selected .verse-label { color: #c44; }
+
 
 .verse-label
 {
@@ -34,10 +32,13 @@ html.inverted
     top: -.5em;
     font-size: 65%;
     font-weight: bold;
-    padding: 0 .2em 0 .3em;
+    padding: 0 .2em 0 .2em;
 
     text-indent: 0;
 }
+
+.verse-label { color: #888; }
+.inverted .verse-label { color: #666; }
 
 .par
 {
@@ -61,12 +62,7 @@ html.inverted
     font-size: 90%;
 }
 
-.match
-{
-    background: #8f8;
-}
-
-.match.current
-{
-    background: #f88;
-}
+.match { background: #8f8; }
+.match.current { background: #f88; }
+.inverted .match { background: #060; }
+.inverted .match.current { background: #600; }
