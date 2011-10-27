@@ -29,7 +29,7 @@ Page {
 
     Header {
         id: header
-        text: "Settings"
+        text: qsTr("Settings")
     }
 
 
@@ -67,7 +67,7 @@ Page {
                 spacing: 20
 
                 Label {
-                    text: "Language"
+                    text: qsTr("Language")
                     font.bold: true
                 }
 
@@ -91,7 +91,7 @@ Page {
                 spacing: 20
 
                 Label {
-                    text: "Translation"
+                    text: qsTr("Translation")
                     font.bold: true
                 }
 
@@ -108,21 +108,21 @@ Page {
             }
 
             LabeledSwitch {
-                text: "Scroll header with the text"
+                text: qsTr("Scroll header with the text")
 
                 checked: settings.floatingHeader
                 onCheckedChanged: settings.floatingHeader = checked
             }
 
             LabeledSwitch {
-                text: "Fullscreen"
+                text: qsTr("Fullscreen")
 
                 checked: ! window.showStatusBar
                 onCheckedChanged: window.showStatusBar = ! checked
             }
 
             LabeledSwitch {
-                text: "Inverted theme"
+                text: qsTr("Inverted theme")
 
                 checked: theme.inverted
                 onCheckedChanged: theme.inverted = checked

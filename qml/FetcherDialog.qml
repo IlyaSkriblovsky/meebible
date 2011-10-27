@@ -11,7 +11,7 @@ import MeeBible 0.1
 CommonDialog {
     id: dialog
 
-    titleText: "Downloading Bible"
+    titleText: qsTr("Downloading Bible")
 
     property Fetcher fetcher: Fetcher {
         translation: settings.translation
@@ -30,7 +30,7 @@ CommonDialog {
     }
 
     function start() {
-        label.text = "Connecting..."
+        label.text = qsTr("Connecting...")
         if (fetcher.start() == false)
         {
             nothingToDo.open()
@@ -46,10 +46,10 @@ CommonDialog {
     QueryDialog {
         id: nothingToDo
 
-        titleText: "Nothing to do"
-        message: "You already have downloaded whole Bible in selected language and translation"
+        titleText: qsTr("Nothing to do")
+        message: qsTr("You already have downloaded whole Bible in selected language and translation")
 
-        acceptButtonText: "OK"
+        acceptButtonText: qsTr("OK")
     }
 
 
@@ -69,7 +69,6 @@ CommonDialog {
 
                 anchors.bottom: parent.bottom
 
-                text: "Bookname"
                 color: "white"
             }
         }
@@ -93,7 +92,7 @@ CommonDialog {
         Button {
             platformStyle: NegativeButtonStyle { }
 
-            text: "Cancel"
+            text: qsTr("Cancel")
 
             anchors.right: parent.right
 

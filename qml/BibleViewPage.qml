@@ -254,11 +254,11 @@ Page {
     QueryDialog {
         id: searchNotice
 
-        titleText: "Please notice"
+        titleText: qsTr("Please notice")
 
-        message: "Full-text search works only for downloaded chapters. If you want to search whole Bible you must download it first using the app menu."
+        message: qsTr("Full-text search works only for downloaded chapters. If you want to search whole Bible you must download it first using the app menu.")
 
-        acceptButtonText: "OK"
+        acceptButtonText: qsTr("OK")
     }
 
 
@@ -383,7 +383,7 @@ Page {
 
         ToolButton {
             id: fontDoneButton
-            text: "OK"
+            text: qsTr("OK")
 
             anchors.verticalCenter: parent.verticalCenter
 
@@ -447,7 +447,7 @@ Page {
 
         ToolButton {
             id: lineSpacingDoneButton
-            text: "OK"
+            text: qsTr("OK")
 
             anchors.verticalCenter: parent.verticalCenter
 
@@ -504,7 +504,7 @@ Page {
         }
 
         ToolButton {
-            text: "Done"
+            text: qsTr("Done")
 
             anchors.verticalCenter: parent.verticalCenter
             anchors.rightMargin: 20
@@ -528,11 +528,11 @@ Page {
     QueryDialog {
         id: downloadConfirmDialog
 
-        titleText: "Are you ready to download whole Bible?"
-        message: "This may take 10–15 minutes and you'd better do it over Wi-Fi connection"
+        titleText: qsTr("Are you ready to download whole Bible?")
+        message: qsTr("This may take 10–15 minutes and you'd better do it over Wi-Fi connection")
 
-        acceptButtonText: "Download"
-        rejectButtonText: "Cancel"
+        acceptButtonText: qsTr("Download")
+        rejectButtonText: qsTr("Cancel")
 
         onAccepted: fetcherDialog.start()
     }
@@ -554,27 +554,27 @@ Page {
 
         MenuLayout {
             MenuItem {
-                text: "Font size"
+                text: qsTr("Font size")
                 onClicked: page.pageStack.toolBar.setTools(fontTools, "replace")
             }
 
             MenuItem {
-                text: "Line spacing"
+                text: qsTr("Line spacing")
                 onClicked: page.pageStack.toolBar.setTools(lineSpacingTools, "replace")
             }
 
             MenuItem {
-                text: "Download Bible"
+                text: qsTr("Download Bible")
                 onClicked: downloadConfirmDialog.open()
             }
 
             MenuItem {
-                text: "Settings"
+                text: qsTr("Settings")
                 onClicked: pageStack.push(settingsPage)
             }
 
             MenuItem {
-                text: "About MeeBible"
+                text: qsTr("About MeeBible")
                 onClicked: pageStack.push(aboutPage)
             }
         }

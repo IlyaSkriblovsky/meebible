@@ -31,7 +31,7 @@ Sheet {
     buttons: [
         SheetButton {
             id: close
-            text: "Close"
+            text: qsTr("Close")
 
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.right
@@ -43,7 +43,7 @@ Sheet {
         TextField {
             id: field
 
-            placeholderText: "Search..."
+            placeholderText: qsTr("Search...")
 
             anchors.left: parent.left
             anchors.leftMargin: 10
@@ -221,7 +221,7 @@ Sheet {
             Label {
                 anchors.centerIn: parent
 
-                text: "Nothing found"
+                text: qsTr("Nothing found")
                 color: theme.inverted ? '#444' : '#888'
                 font.pixelSize: 60
                 font.family: "Nokia Pure Text Light"

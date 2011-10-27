@@ -5,7 +5,7 @@ Page {
 
     Header {
         id: header
-        text: "About MeeBible"
+        text: qsTr("About MeeBible")
     }
 
     Flickable {
@@ -32,19 +32,19 @@ Page {
 
 
             Label {
-                text: "Thank you for using MeeBible, the open source Bible reader for Harmattan"
+                text: qsTr("Thank you for using MeeBible, the open source Bible reader for Harmattan")
 
                 width: parent.width
             }
 
             Label {
-                text: "Currently following Bible translations are supported: <ul> <li>New World Translation in 40 languages</li> <li>Russian Synodal translation</li> </ul>"
+                text: qsTr("Currently following Bible translations are supported: <ul> <li>New World Translation in 40 languages</li> <li>Russian Synodal translation</li> </ul>")
 
                 width: parent.width
             }
 
             Label {
-                text: "Read God's Word daily!"
+                text: qsTr("Read God's Word daily!")
             }
 
             Rectangle {
@@ -60,27 +60,27 @@ Page {
             }
 
             Label {
-                text: '© 2011 Ilya Skriblovsky<br>E-Mail: <a href="mailto:IlyaSkriblovsky@gmail.com">Ilya.Skriblovsky@gmail.com</a>'
+                text: qsTr('© 2011 Ilya Skriblovsky<br>E-Mail: <a href="mailto:IlyaSkriblovsky@gmail.com">Ilya.Skriblovsky@gmail.com</a>')
                 width: parent.width
 
                 onLinkActivated: Qt.openUrlExternally(link)
             }
 
             Label {
-                text: 'Please contact me with any comments or suggestions or if you want to add new Bible or UI translations.'
+                text: qsTr("Please contact me with any comments or suggestions or if you want to add new Bible or UI translations.")
 
                 width: parent.width
             }
 
             Label {
-                text: 'Homepage & sources: <a href="http://projects.developer.nokia.com/meebible">http://projects.developer.nokia.com/meebible</a>'
+                text: qsTr('Homepage & sources: <a href="http://projects.developer.nokia.com/meebible">http://projects.developer.nokia.com/meebible</a>')
                 width: parent.width
 
                 onLinkActivated: Qt.openUrlExternally(link)
             }
 
             Label {
-                text: "New World Translation © Watch Tower Bible and Tract Society of Pennsylvania"
+                text: qsTr("New World Translation © Watch Tower Bible and Tract Society of Pennsylvania")
                 width: parent.width
             }
         }

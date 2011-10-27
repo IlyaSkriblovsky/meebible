@@ -6,7 +6,7 @@ import MeeBible 0.1
 ModelSelectionDialog {
     width: parent.width - 60
 
-    titleText: "Select Language"
+    titleText: qsTr("Select Language")
 
     model: languages
 

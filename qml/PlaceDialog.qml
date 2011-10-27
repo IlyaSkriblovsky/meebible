@@ -7,7 +7,7 @@ import "/usr/lib/qt4/imports/com/nokia/meego/" 1.0
 CommonDialog {
     id: dialog
 
-    titleText: "Select Book"
+    titleText: qsTr("Select Book")
 
     property alias bookModel: bookList.model
 
@@ -117,7 +117,7 @@ CommonDialog {
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
 
-                    text: "Chapter:"
+                    text: qsTr("Chapter:")
                     color: "white"
                 }
             }
@@ -135,7 +135,7 @@ CommonDialog {
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
 
-                    text: "Verse:"
+                    text: qsTr("Verse:")
                     color: "white"
                 }
             }
@@ -244,7 +244,7 @@ CommonDialog {
                     inverted: true
                 }
 
-                text: "OK"
+                text: qsTr("OK")
 
                 onClicked: dialog.accept()
             }
