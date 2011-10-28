@@ -25,7 +25,6 @@ LIBS += -licui18n -lsqlite3 -lmdeclarativecache
 
 
 SOURCES += main.cpp \
-    TranslationsList.cpp \
     Language.cpp \
     Languages.cpp \
     Translation.cpp \
@@ -49,7 +48,6 @@ SOURCES += main.cpp \
     Settings.cpp
 
 HEADERS += \
-    TranslationsList.h \
     Language.h \
     Languages.h \
     Translation.h \
