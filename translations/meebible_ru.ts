@@ -214,7 +214,7 @@
     <message>
         <location filename="../qml/SearchDialog.qml" line="225"/>
         <source>Nothing found</source>
-        <translation>Ничего не найдено</translation>
+        <translation>Не найдено</translation>
     </message>
 </context>
 <context>
