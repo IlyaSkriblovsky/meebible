@@ -4,219 +4,258 @@
 <context>
     <name>AboutPage</name>
     <message>
+        <location filename="../qml/AboutPage.qml" line="8"/>
         <source>About MeeBible</source>
-        <translation type="obsolete">О программе MeeBible</translation>
+        <translation>О программе MeeBible</translation>
     </message>
     <message>
+        <location filename="../qml/AboutPage.qml" line="35"/>
         <source>Thank you for using MeeBible, the open source Bible reader for Harmattan</source>
-        <translation type="obsolete">Спасибо за использование MeeBible, читалки Библии для MeeGo Harmattan</translation>
+        <translation>Спасибо за использование MeeBible, читалки Библии для MeeGo Harmattan</translation>
     </message>
     <message>
+        <location filename="../qml/AboutPage.qml" line="41"/>
         <source>Currently following Bible translations are supported: &lt;ul&gt; &lt;li&gt;New World Translation in 40 languages&lt;/li&gt; &lt;li&gt;Russian Synodal translation&lt;/li&gt; &lt;/ul&gt;</source>
-        <translation type="obsolete">На данный момент поддерживаются следующие переводы Библии: &lt;ul&gt; &lt;li&gt;Перевод нового мира на 40 различных языках&lt;/li&gt; &lt;li&gt;Русский Синодальный перевод&lt;/li&gt; &lt;/ul&gt;</translation>
+        <translation>На данный момент поддерживаются следующие переводы Библии: &lt;ul&gt; &lt;li&gt;Перевод нового мира на 40 различных языках&lt;/li&gt; &lt;li&gt;Русский Синодальный перевод&lt;/li&gt; &lt;/ul&gt;</translation>
     </message>
     <message>
+        <location filename="../qml/AboutPage.qml" line="47"/>
         <source>Read God&apos;s Word daily!</source>
-        <translation type="obsolete">Читайте Божье Слово каждый день!</translation>
+        <translation>Читайте Божье Слово каждый день!</translation>
     </message>
     <message>
+        <location filename="../qml/AboutPage.qml" line="63"/>
         <source>© 2011 Ilya Skriblovsky&lt;br&gt;E-Mail: &lt;a href=&quot;mailto:IlyaSkriblovsky@gmail.com&quot;&gt;Ilya.Skriblovsky@gmail.com&lt;/a&gt;</source>
-        <translation type="obsolete">© 2011 Илья Скрибловский&lt;br&gt;E-Mail: &lt;a href=&quot;mailto:IlyaSkriblovsky@gmail.com&quot;&gt;Ilya.Skriblovsky@gmail.com&lt;/a&gt;</translation>
+        <translation>© 2011 Илья Скрибловский&lt;br&gt;E-Mail: &lt;a href=&quot;mailto:IlyaSkriblovsky@gmail.com&quot;&gt;Ilya.Skriblovsky@gmail.com&lt;/a&gt;</translation>
     </message>
     <message>
+        <location filename="../qml/AboutPage.qml" line="70"/>
         <source>Please contact me with any comments or suggestions or if you want to add new Bible or UI translations.</source>
-        <translation type="obsolete">Присылайте мне любые пожелания или комментарии, а также пишите если вы хотите добавить новые переводы Библии и интерфейса программы.</translation>
+        <translation>Пожалуйста свяжитесь со мной если у вас есть пожелания, комментарии, или желание добавить новый перевод Библии или интерфейса программы.</translation>
     </message>
     <message>
+        <location filename="../qml/AboutPage.qml" line="76"/>
         <source>Homepage &amp; sources: &lt;a href=&quot;http://projects.developer.nokia.com/meebible&quot;&gt;http://projects.developer.nokia.com/meebible&lt;/a&gt;</source>
-        <translation type="obsolete">Домашная страничка и исходные коды: &lt;a href=&quot;http://projects.developer.nokia.com/meebible&quot;&gt;http://projects.developer.nokia.com/meebible&lt;/a&gt;</translation>
+        <translation>Домашняя страничка и исходные коды: &lt;a href=&quot;http://projects.developer.nokia.com/meebible&quot;&gt;http://projects.developer.nokia.com/meebible&lt;/a&gt;</translation>
     </message>
     <message>
+        <location filename="../qml/AboutPage.qml" line="83"/>
         <source>New World Translation © Watch Tower Bible and Tract Society of Pennsylvania</source>
-        <translation type="obsolete">Перевод нового мира © Watch Tower Bible and Tract Society of Pennsylvania</translation>
+        <translation>Перевод нового мира © Watch Tower Bible and Tract Society of Pennsylvania</translation>
     </message>
 </context>
 <context>
     <name>BibleView</name>
     <message>
+        <location filename="../src/BibleView.cpp" line="113"/>
         <source>Current translation doesn&apos;t contain this book</source>
-        <translation type="obsolete">Данный перевод не содержит этой главы</translation>
+        <translation>Текущий перевод не содержит этой книги</translation>
     </message>
     <message>
+        <location filename="../src/BibleView.cpp" line="144"/>
         <source>&lt;h3&gt;Cannot load chapter&lt;/h3&gt; Please check your internet connection</source>
-        <translation type="obsolete">&lt;h3&gt;Не удалось загрузить главу&lt;/h3&gt; Пожалуйста, проверьте подключение к интернету</translation>
+        <translation>&lt;h3&gt;Не удалось загрузить главу&lt;/h3&gt; Пожалуйста, проверьте подключение к интернету</translation>
     </message>
 </context>
 <context>
     <name>BibleViewPage</name>
     <message>
+        <location filename="../qml/BibleViewPage.qml" line="258"/>
         <source>Please notice</source>
         <translation>Обратите внимание</translation>
     </message>
     <message>
+        <location filename="../qml/BibleViewPage.qml" line="260"/>
         <source>Full-text search works only for downloaded chapters. If you want to search whole Bible you must download it first using the app menu.</source>
-        <translation>Полнотекстовый поиск работает только по уже закачанным главам. Если вы хотите искать по всей Библии, вам нужно скачать её всю с помощью пункта меню программы.</translation>
+        <translation>Полнотекстовый поиск работает только по уже скачанным главам. Если вы хотите искать по всей Библии, вам нужно закачать её всю с помощью меню программы.</translation>
     </message>
     <message>
+        <location filename="../qml/BibleViewPage.qml" line="262"/>
+        <location filename="../qml/BibleViewPage.qml" line="387"/>
+        <location filename="../qml/BibleViewPage.qml" line="451"/>
         <source>OK</source>
         <translation>ОК</translation>
     </message>
     <message>
+        <location filename="../qml/BibleViewPage.qml" line="508"/>
         <source>Done</source>
         <translation>Готово</translation>
     </message>
     <message>
+        <location filename="../qml/BibleViewPage.qml" line="532"/>
         <source>Are you ready to download whole Bible?</source>
         <translation>Вы готовы скачать Библию целиком?</translation>
     </message>
     <message>
-        <source>This may take 10–15 minutes and you&apos;d better do it over Wi-Fi connection</source>
-        <translation type="obsolete">Это займёт 10–15 минут и лучше делать это через Wi-Fi-соединение</translation>
+        <location filename="../qml/BibleViewPage.qml" line="533"/>
+        <source>This may take 10-15 minutes and you&apos;d better do it over Wi-Fi connection</source>
+        <translation>Это может занять 10-15 минут и делать это через Wi-Fi-соединение</translation>
     </message>
     <message>
+        <location filename="../qml/BibleViewPage.qml" line="535"/>
         <source>Download</source>
         <translation>Скачать</translation>
     </message>
     <message>
+        <location filename="../qml/BibleViewPage.qml" line="536"/>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
     <message>
+        <location filename="../qml/BibleViewPage.qml" line="558"/>
         <source>Font size</source>
         <translation>Размер шрифта</translation>
     </message>
     <message>
+        <location filename="../qml/BibleViewPage.qml" line="563"/>
         <source>Line spacing</source>
         <translation>Межстрочный интервал</translation>
     </message>
     <message>
+        <location filename="../qml/BibleViewPage.qml" line="568"/>
         <source>Download Bible</source>
         <translation>Скачать Библию</translation>
     </message>
     <message>
+        <location filename="../qml/BibleViewPage.qml" line="573"/>
         <source>Settings</source>
         <translation>Настройки</translation>
     </message>
     <message>
+        <location filename="../qml/BibleViewPage.qml" line="578"/>
         <source>About MeeBible</source>
         <translation>О программе MeeBible</translation>
-    </message>
-    <message>
-        <source>This may take 10—15 minutes and you&apos;d better do it over Wi-Fi connection</source>
-        <translation type="obsolete">Это займёт 10—15 минут и лучше делать это через Wi-Fi-соединение</translation>
-    </message>
-    <message>
-        <source>This may take 10-15 minutes and you&apos;d better do it over Wi-Fi connection</source>
-        <translation>Это займёт 10-15 минут и лучше делать это через Wi-Fi-соединение</translation>
     </message>
 </context>
 <context>
     <name>FetcherDialog</name>
     <message>
+        <location filename="../qml/FetcherDialog.qml" line="14"/>
         <source>Downloading Bible</source>
-        <translation type="obsolete">Скачивание Библии</translation>
+        <translation>Скачивание Библии</translation>
     </message>
     <message>
+        <location filename="../qml/FetcherDialog.qml" line="33"/>
         <source>Connecting...</source>
-        <translation type="obsolete">Соединение...</translation>
+        <translation>Соединение...</translation>
     </message>
     <message>
+        <location filename="../qml/FetcherDialog.qml" line="49"/>
         <source>Nothing to do</source>
-        <translation type="obsolete">Нечего делать</translation>
+        <translation>Нечего делать</translation>
     </message>
     <message>
+        <location filename="../qml/FetcherDialog.qml" line="50"/>
         <source>You already have downloaded whole Bible in selected language and translation</source>
-        <translation type="obsolete">Вы уже скачали этот перевод Библии целиком</translation>
+        <translation>Вы уже скачали текущий перевод Библии целиком</translation>
     </message>
     <message>
+        <location filename="../qml/FetcherDialog.qml" line="52"/>
         <source>OK</source>
-        <translation type="obsolete">ОК</translation>
+        <translation>ОК</translation>
     </message>
     <message>
+        <location filename="../qml/FetcherDialog.qml" line="95"/>
         <source>Cancel</source>
-        <translation type="obsolete">Отмена</translation>
+        <translation>Отмена</translation>
     </message>
 </context>
 <context>
     <name>LanguageDialog</name>
     <message>
+        <location filename="../qml/LanguageDialog.qml" line="9"/>
         <source>Select Language</source>
-        <translation type="obsolete">Выберите язык</translation>
+        <translation>Выберите язык</translation>
     </message>
 </context>
 <context>
     <name>NWTranslation</name>
     <message>
+        <location filename="../src/NWTranslation.cpp" line="32"/>
         <source>New World Translation</source>
-        <translation type="obsolete">Перевод Нового мира</translation>
+        <translation>Перевод нового мира</translation>
     </message>
 </context>
 <context>
     <name>PlaceDialog</name>
     <message>
+        <location filename="../qml/PlaceDialog.qml" line="10"/>
         <source>Select Book</source>
-        <translation type="obsolete">Выберите книгу</translation>
+        <translation>Выберите книгу</translation>
     </message>
     <message>
+        <location filename="../qml/PlaceDialog.qml" line="120"/>
         <source>Chapter:</source>
-        <translation type="obsolete">Глава:</translation>
+        <translation>Глава:</translation>
     </message>
     <message>
+        <location filename="../qml/PlaceDialog.qml" line="138"/>
         <source>Verse:</source>
-        <translation type="obsolete">Стих:</translation>
+        <translation>Стих:</translation>
     </message>
     <message>
+        <location filename="../qml/PlaceDialog.qml" line="248"/>
         <source>OK</source>
-        <translation type="obsolete">ОК</translation>
+        <translation>ОК</translation>
     </message>
 </context>
 <context>
     <name>SearchDialog</name>
     <message>
+        <location filename="../qml/SearchDialog.qml" line="35"/>
         <source>Close</source>
-        <translation type="obsolete">Закрыть</translation>
+        <translation>Закрыть</translation>
     </message>
     <message>
+        <location filename="../qml/SearchDialog.qml" line="47"/>
         <source>Search...</source>
-        <translation type="obsolete">Поиск...</translation>
+        <translation>Поиск...</translation>
     </message>
     <message>
+        <location filename="../qml/SearchDialog.qml" line="225"/>
         <source>Nothing found</source>
-        <translation type="obsolete">Ничего не найдено</translation>
+        <translation>Ничего не найдено</translation>
     </message>
 </context>
 <context>
     <name>SettingsPage</name>
     <message>
+        <location filename="../qml/SettingsPage.qml" line="32"/>
         <source>Settings</source>
-        <translation type="obsolete">Настройки</translation>
+        <translation>Настройки</translation>
     </message>
     <message>
+        <location filename="../qml/SettingsPage.qml" line="70"/>
         <source>Language</source>
-        <translation type="obsolete">Язык</translation>
+        <translation>Язык</translation>
     </message>
     <message>
+        <location filename="../qml/SettingsPage.qml" line="94"/>
         <source>Translation</source>
-        <translation type="obsolete">Перевод</translation>
+        <translation>Перевод</translation>
     </message>
     <message>
+        <location filename="../qml/SettingsPage.qml" line="111"/>
         <source>Scroll header with the text</source>
-        <translation type="obsolete">Прокручивать заголовок</translation>
+        <translation>Прокручиваемый заголовок</translation>
     </message>
     <message>
+        <location filename="../qml/SettingsPage.qml" line="118"/>
         <source>Fullscreen</source>
-        <translation type="obsolete">На весь экран</translation>
+        <translation>На весь экран</translation>
     </message>
     <message>
+        <location filename="../qml/SettingsPage.qml" line="125"/>
         <source>Inverted theme</source>
-        <translation type="obsolete">Инверсная тема</translation>
+        <translation>Инверсная тема</translation>
     </message>
 </context>
 <context>
     <name>TranslationDialog</name>
     <message>
+        <location filename="../qml/TranslationDialog.qml" line="5"/>
         <source>Select Translation</source>
-        <translation type="obsolete">Выберите перевод</translation>
+        <translation>Выберите перевод</translation>
     </message>
 </context>
 </TS>
