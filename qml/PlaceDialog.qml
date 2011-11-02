@@ -1,7 +1,7 @@
 import QtQuick 1.1
 
 // This is for CommonDialog
-import "/usr/lib/qt4/imports/com/nokia/meego/" 1.0
+import "/usr/lib/qt4/imports/com/meego/" 1.0
 
 
 CommonDialog {

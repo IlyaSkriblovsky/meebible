@@ -1,6 +1,6 @@
 import QtQuick 1.1
-import com.nokia.meego 1.0
-import com.nokia.extras 1.1
+import com.meego 1.0
+import com.meego.extras 1.0
 import MeeBible 0.1
 
 Sheet {
@@ -186,7 +186,7 @@ Sheet {
                 x: 10
                 width: parent.width - 20
 
-                // com.nokia.extras.CountBubble doesn't works well with inverted theme
+                // com.meego.extras.CountBubble doesn't works well with inverted theme
                 Item {
                     anchors.right: parent.right
                     anchors.top: parent.top

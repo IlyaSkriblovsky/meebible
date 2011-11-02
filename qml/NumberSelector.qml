@@ -1,5 +1,5 @@
 import QtQuick 1.1
-import com.nokia.meego 1.0
+import com.meego 1.0
 
 
 Column {
@@ -17,7 +17,7 @@ Column {
             id: label
 
             font.pixelSize: 32
-            
+
             anchors.verticalCenter: field.verticalCenter
         }
 
