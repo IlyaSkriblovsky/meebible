@@ -1,3 +1,11 @@
+meebible (1.0.1) unstable; urgency=low
+
+  * UI translated to russian
+
+  * Various small fixes
+
+ -- Ilya Skriblovsky <Ilya.Skriblovsky@gmail.com>  Thu, 2 Nov 2011 12:20:00 +0400
+
 meebible (1.0.0) unstable; urgency=low
 
   * Many improvements
