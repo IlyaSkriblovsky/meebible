@@ -90,7 +90,14 @@ CommonDialog {
         }
 
         Button {
-            platformStyle: NegativeButtonStyle { }
+            // NegativeButtonStyle doesn't work, probably
+            // due to com.meego/com.nokia.meego namespace clash
+            platformStyle: ButtonStyle {
+                textColor: "#ffffff"
+                pressedTextColor: "#8c8c8c"
+                background: "image://theme/meegotouch-button-negative-background"
+                pressedBackground: "image://theme/meegotouch-button-negative-background-pressed"
+            }
 
             text: qsTr("Cancel")
 

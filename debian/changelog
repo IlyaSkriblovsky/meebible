@@ -1,3 +1,9 @@
+meebible (1.0.3) unstable; urgency=low
+
+  * "Download Bible" fixed
+
+ -- Ilya Skriblovsky <Ilya.Skriblovsky@gmail.com>  Thu, 10 Nov 2011 22:25:00 +0400
+
 meebible (1.0.2) unstable; urgency=low
 
   * Free version added
