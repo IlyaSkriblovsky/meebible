@@ -15,31 +15,41 @@
     </message>
     <message>
         <location filename="../qml/AboutPage.qml" line="41"/>
+        <source>If you want to support development of MeeBible, please consider buying paid version from Ovi Store!</source>
+        <translation>Если вы хотите поддержать разработку MeeBible, подумайте о том, чтобы купить платную версию программы из Ovi Store!</translation>
+    </message>
+    <message>
+        <location filename="../qml/AboutPage.qml" line="41"/>
+        <source>Thank you for supporting MeeBible!</source>
+        <translation>Спасибо, что вы поддерживаете разработку MeeBible!</translation>
+    </message>
+    <message>
+        <location filename="../qml/AboutPage.qml" line="49"/>
         <source>Currently following Bible translations are supported: &lt;ul&gt; &lt;li&gt;New World Translation in 40 languages&lt;/li&gt; &lt;li&gt;Russian Synodal translation&lt;/li&gt; &lt;/ul&gt;</source>
         <translation>На данный момент поддерживаются следующие переводы Библии: &lt;ul&gt; &lt;li&gt;Перевод нового мира на 40 различных языках&lt;/li&gt; &lt;li&gt;Русский Синодальный перевод&lt;/li&gt; &lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../qml/AboutPage.qml" line="47"/>
+        <location filename="../qml/AboutPage.qml" line="55"/>
         <source>Read God&apos;s Word daily!</source>
         <translation>Читайте Божье Слово каждый день!</translation>
     </message>
     <message>
-        <location filename="../qml/AboutPage.qml" line="63"/>
+        <location filename="../qml/AboutPage.qml" line="71"/>
         <source>© 2011 Ilya Skriblovsky&lt;br&gt;E-Mail: &lt;a href=&quot;mailto:IlyaSkriblovsky@gmail.com&quot;&gt;Ilya.Skriblovsky@gmail.com&lt;/a&gt;</source>
         <translation>© 2011 Илья Скрибловский&lt;br&gt;E-Mail: &lt;a href=&quot;mailto:IlyaSkriblovsky@gmail.com&quot;&gt;Ilya.Skriblovsky@gmail.com&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../qml/AboutPage.qml" line="70"/>
+        <location filename="../qml/AboutPage.qml" line="78"/>
         <source>Please contact me with any comments or suggestions or if you want to add new Bible or UI translations.</source>
         <translation>Пожалуйста свяжитесь со мной если у вас есть пожелания, комментарии, или желание добавить новый перевод Библии или интерфейса программы.</translation>
     </message>
     <message>
-        <location filename="../qml/AboutPage.qml" line="76"/>
+        <location filename="../qml/AboutPage.qml" line="84"/>
         <source>Homepage &amp; sources: &lt;a href=&quot;http://projects.developer.nokia.com/meebible&quot;&gt;http://projects.developer.nokia.com/meebible&lt;/a&gt;</source>
         <translation>Домашняя страничка и исходные коды: &lt;a href=&quot;http://projects.developer.nokia.com/meebible&quot;&gt;http://projects.developer.nokia.com/meebible&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../qml/AboutPage.qml" line="83"/>
+        <location filename="../qml/AboutPage.qml" line="91"/>
         <source>New World Translation © Watch Tower Bible and Tract Society of Pennsylvania</source>
         <translation>Перевод нового мира © Watch Tower Bible and Tract Society of Pennsylvania</translation>
     </message>
@@ -60,69 +70,69 @@
 <context>
     <name>BibleViewPage</name>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="258"/>
+        <location filename="../qml/BibleViewPage.qml" line="257"/>
         <source>Please notice</source>
         <translation>Обратите внимание</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="260"/>
+        <location filename="../qml/BibleViewPage.qml" line="259"/>
         <source>Full-text search works only for downloaded chapters. If you want to search whole Bible you must download it first using the app menu.</source>
         <translation>Полнотекстовый поиск работает только по уже скачанным главам. Если вы хотите искать по всей Библии, вам нужно закачать её всю с помощью меню программы.</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="262"/>
-        <location filename="../qml/BibleViewPage.qml" line="387"/>
-        <location filename="../qml/BibleViewPage.qml" line="451"/>
+        <location filename="../qml/BibleViewPage.qml" line="261"/>
+        <location filename="../qml/BibleViewPage.qml" line="386"/>
+        <location filename="../qml/BibleViewPage.qml" line="450"/>
         <source>OK</source>
         <translation>ОК</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="508"/>
+        <location filename="../qml/BibleViewPage.qml" line="507"/>
         <source>Done</source>
         <translation>Готово</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="532"/>
+        <location filename="../qml/BibleViewPage.qml" line="531"/>
         <source>Are you ready to download whole Bible?</source>
         <translation>Вы готовы скачать Библию целиком?</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="533"/>
+        <location filename="../qml/BibleViewPage.qml" line="532"/>
         <source>This may take 10-15 minutes and you&apos;d better do it over Wi-Fi connection</source>
         <translation>Это может занять 10-15 минут и делать это через Wi-Fi-соединение</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="535"/>
+        <location filename="../qml/BibleViewPage.qml" line="534"/>
         <source>Download</source>
         <translation>Скачать</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="536"/>
+        <location filename="../qml/BibleViewPage.qml" line="535"/>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="558"/>
+        <location filename="../qml/BibleViewPage.qml" line="557"/>
         <source>Font size</source>
         <translation>Размер шрифта</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="563"/>
+        <location filename="../qml/BibleViewPage.qml" line="562"/>
         <source>Line spacing</source>
         <translation>Межстрочный интервал</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="568"/>
+        <location filename="../qml/BibleViewPage.qml" line="567"/>
         <source>Download Bible</source>
         <translation>Скачать Библию</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="573"/>
+        <location filename="../qml/BibleViewPage.qml" line="572"/>
         <source>Settings</source>
         <translation>Настройки</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="578"/>
+        <location filename="../qml/BibleViewPage.qml" line="577"/>
         <source>About MeeBible</source>
         <translation>О программе MeeBible</translation>
     </message>
@@ -194,7 +204,7 @@
         <translation>Стих:</translation>
     </message>
     <message>
-        <location filename="../qml/PlaceDialog.qml" line="248"/>
+        <location filename="../qml/PlaceDialog.qml" line="247"/>
         <source>OK</source>
         <translation>ОК</translation>
     </message>
@@ -202,17 +212,17 @@
 <context>
     <name>SearchDialog</name>
     <message>
-        <location filename="../qml/SearchDialog.qml" line="35"/>
+        <location filename="../qml/SearchDialog.qml" line="34"/>
         <source>Close</source>
         <translation>Закрыть</translation>
     </message>
     <message>
-        <location filename="../qml/SearchDialog.qml" line="47"/>
+        <location filename="../qml/SearchDialog.qml" line="46"/>
         <source>Search...</source>
         <translation>Поиск...</translation>
     </message>
     <message>
-        <location filename="../qml/SearchDialog.qml" line="225"/>
+        <location filename="../qml/SearchDialog.qml" line="224"/>
         <source>Nothing found</source>
         <translation>Не найдено</translation>
     </message>

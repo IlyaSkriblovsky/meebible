@@ -65,6 +65,12 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     view->rootContext()->setContextProperty("cache", &cache);
     view->rootContext()->setContextProperty("settings", &settings);
 
+    #ifdef FREEVERSION
+        view->rootContext()->setContextProperty("freeversion", true);
+    #else
+        view->rootContext()->setContextProperty("freeversion", false);
+    #endif
+
 
     view->setSource(QUrl::fromLocalFile(Paths::qmlMain()));
 

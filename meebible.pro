@@ -5,13 +5,18 @@ SUBDIRS = src share qml translations
 TRANSLATIONS += translations/meebible_ru.ts
 
 
-desktop.files = meebible.desktop
+free:desktop.files = meebible-free.desktop
+!free:desktop.files = meebible.desktop
 desktop.path = /usr/share/applications
+INSTALLS += desktop
 
-icon.files = meebible.png
+free:icon.files = meebible-free.png
+!free:icon.files = meebible.png
 icon.path = /usr/share/icons/hicolor/64x64/apps
+INSTALLS += icon
 
-invoker.files = meebible-invoker.sh
-invoker.path = /opt/meebible/bin
-
-INSTALLS += desktop icon invoker
+free:invoker.files = meebible-invoker-free.sh
+free:invoker.path = /opt/meebible-free/bin
+!free:invoker.files = meebible-invoker.sh
+!free:invoker.path = /opt/meebible/bin
+INSTALLS += invoker

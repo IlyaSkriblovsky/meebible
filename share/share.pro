@@ -13,6 +13,8 @@ SHAREFILES = \
     splash-ls-inverted.png
 
 shares.files = $$SHAREFILES
-shares.path = /opt/meebible/share
+
+free:shares.path = /opt/meebible-free/share
+!free:shares.path = /opt/meebible/share
 
 INSTALLS += shares

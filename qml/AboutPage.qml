@@ -38,6 +38,14 @@ Page {
             }
 
             Label {
+                text: freeversion ? qsTr("If you want to support development of MeeBible, please consider buying paid version from Ovi Store!") : qsTr("Thank you for supporting MeeBible!")
+
+                width: parent.width
+
+                color: freeversion ? "#800000" : "#008000"
+            }
+
+            Label {
                 text: qsTr("Currently following Bible translations are supported: <ul> <li>New World Translation in 40 languages</li> <li>Russian Synodal translation</li> </ul>")
 
                 width: parent.width

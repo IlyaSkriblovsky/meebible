@@ -4,11 +4,13 @@ QT += core sql network xml xmlpatterns webkit gui declarative
 
 # DEFINES += DEBUGPATHS
 
-DEFINES += INSTALLPREFIX=\\\"/opt/meebible\\\"
+free:DEFINES += FREEVERSION INSTALLPREFIX=\\\"/opt/meebible-free\\\"
+!free:DEFINES += INSTALLPREFIX=\\\"/opt/meebible\\\"
 
 
 TARGET = meebible
-target.path = /opt/meebible/bin
+free:target.path = /opt/meebible-free/bin
+!free:target.path = /opt/meebible/bin
 INSTALLS += target
 
 
