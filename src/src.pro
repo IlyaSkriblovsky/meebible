@@ -2,7 +2,7 @@ TEMPLATE = app
 
 QT += core sql network xml xmlpatterns webkit gui declarative
 
-# DEFINES += DEBUGPATHS
+DEFINES += DEBUGPATHS
 
 free:DEFINES += FREEVERSION INSTALLPREFIX=\\\"/opt/meebible-free\\\"
 !free:DEFINES += INSTALLPREFIX=\\\"/opt/meebible\\\"
@@ -47,7 +47,10 @@ SOURCES += main.cpp \
     Fetcher.cpp \
     SqliteUnicodeSearch.cpp \
     SearchThread.cpp \
-    Settings.cpp
+    Settings.cpp    \
+    BLVSource.cpp           \
+    BLVTranslation.cpp      \
+    BLVChapterRequest.cpp
 
 HEADERS += \
     Language.h \
@@ -71,4 +74,7 @@ HEADERS += \
     Utils.h \
     SqliteUnicodeSearch.h \
     SearchThread.h \
-    Settings.h
+    Settings.h  \
+    BLVSource.h           \
+    BLVTranslation.h      \
+    BLVChapterRequest.h

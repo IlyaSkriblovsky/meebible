@@ -41,6 +41,7 @@ INSERT INTO langs VALUES ('z', 'Swedish', 'Svenska');
 INSERT INTO langs VALUES ('tn', 'Tswana', 'Setswana');
 INSERT INTO langs VALUES ('xo', 'Xhosa', 'IsiXhosa');
 INSERT INTO langs VALUES ('zu', 'Zulu', 'IsiZulu');
+INSERT INTO langs VALUES ('lv', 'Latvian', 'Latviešu');
 
 
 VACUUM;
