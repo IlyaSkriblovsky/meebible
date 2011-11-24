@@ -4,6 +4,7 @@ SHAREFILES = \
     langs.sqlite    \
     nwt.sqlite      \
     bo.sqlite       \
+    blv.sqlite      \
     nwt.xslt        \
     script.js       \
     style.css       \

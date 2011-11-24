@@ -3,6 +3,8 @@
 
 #include "Translation.h"
 
+#include <QSqlDatabase>
+
 class QNetworkAccessManager;
 
 class Language;
@@ -17,18 +19,18 @@ class BLVTranslation: public Translation
         virtual const Language* language() const { return _language; }
 
         virtual QString code() const { return "blv"; }
-        virtual QString name() const { return "?? LATVIAN ??"; }
+        virtual QString name() const { return QString::fromUtf8("1965. gada revidētā Bībeles versija"); }
 
         virtual QString bookName(const QString &bookCode) const;
         Q_INVOKABLE virtual QStringList bookCodes() const;
 
-        virtual QList<int> verseCounts(const QString& bookCode);
+        virtual QList<int> verseCounts(const QString& bookCode) const;
 
         virtual ChapterRequest* requestChapter(QNetworkAccessManager* nam, const QString &bookCode, int chapterNo);
 
 
     private:
-        Language* _language;
+        const Language* _language;
 
         QSqlDatabase _db;
 

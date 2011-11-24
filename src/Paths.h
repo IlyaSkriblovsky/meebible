@@ -12,9 +12,10 @@ public:
 
     static QString cacheDB();
 
+    static QString langsDB();
     static QString nwtDB();
     static QString boDB();
-    static QString langsDB();
+    static QString blvDB();
 
     static QString qmlMain();
 

@@ -42,6 +42,11 @@ QString Paths::boDB()
     return _shareDir.filePath("bo.sqlite");
 }
 
+QString Paths::blvDB()
+{
+    return _shareDir.filePath("blv.sqlite");
+}
+
 QString Paths::langsDB()
 {
     return _shareDir.filePath("langs.sqlite");

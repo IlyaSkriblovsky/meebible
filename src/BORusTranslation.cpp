@@ -56,7 +56,7 @@ QString BORusTranslation::bookName(const QString &bookCode) const
     {
         QSqlQuery select("SELECT bookCode, name FROM books", _db);
         select.exec();
-        
+
         while (select.next())
         {
             _bookNames[select.value(0).toString()] = select.value(1).toString();

@@ -11,6 +11,6 @@ BLVSource::BLVSource()
 
 void BLVSource::addTranslationsToList(Languages* languages)
 {
-    Languages* latvian = languages->langByCode("lv");
+    Language* latvian = languages->langByCode("lv");
     latvian->addTranslation(new BLVTranslation(latvian));
 }
