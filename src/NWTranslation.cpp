@@ -34,12 +34,12 @@ QString NWTranslation::name() const
 
 QString NWTranslation::sourceUrl() const
 {
-    return QString("http://watchtower.org/%1/").arg(_urlPrefix);
+    return QString("http://watchtower.org%1").arg(_urlPrefix);
 }
 
 QString NWTranslation::copyright() const
 {
-    return "© Watch Tower Bible and Tract Society of Pennsylvania";
+    return QString::fromUtf8("© Watch Tower Bible and Tract Society of Pennsylvania");
 }
 
 
@@ -65,7 +65,7 @@ QList<int> NWTranslation::verseCounts(const QString& bookCode) const
 
 QString NWTranslation::chapterUrl(const QString& bookCode, int chapterNo) const
 {
-    return QString("http://watchtower.org/%1/%2/chapter_%3.htm")
+    return QString("http://watchtower.org%1%2/chapter_%3.htm")
             .arg(_urlPrefix)
             .arg(bookCode)
             .arg(chapterNo, 3, 10, QChar('0'));

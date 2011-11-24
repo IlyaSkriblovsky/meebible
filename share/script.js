@@ -1,16 +1,16 @@
-// document.body.onclick = function() {
-//     var target = event.target
-// 
-//     while (target  &&  ! isVerseDiv(target))
-//         target = target.parentNode
-// 
-//     if (! target)
-//         return
-// 
-//     var verse = parseInt(target.getAttribute('verse'))
-// 
-//     toggleVerse(verse)
-// }
+document.body.onclick = function() {
+    var target = event.target
+
+    while (target  &&  ! isVerseDiv(target))
+        target = target.parentNode
+
+    if (! target)
+        return
+
+    var verse = parseInt(target.getAttribute('verse'))
+
+    toggleVerse(verse)
+}
 
 
 var selectedVerses = {}
@@ -68,6 +68,46 @@ function selectedVersesList()
         if (selectedVerses[verse])
             result.push(verse)
     return result.join(',')
+}
+
+function selectedText()
+{
+    var result = ''
+
+    var selected = []
+    for (var verse in selectedVerses)
+        if (selectedVerses[verse])
+            selected.push(verse)
+
+    selected.sort()
+
+    var prev = null
+
+    for (var j = 0; j < selected.length; j++)
+    {
+        var verse = parseInt(selected[j])
+
+        var divs = verseDivs(verse)
+        var text = ''
+        for (var i = 0; i < divs.length; i++)
+            text += divs[i].innerText
+
+        if (prev != null  &&  verse != prev + 1)
+            result += ' [...] '
+
+        result += text.replace(/^\d+/, '$& ') + ' '
+
+        prev = verse
+    }
+
+    return result
+}
+
+function clearSelection()
+{
+    for (var verse in selectedVerses)
+        if (selectedVerses[verse])
+            unselectVerse(verse)
 }
 
 

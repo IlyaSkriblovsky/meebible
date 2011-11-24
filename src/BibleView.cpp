@@ -1,5 +1,7 @@
 #include "BibleView.h"
 
+#include <QApplication>
+#include <QClipboard>
 #include <QDebug>
 #include <QFile>
 
@@ -359,4 +361,25 @@ void BibleView::setInverted(bool inverted)
 void BibleView::applyInverted()
 {
     page()->mainFrame()->evaluateJavaScript(QString("setInverted(%1)").arg(_inverted));
+}
+
+
+
+
+bool BibleView::copySelectedVerses()
+{
+    QString text = page()->mainFrame()->evaluateJavaScript("selectedText()").toString();
+    text.replace(QString::fromUtf8("\xcc\x81"), "");
+
+    if (text == "")
+        return false;
+
+    QClipboard *clipboard = QApplication::clipboard();
+    clipboard->setText(text);
+    return true;
+}
+
+void BibleView::clearSelection()
+{
+    page()->mainFrame()->evaluateJavaScript("clearSelection()");
 }

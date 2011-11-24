@@ -84,6 +84,9 @@ public slots:
     void startSearchMode(const QString& needle);
     void stopSearchMode();
 
+    bool copySelectedVerses();
+    void clearSelection();
+
 
 signals:
     void chapterLoaded();

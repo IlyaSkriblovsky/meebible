@@ -1,5 +1,6 @@
 import QtQuick 1.1
 import com.meego 1.0
+import com.meego.extras 1.0
 import MeeBible 0.1
 
 Page {
@@ -547,12 +548,29 @@ Page {
     }
 
 
+    InfoBanner { id: copyBanner }
+
+
     Menu {
         id: menu
 
         visualParent: pageStack
 
         MenuLayout {
+            MenuItem {
+                text: qsTr("Copy selected verses")
+                onClicked: {
+                    if (bibleView.copySelectedVerses())
+                    {
+                        copyBanner.text = qsTr("Copied")
+                        bibleView.clearSelection()
+                    }
+                    else
+                        copyBanner.text = qsTr("Nothing selected")
+                    copyBanner.show()
+                }
+            }
+
             MenuItem {
                 text: qsTr("Font size")
                 onClicked: page.pageStack.toolBar.setTools(fontTools, "replace")

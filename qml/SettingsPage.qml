@@ -105,6 +105,21 @@ Page {
 
                     onClicked: transDialog.open()
                 }
+
+                Label {
+                    text: 'Available at <a href="' + settings.translation.sourceUrl + '">' + settings.translation.sourceUrl + '</a>'
+                    font.pixelSize: 20
+                    x: 40
+                    width: parent.width - x
+
+                    onLinkActivated: Qt.openUrlExternally(settings.translation.sourceUrl)
+                }
+                Label {
+                    text: settings.translation.copyright
+                    font.pixelSize: 20
+                    x: 40
+                    width: parent.width - x
+                }
             }
 
             LabeledSwitch {
