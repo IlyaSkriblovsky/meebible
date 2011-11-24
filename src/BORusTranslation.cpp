@@ -49,6 +49,16 @@ QString BORusTranslation::name() const
     return QString::fromUtf8("Синодальный перевод");
 }
 
+QString BORusTranslation::sourceUrl() const
+{
+    return "http://bibleonline.ru";
+}
+
+QString BORusTranslation::copyright() const
+{
+    return "";
+}
+
 
 QString BORusTranslation::bookName(const QString &bookCode) const
 {

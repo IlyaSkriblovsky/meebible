@@ -21,6 +21,8 @@ class Translation: public QAbstractListModel
 
     Q_PROPERTY(QString code READ code)
     Q_PROPERTY(QString name READ name)
+    Q_PROPERTY(QString sourceUrl READ sourceUrl)
+    Q_PROPERTY(QString copyright READ copyright)
 
 public:
     enum Roles {
@@ -37,6 +39,8 @@ public:
 
     virtual QString code() const = 0;
     virtual QString name() const = 0;
+    virtual QString sourceUrl() const = 0;
+    virtual QString copyright() const = 0;
 
     Q_INVOKABLE virtual QString bookName(const QString& bookCode) const = 0;
     Q_INVOKABLE virtual QStringList bookCodes() const = 0;

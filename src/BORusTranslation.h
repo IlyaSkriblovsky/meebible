@@ -23,6 +23,8 @@ public:
 
     virtual QString code() const;
     virtual QString name() const;
+    virtual QString sourceUrl() const;
+    virtual QString copyright() const;
 
     virtual QString bookName(const QString &bookCode) const;
     Q_INVOKABLE virtual QStringList bookCodes() const;

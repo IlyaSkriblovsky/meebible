@@ -20,6 +20,8 @@ class BLVTranslation: public Translation
 
         virtual QString code() const { return "blv"; }
         virtual QString name() const { return QString::fromUtf8("1965. gada revidētā Bībeles versija"); }
+        virtual QString sourceUrl() const { return "http://bibele.lv/bibele/bibele.php"; }
+        virtual QString copyright() const { return "© Latvijas Bībeles Biedrība"; }
 
         virtual QString bookName(const QString &bookCode) const;
         Q_INVOKABLE virtual QStringList bookCodes() const;

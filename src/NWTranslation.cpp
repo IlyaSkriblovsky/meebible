@@ -32,6 +32,16 @@ QString NWTranslation::name() const
     return tr("New World Translation");
 }
 
+QString NWTranslation::sourceUrl() const
+{
+    return QString("http://watchtower.org/%1/").arg(_urlPrefix);
+}
+
+QString NWTranslation::copyright() const
+{
+    return "© Watch Tower Bible and Tract Society of Pennsylvania";
+}
+
 
 QString NWTranslation::bookName(const QString &bookCode) const
 {
