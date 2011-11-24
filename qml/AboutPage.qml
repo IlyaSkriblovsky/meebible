@@ -86,11 +86,6 @@ Page {
 
                 onLinkActivated: Qt.openUrlExternally(link)
             }
-
-            Label {
-                text: qsTr("New World Translation © Watch Tower Bible and Tract Society of Pennsylvania")
-                width: parent.width
-            }
         }
     }
     ScrollDecorator { flickableItem: flickable }
