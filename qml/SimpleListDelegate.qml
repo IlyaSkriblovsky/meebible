@@ -6,6 +6,7 @@ Item {
 
     property bool centered: false
     property bool selectable: false
+    property bool rtl: false
 
     height: 60
     width: parent.width
@@ -23,11 +24,12 @@ Item {
         id: label
 
         anchors.verticalCenter: parent.verticalCenter
+        anchors.rightMargin: 20
 
         text: value
         color: 'white'
 
-        state: item.centered ? "centered" : ""
+        state: item.centered ? "centered" : (item.rtl ? "rtl" : "")
 
         states: [
             State {
@@ -35,6 +37,14 @@ Item {
                 AnchorChanges {
                     target: label
                     anchors.horizontalCenter: item.horizontalCenter
+                }
+            },
+
+            State {
+                name: "rtl"
+                AnchorChanges {
+                    target: label
+                    anchors.right: item.right
                 }
             }
         ]

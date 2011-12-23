@@ -23,6 +23,7 @@ class Translation: public QAbstractListModel
     Q_PROPERTY(QString name READ name)
     Q_PROPERTY(QString sourceUrl READ sourceUrl)
     Q_PROPERTY(QString copyright READ copyright)
+    Q_PROPERTY(bool rtl READ rtl)
 
 public:
     enum Roles {
@@ -59,6 +60,9 @@ public:
 
 
     Q_INVOKABLE QString bookCodeAt(int row) const;
+
+
+    virtual bool rtl() const;
 };
 
 #endif // TRANSLATION_H

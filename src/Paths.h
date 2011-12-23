@@ -16,6 +16,7 @@ public:
     static QString nwtDB();
     static QString boDB();
     static QString blvDB();
+    static QString ccarabicDB();
 
     static QString qmlMain();
 

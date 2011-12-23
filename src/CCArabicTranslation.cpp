@@ -60,9 +60,9 @@ QStringList CCArabicTranslation::bookCodes() const
 ChapterRequest* CCArabicTranslation::requestChapter(QNetworkAccessManager* nam, const QString& bookCode, int chapterNo)
 {
     QNetworkRequest request(QUrl(
-        QString("http://copticchurch.net//cgibin/bible/index.php?r=%1+%2&version=SVD&showVN=1")
-            .arg("Genesis")
-            .arg(1)
+        QString("http://copticchurch.net/cgibin/bible/index.php?r=%1+%2&version=SVD&showVN=1")
+            .arg(bookSearchName(bookCode).replace(" ", "+"))
+            .arg(chapterNo)
     ));
 
     return new CCArabicChapterRequest(
@@ -94,4 +94,18 @@ QList<int> CCArabicTranslation::verseCounts(const QString& bookCode) const
     }
 
     return _verseCounts.value(bookCode);
+}
+
+QString CCArabicTranslation::bookSearchName(const QString &bookCode) const
+{
+    if (_bookSearchNames.size() == 0)
+    {
+        QSqlQuery select("SELECT bookCode, searchName FROM books", _db);
+        select.exec();
+
+        while (select.next())
+            _bookSearchNames[select.value(0).toString()] = select.value(1).toString();
+    }
+
+    return _bookSearchNames.value(bookCode);
 }

@@ -16,6 +16,7 @@
 #include "NWTSource.h"
 #include "BOSource.h"
 #include "BLVSource.h"
+#include "CCArabicSource.h"
 #include "Translation.h"
 #include "BibleView.h"
 #include "Fetcher.h"
@@ -48,6 +49,8 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     boSource.addTranslationsToList(&languages);
     BLVSource blvSource;
     blvSource.addTranslationsToList(&languages);
+    CCArabicSource ccarabicSource;
+    ccarabicSource.addTranslationsToList(&languages);
 
     Settings settings(&languages);
 

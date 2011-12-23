@@ -73,6 +73,8 @@ CommonDialog {
             delegate: SimpleListDelegate {
                 selectable: true
 
+                rtl: settings.translation.rtl
+
                 onClicked: {
                     contentItem.state = "chapterSelection"
                 }

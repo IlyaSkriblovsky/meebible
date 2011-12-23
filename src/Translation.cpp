@@ -71,3 +71,10 @@ bool Translation::hasBook(const QString& bookCode) const
 {
     return bookCodes().indexOf(bookCode) != -1;
 }
+
+
+
+bool Translation::rtl() const
+{
+    return false;
+}
