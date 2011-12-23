@@ -50,7 +50,10 @@ SOURCES += main.cpp \
     Settings.cpp    \
     BLVSource.cpp           \
     BLVTranslation.cpp      \
-    BLVChapterRequest.cpp
+    BLVChapterRequest.cpp   \
+    CCArabicSource.cpp      \
+    CCArabicTranslation.cpp \
+    CCArabicChapterRequest.cpp
 
 HEADERS += \
     Language.h \
@@ -77,4 +80,7 @@ HEADERS += \
     Settings.h  \
     BLVSource.h           \
     BLVTranslation.h      \
-    BLVChapterRequest.h
+    BLVChapterRequest.h   \
+    CCArabicSource.h      \
+    CCArabicTranslation.h \
+    CCArabicChapterRequest.h

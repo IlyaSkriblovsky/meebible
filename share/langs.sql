@@ -1,6 +1,8 @@
 DROP TABLE IF EXISTS langs;
 
+
 CREATE TABLE langs (code VARCHAR PRIMARY KEY, engname VARCHAR, selfname VARCHAR);
+INSERT INTO langs VALUES ('a', 'Arabic', 'العربية');
 INSERT INTO langs VALUES ('af', 'Afrikaans', 'Afrikaans');
 INSERT INTO langs VALUES ('al', 'Albanian', 'Shqip');
 INSERT INTO langs VALUES ('bl', 'Bulgarian', 'Български');
