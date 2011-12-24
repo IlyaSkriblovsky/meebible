@@ -44,7 +44,7 @@ Rectangle {
         id: label
         anchors.verticalCenter: parent.verticalCenter
         anchors.leftMargin: withIcon ? 5 : 20
-        anchors.rightMargin: 5
+        anchors.rightMargin: 10
         font.pixelSize: 32
         color: '#eee'
 
