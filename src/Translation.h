@@ -20,10 +20,10 @@ class Translation: public QAbstractListModel
     Q_OBJECT
 
     Q_PROPERTY(QString code READ code)
-    Q_PROPERTY(QString name READ name)
-    Q_PROPERTY(QString sourceUrl READ sourceUrl)
-    Q_PROPERTY(QString copyright READ copyright)
-    Q_PROPERTY(bool rtl READ rtl)
+    Q_PROPERTY(QString name READ name NOTIFY nameChanged)
+    Q_PROPERTY(QString sourceUrl READ sourceUrl NOTIFY sourceUrlChanged)
+    Q_PROPERTY(QString copyright READ copyright NOTIFY copyrightChanged)
+    Q_PROPERTY(bool rtl READ rtl NOTIFY rtlChanged)
 
 public:
     enum Roles {
@@ -63,6 +63,13 @@ public:
 
 
     virtual bool rtl() const;
+
+
+signals:
+    void nameChanged();
+    void sourceUrlChanged();
+    void copyrightChanged();
+    void rtlChanged();
 };
 
 #endif // TRANSLATION_H

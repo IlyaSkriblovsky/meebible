@@ -8,6 +8,7 @@ Rectangle {
 
     property alias text: label.text
     property bool withIcon: false
+    property bool rtl: false
 
 
     gradient: Gradient {
@@ -42,10 +43,30 @@ Rectangle {
     Label {
         id: label
         anchors.verticalCenter: parent.verticalCenter
-        anchors.left: icon.right
         anchors.leftMargin: withIcon ? 5 : 20
+        anchors.rightMargin: 5
         font.pixelSize: 32
         color: '#eee'
+
+        state: header.rtl ? "rtl" : "ltr"
+
+        states: [
+            State {
+                name: "rtl"
+                AnchorChanges {
+                    target: label
+                    anchors.right: header.right
+                }
+            },
+
+            State {
+                name: "ltr"
+                AnchorChanges {
+                    target: label
+                    anchors.left: icon.right
+                }
+            }
+        ]
     }
 
 

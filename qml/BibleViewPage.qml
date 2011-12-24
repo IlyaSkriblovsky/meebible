@@ -56,6 +56,8 @@ Page {
         withIcon: true
         height: settings.floatingHeader ? 0 : 70
         visible: ! settings.floatingHeader
+
+        rtl: settings.translation.rtl
     }
 
 
@@ -92,6 +94,8 @@ Page {
                 withIcon: true
                 height: settings.floatingHeader ? 70 : 0
                 visible: settings.floatingHeader
+
+                rtl: settings.translation.rtl
             }
 
             BibleView {
