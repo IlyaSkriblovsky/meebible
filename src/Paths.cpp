@@ -57,6 +57,11 @@ QString Paths::langsDB()
     return _shareDir.filePath("langs.sqlite");
 }
 
+QString Paths::dbByCode(const QString& code)
+{
+    return _shareDir.filePath(code + ".sqlite");
+}
+
 
 QString Paths::qmlMain()
 {

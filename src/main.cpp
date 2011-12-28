@@ -14,9 +14,9 @@
 #include "Languages.h"
 #include "Language.h"
 #include "NWTSource.h"
-#include "BOSource.h"
-#include "BLVSource.h"
-#include "CCArabicSource.h"
+#include "BOSource2.h"
+#include "BLVSource2.h"
+#include "CCArabicSource2.h"
 #include "Translation.h"
 #include "BibleView.h"
 #include "Fetcher.h"
@@ -45,12 +45,12 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     NWTSource nwtSource;
     nwtSource.addTranslationsToList(&languages);
-    BOSource boSource;
-    boSource.addTranslationsToList(&languages);
-    BLVSource blvSource;
-    blvSource.addTranslationsToList(&languages);
-    CCArabicSource ccarabicSource;
-    ccarabicSource.addTranslationsToList(&languages);
+    BOSource2 boSource2;
+    boSource2.addTranslationsToList(&languages);
+    BLVSource2 blvSource2;
+    blvSource2.addTranslationsToList(&languages);
+    CCArabicSource2 ccarabicSource2;
+    ccarabicSource2.addTranslationsToList(&languages);
 
     Settings settings(&languages);
 

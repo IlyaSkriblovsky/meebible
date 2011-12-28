@@ -39,21 +39,17 @@ SOURCES += main.cpp \
     Cache.cpp \
     Paths.cpp \
     Place.cpp \
-    BOSource.cpp \
-    BORusTranslation.cpp \
-    BOChapterRequest.cpp \
     EasyXml.cpp \
     BibleWebPage.cpp \
     Fetcher.cpp \
     SqliteUnicodeSearch.cpp \
     SearchThread.cpp \
     Settings.cpp    \
-    BLVSource.cpp           \
-    BLVTranslation.cpp      \
-    BLVChapterRequest.cpp   \
-    CCArabicSource.cpp      \
-    CCArabicTranslation.cpp \
-    CCArabicChapterRequest.cpp
+    SimpleSource.cpp        \
+    SimpleTranslation.cpp   \
+    BLVSource2.cpp  \
+    BOSource2.cpp   \
+    CCArabicSource2.cpp
 
 HEADERS += \
     Language.h \
@@ -68,9 +64,6 @@ HEADERS += \
     Cache.h \
     Paths.h \
     Place.h \
-    BOSource.h \
-    BORusTranslation.h \
-    BOChapterRequest.h \
     EasyXml.h \
     BibleWebPage.h \
     Fetcher.h \
@@ -78,9 +71,8 @@ HEADERS += \
     SqliteUnicodeSearch.h \
     SearchThread.h \
     Settings.h  \
-    BLVSource.h           \
-    BLVTranslation.h      \
-    BLVChapterRequest.h   \
-    CCArabicSource.h      \
-    CCArabicTranslation.h \
-    CCArabicChapterRequest.h
+    SimpleSource.h      \
+    SimpleTranslation.h \
+    BLVSource2.h    \
+    BOSource2.h     \
+    CCArabicSource2.h

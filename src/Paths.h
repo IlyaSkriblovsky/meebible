@@ -18,6 +18,8 @@ public:
     static QString blvDB();
     static QString ccarabicDB();
 
+    static QString dbByCode(const QString& code);
+
     static QString qmlMain();
 
     static QString script_js();

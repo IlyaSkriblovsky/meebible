@@ -1,4 +1,4 @@
-#include "BLVTranslation.h"
+#include "SimpleTranslation.h"
 
 #include <QCoreApplication>
 #include <QSqlQuery>
@@ -7,7 +7,8 @@
 #include <QDebug>
 
 #include "Paths.h"
-#include "BLVChapterRequest.h"
+#include "SimpleSource.h"
+
 
 //
 // This class uses lazy loading of data. Do NOT use _bookCodes, _bookNames
@@ -15,20 +16,26 @@
 // Always use public getters which would load data from DB on first call.
 //
 
-BLVTranslation::BLVTranslation(const Language* language)
-    : _language(language)
+SimpleTranslation::SimpleTranslation(SimpleSource* source, const Language* language)
+    :_source(source), _language(language)
 {
-    _db = QSqlDatabase::addDatabase("QSQLITE", "blv");
-    _db.setDatabaseName(Paths::blvDB());
+    _db = QSqlDatabase::addDatabase("QSQLITE", source->code());
+    _db.setDatabaseName(Paths::dbByCode(source->code()));
     if (! _db.open())
     {
-        qCritical() << "Cannot open blv db";
+        qCritical() << "Cannot open" << source->code() << "DB";
         QCoreApplication::exit(1);
     }
 }
 
 
-QString BLVTranslation::bookName(const QString &bookCode) const
+QString SimpleTranslation::code() const { return _source->code(); }
+QString SimpleTranslation::name() const { return _source->name(); }
+QString SimpleTranslation::sourceUrl() const { return _source->sourceUrl(); }
+QString SimpleTranslation::copyright() const { return _source->copyright(); }
+
+
+QString SimpleTranslation::bookName(const QString &bookCode) const
 {
     if (_bookNames.size() == 0)
     {
@@ -42,7 +49,7 @@ QString BLVTranslation::bookName(const QString &bookCode) const
     return _bookNames.value(bookCode);
 }
 
-QStringList BLVTranslation::bookCodes() const
+QStringList SimpleTranslation::bookCodes() const
 {
     if (_bookCodes.size() == 0)
     {
@@ -57,25 +64,7 @@ QStringList BLVTranslation::bookCodes() const
 }
 
 
-ChapterRequest* BLVTranslation::requestChapter(QNetworkAccessManager* nam, const QString& bookCode, int chapterNo)
-{
-    QNetworkRequest request(QUrl("http://bibele.lv/bibele/bibele.php"));
-    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
-
-    QByteArray args = QString("book=%1&chapter=%2")
-        .arg(bookCodes().indexOf(bookCode) + 1)
-        .arg(chapterNo)
-        .toAscii();
-
-    // FIXME
-    return new BLVChapterRequest(
-        this, bookCode, chapterNo,
-        nam->post(request, args)
-    );
-}
-
-
-QList<int> BLVTranslation::verseCounts(const QString& bookCode) const
+QList<int> SimpleTranslation::verseCounts(const QString& bookCode) const
 {
     if (_verseCounts.size() == 0)
     {
@@ -97,4 +86,9 @@ QList<int> BLVTranslation::verseCounts(const QString& bookCode) const
     }
 
     return _verseCounts.value(bookCode);
+}
+
+ChapterRequest* SimpleTranslation::requestChapter(QNetworkAccessManager *nam, const QString &bookCode, int chapter)
+{
+    return _source->requestChapter(this, nam, bookCode, chapter);
 }
