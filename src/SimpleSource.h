@@ -26,7 +26,7 @@ class SimpleSource: public Source
         virtual ChapterRequest* requestChapter(SimpleTranslation* translation, QNetworkAccessManager *nam, const QString &bookCode, int chapter) = 0;
 
     protected:
-        Translation* createTranslation(const Language* language);
+        virtual Translation* createTranslation(const Language* language);
 
     private:
         QString _langCode;

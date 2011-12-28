@@ -17,7 +17,7 @@ class CCArabicSource2: public SimpleSource
         virtual ChapterRequest* requestChapter(SimpleTranslation* translation, QNetworkAccessManager *nam, const QString &bookCode, int chapter);
 
     protected:
-        Translation* createTranslation(const Language* language);
+        virtual Translation* createTranslation(const Language* language);
 };
 
 #endif
