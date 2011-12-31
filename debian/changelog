@@ -1,3 +1,9 @@
+meebible (1.1.0) unstable; urgency=low
+
+  * Fix for www.watchtower.org. Large internal refactoring
+
+ -- Ilya Skriblovsky <Ilya.Skriblovsky@gmail.com>  Thu, 31 Dec 2011 18:48:00 +0400
+
 meebible (1.0.5) unstable; urgency=low
 
   * Arabic translation added from copticchurch.net
