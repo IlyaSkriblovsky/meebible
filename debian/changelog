@@ -1,3 +1,9 @@
+meebible (1.1.1) unstable; urgency=low
+
+  * Russian UI translation updated
+
+ -- Ilya Skriblovsky <Ilya.Skriblovsky@gmail.com>  Thu, 31 Dec 2011 20:29:00 +0400
+
 meebible (1.1.0) unstable; urgency=low
 
   * Fix for www.watchtower.org. Large internal refactoring
