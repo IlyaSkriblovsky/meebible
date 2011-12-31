@@ -25,8 +25,12 @@
     </message>
     <message>
         <location filename="../qml/AboutPage.qml" line="49"/>
+        <source>Currently following Bible translations are supported: &lt;ul&gt; &lt;li&gt;New World Translation in 40 languages&lt;/li&gt; &lt;li&gt;Russian Synodal translation&lt;/li&gt; &lt;li&gt;Latvian Revised Bible&lt;/li&gt; &lt;li&gt;Smith &amp; Van Dyck Arabic translation&lt;/li&gt; &lt;/ul&gt;</source>
+        <translation>Поддерживаются следующие переводы Библии: &lt;ul&gt; &lt;li&gt;Перевод Нового Мира на 40 языках&lt;/li&gt; &lt;li&gt;Русский Синодальный перевод&lt;/li&gt; &lt;li&gt;Латвийский уточнённый перевод&lt;/li&gt; &lt;li&gt;Арабский перевод Смита и Ван Дайка&lt;/li&gt; &lt;/ul&gt;</translation>
+    </message>
+    <message>
         <source>Currently following Bible translations are supported: &lt;ul&gt; &lt;li&gt;New World Translation in 40 languages&lt;/li&gt; &lt;li&gt;Russian Synodal translation&lt;/li&gt; &lt;/ul&gt;</source>
-        <translation>На данный момент поддерживаются следующие переводы Библии: &lt;ul&gt; &lt;li&gt;Перевод нового мира на 40 различных языках&lt;/li&gt; &lt;li&gt;Русский Синодальный перевод&lt;/li&gt; &lt;/ul&gt;</translation>
+        <translation type="obsolete">На данный момент поддерживаются следующие переводы Библии: &lt;ul&gt; &lt;li&gt;Перевод нового мира на 40 различных языках&lt;/li&gt; &lt;li&gt;Русский Синодальный перевод&lt;/li&gt; &lt;/ul&gt;</translation>
     </message>
     <message>
         <location filename="../qml/AboutPage.qml" line="55"/>
@@ -49,20 +53,19 @@
         <translation>Домашняя страничка и исходные коды: &lt;a href=&quot;http://projects.developer.nokia.com/meebible&quot;&gt;http://projects.developer.nokia.com/meebible&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../qml/AboutPage.qml" line="91"/>
         <source>New World Translation © Watch Tower Bible and Tract Society of Pennsylvania</source>
-        <translation>Перевод нового мира © Watch Tower Bible and Tract Society of Pennsylvania</translation>
+        <translation type="obsolete">Перевод нового мира © Watch Tower Bible and Tract Society of Pennsylvania</translation>
     </message>
 </context>
 <context>
     <name>BibleView</name>
     <message>
-        <location filename="../src/BibleView.cpp" line="113"/>
+        <location filename="../src/BibleView.cpp" line="115"/>
         <source>Current translation doesn&apos;t contain this book</source>
         <translation>Текущий перевод не содержит этой книги</translation>
     </message>
     <message>
-        <location filename="../src/BibleView.cpp" line="144"/>
+        <location filename="../src/BibleView.cpp" line="146"/>
         <source>&lt;h3&gt;Cannot load chapter&lt;/h3&gt; Please check your internet connection</source>
         <translation>&lt;h3&gt;Не удалось загрузить главу&lt;/h3&gt; Пожалуйста, проверьте подключение к интернету</translation>
     </message>
@@ -70,69 +73,84 @@
 <context>
     <name>BibleViewPage</name>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="257"/>
+        <location filename="../qml/BibleViewPage.qml" line="262"/>
         <source>Please notice</source>
         <translation>Обратите внимание</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="259"/>
+        <location filename="../qml/BibleViewPage.qml" line="264"/>
         <source>Full-text search works only for downloaded chapters. If you want to search whole Bible you must download it first using the app menu.</source>
         <translation>Полнотекстовый поиск работает только по уже скачанным главам. Если вы хотите искать по всей Библии, вам нужно закачать её всю с помощью меню программы.</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="261"/>
-        <location filename="../qml/BibleViewPage.qml" line="386"/>
-        <location filename="../qml/BibleViewPage.qml" line="450"/>
+        <location filename="../qml/BibleViewPage.qml" line="266"/>
+        <location filename="../qml/BibleViewPage.qml" line="391"/>
+        <location filename="../qml/BibleViewPage.qml" line="455"/>
         <source>OK</source>
         <translation>ОК</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="507"/>
+        <location filename="../qml/BibleViewPage.qml" line="512"/>
         <source>Done</source>
         <translation>Готово</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="531"/>
+        <location filename="../qml/BibleViewPage.qml" line="536"/>
         <source>Are you ready to download whole Bible?</source>
         <translation>Вы готовы скачать Библию целиком?</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="532"/>
+        <location filename="../qml/BibleViewPage.qml" line="537"/>
         <source>This may take 10-15 minutes and you&apos;d better do it over Wi-Fi connection</source>
         <translation>Это может занять 10-15 минут и делать это через Wi-Fi-соединение</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="534"/>
+        <location filename="../qml/BibleViewPage.qml" line="539"/>
         <source>Download</source>
         <translation>Скачать</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="535"/>
+        <location filename="../qml/BibleViewPage.qml" line="540"/>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="557"/>
+        <location filename="../qml/BibleViewPage.qml" line="565"/>
+        <source>Copy selected verses</source>
+        <translation>Копировать выделенные стихи</translation>
+    </message>
+    <message>
+        <location filename="../qml/BibleViewPage.qml" line="569"/>
+        <source>Copied</source>
+        <translation>Скопировано</translation>
+    </message>
+    <message>
+        <location filename="../qml/BibleViewPage.qml" line="573"/>
+        <source>Nothing selected</source>
+        <translation>Ничего не выбрано</translation>
+    </message>
+    <message>
+        <location filename="../qml/BibleViewPage.qml" line="579"/>
         <source>Font size</source>
         <translation>Размер шрифта</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="562"/>
+        <location filename="../qml/BibleViewPage.qml" line="584"/>
         <source>Line spacing</source>
         <translation>Межстрочный интервал</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="567"/>
+        <location filename="../qml/BibleViewPage.qml" line="589"/>
         <source>Download Bible</source>
         <translation>Скачать Библию</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="572"/>
+        <location filename="../qml/BibleViewPage.qml" line="594"/>
         <source>Settings</source>
         <translation>Настройки</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="577"/>
+        <location filename="../qml/BibleViewPage.qml" line="599"/>
         <source>About MeeBible</source>
         <translation>О программе MeeBible</translation>
     </message>
@@ -165,7 +183,7 @@
         <translation>ОК</translation>
     </message>
     <message>
-        <location filename="../qml/FetcherDialog.qml" line="95"/>
+        <location filename="../qml/FetcherDialog.qml" line="102"/>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
@@ -194,17 +212,17 @@
         <translation>Выберите книгу</translation>
     </message>
     <message>
-        <location filename="../qml/PlaceDialog.qml" line="120"/>
+        <location filename="../qml/PlaceDialog.qml" line="122"/>
         <source>Chapter:</source>
         <translation>Глава:</translation>
     </message>
     <message>
-        <location filename="../qml/PlaceDialog.qml" line="138"/>
+        <location filename="../qml/PlaceDialog.qml" line="140"/>
         <source>Verse:</source>
         <translation>Стих:</translation>
     </message>
     <message>
-        <location filename="../qml/PlaceDialog.qml" line="247"/>
+        <location filename="../qml/PlaceDialog.qml" line="249"/>
         <source>OK</source>
         <translation>ОК</translation>
     </message>
@@ -245,17 +263,17 @@
         <translation>Перевод</translation>
     </message>
     <message>
-        <location filename="../qml/SettingsPage.qml" line="111"/>
+        <location filename="../qml/SettingsPage.qml" line="126"/>
         <source>Scroll header with the text</source>
         <translation>Прокручиваемый заголовок</translation>
     </message>
     <message>
-        <location filename="../qml/SettingsPage.qml" line="118"/>
+        <location filename="../qml/SettingsPage.qml" line="133"/>
         <source>Fullscreen</source>
         <translation>На весь экран</translation>
     </message>
     <message>
-        <location filename="../qml/SettingsPage.qml" line="125"/>
+        <location filename="../qml/SettingsPage.qml" line="140"/>
         <source>Inverted theme</source>
         <translation>Инверсная тема</translation>
     </message>

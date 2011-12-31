@@ -46,7 +46,7 @@ Page {
             }
 
             Label {
-                text: qsTr("Currently following Bible translations are supported: <ul> <li>New World Translation in 40 languages</li> <li>Russian Synodal translation</li> <li>Latvian Revised Bible</li> </ul>")
+                text: qsTr("Currently following Bible translations are supported: <ul> <li>New World Translation in 40 languages</li> <li>Russian Synodal translation</li> <li>Latvian Revised Bible</li> <li>Smith & Van Dyck Arabic translation</li> </ul>")
 
                 width: parent.width
             }

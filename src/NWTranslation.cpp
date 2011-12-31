@@ -74,13 +74,6 @@ QString NWTranslation::chapterUrl(const QString& bookCode, int chapterNo) const
 
 ChapterRequest* NWTranslation::requestChapter(QNetworkAccessManager* nam, const QString &bookCode, int chapterNo)
 {
-//    return new NWTChapterRequest(
-//        this, bookCode, chapterNo,
-//        _source->requestChapter(
-//            chapterUrl(bookCode, chapterNo)
-//        )
-//    );
-
     return new NWTChapterRequest(
         this, bookCode, chapterNo,
         nam->get(QNetworkRequest(QUrl(
