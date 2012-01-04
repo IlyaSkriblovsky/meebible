@@ -6,6 +6,7 @@ SHAREFILES = \
     bo.sqlite       \
     blv.sqlite      \
     ccarabic.sqlite \
+    kjbo.sqlite     \
     nwt.xslt        \
     script.js       \
     style.css       \

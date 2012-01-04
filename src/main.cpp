@@ -17,6 +17,7 @@
 #include "BOSource2.h"
 #include "BLVSource2.h"
 #include "CCArabicSource2.h"
+#include "KJBOSource.h"
 #include "Translation.h"
 #include "BibleView.h"
 #include "Fetcher.h"
@@ -51,6 +52,8 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     blvSource2.addTranslationsToList(&languages);
     CCArabicSource2 ccarabicSource2;
     ccarabicSource2.addTranslationsToList(&languages);
+    KJBOSource kjbosource;
+    kjbosource.addTranslationsToList(&languages);
 
     Settings settings(&languages);
 

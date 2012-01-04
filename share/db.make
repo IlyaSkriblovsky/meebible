@@ -1,24 +1,9 @@
-all: langs.sqlite nwt.sqlite bo.sqlite blv.sqlite ccarabic.sqlite
+DBS = langs.sqlite nwt.sqlite bo.sqlite blv.sqlite ccarabic.sqlite kjbo.sqlite
 
-langs.sqlite: langs.sql
+all: $(DBS)
+
+%.sqlite: %.sql
 	sqlite3 $@ <$<
-
-
-nwt.sqlite: nwt.sql
-	sqlite3 $@ <$<
-
-
-bo.sqlite: bo.sql
-	sqlite3 $@ <$<
-
-
-blv.sqlite: blv.sql
-	sqlite3 $@ <$<
-
-
-ccarabic.sqlite: ccarabic.sql
-	sqlite3 $@ <$<
-
 
 clean:
-	rm -f langs.sqlite nwt.sqlite bo.sqlite blv.sqlite ccarabic.sqlite
+	rm -f $(DBS)
