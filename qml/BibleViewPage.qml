@@ -328,6 +328,7 @@ Page {
         ToolIcon {
             platformIconId: "toolbar-search"
             onClicked: searchDialog.open()
+            visible: ! NOSEARCH
         }
 
         ToolIcon {

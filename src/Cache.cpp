@@ -10,9 +10,11 @@
 #include "Translation.h"
 #include "Language.h"
 
-#include "SqliteUnicodeSearch.h"
+#ifndef NOSEARCH
+    #include "SqliteUnicodeSearch.h"
+    #include "SearchThread.h"
+#endif
 
-#include "SearchThread.h"
 
 
 Cache* Cache::_instance = 0;
@@ -28,7 +30,9 @@ Cache* Cache::instance()
 
 
 Cache::Cache()
-    : _searchInProgress(false)
+    #ifndef NOSEARCH
+        : _searchInProgress(false)
+    #endif
 {
     if (_instance)
         qDebug() << "Duplicate Cache instance";
@@ -40,7 +44,9 @@ Cache::Cache()
     if (! _db.open())
         qDebug() << "Cannot open cache DB";
 
-    SqliteUnicodeSearch::installUnicodeSearch(_db);
+    #ifndef NOSEARCH
+        SqliteUnicodeSearch::installUnicodeSearch(_db);
+    #endif
 
     _db.exec(
         "CREATE TABLE IF NOT EXISTS html ( "
@@ -143,6 +149,7 @@ int Cache::totalChaptersInCache(const Translation *translation)
 
 
 
+#ifndef NOSEARCH
 void Cache::search(Translation* translation, const QString& text)
 {
     if (_searchInProgress)
@@ -173,3 +180,4 @@ void Cache::onThreadFinished()
 
     searchFinished();
 }
+#endif

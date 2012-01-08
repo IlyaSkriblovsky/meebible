@@ -12,7 +12,9 @@ class Cache: public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(bool searchInProgress READ searchInProgress NOTIFY searchInProgressChanged)
+    #ifndef NOSEARCH
+        Q_PROPERTY(bool searchInProgress READ searchInProgress NOTIFY searchInProgressChanged)
+    #endif
 
 public:
     static Cache* instance();
@@ -29,18 +31,24 @@ public:
     int totalChaptersInCache(const Translation* translation);
 
 
-    bool searchInProgress() const { return _searchInProgress; }
+    #ifndef NOSEARCH
+        bool searchInProgress() const { return _searchInProgress; }
+    #endif
 
 
 public slots:
-    void search(Translation* translation, const QString& text);
+    #ifndef NOSEARCH
+        void search(Translation* translation, const QString& text);
+    #endif
 
 
 signals:
-    void searchStarted();
-    void matchFound(QString bookCode, int chapterNo, QString match, int matchCount);
-    void searchFinished();
-    void searchInProgressChanged();
+    #ifndef NOSEARCH
+        void searchStarted();
+        void matchFound(QString bookCode, int chapterNo, QString match, int matchCount);
+        void searchFinished();
+        void searchInProgressChanged();
+    #endif
 
 
 private:
@@ -52,11 +60,15 @@ private:
     QRegExp _stripSpaces;
     QRegExp _stripStyles;
 
-    bool _searchInProgress;
+    #ifndef NOSEARCH
+        bool _searchInProgress;
+    #endif
 
 private slots:
-    void onThreadMatchFound(const QString& bookCode, int chapterNo, QString match, int matchCount);
-    void onThreadFinished();
+    #ifndef NOSEARCH
+        void onThreadMatchFound(const QString& bookCode, int chapterNo, QString match, int matchCount);
+        void onThreadFinished();
+    #endif
 };
 
 #endif // CACHE_H

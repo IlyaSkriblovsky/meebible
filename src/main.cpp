@@ -81,6 +81,14 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     #endif
 
 
+    #ifdef NOSEARCH
+        qDebug() << "Search disabled";
+        view->rootContext()->setContextProperty("NOSEARCH", true);
+    #else
+        view->rootContext()->setContextProperty("NOSEARCH", false);
+    #endif
+
+
     view->setSource(QUrl::fromLocalFile(Paths::qmlMain()));
 
 

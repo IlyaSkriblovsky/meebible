@@ -4,6 +4,8 @@ QT += core sql network xml xmlpatterns webkit gui declarative
 
 # DEFINES += DEBUGPATHS
 
+nosearch:DEFINES += NOSEARCH
+
 free:DEFINES += FREEVERSION INSTALLPREFIX=\\\"/opt/meebible-free\\\"
 !free:DEFINES += INSTALLPREFIX=\\\"/opt/meebible\\\"
 
@@ -43,8 +45,6 @@ HEADERS +=                  \
     BibleWebPage.h          \
     Fetcher.h               \
     Utils.h                 \
-    SqliteUnicodeSearch.h   \
-    SearchThread.h          \
     Settings.h              \
     SimpleSource.h          \
     SimpleTranslation.h     \
@@ -52,6 +52,10 @@ HEADERS +=                  \
     BOSource2.h             \
     CCArabicSource2.h       \
     KJBOSource.h
+
+!nosearch:HEADERS +=        \
+    SqliteUnicodeSearch.h   \
+    SearchThread.h
 
 SOURCES += main.cpp         \
     Language.cpp            \
@@ -69,8 +73,6 @@ SOURCES += main.cpp         \
     EasyXml.cpp             \
     BibleWebPage.cpp        \
     Fetcher.cpp             \
-    SqliteUnicodeSearch.cpp \
-    SearchThread.cpp        \
     Settings.cpp            \
     SimpleSource.cpp        \
     SimpleTranslation.cpp   \
@@ -78,3 +80,7 @@ SOURCES += main.cpp         \
     BOSource2.cpp           \
     CCArabicSource2.cpp     \
     KJBOSource.cpp
+
+!nosearch:SOURCES +=        \
+    SqliteUnicodeSearch.cpp \
+    SearchThread.cpp

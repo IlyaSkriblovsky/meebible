@@ -19,7 +19,9 @@
 #include "BibleWebPage.h"
 #include "Paths.h"
 
-#include "SqliteUnicodeSearch.h"
+#ifndef NOSEARCH
+    #include "SqliteUnicodeSearch.h"
+#endif
 
 
 BibleView::BibleView(QGraphicsItem *parent):
@@ -172,7 +174,9 @@ void BibleView::displayHtml(QString html)
     _html = html;
     setHtml(_html);
 
-    stopSearchMode();
+    #ifndef NOSEARCH
+        stopSearchMode();
+    #endif
 }
 
 void BibleView::scrollToVerse(int verseNo)
@@ -265,6 +269,7 @@ void BibleView::setPreferredWidth(int width)
 
 /////////////////////////////////////////
 
+#ifndef NOSEARCH
 void BibleView::startSearchMode(const QString& needle)
 {
     _searchNeedle = needle;
@@ -291,6 +296,7 @@ void BibleView::stopSearchMode()
         searchModeChanged();
     }
 }
+#endif
 
 void BibleView::setMatchIndex(int index)
 {
