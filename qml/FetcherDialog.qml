@@ -101,7 +101,7 @@ CommonDialog {
 
             text: qsTr("Cancel")
 
-            anchors.right: parent.right
+            anchors.horizontalCenter: parent.horizontalCenter
 
             onClicked: dialog.reject()
         }

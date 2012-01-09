@@ -35,7 +35,8 @@ class BOChapterRequest: public ChapterRequest
 
             EasyElement* body = tag("body");
 
-            QRegExp re("<span id=\"v(\\d+)\" class=\"v\"><sup>[^<]*</sup>(.*)<br /></span>");
+            // QRegExp re("<span id=\"v(\\d+)\" class=\"v\"><sup>[^<]*</sup>(.*)<br /></span>");
+            QRegExp re("<li id=\"v(\\d+)\" value=\"\\1\" class=\"v\">(.*)</li>");
             re.setMinimal(true);
 
             int pos = 0;
