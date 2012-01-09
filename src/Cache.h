@@ -41,6 +41,8 @@ public slots:
         void search(Translation* translation, const QString& text);
     #endif
 
+    void clearCache();
+
 
 signals:
     #ifndef NOSEARCH
@@ -59,6 +61,9 @@ private:
     QRegExp _stripTags;
     QRegExp _stripSpaces;
     QRegExp _stripStyles;
+
+
+    void openDB();
 
     #ifndef NOSEARCH
         bool _searchInProgress;

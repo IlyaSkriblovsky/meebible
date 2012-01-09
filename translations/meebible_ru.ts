@@ -64,12 +64,12 @@
 <context>
     <name>BibleView</name>
     <message>
-        <location filename="../src/BibleView.cpp" line="115"/>
+        <location filename="../src/BibleView.cpp" line="117"/>
         <source>Current translation doesn&apos;t contain this book</source>
         <translation>Текущий перевод не содержит этой книги</translation>
     </message>
     <message>
-        <location filename="../src/BibleView.cpp" line="146"/>
+        <location filename="../src/BibleView.cpp" line="148"/>
         <source>&lt;h3&gt;Cannot load chapter&lt;/h3&gt; Please check your internet connection</source>
         <translation>&lt;h3&gt;Не удалось загрузить главу&lt;/h3&gt; Пожалуйста, проверьте подключение к интернету</translation>
     </message>
@@ -88,73 +88,73 @@
     </message>
     <message>
         <location filename="../qml/BibleViewPage.qml" line="266"/>
-        <location filename="../qml/BibleViewPage.qml" line="391"/>
-        <location filename="../qml/BibleViewPage.qml" line="455"/>
+        <location filename="../qml/BibleViewPage.qml" line="392"/>
+        <location filename="../qml/BibleViewPage.qml" line="456"/>
         <source>OK</source>
         <translation>ОК</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="512"/>
+        <location filename="../qml/BibleViewPage.qml" line="513"/>
         <source>Done</source>
         <translation>Готово</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="536"/>
+        <location filename="../qml/BibleViewPage.qml" line="537"/>
         <source>Are you ready to download whole Bible?</source>
         <translation>Вы готовы скачать Библию целиком?</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="537"/>
+        <location filename="../qml/BibleViewPage.qml" line="538"/>
         <source>This may take 10-15 minutes and you&apos;d better do it over Wi-Fi connection</source>
         <translation>Это может занять 10-15 минут и делать это через Wi-Fi-соединение</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="539"/>
+        <location filename="../qml/BibleViewPage.qml" line="540"/>
         <source>Download</source>
         <translation>Скачать</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="540"/>
+        <location filename="../qml/BibleViewPage.qml" line="541"/>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="565"/>
+        <location filename="../qml/BibleViewPage.qml" line="566"/>
         <source>Copy selected verses</source>
         <translation>Копировать выделенные стихи</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="569"/>
+        <location filename="../qml/BibleViewPage.qml" line="570"/>
         <source>Copied</source>
         <translation>Скопировано</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="573"/>
+        <location filename="../qml/BibleViewPage.qml" line="574"/>
         <source>Nothing selected</source>
         <translation>Ничего не выбрано</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="579"/>
+        <location filename="../qml/BibleViewPage.qml" line="580"/>
         <source>Font size</source>
         <translation>Размер шрифта</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="584"/>
+        <location filename="../qml/BibleViewPage.qml" line="585"/>
         <source>Line spacing</source>
         <translation>Межстрочный интервал</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="589"/>
+        <location filename="../qml/BibleViewPage.qml" line="590"/>
         <source>Download Bible</source>
         <translation>Скачать Библию</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="594"/>
+        <location filename="../qml/BibleViewPage.qml" line="595"/>
         <source>Settings</source>
         <translation>Настройки</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="599"/>
+        <location filename="../qml/BibleViewPage.qml" line="600"/>
         <source>About MeeBible</source>
         <translation>О программе MeeBible</translation>
     </message>
@@ -280,6 +280,31 @@
         <location filename="../qml/SettingsPage.qml" line="140"/>
         <source>Inverted theme</source>
         <translation>Инверсная тема</translation>
+    </message>
+    <message>
+        <location filename="../qml/SettingsPage.qml" line="147"/>
+        <source>Clear cache</source>
+        <translation>Очистить кэш</translation>
+    </message>
+    <message>
+        <location filename="../qml/SettingsPage.qml" line="197"/>
+        <source>Do you want to clear the cache?</source>
+        <translation>Вы действительно хотите очистить кэш?</translation>
+    </message>
+    <message>
+        <location filename="../qml/SettingsPage.qml" line="199"/>
+        <source>This will delete all downloaded Bible chapters from your phone</source>
+        <translation>Все скачанные главы Библии будут удалены из вашего телефона</translation>
+    </message>
+    <message>
+        <location filename="../qml/SettingsPage.qml" line="201"/>
+        <source>Clear</source>
+        <translation>Очистить</translation>
+    </message>
+    <message>
+        <location filename="../qml/SettingsPage.qml" line="202"/>
+        <source>Cancel</source>
+        <translation>Отмена</translation>
     </message>
 </context>
 <context>

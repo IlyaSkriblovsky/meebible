@@ -142,6 +142,14 @@ Page {
                 checked: theme.inverted
                 onCheckedChanged: theme.inverted = checked
             }
+
+            Button {
+                text: qsTr("Clear cache")
+
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                onClicked: clearCacheConfirmation.open()
+            }
         }
     }
     ScrollDecorator {flickableItem: flickable }
@@ -180,6 +188,20 @@ Page {
             target: transDialog.item
             onAccepted: settings.translation = transDialog.item.translation()
         }
+    }
+
+
+    QueryDialog {
+        id: clearCacheConfirmation
+
+        titleText: qsTr("Do you want to clear the cache?")
+
+        message: qsTr("This will delete all downloaded Bible chapters from your phone")
+
+        acceptButtonText: qsTr("Clear")
+        rejectButtonText: qsTr("Cancel")
+
+        onAccepted: cache.clearCache()
     }
 
 

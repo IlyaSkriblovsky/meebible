@@ -39,6 +39,19 @@ Cache::Cache()
     _instance = this;
 
 
+    openDB();
+
+
+    _stripTags = QRegExp("<.*>");
+    _stripTags.setMinimal(true);
+    _stripSpaces = QRegExp("\\s+");
+    _stripStyles = QRegExp("<style>.*</style>");
+    _stripStyles.setMinimal(true);
+}
+
+
+void Cache::openDB()
+{
     _db = QSqlDatabase::addDatabase("QSQLITE", "cache");
     _db.setDatabaseName(Paths::cacheDB());
     if (! _db.open())
@@ -64,13 +77,6 @@ Cache::Cache()
         "CREATE INDEX IF NOT EXISTS lc_tc_bn_cn ON html "
         "(langCode, transCode, bookNo, chapterNo)"
     );
-
-
-    _stripTags = QRegExp("<.*>");
-    _stripTags.setMinimal(true);
-    _stripSpaces = QRegExp("\\s+");
-    _stripStyles = QRegExp("<style>.*</style>");
-    _stripStyles.setMinimal(true);
 }
 
 
@@ -181,3 +187,19 @@ void Cache::onThreadFinished()
     searchFinished();
 }
 #endif
+
+
+
+void Cache::clearCache()
+{
+    // _db.exec("DELETE FROM html; VACUUM;");
+
+    _db.close();
+    QSqlDatabase::removeDatabase("cache");
+
+    QFile cache_db(Paths::cacheDB());
+    if (! cache_db.remove())
+        qDebug() << "Cannot remove cache db!";
+
+    openDB();
+}
