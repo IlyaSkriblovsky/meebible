@@ -57,7 +57,7 @@ Page {
 
             y: 20
 
-            spacing: 40
+            spacing: 30
 
             Column {
                 id: language
