@@ -1,8 +1,13 @@
-TEMPLATE = subdirs
+TEMPLATE = app
 
-SUBDIRS = src share qml translations
+!free:INSTALLDIR = /opt/meebible
+free: INSTALLDIR = /opt/meebible-free
 
-TRANSLATIONS += translations/meebible_ru.ts
+
+include(src/src.pri)
+include(share/share.pri)
+include(qml/qml.pri)
+include(translations/translations.pri)
 
 
 free:desktop.files = meebible-free.desktop
@@ -16,7 +21,6 @@ icon.path = /usr/share/icons/hicolor/64x64/apps
 INSTALLS += icon
 
 free:invoker.files = meebible-invoker-free.sh
-free:invoker.path = /opt/meebible-free/bin
 !free:invoker.files = meebible-invoker.sh
-!free:invoker.path = /opt/meebible/bin
+invoker.path = $$INSTALLDIR/bin
 INSTALLS += invoker
