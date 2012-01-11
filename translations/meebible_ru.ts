@@ -25,8 +25,12 @@
     </message>
     <message>
         <location filename="../qml/AboutPage.qml" line="49"/>
+        <source>Currently following Bible translations are supported: &lt;ul&gt; &lt;li&gt;New World Translation in 42 languages&lt;/li&gt; &lt;li&gt;King James Version&lt;/li&gt; &lt;li&gt;Russian Synodal translation&lt;/li&gt; &lt;li&gt;Latvian Revised Bible&lt;/li&gt; &lt;li&gt;Smith &amp; Van Dyck Arabic translation&lt;/li&gt; &lt;/ul&gt;</source>
+        <translation>Поддерживаются следующие переводы Библии: &lt;ul&gt; &lt;li&gt;Перевод Нового Мира на 42 языках&lt;/li&gt; &lt;li&gt;Библия короля Якова на английском&lt;/li&gt; &lt;li&gt;Русский Синодальный перевод&lt;/li&gt; &lt;li&gt;Латвийский уточнённый перевод&lt;/li&gt; &lt;li&gt;Арабский перевод Смита и Ван Дайка&lt;/li&gt; &lt;/ul&gt;</translation>
+    </message>
+    <message>
         <source>Currently following Bible translations are supported: &lt;ul&gt; &lt;li&gt;New World Translation in 40 languages&lt;/li&gt; &lt;li&gt;King James Version&lt;/li&gt; &lt;li&gt;Russian Synodal translation&lt;/li&gt; &lt;li&gt;Latvian Revised Bible&lt;/li&gt; &lt;li&gt;Smith &amp; Van Dyck Arabic translation&lt;/li&gt; &lt;/ul&gt;</source>
-        <translation>Поддерживаются следующие переводы Библии: &lt;ul&gt; &lt;li&gt;Перевод Нового Мира на 40 языках&lt;/li&gt; &lt;li&gt;Библия короля Якова на английском&lt;/li&gt; &lt;li&gt;Русский Синодальный перевод&lt;/li&gt; &lt;li&gt;Латвийский уточнённый перевод&lt;/li&gt; &lt;li&gt;Арабский перевод Смита и Ван Дайка&lt;/li&gt; &lt;/ul&gt;</translation>
+        <translation type="obsolete">Поддерживаются следующие переводы Библии: &lt;ul&gt; &lt;li&gt;Перевод Нового Мира на 40 языках&lt;/li&gt; &lt;li&gt;Библия короля Якова на английском&lt;/li&gt; &lt;li&gt;Русский Синодальный перевод&lt;/li&gt; &lt;li&gt;Латвийский уточнённый перевод&lt;/li&gt; &lt;li&gt;Арабский перевод Смита и Ван Дайка&lt;/li&gt; &lt;/ul&gt;</translation>
     </message>
     <message>
         <source>Currently following Bible translations are supported: &lt;ul&gt; &lt;li&gt;New World Translation in 40 languages&lt;/li&gt; &lt;li&gt;Russian Synodal translation&lt;/li&gt; &lt;li&gt;Latvian Revised Bible&lt;/li&gt; &lt;li&gt;Smith &amp; Van Dyck Arabic translation&lt;/li&gt; &lt;/ul&gt;</source>
