@@ -1,3 +1,13 @@
+meebible (1.2.1) unstable; urgency=low
+
+  * Two additional languages for NWT
+
+  * Russian Synodal translation fixed
+
+  * Clear cache button
+
+ -- Ilya Skriblovsky <Ilya.Skriblovsky@gmail.com>  Thu, 11 Jan 2012 20:35:00 +0400
+
 meebible (1.2.0) unstable; urgency=low
 
   * King James Version support
