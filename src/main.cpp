@@ -23,6 +23,8 @@
 #include "Fetcher.h"
 #include "Settings.h"
 
+#include "BibleOnlineSource.h"
+
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
     QElapsedTimer timer;
@@ -54,6 +56,9 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     ccarabicSource2.addTranslationsToList(&languages);
     KJBOSource kjbosource;
     kjbosource.addTranslationsToList(&languages);
+
+    BibleOnlineSource bibleOnlineSource;
+    bibleOnlineSource.addTranslationsToList(&languages);
 
     Settings settings(&languages);
 

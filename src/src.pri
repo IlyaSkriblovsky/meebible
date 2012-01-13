@@ -48,7 +48,10 @@ HEADERS +=                      \
     src/BLVSource2.h            \
     src/BOSource2.h             \
     src/CCArabicSource2.h       \
-    src/KJBOSource.h
+    src/KJBOSource.h            \
+    src/MultiSource.h           \
+    src/MultiTranslation.h      \
+    src/BibleOnlineSource.h
 
 !nosearch:HEADERS +=            \
     src/SqliteUnicodeSearch.h   \
@@ -77,7 +80,10 @@ SOURCES +=                      \
     src/BLVSource2.cpp          \
     src/BOSource2.cpp           \
     src/CCArabicSource2.cpp     \
-    src/KJBOSource.cpp
+    src/KJBOSource.cpp          \
+    src/MultiSource.cpp         \
+    src/MultiTranslation.cpp    \
+    src/BibleOnlineSource.cpp
 
 !nosearch:SOURCES +=            \
     src/SqliteUnicodeSearch.cpp \
