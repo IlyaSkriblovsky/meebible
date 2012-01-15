@@ -5,6 +5,9 @@
 
 #include <QString>
 #include <QSqlDatabase>
+#include <QMap>
+#include <QCache>
+#include <QPair>
 
 class Languages;
 class ChapterRequest;
@@ -29,6 +32,11 @@ class MultiSource: public Source
 
     private:
         QSqlDatabase _db;
+
+
+        mutable QMap<QPair<const Translation*, QString>, QString > _cache_bookName;
+        mutable QMap<const Translation*, QStringList> _cache_bookCodes;
+        mutable QMap<QPair<const Translation*, QString>, QList<int> > _cache_verseCounts;
 };
 
 #endif

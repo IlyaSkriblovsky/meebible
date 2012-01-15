@@ -2,6 +2,7 @@
 
 #include <QCoreApplication>
 #include <QSqlQuery>
+#include <QSqlError>
 #include <QVariant>
 #include <QDebug>
 
@@ -25,53 +26,60 @@ MultiSource::MultiSource(const QString& dbname)
 
 void MultiSource::addTranslationsToList(Languages* languages)
 {
-    QSqlQuery select("SELECT transCode, name, sourceUrl, copyright FROM translations", _db);
+    QSqlQuery select("SELECT t.transCode, langCode, name, sourceUrl, copyright FROM translations AS t LEFT JOIN translationLangs AS tl ON t.transCode = tl.transCode", _db);
     select.exec();
-
-    QSqlQuery langs("SELECT langCode FROM translationLangs WHERE transCode = :transCode", _db);
+    qDebug() << "exec" << 1;
 
     while (select.next())
     {
         QString code = select.value(0).toString();
-        QString name = select.value(1).toString();
-        QString sourceUrl = select.value(2).toString();
-        QString copyright = select.value(3).toString();
+        Language *lang = languages->langByCode(select.value(1).toString());
+        QString name = select.value(2).toString();
+        QString sourceUrl = select.value(3).toString();
+        QString copyright = select.value(4).toString();
 
-        langs.bindValue(":transCode", code);
-        langs.exec();
-
-        while (langs.next())
-        {
-            Language *lang = languages->langByCode(langs.value(0).toString());
-            MultiTranslation *trans = new MultiTranslation(
-                this, lang,
-                code, name, sourceUrl, copyright
-            );
-            lang->addTranslation(trans);
-        }
+        MultiTranslation *trans = new MultiTranslation(
+            this, lang,
+            code, name, sourceUrl, copyright
+        );
+        lang->addTranslation(trans);
     }
 }
 
 
 QString MultiSource::bookName(const Translation* translation, const QString& bookCode) const
 {
-    QSqlQuery query("SELECT bookName FROM books WHERE transCode=:transCode AND bookCode=:bookCode AND langCode=:langCode", _db);
-    query.bindValue(":transCode", translation->code());
-    query.bindValue(":langCode", translation->language()->code());
-    query.bindValue(":bookCode", bookCode);
+    QPair<const Translation*, QString> cachePair(translation, bookCode);
+
+    if (_cache_bookName.contains(cachePair))
+        return _cache_bookName.value(cachePair);
+
+    QSqlQuery query("SELECT bookName FROM books WHERE transCode=:transCode AND langCode=:langCode AND bookCode=:bookCode", _db);
+    query.bindValue(0, translation->code());
+    query.bindValue(1, translation->language()->code());
+    query.bindValue(2, bookCode);
     query.exec();
+    qDebug() << "exec" << 2;
 
     if (query.next())
+    {
+        _cache_bookName.insert(cachePair, query.value(0).toString());
+
         return query.value(0).toString();
+    }
     else
         return "<unknown>";
 }
 
 QStringList MultiSource::bookCodes(const Translation* translation) const
 {
+    if (_cache_bookCodes.contains(translation))
+        return _cache_bookCodes.value(translation);
+
     QSqlQuery query("SELECT bookCode FROM books WHERE transCode=:transCode ORDER BY bookNo", _db);
-    query.bindValue(":transCode", translation->code());
+    query.bindValue(0, translation->code());
     query.exec();
+    qDebug() << "exec" << 3;
 
     QStringList result;
     while (query.next())
@@ -79,19 +87,29 @@ QStringList MultiSource::bookCodes(const Translation* translation) const
 
     qDebug() << result;
 
+    _cache_bookCodes.insert(translation, result);
+
     return result;
 }
 
 QList<int> MultiSource::verseCounts(const Translation* translation, const QString& bookCode) const
 {
+    QPair<const Translation*, QString> cachePair(translation, bookCode);
+
+    if (_cache_verseCounts.contains(cachePair))
+        return _cache_verseCounts.value(cachePair);
+
     QSqlQuery query("SELECT verseCount FROM chapterSize WHERE transCode=:transCode AND bookCode=:bookCode ORDER BY chapterNo", _db);
-    query.bindValue(":transCode", translation->code());
-    query.bindValue(":bookCode", bookCode);
+    query.bindValue(0, translation->code());
+    query.bindValue(1, bookCode);
     query.exec();
+    qDebug() << "exec" << 4;
 
     QList<int> result;
     while (query.next())
         result << query.value(0).toInt();
+
+    _cache_verseCounts.insert(cachePair, result);
 
     return result;
 }
