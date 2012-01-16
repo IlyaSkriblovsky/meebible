@@ -45,17 +45,19 @@ HEADERS +=                      \
     src/Settings.h              \
     src/SimpleSource.h          \
     src/SimpleTranslation.h     \
-    src/BLVSource2.h            \
-    src/BOSource2.h             \
-    src/CCArabicSource2.h       \
-    src/KJBOSource.h            \
+#    src/BLVSource2.h            \
+#    src/BOSource2.h             \
+#    src/CCArabicSource2.h       \
+#    src/KJBOSource.h            \
     src/MultiSource.h           \
     src/MultiTranslation.h      \
-    src/BibleOnlineSource.h
-
-!nosearch:HEADERS +=            \
-    src/SqliteUnicodeSearch.h   \
-    src/SearchThread.h
+    src/BibleOnlineSource.h     \
+    src/Parser.h                \
+    src/ParserFactory.h         \
+    src/BibleOnlineParser.h     \
+    src/BibeleLVParser.h        \
+    src/CCArabicParser.h        \
+    src/KJBOParser.h
 
 SOURCES +=                      \
     src/main.cpp                \
@@ -77,14 +79,24 @@ SOURCES +=                      \
     src/Settings.cpp            \
     src/SimpleSource.cpp        \
     src/SimpleTranslation.cpp   \
-    src/BLVSource2.cpp          \
-    src/BOSource2.cpp           \
-    src/CCArabicSource2.cpp     \
-    src/KJBOSource.cpp          \
+#    src/BLVSource2.cpp          \
+#    src/BOSource2.cpp           \
+#    src/CCArabicSource2.cpp     \
+#    src/KJBOSource.cpp          \
     src/MultiSource.cpp         \
     src/MultiTranslation.cpp    \
-    src/BibleOnlineSource.cpp
+    src/BibleOnlineSource.cpp   \
+    src/Parser.cpp              \
+    src/ParserFactory.cpp       \
+    src/BibleOnlineParser.cpp   \
+    src/BibeleLVParser.cpp      \
+    src/CCArabicParser.cpp      \
+    src/KJBOParser.cpp
 
+
+!nosearch:HEADERS +=            \
+    src/SqliteUnicodeSearch.h   \
+    src/SearchThread.h
 !nosearch:SOURCES +=            \
     src/SqliteUnicodeSearch.cpp \
     src/SearchThread.cpp

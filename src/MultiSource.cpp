@@ -10,6 +10,8 @@
 #include "Languages.h"
 #include "Language.h"
 #include "MultiTranslation.h"
+#include "Parser.h"
+#include "ParserFactory.h"
 
 
 MultiSource::MultiSource(const QString& dbname)
@@ -26,7 +28,7 @@ MultiSource::MultiSource(const QString& dbname)
 
 void MultiSource::addTranslationsToList(Languages* languages)
 {
-    QSqlQuery select("SELECT t.transCode, langCode, name, sourceUrl, copyright FROM translations AS t LEFT JOIN translationLangs AS tl ON t.transCode = tl.transCode", _db);
+    QSqlQuery select("SELECT t.transCode, langCode, parser, name, sourceUrl, copyright, rtl FROM translations AS t LEFT JOIN translationLangs AS tl ON t.transCode = tl.transCode", _db);
     select.exec();
     qDebug() << "exec" << 1;
 
@@ -34,13 +36,15 @@ void MultiSource::addTranslationsToList(Languages* languages)
     {
         QString code = select.value(0).toString();
         Language *lang = languages->langByCode(select.value(1).toString());
-        QString name = select.value(2).toString();
-        QString sourceUrl = select.value(3).toString();
-        QString copyright = select.value(4).toString();
+        QString parser = select.value(2).toString();
+        QString name = select.value(3).toString();
+        QString sourceUrl = select.value(4).toString();
+        QString copyright = select.value(5).toString();
+        bool rtl = select.value(6).toBool();
 
         MultiTranslation *trans = new MultiTranslation(
-            this, lang,
-            code, name, sourceUrl, copyright
+            this, lang, parser,
+            code, name, sourceUrl, copyright, rtl
         );
         lang->addTranslation(trans);
     }
@@ -112,4 +116,20 @@ QList<int> MultiSource::verseCounts(const Translation* translation, const QStrin
     _cache_verseCounts.insert(cachePair, result);
 
     return result;
+}
+
+
+ChapterRequest* MultiSource::requestChapter(Translation* translation, QNetworkAccessManager *nam, const QString &bookCode, int chapterNo)
+{
+    MultiTranslation* mt = dynamic_cast<MultiTranslation*>(translation);
+
+    Parser* parser = ParserFactory::getParser(mt->parser());
+
+    if (parser == 0)
+    {
+        qCritical() << "Unknown parser" << mt->parser();
+        QCoreApplication::exit(1);
+    }
+
+    return parser->requestChapter(this, translation, nam, bookCode, chapterNo);
 }

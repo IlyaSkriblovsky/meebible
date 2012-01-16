@@ -6,12 +6,16 @@
 MultiTranslation::MultiTranslation(
     MultiSource* source,
     Language* language,
+    const QString& parser,
     const QString& code,
     const QString& name,
     const QString& sourceUrl,
-    const QString& copyright
+    const QString& copyright,
+    bool rtl
 )
-    : _source(source), _language(language), _code(code), _name(name), _sourceUrl(sourceUrl), _copyright(copyright)
+    : _source(source), _language(language), _parser(parser),
+      _code(code), _name(name), _sourceUrl(sourceUrl),
+      _copyright(copyright), _rtl(rtl)
 {
 }
 

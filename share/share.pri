@@ -2,10 +2,10 @@ SHAREFILES = \
     share/mt.sqlite                 \
     share/langs.sqlite              \
     share/nwt.sqlite                \
-    share/bo.sqlite                 \
-    share/blv.sqlite                \
-    share/ccarabic.sqlite           \
-    share/kjbo.sqlite               \
+#    share/bo.sqlite                 \
+#    share/blv.sqlite                \
+#    share/ccarabic.sqlite           \
+#    share/kjbo.sqlite               \
     share/nwt.xslt                  \
     share/script.js                 \
     share/style.css                 \

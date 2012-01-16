@@ -22,7 +22,7 @@ class MultiSource: public Source
 
         virtual void addTranslationsToList(Languages* languages);
 
-        virtual ChapterRequest* requestChapter(Translation* translation, QNetworkAccessManager *nam, const QString &bookCode, int chapter) = 0;
+        virtual ChapterRequest* requestChapter(Translation* translation, QNetworkAccessManager *nam, const QString &bookCode, int chapterNo);
 
 
         virtual QString bookName(const Translation* translation, const QString& bookCode) const;
