@@ -31,9 +31,9 @@ HEADERS +=                      \
     src/Translation.h           \
     src/ChapterRequest.h        \
     src/Source.h                \
-    src/NWTSource.h             \
-    src/NWTranslation.h         \
-    src/NWTChapterRequest.h     \
+#    src/NWTSource.h             \
+#    src/NWTranslation.h         \
+#    src/NWTChapterRequest.h     \
     src/BibleView.h             \
     src/Cache.h                 \
     src/Paths.h                 \
@@ -43,8 +43,8 @@ HEADERS +=                      \
     src/Fetcher.h               \
     src/Utils.h                 \
     src/Settings.h              \
-    src/SimpleSource.h          \
-    src/SimpleTranslation.h     \
+#    src/SimpleSource.h          \
+#    src/SimpleTranslation.h     \
 #    src/BLVSource2.h            \
 #    src/BOSource2.h             \
 #    src/CCArabicSource2.h       \
@@ -57,7 +57,8 @@ HEADERS +=                      \
     src/BibleOnlineParser.h     \
     src/BibeleLVParser.h        \
     src/CCArabicParser.h        \
-    src/KJBOParser.h
+    src/KJBOParser.h            \
+    src/NWTParser.h
 
 SOURCES +=                      \
     src/main.cpp                \
@@ -66,9 +67,9 @@ SOURCES +=                      \
     src/Translation.cpp         \
     src/ChapterRequest.cpp      \
     src/Source.cpp              \
-    src/NWTSource.cpp           \
-    src/NWTranslation.cpp       \
-    src/NWTChapterRequest.cpp   \
+#    src/NWTSource.cpp           \
+#    src/NWTranslation.cpp       \
+#    src/NWTChapterRequest.cpp   \
     src/BibleView.cpp           \
     src/Cache.cpp               \
     src/Paths.cpp               \
@@ -77,8 +78,8 @@ SOURCES +=                      \
     src/BibleWebPage.cpp        \
     src/Fetcher.cpp             \
     src/Settings.cpp            \
-    src/SimpleSource.cpp        \
-    src/SimpleTranslation.cpp   \
+#    src/SimpleSource.cpp        \
+#    src/SimpleTranslation.cpp   \
 #    src/BLVSource2.cpp          \
 #    src/BOSource2.cpp           \
 #    src/CCArabicSource2.cpp     \
@@ -91,7 +92,8 @@ SOURCES +=                      \
     src/BibleOnlineParser.cpp   \
     src/BibeleLVParser.cpp      \
     src/CCArabicParser.cpp      \
-    src/KJBOParser.cpp
+    src/KJBOParser.cpp          \
+    src/NWTParser.cpp
 
 
 !nosearch:HEADERS +=            \

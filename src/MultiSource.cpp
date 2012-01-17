@@ -80,8 +80,9 @@ QStringList MultiSource::bookCodes(const Translation* translation) const
     if (_cache_bookCodes.contains(translation))
         return _cache_bookCodes.value(translation);
 
-    QSqlQuery query("SELECT bookCode FROM books WHERE transCode=:transCode ORDER BY bookNo", _db);
+    QSqlQuery query("SELECT bookCode FROM books WHERE transCode=:transCode AND langCode=:langCode ORDER BY bookNo", _db);
     query.bindValue(0, translation->code());
+    query.bindValue(1, translation->language()->code());
     query.exec();
     qDebug() << "exec" << 3;
 

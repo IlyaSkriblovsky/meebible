@@ -112,6 +112,8 @@ QString BibleOnlineParser::chapterUrl(Translation* translation, const QString &b
 
 ChapterRequest* BibleOnlineParser::requestChapter(MultiSource* source, Translation* translation, QNetworkAccessManager *nam, const QString& bookCode, int chapterNo)
 {
+    Q_UNUSED(source);
+
     return new BibleOnlineRequest(
         translation, bookCode, chapterNo,
         nam->get(QNetworkRequest(QUrl(

@@ -1,7 +1,7 @@
 SHAREFILES = \
     share/mt.sqlite                 \
     share/langs.sqlite              \
-    share/nwt.sqlite                \
+#    share/nwt.sqlite                \
 #    share/bo.sqlite                 \
 #    share/blv.sqlite                \
 #    share/ccarabic.sqlite           \

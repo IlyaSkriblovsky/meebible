@@ -41,12 +41,12 @@ class MultiTranslation: public Translation
     private:
         MultiSource *_source;
         Language* _language;
+        QString _parser;
 
         QString _code;
         QString _name;
         QString _sourceUrl;
         QString _copyright;
-        QString _parser;
         bool _rtl;
 };
 

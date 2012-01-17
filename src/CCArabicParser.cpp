@@ -177,6 +177,8 @@ CCArabicParser::CCArabicParser()
 
 ChapterRequest* CCArabicParser::requestChapter(MultiSource* source, Translation* translation, QNetworkAccessManager* nam, const QString& bookCode, int chapterNo)
 {
+    Q_UNUSED(source);
+
     QNetworkRequest request(QUrl(
         QString("http://copticchurch.net/cgibin/bible/index.php?r=%1+%2&version=SVD&showVN=1")
             .arg(_searchNames[bookCode])

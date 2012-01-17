@@ -94,6 +94,8 @@ class KJBOChapterRequest: public ChapterRequest
 
 ChapterRequest* KJBOParser::requestChapter(MultiSource *source, Translation *translation, QNetworkAccessManager *nam, const QString& bookCode, int chapterNo)
 {
+    Q_UNUSED(source);
+
     QString url = QString("http://www.kingjamesbibleonline.org/%1-Chapter-%2/")
         .arg(translation->bookName(bookCode).replace(" ", "-"))
         .arg(chapterNo);

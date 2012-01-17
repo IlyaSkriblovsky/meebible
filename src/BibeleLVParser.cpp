@@ -117,6 +117,8 @@ class BLVChapterRequest2: public ChapterRequest
 
 ChapterRequest* BibeleLVParser::requestChapter(MultiSource* source, Translation* translation, QNetworkAccessManager *nam, const QString& bookCode, int chapterNo)
 {
+    Q_UNUSED(source);
+
     QNetworkRequest request(QUrl("http://bibele.lv/bibele/bibele.php"));
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
 

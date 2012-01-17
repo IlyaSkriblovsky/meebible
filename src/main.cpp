@@ -13,7 +13,7 @@
 #include "Cache.h"
 #include "Languages.h"
 #include "Language.h"
-#include "NWTSource.h"
+// #include "NWTSource.h"
 // #include "BOSource2.h"
 // #include "BLVSource2.h"
 // #include "CCArabicSource2.h"
@@ -46,8 +46,8 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     Languages languages;
 
 
-    NWTSource nwtSource;
-    nwtSource.addTranslationsToList(&languages);
+    // NWTSource nwtSource;
+    // nwtSource.addTranslationsToList(&languages);
     // BOSource2 boSource2;
     // boSource2.addTranslationsToList(&languages);
     // BLVSource2 blvSource2;

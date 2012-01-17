@@ -1,5 +1,6 @@
 #include "ParserFactory.h"
 
+#include "NWTParser.h"
 #include "BibleOnlineParser.h"
 #include "BibeleLVParser.h"
 #include "CCArabicParser.h"
@@ -22,6 +23,9 @@ Parser* ParserFactory::getParser(const QString& parserName)
 
 Parser* ParserFactory::create(const QString& parserName)
 {
+    if (parserName == "NWTParser")
+        return new NWTParser;
+
     if (parserName == "BibleOnlineParser")
         return new BibleOnlineParser;
 
