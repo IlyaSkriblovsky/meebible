@@ -13,12 +13,8 @@ public:
     static QString cacheDB();
 
     static QString langsDB();
-    static QString nwtDB();
-    static QString boDB();
-    static QString blvDB();
-    static QString ccarabicDB();
 
-    static QString dbByCode(const QString& code);
+    static QString transDB();
 
     static QString qmlMain();
 

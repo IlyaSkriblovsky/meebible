@@ -31,9 +31,6 @@ HEADERS +=                      \
     src/Translation.h           \
     src/ChapterRequest.h        \
     src/Source.h                \
-#    src/NWTSource.h             \
-#    src/NWTranslation.h         \
-#    src/NWTChapterRequest.h     \
     src/BibleView.h             \
     src/Cache.h                 \
     src/Paths.h                 \
@@ -43,12 +40,6 @@ HEADERS +=                      \
     src/Fetcher.h               \
     src/Utils.h                 \
     src/Settings.h              \
-#    src/SimpleSource.h          \
-#    src/SimpleTranslation.h     \
-#    src/BLVSource2.h            \
-#    src/BOSource2.h             \
-#    src/CCArabicSource2.h       \
-#    src/KJBOSource.h            \
     src/MultiSource.h           \
     src/MultiTranslation.h      \
     src/BibleOnlineSource.h     \
@@ -67,9 +58,6 @@ SOURCES +=                      \
     src/Translation.cpp         \
     src/ChapterRequest.cpp      \
     src/Source.cpp              \
-#    src/NWTSource.cpp           \
-#    src/NWTranslation.cpp       \
-#    src/NWTChapterRequest.cpp   \
     src/BibleView.cpp           \
     src/Cache.cpp               \
     src/Paths.cpp               \
@@ -78,12 +66,6 @@ SOURCES +=                      \
     src/BibleWebPage.cpp        \
     src/Fetcher.cpp             \
     src/Settings.cpp            \
-#    src/SimpleSource.cpp        \
-#    src/SimpleTranslation.cpp   \
-#    src/BLVSource2.cpp          \
-#    src/BOSource2.cpp           \
-#    src/CCArabicSource2.cpp     \
-#    src/KJBOSource.cpp          \
     src/MultiSource.cpp         \
     src/MultiTranslation.cpp    \
     src/BibleOnlineSource.cpp   \

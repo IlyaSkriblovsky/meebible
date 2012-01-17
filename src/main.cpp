@@ -57,7 +57,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     // KJBOSource kjbosource;
     // kjbosource.addTranslationsToList(&languages);
 
-    MultiSource multiSource("mt");
+    MultiSource multiSource(Paths::transDB());
     multiSource.addTranslationsToList(&languages);
 
     Settings settings(&languages);

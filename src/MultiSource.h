@@ -18,7 +18,7 @@ class QNetworkAccessManager;
 class MultiSource: public Source
 {
     public:
-        MultiSource(const QString& dbname);
+        MultiSource(const QString& dbfile);
 
         virtual void addTranslationsToList(Languages* languages);
 

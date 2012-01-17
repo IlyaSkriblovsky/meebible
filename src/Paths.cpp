@@ -32,34 +32,14 @@ QString Paths::cacheDB()
 }
 
 
-QString Paths::nwtDB()
-{
-    return _shareDir.filePath("nwt.sqlite");
-}
-
-QString Paths::boDB()
-{
-    return _shareDir.filePath("bo.sqlite");
-}
-
-QString Paths::blvDB()
-{
-    return _shareDir.filePath("blv.sqlite");
-}
-
-QString Paths::ccarabicDB()
-{
-    return _shareDir.filePath("ccarabic.sqlite");
-}
-
 QString Paths::langsDB()
 {
     return _shareDir.filePath("langs.sqlite");
 }
 
-QString Paths::dbByCode(const QString& code)
+QString Paths::transDB()
 {
-    return _shareDir.filePath(code + ".sqlite");
+    return _shareDir.filePath("trans.sqlite");
 }
 
 

@@ -6,7 +6,6 @@
 #include <QVariant>
 #include <QDebug>
 
-#include "Paths.h"
 #include "Languages.h"
 #include "Language.h"
 #include "MultiTranslation.h"
@@ -14,13 +13,13 @@
 #include "ParserFactory.h"
 
 
-MultiSource::MultiSource(const QString& dbname)
+MultiSource::MultiSource(const QString& dbfile)
 {
-    _db = QSqlDatabase::addDatabase("QSQLITE", dbname);
-    _db.setDatabaseName(Paths::dbByCode(dbname));
+    _db = QSqlDatabase::addDatabase("QSQLITE", "trans");
+    _db.setDatabaseName(dbfile);
     if (! _db.open())
     {
-        qCritical() << "Cannot open" << dbname << "DB";
+        qCritical() << "Cannot open" << dbfile << "DB";
         QCoreApplication::exit(1);
     }
 }
