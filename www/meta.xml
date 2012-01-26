@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<meta>
+    <languages>
+        <language code="a"   name="Arabic"              selfname="العربية"/>
+        <language code="af"  name="Afrikaans"           selfname="Afrikaans"/>
+        <language code="al"  name="Albanian"            selfname="Shqip"/>
+        <language code="bl"  name="Bulgarian"           selfname="Български"/>
+        <language code="cn"  name="Chichewa"            selfname="Chichewa"/>
+        <language code="chs" name="Chinese Simplified"  selfname="汉语（简化字）"/>
+        <language code="ch"  name="Chinese Traditional" selfname="漢語（繁體字）"/>
+        <language code="cw"  name="Cibemba"             selfname="Cibemba"/>
+        <language code="c"   name="Croatian"            selfname="Hrvatski"/>
+        <language code="b"   name="Czech"               selfname="Česky"/>
+        <language code="d"   name="Danish"              selfname="Dansk"/>
+        <language code="o"   name="Dutch"               selfname="Nederlands"/>
+        <language code="e"   name="English"             selfname="English"/>
+        <language code="fi"  name="Finnish"             selfname="Suomi"/>
+        <language code="f"   name="French"              selfname="Français"/>
+        <language code="ge"  name="Georgian"            selfname="ქართული"/>
+        <language code="x"   name="German"              selfname="Deutsch"/>
+        <language code="g"   name="Greek"               selfname="Ελληνική"/>
+        <language code="h"   name="Hungarian"           selfname="Magyar"/>
+        <language code="in"  name="Indonesian"          selfname="Bahasa Indonesia"/>
+        <language code="i"   name="Italian"             selfname="Italiano"/>
+        <language code="j"   name="Japanese"            selfname="日本語"/>
+        <language code="ko"  name="Korean"              selfname="한국어"/>
+        <language code="li"  name="Lingala"             selfname="Lingala"/>
+        <language code="mg"  name="Malagasy"            selfname="Malagasy"/>
+        <language code="mt"  name="Maltese"             selfname="Malti"/>
+        <language code="n"   name="Norwegian"           selfname="Norsk"/>
+        <language code="oss" name="Ossetian"            selfname="Иронау"/>
+        <language code="p"   name="Polish"              selfname="Polski"/>
+        <language code="t"   name="Portuguese"          selfname="Português"/>
+        <language code="m"   name="Romanian"            selfname="Română"/>
+        <language code="u"   name="Russian"             selfname="Русский"/>
+        <language code="sb"  name="Serbian"             selfname="Српски"/>
+        <language code="su"  name="Sesotho"             selfname="Sesotho"/>
+        <language code="sv"  name="Slovenian"           selfname="V Slovenščini"/>
+        <language code="s"   name="Spanish"             selfname="Español"/>
+        <language code="sr"  name="Sranantongo"         selfname="Sranantongo"/>
+        <language code="sw"  name="Swahili"             selfname="Kiswahili"/>
+        <language code="z"   name="Swedish"             selfname="Svenska"/>
+        <language code="tn"  name="Tswana"              selfname="Setswana"/>
+        <language code="tk"  name="Turkish"             selfname="Türkçe"/>
+        <language code="xo"  name="Xhosa"               selfname="IsiXhosa"/>
+        <language code="zu"  name="Zulu"                selfname="IsiZulu"/>
+        <language code="lv"  name="Latvian"             selfname="Latviešu valoda"/>
+        <language code="bel" name="Belarusian"          selfname="Беларуская мова"/>
+    </languages>
+
+    <translations>
+        <trans code="rus" name="Синодальный перевод" parser="BibleOnlineParser" sourceurl="http://bibleonline/bible/rus/">
+            <lang code="u"/>
+        </trans>
+        <trans code="bel" name="Беларускі пераклад" parser="BibleOnlineParser" sourceurl="http://bibleonline/bible/bel/">
+            <lang code="bel"/>
+        </trans>
+
+        <trans code="blv" name="1965. gada revidētā Bībeles versija" parser="BibeleLVParser" sourceurl="http://bibele.lv/bibele/bibele.php" copyright="© Latvijas Bībeles Biedrība">
+            <lang code="lv"/>
+        </trans>
+
+        <trans code="ara" name="Smith &amp; Van Dyke Arabic Version" parser="CCArabicParser" sourceurl="http://www.copticchurch.net/cgibin/bible/" rtl="true">
+            <lang code="a"/>
+        </trans>
+
+        <trans code="kjv" name="King James Version (1769)" parser="KJBOParser" sourceurl="http://www.kingjamesbibleonline.org/">
+            <lang code="e"/>
+        </trans>
+
+        <trans code="nwt" name="New World Translation" parser="NWTParser" sourceurl="http://watchtower.org/" copyright="© Watch Tower Bible and Tract Society of Pennsylvania">
+            <lang code="af"/>
+            <lang code="al"/>
+            <lang code="bl"/>
+            <lang code="cn"/>
+            <lang code="chs"/>
+            <lang code="ch"/>
+            <lang code="cw"/>
+            <lang code="c"/>
+            <lang code="b"/>
+            <lang code="d"/>
+            <lang code="o"/>
+            <lang code="e"/>
+            <lang code="fi"/>
+            <lang code="f"/>
+            <lang code="ge"/>
+            <lang code="x"/>
+            <lang code="g"/>
+            <lang code="h"/>
+            <lang code="in"/>
+            <lang code="i"/>
+            <lang code="j"/>
+            <lang code="ko"/>
+            <lang code="li"/>
+            <lang code="mg"/>
+            <lang code="mt"/>
+            <lang code="n"/>
+            <lang code="oss"/>
+            <lang code="p"/>
+            <lang code="t"/>
+            <lang code="m"/>
+            <lang code="u"/>
+            <lang code="sb"/>
+            <lang code="su"/>
+            <lang code="sv"/>
+            <lang code="s"/>
+            <lang code="sr"/>
+            <lang code="sw"/>
+            <lang code="z"/>
+            <lang code="tn"/>
+            <lang code="tk"/>
+            <lang code="xo"/>
+            <lang code="zu"/>
+        </trans>
+    </translations>
+</meta>
