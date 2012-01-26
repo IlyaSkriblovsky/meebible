@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <QDir>
+#include <QUrl>
 
 
 class Paths
@@ -24,6 +25,8 @@ public:
     static QString nwt_xslt();
 
     static QString translationFile(const QString& locale);
+
+    static QUrl wsUrl(const QString& path);
 
 
 private:

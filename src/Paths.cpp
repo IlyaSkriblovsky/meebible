@@ -69,3 +69,10 @@ QString Paths::translationFile(const QString& locale)
 {
     return _translationsDir.filePath(QString("meebible_%1").arg(locale));
 }
+
+
+
+QUrl Paths::wsUrl(const QString& path)
+{
+    return QUrl(QString("http://skriblovsky.net/meebible%1").arg(path));
+}

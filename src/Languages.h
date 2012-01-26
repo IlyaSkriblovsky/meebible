@@ -8,31 +8,51 @@
 
 #include "Language.h"
 
+
+class QNetworkAccessManager;
+class QNetworkReply;
+
+
 class Languages: public QAbstractListModel
 {
     Q_OBJECT
 
-public:
+    public:
+        enum Roles {
+            CodeRole = Qt::UserRole + 1,
+            EngnameRole,
+            SelfnameRole
+        };
 
-    enum Roles {
-        CodeRole = Qt::UserRole + 1,
-        EngnameRole,
-        SelfnameRole
-    };
+
+        Languages();
+        ~Languages();
+
+        Q_INVOKABLE Language* langByCode(const QString& code);
+
+        virtual int rowCount(const QModelIndex& index = QModelIndex()) const;
+        virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
+
+        Q_INVOKABLE Language* langAt(int row) const;
 
 
-    Languages();
-    ~Languages();
+    public slots:
+        void reload();
+        void addLanguage(Language* language);
 
-    Q_INVOKABLE Language* langByCode(const QString& code);
 
-    virtual int rowCount(const QModelIndex& index = QModelIndex()) const;
-    virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
+    signals:
+        void loaded();
 
-    Q_INVOKABLE Language* langAt(int row) const;
 
-private:
-    QList<Language*> _languages;
+    private slots:
+        void requestFinished(QNetworkReply *reply);
+
+
+    private:
+        QList<Language*> _languages;
+
+        QNetworkAccessManager* _nam;
 };
 
 #endif // LANGUAGES

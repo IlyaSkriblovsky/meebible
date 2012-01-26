@@ -132,9 +132,11 @@ void BibleView::loadChapter()
         ChapterRequest* request = _translation->requestChapter(_nam, _bookCode, _chapterNo);
 
         if (request)
+        {
             connect(request, SIGNAL(finished(QString)), this, SLOT(onChapterRequestFinished(QString)));
 
-        loading();
+            loading();
+        }
     }
 }
 

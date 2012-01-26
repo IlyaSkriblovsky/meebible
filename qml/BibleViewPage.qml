@@ -305,9 +305,24 @@ Page {
     }
 
 
+    Connections {
+        target: languages
+        onLoaded: {
+            console.log("LOADED")
+            busyIndicator.state = "invisible"
+        }
+    }
 
     tools: ToolBarLayout {
         id: commonTools
+
+        ToolIcon {
+            platformIconId: "toolbar-refresh"
+            onClicked: {
+                languages.reload()
+                busyIndicator.state = "visible"
+            }
+        }
 
         ToolIcon {
             platformIconId: "toolbar-previous"

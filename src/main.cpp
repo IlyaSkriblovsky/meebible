@@ -23,7 +23,7 @@
 #include "Fetcher.h"
 #include "Settings.h"
 
-#include "MultiSource.h"
+// #include "MultiSource.h"
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
@@ -57,8 +57,8 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     // KJBOSource kjbosource;
     // kjbosource.addTranslationsToList(&languages);
 
-    MultiSource multiSource(Paths::transDB());
-    multiSource.addTranslationsToList(&languages);
+    // MultiSource multiSource(Paths::transDB());
+    // multiSource.addTranslationsToList(&languages);
 
     Settings settings(&languages);
 

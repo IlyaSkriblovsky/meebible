@@ -7,42 +7,39 @@
 #include <QDebug>
 #include <QVariant>
 
-#include "Utils.h"
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
+
 #include "Paths.h"
+#include "MetaInfoParser.h"
 
 
 Languages::Languages()
 {
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "langs");
-    db.setDatabaseName(Paths::langsDB());
-    if (! db.open())
-    {
-        qDebug() << "Cannot open langs db";
-        QCoreApplication::exit(1);
-    }
-
-
-    QSqlQuery select("SELECT * FROM langs ORDER BY engname", db);
-    while (select.next())
-        _languages.append(new Language(
-            select.value(0).toString(),
-            select.value(1).toString(),
-            select.value(2).toString()
-        ));
-
-
     QHash<int, QByteArray> roleNames;
     roleNames[Qt::DisplayRole] = "value";
     roleNames[CodeRole] = "code";
     roleNames[EngnameRole] = "engname";
     roleNames[SelfnameRole] = "selfname";
     setRoleNames(roleNames);
+
+    _nam = new QNetworkAccessManager(this);
+    connect(_nam, SIGNAL(finished(QNetworkReply*)), this, SLOT(requestFinished(QNetworkReply*)));
 }
 
 Languages::~Languages()
 {
     for (int i = 0; i < _languages.size(); i++)
         delete _languages.at(i);
+}
+
+
+
+void Languages::addLanguage(Language* language)
+{
+    beginInsertRows(QModelIndex(), _languages.size(), _languages.size());
+    _languages.append(language);
+    endInsertRows();
 }
 
 
@@ -95,4 +92,35 @@ QVariant Languages::data(const QModelIndex& index, int role) const
 Language* Languages::langAt(int row) const
 {
     return _languages.at(row);
+}
+
+
+
+
+void Languages::reload()
+{
+    _nam->get(QNetworkRequest(Paths::wsUrl("/meta.xml")));
+}
+
+void Languages::requestFinished(QNetworkReply *reply)
+{
+    beginResetModel();
+
+    for (int i = 0; i < _languages.size(); i++)
+        delete _languages.at(i);
+
+    _languages.clear();
+
+    endResetModel();
+
+    MetaInfoParser handler(this);
+    QXmlSimpleReader reader;
+    reader.setContentHandler(&handler);
+    reader.setErrorHandler(&handler);
+
+    QXmlInputSource source(reply);
+
+    qDebug() << reader.parse(source);
+
+    loaded();
 }

@@ -48,7 +48,9 @@ HEADERS +=                      \
     src/BibeleLVParser.h        \
     src/CCArabicParser.h        \
     src/KJBOParser.h            \
-    src/NWTParser.h
+    src/NWTParser.h             \
+    src/MetaInfoParser.h        \
+    src/DummyTranslation.h
 
 SOURCES +=                      \
     src/main.cpp                \
@@ -73,7 +75,9 @@ SOURCES +=                      \
     src/BibeleLVParser.cpp      \
     src/CCArabicParser.cpp      \
     src/KJBOParser.cpp          \
-    src/NWTParser.cpp
+    src/NWTParser.cpp           \
+    src/MetaInfoParser.cpp      \
+    src/DummyTranslation.cpp
 
 
 !nosearch:HEADERS +=            \

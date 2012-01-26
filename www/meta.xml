@@ -50,67 +50,67 @@
 
     <translations>
         <trans code="rus" name="Синодальный перевод" parser="BibleOnlineParser" sourceurl="http://bibleonline/bible/rus/">
-            <lang code="u"/>
+            <transLang code="u"/>
         </trans>
         <trans code="bel" name="Беларускі пераклад" parser="BibleOnlineParser" sourceurl="http://bibleonline/bible/bel/">
-            <lang code="bel"/>
+            <transLang code="bel"/>
         </trans>
 
         <trans code="blv" name="1965. gada revidētā Bībeles versija" parser="BibeleLVParser" sourceurl="http://bibele.lv/bibele/bibele.php" copyright="© Latvijas Bībeles Biedrība">
-            <lang code="lv"/>
+            <transLang code="lv"/>
         </trans>
 
         <trans code="ara" name="Smith &amp; Van Dyke Arabic Version" parser="CCArabicParser" sourceurl="http://www.copticchurch.net/cgibin/bible/" rtl="true">
-            <lang code="a"/>
+            <transLang code="a"/>
         </trans>
 
         <trans code="kjv" name="King James Version (1769)" parser="KJBOParser" sourceurl="http://www.kingjamesbibleonline.org/">
-            <lang code="e"/>
+            <transLang code="e"/>
         </trans>
 
         <trans code="nwt" name="New World Translation" parser="NWTParser" sourceurl="http://watchtower.org/" copyright="© Watch Tower Bible and Tract Society of Pennsylvania">
-            <lang code="af"/>
-            <lang code="al"/>
-            <lang code="bl"/>
-            <lang code="cn"/>
-            <lang code="chs"/>
-            <lang code="ch"/>
-            <lang code="cw"/>
-            <lang code="c"/>
-            <lang code="b"/>
-            <lang code="d"/>
-            <lang code="o"/>
-            <lang code="e"/>
-            <lang code="fi"/>
-            <lang code="f"/>
-            <lang code="ge"/>
-            <lang code="x"/>
-            <lang code="g"/>
-            <lang code="h"/>
-            <lang code="in"/>
-            <lang code="i"/>
-            <lang code="j"/>
-            <lang code="ko"/>
-            <lang code="li"/>
-            <lang code="mg"/>
-            <lang code="mt"/>
-            <lang code="n"/>
-            <lang code="oss"/>
-            <lang code="p"/>
-            <lang code="t"/>
-            <lang code="m"/>
-            <lang code="u"/>
-            <lang code="sb"/>
-            <lang code="su"/>
-            <lang code="sv"/>
-            <lang code="s"/>
-            <lang code="sr"/>
-            <lang code="sw"/>
-            <lang code="z"/>
-            <lang code="tn"/>
-            <lang code="tk"/>
-            <lang code="xo"/>
-            <lang code="zu"/>
+            <transLang code="af"/>
+            <transLang code="al"/>
+            <transLang code="bl"/>
+            <transLang code="cn"/>
+            <transLang code="chs"/>
+            <transLang code="ch"/>
+            <transLang code="cw"/>
+            <transLang code="c"/>
+            <transLang code="b"/>
+            <transLang code="d"/>
+            <transLang code="o"/>
+            <transLang code="e"/>
+            <transLang code="fi"/>
+            <transLang code="f"/>
+            <transLang code="ge"/>
+            <transLang code="x"/>
+            <transLang code="g"/>
+            <transLang code="h"/>
+            <transLang code="in"/>
+            <transLang code="i"/>
+            <transLang code="j"/>
+            <transLang code="ko"/>
+            <transLang code="li"/>
+            <transLang code="mg"/>
+            <transLang code="mt"/>
+            <transLang code="n"/>
+            <transLang code="oss"/>
+            <transLang code="p"/>
+            <transLang code="t"/>
+            <transLang code="m"/>
+            <transLang code="u"/>
+            <transLang code="sb"/>
+            <transLang code="su"/>
+            <transLang code="sv"/>
+            <transLang code="s"/>
+            <transLang code="sr"/>
+            <transLang code="sw"/>
+            <transLang code="z"/>
+            <transLang code="tn"/>
+            <transLang code="tk"/>
+            <transLang code="xo"/>
+            <transLang code="zu"/>
         </trans>
     </translations>
 </meta>
