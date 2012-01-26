@@ -42,7 +42,6 @@ HEADERS +=                      \
     src/Settings.h              \
     src/MultiSource.h           \
     src/MultiTranslation.h      \
-    src/BibleOnlineSource.h     \
     src/Parser.h                \
     src/ParserFactory.h         \
     src/BibleOnlineParser.h     \
@@ -68,7 +67,6 @@ SOURCES +=                      \
     src/Settings.cpp            \
     src/MultiSource.cpp         \
     src/MultiTranslation.cpp    \
-    src/BibleOnlineSource.cpp   \
     src/Parser.cpp              \
     src/ParserFactory.cpp       \
     src/BibleOnlineParser.cpp   \
