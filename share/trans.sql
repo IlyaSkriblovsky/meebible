@@ -10404,3 +10404,5 @@ INSERT INTO chapterSize VALUES ('nwt', 're'  , 021, 027);
 INSERT INTO chapterSize VALUES ('nwt', 're'  , 022, 021);
 
 COMMIT;
+
+VACUUM;
