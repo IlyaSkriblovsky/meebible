@@ -1,21 +1,17 @@
-#include "KJBOSource.h"
-
-#include <QDebug>
+#include "BibleOnlineParser.h"
 
 #include <QNetworkAccessManager>
 #include <QRegExp>
-#include <QStringList>
 
 #include "EasyXml.h"
 #include "ChapterRequest.h"
-#include "SimpleTranslation.h"
+#include "Translation.h"
 
-
-class KJBOChapterRequest: public ChapterRequest
+class BibleOnlineRequest: public ChapterRequest
 {
     public:
-        KJBOChapterRequest(
-            SimpleTranslation *translation,
+        BibleOnlineRequest(
+            Translation *translation,
             const QString& bookCode,
             int chapterNo,
             QNetworkReply *nreply
@@ -28,15 +24,17 @@ class KJBOChapterRequest: public ChapterRequest
         {
             if (error() != QNetworkReply::NoError)
             {
-                finished("HTTP Error");
+                finished("");
                 return;
             }
+
 
             QString content = QString::fromUtf8(_nreply->readAll());
 
             EasyElement* body = tag("body");
 
-            QRegExp re("<a href=\"http://www.kingjamesbibleonline.org/[^\"]*-(\\d+)/\" title='View more translations[^']*'>(.*)</a></p>");
+            // QRegExp re("<span id=\"v(\\d+)\" class=\"v\"><sup>[^<]*</sup>(.*)<br /></span>");
+            QRegExp re("<li id=\"v(\\d+)\" value=\"\\1\" class=\"v\">(.*)</li>");
             re.setMinimal(true);
 
             int pos = 0;
@@ -60,6 +58,7 @@ class KJBOChapterRequest: public ChapterRequest
                     )
                 );
             }
+
 
             QDomDocument doc;
 
@@ -86,36 +85,39 @@ class KJBOChapterRequest: public ChapterRequest
 
             QString html = doc.toString();
 
+            html.replace("&lt;i&gt;", "<i>");
+            html.replace("&lt;/i&gt;", "</i>");
+            html.replace("&lt;i>", "<i>");
+            html.replace("&lt;/i>", "</i>");
+
+
             finished(html);
         }
 };
 
 
-
-KJBOSource::KJBOSource()
-    : SimpleSource("e")
+QString BibleOnlineParser::chapterUrl(Translation* translation, const QString &bookCode, int chapterNo) const
 {
+    int no = translation->bookCodes().indexOf(bookCode);
+    if (no == -1)
+        return "<illegal url>";
+
+    no += 1;
+
+    return QString("http://bibleonline.ru/bible/%1/%2/%3/")
+            .arg(translation->code())
+            .arg(no, 2, 10, QChar('0'))
+            .arg(chapterNo, 2, 10, QChar('0'));
 }
 
-KJBOSource::~KJBOSource()
+ChapterRequest* BibleOnlineParser::requestChapter(MultiSource* source, Translation* translation, QNetworkAccessManager *nam, const QString& bookCode, int chapterNo)
 {
-}
+    Q_UNUSED(source);
 
-QString KJBOSource::chapterUrl(SimpleTranslation *translation, const QString& bookCode, int chapterNo) const
-{
-    return QString("http://www.kingjamesbibleonline.org/%1-Chapter-%2/")
-        .arg(translation->bookName(bookCode).replace(" ", "-"))
-        .arg(chapterNo);
-}
-
-ChapterRequest* KJBOSource::requestChapter(SimpleTranslation *translation, QNetworkAccessManager *nam, const QString& bookCode, int chapterNo)
-{
-    QString url = chapterUrl(translation, bookCode, chapterNo);
-    qDebug() << url;
-    return new KJBOChapterRequest(
+    return new BibleOnlineRequest(
         translation, bookCode, chapterNo,
         nam->get(QNetworkRequest(QUrl(
-            url
+            chapterUrl(translation, bookCode, chapterNo)
         )))
     );
 }

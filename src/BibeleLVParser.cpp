@@ -1,4 +1,4 @@
-#include "BLVSource2.h"
+#include "BibeleLVParser.h"
 
 #include <QNetworkAccessManager>
 #include <QRegExp>
@@ -6,14 +6,13 @@
 
 #include "EasyXml.h"
 #include "ChapterRequest.h"
-#include "SimpleTranslation.h"
-
+#include "Translation.h"
 
 class BLVChapterRequest2: public ChapterRequest
 {
     public:
         BLVChapterRequest2(
-            SimpleTranslation *translation,
+            Translation *translation,
             const QString& bookCode,
             int chapterNo,
             QNetworkReply *nreply
@@ -39,7 +38,10 @@ class BLVChapterRequest2: public ChapterRequest
             QString payload;
 
             if (re_payload.indexIn(content, 0) == -1)
-                payload = "[BLV: not found?]";
+            {
+                finished("");
+                return;
+            }
 
 
             payload = re_payload.cap(1);
@@ -113,19 +115,10 @@ class BLVChapterRequest2: public ChapterRequest
 
 
 
-BLVSource2::BLVSource2()
-            :SimpleSource("lv")
+ChapterRequest* BibeleLVParser::requestChapter(MultiSource* source, Translation* translation, QNetworkAccessManager *nam, const QString& bookCode, int chapterNo)
 {
-}
+    Q_UNUSED(source);
 
-BLVSource2::~BLVSource2()
-{
-}
-
-
-
-ChapterRequest* BLVSource2::requestChapter(SimpleTranslation* translation, QNetworkAccessManager *nam, const QString& bookCode, int chapterNo)
-{
     QNetworkRequest request(QUrl("http://bibele.lv/bibele/bibele.php"));
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
 
