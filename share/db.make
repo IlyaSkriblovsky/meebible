@@ -1,4 +1,4 @@
-DBS = langs.sqlite nwt.sqlite bo.sqlite blv.sqlite ccarabic.sqlite kjbo.sqlite mt.sqlite
+DBS = langs.sqlite trans.sqlite
 
 all: $(DBS)
 
