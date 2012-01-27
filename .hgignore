@@ -1,3 +1,5 @@
 .*\.o$
 \bmoc_.*\.cpp$
 \bMakefile$
+\.pyc$
+^www\/compile\/

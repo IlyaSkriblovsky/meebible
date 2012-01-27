@@ -18,7 +18,7 @@ while ($row = $r->fetchArray())
     $xml_language->setAttribute('selfname', $row['selfname']);
 }
 
-$db_trans = new SQLite3($db('trans.sqlite'));
+$db_trans = new SQLite3(db('trans.sqlite'));
 $r = $db_trans->query("SELECT * FROM translations");
 
 $xml_translations = $xml_metainfo->appendChild($dom->createElement("translations"));

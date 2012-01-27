@@ -30,7 +30,7 @@ for book in books:
 
         verses = [v[1] for v in verse_re.findall(content)]
 
-        f = open('{0}_{1:003}.html'.format(book[0], chapterNo), 'w')
+        f = open('{0}_{1:03}.html'.format(book[0], chapterNo), 'w')
         f.write(create_xml(verses))
         f.close()
 

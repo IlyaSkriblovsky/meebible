@@ -18,6 +18,12 @@ return array(
     ),
 
     array(
+        'url'   =>  '/^\/chapter\?/',
+        're'    =>  true,
+        'view'  =>  'chapter'
+    ),
+
+    array(
         'url'   =>  '*',
         'view'  =>  '404'
     )
