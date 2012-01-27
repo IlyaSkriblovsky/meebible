@@ -1,6 +1,8 @@
 <?php
 
-$db_langs = new SQLite3("../share/langs.sqlite");
+require_once('db.php');
+
+$db_langs = new SQLite3(db('langs.sqlite'));
 $r = $db_langs->query("SELECT * FROM langs ORDER BY engname");
 
 $dom = new DomDocument("1.0");
@@ -16,7 +18,7 @@ while ($row = $r->fetchArray())
     $xml_language->setAttribute('selfname', $row['selfname']);
 }
 
-$db_trans = new SQLite3("../share/trans.sqlite");
+$db_trans = new SQLite3($db('trans.sqlite'));
 $r = $db_trans->query("SELECT * FROM translations");
 
 $xml_translations = $xml_metainfo->appendChild($dom->createElement("translations"));

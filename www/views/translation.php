@@ -1,5 +1,7 @@
 <?php
 
+require_once('db.php');
+
 $dom = new DomDocument("1.0");
 
 if (empty($_REQUEST['trans']) || empty($_REQUEST['lang']))
@@ -15,7 +17,7 @@ $lang = $_REQUEST['lang'];
 
 
 
-$db_trans = new SQLite3("../share/trans.sqlite");
+$db_trans = new SQLite3(db('trans.sqlite'));
 
 $xml_translation = $dom->appendChild($dom->createElement("translation"));
 
