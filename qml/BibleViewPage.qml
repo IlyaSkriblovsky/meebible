@@ -47,6 +47,8 @@ Page {
         fontSizeSlider.value = settings.fontSize
         lineSpacingSlider.value = settings.lineSpacing
         created = true
+
+        languages.reload()
     }
 
 
@@ -57,7 +59,7 @@ Page {
         height: settings.floatingHeader ? 0 : 70
         visible: ! settings.floatingHeader
 
-        rtl: settings.translation.rtl
+        rtl: settings.translation != null  &&  settings.translation.rtl
     }
 
 
@@ -95,7 +97,7 @@ Page {
                 height: settings.floatingHeader ? 70 : 0
                 visible: settings.floatingHeader
 
-                rtl: settings.translation.rtl
+                rtl: settings.translation != null  &&  settings.translation.rtl
             }
 
             BibleView {
@@ -113,7 +115,7 @@ Page {
                 inverted: theme.inverted
 
 
-                Component.onCompleted: loadChapter()
+                // Component.onCompleted: loadChapter()
 
                 onChapterLoaded: {
                     if (! firstScrollPosSet)
@@ -307,22 +309,12 @@ Page {
 
     Connections {
         target: languages
-        onLoaded: {
-            console.log("LOADED")
-            busyIndicator.state = "invisible"
-        }
+        onLoadingChanged: busyIndicator.state = languages.loading ? "visible" : "invisible"
     }
+
 
     tools: ToolBarLayout {
         id: commonTools
-
-        ToolIcon {
-            platformIconId: "toolbar-refresh"
-            onClicked: {
-                languages.reload()
-                busyIndicator.state = "visible"
-            }
-        }
 
         ToolIcon {
             platformIconId: "toolbar-previous"

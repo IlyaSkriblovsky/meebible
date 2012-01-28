@@ -157,6 +157,8 @@ private slots:
     void onLoadFinished(bool ok);
 
     void onLinkClicked(const QUrl& url);
+
+    void onTranslationLoaded();
 };
 
 #endif // BIBLEVIEW_H

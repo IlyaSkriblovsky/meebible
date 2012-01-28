@@ -72,7 +72,7 @@ Page {
                 }
 
                 TumblerButton {
-                    text: settings.language.selfname
+                    text: settings.language ? settings.language.selfname : "<not loaded yet>"
 
                     x: 40
                     width: parent.width - 80
@@ -96,7 +96,7 @@ Page {
                 }
 
                 TumblerButton {
-                    text: settings.translation.name
+                    text: settings.translation ? settings.translation.name : "<not loaded yet>"
 
                     x: 40
                     width: parent.width - 80
@@ -107,7 +107,7 @@ Page {
                 }
 
                 Label {
-                    text: 'Available at <a href="' + settings.translation.sourceUrl + '">' + settings.translation.sourceUrl + '</a>'
+                    text: settings.translation ? 'Available at <a href="' + settings.translation.sourceUrl + '">' + settings.translation.sourceUrl + '</a>' : ''
                     font.pixelSize: 20
                     x: 40
                     width: parent.width - x
@@ -115,7 +115,7 @@ Page {
                     onLinkActivated: Qt.openUrlExternally(settings.translation.sourceUrl)
                 }
                 Label {
-                    text: settings.translation.copyright
+                    text: settings.translation ? settings.translation.copyright : ''
                     font.pixelSize: 20
                     x: 40
                     width: parent.width - x

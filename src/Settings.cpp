@@ -1,5 +1,7 @@
 #include "Settings.h"
 
+#include <QDebug>
+
 #include "Language.h"
 #include "Languages.h"
 #include "Translation.h"
@@ -8,16 +10,11 @@
 Settings::Settings(Languages* langs, QObject* parent):
     QObject(parent)
 {
-    _language = langs->langByCode(_settings.value("General/langCode", "e").toString());
+    _langCode = _settings.value("General/langCode", "e").toString();
+    _language = 0;
 
-    if (_language == 0)
-        _translation = 0;
-    else
-    {
-        _translation = _language->translationByCode(
-            _settings.value("General/transCode", "nwt").toString()
-        );
-    }
+    _transCode = _settings.value("General/transCode", "nwt").toString();
+    _translation = 0;
 
 
     _bookCode =         _settings.value("General/bookCode", "ge").toString();
@@ -30,6 +27,8 @@ Settings::Settings(Languages* langs, QObject* parent):
     _inverted =         _settings.value("General/inverted", false).toBool();
 
     _searchNoticeShown = _settings.value("Notices/searchNoticeShown", false).toBool();
+
+    connect(langs, SIGNAL(loaded()), this, SLOT(onLanguagesLoaded()));
 }
 
 Settings::~Settings()
@@ -46,6 +45,18 @@ Settings::~Settings()
     _settings.setValue("General/inverted", _inverted);
 
     _settings.setValue("Notices/searchNoticeShown", _searchNoticeShown);
+}
+
+
+void Settings::onLanguagesLoaded()
+{
+    qDebug() << "onLanguagesLoaded";
+    Languages* langs = dynamic_cast<Languages*>(sender());
+    qDebug() << langs;
+    setLanguage(langs->langByCode(_langCode));
+
+    if (_language)
+        setTranslation(_language->translationByCode(_transCode));
 }
 
 

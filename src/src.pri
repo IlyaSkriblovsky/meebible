@@ -30,27 +30,28 @@ HEADERS +=                      \
     src/Languages.h             \
     src/Translation.h           \
     src/ChapterRequest.h        \
-    src/Source.h                \
+    # src/Source.h                \
     src/BibleView.h             \
     src/Cache.h                 \
     src/Paths.h                 \
     src/Place.h                 \
-    src/EasyXml.h               \
+    # src/EasyXml.h               \
     src/BibleWebPage.h          \
     src/Fetcher.h               \
     src/Utils.h                 \
     src/Settings.h              \
-    src/MultiSource.h           \
-    src/MultiTranslation.h      \
-    src/Parser.h                \
-    src/ParserFactory.h         \
-    src/BibleOnlineParser.h     \
-    src/BibeleLVParser.h        \
-    src/CCArabicParser.h        \
-    src/KJBOParser.h            \
-    src/NWTParser.h             \
+    # src/MultiSource.h           \
+    # src/MultiTranslation.h      \
+    # src/Parser.h                \
+    # src/ParserFactory.h         \
+    # src/BibleOnlineParser.h     \
+    # src/BibeleLVParser.h        \
+    # src/CCArabicParser.h        \
+    # src/KJBOParser.h            \
+    # src/NWTParser.h             \
     src/MetaInfoParser.h        \
-    src/DummyTranslation.h
+    src/DummyTranslation.h      \
+    src/TranslationInfoParser.h
 
 SOURCES +=                      \
     src/main.cpp                \
@@ -58,26 +59,27 @@ SOURCES +=                      \
     src/Languages.cpp           \
     src/Translation.cpp         \
     src/ChapterRequest.cpp      \
-    src/Source.cpp              \
+    # src/Source.cpp              \
     src/BibleView.cpp           \
     src/Cache.cpp               \
     src/Paths.cpp               \
     src/Place.cpp               \
-    src/EasyXml.cpp             \
+    # src/EasyXml.cpp             \
     src/BibleWebPage.cpp        \
     src/Fetcher.cpp             \
     src/Settings.cpp            \
-    src/MultiSource.cpp         \
-    src/MultiTranslation.cpp    \
-    src/Parser.cpp              \
-    src/ParserFactory.cpp       \
-    src/BibleOnlineParser.cpp   \
-    src/BibeleLVParser.cpp      \
-    src/CCArabicParser.cpp      \
-    src/KJBOParser.cpp          \
-    src/NWTParser.cpp           \
+    # src/MultiSource.cpp         \
+    # src/MultiTranslation.cpp    \
+    # src/Parser.cpp              \
+    # src/ParserFactory.cpp       \
+    # src/BibleOnlineParser.cpp   \
+    # src/BibeleLVParser.cpp      \
+    # src/CCArabicParser.cpp      \
+    # src/KJBOParser.cpp          \
+    # src/NWTParser.cpp           \
     src/MetaInfoParser.cpp      \
-    src/DummyTranslation.cpp
+    src/DummyTranslation.cpp    \
+    src/TranslationInfoParser.cpp
 
 
 !nosearch:HEADERS +=            \

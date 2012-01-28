@@ -74,5 +74,5 @@ QString Paths::translationFile(const QString& locale)
 
 QUrl Paths::wsUrl(const QString& path)
 {
-    return QUrl(QString("http://skriblovsky.net/meebible%1").arg(path));
+    return QUrl(QString("http://188.127.230.230:10000/%1").arg(path));
 }

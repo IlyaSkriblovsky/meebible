@@ -15,6 +15,9 @@ MetaInfoParser::MetaInfoParser(Languages* languages)
 
 bool MetaInfoParser::startElement(const QString& namespaceURI, const QString& localName, const QString& qName, const QXmlAttributes& attrs)
 {
+    Q_UNUSED(namespaceURI);
+    Q_UNUSED(localName);
+
     if (qName == "language")
         _languages->addLanguage(new Language(
             attrs.value("code"),

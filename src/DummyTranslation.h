@@ -2,11 +2,29 @@
 #define DUMMYTRANSLATION_H
 
 #include "Translation.h"
+
+#include <QDebug>
+
 #include "Language.h"
+
+
+class QNetworkAccessManager;
+class QNetworkReply;
+
 
 class DummyTranslation: public Translation
 {
+    Q_OBJECT
+
     public:
+        struct BookInfo
+        {
+            QString code;
+            QString name;
+            QList<int> chapterSize;
+        };
+
+
         DummyTranslation(
             const QString& code,
             Language* language,
@@ -26,15 +44,22 @@ class DummyTranslation: public Translation
         virtual QString copyright() const { return _copyright; }
 
 
-        virtual QString bookName(const QString& bookCode) const { return "<bookName>"; }
-        virtual QStringList bookCodes() const { return QStringList(); }
+        virtual QString bookName(const QString& bookCode) const;
+        virtual QStringList bookCodes() const;
 
-        QList<int> verseCounts(const QString& bookCode) const { return QList<int>(); }
+        QList<int> verseCounts(const QString& bookCode) const;
 
-        virtual ChapterRequest* requestChapter(QNetworkAccessManager* nam, const QString& bookCode, int chapterNo)
-        {
-            return 0;
-        }
+        virtual ChapterRequest* requestChapter(QNetworkAccessManager* nam, const QString& bookCode, int chapterNo);
+
+
+    public slots:
+        void reload();
+
+    signals:
+        void loaded();
+
+    private slots:
+        void requestFinished(QNetworkReply *reply);
 
 
     private:
@@ -45,6 +70,16 @@ class DummyTranslation: public Translation
         QString _name;
         QString _sourceUrl;
         QString _copyright;
+
+        QMap<QString, BookInfo> _books;
+        QStringList _bookCodes;
+
+        QNetworkAccessManager* _nam;
+
+
+        void addBookInfo(const BookInfo& bookInfo);
+
+        friend class TranslationInfoParser;
 };
 
 #endif

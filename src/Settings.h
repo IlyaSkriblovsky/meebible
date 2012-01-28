@@ -90,6 +90,11 @@ class Settings: public QObject
         void invertedChanged();
 
 
+
+    private slots:
+        void onLanguagesLoaded();
+
+
     private:
         QSettings _settings;
 
@@ -111,6 +116,9 @@ class Settings: public QObject
         bool _searchNoticeShown;
 
         bool _inverted;
+
+        QString _transCode;
+        QString _langCode;
 };
 
 #endif // SETTINGS_H

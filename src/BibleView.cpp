@@ -23,6 +23,8 @@
     #include "SqliteUnicodeSearch.h"
 #endif
 
+#include "DummyTranslation.h"
+
 
 BibleView::BibleView(QGraphicsItem *parent):
     QGraphicsWebView(parent), _translation(0), _chapterNo(0), _fontSize(30)
@@ -80,16 +82,37 @@ void BibleView::setTranslation(Translation *translation)
 {
     if (_translation == translation) return;
 
-    QString origBookName;
-
     if (_translation)
-        origBookName = _translation->bookName(_bookCode);
+        disconnect(_translation, SIGNAL(loaded()), this, SLOT(onTranslationLoaded()));
 
     _translation = translation;
+    translationChanged();
+
+    if (_translation)
+    {
+        // FIXME: Change to DummyTranslation::isLoaded()
+        if (_translation->bookCodes().size() > 0)
+        {
+            loadChapter();
+
+            titleChanged();
+        }
+        else
+        {
+            connect(_translation, SIGNAL(loaded()), this, SLOT(onTranslationLoaded()));
+
+            DummyTranslation *dt = dynamic_cast<DummyTranslation*>(_translation);
+            if (dt) dt->reload();
+        }
+    }
+}
+
+
+void BibleView::onTranslationLoaded()
+{
+    disconnect(sender(), SIGNAL(loaded()), this, SLOT(onTranslationLoaded()));
 
     loadChapter();
-
-    translationChanged();
     titleChanged();
 }
 

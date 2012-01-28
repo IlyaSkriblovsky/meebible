@@ -19,11 +19,12 @@ CommonDialog {
         if (status == DialogStatus.Closed)
             status = DialogStatus.Opening
 
-        bookList.currentIndex = bookModel.bookCodes().indexOf(bookCode)
-        bookList.positionViewAtIndex(bookList.currentIndex, ListView.Center)
+        // FIXME: this was commented and needs to be reverted
+        //bookList.currentIndex = bookModel.bookCodes().indexOf(bookCode)
+        //bookList.positionViewAtIndex(bookList.currentIndex, ListView.Center)
 
-        chaptersList.currentIndex = chapterNo-1
-        chaptersList.positionViewAtIndex(chaptersList.currentIndex, ListView.Contain)
+        //chaptersList.currentIndex = chapterNo-1
+        //chaptersList.positionViewAtIndex(chaptersList.currentIndex, ListView.Contain)
     }
 
 
@@ -85,9 +86,13 @@ CommonDialog {
                 var bookCode = bookList.model.bookCodeAt(currentIndex)
 
                 chaptersModel.clear()
-                var chaptersCount = bookList.model.chaptersInBook(bookCode)
-                for (var i = 1; i <= chaptersCount; i++)
-                    chaptersModel.append({ value: i })
+
+                if (bookCode != "")
+                {
+                    var chaptersCount = bookList.model.chaptersInBook(bookCode)
+                    for (var i = 1; i <= chaptersCount; i++)
+                        chaptersModel.append({ value: i })
+                }
             }
         }
         ScrollDecorator { flickableItem: bookList }

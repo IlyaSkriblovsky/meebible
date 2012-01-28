@@ -62,7 +62,12 @@ int Translation::versesInChapter(const QString& bookCode, int chapterNo) const
 
 QString Translation::bookCodeAt(int row) const
 {
-    return bookCodes().at(row);
+    QStringList codes = bookCodes();
+
+    if (row >= 0 && row < codes.size())
+        return codes.at(row);
+
+    return "";
 }
 
 

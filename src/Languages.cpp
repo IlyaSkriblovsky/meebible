@@ -99,7 +99,8 @@ Language* Languages::langAt(int row) const
 
 void Languages::reload()
 {
-    _nam->get(QNetworkRequest(Paths::wsUrl("/meta.xml")));
+    _nam->get(QNetworkRequest(Paths::wsUrl("meta")));
+    setLoading(true);
 }
 
 void Languages::requestFinished(QNetworkReply *reply)
@@ -120,7 +121,17 @@ void Languages::requestFinished(QNetworkReply *reply)
 
     QXmlInputSource source(reply);
 
-    qDebug() << reader.parse(source);
+    reader.parse(source);
 
     loaded();
+    setLoading(false);
+}
+
+void Languages::setLoading(bool loading)
+{
+    if (_loading != loading)
+    {
+        _loading = loading;
+        loadingChanged();
+    }
 }

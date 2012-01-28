@@ -1,7 +1,7 @@
 SHAREFILES = \
-    share/trans.sqlite              \
-    share/langs.sqlite              \
-    share/nwt.xslt                  \
+    # share/trans.sqlite              \
+    # share/langs.sqlite              \
+    # share/nwt.xslt                  \
     share/script.js                 \
     share/style.css                 \
     share/splash.png                \

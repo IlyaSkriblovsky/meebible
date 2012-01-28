@@ -17,6 +17,8 @@ class Languages: public QAbstractListModel
 {
     Q_OBJECT
 
+    Q_PROPERTY(bool loading READ loading NOTIFY loadingChanged)
+
     public:
         enum Roles {
             CodeRole = Qt::UserRole + 1,
@@ -36,6 +38,9 @@ class Languages: public QAbstractListModel
         Q_INVOKABLE Language* langAt(int row) const;
 
 
+        bool loading() { return _loading; }
+
+
     public slots:
         void reload();
         void addLanguage(Language* language);
@@ -43,6 +48,7 @@ class Languages: public QAbstractListModel
 
     signals:
         void loaded();
+        void loadingChanged();
 
 
     private slots:
@@ -53,6 +59,10 @@ class Languages: public QAbstractListModel
         QList<Language*> _languages;
 
         QNetworkAccessManager* _nam;
+
+        bool _loading;
+
+        void setLoading(bool loading);
 };
 
 #endif // LANGUAGES
