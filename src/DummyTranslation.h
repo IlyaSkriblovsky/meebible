@@ -9,7 +9,6 @@
 
 
 class QNetworkAccessManager;
-class QNetworkReply;
 
 
 class DummyTranslation: public Translation
@@ -52,14 +51,14 @@ class DummyTranslation: public Translation
         virtual ChapterRequest* requestChapter(QNetworkAccessManager* nam, const QString& bookCode, int chapterNo);
 
 
+        void loadFromXML(const QString& xml);
+
+
     public slots:
         void reload();
 
     signals:
         void loaded();
-
-    private slots:
-        void requestFinished(QNetworkReply *reply);
 
 
     private:
@@ -73,8 +72,6 @@ class DummyTranslation: public Translation
 
         QMap<QString, BookInfo> _books;
         QStringList _bookCodes;
-
-        QNetworkAccessManager* _nam;
 
 
         void addBookInfo(const BookInfo& bookInfo);

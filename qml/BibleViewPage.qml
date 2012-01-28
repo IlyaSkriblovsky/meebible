@@ -604,6 +604,14 @@ Page {
             }
 
             MenuItem {
+                text: qsTr("Reload meta info")
+                onClicked: {
+                    cache.clearXML()
+                    languages.reload()
+                }
+            }
+
+            MenuItem {
                 text: qsTr("About MeeBible")
                 onClicked: pageStack.push(aboutPage)
             }

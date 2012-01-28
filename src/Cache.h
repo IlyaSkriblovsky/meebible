@@ -36,12 +36,18 @@ public:
     #endif
 
 
+    void saveXML(const QString& name, const QString& content);
+    bool hasXML(const QString& name);
+    QString loadXML(const QString& name);
+
+
 public slots:
     #ifndef NOSEARCH
         void search(Translation* translation, const QString& text);
     #endif
 
     void clearCache();
+    void clearXML();
 
 
 signals:

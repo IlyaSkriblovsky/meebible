@@ -88,6 +88,7 @@ Cache::~Cache()
 void Cache::saveChapter(const Translation* translation, const QString& bookCode, int chapterNo, QString html)
 {
     QSqlQuery insert(_db);
+    // FIXME: statements must be prepared only once
     insert.prepare("REPLACE INTO html VALUES (:transCode, :langCode, :bookCode, :bookNo, :chapterNo, :html, :text)");
     insert.bindValue(":transCode", translation->code());
     insert.bindValue(":langCode", translation->language()->code());
@@ -110,6 +111,7 @@ void Cache::saveChapter(const Translation* translation, const QString& bookCode,
 QString Cache::loadChapter(const Translation *translation, const QString& bookCode, int chapterNo)
 {
     QSqlQuery select(_db);
+    // FIXME: statements must be prepared only once
     select.prepare("SELECT html FROM html WHERE transCode=:transCode AND langCode=:langCode AND bookCode=:bookCode AND chapterNo=:chapterNo");
     select.bindValue(":transCode", translation->code());
     select.bindValue(":langCode", translation->language()->code());
@@ -128,6 +130,7 @@ QString Cache::loadChapter(const Translation *translation, const QString& bookCo
 bool Cache::hasChapter(const Translation* translation, const QString& bookCode, int chapterNo)
 {
     QSqlQuery select(_db);
+    // FIXME: statements must be prepared only once
     select.prepare("SELECT count(*) FROM html WHERE transCode=:transCode AND langCode=:langCode AND bookCode=:bookCode AND chapterNo=:chapterNo");
     select.bindValue(":transCode", translation->code());
     select.bindValue(":langCode", translation->language()->code());
@@ -144,6 +147,7 @@ bool Cache::hasChapter(const Translation* translation, const QString& bookCode, 
 int Cache::totalChaptersInCache(const Translation *translation)
 {
     QSqlQuery select(_db);
+    // FIXME: statements must be prepared only once
     select.prepare("SELECT count(*) FROM html WHERE langCode=:langCode AND transCode=:transCode");
     select.addBindValue(translation->language()->code());
     select.addBindValue(translation->code());
@@ -192,8 +196,6 @@ void Cache::onThreadFinished()
 
 void Cache::clearCache()
 {
-    // _db.exec("DELETE FROM html; VACUUM;");
-
     _db.close();
     QSqlDatabase::removeDatabase("cache");
 
@@ -202,4 +204,50 @@ void Cache::clearCache()
         qDebug() << "Cannot remove cache db!";
 
     openDB();
+}
+
+
+void Cache::clearXML()
+{
+    QStringList xml = Paths::allCachedXML();
+    for (int i = 0; i < xml.size(); i++)
+    {
+        qDebug() << "Deleting" << Paths::cachedXML(xml.at(i));
+        QFile::remove(Paths::cachedXML(xml.at(i)));
+    }
+}
+
+
+
+
+void Cache::saveXML(const QString& name, const QString& content)
+{
+    QString filename = Paths::cachedXML(name);
+    QFile xml(filename);
+    if (! xml.open(QIODevice::WriteOnly))
+        qWarning() << "Cannot save cache xml:" << filename;
+    else
+        xml.write(content.toUtf8());
+}
+
+
+bool Cache::hasXML(const QString& name)
+{
+    return QFile::exists(Paths::cachedXML(name));
+}
+
+
+QString Cache::loadXML(const QString& name)
+{
+    if (! hasXML(name)) return QString();
+
+    QString filename = Paths::cachedXML(name);
+    QFile xml(filename);
+    if (! xml.open(QIODevice::ReadOnly))
+    {
+        qWarning() << "Cannot load cache xml:" << filename;
+        return QString();
+    }
+
+    return QString::fromUtf8(xml.readAll());
 }

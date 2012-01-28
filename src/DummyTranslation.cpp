@@ -6,6 +6,7 @@
 #include "Paths.h"
 #include "TranslationInfoParser.h"
 #include "ChapterRequest.h"
+#include "MetaInfoLoader.h"
 
 
 
@@ -49,8 +50,6 @@ DummyTranslation::DummyTranslation(
     : _code(code), _language(language), _name(name),
       _sourceUrl(sourceUrl), _copyright(copyright)
 {
-    _nam = new QNetworkAccessManager(this);
-    connect(_nam, SIGNAL(finished(QNetworkReply*)), this, SLOT(requestFinished(QNetworkReply*)));
 }
 
 DummyTranslation::~DummyTranslation()
@@ -84,15 +83,10 @@ QList<int> DummyTranslation::verseCounts(const QString& bookCode) const
 
 void DummyTranslation::reload()
 {
-    _nam->get(QNetworkRequest(
-        QString("%1?trans=%2&lang=%3")
-            .arg(Paths::wsUrl("translation").toString())
-            .arg(_code)
-            .arg(_language->code())
-    ));
+    MetaInfoLoader::instance()->loadTranslationInfo(this);
 }
 
-void DummyTranslation::requestFinished(QNetworkReply *reply)
+void DummyTranslation::loadFromXML(const QString& xml)
 {
     beginResetModel();
     _books.clear();
@@ -103,7 +97,10 @@ void DummyTranslation::requestFinished(QNetworkReply *reply)
     reader.setContentHandler(&parser);
     reader.setErrorHandler(&parser);
 
-    reader.parse(QXmlInputSource(reply));
+    QXmlInputSource source;
+    source.setData(xml);
+
+    reader.parse(source);
 
     endResetModel();
 

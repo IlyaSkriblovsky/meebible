@@ -50,13 +50,13 @@ Settings::~Settings()
 
 void Settings::onLanguagesLoaded()
 {
-    qDebug() << "onLanguagesLoaded";
     Languages* langs = dynamic_cast<Languages*>(sender());
-    qDebug() << langs;
     setLanguage(langs->langByCode(_langCode));
 
     if (_language)
         setTranslation(_language->translationByCode(_transCode));
+    else
+        setTranslation(0);
 }
 
 

@@ -9,9 +9,6 @@
 #include "Language.h"
 
 
-class QNetworkAccessManager;
-class QNetworkReply;
-
 
 class Languages: public QAbstractListModel
 {
@@ -38,12 +35,14 @@ class Languages: public QAbstractListModel
         Q_INVOKABLE Language* langAt(int row) const;
 
 
+        void loadFromXML(const QString& xml);
         bool loading() { return _loading; }
 
 
     public slots:
         void reload();
         void addLanguage(Language* language);
+        void clear();
 
 
     signals:
@@ -51,14 +50,8 @@ class Languages: public QAbstractListModel
         void loadingChanged();
 
 
-    private slots:
-        void requestFinished(QNetworkReply *reply);
-
-
     private:
         QList<Language*> _languages;
-
-        QNetworkAccessManager* _nam;
 
         bool _loading;
 

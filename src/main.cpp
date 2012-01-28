@@ -22,6 +22,7 @@
 #include "BibleView.h"
 #include "Fetcher.h"
 #include "Settings.h"
+#include "MetaInfoLoader.h"
 
 // #include "MultiSource.h"
 
@@ -42,6 +43,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     app->installTranslator(&translator);
 
     Cache cache;
+    MetaInfoLoader metaInfoLoader;
 
     Languages languages;
 
@@ -77,6 +79,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     view->rootContext()->setContextProperty("languages", &languages);
     view->rootContext()->setContextProperty("cache", &cache);
+    view->rootContext()->setContextProperty("metaInfoLoader", &metaInfoLoader);
     view->rootContext()->setContextProperty("settings", &settings);
 
     #ifdef FREEVERSION

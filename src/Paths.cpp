@@ -1,5 +1,7 @@
 #include "Paths.h"
 
+#include <QDebug>
+
 #include <QDesktopServices>
 
 
@@ -75,4 +77,25 @@ QString Paths::translationFile(const QString& locale)
 QUrl Paths::wsUrl(const QString& path)
 {
     return QUrl(QString("http://188.127.230.230:10000/%1").arg(path));
+}
+
+
+
+QString Paths::cachedXML(const QString& name)
+{
+    return _cacheDir.filePath(name + ".xml");
+}
+
+QStringList Paths::allCachedXML()
+{
+    QStringList files = _cacheDir.entryList(QStringList("*.xml"));
+    QStringList result;
+    for (int i = 0; i < files.size(); i++)
+    {
+        QString file = files.at(i);
+        file.replace(".xml", "");
+        result.append(file);
+    }
+
+    return result;
 }

@@ -82,9 +82,6 @@ void BibleView::setTranslation(Translation *translation)
 {
     if (_translation == translation) return;
 
-    if (_translation)
-        disconnect(_translation, SIGNAL(loaded()), this, SLOT(onTranslationLoaded()));
-
     _translation = translation;
     translationChanged();
 

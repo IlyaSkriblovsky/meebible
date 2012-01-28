@@ -7,10 +7,8 @@
 #include <QDebug>
 #include <QVariant>
 
-#include <QNetworkAccessManager>
-#include <QNetworkReply>
-
 #include "Paths.h"
+#include "MetaInfoLoader.h"
 #include "MetaInfoParser.h"
 
 
@@ -22,9 +20,6 @@ Languages::Languages()
     roleNames[EngnameRole] = "engname";
     roleNames[SelfnameRole] = "selfname";
     setRoleNames(roleNames);
-
-    _nam = new QNetworkAccessManager(this);
-    connect(_nam, SIGNAL(finished(QNetworkReply*)), this, SLOT(requestFinished(QNetworkReply*)));
 }
 
 Languages::~Languages()
@@ -99,27 +94,21 @@ Language* Languages::langAt(int row) const
 
 void Languages::reload()
 {
-    _nam->get(QNetworkRequest(Paths::wsUrl("meta")));
-    setLoading(true);
+    if (MetaInfoLoader::instance()->loadLangsAndTransInfo(this))
+        setLoading(true);
 }
 
-void Languages::requestFinished(QNetworkReply *reply)
+void Languages::loadFromXML(const QString& xml)
 {
-    beginResetModel();
-
-    for (int i = 0; i < _languages.size(); i++)
-        delete _languages.at(i);
-
-    _languages.clear();
-
-    endResetModel();
+    clear();
 
     MetaInfoParser handler(this);
     QXmlSimpleReader reader;
     reader.setContentHandler(&handler);
     reader.setErrorHandler(&handler);
 
-    QXmlInputSource source(reply);
+    QXmlInputSource source;
+    source.setData(xml);
 
     reader.parse(source);
 
@@ -134,4 +123,16 @@ void Languages::setLoading(bool loading)
         _loading = loading;
         loadingChanged();
     }
+}
+
+void Languages::clear()
+{
+    beginResetModel();
+
+    for (int i = 0; i < _languages.size(); i++)
+        delete _languages.at(i);
+
+    _languages.clear();
+
+    endResetModel();
 }

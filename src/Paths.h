@@ -2,6 +2,7 @@
 #define PATHS_H
 
 #include <QString>
+#include <QStringList>
 #include <QDir>
 #include <QUrl>
 
@@ -27,6 +28,9 @@ public:
     static QString translationFile(const QString& locale);
 
     static QUrl wsUrl(const QString& path);
+
+    static QString cachedXML(const QString& name);
+    static QStringList allCachedXML();
 
 
 private:
