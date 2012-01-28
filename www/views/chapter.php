@@ -20,7 +20,7 @@ $chapter = $_REQUEST['chapter'];
 if (
     (! preg_match('/^[a-z]+$/', $trans))    ||
     (! preg_match('/^[a-z]+$/', $lang))     ||
-    (! preg_match('/^[a-z]+$/', $book))     ||
+    (! preg_match('/^[0-9a-z]+$/', $book))  ||
     (! preg_match('/^[0-9]+$/', $chapter))
 )
 {
