@@ -170,74 +170,116 @@ Page {
         anchors.fill: parent
 
         color: theme.inverted ? '#000' : '#fff'
+        opacity: 0.0
 
         BusyIndicator {
             id: realBusyIndicator
 
             anchors.centerIn: parent
 
+            running: false
+
             platformStyle: BusyIndicatorStyle {
                 size: "large"
             }
         }
 
-        state: "invisible"
+        Label {
+            id: busyLabel
+
+            anchors.top: realBusyIndicator.bottom
+            anchors.topMargin: 30
+            anchors.horizontalCenter: realBusyIndicator.horizontalCenter
+
+            font.pixelSize: 36
+
+            text: qsTr("Loading chapter")
+        }
+
+        transitions: [
+            Transition {
+                NumberAnimation {
+                    properties: "opacity"
+                    duration: 150
+                }
+            }
+        ]
 
         states: [
             State {
-                name: "invisible"
+                name: "chapter"
+                when: page.state == 'loading'
 
                 PropertyChanges {
                     target: busyIndicator
-                    opacity: 0.0
-                }
-                PropertyChanges {
-                    target: realBusyIndicator
-                    running: false
-                }
-            },
-            State {
-                name: "visible"
-
-                PropertyChanges {
-                    target: busyIndicator
-                    opacity: 0.8
+                    opacity: 0.9
                 }
                 PropertyChanges {
                     target: realBusyIndicator
                     running: true
                 }
+                PropertyChanges {
+                    target: busyLabel
+                    text: qsTr("Loading chapter")
+                }
+            },
+            State {
+                name: "languages"
+                when: languages.loading
+
+                PropertyChanges {
+                    target: busyIndicator
+                    opacity: 0.9
+                }
+                PropertyChanges {
+                    target: realBusyIndicator
+                    running: true
+                }
+                PropertyChanges {
+                    target: busyLabel
+                    text: qsTr("Loading translation list")
+                }
+            },
+            State {
+                name: "translation"
+                when: settings.translation.loading
+
+                PropertyChanges {
+                    target: busyIndicator
+                    opacity: 0.9
+                }
+                PropertyChanges {
+                    target: realBusyIndicator
+                    running: true
+                }
+                PropertyChanges {
+                    target: busyLabel
+                    text: qsTr("Loading book list")
+                }
             }
         ]
-
-        transitions: Transition {
-            NumberAnimation {
-                properties: "opacity"
-                duration: 100
-            }
-        }
     }
 
     state: "normal"
 
-    states: [
-        State {
-            name: "normal"
+    // states: [
+    //     State {
+    //         name: "normal"
 
-            PropertyChanges {
-                target: busyIndicator
-                state: "invisible"
-            }
-        },
-        State {
-            name: "loading"
+    //         PropertyChanges {
+    //             target: busyIndicator
+    //             state: "invisible"
+    //         }
+    //     },
+    //     State {
+    //         name: "loading"
 
-            PropertyChanges {
-                target: busyIndicator
-                state: "visible"
-            }
-        }
-    ]
+    //         PropertyChanges {
+    //             target: busyIndicator
+    //             state: "visible"
+    //         }
+    //     }
+    // ]
 
 
 
@@ -309,7 +351,11 @@ Page {
 
     Connections {
         target: languages
-        onLoadingChanged: busyIndicator.state = languages.loading ? "visible" : "invisible"
+        onLoadedChanged: console.log('languages.loaded: ' + languages.loaded)
+    }
+    Connections {
+        target: settings.translation
+        onLoadedChanged: console.log('settings.translation.loaded: ' + settings.translation.loaded)
     }
 
 

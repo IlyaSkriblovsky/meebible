@@ -92,7 +92,7 @@ class Settings: public QObject
 
 
     private slots:
-        void onLanguagesLoaded();
+        void onLanguagesLoadingFinished();
 
 
     private:

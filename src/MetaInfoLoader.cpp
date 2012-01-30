@@ -57,9 +57,17 @@ void MetaInfoLoader::metaXMLReceived()
     QNetworkReply* reply = dynamic_cast<QNetworkReply*>(sender());
     reply->deleteLater();
 
+    Languages* languages = dynamic_cast<Languages*>(reply->property("languages").value<QObject*>());
+
+    if (reply->error() != QNetworkReply::NoError)
+    {
+        qDebug() << "L ERROR";
+        languages->_loadingFailed();
+        return;
+    }
+
     QString content = QString::fromUtf8(reply->readAll());
 
-    Languages* languages = dynamic_cast<Languages*>(reply->property("languages").value<QObject*>());
     languages->loadFromXML(content);
 
     Cache::instance()->saveXML("meta", content);
@@ -95,9 +103,17 @@ void MetaInfoLoader::translationXMLReceived()
     QNetworkReply* reply = dynamic_cast<QNetworkReply*>(sender());
     reply->deleteLater();
 
+    DummyTranslation* translation = dynamic_cast<DummyTranslation*>(reply->property("translation").value<QObject*>());
+
+    if (reply->error() != QNetworkReply::NoError)
+    {
+        qDebug() << "T ERROR";
+        translation->_loadingFailed();
+        return;
+    }
+
     QString content = QString::fromUtf8(reply->readAll());
 
-    DummyTranslation* translation = dynamic_cast<DummyTranslation*>(reply->property("translation").value<QObject*>());
     translation->loadFromXML(content);
 
     QString xmlName = QString("%1_%2").arg(translation->code(), translation->language()->code());

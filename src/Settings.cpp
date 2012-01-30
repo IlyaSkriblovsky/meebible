@@ -13,7 +13,7 @@ Settings::Settings(Languages* langs, QObject* parent):
     _langCode = _settings.value("General/langCode", "e").toString();
     _language = 0;
 
-    _transCode = _settings.value("General/transCode", "nwt").toString();
+    _transCode = _settings.value("General/transCode", "kjv").toString();
     _translation = 0;
 
 
@@ -28,7 +28,7 @@ Settings::Settings(Languages* langs, QObject* parent):
 
     _searchNoticeShown = _settings.value("Notices/searchNoticeShown", false).toBool();
 
-    connect(langs, SIGNAL(loaded()), this, SLOT(onLanguagesLoaded()));
+    connect(langs, SIGNAL(loadingFinished()), this, SLOT(onLanguagesLoadingFinished()));
 }
 
 Settings::~Settings()
@@ -48,7 +48,7 @@ Settings::~Settings()
 }
 
 
-void Settings::onLanguagesLoaded()
+void Settings::onLanguagesLoadingFinished()
 {
     Languages* langs = dynamic_cast<Languages*>(sender());
     setLanguage(langs->langByCode(_langCode));

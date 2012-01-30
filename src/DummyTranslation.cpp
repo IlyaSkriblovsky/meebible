@@ -48,7 +48,8 @@ DummyTranslation::DummyTranslation(
     const QString& copyright
 )
     : _code(code), _language(language), _name(name),
-      _sourceUrl(sourceUrl), _copyright(copyright)
+      _sourceUrl(sourceUrl), _copyright(copyright),
+      _loading(false)
 {
 }
 
@@ -83,7 +84,8 @@ QList<int> DummyTranslation::verseCounts(const QString& bookCode) const
 
 void DummyTranslation::reload()
 {
-    MetaInfoLoader::instance()->loadTranslationInfo(this);
+    if (MetaInfoLoader::instance()->loadTranslationInfo(this))
+        setLoading(true);
 }
 
 void DummyTranslation::loadFromXML(const QString& xml)
@@ -104,7 +106,20 @@ void DummyTranslation::loadFromXML(const QString& xml)
 
     endResetModel();
 
-    loaded();
+    qDebug() << "Translation" << _code << _language->code() << "loaded";
+    loadingFinished();
+    setLoading(false);
+
+    loadedChanged();
+}
+
+void DummyTranslation::setLoading(bool loading)
+{
+    if (_loading != loading)
+    {
+        _loading = loading;
+        loadingChanged();
+    }
 }
 
 

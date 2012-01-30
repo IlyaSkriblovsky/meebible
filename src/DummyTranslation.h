@@ -15,6 +15,9 @@ class DummyTranslation: public Translation
 {
     Q_OBJECT
 
+    Q_PROPERTY(bool loading READ loading NOTIFY loadingChanged)
+    Q_PROPERTY(bool loaded READ loaded NOTIFY loadedChanged)
+
     public:
         struct BookInfo
         {
@@ -53,12 +56,21 @@ class DummyTranslation: public Translation
 
         void loadFromXML(const QString& xml);
 
+        bool loading() { return _loading; }
+
+        bool loaded() { return _bookCodes.size() > 0; }
+
+        void _loadingFailed() { loadingError(); }
+
 
     public slots:
         void reload();
 
     signals:
-        void loaded();
+        void loadingFinished();
+        void loadingError();
+        void loadingChanged();
+        void loadedChanged();
 
 
     private:
@@ -72,6 +84,11 @@ class DummyTranslation: public Translation
 
         QMap<QString, BookInfo> _books;
         QStringList _bookCodes;
+
+
+        bool _loading;
+
+        void setLoading(bool loading);
 
 
         void addBookInfo(const BookInfo& bookInfo);

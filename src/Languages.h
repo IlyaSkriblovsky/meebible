@@ -15,6 +15,7 @@ class Languages: public QAbstractListModel
     Q_OBJECT
 
     Q_PROPERTY(bool loading READ loading NOTIFY loadingChanged)
+    Q_PROPERTY(bool loaded READ loaded NOTIFY loadedChanged)
 
     public:
         enum Roles {
@@ -37,6 +38,9 @@ class Languages: public QAbstractListModel
 
         void loadFromXML(const QString& xml);
         bool loading() { return _loading; }
+        bool loaded() { return _languages.size() > 0; }
+
+        void _loadingFailed() { loadingError(); }
 
 
     public slots:
@@ -46,8 +50,10 @@ class Languages: public QAbstractListModel
 
 
     signals:
-        void loaded();
+        void loadingFinished();
+        void loadingError();
         void loadingChanged();
+        void loadedChanged();
 
 
     private:

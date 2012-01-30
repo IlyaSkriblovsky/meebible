@@ -1,4 +1,5 @@
-QT += core sql network xml xmlpatterns webkit gui declarative
+# QT += core sql network xml xmlpatterns webkit gui declarative
+QT += core sql network xml webkit gui declarative
 
 # DEFINES += DEBUGPATHS
 

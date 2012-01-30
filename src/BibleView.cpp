@@ -96,7 +96,7 @@ void BibleView::setTranslation(Translation *translation)
         }
         else
         {
-            connect(_translation, SIGNAL(loaded()), this, SLOT(onTranslationLoaded()));
+            connect(_translation, SIGNAL(loadingFinished()), this, SLOT(onTranslationLoadingFinished()));
 
             DummyTranslation *dt = dynamic_cast<DummyTranslation*>(_translation);
             if (dt) dt->reload();
@@ -105,9 +105,9 @@ void BibleView::setTranslation(Translation *translation)
 }
 
 
-void BibleView::onTranslationLoaded()
+void BibleView::onTranslationLoadingFinished()
 {
-    disconnect(sender(), SIGNAL(loaded()), this, SLOT(onTranslationLoaded()));
+    disconnect(sender(), SIGNAL(loadingFinished()), this, SLOT(onTranslationLoadingFinished()));
 
     loadChapter();
     titleChanged();

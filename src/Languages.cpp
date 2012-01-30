@@ -13,6 +13,7 @@
 
 
 Languages::Languages()
+    : _loading(false)
 {
     QHash<int, QByteArray> roleNames;
     roleNames[Qt::DisplayRole] = "value";
@@ -112,8 +113,9 @@ void Languages::loadFromXML(const QString& xml)
 
     reader.parse(source);
 
-    loaded();
+    loadingFinished();
     setLoading(false);
+    loadedChanged();
 }
 
 void Languages::setLoading(bool loading)
@@ -135,4 +137,5 @@ void Languages::clear()
     _languages.clear();
 
     endResetModel();
+    loadedChanged();
 }
