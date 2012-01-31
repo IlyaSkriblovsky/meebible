@@ -7,7 +7,7 @@
 #include "TranslationInfoParser.h"
 #include "ChapterRequest.h"
 #include "MetaInfoLoader.h"
-
+#include "Cache.h"
 
 
 
@@ -84,8 +84,44 @@ QList<int> DummyTranslation::verseCounts(const QString& bookCode) const
 
 void DummyTranslation::reload()
 {
-    if (MetaInfoLoader::instance()->loadTranslationInfo(this))
-        setLoading(true);
+    QString xmlName = QString("%1_%2").arg(_code, _language->code());
+    if (Cache::instance()->hasXML(xmlName))
+    {
+        loadFromXML(Cache::instance()->loadXML(xmlName));
+        loadingFinished();
+        loadedChanged();
+        return;
+    }
+
+    QNetworkReply* reply = MetaInfoLoader::instance()->nam()->get(QNetworkRequest(
+        QString("%1?trans=%2&lang=%3")
+            .arg(Paths::wsUrl("translation").toString())
+            .arg(_code)
+            .arg(_language->code())
+    ));
+    connect(reply, SIGNAL(finished()), this, SLOT(translationXMLReceived()));
+
+    setLoading(true);
+}
+
+void DummyTranslation::translationXMLReceived()
+{
+    QNetworkReply* reply = dynamic_cast<QNetworkReply*>(sender());
+    reply->deleteLater();
+
+    if (reply->error() != QNetworkReply::NoError)
+    {
+        setLoading(false);
+        loadingError();
+        return;
+    }
+
+    QString content = QString::fromUtf8(reply->readAll());
+
+    loadFromXML(content);
+
+    QString xmlName = QString("%1_%2").arg(_code, _language->code());
+    Cache::instance()->saveXML(xmlName, content);
 }
 
 void DummyTranslation::loadFromXML(const QString& xml)
@@ -106,10 +142,8 @@ void DummyTranslation::loadFromXML(const QString& xml)
 
     endResetModel();
 
-    qDebug() << "Translation" << _code << _language->code() << "loaded";
-    loadingFinished();
     setLoading(false);
-
+    loadingFinished();
     loadedChanged();
 }
 
@@ -141,7 +175,6 @@ ChapterRequest* DummyTranslation::requestChapter(QNetworkAccessManager* nam, con
                 .arg(bookCode)
                 .arg(chapterNo);
 
-    qDebug() << url;
     return new DummyChapterRequest(
         this, bookCode, chapterNo,
         nam->get(QNetworkRequest(QUrl(

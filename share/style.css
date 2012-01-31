@@ -6,6 +6,11 @@ html
     font-family: Nokia ;
 }
 
+body
+{
+    background: #e0e0e0;
+}
+
 body.inverted
 {
     background: black;
@@ -18,7 +23,7 @@ body.inverted
     cursor: pointer
 }
 
-.verse.selected { background: #ffb; }
+.verse.selected { background: #fea; }
 .verse.selected .verse-label { color: #c00; }
 
 .inverted .verse.selected { background: #444; }

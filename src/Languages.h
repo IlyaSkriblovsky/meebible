@@ -40,13 +40,10 @@ class Languages: public QAbstractListModel
         bool loading() { return _loading; }
         bool loaded() { return _languages.size() > 0; }
 
-        void _loadingFailed() { loadingError(); }
-
 
     public slots:
         void reload();
         void addLanguage(Language* language);
-        void clear();
 
 
     signals:
@@ -54,6 +51,11 @@ class Languages: public QAbstractListModel
         void loadingError();
         void loadingChanged();
         void loadedChanged();
+
+
+    private slots:
+        void metaXMLReceived();
+        void clear();
 
 
     private:

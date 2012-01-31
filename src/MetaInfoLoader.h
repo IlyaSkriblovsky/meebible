@@ -17,18 +17,20 @@ class MetaInfoLoader: public QObject
 
         MetaInfoLoader();
 
-
-        bool loadLangsAndTransInfo(Languages *languages);
-        bool loadTranslationInfo(DummyTranslation* translation);
+        QNetworkAccessManager* nam() { return _nam; }
 
 
-    signals:
-        void langsAndTransLoaded();
+//        bool loadLangsAndTransInfo(Languages *languages);
+//        bool loadTranslationInfo(DummyTranslation* translation);
 
 
-    private slots:
-        void metaXMLReceived();
-        void translationXMLReceived();
+//    signals:
+//        void langsAndTransLoaded();
+//
+//
+//    private slots:
+//        void metaXMLReceived();
+//        void translationXMLReceived();
 
     private:
         static MetaInfoLoader* _instance;

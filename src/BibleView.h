@@ -33,6 +33,8 @@ class BibleView: public QGraphicsWebView
 
     Q_PROPERTY(bool inverted READ inverted WRITE setInverted)
 
+    Q_PROPERTY(bool loadingChapter READ loadingChapter NOTIFY loadingChapterChanged)
+
 public:
     explicit BibleView(QGraphicsItem *parent = 0);
     ~BibleView();
@@ -73,6 +75,8 @@ public:
     bool inverted() const { return _inverted; }
     void setInverted(bool inverted);
 
+    bool loadingChapter() const { return _loadingChapter; }
+
 
 public slots:
     void loadChapter();
@@ -93,7 +97,7 @@ public slots:
 signals:
     void chapterLoaded();
     void chapterLoadingError();
-    void loading();
+    void loadingChapterChanged();
 
     void translationChanged();
 
@@ -138,6 +142,11 @@ private:
     QString _searchNeedle;
     int _matchCount;
     int _matchIndex;
+
+
+    bool _loadingChapter;
+
+    void setLoadingChapter(bool loading);
 
 
     void scrollToVerse(int verseNo);

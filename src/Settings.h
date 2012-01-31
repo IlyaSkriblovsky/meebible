@@ -98,8 +98,7 @@ class Settings: public QObject
     private:
         QSettings _settings;
 
-        Language* _language;
-        Translation* _translation;
+        Languages* _languages;
 
         QString _bookCode;
         int _chapterNo;

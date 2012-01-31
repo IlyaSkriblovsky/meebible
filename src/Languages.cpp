@@ -7,9 +7,12 @@
 #include <QDebug>
 #include <QVariant>
 
+#include <QNetworkReply>
+
 #include "Paths.h"
 #include "MetaInfoLoader.h"
 #include "MetaInfoParser.h"
+#include "Cache.h"
 
 
 Languages::Languages()
@@ -95,8 +98,42 @@ Language* Languages::langAt(int row) const
 
 void Languages::reload()
 {
-    if (MetaInfoLoader::instance()->loadLangsAndTransInfo(this))
-        setLoading(true);
+    if (Cache::instance()->hasXML("meta"))
+    {
+        loadFromXML(Cache::instance()->loadXML("meta"));
+        loadingFinished();
+        loadedChanged();
+        return;
+    }
+
+    QNetworkReply* reply = MetaInfoLoader::instance()->nam()->get(QNetworkRequest(Paths::wsUrl("meta")));
+    connect(reply, SIGNAL(finished()), this, SLOT(metaXMLReceived()));
+
+    setLoading(true);
+}
+
+
+void Languages::metaXMLReceived()
+{
+    QNetworkReply* reply = dynamic_cast<QNetworkReply*>(sender());
+    reply->deleteLater();
+
+    if (reply->error() != QNetworkReply::NoError)
+    {
+        setLoading(false);
+        loadingError();
+        return;
+    }
+
+    QString content = QString::fromUtf8(reply->readAll());
+
+    loadFromXML(content);
+
+    Cache::instance()->saveXML("meta", content);
+
+    setLoading(false);
+    loadingFinished();
+    loadedChanged();
 }
 
 void Languages::loadFromXML(const QString& xml)
@@ -112,10 +149,6 @@ void Languages::loadFromXML(const QString& xml)
     source.setData(xml);
 
     reader.parse(source);
-
-    loadingFinished();
-    setLoading(false);
-    loadedChanged();
 }
 
 void Languages::setLoading(bool loading)
@@ -137,5 +170,4 @@ void Languages::clear()
     _languages.clear();
 
     endResetModel();
-    loadedChanged();
 }

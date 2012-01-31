@@ -73,6 +73,16 @@ BibleView::~BibleView()
 }
 
 
+void BibleView::setLoadingChapter(bool loading)
+{
+    if (_loadingChapter != loading)
+    {
+        _loadingChapter = loading;
+        loadingChapterChanged();
+    }
+}
+
+
 Translation* BibleView::translation() const
 {
     return _translation;
@@ -155,7 +165,7 @@ void BibleView::loadChapter()
         {
             connect(request, SIGNAL(finished(QString)), this, SLOT(onChapterRequestFinished(QString)));
 
-            loading();
+            setLoadingChapter(true);
         }
     }
 }
@@ -169,6 +179,7 @@ void BibleView::onChapterRequestFinished(QString html)
     {
         clearDisplay(tr("<h3>Cannot load chapter</h3> Please check your internet connection"));
         chapterLoadingError();
+        setLoadingChapter(false);
     }
     else
     {
@@ -177,6 +188,7 @@ void BibleView::onChapterRequestFinished(QString html)
             displayHtml(html);
             scrollToVerse(_verseNo);
             chapterLoaded();
+            setLoadingChapter(false);
         }
 
         Cache::instance()->saveChapter(
@@ -347,7 +359,7 @@ QString BibleView::title() const
 {
     Place place(_bookCode, _chapterNo);
     if (_translation == 0 || ! place.isValid(_translation))
-        return "Unknown";
+        return QString();
 
     return place.toString(_translation);
 }

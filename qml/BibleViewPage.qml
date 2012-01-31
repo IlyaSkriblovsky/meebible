@@ -54,7 +54,7 @@ Page {
 
     Header {
         id: header
-        text: bibleView.title
+        text: bibleView.title || "MeeBible"
         withIcon: true
         height: settings.floatingHeader ? 0 : 70
         visible: ! settings.floatingHeader
@@ -92,7 +92,7 @@ Page {
             id: column
 
             Header {
-                text: bibleView.title
+                text: bibleView.title || "MeeBible"
                 withIcon: true
                 height: settings.floatingHeader ? 70 : 0
                 visible: settings.floatingHeader
@@ -124,11 +124,14 @@ Page {
                         firstScrollPosSet = true
                     }
 
-                    page.state = "normal"
+                    // page.state = "normal"
                 }
 
-                onChapterLoadingError: { flickable.contentY = 0; page.state = "normal" }
-                onLoading: page.state = "loading"
+                onChapterLoadingError: {
+                    flickable.contentY = 0
+                    // page.state = "normal"
+                }
+                // onLoading: page.state = "loading"
 
 
                 function scrollTo(y)
@@ -164,20 +167,64 @@ Page {
     ScrollDecorator { flickableItem: flickable }
 
 
+    Item {
+        id: xmlLoadingFailed
+
+        anchors.top: header.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+
+        visible: (!languages.loading && !languages.loaded) || (settings.translation != null && !settings.translation.loading && !settings.translation.loaded)
+
+        Label {
+            id: xmlLoadingFailedLabel
+
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.leftMargin: 30
+            anchors.rightMargin: 30
+
+            horizontalAlignment: Text.AlignHCenter
+
+            wrapMode: Text.Wrap
+
+            font.pixelSize: 30
+            color: '#800'
+
+            text: qsTr("Before you start to read, MeeBible have to load translation list from server")
+        }
+
+        MouseArea { anchors.fill: parent }
+
+        Button {
+            anchors.top: xmlLoadingFailedLabel.bottom
+            anchors.topMargin: 30
+            anchors.horizontalCenter: xmlLoadingFailedLabel.horizontalCenter
+
+            text: qsTr("Try again")
+
+            onClicked: languages.reload()
+        }
+    }
+
+
     Rectangle {
         id: busyIndicator
 
         anchors.fill: parent
 
-        color: theme.inverted ? '#000' : '#fff'
-        opacity: 0.0
+        color: theme.inverted ? '#000' : '#e0e0e0'
+
+        opacity: (languages.loading || (settings.translation && settings.translation.loading) || bibleView.loadingChapter) ? 0.8 : 0.0
 
         BusyIndicator {
             id: realBusyIndicator
 
             anchors.centerIn: parent
 
-            running: false
+            running: busyIndicator.visible && busyIndicator.opacity > 0.0
 
             platformStyle: BusyIndicatorStyle {
                 size: "large"
@@ -196,91 +243,37 @@ Page {
             text: qsTr("Loading chapter")
         }
 
-        transitions: [
-            Transition {
-                NumberAnimation {
-                    properties: "opacity"
-                    duration: 150
-                }
+        MouseArea {
+            anchors.fill: parent
+        }
+
+        Behavior on opacity {
+            NumberAnimation {
+                duration: 100
             }
-        ]
+        }
 
         states: [
             State {
                 name: "chapter"
-                when: page.state == 'loading'
+                when: bibleView.loadingChapter
 
-                PropertyChanges {
-                    target: busyIndicator
-                    opacity: 0.9
-                }
-                PropertyChanges {
-                    target: realBusyIndicator
-                    running: true
-                }
-                PropertyChanges {
-                    target: busyLabel
-                    text: qsTr("Loading chapter")
-                }
+                PropertyChanges { target: busyLabel; text: qsTr("Loading chapter") }
             },
             State {
                 name: "languages"
                 when: languages.loading
 
-                PropertyChanges {
-                    target: busyIndicator
-                    opacity: 0.9
-                }
-                PropertyChanges {
-                    target: realBusyIndicator
-                    running: true
-                }
-                PropertyChanges {
-                    target: busyLabel
-                    text: qsTr("Loading translation list")
-                }
+                PropertyChanges { target: busyLabel; text: qsTr("Loading translation list") }
             },
             State {
                 name: "translation"
                 when: settings.translation.loading
 
-                PropertyChanges {
-                    target: busyIndicator
-                    opacity: 0.9
-                }
-                PropertyChanges {
-                    target: realBusyIndicator
-                    running: true
-                }
-                PropertyChanges {
-                    target: busyLabel
-                    text: qsTr("Loading book list")
-                }
+                PropertyChanges { target: busyLabel; text: qsTr("Loading book list") }
             }
         ]
     }
-
-    state: "normal"
-
-    // states: [
-    //     State {
-    //         name: "normal"
-
-    //         PropertyChanges {
-    //             target: busyIndicator
-    //             state: "invisible"
-    //         }
-    //     },
-    //     State {
-    //         name: "loading"
-
-    //         PropertyChanges {
-    //             target: busyIndicator
-    //             state: "visible"
-    //         }
-    //     }
-    // ]
-
 
 
     Loader {
@@ -349,13 +342,23 @@ Page {
     }
 
 
-    Connections {
-        target: languages
-        onLoadedChanged: console.log('languages.loaded: ' + languages.loaded)
-    }
-    Connections {
-        target: settings.translation
-        onLoadedChanged: console.log('settings.translation.loaded: ' + settings.translation.loaded)
+    QueryDialog {
+        id: xmlLoadingFailedNotice
+
+        titleText: qsTr("Cannot load translation list")
+
+        message: qsTr("Please check internet connection")
+
+        acceptButtonText: qsTr("OK")
+
+        Connections {
+            target: languages
+            onLoadingError: xmlLoadingFailedNotice.open()
+        }
+        Connections {
+            target: settings.translation
+            onLoadingError: xmlLoadingFailedNotice.open()
+        }
     }
 
 

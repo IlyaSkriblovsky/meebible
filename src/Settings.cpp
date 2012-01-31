@@ -8,14 +8,10 @@
 
 
 Settings::Settings(Languages* langs, QObject* parent):
-    QObject(parent)
+    QObject(parent), _languages(langs)
 {
     _langCode = _settings.value("General/langCode", "e").toString();
-    _language = 0;
-
     _transCode = _settings.value("General/transCode", "kjv").toString();
-    _translation = 0;
-
 
     _bookCode =         _settings.value("General/bookCode", "ge").toString();
     _chapterNo =        _settings.value("General/chapterNo", 1).toInt();
@@ -28,13 +24,13 @@ Settings::Settings(Languages* langs, QObject* parent):
 
     _searchNoticeShown = _settings.value("Notices/searchNoticeShown", false).toBool();
 
-    connect(langs, SIGNAL(loadingFinished()), this, SLOT(onLanguagesLoadingFinished()));
+    connect(_languages, SIGNAL(loadingFinished()), this, SLOT(onLanguagesLoadingFinished()));
 }
 
 Settings::~Settings()
 {
-    _settings.setValue("General/langCode", _language ? _language->code() : "");
-    _settings.setValue("General/transCode", _translation ? _translation->code() : "");
+    _settings.setValue("General/langCode", _langCode);
+    _settings.setValue("General/transCode", _transCode);
     _settings.setValue("General/bookCode", _bookCode);
     _settings.setValue("General/chapterNo", _chapterNo);
     _settings.setValue("General/floatingHeader", _floatingHeader);
@@ -50,41 +46,41 @@ Settings::~Settings()
 
 void Settings::onLanguagesLoadingFinished()
 {
-    Languages* langs = dynamic_cast<Languages*>(sender());
-    setLanguage(langs->langByCode(_langCode));
-
-    if (_language)
-        setTranslation(_language->translationByCode(_transCode));
-    else
-        setTranslation(0);
+    languageChanged();
+    translationChanged();
 }
 
 
 
 Language* Settings::language() const
 {
-    return _language;
+    return _languages->langByCode(_langCode);
 }
 
 void Settings::setLanguage(Language* lang)
 {
-    if (_language == lang) return;
+    if (lang->code() == _langCode) return;
 
-    _language = lang;
+    _langCode = lang->code();
     languageChanged();
+    translationChanged();
 }
 
 
 Translation* Settings::translation() const
 {
-    return _translation;
+    Language *lang = language();
+    if (lang)
+        return lang->translationByCode(_transCode);
+    else
+        return 0;
 }
 
 void Settings::setTranslation(Translation* translation)
 {
-    if (_translation == translation) return;
+    if (translation->code() == _transCode) return;
 
-    _translation = translation;
+    _transCode = translation->code();
     translationChanged();
 }
 

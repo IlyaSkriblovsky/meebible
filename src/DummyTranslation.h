@@ -60,7 +60,7 @@ class DummyTranslation: public Translation
 
         bool loaded() { return _bookCodes.size() > 0; }
 
-        void _loadingFailed() { loadingError(); }
+        void _loadingFailed() { setLoading(false); loadingError(); }
 
 
     public slots:
@@ -71,6 +71,10 @@ class DummyTranslation: public Translation
         void loadingError();
         void loadingChanged();
         void loadedChanged();
+
+
+    private slots:
+        void translationXMLReceived();
 
 
     private:
