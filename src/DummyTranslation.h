@@ -64,7 +64,7 @@ class DummyTranslation: public Translation
 
 
     public slots:
-        void reload();
+        void reload(bool useCache);
 
     signals:
         void loadingFinished();

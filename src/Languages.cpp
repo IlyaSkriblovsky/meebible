@@ -96,9 +96,10 @@ Language* Languages::langAt(int row) const
 
 
 
-void Languages::reload()
+void Languages::reload(bool useCache)
 {
-    if (Cache::instance()->hasXML("meta"))
+    qDebug() << "Languages::reload" << useCache;
+    if (useCache  &&  Cache::instance()->hasXML("meta"))
     {
         loadFromXML(Cache::instance()->loadXML("meta"));
         loadingFinished();

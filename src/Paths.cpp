@@ -86,15 +86,18 @@ QString Paths::cachedXML(const QString& name)
     return _cacheDir.filePath(name + ".xml");
 }
 
-QStringList Paths::allCachedXML()
+QStringList Paths::allCachedXML(const QString& prefix)
 {
     QStringList files = _cacheDir.entryList(QStringList("*.xml"));
     QStringList result;
     for (int i = 0; i < files.size(); i++)
     {
         QString file = files.at(i);
-        file.replace(".xml", "");
-        result.append(file);
+        if (file.startsWith(prefix))
+        {
+            file.replace(".xml", "");
+            result.append(file);
+        }
     }
 
     return result;

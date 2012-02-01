@@ -42,7 +42,7 @@ class Languages: public QAbstractListModel
 
 
     public slots:
-        void reload();
+        void reload(bool useCache);
         void addLanguage(Language* language);
 
 

@@ -48,7 +48,7 @@ Page {
         lineSpacingSlider.value = settings.lineSpacing
         created = true
 
-        languages.reload()
+        languages.reload(true)
     }
 
 
@@ -205,7 +205,7 @@ Page {
 
             text: qsTr("Try again")
 
-            onClicked: languages.reload()
+            onClicked: languages.reload(true)
         }
     }
 
@@ -650,14 +650,6 @@ Page {
             MenuItem {
                 text: qsTr("Settings")
                 onClicked: pageStack.push(settingsPage)
-            }
-
-            MenuItem {
-                text: qsTr("Reload meta info")
-                onClicked: {
-                    cache.clearXML()
-                    languages.reload()
-                }
             }
 
             MenuItem {

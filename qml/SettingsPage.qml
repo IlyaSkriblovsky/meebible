@@ -122,6 +122,31 @@ Page {
                 }
             }
 
+            Item {
+                width: parent.width
+                height: reloadLanguages.height
+
+                Button {
+                    id: reloadLanguages
+
+                    text: qsTr("Update translation list")
+
+                    anchors.horizontalCenter: parent.horizontalCenter
+
+                    onClicked: languages.reload(false)
+                }
+
+                HelpButton {
+                    anchors.right: parent.right
+                    anchors.rightMargin: 15
+                    anchors.verticalCenter: parent.verticalCenter
+
+                    titleText: qsTr("Reload languages")
+
+                    message: qsTr("When new translation is published on MeeBible's server, use this button to update translation list")
+                }
+            }
+
             LabeledSwitch {
                 text: qsTr("Scroll header with the text")
 
@@ -143,12 +168,29 @@ Page {
                 onCheckedChanged: theme.inverted = checked
             }
 
-            Button {
-                text: qsTr("Clear cache")
+            Item {
+                width: parent.width
+                height: clearCache.height
 
-                anchors.horizontalCenter: parent.horizontalCenter
+                Button {
+                    id: clearCache
 
-                onClicked: clearCacheConfirmation.open()
+                    text: qsTr("Clear cache")
+
+                    anchors.horizontalCenter: parent.horizontalCenter
+
+                    onClicked: clearCacheConfirmation.open()
+                }
+
+                HelpButton {
+                    anchors.right: parent.right
+                    anchors.rightMargin: 15
+                    anchors.verticalCenter: parent.verticalCenter
+
+                    titleText: qsTr("Cache clearing")
+
+                    message: qsTr("This will delete all downloaded Bible chapters from your phone. Do this to force reloading chapters when some error was fixed in translation on the server side.")
+                }
             }
         }
     }
@@ -201,7 +243,10 @@ Page {
         acceptButtonText: qsTr("Clear")
         rejectButtonText: qsTr("Cancel")
 
-        onAccepted: cache.clearCache()
+        onAccepted: {
+            cache.clearCache()
+            settings.translation.reload(false)
+        }
     }
 
 

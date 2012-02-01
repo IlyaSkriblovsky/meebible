@@ -30,7 +30,7 @@ public:
     static QUrl wsUrl(const QString& path);
 
     static QString cachedXML(const QString& name);
-    static QStringList allCachedXML();
+    static QStringList allCachedXML(const QString& prefix);
 
 
 private:

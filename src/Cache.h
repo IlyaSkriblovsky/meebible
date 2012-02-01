@@ -47,7 +47,6 @@ public slots:
     #endif
 
     void clearCache();
-    void clearXML();
 
 
 signals:

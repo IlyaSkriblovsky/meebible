@@ -109,7 +109,7 @@ void BibleView::setTranslation(Translation *translation)
             connect(_translation, SIGNAL(loadingFinished()), this, SLOT(onTranslationLoadingFinished()));
 
             DummyTranslation *dt = dynamic_cast<DummyTranslation*>(_translation);
-            if (dt) dt->reload();
+            if (dt) dt->reload(true);
         }
     }
 }

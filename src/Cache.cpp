@@ -204,12 +204,8 @@ void Cache::clearCache()
         qDebug() << "Cannot remove cache db!";
 
     openDB();
-}
 
-
-void Cache::clearXML()
-{
-    QStringList xml = Paths::allCachedXML();
+    QStringList xml = Paths::allCachedXML("trans_");
     for (int i = 0; i < xml.size(); i++)
     {
         qDebug() << "Deleting" << Paths::cachedXML(xml.at(i));

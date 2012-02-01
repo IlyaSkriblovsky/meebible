@@ -82,15 +82,19 @@ QList<int> DummyTranslation::verseCounts(const QString& bookCode) const
 
 
 
-void DummyTranslation::reload()
+void DummyTranslation::reload(bool useCache)
 {
-    QString xmlName = QString("%1_%2").arg(_code, _language->code());
-    if (Cache::instance()->hasXML(xmlName))
+    qDebug() << "DummyTranslation::reload" << useCache;
+    if (useCache)
     {
-        loadFromXML(Cache::instance()->loadXML(xmlName));
-        loadingFinished();
-        loadedChanged();
-        return;
+        QString xmlName = QString("trans_%1_%2").arg(_code, _language->code());
+        if (Cache::instance()->hasXML(xmlName))
+        {
+            loadFromXML(Cache::instance()->loadXML(xmlName));
+            loadingFinished();
+            loadedChanged();
+            return;
+        }
     }
 
     QNetworkReply* reply = MetaInfoLoader::instance()->nam()->get(QNetworkRequest(
@@ -120,7 +124,7 @@ void DummyTranslation::translationXMLReceived()
 
     loadFromXML(content);
 
-    QString xmlName = QString("%1_%2").arg(_code, _language->code());
+    QString xmlName = QString("trans_%1_%2").arg(_code, _language->code());
     Cache::instance()->saveXML(xmlName, content);
 }
 
