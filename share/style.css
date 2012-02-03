@@ -30,6 +30,15 @@ body.inverted
 .inverted .verse.selected .verse-label { color: #c44; }
 
 
+.heading
+{
+    font-size: 120%;
+    margin: 20px 0;
+
+    color: #888;
+}
+
+
 .verse-label
 {
     display: inline-block;
@@ -52,6 +61,7 @@ body.inverted
 }
 
 .small, .smallcaps { font-size: 80%; }
+.upper { text-transform: uppercase; }
 
 .z
 {
