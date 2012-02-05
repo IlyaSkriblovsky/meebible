@@ -246,6 +246,7 @@ Page {
         onAccepted: {
             cache.clearCache()
             settings.translation.reload(false)
+            bibleView.loadChapter()
         }
     }
 

@@ -141,6 +141,11 @@ function highlightMatch(matchIndex)
         return 0;
 }
 
+function hideAllHighlights()
+{
+    document.body.className += " hide-matches"
+}
+
 
 
 function setFontSize(factor)

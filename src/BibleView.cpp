@@ -328,6 +328,8 @@ void BibleView::stopSearchMode()
     {
         _searchMode = false;
         searchModeChanged();
+
+        page()->mainFrame()->evaluateJavaScript(QString("hideAllHighlights()"));
     }
 }
 #endif
