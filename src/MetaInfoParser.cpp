@@ -31,6 +31,7 @@ bool MetaInfoParser::startElement(const QString& namespaceURI, const QString& lo
         _transName = attrs.value("name");
         _transSourceUrl = attrs.value("sourceUrl");
         _transCopyright = attrs.value("copyright");
+        _transRtl = attrs.value("rtl") == "1";
     }
 
     if (qName == "transLang")
@@ -41,7 +42,8 @@ bool MetaInfoParser::startElement(const QString& namespaceURI, const QString& lo
             lang,
             _transName,
             _transSourceUrl,
-            _transCopyright
+            _transCopyright,
+            _transRtl
         ));
     }
 

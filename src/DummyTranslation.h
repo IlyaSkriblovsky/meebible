@@ -32,7 +32,8 @@ class DummyTranslation: public Translation
             Language* language,
             const QString& name,
             const QString& sourceUrl,
-            const QString& copyright
+            const QString& copyright,
+            bool rtl
         );
         ~DummyTranslation();
 
@@ -44,6 +45,7 @@ class DummyTranslation: public Translation
         virtual QString name() const { return _name; }
         virtual QString sourceUrl() const { return _sourceUrl; }
         virtual QString copyright() const { return _copyright; }
+        virtual bool rtl() const { return _rtl; }
 
 
         virtual QString bookName(const QString& bookCode) const;
@@ -85,6 +87,7 @@ class DummyTranslation: public Translation
         QString _name;
         QString _sourceUrl;
         QString _copyright;
+        bool _rtl;
 
         QMap<QString, BookInfo> _books;
         QStringList _bookCodes;

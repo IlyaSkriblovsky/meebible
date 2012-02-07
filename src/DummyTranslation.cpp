@@ -45,11 +45,12 @@ DummyTranslation::DummyTranslation(
     Language* language,
     const QString& name,
     const QString& sourceUrl,
-    const QString& copyright
+    const QString& copyright,
+    bool rtl
 )
     : _code(code), _language(language), _name(name),
       _sourceUrl(sourceUrl), _copyright(copyright),
-      _loading(false)
+      _rtl(rtl), _loading(false)
 {
 }
 
