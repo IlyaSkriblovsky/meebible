@@ -106,7 +106,7 @@ for book in books:
         verses = [v.strip().split(' ', 1)[1].strip() for v in payload.strip().split('\n')]
 
         f = open('{0}_{1:03}.html'.format(book[0], chapterNo), 'w')
-        f.write(create_xml(verses).encode('utf-8'))
+        f.write(create_xml(verses, True).encode('utf-8'))
         f.close()
 
         print '{0}\t{1}\t{2}'.format(book[0], chapterNo, len(verses))

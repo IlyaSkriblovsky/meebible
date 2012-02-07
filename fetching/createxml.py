@@ -7,18 +7,25 @@ def verse2div(no, verse):
         verse = verse
     )
 
-def create_xml(verses):
+def create_xml(verses, rtl = False):
     header = u"""
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <style>
-            .par { margin-left: .8em; text-indent: -1em; }
-            .verse-label { min-width: 2.5ex; }
-        </style>
     </head>
-    <body>
 """
+
+    if rtl:
+        header += '    <body layout="indented" rtl="true">'
+    else:
+        header += '    <body layout="indented">'
+
+    header += '\n'
+
+#        <style>
+#            .par { margin-left: .8em; text-indent: -1em; }
+#            .verse-label { min-width: 2.5ex; }
+#        </style>
 
     footer = u"""
     </body>
