@@ -143,7 +143,7 @@ function highlightMatch(matchIndex)
 
 function hideAllHighlights()
 {
-    document.body.className += " hide-matches"
+    document.body.className = "hide-matches"
 }
 
 
@@ -160,5 +160,5 @@ function setLineSpacing(spacing, preserveScroll)
 
 function setInverted(inverted)
 {
-    document.body.className = inverted ? 'inverted' : ''
+    document.body.setAttribute('inverted', inverted ? 'true' : 'false')
 }
