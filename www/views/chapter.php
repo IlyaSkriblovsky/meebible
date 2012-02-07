@@ -32,10 +32,9 @@ if (
 
 if ($trans != 'nwt')
 {
-    $db = new SQLite3('html.sqlite');
-    $stmt = $db->prepare("SELECT html FROM html WHERE transCode=:transCode AND langCode=:langCode AND bookCode=:bookCode AND chapterNo=:chapterNo");
+    $db = new SQLite3("content/$trans.sqlite");
+    $stmt = $db->prepare("SELECT html FROM html WHERE langCode=:langCode AND bookCode=:bookCode AND chapterNo=:chapterNo");
     $stmt->reset();
-    $stmt->bindValue(':transCode', $trans);
     $stmt->bindValue(':langCode', $lang);
     $stmt->bindValue(':bookCode', $book);
     $stmt->bindValue(':chapterNo', $chapter, SQLITE3_INTEGER);
@@ -50,7 +49,7 @@ if ($trans != 'nwt')
 
     $html = $row[0];
 
-    return new Response('text/plain', $html);
+    return new Response('text/html', $html);
 }
 else
 {
