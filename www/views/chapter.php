@@ -109,7 +109,7 @@ else
     $in = new DOMDocument();
     $in->loadXML($content);
 
-    $xslt = file_get_contents('../share/nwt.xslt');
+    $xslt = file_get_contents('content/nwt.xslt');
     $proc = new XSLTProcessor();
     $proc->importStylesheet(new SimpleXMLElement($xslt));
     $out = $proc->transformToXml($in);
