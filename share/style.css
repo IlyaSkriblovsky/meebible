@@ -11,7 +11,7 @@ body
     background: #e0e0e0;
 }
 
-body.inverted
+body[inverted=true]
 {
     background: black;
     color: white;
@@ -26,8 +26,8 @@ body.inverted
 .verse.selected { background: #fea; }
 .verse.selected .verse-label { color: #c00; }
 
-.inverted .verse.selected { background: #444; }
-.inverted .verse.selected .verse-label { color: #c44; }
+body[inverted=true] .verse.selected { background: #444; }
+body[inverted=true] .verse.selected .verse-label { color: #c44; }
 
 
 .heading
@@ -52,13 +52,17 @@ body.inverted
 }
 
 .verse-label { color: #888; }
-.inverted .verse-label { color: #666; }
+body[inverted=true] .verse-label { color: #666; }
 
 .par
 {
     margin-top: .8em;
-/*    text-indent: 1em; */
 }
+
+
+body[layout=indented] .par { margin-left: .8em; text-indent: -1em; }
+body[layout=indented] .verse-label { min-width: 2.5ex; }
+
 
 .small, .smallcaps { font-size: 80%; }
 .upper { text-transform: uppercase; }
@@ -79,7 +83,8 @@ body.inverted
 
 .match { background: #8f8; border-radius: 8px; }
 .match.current { background: #f88; }
-.inverted .match { background: #060; }
-.inverted .match.current { background: #600; }
+body[inverted=true] .match { background: #060; }
+body[inverted=true] .match.current { background: #600; }
 
 body.hide-matches .match { background: none; }
+body.hide-matches .match.current { background: none; }
