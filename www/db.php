@@ -1,5 +1,5 @@
 <?php
 function db($basename) {
-    return '../share/' . $basename;
+    return 'content/' . $basename;
 }
 ?>

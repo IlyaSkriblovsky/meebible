@@ -32,14 +32,24 @@ if (
 
 if ($trans != 'nwt')
 {
-    $filename = "chapters/$trans/$lang/${book}_" . str_pad($chapter, 3, '0', STR_PAD_LEFT) . '.html';
+    $db = new SQLite3("content/$trans.sqlite");
+    $stmt = $db->prepare("SELECT html FROM html WHERE langCode=:langCode AND bookCode=:bookCode AND chapterNo=:chapterNo");
+    $stmt->reset();
+    $stmt->bindValue(':langCode', $lang);
+    $stmt->bindValue(':bookCode', $book);
+    $stmt->bindValue(':chapterNo', $chapter, SQLITE3_INTEGER);
+    $r = $stmt->execute();
+    $row = $r->fetchArray();
+    if (empty($row))
+    {
+        $response = new Response('text/plain', 'Chapter does not exists');
+        $response->add_header('HTTP/1.0 400 Bad Request');
+        return $response;
+    }
 
-    if (file_exists($filename))
-        return new Response('text/html', file_get_contents($filename));
+    $html = $row[0];
 
-    $response = new Response('text/plain', 'Chapter does not exists');
-    $response->add_header('HTTP/1.0 400 Bad Request');
-    return $response;
+    return new Response('text/html', $html);
 }
 else
 {
@@ -99,12 +109,12 @@ else
     $in = new DOMDocument();
     $in->loadXML($content);
 
-    $xslt = file_get_contents('../share/nwt.xslt');
+    $xslt = file_get_contents('content/nwt.xslt');
     $proc = new XSLTProcessor();
     $proc->importStylesheet(new SimpleXMLElement($xslt));
     $out = $proc->transformToXml($in);
 
-    $response = new Response('text/plain; charset=utf-8', $out);
+    $response = new Response('text/html; charset=utf-8', $out);
     return $response;
 }
 

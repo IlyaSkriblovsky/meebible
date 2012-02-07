@@ -21,8 +21,8 @@ bookCodes = [r[0] for r in c.fetchall()]
 verse_re = re.compile(r"<SPAN CLASS='normal'>(.*?)</SPAN>", re.DOTALL)
 verse_no_re = re.compile(r'\d+\s+')
 
-# for bookNo, bookCode in izip(count(1), bookCodes):
-for bookNo, bookCode in [(44, 'ac')]:
+for bookNo, bookCode in izip(count(1), bookCodes):
+# for bookNo, bookCode in [(44, 'ac')]:
     c.execute("SELECT count(*) FROM chapterSize WHERE transCode='blv' AND bookCode=?", (bookCode,))
     chapters = c.fetchall()[0][0]
 
@@ -39,14 +39,14 @@ for bookNo, bookCode in [(44, 'ac')]:
 
         payload = verse_re.search(content).group(1)
 
-        verses = [re.sub(r'\d+\s+', '', verse.strip()) for verse in payload.split('<br>') if len(verse.strip()) > 0]
+        verses = [re.sub(r'\d+\s+', '', verse.strip()).decode('utf-8') for verse in payload.split('<br>') if len(verse.strip()) > 0]
 
         if bookCode == 'ac':
-            if chapterNo == 24: verses.insert(6, '———')
-            if chapterNo == 28: verses.insert(28, '———')
+            if chapterNo == 24: verses.insert(6, u'———')
+            if chapterNo == 28: verses.insert(28, u'———')
 
         f = open('{0}_{1:003}.html'.format(bookCode, chapterNo), 'w')
-        f.write(create_xml(verses))
+        f.write(create_xml(verses).encode('utf-8'))
         f.close()
 
         print '{0}\t{1}\t{2}'.format(bookCode, chapterNo, len(verses))
