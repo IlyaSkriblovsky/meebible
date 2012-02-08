@@ -24,6 +24,11 @@ return array(
     ),
 
     array(
+        'url'   =>  '/feedback',
+        'view'  =>  'feedback'
+    ),
+
+    array(
         'url'   =>  '*',
         'view'  =>  '404'
     )
