@@ -20,6 +20,7 @@ class MetaInfoParser: public QXmlDefaultHandler
         QString _transName;
         QString _transSourceUrl;
         QString _transCopyright;
+        bool _transRtl;
 };
 
 #endif
