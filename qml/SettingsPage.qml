@@ -103,7 +103,7 @@ Page {
                         anchors.right: parent.right
 
                         text: settings.translation ? settings.translation.copyright : ''
-                        visible: settings.translation  &&  settings.translation.copyright != ''
+                        visible: settings.translation != null  &&  settings.translation.copyright != ''
                         font.pixelSize: 20
                     }
                 }

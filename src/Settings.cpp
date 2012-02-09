@@ -64,6 +64,14 @@ void Settings::setLanguage(Language* lang)
     if (lang->code() == _langCode) return;
 
     _langCode = lang->code();
+
+    if (language() && language()->translationByCode(_transCode) == 0)
+    {
+        Translation* trans = language()->translationAt(0);
+        if (trans)
+            _transCode = trans->code();
+    }
+
     languageChanged();
     translationChanged();
 }
