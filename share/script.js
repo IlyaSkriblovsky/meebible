@@ -153,6 +153,11 @@ function setFontSize(factor)
     document.body.style.fontSize = factor + 'px'
 }
 
+function setFontName(name)
+{
+    document.body.style.fontFamily = name
+}
+
 function setLineSpacing(spacing, preserveScroll)
 {
     document.body.style.lineHeight = spacing

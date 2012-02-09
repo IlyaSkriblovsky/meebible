@@ -27,7 +27,7 @@
 
 
 BibleView::BibleView(QGraphicsItem *parent):
-    QGraphicsWebView(parent), _translation(0), _chapterNo(0), _fontSize(30)
+    QGraphicsWebView(parent), _translation(0), _chapterNo(0), _fontSize(30), _fontName("Nokia")
 {
     QElapsedTimer timer;
     timer.start();
@@ -268,6 +268,7 @@ void BibleView::onLoadFinished(bool ok)
 
     page()->mainFrame()->evaluateJavaScript(_js);
     applyFontSize();
+    applyFontName();
     applyLineSpacing();
     applyInverted();
 }
@@ -378,6 +379,18 @@ void BibleView::setFontSize(int value)
 void BibleView::applyFontSize()
 {
     page()->mainFrame()->evaluateJavaScript(QString("setFontSize(%1)").arg(_fontSize));
+}
+
+void BibleView::setFontName(const QString& value)
+{
+    _fontName = value;
+    applyFontName();
+    fontNameChanged();
+}
+
+void BibleView::applyFontName()
+{
+    page()->mainFrame()->evaluateJavaScript(QString("setFontName('%1')").arg(_fontName));
 }
 
 void BibleView::setLineSpacing(float value)
