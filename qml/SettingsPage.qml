@@ -46,129 +46,79 @@ Page {
 
         flickableDirection: Flickable.VerticalFlick
 
-        contentWidth: column.width + 20
-        contentHeight: column.height + 40
+        contentWidth: column.width
+        contentHeight: column.height
 
         Column {
             id: column
 
-            x: 10
-            width: settingsPage.width - 20
+            width: settingsPage.width
 
-            y: 20
+            TumblerItem {
+                titleText: qsTr("Language")
+                valueText: settings.language ? settings.language.selfname : qsTr('<not loaded yet>')
 
-            spacing: 30
-
-            Column {
-                id: language
-
-                width: parent.width
-
-                spacing: 20
-
-                Label {
-                    text: qsTr("Language")
-                    font.bold: true
-                }
-
-                TumblerButton {
-                    text: settings.language ? settings.language.selfname : "<not loaded yet>"
-
-                    x: 40
-                    width: parent.width - 80
-
-                    style: tumblerStyleBlue
-
-                    onClicked: languageDialog.open()
-                }
+                onClicked: languageDialog.open()
             }
 
-            Column {
-                id: translation
+            TumblerItem {
+                titleText: qsTr("Translation")
+                valueText: settings.translation ? settings.translation.name : qsTr('<not loaded yet>')
 
-                width: parent.width
+                onClicked: transDialog.open()
+            }
 
-                spacing: 20
+            Rectangle {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.margins: 10
 
-                Label {
-                    text: qsTr("Translation")
-                    font.bold: true
-                }
+                height: childrenRect.height + 20
 
-                TumblerButton {
-                    text: settings.translation ? settings.translation.name : "<not loaded yet>"
+                radius: 5
 
-                    x: 40
-                    width: parent.width - 80
+                color: 'transparent'
 
-                    style: tumblerStyleBlue
+                border.color: '#888'
+                border.width: 1
 
-                    onClicked: transDialog.open()
-                }
+                Column {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.margins: 20
 
-                Label {
-                    text: settings.translation ? 'Available at <a href="' + settings.translation.sourceUrl + '">' + settings.translation.sourceUrl + '</a>' : ''
-                    font.pixelSize: 20
-                    x: 40
-                    width: parent.width - x
+                    y: 10
 
-                    onLinkActivated: Qt.openUrlExternally(settings.translation.sourceUrl)
-                }
-                Label {
-                    text: settings.translation ? settings.translation.copyright : ''
-                    font.pixelSize: 20
-                    x: 40
-                    width: parent.width - x
+                    Label {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+
+                        text: settings.translation ? 'Available at <a href="' + settings.translation.sourceUrl + '">' + settings.translation.sourceUrl + '</a>' : ''
+                        font.pixelSize: 20
+
+                        onLinkActivated: Qt.openUrlExternally(settings.translation.sourceUrl)
+                    }
+                    Label {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+
+                        text: settings.translation ? settings.translation.copyright : ''
+                        visible: settings.translation  &&  settings.translation.copyright != ''
+                        font.pixelSize: 20
+                    }
                 }
             }
 
             Item {
-                width: parent.width
-                height: reloadLanguages.height
-
-                Button {
-                    id: reloadLanguages
-
-                    text: qsTr("Update translation list")
-
-                    anchors.horizontalCenter: parent.horizontalCenter
-
-                    onClicked: languages.reload(false)
-                }
-
-                HelpButton {
-                    anchors.right: parent.right
-                    anchors.rightMargin: 15
-                    anchors.verticalCenter: parent.verticalCenter
-
-                    titleText: qsTr("Reload languages")
-
-                    message: qsTr("When new translation is published on MeeBible's server, use this button to update translation list")
-                }
+                width: 1
+                height: 20
             }
 
-            Column {
-                id: font
+            TumblerItem {
+                titleText: qsTr("Font")
+                valueText: settings.fontName
 
-                width: parent.width
-
-                spacing: 20
-
-                Label {
-                    text: qsTr("Font")
-                    font.bold: true
-                }
-
-                TumblerButton {
-                    text: settings.fontName
-
-                    x: 40
-                    width: parent.width - 80
-
-                    style: tumblerStyleBlue
-
-                    onClicked: fontDialog.open()
-                }
+                onClicked: fontDialog.open()
             }
 
             LabeledSwitch {
@@ -192,29 +142,22 @@ Page {
                 onCheckedChanged: theme.inverted = checked
             }
 
-            Item {
-                width: parent.width
-                height: clearCache.height
 
-                Button {
-                    id: clearCache
+            ButtonWithHelp {
+                buttonText: qsTr("Update translation list")
+                helpTitle: qsTr("Reload languages")
+                helpMessage: qsTr("When new translation is published on MeeBible's server, use this button to update translation list")
 
-                    text: qsTr("Clear cache")
+                onClicked: languages.reload(false)
+            }
 
-                    anchors.horizontalCenter: parent.horizontalCenter
 
-                    onClicked: clearCacheConfirmation.open()
-                }
+            ButtonWithHelp {
+                buttonText: qsTr("Clear cache")
+                helpTitle: qsTr("Cache clearing")
+                helpMessage: qsTr("This will delete all downloaded Bible chapters from your phone. Do this to force reloading chapters when some error was fixed in translation on the server side.")
 
-                HelpButton {
-                    anchors.right: parent.right
-                    anchors.rightMargin: 15
-                    anchors.verticalCenter: parent.verticalCenter
-
-                    titleText: qsTr("Cache clearing")
-
-                    message: qsTr("This will delete all downloaded Bible chapters from your phone. Do this to force reloading chapters when some error was fixed in translation on the server side.")
-                }
+                onClicked: clearCacheConfirmation.open()
             }
         }
     }

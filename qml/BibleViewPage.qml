@@ -603,12 +603,18 @@ Page {
     }
 
 
-    SettingsPage {
+    Loader {
         id: settingsPage
+
+        function load() { source = "SettingsPage.qml" }
+        function open() { load(); pageStack.push(item) }
     }
 
-    AboutPage {
+    Loader {
         id: aboutPage
+
+        function load() { source = "AboutPage.qml" }
+        function open() { load(); pageStack.push(item) }
     }
 
 
@@ -652,12 +658,12 @@ Page {
 
             MenuItem {
                 text: qsTr("Settings")
-                onClicked: pageStack.push(settingsPage)
+                onClicked: settingsPage.open()
             }
 
             MenuItem {
                 text: qsTr("About MeeBible")
-                onClicked: pageStack.push(aboutPage)
+                onClicked: aboutPage.open()
             }
         }
     }
