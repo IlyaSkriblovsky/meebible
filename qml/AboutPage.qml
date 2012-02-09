@@ -55,20 +55,36 @@ Page {
                 text: qsTr("Read God's Word daily!")
             }
 
-            Rectangle {
-                height: 2
-                width: parent.width
-                color: '#fff'
+            // Rectangle {
+            //     height: 2
+            //     width: parent.width
+            //     color: '#fff'
 
-                Rectangle {
-                    height: 1
-                    width: parent.width
-                    color: '#d6cfd6'
+            //     Rectangle {
+            //         height: 1
+            //         width: parent.width
+            //         color: '#d6cfd6'
+            //     }
+            // }
+
+            Button {
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                text: qsTr("Send your feedback")
+
+                Loader {
+                    id: feedbackPage
+
+                    function load() { source = "FeedbackPage.qml" }
+
+                    function open() { load(); pageStack.push(item) }
                 }
+
+                onClicked: feedbackPage.open()
             }
 
             Label {
-                text: qsTr('© 2011 Ilya Skriblovsky<br>E-Mail: <a href="mailto:IlyaSkriblovsky@gmail.com">Ilya.Skriblovsky@gmail.com</a>')
+                text: qsTr('© 2011 Ilya Skriblovsky<br>E-Mail: <a href="mailto:Ilya.Skriblovsky@gmail.com?subject=MeeBible">Ilya.Skriblovsky@gmail.com</a>')
                 width: parent.width
 
                 onLinkActivated: Qt.openUrlExternally(link)

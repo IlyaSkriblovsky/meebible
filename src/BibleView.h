@@ -30,6 +30,7 @@ class BibleView: public QGraphicsWebView
 
     Q_PROPERTY(int fontSize READ fontSize WRITE setFontSize NOTIFY fontSizeChanged)
     Q_PROPERTY(float lineSpacing READ lineSpacing WRITE setLineSpacing NOTIFY lineSpacingChanged)
+    Q_PROPERTY(QString fontName READ fontName WRITE setFontName NOTIFY fontNameChanged)
 
     Q_PROPERTY(bool inverted READ inverted WRITE setInverted)
 
@@ -69,6 +70,8 @@ public:
 
     int fontSize() const { return _fontSize; }
     void setFontSize(int value);
+    QString fontName() const { return _fontName; }
+    void setFontName(const QString& value);
     float lineSpacing() const { return _lineSpacing; }
     void setLineSpacing(float value);
 
@@ -115,6 +118,7 @@ signals:
     void titleChanged();
 
     void fontSizeChanged();
+    void fontNameChanged();
     void lineSpacingChanged();
 
 private:
@@ -131,6 +135,7 @@ private:
 
 
     int _fontSize;
+    QString _fontName;
     float _lineSpacing;
 
     bool _inverted;
@@ -152,6 +157,7 @@ private:
     void scrollToVerse(int verseNo);
 
     void applyFontSize();
+    void applyFontName();
     void applyLineSpacing();
     void applyInverted();
 

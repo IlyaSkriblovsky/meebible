@@ -17,6 +17,7 @@ Settings::Settings(Languages* langs, QObject* parent):
     _chapterNo =        _settings.value("General/chapterNo", 1).toInt();
     _floatingHeader =   _settings.value("General/floatingHeader", true).toBool();
     _fontSize =         _settings.value("General/fontSize", 30).toInt();
+    _fontName =         _settings.value("General/fontName", "Nokia").toString();
     _lineSpacing =      _settings.value("General/lineSpacing", 1.3).toFloat();
     _scrollPos =        _settings.value("General/scrollPos", 0).toInt();
     _fullscreen =       _settings.value("General/fullscreen", false).toBool();
@@ -35,6 +36,7 @@ Settings::~Settings()
     _settings.setValue("General/chapterNo", _chapterNo);
     _settings.setValue("General/floatingHeader", _floatingHeader);
     _settings.setValue("General/fontSize", _fontSize);
+    _settings.setValue("General/fontName", _fontName);
     _settings.setValue("General/lineSpacing", _lineSpacing);
     _settings.setValue("General/scrollPos", _scrollPos);
     _settings.setValue("General/fullscreen", _fullscreen);
@@ -62,6 +64,14 @@ void Settings::setLanguage(Language* lang)
     if (lang->code() == _langCode) return;
 
     _langCode = lang->code();
+
+    if (language() && language()->translationByCode(_transCode) == 0)
+    {
+        Translation* trans = language()->translationAt(0);
+        if (trans)
+            _transCode = trans->code();
+    }
+
     languageChanged();
     translationChanged();
 }
@@ -141,6 +151,21 @@ void Settings::setFontSize(int size)
     {
         _fontSize = size;
         fontSizeChanged();
+    }
+}
+
+
+QString Settings::fontName() const
+{
+    return _fontName;
+}
+
+void Settings::setFontName(const QString& name)
+{
+    if (_fontName != name)
+    {
+        _fontName = name;
+        fontNameChanged();
     }
 }
 
