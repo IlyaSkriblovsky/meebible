@@ -147,6 +147,30 @@ Page {
                 }
             }
 
+            Column {
+                id: font
+
+                width: parent.width
+
+                spacing: 20
+
+                Label {
+                    text: qsTr("Font")
+                    font.bold: true
+                }
+
+                TumblerButton {
+                    text: settings.fontName
+
+                    x: 40
+                    width: parent.width - 80
+
+                    style: tumblerStyleBlue
+
+                    onClicked: fontDialog.open()
+                }
+            }
+
             LabeledSwitch {
                 text: qsTr("Scroll header with the text")
 
@@ -229,6 +253,33 @@ Page {
         Connections {
             target: transDialog.item
             onAccepted: settings.translation = transDialog.item.translation()
+        }
+    }
+
+
+    ModelSelectionDialog {
+        id: fontDialog
+
+        titleText: qsTr("Select Font")
+
+        header: Label {
+            text: qsTr("Not all fonts can display all languages")
+            color: "#666"
+        }
+
+        model: ListModel {
+            id: fontModel
+
+            ListElement { value: "Nokia Pure" }
+            ListElement { value: "Nokia Standard" }
+            ListElement { value: "DejaVu Sans" }
+            ListElement { value: "Times" }
+            ListElement { value: "Georgia" }
+            ListElement { value: "Trebuchet" }
+        }
+
+        onAccepted: {
+            settings.fontName = fontModel.get(selectedIndex).value
         }
     }
 

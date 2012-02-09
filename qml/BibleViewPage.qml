@@ -115,6 +115,9 @@ Page {
                 inverted: theme.inverted
 
 
+                fontName: settings.fontName
+
+
                 // Component.onCompleted: loadChapter()
 
                 onChapterLoaded: {
