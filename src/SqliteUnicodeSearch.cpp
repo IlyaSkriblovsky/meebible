@@ -141,10 +141,13 @@ QString SqliteUnicodeSearch::highlightMatches(const QString& html, const QString
 
     while (pos != USEARCH_DONE)
     {
-        result.insert(pos + usearch_getMatchedLength(search), "</span>");
-        result.insert(pos, QString("<span id=\"match-%1\" class=\"match\">").arg(count + 1));
+        if (html.indexOf("<", pos) < html.indexOf(">", pos)) // this implies != -1
+        {
+            result.insert(pos + usearch_getMatchedLength(search), "</span>");
+            result.insert(pos, QString("<span id=\"match-%1\" class=\"match\">").arg(count + 1));
 
-        count++;
+            count++;
+        }
 
         pos = usearch_previous(search, &err);
     }
