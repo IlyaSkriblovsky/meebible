@@ -176,13 +176,11 @@ Page {
         target: feedback
 
         onSuccess: {
-            console.log('success')
             busyDialog.close()
             pageStack.pop()
             thanksDialog.open()
         }
         onFail: {
-            console.log('fail')
             busyDialog.close()
             if (! aborted)
                 failDialog.open()
