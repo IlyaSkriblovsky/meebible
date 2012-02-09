@@ -84,7 +84,7 @@ Page {
             }
 
             Label {
-                text: qsTr('© 2011 Ilya Skriblovsky<br>E-Mail: <a href="mailto:IlyaSkriblovsky@gmail.com">Ilya.Skriblovsky@gmail.com</a>')
+                text: qsTr('© 2011 Ilya Skriblovsky<br>E-Mail: <a href="mailto:Ilya.Skriblovsky@gmail.com?subject=MeeBible">Ilya.Skriblovsky@gmail.com</a>')
                 width: parent.width
 
                 onLinkActivated: Qt.openUrlExternally(link)
