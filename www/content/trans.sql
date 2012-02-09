@@ -9,7 +9,7 @@ CREATE TABLE translations (
 );
 BEGIN;
 
-INSERT INTO translations VALUES ('rus', 'BibleOnlineParser', 'Синодальный перевод ??', 'http://bibleonline/bible/rus/', '', 0);
+INSERT INTO translations VALUES ('rus', 'BibleOnlineParser', 'Синодальный перевод', 'http://bibleonline/bible/rus/', '', 0);
 
 INSERT INTO translations VALUES ('blv', 'BibeleLVParser', '1965. gada revidētā Bībeles versija', 'http://bibele.lv/bibele/bibele.php', '© Latvijas Bībeles Biedrība', 0);
 
