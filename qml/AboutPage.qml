@@ -32,23 +32,19 @@ Page {
 
 
             Label {
-                text: qsTr("Thank you for using MeeBible, the open source Bible reader for Harmattan")
+                text: qsTr("MeeBible — the open source Bible reader for Harmattan")
 
                 width: parent.width
             }
 
             Label {
-                text: freeversion ? qsTr("If you want to support development of MeeBible, please consider buying paid version from Ovi Store!") : qsTr("Thank you for supporting MeeBible!")
+                text: freeversion ? qsTr("If you want to support development of MeeBible, please consider buying <a href='http://store.ovi.com/content/215454'>paid version from Ovi Store</a>!") : qsTr("Thank you for supporting MeeBible!")
 
                 width: parent.width
 
                 color: freeversion ? "#800000" : "#008000"
-            }
 
-            Label {
-                text: qsTr("Currently following Bible translations are supported: <ul> <li>New World Translation in 42 languages</li> <li>King James Version</li> <li>Russian Synodal translation</li> <li>Latvian Revised Bible</li> <li>Smith & Van Dyck Arabic translation</li> </ul>")
-
-                width: parent.width
+                onLinkActivated: Qt.openUrlExternally(link)
             }
 
             Label {
@@ -71,6 +67,15 @@ Page {
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 text: qsTr("Send your feedback")
+
+                height: 60
+
+                Image {
+                    source: "image://theme/icon-s-common-next"
+                    anchors.right: parent.right
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.rightMargin: 10
+                }
 
                 Loader {
                     id: feedbackPage
@@ -97,7 +102,7 @@ Page {
             }
 
             Label {
-                text: qsTr('Homepage & sources: <a href="http://projects.developer.nokia.com/meebible">http://projects.developer.nokia.com/meebible</a>')
+                text: qsTr('Homepage & sources: <a href="http://meebible.org">http://meebible.org</a>')
                 width: parent.width
 
                 onLinkActivated: Qt.openUrlExternally(link)
