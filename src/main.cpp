@@ -4,7 +4,6 @@
 #include <QtGlobal>
 
 #include <MDeclarativeCache>
-#include <QElapsedTimer>
 
 #include <QTranslator>
 #include <QLocale>
@@ -23,9 +22,6 @@
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
-    QElapsedTimer timer;
-    timer.start();
-
     QApplication *app = MDeclarativeCache::qApplication(argc, argv);
     app->setOrganizationName("MeeBible");
     app->setApplicationName("MeeBible");
