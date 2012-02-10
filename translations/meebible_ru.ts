@@ -456,7 +456,7 @@ New translations
     <message>
         <location filename="../qml/SettingsPage.qml" line="147"/>
         <source>Update translation list</source>
-        <translation>Обновить список переводов</translation>
+        <translation type="unfinished">Обновить переводы</translation>
     </message>
     <message>
         <location filename="../qml/SettingsPage.qml" line="148"/>
