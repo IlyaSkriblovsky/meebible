@@ -456,7 +456,7 @@ New translations
     <message>
         <location filename="../qml/SettingsPage.qml" line="147"/>
         <source>Update translation list</source>
-        <translation type="unfinished">Обновить переводы</translation>
+        <translation>Обновить переводы</translation>
     </message>
     <message>
         <location filename="../qml/SettingsPage.qml" line="148"/>
@@ -494,22 +494,22 @@ New translations
         <translation>Не все шрифты хорошо работают со всеми языками</translation>
     </message>
     <message>
-        <location filename="../qml/SettingsPage.qml" line="233"/>
+        <location filename="../qml/SettingsPage.qml" line="236"/>
         <source>Do you want to clear the cache?</source>
         <translation>Вы действительно хотите очистить кэш?</translation>
     </message>
     <message>
-        <location filename="../qml/SettingsPage.qml" line="235"/>
+        <location filename="../qml/SettingsPage.qml" line="238"/>
         <source>This will delete all downloaded Bible chapters from your phone</source>
         <translation>Все скачанные главы Библии будут удалены из вашего телефона</translation>
     </message>
     <message>
-        <location filename="../qml/SettingsPage.qml" line="237"/>
+        <location filename="../qml/SettingsPage.qml" line="240"/>
         <source>Clear</source>
         <translation>Очистить</translation>
     </message>
     <message>
-        <location filename="../qml/SettingsPage.qml" line="238"/>
+        <location filename="../qml/SettingsPage.qml" line="241"/>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>

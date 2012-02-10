@@ -208,6 +208,9 @@ Page {
         header: Label {
             text: qsTr("Not all fonts can display all languages")
             color: "#666"
+
+            anchors.left: parent.left
+            anchors.right: parent.right
         }
 
         model: ListModel {
