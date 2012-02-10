@@ -9,8 +9,12 @@
         <translation>О программе MeeBible</translation>
     </message>
     <message>
-        <location filename="../qml/AboutPage.qml" line="35"/>
         <source>MeeBible — the open source Bible reader</source>
+        <translation type="obsolete">MeeBible — читалка Библии с открытым исходным кодом</translation>
+    </message>
+    <message>
+        <location filename="../qml/AboutPage.qml" line="35"/>
+        <source>?? MeeBible -- the open source Bible reader</source>
         <translation>MeeBible — читалка Библии с открытым исходным кодом</translation>
     </message>
     <message>
