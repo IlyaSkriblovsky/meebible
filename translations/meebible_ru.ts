@@ -249,7 +249,12 @@ Improvements
 Critics
 New translations
 ...</source>
-        <translation>Комментарии\nПредложения\nУлучшения\nКритика\nНовые переводы\n...</translation>
+        <translation>Комментарии
+Предложения
+Улучшения
+Критика
+Новые переводы
+...</translation>
     </message>
     <message>
         <location filename="../qml/FeedbackPage.qml" line="77"/>
