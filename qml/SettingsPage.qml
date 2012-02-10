@@ -208,6 +208,11 @@ Page {
         header: Label {
             text: qsTr("Not all fonts can display all languages")
             color: "#666"
+
+            wrapMode: Text.Wrap
+
+            anchors.left: parent.left
+            anchors.right: parent.right
         }
 
         model: ListModel {
