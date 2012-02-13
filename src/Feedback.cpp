@@ -19,18 +19,15 @@ Feedback::Feedback()
 
 void Feedback::send(const QString& name, const QString& email, const QString& message)
 {
-    QString body = QString("name=%1&email=%2&message=%3")
-        .arg(QString::fromAscii(QUrl::toPercentEncoding(name)))
-        .arg(QString::fromAscii(QUrl::toPercentEncoding(email)))
-        .arg(QString::fromAscii(QUrl::toPercentEncoding(message)))
-    ;
+    QUrl params;
+    params.addQueryItem("name", name);
+    params.addQueryItem("email", email);
+    params.addQueryItem("message", message);
 
-    qDebug() << body;
+    QNetworkRequest request(Paths::wsUrl("feedback"));
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
 
-    _reply = _nam->post(
-        QNetworkRequest(Paths::wsUrl("feedback")),
-        body.toUtf8()
-    );
+    _reply = _nam->post(request, params.encodedQuery());
     connect(_reply, SIGNAL(finished()), this, SLOT(onRequestFinished()));
 }
 
