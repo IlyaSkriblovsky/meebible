@@ -24,6 +24,7 @@ CommonDialog {
         Item {
             id: header
 
+            width: parent.width
             height: childrenRect.height
         }
 

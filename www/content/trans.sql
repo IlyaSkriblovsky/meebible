@@ -29,62 +29,63 @@ DROP TABLE IF EXISTS translationLangs;
 CREATE TABLE translationLangs (
     transCode VARCHAR,
     langCode VARCHAR,
+    name VARCHAR,
     PRIMARY KEY (transCode, langCode)
 );
 BEGIN;
 
-INSERT INTO translationLangs VALUES ('rus', 'u');
+INSERT INTO translationLangs VALUES ('rus', 'u', 'Синодальный перевод');
 
-INSERT INTO translationLangs VALUES ('blv', 'lv');
+INSERT INTO translationLangs VALUES ('blv', 'lv', '1965. gada revidētā Bībeles versija');
 
-INSERT INTO translationLangs VALUES ('ara', 'a');
+INSERT INTO translationLangs VALUES ('ara', 'a', 'Smith & Van Dyke Arabic Version');
 
-INSERT INTO translationLangs VALUES ('kjv', 'e');
+INSERT INTO translationLangs VALUES ('kjv', 'e', 'King James Version (1769)');
 
-INSERT INTO translationLangs VALUES ('niv', 'e');
+INSERT INTO translationLangs VALUES ('niv', 'e', 'New International Version');
 
-INSERT INTO translationLangs VALUES ('nwt', 'af');
-INSERT INTO translationLangs VALUES ('nwt', 'al');
-INSERT INTO translationLangs VALUES ('nwt', 'bl');
-INSERT INTO translationLangs VALUES ('nwt', 'cn');
-INSERT INTO translationLangs VALUES ('nwt', 'chs');
-INSERT INTO translationLangs VALUES ('nwt', 'ch');
-INSERT INTO translationLangs VALUES ('nwt', 'cw');
-INSERT INTO translationLangs VALUES ('nwt', 'c');
-INSERT INTO translationLangs VALUES ('nwt', 'b');
-INSERT INTO translationLangs VALUES ('nwt', 'd');
-INSERT INTO translationLangs VALUES ('nwt', 'o');
-INSERT INTO translationLangs VALUES ('nwt', 'e');
-INSERT INTO translationLangs VALUES ('nwt', 'fi');
-INSERT INTO translationLangs VALUES ('nwt', 'f');
-INSERT INTO translationLangs VALUES ('nwt', 'ge');
-INSERT INTO translationLangs VALUES ('nwt', 'x');
-INSERT INTO translationLangs VALUES ('nwt', 'g');
-INSERT INTO translationLangs VALUES ('nwt', 'h');
-INSERT INTO translationLangs VALUES ('nwt', 'in');
-INSERT INTO translationLangs VALUES ('nwt', 'i');
-INSERT INTO translationLangs VALUES ('nwt', 'j');
-INSERT INTO translationLangs VALUES ('nwt', 'ko');
-INSERT INTO translationLangs VALUES ('nwt', 'li');
-INSERT INTO translationLangs VALUES ('nwt', 'mg');
-INSERT INTO translationLangs VALUES ('nwt', 'mt');
-INSERT INTO translationLangs VALUES ('nwt', 'n');
-INSERT INTO translationLangs VALUES ('nwt', 'oss');
-INSERT INTO translationLangs VALUES ('nwt', 'p');
-INSERT INTO translationLangs VALUES ('nwt', 't');
-INSERT INTO translationLangs VALUES ('nwt', 'm');
-INSERT INTO translationLangs VALUES ('nwt', 'u');
-INSERT INTO translationLangs VALUES ('nwt', 'sb');
-INSERT INTO translationLangs VALUES ('nwt', 'su');
-INSERT INTO translationLangs VALUES ('nwt', 'sv');
-INSERT INTO translationLangs VALUES ('nwt', 's');
-INSERT INTO translationLangs VALUES ('nwt', 'sr');
-INSERT INTO translationLangs VALUES ('nwt', 'sw');
-INSERT INTO translationLangs VALUES ('nwt', 'z');
-INSERT INTO translationLangs VALUES ('nwt', 'tn');
-INSERT INTO translationLangs VALUES ('nwt', 'tk');
-INSERT INTO translationLangs VALUES ('nwt', 'xo');
-INSERT INTO translationLangs VALUES ('nwt', 'zu');
+INSERT INTO translationLangs VALUES ('nwt', 'af',  'Nuwe Wêreld-vertaling');
+INSERT INTO translationLangs VALUES ('nwt', 'al',  'Përkthimi Bota e Re');
+INSERT INTO translationLangs VALUES ('nwt', 'bl',  'Превод на новия свят');
+INSERT INTO translationLangs VALUES ('nwt', 'b',   'Překlad nového světa');
+INSERT INTO translationLangs VALUES ('nwt', 'chs', '新世界翻译');
+INSERT INTO translationLangs VALUES ('nwt', 'ch',  '新世界翻譯');
+INSERT INTO translationLangs VALUES ('nwt', 'cn',  'New World Translation');
+INSERT INTO translationLangs VALUES ('nwt', 'c',   'Prijevod Novi svijet');
+INSERT INTO translationLangs VALUES ('nwt', 'cw',  'Amalembo ya Calo Cipya');
+INSERT INTO translationLangs VALUES ('nwt', 'd',   'Ny Verden-Oversættelsen');
+INSERT INTO translationLangs VALUES ('nwt', 'e',   'New World Translation');
+INSERT INTO translationLangs VALUES ('nwt', 'fi',  'Uuden maailman käännös');
+INSERT INTO translationLangs VALUES ('nwt', 'f',   'Traduction du monde nouveau');
+INSERT INTO translationLangs VALUES ('nwt', 'ge',  'ახალი ქვეყნიერების თარგმანი');
+INSERT INTO translationLangs VALUES ('nwt', 'g',   'Μετάφραση Νέου Κόσμου');
+INSERT INTO translationLangs VALUES ('nwt', 'h',   'A Szentírás új világ fordítása');
+INSERT INTO translationLangs VALUES ('nwt', 'in',  'Kitab Suci Terjemahan Dunia Baru');
+INSERT INTO translationLangs VALUES ('nwt', 'i',   'Traduzione del Nuovo Mondo');
+INSERT INTO translationLangs VALUES ('nwt', 'j',   '新世界訳');
+INSERT INTO translationLangs VALUES ('nwt', 'ko',  '신세계역');
+INSERT INTO translationLangs VALUES ('nwt', 'li',  'Libongoli ya Mokili ya Sika');
+INSERT INTO translationLangs VALUES ('nwt', 'mg',  'Fandikan-tenin''ny Tontolo Vaovao');
+INSERT INTO translationLangs VALUES ('nwt', 'mt',  'New World Translation');
+INSERT INTO translationLangs VALUES ('nwt', 'm',   'Traducerea lumii noi');
+INSERT INTO translationLangs VALUES ('nwt', 'n',   'Ny verden-oversettelsen');
+INSERT INTO translationLangs VALUES ('nwt', 'o',   'Nieuwe-Wereldvertaling');
+INSERT INTO translationLangs VALUES ('nwt', 'oss', 'Ног дунейы тæлмац');
+INSERT INTO translationLangs VALUES ('nwt', 'p',   'Przekład Nowego Świata');
+INSERT INTO translationLangs VALUES ('nwt', 'sb',  'Превод Новог Света');
+INSERT INTO translationLangs VALUES ('nwt', 'sr',  'Nyun-Grontapuvertaling');
+INSERT INTO translationLangs VALUES ('nwt', 's',   'Traducción del Nuevo Mundo');
+INSERT INTO translationLangs VALUES ('nwt', 'su',  'New World Translation');
+INSERT INTO translationLangs VALUES ('nwt', 'sv',  'Prevod novi svet');
+INSERT INTO translationLangs VALUES ('nwt', 'sw',  'Tafsiri ya Ulimwengu Mpya');
+INSERT INTO translationLangs VALUES ('nwt', 'tk',  'Yeni Dünya Tercüme');
+INSERT INTO translationLangs VALUES ('nwt', 'tn',  'New World Translation');
+INSERT INTO translationLangs VALUES ('nwt', 't',   'Tradução do Novo Mundo');
+INSERT INTO translationLangs VALUES ('nwt', 'u',   'Перевод Нового Мира');
+INSERT INTO translationLangs VALUES ('nwt', 'x',   'Neue Welt-Übersetzung');
+INSERT INTO translationLangs VALUES ('nwt', 'xo',  'New World Translation');
+INSERT INTO translationLangs VALUES ('nwt', 'z',   'Nya Världens översättning');
+INSERT INTO translationLangs VALUES ('nwt', 'zu',  'New World Translation');
 
 COMMIT;
 

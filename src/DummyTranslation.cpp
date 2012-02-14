@@ -85,7 +85,6 @@ QList<int> DummyTranslation::verseCounts(const QString& bookCode) const
 
 void DummyTranslation::reload(bool useCache)
 {
-    qDebug() << "DummyTranslation::reload" << useCache;
     if (useCache)
     {
         QString xmlName = QString("trans_%1_%2").arg(_code, _language->code());

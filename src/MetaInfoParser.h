@@ -17,7 +17,6 @@ class MetaInfoParser: public QXmlDefaultHandler
         Languages* _languages;
 
         QString _transCode;
-        QString _transName;
         QString _transSourceUrl;
         QString _transCopyright;
         bool _transRtl;

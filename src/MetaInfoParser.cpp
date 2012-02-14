@@ -28,7 +28,6 @@ bool MetaInfoParser::startElement(const QString& namespaceURI, const QString& lo
     if (qName == "trans")
     {
         _transCode = attrs.value("code");
-        _transName = attrs.value("name");
         _transSourceUrl = attrs.value("sourceUrl");
         _transCopyright = attrs.value("copyright");
         _transRtl = attrs.value("rtl") == "1";
@@ -40,7 +39,7 @@ bool MetaInfoParser::startElement(const QString& namespaceURI, const QString& lo
         lang->addTranslation(new DummyTranslation(
             _transCode,
             lang,
-            _transName,
+            attrs.value("name"),
             _transSourceUrl,
             _transCopyright,
             _transRtl
