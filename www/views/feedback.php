@@ -3,8 +3,6 @@
     $email = $_POST['email'];
     $message = $_POST['message'];
 
-    sleep(3);
-
     error_log("FEEDBACK from $name");
 
     $db = new SQLite3("feedback.sqlite");

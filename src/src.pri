@@ -43,7 +43,8 @@ HEADERS +=                      \
     src/DummyTranslation.h      \
     src/TranslationInfoParser.h \
     src/MetaInfoLoader.h        \
-    src/Feedback.h
+    src/Feedback.h              \
+    src/NetworkUtils.h
 
 SOURCES +=                      \
     src/main.cpp                \
@@ -62,7 +63,8 @@ SOURCES +=                      \
     src/DummyTranslation.cpp    \
     src/TranslationInfoParser.cpp\
     src/MetaInfoLoader.cpp      \
-    src/Feedback.cpp
+    src/Feedback.cpp            \
+    src/NetworkUtils.cpp
 
 
 !nosearch:HEADERS +=            \
