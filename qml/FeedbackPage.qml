@@ -6,8 +6,8 @@ Page {
 
 
     function sendForm() {
-        feedback.send(nameField.text, emailField.text, messageField.text)
         busyDialog.open()
+        feedback.send(nameField.text, emailField.text, messageField.text)
     }
 
 
@@ -176,7 +176,7 @@ Page {
         target: feedback
 
         onSuccess: {
-            busyDialog.close()
+            busyDialog.status = DialogStatus.Closed
             pageStack.pop()
             thanksDialog.open()
         }
