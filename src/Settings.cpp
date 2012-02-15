@@ -7,9 +7,16 @@
 #include "Translation.h"
 
 
+Settings* Settings::_instance = 0;
+
+
 Settings::Settings(Languages* langs, QObject* parent):
     QObject(parent), _languages(langs)
 {
+    if (_instance)
+        qFatal("Second copy of Settings singleton");
+    _instance = this;
+
     _langCode = _settings.value("General/langCode", "e").toString();
     _transCode = _settings.value("General/transCode", "kjv").toString();
 

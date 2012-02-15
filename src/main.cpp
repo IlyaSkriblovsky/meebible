@@ -19,6 +19,8 @@
 #include "MetaInfoLoader.h"
 #include "Feedback.h"
 
+#include "StartupTracker.h"
+
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
@@ -79,6 +81,10 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
 
     view->showFullScreen();
+
+
+    StartupTracker startupTracker;
+    startupTracker.sendStartupInfo();
 
 
 

@@ -36,6 +36,8 @@ class Settings: public QObject
         Settings(Languages* langs, QObject* parent = 0);
         ~Settings();
 
+        static Settings* instance() { return _instance; }
+
         Language* language() const;
         void setLanguage(Language* lang);
 
@@ -101,6 +103,8 @@ class Settings: public QObject
 
 
     private:
+        static Settings* _instance;
+
         QSettings _settings;
 
         Languages* _languages;
