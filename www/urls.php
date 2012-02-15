@@ -29,6 +29,11 @@ return array(
     ),
 
     array(
+        'url'   =>  '/startup',
+        'view'  =>  'startup'
+    ),
+
+    array(
         'url'   =>  '*',
         'view'  =>  '404'
     )
