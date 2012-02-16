@@ -41,11 +41,18 @@ Page {
         value: flickable.contentY
         when: firstScrollPosSet
     }
+    Binding {
+        target: settings
+        property: 'inverted'
+        value: theme.inverted
+        when: created
+    }
     Component.onCompleted: {
         bibleView.bookCode = settings.bookCode
         bibleView.chapterNo = settings.chapterNo
         fontSizeSlider.value = settings.fontSize
         lineSpacingSlider.value = settings.lineSpacing
+        theme.inverted = settings.inverted
         created = true
 
         languages.reload(true)
