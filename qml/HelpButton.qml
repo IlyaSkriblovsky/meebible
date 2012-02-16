@@ -5,7 +5,9 @@ Image {
     property alias titleText: notice.titleText
     property alias message: notice.message
 
-    source: mouseArea.pressed ? 'image://theme/icon-s-description-inverse' : 'image://theme/icon-s-description'
+    source: theme.inverted ? 'image://theme/icon-s-description-inverse' : 'image://theme/icon-s-description'
+
+    opacity: mouseArea.pressed ? 0.5 : 1.0
 
     QueryDialog {
         id: notice

@@ -39,7 +39,7 @@ Item {
 
         anchors.top: title.bottom
 
-        color: "#444"
+        color: theme.inverted ? "#888" : "#444"
     }
 
     Image {
@@ -47,7 +47,7 @@ Item {
         anchors.verticalCenter: parent.verticalCenter
         anchors.rightMargin: 10
 
-        source: mouseArea.pressed ? 'image://theme/icon-m-common-combobox-arrow-selected' : 'image://theme/icon-m-common-combobox-arrow'
+        source: theme.inverted ? 'image://theme/meegotouch-combobox-indicator-inverted' : 'image://theme/meegotouch-combobox-indicator'
     }
 
     MouseArea {
