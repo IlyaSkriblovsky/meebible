@@ -49,6 +49,8 @@ if ($trans != 'nwt')
 
     $html = $row[0];
 
+    $db->close();
+
     return new Response('text/html', $html);
 }
 else

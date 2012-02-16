@@ -3,7 +3,7 @@
   margin: 0 auto;
   width: 250px;
   height: 508px;
-  background: url(phone_body.png); }
+  background: url(/static/img/phone_body.png); }
   #phone #screen-wrapper {
     position: absolute;
     left: 36px;
@@ -19,8 +19,8 @@
       #phone #screen-wrapper .screen.visible {
         display: block; }
   #phone #screen-1 {
-    background: url(screen-1.png); }
+    background: url(/static/img/screen-1.png); }
   #phone #screen-2 {
-    background: url(screen-2.png); }
+    background: url(/static/img/screen-2.png); }
   #phone #screen-3 {
-    background: url(screen-3.png); }
+    background: url(/static/img/screen-3.png); }

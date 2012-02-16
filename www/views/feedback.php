@@ -11,6 +11,7 @@
     $stmt->bindValue(":email", $email);
     $stmt->bindValue(":message", $message);
     $stmt->execute();
+    $db->close();
 
     # mail('ilyaskriblovsky@gmail.com', 'subject', 'body');
 

@@ -8,7 +8,7 @@
         <title>{block name=title}MeeBible{/block}</title>
 
         {block name=css}
-            <link rel="stylesheet" href="/static/style.css" />
+            <link rel="stylesheet" href="/static/css/style.css" />
         {/block}
 
         {block name=js}{/block}
