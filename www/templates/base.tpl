@@ -5,8 +5,9 @@
 
         <title>{block name=title}MeeBible{/block}</title>
 
-        {block name=css}
-        {/block}
+        {block name=meta}{/block}
+
+        {block name=css}{/block}
 
         {block name=js}{/block}
     </head>
