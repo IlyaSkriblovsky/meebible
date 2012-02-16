@@ -17,20 +17,22 @@ Settings::Settings(Languages* langs, QObject* parent):
         qFatal("Second copy of Settings singleton");
     _instance = this;
 
-    _langCode = _settings.value("General/langCode", "e").toString();
-    _transCode = _settings.value("General/transCode", "kjv").toString();
+    _langCode       = _settings.value("General/langCode", "e").toString();
+    _transCode      = _settings.value("General/transCode", "kjv").toString();
 
-    _bookCode =         _settings.value("General/bookCode", "ge").toString();
-    _chapterNo =        _settings.value("General/chapterNo", 1).toInt();
-    _floatingHeader =   _settings.value("General/floatingHeader", true).toBool();
-    _fontSize =         _settings.value("General/fontSize", 30).toInt();
-    _fontName =         _settings.value("General/fontName", "Nokia").toString();
-    _lineSpacing =      _settings.value("General/lineSpacing", 1.3).toFloat();
-    _scrollPos =        _settings.value("General/scrollPos", 0).toInt();
-    _fullscreen =       _settings.value("General/fullscreen", false).toBool();
-    _inverted =         _settings.value("General/inverted", false).toBool();
+    _bookCode       = _settings.value("General/bookCode", "ge").toString();
+    _chapterNo      = _settings.value("General/chapterNo", 1).toInt();
+    _floatingHeader = _settings.value("General/floatingHeader", true).toBool();
+    _fontSize       = _settings.value("General/fontSize", 30).toInt();
+    _fontName       = _settings.value("General/fontName", "Nokia").toString();
+    _lineSpacing    = _settings.value("General/lineSpacing", 1.3).toFloat();
+    _scrollPos      = _settings.value("General/scrollPos", 0).toInt();
+    _fullscreen     = _settings.value("General/fullscreen", false).toBool();
+    _inverted       = _settings.value("General/inverted", false).toBool();
 
     _searchNoticeShown = _settings.value("Notices/searchNoticeShown", false).toBool();
+
+    _webService     = _settings.value("Internals/webService", "meebible.org").toString();
 
     connect(_languages, SIGNAL(loadingFinished()), this, SLOT(onLanguagesLoadingFinished()));
 }

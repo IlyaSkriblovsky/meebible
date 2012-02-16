@@ -5,6 +5,9 @@
 #include <QDesktopServices>
 
 
+#include "Settings.h"
+
+
 QDir Paths::_cacheDir;
 QDir Paths::_shareDir;
 QDir Paths::_qmlDir;
@@ -76,7 +79,10 @@ QString Paths::translationFile(const QString& locale)
 
 QUrl Paths::wsUrl(const QString& path)
 {
-    return QUrl(QString("http://188.127.230.230:10000/%1").arg(path));
+    return QUrl(QString("http://%1/%2")
+        .arg(Settings::instance()->webService())
+        .arg(path))
+    ;
 }
 
 

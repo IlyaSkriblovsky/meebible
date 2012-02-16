@@ -32,6 +32,8 @@ class Settings: public QObject
 
     Q_PROPERTY(bool inverted READ inverted WRITE setInverted NOTIFY invertedChanged)
 
+    Q_PROPERTY(QString webService READ webService)
+
     public:
         Settings(Languages* langs, QObject* parent = 0);
         ~Settings();
@@ -75,6 +77,9 @@ class Settings: public QObject
 
         bool inverted() const { return _inverted; }
         void setInverted(bool inverted);
+
+
+        QString webService() const { return _webService; }
 
 
     signals:
@@ -128,6 +133,9 @@ class Settings: public QObject
 
         QString _transCode;
         QString _langCode;
+
+
+        QString _webService;
 };
 
 #endif // SETTINGS_H
