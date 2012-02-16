@@ -1,0 +1,26 @@
+#phone {
+  position: relative;
+  margin: 0 auto;
+  width: 250px;
+  height: 508px;
+  background: url(phone_body.png); }
+  #phone #screen-wrapper {
+    position: absolute;
+    left: 36px;
+    top: 68px;
+    width: 176px;
+    height: 314px;
+    overflow: hidden; }
+    #phone #screen-wrapper .screen {
+      position: absolute;
+      display: none;
+      width: 100%;
+      height: 100%; }
+      #phone #screen-wrapper .screen.visible {
+        display: block; }
+  #phone #screen-1 {
+    background: url(screen-1.png); }
+  #phone #screen-2 {
+    background: url(screen-2.png); }
+  #phone #screen-3 {
+    background: url(screen-3.png); }
