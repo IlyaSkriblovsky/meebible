@@ -1,5 +1,5 @@
 {extends file="base.tpl"}
 
-{block name=content}
+{block "content"}
     index
 {/block}
