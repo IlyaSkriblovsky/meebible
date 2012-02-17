@@ -6,6 +6,8 @@
         {/block}
 
         <title>{block name=title}MeeBible{/block}</title>
+        <link rel="shortcut" href="/favicon.ico" type="image/x/icon"/>
+        <link rel="icon" href="/favicon.ico" type="image/x/icon"/>
 
         {block name=css}
             <link rel="stylesheet" href="/static/css/style.css" />
@@ -15,9 +17,7 @@
     </head>
 
     <body>
-        {block name=body}
-            {block name=content}
-            {/block}
+        {block "body"}
         {/block}
     </body>
 </html>
