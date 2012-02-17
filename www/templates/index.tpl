@@ -7,16 +7,6 @@
 {/block}
 
 {block body}
-    <!--
-    <div id="phone">
-        <div id="screen-wrapper">
-            <div class="screen visible current" id="screen-1"></div>
-            <div class="screen" id="screen-2"></div>
-            <div class="screen" id="screen-3"></div>
-        </div>
-    </div>
-    -->
-
     <div id="content">
         <h1>MeeBible</h1>
 
@@ -24,7 +14,7 @@
             The multilingual Bible reader for Nokia N9 smartphone.
         </p>
 
-        <div id="phone" style="float: right; margin-left: 30px; margin-top: 30px;">
+        <div id="phone">
             <div id="screen-wrapper">
                 <div class="screen visible current" id="screen-1"></div>
                 <div class="screen" id="screen-2"></div>
@@ -53,43 +43,27 @@
         </p>
 
         <p>
-            MeeBible supports full-text unicode-aware search. You can find Bible places by phrase or character's name.
+            Full-text unicode-aware search is supported. You can find Bible places by phrase or character's name.
         </p>
 
 
         <h2>Download from Nokia Store</h2>
 
-        <!--
         <p>
-            <button class="thoughtbot">Free Download</button>
-            or
-            <button class="thoughtbot">Donate</button>
-        </p>
-        -->
-        <p>
-            <style>
-                .title {
-                    margin-bottom: 10px;
-                }
-
-                .desc {
-                    font-size: 80%;
-                }
-            </style>
-            <div style="font-size: 120%; text-align: center;">
+            <div class="store-links">
                 <table>
                     <tr>
-                        <td style="width: 250px">
+                        <td class="variant">
                             <a href="http://store.ovi.com/content/218744">
                                 <img src="/static/img/meebible-free.png"/>
                                 <div class="title">MeeBible Free</div>
                             </a>
                             <div class="desc">Fully-functional free version</div>
                         </td>
-                        <td style="width: 150px; vertical-align: middle;">
+                        <td class="divider">
                             &larr; or &rarr;
                         </td>
-                        <td style="width: 250px">
+                        <td class="variant">
                             <a href="http://store.ovi.com/content/215454">
                                 <img src="/static/img/meebible.png"/>
                                 <div class="title">MeeBible</div>
