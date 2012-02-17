@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QRegExp>
 #include <QSqlDatabase>
+#include <QSqlQuery>
 
 class Translation;
 
@@ -62,6 +63,11 @@ private:
     static Cache* _instance;
 
     QSqlDatabase _db;
+
+    QSqlQuery _stmt_saveChapter;
+    QSqlQuery _stmt_loadChapter;
+    QSqlQuery _stmt_hasChapter;
+    QSqlQuery _stmt_totalChapters;
 
     QRegExp _stripTags;
     QRegExp _stripSpaces;
