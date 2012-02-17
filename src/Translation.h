@@ -88,9 +88,6 @@ class Translation: public QAbstractListModel
 
         bool loaded() { return _bookCodes.size() > 0; }
 
-        // FIXME:
-        void _loadingFailed() { setLoading(false); loadingError(); }
-
 
     public slots:
         void reload(bool useCache);
