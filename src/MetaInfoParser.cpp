@@ -4,7 +4,7 @@
 
 #include "Languages.h"
 #include "Language.h"
-#include "DummyTranslation.h"
+#include "Translation.h"
 
 
 MetaInfoParser::MetaInfoParser(Languages* languages)
@@ -36,7 +36,7 @@ bool MetaInfoParser::startElement(const QString& namespaceURI, const QString& lo
     if (qName == "transLang")
     {
         Language* lang = _languages->langByCode(attrs.value("code"));
-        lang->addTranslation(new DummyTranslation(
+        lang->addTranslation(new Translation(
             _transCode,
             lang,
             attrs.value("name"),

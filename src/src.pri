@@ -40,7 +40,6 @@ HEADERS +=                      \
     src/Utils.h                 \
     src/Settings.h              \
     src/MetaInfoParser.h        \
-    src/DummyTranslation.h      \
     src/TranslationInfoParser.h \
     src/MetaInfoLoader.h        \
     src/Feedback.h              \
@@ -61,7 +60,6 @@ SOURCES +=                      \
     src/Fetcher.cpp             \
     src/Settings.cpp            \
     src/MetaInfoParser.cpp      \
-    src/DummyTranslation.cpp    \
     src/TranslationInfoParser.cpp\
     src/MetaInfoLoader.cpp      \
     src/Feedback.cpp            \

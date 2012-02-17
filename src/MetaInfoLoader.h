@@ -5,9 +5,6 @@
 
 class QNetworkAccessManager;
 
-class Languages;
-class DummyTranslation;
-
 class MetaInfoLoader: public QObject
 {
     Q_OBJECT
@@ -18,19 +15,6 @@ class MetaInfoLoader: public QObject
         MetaInfoLoader();
 
         QNetworkAccessManager* nam() { return _nam; }
-
-
-//        bool loadLangsAndTransInfo(Languages *languages);
-//        bool loadTranslationInfo(DummyTranslation* translation);
-
-
-//    signals:
-//        void langsAndTransLoaded();
-//
-//
-//    private slots:
-//        void metaXMLReceived();
-//        void translationXMLReceived();
 
     private:
         static MetaInfoLoader* _instance;

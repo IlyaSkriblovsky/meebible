@@ -3,7 +3,7 @@
 #include <QDebug>
 
 
-TranslationInfoParser::TranslationInfoParser(DummyTranslation* translation)
+TranslationInfoParser::TranslationInfoParser(Translation* translation)
     : _translation(translation)
 {
 }

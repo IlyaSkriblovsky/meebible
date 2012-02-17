@@ -23,7 +23,6 @@
     #include "SqliteUnicodeSearch.h"
 #endif
 
-#include "DummyTranslation.h"
 
 
 BibleView::BibleView(QGraphicsItem *parent):
@@ -97,8 +96,7 @@ void BibleView::setTranslation(Translation *translation)
 
     if (_translation)
     {
-        // FIXME: Change to DummyTranslation::isLoaded()
-        if (_translation->bookCodes().size() > 0)
+        if (_translation->loaded())
         {
             loadChapter();
 
@@ -108,8 +106,7 @@ void BibleView::setTranslation(Translation *translation)
         {
             connect(_translation, SIGNAL(loadingFinished()), this, SLOT(onTranslationLoadingFinished()));
 
-            DummyTranslation *dt = dynamic_cast<DummyTranslation*>(_translation);
-            if (dt) dt->reload(true);
+            _translation->reload(true);
         }
     }
 }

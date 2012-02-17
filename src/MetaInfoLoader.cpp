@@ -1,14 +1,8 @@
 #include "MetaInfoLoader.h"
 
-#include <QNetworkAccessManager>
-#include <QNetworkReply>
+#include <QDebug>
 
-#include "Paths.h"
-#include "Languages.h"
-#include "DummyTranslation.h"
-#include "MetaInfoParser.h"
-#include "TranslationInfoParser.h"
-#include "Cache.h"
+#include <QNetworkAccessManager>
 
 
 

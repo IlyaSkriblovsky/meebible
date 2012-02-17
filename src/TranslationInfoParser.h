@@ -3,21 +3,21 @@
 
 #include <QXmlDefaultHandler>
 
-#include "DummyTranslation.h"
+#include "Translation.h"
 
 class TranslationInfoParser: public QXmlDefaultHandler
 {
     public:
-        TranslationInfoParser(DummyTranslation* translation);
+        TranslationInfoParser(Translation* translation);
 
         virtual bool startElement(const QString& namespaceURI, const QString& localName, const QString& qName, const QXmlAttributes& attrs);
         virtual bool endElement(const QString& namespaceURI, const QString& localName, const QString& qName);
 
 
     private:
-        DummyTranslation* _translation;
+        Translation* _translation;
 
-        DummyTranslation::BookInfo _bookInfo;
+        Translation::BookInfo _bookInfo;
 };
 
 #endif

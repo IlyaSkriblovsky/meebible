@@ -25,7 +25,14 @@ ChapterRequest::ChapterRequest(
 
 void ChapterRequest::onNReplyFinished()
 {
-    finished(QString::fromUtf8(_nreply->readAll()));
+    if (error() != QNetworkReply::NoError)
+    {
+        finished("HTTP Error");
+        return;
+    }
+
+    QString content = QString::fromUtf8(_nreply->readAll());
+    finished(content);
 }
 
 
