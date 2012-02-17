@@ -2,4 +2,7 @@
 \bmoc_.*\.cpp$
 \bMakefile$
 \.pyc$
-^www\/compile\/
+^www/compile/
+^www/error_log
+^www/access_log
+^www/static/css/\.sass-cache
