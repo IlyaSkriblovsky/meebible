@@ -3,7 +3,6 @@
 #include <QDebug>
 #include <QDesktopServices>
 
-#include <QSqlQuery>
 #include <QVariant>
 
 #include "Paths.h"
@@ -77,6 +76,18 @@ void Cache::openDB()
         "CREATE INDEX IF NOT EXISTS lc_tc_bn_cn ON html "
         "(langCode, transCode, bookNo, chapterNo)"
     );
+
+    _stmt_saveChapter = QSqlQuery(_db);
+    _stmt_saveChapter.prepare("REPLACE INTO html VALUES (:transCode, :langCode, :bookCode, :bookNo, :chapterNo, :html, :text)");
+
+    _stmt_loadChapter = QSqlQuery(_db);
+    _stmt_loadChapter.prepare("SELECT html FROM html WHERE transCode=:transCode AND langCode=:langCode AND bookCode=:bookCode AND chapterNo=:chapterNo");
+
+    _stmt_hasChapter = QSqlQuery(_db);
+    _stmt_hasChapter.prepare("SELECT count(*) FROM html WHERE transCode=:transCode AND langCode=:langCode AND bookCode=:bookCode AND chapterNo=:chapterNo");
+
+    _stmt_totalChapters = QSqlQuery(_db);
+    _stmt_totalChapters.prepare("SELECT count(*) FROM html WHERE langCode=:langCode AND transCode=:transCode");
 }
 
 
@@ -87,41 +98,35 @@ Cache::~Cache()
 
 void Cache::saveChapter(const Translation* translation, const QString& bookCode, int chapterNo, QString html)
 {
-    QSqlQuery insert(_db);
-    // FIXME: statements must be prepared only once
-    insert.prepare("REPLACE INTO html VALUES (:transCode, :langCode, :bookCode, :bookNo, :chapterNo, :html, :text)");
-    insert.bindValue(":transCode", translation->code());
-    insert.bindValue(":langCode", translation->language()->code());
-    insert.bindValue(":bookCode", bookCode);
-    insert.bindValue(":bookNo", translation->bookCodes().indexOf(bookCode));
-    insert.bindValue(":chapterNo", chapterNo);
-    insert.bindValue(":html", html);
+    _stmt_saveChapter.bindValue(":transCode", translation->code());
+    _stmt_saveChapter.bindValue(":langCode", translation->language()->code());
+    _stmt_saveChapter.bindValue(":bookCode", bookCode);
+    _stmt_saveChapter.bindValue(":bookNo", translation->bookCodes().indexOf(bookCode));
+    _stmt_saveChapter.bindValue(":chapterNo", chapterNo);
+    _stmt_saveChapter.bindValue(":html", html);
 
     QString text = html;
     text.replace(_stripStyles, " ");
     text.replace(_stripTags, " ");
     text.replace(_stripSpaces, " ");
-    insert.bindValue(":text", text);
+    _stmt_saveChapter.bindValue(":text", text);
 
-    if (! insert.exec())
+    if (! _stmt_saveChapter.exec())
         qDebug() << "Insertion into cache failed";
 }
 
 
 QString Cache::loadChapter(const Translation *translation, const QString& bookCode, int chapterNo)
 {
-    QSqlQuery select(_db);
-    // FIXME: statements must be prepared only once
-    select.prepare("SELECT html FROM html WHERE transCode=:transCode AND langCode=:langCode AND bookCode=:bookCode AND chapterNo=:chapterNo");
-    select.bindValue(":transCode", translation->code());
-    select.bindValue(":langCode", translation->language()->code());
-    select.bindValue(":bookCode", bookCode);
-    select.bindValue(":chapterNo", chapterNo);
-    if (! select.exec())
+    _stmt_loadChapter.bindValue(":transCode", translation->code());
+    _stmt_loadChapter.bindValue(":langCode", translation->language()->code());
+    _stmt_loadChapter.bindValue(":bookCode", bookCode);
+    _stmt_loadChapter.bindValue(":chapterNo", chapterNo);
+    if (! _stmt_loadChapter.exec())
         qDebug() << "Selection from cache failed";
 
-    if (select.next())
-        return select.value(0).toString();
+    if (_stmt_loadChapter.next())
+        return _stmt_loadChapter.value(0).toString();
     else
         return QString();
 }
@@ -129,32 +134,26 @@ QString Cache::loadChapter(const Translation *translation, const QString& bookCo
 
 bool Cache::hasChapter(const Translation* translation, const QString& bookCode, int chapterNo)
 {
-    QSqlQuery select(_db);
-    // FIXME: statements must be prepared only once
-    select.prepare("SELECT count(*) FROM html WHERE transCode=:transCode AND langCode=:langCode AND bookCode=:bookCode AND chapterNo=:chapterNo");
-    select.bindValue(":transCode", translation->code());
-    select.bindValue(":langCode", translation->language()->code());
-    select.bindValue(":bookCode", bookCode);
-    select.bindValue(":chapterNo", chapterNo);
-    if (! select.exec())
+    _stmt_hasChapter.bindValue(":transCode", translation->code());
+    _stmt_hasChapter.bindValue(":langCode", translation->language()->code());
+    _stmt_hasChapter.bindValue(":bookCode", bookCode);
+    _stmt_hasChapter.bindValue(":chapterNo", chapterNo);
+    if (! _stmt_hasChapter.exec())
         qDebug() << "Selection from cache failed";
 
-    select.next();
-    return select.value(0).toBool();
+    _stmt_hasChapter.next();
+    return _stmt_hasChapter.value(0).toBool();
 }
 
 
 int Cache::totalChaptersInCache(const Translation *translation)
 {
-    QSqlQuery select(_db);
-    // FIXME: statements must be prepared only once
-    select.prepare("SELECT count(*) FROM html WHERE langCode=:langCode AND transCode=:transCode");
-    select.addBindValue(translation->language()->code());
-    select.addBindValue(translation->code());
-    select.exec();
-    select.next();
+    _stmt_totalChapters.addBindValue(translation->language()->code());
+    _stmt_totalChapters.addBindValue(translation->code());
+    _stmt_totalChapters.exec();
+    _stmt_totalChapters.next();
 
-    return select.value(0).toInt();
+    return _stmt_totalChapters.value(0).toInt();
 }
 
 

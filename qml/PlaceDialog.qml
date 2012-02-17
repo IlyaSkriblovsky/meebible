@@ -19,12 +19,11 @@ CommonDialog {
         if (status == DialogStatus.Closed)
             status = DialogStatus.Opening
 
-        // FIXME: this was commented and needs to be reverted
-        //bookList.currentIndex = bookModel.bookCodes().indexOf(bookCode)
-        //bookList.positionViewAtIndex(bookList.currentIndex, ListView.Center)
+        bookList.currentIndex = bookModel.bookCodes().indexOf(bookCode)
+        bookList.positionViewAtIndex(bookList.currentIndex, ListView.Center)
 
-        //chaptersList.currentIndex = chapterNo-1
-        //chaptersList.positionViewAtIndex(chaptersList.currentIndex, ListView.Contain)
+        chaptersList.currentIndex = chapterNo-1
+        chaptersList.positionViewAtIndex(chaptersList.currentIndex, ListView.Contain)
     }
 
 

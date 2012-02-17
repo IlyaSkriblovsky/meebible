@@ -38,7 +38,7 @@ Page {
             }
 
             Label {
-                text: freeversion ? qsTr("If you want to support development of MeeBible, please consider buying <a href='http://store.ovi.com/content/215454'>paid version from Ovi Store</a>!") : qsTr("Thank you for supporting MeeBible!")
+                text: freeversion ? qsTr("If you want to support development, please consider buying <a href='http://store.ovi.com/content/215454'>paid version</a>!") : qsTr("Thank you for supporting development!")
 
                 width: parent.width
 
@@ -48,20 +48,18 @@ Page {
             }
 
             Label {
-                text: qsTr("Read God's Word daily!")
+                text: qsTr("Homepage & sources:")
+                anchors.horizontalCenter: parent.horizontalCenter
             }
 
-            // Rectangle {
-            //     height: 2
-            //     width: parent.width
-            //     color: '#fff'
+            Label {
+                text: '<a href="http://meebible.org">MeeBible.org</a>'
+                anchors.horizontalCenter: parent.horizontalCenter
 
-            //     Rectangle {
-            //         height: 1
-            //         width: parent.width
-            //         color: '#d6cfd6'
-            //     }
-            // }
+                font.pixelSize: 34
+
+                onLinkActivated: Qt.openUrlExternally(link)
+            }
 
             Button {
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -89,23 +87,33 @@ Page {
             }
 
             Label {
-                text: qsTr('© 2011 Ilya Skriblovsky<br>E-Mail: <a href="mailto:Ilya.Skriblovsky@gmail.com?subject=MeeBible">Ilya.Skriblovsky@gmail.com</a>')
+                text: qsTr("Read God's Word daily!")
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+
+            Rectangle {
+                height: 2
+                width: parent.width
+                color: '#fff'
+
+                Rectangle {
+                    height: 1
+                    width: parent.width
+                    color: '#d6cfd6'
+                }
+            }
+
+            Label {
+                text: qsTr('© 2011 Ilya Skriblovsky<br>E-Mail: <a href="mailto:ilya@meebible.org?subject=MeeBible">ilya@meebible.org</a>')
                 width: parent.width
 
                 onLinkActivated: Qt.openUrlExternally(link)
             }
 
             Label {
-                text: qsTr("Please contact me with any comments or suggestions or if you want to add new Bible or UI translations.")
+                text: qsTr("Please contact us with any comments or suggestions or if you want to add new Bible or UI translations.")
 
                 width: parent.width
-            }
-
-            Label {
-                text: qsTr('Homepage & sources: <a href="http://meebible.org">http://meebible.org</a>')
-                width: parent.width
-
-                onLinkActivated: Qt.openUrlExternally(link)
             }
         }
     }
