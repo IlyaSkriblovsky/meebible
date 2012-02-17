@@ -44,6 +44,9 @@ while ($t = $r->fetchArray())
     }
 }
 
+$db_langs->close();
+$db_trans->close();
+
 return new XMLResponse($dom);
 
 ?>

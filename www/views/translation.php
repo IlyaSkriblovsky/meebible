@@ -47,6 +47,8 @@ while ($b = $r->fetchArray())
 }
 
 
+$db_trans->close();
+
 return new XMLResponse($dom);
 
 ?>

@@ -13,6 +13,7 @@
     $stmt->bindValue(":lang", $lang);
     $stmt->bindValue(":trans", $trans);
     $stmt->execute();
+    $db->close();
 
     $response = new Response('text/plain', 'ok');
     return $response;
