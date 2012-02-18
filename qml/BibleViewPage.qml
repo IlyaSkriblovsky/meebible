@@ -1,6 +1,8 @@
 import QtQuick 1.1
-import com.meego 1.0
+
+import "/usr/lib/qt4/imports/com/meego/" 1.0
 import com.meego.extras 1.0
+
 import MeeBible 0.1
 
 Page {
@@ -175,6 +177,53 @@ Page {
         }
     }
     ScrollDecorator { flickableItem: flickable }
+
+
+
+    // Row {
+    //     id: fixme
+
+    //     anchors.top: header.bottom
+    //     anchors.horizontalCenter: parent.horizontalCenter
+
+    //     Behavior on opacity {
+    //         NumberAnimation {
+    //             duration: 150
+    //         }
+    //     }
+
+    //     opacity: 0.0
+
+    //     states: [
+    //         State {
+    //             name: "visible"
+    //             PropertyChanges {
+    //                 target: fixme
+    //                 opacity: 1.0
+    //             }
+    //         }
+    //     ]
+
+    //     EditBubbleButton {
+    //         text: "Copy"
+    //         platformStyle: EditBubbleButtonStyle {
+    //             position: "horizontal-left"
+    //         }
+    //     }
+    //     EditBubbleButton {
+    //         text: "Bookmark"
+    //         platformStyle: EditBubbleButtonStyle {
+    //             position: "horizontal-center"
+    //         }
+    //     }
+    //     EditBubbleButton {
+    //         text: "Share"
+    //         platformStyle: EditBubbleButtonStyle {
+    //             position: "horizontal-right"
+    //         }
+    //     }
+    // }
+
 
 
     Item {
