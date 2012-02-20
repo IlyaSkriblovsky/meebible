@@ -1,6 +1,8 @@
 import QtQuick 1.1
 
+// for EditBubbleButton
 import "/usr/lib/qt4/imports/com/meego/" 1.0
+
 import com.meego.extras 1.0
 
 import MeeBible 0.1
@@ -180,49 +182,83 @@ Page {
 
 
 
-    // Row {
-    //     id: fixme
+    InfoBanner {
+        id: copyBanner
+        text: qsTr("Copied")
+    }
 
-    //     anchors.top: header.bottom
-    //     anchors.horizontalCenter: parent.horizontalCenter
+    Row {
+        id: verseActions
 
-    //     Behavior on opacity {
-    //         NumberAnimation {
-    //             duration: 150
-    //         }
-    //     }
+        anchors.top: header.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
 
-    //     opacity: 0.0
+        opacity: 0.0
 
-    //     states: [
-    //         State {
-    //             name: "visible"
-    //             PropertyChanges {
-    //                 target: fixme
-    //                 opacity: 1.0
-    //             }
-    //         }
-    //     ]
+        Behavior on opacity {
+            NumberAnimation {
+                duration: 100
+            }
+        }
 
-    //     EditBubbleButton {
-    //         text: "Copy"
-    //         platformStyle: EditBubbleButtonStyle {
-    //             position: "horizontal-left"
-    //         }
-    //     }
-    //     EditBubbleButton {
-    //         text: "Bookmark"
-    //         platformStyle: EditBubbleButtonStyle {
-    //             position: "horizontal-center"
-    //         }
-    //     }
-    //     EditBubbleButton {
-    //         text: "Share"
-    //         platformStyle: EditBubbleButtonStyle {
-    //             position: "horizontal-right"
-    //         }
-    //     }
-    // }
+
+        states: [
+            State {
+                name: "visible"
+                when: bibleView.selectedVerses.length > 0
+
+                PropertyChanges {
+                    target: verseActions
+                    opacity: 1.0
+                }
+            }
+        ]
+
+
+        EditBubbleButton {
+            text: "Copy"
+            platformStyle: EditBubbleButtonStyle {
+                position: "horizontal-left"
+            }
+
+            onClicked: {
+                bibleView.copySelectedVerses()
+                bibleView.clearSelection()
+                copyBanner.show()
+            }
+        }
+        EditBubbleButton {
+            text: "Bookmark"
+            platformStyle: EditBubbleButtonStyle {
+                position: "horizontal-center"
+            }
+        }
+        EditBubbleButton {
+            text: "Share"
+            platformStyle: EditBubbleButtonStyle {
+                position: "horizontal-center"
+            }
+
+            onClicked: {
+                bibleView.shareSelectedVerses()
+                bibleView.clearSelection()
+            }
+        }
+        EditBubbleButton {
+            platformStyle: EditBubbleButtonStyle {
+                position: "horizontal-right"
+            }
+
+            Image {
+                anchors.verticalCenter: parent.verticalCenter
+                x: 4
+
+                source: 'image://theme/icon-m-toolbar-close'
+            }
+
+            onClicked: bibleView.clearSelection()
+        }
+    }
 
 
 

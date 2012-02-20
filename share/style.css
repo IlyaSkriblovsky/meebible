@@ -24,6 +24,7 @@ body[rtl=true] { direction: rtl; }
 }
 
 .verse.selected { background: #fea; }
+.verse.selected .z, .verse.selected .z:first-line { background: #fea; }
 .verse.selected .verse-label { color: #c00; }
 
 body[inverted=true] .verse.selected { background: #444; }

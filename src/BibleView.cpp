@@ -12,6 +12,9 @@
 
 #include <QDesktopServices>
 
+#include <MDataUri>
+#include <maemo-meegotouch-interfaces/shareuiinterface.h>
+
 #include "ChapterRequest.h"
 #include "Language.h"
 #include "Translation.h"
@@ -256,7 +259,7 @@ void BibleView::loadNextChapter()
 
 void BibleView::onJavaScriptWindowObjectCleared()
 {
-    //
+    page()->mainFrame()->addToJavaScriptWindowObject("bibleView", this);
 }
 
 void BibleView::onLoadFinished(bool ok)
@@ -271,18 +274,18 @@ void BibleView::onLoadFinished(bool ok)
 }
 
 
-Place BibleView::selectedPlace()
-{
-    if (! validLocation()) return Place();
-
-    QStringList jsList = page()->mainFrame()->evaluateJavaScript("selectedVersesList()").toString().split(",", QString::SkipEmptyParts);
-
-    QSet<int> verses;
-    for (int i = 0; i < jsList.size(); i++)
-        verses += jsList[i].toInt();
-
-    return Place(_bookCode, _chapterNo, verses);
-}
+// Place BibleView::selectedPlace()
+// {
+//     if (! validLocation()) return Place();
+// 
+//     QStringList jsList = page()->mainFrame()->evaluateJavaScript("selectedVersesList()").toString().split(",", QString::SkipEmptyParts);
+// 
+//     QSet<int> verses;
+//     for (int i = 0; i < jsList.size(); i++)
+//         verses += jsList[i].toInt();
+// 
+//     return Place(_bookCode, _chapterNo, verses);
+// }
 
 
 
@@ -431,7 +434,64 @@ bool BibleView::copySelectedVerses()
     return true;
 }
 
+bool BibleView::shareSelectedVerses()
+{
+    QString text = page()->mainFrame()->evaluateJavaScript("selectedText()").toString();
+    text.replace(QString::fromUtf8("\xcc\x81"), "");
+
+    if (text == "")
+        return false;
+
+
+    Place place(_bookCode, _chapterNo, QSet<int>::fromList(selectedVerses()));
+
+
+    MDataUri duri;
+    duri.setMimeType("text/x-uri");
+    duri.setTextData(text, "utf-8");
+    duri.setAttribute("title", place.toString(translation()));
+
+    if (! duri.isValid())
+    {
+        qDebug() << "DURI is NOT valid";
+        return false;
+    }
+
+    QStringList items;
+    items << duri.toString();
+
+    ShareUiInterface shareIf("com.nokia.ShareUi");
+
+    if (! shareIf.isValid())
+    {
+        qDebug() << "ShareIf is NOT valid";
+        return false;
+    }
+
+
+    shareIf.share(items);
+
+    return true;
+}
+
+
 void BibleView::clearSelection()
 {
     page()->mainFrame()->evaluateJavaScript("clearSelection()");
+}
+
+
+void BibleView::verseSelectionChanged(QList<int> list)
+{
+    setSelectedVerses(list);
+}
+
+
+void BibleView::setSelectedVerses(QList<int> verses)
+{
+    qSort(verses);
+    qDebug() << "selectedVerses:" << verses;
+
+    _selectedVerses = verses;
+    selectedVersesChanged();
 }

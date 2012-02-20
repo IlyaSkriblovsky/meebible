@@ -15,6 +15,7 @@ INSTALLS += target
 
 
 
+CONFIG += shareuiinterface-maemo-meegotouch mdatauri
 CONFIG += qdeclarative-boostable
 CONFIG += console
 CONFIG += warn_on

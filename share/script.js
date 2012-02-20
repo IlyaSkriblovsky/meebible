@@ -20,22 +20,28 @@ function isVerseDiv(div)
     return div.hasOwnProperty('className') && div.className.split(' ').indexOf('verse') != -1
 }
 
-function selectVerse(verse)
+function selectVerse(verse, dontNotify)
 {
     selectedVerses[verse] = true
 
     var divs = verseDivs(verse)
     for (var i = 0; i < divs.length; i++)
         divs[i].className = 'verse selected'
+
+    if (! dontNotify)
+        bibleView.verseSelectionChanged(selectedVersesList())
 }
 
-function unselectVerse(verse)
+function unselectVerse(verse, dontNotify)
 {
     selectedVerses[verse] = false
 
     var divs = verseDivs(verse)
     for (var i = 0; i < divs.length; i++)
         divs[i].className = 'verse'
+
+    if (! dontNotify)
+        bibleView.verseSelectionChanged(selectedVersesList())
 }
 
 function verseSelected(verse)
@@ -51,6 +57,18 @@ function toggleVerse(verse)
         selectVerse(verse)
 }
 
+function selectedVersesList()
+{
+    var result = []
+    for (var verse in selectedVerses)
+        if (selectedVerses[verse])
+            result.push(parseInt(verse))
+    return result
+}
+
+
+
+
 function verseDivs(verse)
 {
     var result = []
@@ -59,15 +77,6 @@ function verseDivs(verse)
         if (allDivs[i].getAttribute('verse') == verse)
             result.push(allDivs[i])
     return result
-}
-
-function selectedVersesList()
-{
-    var result = []
-    for (var verse in selectedVerses)
-        if (selectedVerses[verse])
-            result.push(verse)
-    return result.join(',')
 }
 
 function selectedText()
@@ -87,27 +96,34 @@ function selectedText()
     {
         var verse = parseInt(selected[j])
 
-        var divs = verseDivs(verse)
-        var text = ''
-        for (var i = 0; i < divs.length; i++)
-            text += divs[i].innerText
-
         if (prev != null  &&  verse != prev + 1)
-            result += ' [...] '
+            result += ' [...]'
 
-        result += text.replace(/^\d+/, '$& ') + ' '
+        var divs = verseDivs(verse)
+        for (var i = 0; i < divs.length; i++)
+        {
+            result += ' '
+
+            var divtext = divs[i].innerText
+            if (divs[i].firstElementChild.className == "verse-label")
+                result += divtext.substr(divs[i].firstElementChild.innerText.length)
+            else
+                result += divtext
+        }
 
         prev = verse
     }
 
-    return result
+    return result.trim()
 }
 
 function clearSelection()
 {
     for (var verse in selectedVerses)
         if (selectedVerses[verse])
-            unselectVerse(verse)
+            unselectVerse(verse, true)
+
+    bibleView.verseSelectionChanged(selectedVersesList())
 }
 
 
