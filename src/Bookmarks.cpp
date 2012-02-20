@@ -6,6 +6,9 @@
 #include "Settings.h"
 
 
+Q_DECLARE_METATYPE(QList<int>)
+
+
 Bookmarks* Bookmarks::_instance = 0;
 
 
@@ -32,6 +35,10 @@ Bookmarks::Bookmarks()
     roleNames[Qt::DisplayRole] = "title";
     roleNames[TextRole] = "subtitle";
     roleNames[PlaceRole] = "place";
+
+    roleNames[BookCodeRole] = "bookCode";
+    roleNames[ChapterNoRole] = "chapterNo";
+    roleNames[VersesRole] = "verses";
     setRoleNames(roleNames);
 }
 
@@ -82,6 +89,16 @@ QVariant Bookmarks::data(const QModelIndex& index, int role) const
 
         case TextRole:
             return bookmark.text;
+
+
+        case BookCodeRole:
+            return bookmark.bookCode;
+
+        case ChapterNoRole:
+            return bookmark.chapterNo;
+
+        case VersesRole:
+            return QVariant::fromValue(bookmark.verses.toList());
     }
 
     return QVariant();

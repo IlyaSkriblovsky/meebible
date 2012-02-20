@@ -130,9 +130,29 @@ void BibleView::setAndLoad(const QString& bookCode, int chapterNo, int verseNo)
     setBookCode(bookCode);
     setChapterNo(chapterNo);
 
-    _verseNo = verseNo;
+    _versesToSelectAfterLoad = QSet<int>();
+    _versesToSelectAfterLoad << verseNo;
 
     loadChapter();
+}
+
+
+Q_DECLARE_METATYPE(QList<int>)
+Q_DECLARE_METATYPE(QList<double>)
+
+void BibleView::loadChapterAndSelectVerses(const QString& bookCode, int chapterNo, QVariant verses)
+{
+    QList<int> intList = verses.value<QList<int> >();
+    QList<double> dblList = verses.value<QList<double> >();
+    qDebug() << "intList" << intList;
+    qDebug() << "dblList" << dblList;
+    qDebug() << "loadChapterAndSelectVerses" << bookCode << chapterNo << verses;
+//    setBookCode(bookCode);
+//    setChapterNo(chapterNo);
+//
+//    _versesToSelectAfterLoad = intList.toSet();
+//
+//    loadChapter();
 }
 
 void BibleView::loadChapter()
@@ -155,7 +175,7 @@ void BibleView::loadChapter()
     if (! fromCache.isEmpty())
     {
         displayHtml(fromCache);
-        scrollToVerse(_verseNo);
+        showSelectedVerses(_versesToSelectAfterLoad);
         chapterLoaded();
     }
     else
@@ -187,7 +207,7 @@ void BibleView::onChapterRequestFinished(QString html)
         if (request->bookCode() == _bookCode && request->chapterNo() == _chapterNo)
         {
             displayHtml(html);
-            scrollToVerse(_verseNo);
+            showSelectedVerses(_versesToSelectAfterLoad);
             chapterLoaded();
             setLoadingChapter(false);
         }
@@ -214,15 +234,25 @@ void BibleView::displayHtml(QString html)
     #endif
 }
 
-void BibleView::scrollToVerse(int verseNo)
+void BibleView::showSelectedVerses(QSet<int> verses)
 {
-    if (verseNo > 1)
-    {
-        page()->mainFrame()->evaluateJavaScript(QString("selectVerse(%1)").arg(verseNo)).toInt();
-        needToScroll(page()->mainFrame()->evaluateJavaScript(QString("verseOffset(%1)").arg(verseNo)).toInt());
-    }
-    else
+    if (verses.size() == 0 || (verses.size() == 1 && verses.contains(1)))
         needToScroll(0);
+    else
+    {
+        QList<int> list = verses.toList();
+        qSort(list);
+
+        QStringList strList;
+        foreach (int v, list)
+            strList << QString::number(v);
+
+        page()->mainFrame()->evaluateJavaScript(
+            QString("selectVerses([%1])")
+                .arg(strList.join(","))
+        );
+        needToScroll(page()->mainFrame()->evaluateJavaScript(QString("verseOffset(%1)").arg(list.at(0))).toInt());
+    }
 }
 
 void BibleView::clearDisplay(const QString& error)

@@ -2,6 +2,7 @@
 #define BIBLEVIEW_H
 
 #include <QGraphicsWebView>
+#include <QSet>
 
 class QNetworkAccessManager;
 
@@ -89,6 +90,7 @@ public:
 public slots:
     void loadChapter();
     void setAndLoad(const QString& bookCode, int chapterNo, int verseNo);
+    void loadChapterAndSelectVerses(const QString& bookCode, int chapterNo, QVariant verses);
 
     void loadNextChapter();
     void loadPrevChapter();
@@ -140,7 +142,8 @@ private:
 
     QString _bookCode;
     int _chapterNo;
-    int _verseNo;
+
+    QSet<int> _versesToSelectAfterLoad;
 
     QString _js;
     QString _html;
@@ -172,7 +175,7 @@ private:
     void setLoadingChapter(bool loading);
 
 
-    void scrollToVerse(int verseNo);
+    void showSelectedVerses(QSet<int> verses);
 
     void applyFontSize();
     void applyFontName();

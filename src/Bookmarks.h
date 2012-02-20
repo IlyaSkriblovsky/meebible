@@ -16,7 +16,11 @@ class Bookmarks: public QAbstractListModel
         enum Roles {
             PlaceRole = Qt::UserRole + 1,
             TitleRole,
-            TextRole
+            TextRole,
+
+            BookCodeRole,
+            ChapterNoRole,
+            VersesRole
         };
 
 

@@ -57,6 +57,28 @@ function toggleVerse(verse)
         selectVerse(verse)
 }
 
+function clearSelection(dontNotify)
+{
+    for (var verse in selectedVerses)
+        if (selectedVerses[verse])
+            unselectVerse(verse, true)
+
+    if (! dontNotify)
+        bibleView.verseSelectionChanged(selectedVersesList())
+}
+
+function selectVerses(list)
+{
+    console.log("selectVerses!")
+
+    clearSelection(true)
+
+    for (var i in list)
+        selectVerse(list[i], true)
+
+    bibleView.verseSelectionChanged(selectedVersesList())
+}
+
 function selectedVersesList()
 {
     var result = []
@@ -115,15 +137,6 @@ function selectedText()
     }
 
     return result.trim()
-}
-
-function clearSelection()
-{
-    for (var verse in selectedVerses)
-        if (selectedVerses[verse])
-            unselectVerse(verse, true)
-
-    bibleView.verseSelectionChanged(selectedVersesList())
 }
 
 

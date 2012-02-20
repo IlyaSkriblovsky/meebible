@@ -21,6 +21,7 @@ Settings::Settings(Languages* langs, QObject* parent):
     _transCode      = _settings.value("General/transCode", "kjv").toString();
 
     _bookCode       = _settings.value("General/bookCode", "ge").toString();
+    if (_bookCode.isEmpty()) _bookCode = "ge";
     _chapterNo      = _settings.value("General/chapterNo", 1).toInt();
     _floatingHeader = _settings.value("General/floatingHeader", true).toBool();
     _fontSize       = _settings.value("General/fontSize", 30).toInt();

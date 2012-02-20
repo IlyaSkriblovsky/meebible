@@ -717,6 +717,16 @@ Page {
         id: bookmarksSheet
         function load() { source = "BookmarksSheet.qml" }
         function open() { load(); item.open() }
+
+        Connections {
+            target: bookmarksSheet.item
+            onBookmarkSelected: {
+                console.log('onBookmarkSelected: ' + bookCode + ', ' +chapterNo)
+                bibleView.loadChapterAndSelectVerses(
+                    bookCode, chapterNo, verses
+                )
+            }
+        }
     }
 
 
