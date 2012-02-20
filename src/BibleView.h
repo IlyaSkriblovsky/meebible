@@ -100,6 +100,7 @@ public slots:
 
     bool copySelectedVerses();
     bool shareSelectedVerses();
+    void bookmarkSelectedVerses();
     void clearSelection();
 
 
@@ -194,6 +195,9 @@ private slots:
     void onLinkClicked(const QUrl& url);
 
     void onTranslationLoadingFinished();
+
+
+    QString selectedText();
 };
 
 #endif // BIBLEVIEW_H

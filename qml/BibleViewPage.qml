@@ -232,6 +232,10 @@ Page {
             platformStyle: EditBubbleButtonStyle {
                 position: "horizontal-center"
             }
+
+            onClicked: {
+                bibleView.bookmarkSelectedVerses()
+            }
         }
         EditBubbleButton {
             text: "Share"
@@ -709,8 +713,12 @@ Page {
         function open() { load(); pageStack.push(item) }
     }
 
+    Loader {
+        id: bookmarksSheet
+        function load() { source = "BookmarksSheet.qml" }
+        function open() { load(); item.open() }
+    }
 
-    InfoBanner { id: copyBanner }
 
 
     Menu {
@@ -720,17 +728,9 @@ Page {
 
         MenuLayout {
             MenuItem {
-                text: qsTr("Copy selected verses")
-                onClicked: {
-                    if (bibleView.copySelectedVerses())
-                    {
-                        copyBanner.text = qsTr("Copied")
-                        bibleView.clearSelection()
-                    }
-                    else
-                        copyBanner.text = qsTr("Nothing selected")
-                    copyBanner.show()
-                }
+                text: qsTr("Bookmarks")
+
+                onClicked: bookmarksSheet.open()
             }
 
             MenuItem {

@@ -21,6 +21,7 @@
 #include "Cache.h"
 #include "BibleWebPage.h"
 #include "Paths.h"
+#include "Bookmarks.h"
 
 #ifndef NOSEARCH
     #include "SqliteUnicodeSearch.h"
@@ -421,10 +422,18 @@ void BibleView::applyInverted()
 
 
 
-bool BibleView::copySelectedVerses()
+QString BibleView::selectedText()
 {
     QString text = page()->mainFrame()->evaluateJavaScript("selectedText()").toString();
     text.replace(QString::fromUtf8("\xcc\x81"), "");
+
+    return text;
+}
+
+
+bool BibleView::copySelectedVerses()
+{
+    QString text = selectedText();
 
     if (text == "")
         return false;
@@ -436,8 +445,7 @@ bool BibleView::copySelectedVerses()
 
 bool BibleView::shareSelectedVerses()
 {
-    QString text = page()->mainFrame()->evaluateJavaScript("selectedText()").toString();
-    text.replace(QString::fromUtf8("\xcc\x81"), "");
+    QString text = selectedText();
 
     if (text == "")
         return false;
@@ -494,4 +502,16 @@ void BibleView::setSelectedVerses(QList<int> verses)
 
     _selectedVerses = verses;
     selectedVersesChanged();
+}
+
+
+
+void BibleView::bookmarkSelectedVerses()
+{
+    QString text = selectedText();
+
+    Bookmarks::instance()->addBookmark(
+        _bookCode, _chapterNo, QSet<int>::fromList(selectedVerses()),
+        "Some title", text
+    );
 }

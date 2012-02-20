@@ -45,7 +45,8 @@ HEADERS +=                      \
     src/MetaInfoLoader.h        \
     src/Feedback.h              \
     src/NetworkUtils.h          \
-    src/StartupTracker.h
+    src/StartupTracker.h        \
+    src/Bookmarks.h
 
 SOURCES +=                      \
     src/main.cpp                \
@@ -65,7 +66,8 @@ SOURCES +=                      \
     src/MetaInfoLoader.cpp      \
     src/Feedback.cpp            \
     src/NetworkUtils.cpp        \
-    src/StartupTracker.cpp
+    src/StartupTracker.cpp      \
+    src/Bookmarks.cpp
 
 
 !nosearch:HEADERS +=            \

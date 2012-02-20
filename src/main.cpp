@@ -18,6 +18,7 @@
 #include "Settings.h"
 #include "MetaInfoLoader.h"
 #include "Feedback.h"
+#include "Bookmarks.h"
 
 #include "StartupTracker.h"
 
@@ -43,6 +44,8 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     Feedback feedback;
 
+    Bookmarks bookmarks;
+
     QDeclarativeEngine engine;
 
 
@@ -61,6 +64,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     view->rootContext()->setContextProperty("metaInfoLoader", &metaInfoLoader);
     view->rootContext()->setContextProperty("settings", &settings);
     view->rootContext()->setContextProperty("feedback", &feedback);
+    view->rootContext()->setContextProperty("bookmarks", &bookmarks);
 
     #ifdef FREEVERSION
         view->rootContext()->setContextProperty("freeversion", true);
