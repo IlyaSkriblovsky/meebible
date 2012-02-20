@@ -20,7 +20,7 @@ function isVerseDiv(div)
     return div.hasOwnProperty('className') && div.className.split(' ').indexOf('verse') != -1
 }
 
-function selectVerse(verse)
+function selectVerse(verse, dontNotify)
 {
     selectedVerses[verse] = true
 
@@ -28,10 +28,11 @@ function selectVerse(verse)
     for (var i = 0; i < divs.length; i++)
         divs[i].className = 'verse selected'
 
-    bibleView.verseSelectionChanged(selectedVersesList())
+    if (! dontNotify)
+        bibleView.verseSelectionChanged(selectedVersesList())
 }
 
-function unselectVerse(verse)
+function unselectVerse(verse, dontNotify)
 {
     selectedVerses[verse] = false
 
@@ -39,7 +40,8 @@ function unselectVerse(verse)
     for (var i = 0; i < divs.length; i++)
         divs[i].className = 'verse'
 
-    bibleView.verseSelectionChanged(selectedVersesList())
+    if (! dontNotify)
+        bibleView.verseSelectionChanged(selectedVersesList())
 }
 
 function verseSelected(verse)
@@ -97,12 +99,19 @@ function selectedText()
         var divs = verseDivs(verse)
         var text = ''
         for (var i = 0; i < divs.length; i++)
-            text += divs[i].innerText
+        {
+            var divtext = divs[i].innerText
+            if (divs[i].firstElementChild.className == "verse-label")
+                text += divtext.substr(divs[i].firstElementChild.innerText.length)
+            else
+                text += divtext
+        }
 
         if (prev != null  &&  verse != prev + 1)
             result += ' [...] '
 
-        result += text.replace(/^\d+/, '$& ') + ' '
+        // result += text.replace(/^\d+/, '$& ') + ' '
+        result += text
 
         prev = verse
     }
@@ -114,7 +123,9 @@ function clearSelection()
 {
     for (var verse in selectedVerses)
         if (selectedVerses[verse])
-            unselectVerse(verse)
+            unselectVerse(verse, true)
+
+    bibleView.verseSelectionChanged(selectedVersesList())
 }
 
 

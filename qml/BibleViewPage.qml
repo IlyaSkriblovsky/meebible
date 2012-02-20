@@ -183,7 +183,10 @@ Page {
 
 
 
-    InfoBanner { id: copyBanner }
+    InfoBanner {
+        id: copyBanner
+        text: qsTr("Copied")
+    }
 
     Row {
         id: verseActions
@@ -220,16 +223,9 @@ Page {
             }
 
             onClicked: {
-                if (bibleView.copySelectedVerses())
-                {
-                    copyBanner.text = qsTr("Copied")
-                    bibleView.clearSelection()
-                }
-                else
-                    copyBanner.text = qsTr("Nothing selected")
+                bibleView.copySelectedVerses()
+                bibleView.clearSelection()
                 copyBanner.show()
-
-                verseActions.state = ''
             }
         }
         EditBubbleButton {
@@ -242,6 +238,11 @@ Page {
             text: "Share"
             platformStyle: EditBubbleButtonStyle {
                 position: "horizontal-right"
+            }
+
+            onClicked: {
+                bibleView.shareSelectedVerses()
+                bibleView.clearSelection()
             }
         }
     }

@@ -99,6 +99,7 @@ public slots:
     #endif
 
     bool copySelectedVerses();
+    bool shareSelectedVerses();
     void clearSelection();
 
 
