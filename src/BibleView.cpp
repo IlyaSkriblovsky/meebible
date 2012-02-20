@@ -460,8 +460,6 @@ bool BibleView::shareSelectedVerses()
     QStringList items;
     items << duri.toString();
 
-    qDebug() << "DURI:" << duri.toString();
-
     ShareUiInterface shareIf("com.nokia.ShareUi");
 
     if (! shareIf.isValid())

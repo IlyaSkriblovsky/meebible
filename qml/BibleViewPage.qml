@@ -237,13 +237,27 @@ Page {
         EditBubbleButton {
             text: "Share"
             platformStyle: EditBubbleButtonStyle {
-                position: "horizontal-right"
+                position: "horizontal-center"
             }
 
             onClicked: {
                 bibleView.shareSelectedVerses()
                 bibleView.clearSelection()
             }
+        }
+        EditBubbleButton {
+            platformStyle: EditBubbleButtonStyle {
+                position: "horizontal-right"
+            }
+
+            Image {
+                anchors.verticalCenter: parent.verticalCenter
+                x: 4
+
+                source: 'image://theme/icon-m-toolbar-close'
+            }
+
+            onClicked: bibleView.clearSelection()
         }
     }
 
