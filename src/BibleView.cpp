@@ -256,7 +256,7 @@ void BibleView::loadNextChapter()
 
 void BibleView::onJavaScriptWindowObjectCleared()
 {
-    //
+    page()->mainFrame()->addToJavaScriptWindowObject("bibleView", this);
 }
 
 void BibleView::onLoadFinished(bool ok)
@@ -271,18 +271,18 @@ void BibleView::onLoadFinished(bool ok)
 }
 
 
-Place BibleView::selectedPlace()
-{
-    if (! validLocation()) return Place();
-
-    QStringList jsList = page()->mainFrame()->evaluateJavaScript("selectedVersesList()").toString().split(",", QString::SkipEmptyParts);
-
-    QSet<int> verses;
-    for (int i = 0; i < jsList.size(); i++)
-        verses += jsList[i].toInt();
-
-    return Place(_bookCode, _chapterNo, verses);
-}
+// Place BibleView::selectedPlace()
+// {
+//     if (! validLocation()) return Place();
+// 
+//     QStringList jsList = page()->mainFrame()->evaluateJavaScript("selectedVersesList()").toString().split(",", QString::SkipEmptyParts);
+// 
+//     QSet<int> verses;
+//     for (int i = 0; i < jsList.size(); i++)
+//         verses += jsList[i].toInt();
+// 
+//     return Place(_bookCode, _chapterNo, verses);
+// }
 
 
 
@@ -434,4 +434,22 @@ bool BibleView::copySelectedVerses()
 void BibleView::clearSelection()
 {
     page()->mainFrame()->evaluateJavaScript("clearSelection()");
+}
+
+
+
+
+void BibleView::verseSelectionChanged(QList<int> list)
+{
+    setSelectedVerses(list);
+}
+
+
+void BibleView::setSelectedVerses(QList<int> verses)
+{
+    qSort(verses);
+    qDebug() << "selectedVerses:" << verses;
+
+    _selectedVerses = verses;
+    selectedVersesChanged();
 }

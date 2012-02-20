@@ -27,6 +27,8 @@ function selectVerse(verse)
     var divs = verseDivs(verse)
     for (var i = 0; i < divs.length; i++)
         divs[i].className = 'verse selected'
+
+    bibleView.verseSelectionChanged(selectedVersesList())
 }
 
 function unselectVerse(verse)
@@ -36,6 +38,8 @@ function unselectVerse(verse)
     var divs = verseDivs(verse)
     for (var i = 0; i < divs.length; i++)
         divs[i].className = 'verse'
+
+    bibleView.verseSelectionChanged(selectedVersesList())
 }
 
 function verseSelected(verse)
@@ -51,6 +55,18 @@ function toggleVerse(verse)
         selectVerse(verse)
 }
 
+function selectedVersesList()
+{
+    var result = []
+    for (var verse in selectedVerses)
+        if (selectedVerses[verse])
+            result.push(parseInt(verse))
+    return result
+}
+
+
+
+
 function verseDivs(verse)
 {
     var result = []
@@ -59,15 +75,6 @@ function verseDivs(verse)
         if (allDivs[i].getAttribute('verse') == verse)
             result.push(allDivs[i])
     return result
-}
-
-function selectedVersesList()
-{
-    var result = []
-    for (var verse in selectedVerses)
-        if (selectedVerses[verse])
-            result.push(verse)
-    return result.join(',')
 }
 
 function selectedText()

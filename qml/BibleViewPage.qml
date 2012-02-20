@@ -1,7 +1,12 @@
 import QtQuick 1.1
-import com.meego 1.0
+
+// This is for EditBubbleButton
+import "/usr/lib/qt4/imports/com/meego/" 1.0
+
 import com.meego.extras 1.0
+
 import MeeBible 0.1
+
 
 Page {
     id: page
@@ -175,6 +180,72 @@ Page {
         }
     }
     ScrollDecorator { flickableItem: flickable }
+
+
+
+    InfoBanner { id: copyBanner }
+
+    Row {
+        id: verseActions
+
+        anchors.top: header.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+
+        opacity: 0.0
+
+        Behavior on opacity {
+            NumberAnimation {
+                duration: 100
+            }
+        }
+
+
+        states: [
+            State {
+                name: "visible"
+                when: bibleView.selectedVerses.length > 0
+
+                PropertyChanges {
+                    target: verseActions
+                    opacity: 1.0
+                }
+            }
+        ]
+
+
+        EditBubbleButton {
+            text: "Copy"
+            platformStyle: EditBubbleButtonStyle {
+                position: "horizontal-left"
+            }
+
+            onClicked: {
+                if (bibleView.copySelectedVerses())
+                {
+                    copyBanner.text = qsTr("Copied")
+                    bibleView.clearSelection()
+                }
+                else
+                    copyBanner.text = qsTr("Nothing selected")
+                copyBanner.show()
+
+                verseActions.state = ''
+            }
+        }
+        EditBubbleButton {
+            text: "Bookmark"
+            platformStyle: EditBubbleButtonStyle {
+                position: "horizontal-center"
+            }
+        }
+        EditBubbleButton {
+            text: "Share"
+            platformStyle: EditBubbleButtonStyle {
+                position: "horizontal-right"
+            }
+        }
+    }
+
 
 
     Item {
@@ -625,29 +696,12 @@ Page {
     }
 
 
-    InfoBanner { id: copyBanner }
-
-
     Menu {
         id: menu
 
         visualParent: pageStack
 
         MenuLayout {
-            MenuItem {
-                text: qsTr("Copy selected verses")
-                onClicked: {
-                    if (bibleView.copySelectedVerses())
-                    {
-                        copyBanner.text = qsTr("Copied")
-                        bibleView.clearSelection()
-                    }
-                    else
-                        copyBanner.text = qsTr("Nothing selected")
-                    copyBanner.show()
-                }
-            }
-
             MenuItem {
                 text: qsTr("Font size")
                 onClicked: page.pageStack.toolBar.setTools(fontTools, "replace")

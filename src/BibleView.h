@@ -36,6 +36,8 @@ class BibleView: public QGraphicsWebView
 
     Q_PROPERTY(bool loadingChapter READ loadingChapter NOTIFY loadingChapterChanged)
 
+    Q_PROPERTY(QList<int> selectedVerses READ selectedVerses NOTIFY selectedVersesChanged)
+
 public:
     explicit BibleView(QGraphicsItem *parent = 0);
     ~BibleView();
@@ -50,7 +52,7 @@ public:
     void setBookCode(const QString& bookCode) { _bookCode = bookCode; bookCodeChanged(); titleChanged(); }
     void setChapterNo(int chapterNo) { _chapterNo = chapterNo; chapterNoChanged(); titleChanged(); }
 
-    Place selectedPlace();
+    // Place selectedPlace();
 
     int preferredWidth();
     void setPreferredWidth(int width);
@@ -81,6 +83,9 @@ public:
     bool loadingChapter() const { return _loadingChapter; }
 
 
+    QList<int> selectedVerses() const { return _selectedVerses; }
+
+
 public slots:
     void loadChapter();
     void setAndLoad(const QString& bookCode, int chapterNo, int verseNo);
@@ -95,6 +100,10 @@ public slots:
 
     bool copySelectedVerses();
     void clearSelection();
+
+
+    // Called from JS
+    void verseSelectionChanged(QList<int> list);
 
 
 signals:
@@ -120,6 +129,9 @@ signals:
     void fontSizeChanged();
     void fontNameChanged();
     void lineSpacingChanged();
+
+    void selectedVersesChanged();
+
 
 private:
     Translation* _translation;
@@ -151,6 +163,10 @@ private:
 
     bool _loadingChapter;
 
+
+    QList<int> _selectedVerses;
+
+
     void setLoadingChapter(bool loading);
 
 
@@ -160,6 +176,9 @@ private:
     void applyFontName();
     void applyLineSpacing();
     void applyInverted();
+
+
+    void setSelectedVerses(QList<int> verses);
 
 
 private slots:
