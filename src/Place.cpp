@@ -16,13 +16,9 @@ Place::Place(const QString& bookCode, int chapterNo, const QSet<int>& verses)
 }
 
 
-QString Place::toString(const Translation* translation) const
-{
-    if (_verses.size() == 0)
-        return QString("%1 %2")
-                .arg(translation->bookName(_bookCode))
-                .arg(_chapterNo);
 
+QString Place::verseString() const
+{
     QList<int> list = _verses.toList();
     qSort(list);
 
@@ -57,10 +53,34 @@ QString Place::toString(const Translation* translation) const
         }
     }
 
+    return verseString;
+}
+
+
+QString Place::toString(const Translation* translation) const
+{
+    if (_verses.size() == 0)
+        return QString("%1 %2")
+                .arg(translation->bookName(_bookCode))
+                .arg(_chapterNo);
+
     return QString("%1 %2:%3")
             .arg(translation->bookName(_bookCode))
             .arg(_chapterNo)
-            .arg(verseString);
+            .arg(verseString());
+}
+
+QString Place::toStringCode() const
+{
+    if (_verses.size() == 0)
+        return QString("%1 %2")
+            .arg(_bookCode)
+            .arg(_chapterNo);
+
+    return QString("%1 %2:%3")
+            .arg(_bookCode)
+            .arg(_chapterNo)
+            .arg(verseString());
 }
 
 

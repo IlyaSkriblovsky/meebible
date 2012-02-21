@@ -5,7 +5,7 @@ import com.meego.extras 1.0
 
 
 Sheet {
-    signal bookmarkSelected(string bookCode, int chapterNo, variant verses)
+    signal bookmarkSelected(variant place)
 
 
     id: dialog
@@ -41,12 +41,9 @@ Sheet {
             model: bookmarks
 
             delegate: ListDelegate {
-                // title: value
-                // subtitle: text
-
                 onClicked: {
-                    console.log('onClicked ' + model.bookCode + ', ' + model.chapterNo)
-                    dialog.bookmarkSelected(model.bookCode, model.chapterNo, model.verses)
+                    dialog.bookmarkSelected(model.place)
+                    dialog.accept()
                 }
             }
         }

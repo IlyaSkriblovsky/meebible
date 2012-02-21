@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <QSet>
+#include <QMetaType>
 
 
 class Translation;
@@ -20,15 +21,22 @@ public:
 
     QString toString(const Translation* translation) const;
 
+    QString toStringCode() const;
+
     bool isValid(const Translation* translation) const;
 
     Place prevChapter(const Translation* translation) const;
     Place nextChapter(const Translation* translation) const;
 
+
 private:
     QString _bookCode;
     int _chapterNo;
     QSet<int> _verses;
+
+    QString verseString() const;
 };
+
+Q_DECLARE_METATYPE(Place);
 
 #endif // PLACE_H

@@ -21,13 +21,17 @@ Bookmarks::Bookmarks()
 
     Bookmark b;
     b.title = "Title";
-    b.bookCode = "pr";
-    b.chapterNo = 5;
-    b.verses << 18 << 19;
+
+    QSet<int> verses;
+    verses << 18 << 19;
+    b.place = Place("pr", 5, verses);
     b.text = "text text";
     _bookmarks << b;
 
     b.title = "Title 2";
+    verses.clear();
+    verses << 2 << 3 << 5;
+    b.place = Place("re", 21, verses);
     _bookmarks << b;
 
 
@@ -35,10 +39,7 @@ Bookmarks::Bookmarks()
     roleNames[Qt::DisplayRole] = "title";
     roleNames[TextRole] = "subtitle";
     roleNames[PlaceRole] = "place";
-
-    roleNames[BookCodeRole] = "bookCode";
-    roleNames[ChapterNoRole] = "chapterNo";
-    roleNames[VersesRole] = "verses";
+    roleNames[PlaceTextRole] = "placeText";
     setRoleNames(roleNames);
 }
 
@@ -61,27 +62,25 @@ QVariant Bookmarks::data(const QModelIndex& index, int role) const
     {
         case Qt::DisplayRole:
         {
-            Place place(bookmark.bookCode, bookmark.chapterNo, bookmark.verses);
-            QString placeStr;
+            QString placeText;
             if (Settings::instance()->translation())
-                placeStr = place.toString(Settings::instance()->translation());
+                placeText = bookmark.place.toString(Settings::instance()->translation());
 
             if (bookmark.title.isEmpty())
-                return placeStr;
+                return placeText;
             else
                 return QString("%1 | %2")
                     .arg(bookmark.title)
-                    .arg(placeStr);
+                    .arg(placeText);
         }
 
-        case PlaceRole:
+        case PlaceTextRole:
         {
-            Place place(bookmark.bookCode, bookmark.chapterNo, bookmark.verses);
-            QString placeStr;
+            QString placeText;
             if (Settings::instance()->translation())
-                placeStr = place.toString(Settings::instance()->translation());
+                placeText = bookmark.place.toString(Settings::instance()->translation());
 
-            return placeStr;
+            return placeText;
         }
 
         case TitleRole:
@@ -91,14 +90,8 @@ QVariant Bookmarks::data(const QModelIndex& index, int role) const
             return bookmark.text;
 
 
-        case BookCodeRole:
-            return bookmark.bookCode;
-
-        case ChapterNoRole:
-            return bookmark.chapterNo;
-
-        case VersesRole:
-            return QVariant::fromValue(bookmark.verses.toList());
+        case PlaceRole:
+            return QVariant::fromValue(bookmark.place);
     }
 
     return QVariant();
@@ -106,14 +99,12 @@ QVariant Bookmarks::data(const QModelIndex& index, int role) const
 
 
 
-void Bookmarks::addBookmark(const QString& bookCode, int chapterNo, const QSet<int>& verses, const QString& title, const QString& text)
+void Bookmarks::addBookmark(const Place& place, const QString& title, const QString& text)
 {
     beginInsertRows(QModelIndex(), _bookmarks.size(), _bookmarks.size());
 
     Bookmark b;
-    b.bookCode = bookCode;
-    b.chapterNo = chapterNo;
-    b.verses = verses;
+    b.place = place;
     b.title = title;
     b.text = text;
 

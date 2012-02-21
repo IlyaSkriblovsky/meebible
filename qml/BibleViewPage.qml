@@ -720,12 +720,7 @@ Page {
 
         Connections {
             target: bookmarksSheet.item
-            onBookmarkSelected: {
-                console.log('onBookmarkSelected: ' + bookCode + ', ' +chapterNo)
-                bibleView.loadChapterAndSelectVerses(
-                    bookCode, chapterNo, verses
-                )
-            }
+            onBookmarkSelected: bibleView.loadPlace(place)
         }
     }
 

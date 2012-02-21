@@ -137,22 +137,14 @@ void BibleView::setAndLoad(const QString& bookCode, int chapterNo, int verseNo)
 }
 
 
-Q_DECLARE_METATYPE(QList<int>)
-Q_DECLARE_METATYPE(QList<double>)
-
-void BibleView::loadChapterAndSelectVerses(const QString& bookCode, int chapterNo, QVariant verses)
+void BibleView::loadPlace(const Place& place)
 {
-    QList<int> intList = verses.value<QList<int> >();
-    QList<double> dblList = verses.value<QList<double> >();
-    qDebug() << "intList" << intList;
-    qDebug() << "dblList" << dblList;
-    qDebug() << "loadChapterAndSelectVerses" << bookCode << chapterNo << verses;
-//    setBookCode(bookCode);
-//    setChapterNo(chapterNo);
-//
-//    _versesToSelectAfterLoad = intList.toSet();
-//
-//    loadChapter();
+    setBookCode(place.bookCode());
+    setChapterNo(place.chapterNo());
+
+    _versesToSelectAfterLoad = place.verses();
+
+    loadChapter();
 }
 
 void BibleView::loadChapter()
@@ -541,7 +533,7 @@ void BibleView::bookmarkSelectedVerses()
     QString text = selectedText();
 
     Bookmarks::instance()->addBookmark(
-        _bookCode, _chapterNo, QSet<int>::fromList(selectedVerses()),
+        Place(_bookCode, _chapterNo, QSet<int>::fromList(selectedVerses())),
         "Some title", text
     );
 }

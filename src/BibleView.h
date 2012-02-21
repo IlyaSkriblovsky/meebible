@@ -90,7 +90,7 @@ public:
 public slots:
     void loadChapter();
     void setAndLoad(const QString& bookCode, int chapterNo, int verseNo);
-    void loadChapterAndSelectVerses(const QString& bookCode, int chapterNo, QVariant verses);
+    void loadPlace(const Place& place);
 
     void loadNextChapter();
     void loadPrevChapter();

@@ -5,6 +5,8 @@
 #include <QList>
 #include <QSet>
 
+#include "Place.h"
+
 
 class Bookmarks: public QAbstractListModel
 {
@@ -15,12 +17,9 @@ class Bookmarks: public QAbstractListModel
 
         enum Roles {
             PlaceRole = Qt::UserRole + 1,
+            PlaceTextRole,
             TitleRole,
-            TextRole,
-
-            BookCodeRole,
-            ChapterNoRole,
-            VersesRole
+            TextRole
         };
 
 
@@ -31,9 +30,7 @@ class Bookmarks: public QAbstractListModel
 
 
         void addBookmark(
-            const QString& bookCode,
-            int chapterNo,
-            const QSet<int>& verses,
+            const Place& place,
             const QString& title,
             const QString& text
         );
@@ -44,9 +41,7 @@ class Bookmarks: public QAbstractListModel
 
         struct Bookmark
         {
-            QString bookCode;
-            int chapterNo;
-            QSet<int> verses;
+            Place place;
 
             QString title;
             QString text;

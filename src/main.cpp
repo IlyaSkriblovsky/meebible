@@ -19,6 +19,7 @@
 #include "MetaInfoLoader.h"
 #include "Feedback.h"
 #include "Bookmarks.h"
+#include "Place.h"
 
 #include "StartupTracker.h"
 
@@ -53,6 +54,8 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qmlRegisterUncreatableType<Translation>("MeeBible", 0, 1, "Translation", "Translation is abstract");
     qmlRegisterType<BibleView>("MeeBible", 0, 1, "BibleView");
     qmlRegisterType<Fetcher>("MeeBible", 0, 1, "Fetcher");
+
+    qRegisterMetaType<Place>();
 
 
     QDeclarativeView* view = MDeclarativeCache::qDeclarativeView();
