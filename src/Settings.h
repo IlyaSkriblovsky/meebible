@@ -3,6 +3,8 @@
 
 #include <QSettings>
 
+#include "Place.h"
+
 class Language;
 class Languages;
 class Translation;
@@ -15,8 +17,7 @@ class Settings: public QObject
     Q_PROPERTY(Language* language READ language WRITE setLanguage NOTIFY languageChanged)
     Q_PROPERTY(Translation* translation READ translation WRITE setTranslation NOTIFY translationChanged)
 
-    Q_PROPERTY(QString bookCode READ bookCode WRITE setBookCode NOTIFY bookCodeChanged)
-    Q_PROPERTY(int chapterNo READ chapterNo WRITE setChapterNo NOTIFY chapterNoChanged)
+    Q_PROPERTY(Place place READ place WRITE setPlace NOTIFY placeChanged)
 
     Q_PROPERTY(bool floatingHeader READ floatingHeader WRITE setFloatingHeader NOTIFY floatingHeaderChanged)
 
@@ -47,11 +48,9 @@ class Settings: public QObject
         void setTranslation(Translation* translation);
 
 
-        QString bookCode() const;
-        void setBookCode(const QString& bookcode);
+        Place place() const;
+        void setPlace(const Place& place);
 
-        int chapterNo() const;
-        void setChapterNo(int chapterNo);
 
         bool floatingHeader() const;
         void setFloatingHeader(bool show);
@@ -86,8 +85,7 @@ class Settings: public QObject
         void languageChanged();
         void translationChanged();
 
-        void bookCodeChanged();
-        void chapterNoChanged();
+        void placeChanged();
 
         void floatingHeaderChanged();
 
@@ -114,8 +112,7 @@ class Settings: public QObject
 
         Languages* _languages;
 
-        QString _bookCode;
-        int _chapterNo;
+        Place _place;
 
         bool _floatingHeader;
 

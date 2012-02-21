@@ -30,7 +30,7 @@
 
 
 BibleView::BibleView(QGraphicsItem *parent):
-    QGraphicsWebView(parent), _translation(0), _chapterNo(0), _fontSize(30), _fontName("Nokia")
+    QGraphicsWebView(parent), _translation(0), _fontSize(30), _fontName("Nokia")
 {
     QElapsedTimer timer;
     timer.start();
@@ -125,54 +125,83 @@ void BibleView::onTranslationLoadingFinished()
 }
 
 
-void BibleView::setAndLoad(const QString& bookCode, int chapterNo, int verseNo)
+
+Place BibleView::place() const
 {
-    setBookCode(bookCode);
-    setChapterNo(chapterNo);
+    return _place;
+}
 
-    _versesToSelectAfterLoad = QSet<int>();
-    _versesToSelectAfterLoad << verseNo;
+void BibleView::setPlace(const Place& place)
+{
+    if (_place == place) return;
 
-    loadChapter();
+    Place old = _place;
+
+    _place = place;
+    placeChanged();
+    selectedVersesChanged();
+
+    if (! old.sameChapter(place))
+        loadChapter();
+    else
+        showSelectedVerses(_place.verses());
 }
 
 
-void BibleView::loadPlace(const Place& place)
+QList<int> BibleView::selectedVerses() const
 {
-    setBookCode(place.bookCode());
-    setChapterNo(place.chapterNo());
-
-    _versesToSelectAfterLoad = place.verses();
-
-    loadChapter();
+    return _place.verses().toList();
 }
+
+
+// void BibleView::setAndLoad(const QString& bookCode, int chapterNo, int verseNo)
+// {
+//     setBookCode(bookCode);
+//     setChapterNo(chapterNo);
+// 
+//     _versesToSelectAfterLoad = QSet<int>();
+//     _versesToSelectAfterLoad << verseNo;
+// 
+//     loadChapter();
+// }
+
+
+// void BibleView::loadPlace(const Place& place)
+// {
+//     setBookCode(place.bookCode());
+//     setChapterNo(place.chapterNo());
+// 
+//     _versesToSelectAfterLoad = place.verses();
+// 
+//     loadChapter();
+// }
 
 void BibleView::loadChapter()
 {
-    if (_translation == 0 || _bookCode.length() == 0)
+    if (_translation == 0)
     {
         return;
     }
 
-    if (! Place(_bookCode, _chapterNo).isValid(_translation))
+    if (! _place.isValid(_translation))
     {
 //        clearDisplay(origBookName.isEmpty() ? "" : QString("This translation doesn't contain %1").arg(origBookName));
         clearDisplay(tr("Current translation doesn't contain this book"));
-        qDebug() << "Absent" << _translation << _bookCode << _chapterNo;
+        qDebug() << "Absent" << _place.toStringCode();
         return;
     }
 
-    QString fromCache = Cache::instance()->loadChapter(_translation, _bookCode, _chapterNo);
+    QString fromCache = Cache::instance()->loadChapter(_translation, _place);
 
     if (! fromCache.isEmpty())
     {
         displayHtml(fromCache);
-        showSelectedVerses(_versesToSelectAfterLoad);
+        showSelectedVerses(_place.verses());
         chapterLoaded();
     }
     else
     {
-        ChapterRequest* request = _translation->requestChapter(_nam, _bookCode, _chapterNo);
+        ChapterRequest* request = _translation->requestChapter(_nam, _place);
 
         if (request)
         {
@@ -196,18 +225,17 @@ void BibleView::onChapterRequestFinished(QString html)
     }
     else
     {
-        if (request->bookCode() == _bookCode && request->chapterNo() == _chapterNo)
+        if (request->place().sameChapter(_place))
         {
             displayHtml(html);
-            showSelectedVerses(_versesToSelectAfterLoad);
+            showSelectedVerses(_place.verses());
             chapterLoaded();
             setLoadingChapter(false);
         }
 
         Cache::instance()->saveChapter(
             request->translation(),
-            request->bookCode(),
-            request->chapterNo(),
+            request->place(),
             html
         );
     }
@@ -253,29 +281,28 @@ void BibleView::clearDisplay(const QString& error)
 }
 
 
-bool BibleView::validLocation() const
-{
-    if (_translation == 0) return false;
-    return Place(_bookCode, _chapterNo).isValid(_translation);
-}
-
-
 void BibleView::loadPrevChapter()
 {
-    if (! validLocation()) return;
+    // if (! validLocation()) return;
 
-    Place next = Place(_bookCode, _chapterNo).prevChapter(_translation);
+    // Place next = Place(_bookCode, _chapterNo).prevChapter(_translation);
 
-    setAndLoad(next.bookCode(), next.chapterNo(), 1);
+    // setAndLoad(next.bookCode(), next.chapterNo(), 1);
+
+    if (_place.isValid(_translation))
+        setPlace(_place.prevChapter(_translation));
 }
 
 void BibleView::loadNextChapter()
 {
-    if (! validLocation()) return;
+    // if (! validLocation()) return;
 
-    Place prev = Place(_bookCode, _chapterNo).nextChapter(_translation);
+    // Place prev = Place(_bookCode, _chapterNo).nextChapter(_translation);
 
-    setAndLoad(prev.bookCode(), prev.chapterNo(), 1);
+    // setAndLoad(prev.bookCode(), prev.chapterNo(), 1);
+
+    if (_place.isValid(_translation))
+        setPlace(_place.nextChapter(_translation));
 }
 
 
@@ -383,11 +410,10 @@ void BibleView::onLinkClicked(const QUrl& url)
 
 QString BibleView::title() const
 {
-    Place place(_bookCode, _chapterNo);
-    if (_translation == 0 || ! place.isValid(_translation))
+    if (_translation == 0)
         return QString();
 
-    return place.toString(_translation);
+    return _place.toString(_translation);
 }
 
 
@@ -473,13 +499,10 @@ bool BibleView::shareSelectedVerses()
         return false;
 
 
-    Place place(_bookCode, _chapterNo, QSet<int>::fromList(selectedVerses()));
-
-
     MDataUri duri;
     duri.setMimeType("text/x-uri");
     duri.setTextData(text, "utf-8");
-    duri.setAttribute("title", place.toString(translation()));
+    duri.setAttribute("title", _place.toString(translation()));
 
     if (! duri.isValid())
     {
@@ -511,18 +534,14 @@ void BibleView::clearSelection()
 }
 
 
-void BibleView::verseSelectionChanged(QList<int> list)
-{
-    setSelectedVerses(list);
-}
-
-
-void BibleView::setSelectedVerses(QList<int> verses)
+void BibleView::verseSelectionChanged(QList<int> verses)
 {
     qSort(verses);
     qDebug() << "selectedVerses:" << verses;
 
-    _selectedVerses = verses;
+    _place.setVerses(verses.toSet());
+
+    placeChanged();
     selectedVersesChanged();
 }
 
@@ -532,8 +551,5 @@ void BibleView::bookmarkSelectedVerses()
 {
     QString text = selectedText();
 
-    Bookmarks::instance()->addBookmark(
-        Place(_bookCode, _chapterNo, QSet<int>::fromList(selectedVerses())),
-        "Some title", text
-    );
+    Bookmarks::instance()->addBookmark(_place, "Some title", text);
 }

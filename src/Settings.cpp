@@ -20,9 +20,12 @@ Settings::Settings(Languages* langs, QObject* parent):
     _langCode       = _settings.value("General/langCode", "e").toString();
     _transCode      = _settings.value("General/transCode", "kjv").toString();
 
-    _bookCode       = _settings.value("General/bookCode", "ge").toString();
-    if (_bookCode.isEmpty()) _bookCode = "ge";
-    _chapterNo      = _settings.value("General/chapterNo", 1).toInt();
+    QString bookCode= _settings.value("General/bookCode", "ge").toString();
+    if (bookCode.isEmpty()) bookCode = "ge";
+    int chapterNo   = _settings.value("General/chapterNo", 1).toInt();
+
+    _place          = Place(bookCode, chapterNo);
+
     _floatingHeader = _settings.value("General/floatingHeader", true).toBool();
     _fontSize       = _settings.value("General/fontSize", 30).toInt();
     _fontName       = _settings.value("General/fontName", "Nokia").toString();
@@ -42,8 +45,8 @@ Settings::~Settings()
 {
     _settings.setValue("General/langCode", _langCode);
     _settings.setValue("General/transCode", _transCode);
-    _settings.setValue("General/bookCode", _bookCode);
-    _settings.setValue("General/chapterNo", _chapterNo);
+    _settings.setValue("General/bookCode", _place.bookCode());
+    _settings.setValue("General/chapterNo", _place.chapterNo());
     _settings.setValue("General/floatingHeader", _floatingHeader);
     _settings.setValue("General/fontSize", _fontSize);
     _settings.setValue("General/fontName", _fontName);
@@ -105,31 +108,17 @@ void Settings::setTranslation(Translation* translation)
 }
 
 
-QString Settings::bookCode() const
+Place Settings::place() const
 {
-    return _bookCode;
+    return _place;
 }
 
-void Settings::setBookCode(const QString& bookCode)
+void Settings::setPlace(const Place& place)
 {
-    if (_bookCode == bookCode) return;
+    if (_place == place) return;
 
-    _bookCode = bookCode;
-    bookCodeChanged();
-}
-
-
-int Settings::chapterNo() const
-{
-    return _chapterNo;
-}
-
-void Settings::setChapterNo(int chapterNo)
-{
-    if (_chapterNo == chapterNo) return;
-
-    _chapterNo = chapterNo;
-    chapterNoChanged();
+    _place = place;
+    placeChanged();
 }
 
 

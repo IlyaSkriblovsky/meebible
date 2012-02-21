@@ -46,7 +46,8 @@ HEADERS +=                      \
     src/Feedback.h              \
     src/NetworkUtils.h          \
     src/StartupTracker.h        \
-    src/Bookmarks.h
+    src/Bookmarks.h             \
+    src/PlaceAccesser.h
 
 SOURCES +=                      \
     src/main.cpp                \
@@ -67,7 +68,8 @@ SOURCES +=                      \
     src/Feedback.cpp            \
     src/NetworkUtils.cpp        \
     src/StartupTracker.cpp      \
-    src/Bookmarks.cpp
+    src/Bookmarks.cpp           \
+    src/PlaceAccesser.cpp
 
 
 !nosearch:HEADERS +=            \

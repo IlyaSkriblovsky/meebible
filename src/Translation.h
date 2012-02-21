@@ -7,6 +7,8 @@
 #include <QStringList>
 #include <QVariantList>
 
+#include "Place.h"
+
 
 class QNetworkAccessManager;
 
@@ -72,7 +74,7 @@ class Translation: public QAbstractListModel
 
         virtual QList<int> verseCounts(const QString& bookCode) const;
 
-        virtual ChapterRequest* requestChapter(QNetworkAccessManager* nam, const QString& bookCode, int chapterNo);
+        virtual ChapterRequest* requestChapter(QNetworkAccessManager* nam, const Place& place);
 
 
         virtual int rowCount(const QModelIndex& index = QModelIndex()) const;

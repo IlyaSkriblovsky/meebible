@@ -3,6 +3,8 @@
 
 #include <QNetworkReply>
 
+#include "Place.h"
+
 
 class Translation;
 
@@ -14,14 +16,12 @@ class ChapterRequest: public QObject
 public:
     ChapterRequest(
         Translation *translation,
-        const QString& bookCode,
-        int chapterNo,
+        const Place& place,
         QNetworkReply *nreply
     );
 
     Translation* translation() const;
-    QString bookCode() const;
-    int chapterNo() const;
+    Place place() const;
 
     QNetworkReply::NetworkError error() const;
 
@@ -40,8 +40,7 @@ protected slots:
 
 private:
     Translation* _translation;
-    QString _bookCode;
-    int _chapterNo;
+    Place _place;
 };
 
 #endif // CHAPTERREQUEST_H

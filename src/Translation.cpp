@@ -206,17 +206,17 @@ void Translation::addBookInfo(const Translation::BookInfo& bookInfo)
 
 
 
-ChapterRequest* Translation::requestChapter(QNetworkAccessManager* nam, const QString& bookCode, int chapterNo)
+ChapterRequest* Translation::requestChapter(QNetworkAccessManager* nam, const Place& place)
 {
     QString url = QString("%1?trans=%2&lang=%3&book=%4&chapter=%5")
                 .arg(Paths::wsUrl("chapter").toString())
                 .arg(_code)
                 .arg(_language->code())
-                .arg(bookCode)
-                .arg(chapterNo);
+                .arg(place.bookCode())
+                .arg(place.chapterNo());
 
     return new ChapterRequest(
-        this, bookCode, chapterNo,
+        this, place,
         nam->get(QNetworkRequest(QUrl(
             url
         )))

@@ -16,6 +16,20 @@ Place::Place(const QString& bookCode, int chapterNo, const QSet<int>& verses)
 }
 
 
+void Place::setBookCode(const QString& bookCode)
+{
+    _bookCode = bookCode;
+}
+void Place::setChapterNo(int chapterNo)
+{
+    _chapterNo = chapterNo;
+}
+void Place::setVerses(const QSet<int>& verses)
+{
+    _verses = verses;
+}
+
+
 
 QString Place::verseString() const
 {
@@ -59,6 +73,9 @@ QString Place::verseString() const
 
 QString Place::toString(const Translation* translation) const
 {
+    if (! isValid(translation))
+        return QString();
+
     if (_verses.size() == 0)
         return QString("%1 %2")
                 .arg(translation->bookName(_bookCode))
@@ -124,6 +141,7 @@ Place Place::nextChapter(const Translation* translation) const
 
 bool Place::isValid(const Translation* translation) const
 {
+    if (! translation) return false;
     if (! translation->hasBook(_bookCode)) return false;
 
     if (_chapterNo < 1 || _chapterNo > translation->chaptersInBook(_bookCode)) return false;
@@ -137,4 +155,18 @@ bool Place::isValid(const Translation* translation) const
     }
 
     return true;
+}
+
+
+
+bool Place::operator == (const Place& other)
+{
+    return  _bookCode == other._bookCode &&
+            _chapterNo == other._chapterNo &&
+            _verses == other._verses;
+}
+
+bool Place::sameChapter(const Place& other)
+{
+    return _bookCode == other._bookCode && _chapterNo == other._chapterNo;
 }

@@ -44,8 +44,10 @@ void SearchThread::run()
     while (select.next())
     {
         matchFound(
-            select.value(0).toString(),
-            select.value(1).toInt(),
+            Place(
+                select.value(0).toString(),
+                select.value(1).toInt()
+            ),
             select.value(2).toString(),
             select.value(3).toInt()
         );

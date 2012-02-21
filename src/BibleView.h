@@ -19,8 +19,7 @@ class BibleView: public QGraphicsWebView
 
     Q_PROPERTY(Translation* translation READ translation WRITE setTranslation NOTIFY translationChanged)
 
-    Q_PROPERTY(QString bookCode READ bookCode WRITE setBookCode NOTIFY bookCodeChanged)
-    Q_PROPERTY(int chapterNo READ chapterNo WRITE setChapterNo NOTIFY chapterNoChanged)
+    Q_PROPERTY(Place place READ place WRITE setPlace NOTIFY placeChanged)
 
     Q_PROPERTY(bool searchMode READ searchMode NOTIFY searchModeChanged)
     Q_PROPERTY(QString searchNeedle READ searchNeedle NOTIFY searchNeedleChanged)
@@ -46,14 +45,8 @@ public:
     Q_INVOKABLE void setTranslation(Translation *translation);
     Translation* translation() const;
 
-    QString bookCode() const { return _bookCode; }
-    int chapterNo() const { return _chapterNo; }
-    bool validLocation() const;
-
-    void setBookCode(const QString& bookCode) { _bookCode = bookCode; bookCodeChanged(); titleChanged(); }
-    void setChapterNo(int chapterNo) { _chapterNo = chapterNo; chapterNoChanged(); titleChanged(); }
-
-    // Place selectedPlace();
+    Place place() const;
+    void setPlace(const Place& place);
 
     int preferredWidth();
     void setPreferredWidth(int width);
@@ -84,13 +77,12 @@ public:
     bool loadingChapter() const { return _loadingChapter; }
 
 
-    QList<int> selectedVerses() const { return _selectedVerses; }
+    QList<int> selectedVerses() const;
 
 
 public slots:
-    void loadChapter();
-    void setAndLoad(const QString& bookCode, int chapterNo, int verseNo);
-    void loadPlace(const Place& place);
+    // void setAndLoad(const QString& bookCode, int chapterNo, int verseNo);
+    // void loadPlace(const Place& place);
 
     void loadNextChapter();
     void loadPrevChapter();
@@ -107,7 +99,7 @@ public slots:
 
 
     // Called from JS
-    void verseSelectionChanged(QList<int> list);
+    void verseSelectionChanged(QList<int> verses);
 
 
 signals:
@@ -117,8 +109,7 @@ signals:
 
     void translationChanged();
 
-    void bookCodeChanged();
-    void chapterNoChanged();
+    void placeChanged();
 
     void needToScroll(int y);
     void ensureVisible(int y);
@@ -140,10 +131,7 @@ signals:
 private:
     Translation* _translation;
 
-    QString _bookCode;
-    int _chapterNo;
-
-    QSet<int> _versesToSelectAfterLoad;
+    Place _place;
 
     QString _js;
     QString _html;
@@ -169,9 +157,6 @@ private:
     bool _loadingChapter;
 
 
-    QList<int> _selectedVerses;
-
-
     void setLoadingChapter(bool loading);
 
 
@@ -187,6 +172,8 @@ private:
 
 
 private slots:
+    void loadChapter();
+
     void onChapterRequestFinished(QString html);
 
     void displayHtml(QString html);

@@ -6,6 +6,8 @@
 #include <QSqlDatabase>
 #include <QSqlQuery>
 
+#include "Place.h"
+
 class Translation;
 
 
@@ -23,11 +25,11 @@ public:
     Cache();
     virtual ~Cache();
 
-    void saveChapter(const Translation* translation, const QString& bookCode, int chapterNo, QString html);
+    void saveChapter(const Translation* translation, const Place& place, QString html);
 
-    QString loadChapter(const Translation* translation, const QString& bookCode, int chapterNo);
+    QString loadChapter(const Translation* translation, const Place& place);
 
-    bool hasChapter(const Translation* translation, const QString& bookCode, int chapterNo);
+    bool hasChapter(const Translation* translation, const Place& place);
 
     int totalChaptersInCache(const Translation* translation);
 
@@ -53,7 +55,7 @@ public slots:
 signals:
     #ifndef NOSEARCH
         void searchStarted();
-        void matchFound(QString bookCode, int chapterNo, QString match, int matchCount);
+        void matchFound(Place place, QString match, int matchCount);
         void searchFinished();
         void searchInProgressChanged();
     #endif
@@ -82,7 +84,7 @@ private:
 
 private slots:
     #ifndef NOSEARCH
-        void onThreadMatchFound(const QString& bookCode, int chapterNo, QString match, int matchCount);
+        void onThreadMatchFound(Place place, QString match, int matchCount);
         void onThreadFinished();
     #endif
 };

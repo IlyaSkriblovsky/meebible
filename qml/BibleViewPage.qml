@@ -17,14 +17,8 @@ Page {
 
     Binding {
         target: settings
-        property: "bookCode"
-        value: bibleView.bookCode
-        when: created
-    }
-    Binding {
-        target: settings
-        property: "chapterNo"
-        value: bibleView.chapterNo
+        property: "place"
+        value: bibleView.place
         when: created
     }
     Binding {
@@ -52,8 +46,7 @@ Page {
         when: created
     }
     Component.onCompleted: {
-        bibleView.bookCode = settings.bookCode
-        bibleView.chapterNo = settings.chapterNo
+        bibleView.place = settings.place
         fontSizeSlider.value = settings.fontSize
         lineSpacingSlider.value = settings.lineSpacing
         theme.inverted = settings.inverted
@@ -382,11 +375,19 @@ Page {
 
         function load() { source = "PlaceDialog.qml" }
 
-        function open() { load(); item.open(bibleView.bookCode, bibleView.chapterNo) }
+        function open() {
+            load()
+            item.open(
+                placeAccesser.bookCode(bibleView),
+                placeAccesser.chapterNo(bibleView)
+            )
+        }
 
         Connections {
             target: placeDialog.item
-            onAccepted: bibleView.setAndLoad(placeDialog.item.bookCode(), placeDialog.item.chapterNo(), placeDialog.item.verseNo())
+            // onAccepted: bibleView.setAndLoad(placeDialog.item.bookCode(), placeDialog.item.chapterNo(), placeDialog.item.verseNo())
+
+            onAccepted: bibleView.place = placeAccesser.placeOneVerse(placeDialog.item.bookCode(), placeDialog.item.chapterNo(), placeDialog.item.verseNo())
         }
     }
 
@@ -421,7 +422,8 @@ Page {
             target: searchDialog.item
             onPlaceSelected: {
                 searchDialog.item.close()
-                bibleView.setAndLoad(bookCode, chapterNo, 1)
+                // bibleView.setAndLoad(bookCode, chapterNo, 1)
+                bibleView.place = placeAccesser.placeOneVerse(bookCode, chapterNo, 1)
                 bibleView.startSearchMode(searchDialog.item.query)
             }
         }
@@ -720,7 +722,7 @@ Page {
 
         Connections {
             target: bookmarksSheet.item
-            onBookmarkSelected: bibleView.loadPlace(place)
+            onBookmarkSelected: bibleView.place = place
         }
     }
 

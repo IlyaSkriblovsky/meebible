@@ -20,7 +20,7 @@
 #include "Feedback.h"
 #include "Bookmarks.h"
 #include "Place.h"
-
+#include "PlaceAccesser.h"
 #include "StartupTracker.h"
 
 
@@ -47,6 +47,8 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     Bookmarks bookmarks;
 
+    PlaceAccesser placeAccesser;
+
     QDeclarativeEngine engine;
 
 
@@ -68,6 +70,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     view->rootContext()->setContextProperty("settings", &settings);
     view->rootContext()->setContextProperty("feedback", &feedback);
     view->rootContext()->setContextProperty("bookmarks", &bookmarks);
+    view->rootContext()->setContextProperty("placeAccesser", &placeAccesser);
 
     #ifdef FREEVERSION
         view->rootContext()->setContextProperty("freeversion", true);

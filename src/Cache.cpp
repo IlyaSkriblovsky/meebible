@@ -96,13 +96,13 @@ Cache::~Cache()
 }
 
 
-void Cache::saveChapter(const Translation* translation, const QString& bookCode, int chapterNo, QString html)
+void Cache::saveChapter(const Translation* translation, const Place& place, QString html)
 {
     _stmt_saveChapter.bindValue(":transCode", translation->code());
     _stmt_saveChapter.bindValue(":langCode", translation->language()->code());
-    _stmt_saveChapter.bindValue(":bookCode", bookCode);
-    _stmt_saveChapter.bindValue(":bookNo", translation->bookCodes().indexOf(bookCode));
-    _stmt_saveChapter.bindValue(":chapterNo", chapterNo);
+    _stmt_saveChapter.bindValue(":bookCode", place.bookCode());
+    _stmt_saveChapter.bindValue(":bookNo", translation->bookCodes().indexOf(place.bookCode()));
+    _stmt_saveChapter.bindValue(":chapterNo", place.chapterNo());
     _stmt_saveChapter.bindValue(":html", html);
 
     QString text = html;
@@ -116,12 +116,12 @@ void Cache::saveChapter(const Translation* translation, const QString& bookCode,
 }
 
 
-QString Cache::loadChapter(const Translation *translation, const QString& bookCode, int chapterNo)
+QString Cache::loadChapter(const Translation *translation, const Place& place)
 {
     _stmt_loadChapter.bindValue(":transCode", translation->code());
     _stmt_loadChapter.bindValue(":langCode", translation->language()->code());
-    _stmt_loadChapter.bindValue(":bookCode", bookCode);
-    _stmt_loadChapter.bindValue(":chapterNo", chapterNo);
+    _stmt_loadChapter.bindValue(":bookCode", place.bookCode());
+    _stmt_loadChapter.bindValue(":chapterNo", place.chapterNo());
     if (! _stmt_loadChapter.exec())
         qDebug() << "Selection from cache failed";
 
@@ -132,12 +132,12 @@ QString Cache::loadChapter(const Translation *translation, const QString& bookCo
 }
 
 
-bool Cache::hasChapter(const Translation* translation, const QString& bookCode, int chapterNo)
+bool Cache::hasChapter(const Translation* translation, const Place& place)
 {
     _stmt_hasChapter.bindValue(":transCode", translation->code());
     _stmt_hasChapter.bindValue(":langCode", translation->language()->code());
-    _stmt_hasChapter.bindValue(":bookCode", bookCode);
-    _stmt_hasChapter.bindValue(":chapterNo", chapterNo);
+    _stmt_hasChapter.bindValue(":bookCode", place.bookCode());
+    _stmt_hasChapter.bindValue(":chapterNo", place.chapterNo());
     if (! _stmt_hasChapter.exec())
         qDebug() << "Selection from cache failed";
 
@@ -170,16 +170,16 @@ void Cache::search(Translation* translation, const QString& text)
     searchStarted();
 
     SearchThread* thread = new SearchThread(translation, text);
-    connect(thread, SIGNAL(matchFound(QString, int, QString, int)), this, SLOT(onThreadMatchFound(QString, int, QString, int)));
+    connect(thread, SIGNAL(matchFound(Place, QString, int)), this, SLOT(onThreadMatchFound(Place, QString, int)));
     connect(thread, SIGNAL(finished()), this, SLOT(onThreadFinished()));
     connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
 
     thread->start();
 }
 
-void Cache::onThreadMatchFound(const QString& bookCode, int chapterNo, QString match, int matchCount)
+void Cache::onThreadMatchFound(Place place, QString match, int matchCount)
 {
-    matchFound(bookCode, chapterNo, match, matchCount);
+    matchFound(place, match, matchCount);
 }
 
 void Cache::onThreadFinished()

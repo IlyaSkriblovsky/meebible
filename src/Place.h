@@ -19,6 +19,12 @@ public:
     int chapterNo() const { return _chapterNo; }
     QSet<int> verses() const { return _verses; }
 
+
+    void setBookCode(const QString& code);
+    void setChapterNo(int chapterNo);
+    void setVerses(const QSet<int>& verses);
+
+
     QString toString(const Translation* translation) const;
 
     QString toStringCode() const;
@@ -27,6 +33,12 @@ public:
 
     Place prevChapter(const Translation* translation) const;
     Place nextChapter(const Translation* translation) const;
+
+
+    bool sameChapter(const Place& other);
+
+
+    bool operator == (const Place& other);
 
 
 private:
