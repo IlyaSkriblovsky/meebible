@@ -142,7 +142,10 @@ void BibleView::setPlace(const Place& place)
     selectedVersesChanged();
 
     if (! old.sameChapter(place))
+    {
         loadChapter();
+        titleChanged();
+    }
     else
         showSelectedVerses(_place.verses());
 }
@@ -410,10 +413,7 @@ void BibleView::onLinkClicked(const QUrl& url)
 
 QString BibleView::title() const
 {
-    if (_translation == 0)
-        return QString();
-
-    return _place.toString(_translation);
+    return _place.toStringChapterOnly(_translation);
 }
 
 

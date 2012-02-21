@@ -25,6 +25,8 @@ public:
     void setVerses(const QSet<int>& verses);
 
 
+    QString toStringChapterOnly(const Translation* translation) const;
+
     QString toString(const Translation* translation) const;
 
     QString toStringCode() const;

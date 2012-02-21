@@ -1,6 +1,7 @@
 #include "PlaceAccesser.h"
 
 #include "Settings.h"
+#include "Translation.h"
 
 
 QString PlaceAccesser::bookCode(const Place& place)
@@ -19,9 +20,9 @@ QList<int> PlaceAccesser::verses(const Place& place)
 }
 
 
-QString PlaceAccesser::string(const Place& place)
+QString PlaceAccesser::string(const Place& place, Translation* translation)
 {
-    return place.toString(Settings::instance()->translation());
+    return place.toString(translation);
 }
 
 

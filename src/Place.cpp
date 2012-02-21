@@ -87,6 +87,16 @@ QString Place::toString(const Translation* translation) const
             .arg(verseString());
 }
 
+QString Place::toStringChapterOnly(const Translation* translation) const
+{
+    if (! isValid(translation))
+        return QString();
+
+    return QString("%1 %2")
+            .arg(translation->bookName(_bookCode))
+            .arg(_chapterNo);
+}
+
 QString Place::toStringCode() const
 {
     if (_verses.size() == 0)

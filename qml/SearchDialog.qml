@@ -151,7 +151,7 @@ Sheet {
 
             onMatchFound: {
                 results.append({
-                    title: placeAccesser.string(place, settings.translation), // translation.bookName(bookCode) + ' ' + chapterNo,
+                    title: placeAccesser.string(place, settings.translation),
                     subtitle: match,
                     place: place,
                     matchCount: matchCount
