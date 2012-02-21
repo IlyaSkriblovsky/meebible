@@ -5,34 +5,48 @@ APPNAME := meebible
 builddir:
 	mkdir -p builddir
 
+builddir-free:
+	mkdir -p builddir-free
+
 
 builddir/Makefile: builddir
 	cd builddir && qmake PREFIX=/usr ../$(APPNAME).pro
 
+builddir-free/Makefile: builddir-free
+	cd builddir-free && qmake CONFIG+=free PREFIX=/usr ../$(APPNAME).pro
+
 build: build-stamp
+
+build-free: build-stamp-free
 
 build-stamp: builddir/Makefile
 	dh_testdir
 	cd builddir && $(MAKE)
 	touch $@
 
+build-stamp-free: builddir-free/Makefile
+	dh_testdir
+	cd builddir-free && $(MAKE)
+	touch $@
+
 clean:
 	dh_testdir
 	dh_testroot
-	rm -f build-stamp
-	rm -rf builddir
+	rm -f build-stamp build-stamp-free
+	rm -rf builddir builddir-free
 	dh_clean
 
-install: build
+install: build build-free
 	dh_testdir
 	dh_testroot
 	dh_clean -k
 	dh_installdirs
 	cd builddir && $(MAKE) INSTALL_ROOT=$(CURDIR)/debian/$(APPNAME) install
+	cd builddir-free && $(MAKE) INSTALL_ROOT=$(CURDIR)/debian/$(APPNAME)-free install
 
-build-indep: build install
+build-indep: build build-free install
 
-binary-arch: build install
+binary-arch: build build-free install
 	dh_testdir
 	dh_testroot
 	dh_installdocs
