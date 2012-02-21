@@ -11,7 +11,7 @@ Sheet {
 
     property alias query: field.text
 
-    signal placeSelected(string bookCode, int chapterNo)
+    signal placeSelected(variant place)
 
 
     function startSearch() {
@@ -151,10 +151,9 @@ Sheet {
 
             onMatchFound: {
                 results.append({
-                    title: translation.bookName(bookCode) + ' ' + chapterNo,
+                    title: placeAccesser.string(place, settings.translation), // translation.bookName(bookCode) + ' ' + chapterNo,
                     subtitle: match,
-                    bookCode: bookCode,
-                    chapterNo: chapterNo,
+                    place: place,
                     matchCount: matchCount
                 })
             }
@@ -179,7 +178,7 @@ Sheet {
             }
 
             delegate: ListDelegate {
-                onClicked: dialog.placeSelected(bookCode, chapterNo)
+                onClicked: dialog.placeSelected(place)
 
                 clip: true
 

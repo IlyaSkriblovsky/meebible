@@ -423,7 +423,7 @@ Page {
             onPlaceSelected: {
                 searchDialog.item.close()
                 // bibleView.setAndLoad(bookCode, chapterNo, 1)
-                bibleView.place = placeAccesser.placeOneVerse(bookCode, chapterNo, 1)
+                bibleView.place = place
                 bibleView.startSearchMode(searchDialog.item.query)
             }
         }
