@@ -24,7 +24,7 @@ Page {
     Binding {
         target: settings
         property: "fontSize"
-        value: fontSizeSlider.value
+        value: fontSizeSlider.fontSize()
         when: created
     }
     Binding {
@@ -47,7 +47,7 @@ Page {
     }
     Component.onCompleted: {
         bibleView.place = settings.place
-        fontSizeSlider.value = settings.fontSize
+        fontSizeSlider.setFontSize(settings.fontSize)
         lineSpacingSlider.value = settings.lineSpacing
         theme.inverted = settings.inverted
         created = true
@@ -514,14 +514,14 @@ Page {
             anchors.leftMargin: 10
             width: 50
 
-            onClicked: fontSizeSlider.value -= 2
+            onClicked: fontSizeSlider.value -= 1
         }
 
 
         Slider {
             id: fontSizeSlider
-            minimumValue: 16
-            maximumValue: 60
+            minimumValue: 8  // 16
+            maximumValue: 24 // 60
             stepSize: 1.0
 
             valueIndicatorVisible: true
@@ -529,9 +529,18 @@ Page {
             anchors.left: fontSizeSmaller.right
             anchors.right: fontSizeBigger.left
 
+            function fontSize() {
+                return value * value / 4
+            }
+            function setFontSize(size) {
+                value = parseInt(Math.sqrt(size * 4))
+            }
+
             onValueChanged: {
-                var factor = parseFloat(value) / bibleView.fontSize
-                bibleView.fontSize = value
+                var realSize = fontSize()
+
+                var factor = parseFloat(realSize) / bibleView.fontSize
+                bibleView.fontSize = realSize
                 flickable.contentY *= factor * factor
             }
         }
@@ -546,7 +555,7 @@ Page {
             anchors.verticalCenter: parent.verticalCenter
             width: 50
 
-            onClicked: fontSizeSlider.value += 2
+            onClicked: fontSizeSlider.value += 1
         }
 
         ToolButton {

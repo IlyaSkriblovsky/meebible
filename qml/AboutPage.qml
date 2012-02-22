@@ -53,7 +53,7 @@ Page {
             }
 
             Label {
-                text: '<a href="http://meebible.org">MeeBible.org</a>'
+                text: '<html><style>a{color:' + (theme.inverted ? '#8080ff' : '#0000ff') + '}</style><a href="http://meebible.org">MeeBible.org</a></html>'
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 font.pixelSize: 34
@@ -104,7 +104,8 @@ Page {
             }
 
             Label {
-                text: qsTr('© 2011 Ilya Skriblovsky<br>E-Mail: <a href="mailto:ilya@meebible.org?subject=MeeBible">ilya@meebible.org</a>')
+                text: '<html><style>a{color:' + (theme.inverted ? '#8080ff' : '#0000ff') + '}</style>' +
+                    qsTr('© 2011 Ilya Skriblovsky') + '<br>E-Mail: <a href="mailto:ilya@meebible.org?subject=MeeBible">ilya@meebible.org</a></html>'
                 width: parent.width
 
                 onLinkActivated: Qt.openUrlExternally(link)

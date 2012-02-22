@@ -125,6 +125,8 @@ bool Bookmarks::addBookmark(const Place& place, const QString& text)
 
     _bookmarks.append(b);
     endInsertRows();
+
+    return true;
 }
 
 

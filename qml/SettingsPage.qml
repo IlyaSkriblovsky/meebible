@@ -82,7 +82,10 @@ Page {
                         anchors.left: parent.left
                         anchors.right: parent.right
 
-                        text: settings.translation ? 'Available at <a href="' + settings.translation.sourceUrl + '">' + settings.translation.sourceUrl + '</a>' : ''
+                        text: settings.translation ?
+                            '<html><style>a{color:' + (theme.inverted ? '#8080ff' : '#0000ff') + '}</style>' +
+                            'Available at <a href="' + settings.translation.sourceUrl + '">' + settings.translation.sourceUrl + '</a>' +
+                            '</html>' : ''
                         font.pixelSize: 20
 
                         onLinkActivated: Qt.openUrlExternally(settings.translation.sourceUrl)
@@ -196,9 +199,7 @@ Page {
 
         header: Label {
             text: qsTr("Not all fonts can display all languages")
-
             color: "#666"
-            font.family: "Nokia Pure Text Light"
 
             wrapMode: Text.Wrap
 
@@ -209,8 +210,7 @@ Page {
         model: ListModel {
             id: fontModel
 
-            ListElement { value: "Nokia Pure Text" }
-            ListElement { value: "Nokia Pure Text Light" }
+            ListElement { value: "Nokia Pure" }
             ListElement { value: "Nokia Standard" }
             ListElement { value: "DejaVu Sans" }
             ListElement { value: "Times" }

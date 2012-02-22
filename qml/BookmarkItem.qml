@@ -36,7 +36,7 @@ Item {
             text: item.title
             font.bold: true
             font.pixelSize: 26
-            color: mouseArea.pressed ? "#797979" : "#282828"
+            color: mouseArea.pressed ? "#797979" : (theme.inverted ? "#ffffff" : "#282828")
         }
 
         Label {
@@ -44,7 +44,7 @@ Item {
             text: item.subtitle
             font.family: "Nokia Pure Text Light"
             font.pixelSize: 22
-            color: mouseArea.pressed ? "#797979" : "#505050"
+            color: mouseArea.pressed ? "#797979" : (theme.inverted ? "#c8c8c8" : "#505050")
 
             visible: text != ""
 

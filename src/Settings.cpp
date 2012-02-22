@@ -27,9 +27,9 @@ Settings::Settings(Languages* langs, QObject* parent):
     _place          = Place(bookCode, chapterNo);
 
     _floatingHeader = _settings.value("General/floatingHeader", true).toBool();
-    _fontSize       = _settings.value("General/fontSize", 30).toInt();
+    _fontSize       = _settings.value("General/fontSize", 30).toDouble();
     _fontName       = _settings.value("General/fontName", "Nokia Pure Text Light").toString();
-    _lineSpacing    = _settings.value("General/lineSpacing", 1.3).toFloat();
+    _lineSpacing    = _settings.value("General/lineSpacing", 1.3).toDouble();
     _scrollPos      = _settings.value("General/scrollPos", 0).toInt();
     _fullscreen     = _settings.value("General/fullscreen", false).toBool();
     _inverted       = _settings.value("General/inverted", false).toBool();
@@ -139,12 +139,12 @@ void Settings::setFloatingHeader(bool show)
 
 
 
-int Settings::fontSize() const
+double Settings::fontSize() const
 {
     return _fontSize;
 }
 
-void Settings::setFontSize(int size)
+void Settings::setFontSize(double size)
 {
     if (_fontSize != size)
     {
@@ -169,12 +169,12 @@ void Settings::setFontName(const QString& name)
 }
 
 
-float Settings::lineSpacing() const
+double Settings::lineSpacing() const
 {
     return _lineSpacing;
 }
 
-void Settings::setLineSpacing(float spacing)
+void Settings::setLineSpacing(double spacing)
 {
     if (_lineSpacing != spacing)
     {
