@@ -18,7 +18,6 @@ class Bookmarks: public QAbstractListModel
         enum Roles {
             PlaceRole = Qt::UserRole + 1,
             PlaceTextRole,
-            TitleRole,
             TextRole
         };
 
@@ -31,7 +30,6 @@ class Bookmarks: public QAbstractListModel
 
         void addBookmark(
             const Place& place,
-            const QString& title,
             const QString& text
         );
 
@@ -43,7 +41,6 @@ class Bookmarks: public QAbstractListModel
         {
             Place place;
 
-            QString title;
             QString text;
         };
 

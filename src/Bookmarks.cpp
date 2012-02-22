@@ -19,21 +19,6 @@ Bookmarks::Bookmarks()
 
     _instance = this;
 
-    Bookmark b;
-    b.title = "Title";
-
-    QSet<int> verses;
-    verses << 18 << 19;
-    b.place = Place("pr", 5, verses);
-    b.text = "text text";
-    _bookmarks << b;
-
-    b.title = "Title 2";
-    verses.clear();
-    verses << 2 << 3 << 5;
-    b.place = Place("re", 21, verses);
-    _bookmarks << b;
-
 
     QHash<int, QByteArray> roleNames;
     roleNames[Qt::DisplayRole] = "title";
@@ -61,30 +46,8 @@ QVariant Bookmarks::data(const QModelIndex& index, int role) const
     switch (role)
     {
         case Qt::DisplayRole:
-        {
-            QString placeText;
-            if (Settings::instance()->translation())
-                placeText = bookmark.place.toString(Settings::instance()->translation());
-
-            if (bookmark.title.isEmpty())
-                return placeText;
-            else
-                return QString("%1 | %2")
-                    .arg(bookmark.title)
-                    .arg(placeText);
-        }
-
         case PlaceTextRole:
-        {
-            QString placeText;
-            if (Settings::instance()->translation())
-                placeText = bookmark.place.toString(Settings::instance()->translation());
-
-            return placeText;
-        }
-
-        case TitleRole:
-            return bookmark.title;
+            return bookmark.place.toString(Settings::instance()->translation());
 
         case TextRole:
             return bookmark.text;
@@ -99,13 +62,12 @@ QVariant Bookmarks::data(const QModelIndex& index, int role) const
 
 
 
-void Bookmarks::addBookmark(const Place& place, const QString& title, const QString& text)
+void Bookmarks::addBookmark(const Place& place, const QString& text)
 {
     beginInsertRows(QModelIndex(), _bookmarks.size(), _bookmarks.size());
 
     Bookmark b;
     b.place = place;
-    b.title = title;
     b.text = text;
 
     _bookmarks.append(b);

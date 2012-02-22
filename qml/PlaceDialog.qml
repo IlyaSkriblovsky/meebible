@@ -14,36 +14,35 @@ CommonDialog {
 
 
 
-    function open(bookCode, chapterNo) {
+    function open(place) {
         contentItem.state = "bookSelection"
         if (status == DialogStatus.Closed)
             status = DialogStatus.Opening
 
-        bookList.currentIndex = bookModel.bookCodes().indexOf(bookCode)
+        bookList.currentIndex = bookModel.bookCodes().indexOf(placeAccesser.bookCode(place))
         bookList.positionViewAtIndex(bookList.currentIndex, ListView.Center)
 
-        chaptersList.currentIndex = chapterNo-1
+        chaptersList.currentIndex = placeAccesser.chapterNo(place) - 1
         chaptersList.positionViewAtIndex(chaptersList.currentIndex, ListView.Contain)
     }
 
 
-    function bookCode() {
-        if (bookList.currentIndex == -1)
-            return "xxx"
+    function place() {
+        var bookCode = "xxx"
+        if (bookList.currentIndex != -1)
+            bookCode = bookModel.bookCodeAt(bookList.currentIndex)
 
-        return bookModel.bookCodeAt(bookList.currentIndex)
-    }
-
-    function bookName() {
-        return bookModel.bookName(bookCode())
-    }
-
-    function chapterNo() {
-        return chaptersList.currentIndex + 1
-    }
-
-    function verseNo() {
-        return versesList.currentIndex + 1
+        if (versesList.currentIndex == 0)
+            return placeAccesser.placeNoVerses(
+                bookCode,
+                chaptersList.currentIndex + 1
+            )
+        else
+            return placeAccesser.placeOneVerse(
+                bookCode,
+                chaptersList.currentIndex + 1,
+                versesList.currentIndex + 1
+            )
     }
 
     content: Item {

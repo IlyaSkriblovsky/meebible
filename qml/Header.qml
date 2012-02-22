@@ -38,6 +38,8 @@ Rectangle {
         text: label.text
         font.pixelSize: 32
         color: '#000'
+
+        font.family: "Nokia Pure Text Light"
     }
 
     Label {
@@ -47,6 +49,8 @@ Rectangle {
         anchors.rightMargin: 10
         font.pixelSize: 32
         color: '#eee'
+
+        font.family: "Nokia Pure Text Light"
 
         state: header.rtl ? "rtl" : "ltr"
 

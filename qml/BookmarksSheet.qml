@@ -11,6 +11,20 @@ Sheet {
     id: dialog
 
     buttons: [
+        Label {
+            id: header
+
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.left: parent.left
+            anchors.leftMargin: 10
+
+            text: qsTr("Bookmarks")
+
+            font.pixelSize: 32
+            font.family: "Nokia Pure Text Light"
+            font.bold: false
+        },
+
         SheetButton {
             text: qsTr("Close")
 
@@ -41,6 +55,11 @@ Sheet {
             model: bookmarks
 
             delegate: ListDelegate {
+                x: 10
+                width: parent.width - 20
+
+                clip: true
+
                 onClicked: {
                     dialog.bookmarkSelected(model.place)
                     dialog.accept()

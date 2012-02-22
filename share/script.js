@@ -69,8 +69,6 @@ function clearSelection(dontNotify)
 
 function selectVerses(list)
 {
-    console.log("selectVerses!")
-
     clearSelection(true)
 
     for (var i in list)

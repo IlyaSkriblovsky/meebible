@@ -26,7 +26,7 @@ QString PlaceAccesser::string(const Place& place, Translation* translation)
 }
 
 
-Place PlaceAccesser::place(const QString& bookCode, int chapterNo)
+Place PlaceAccesser::placeNoVerses(const QString& bookCode, int chapterNo)
 {
     return Place(bookCode, chapterNo);
 }

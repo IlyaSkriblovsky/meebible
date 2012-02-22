@@ -40,6 +40,7 @@ Item {
         anchors.top: title.bottom
 
         color: theme.inverted ? "#888" : "#444"
+        font.family: "Nokia Pure Text Light"
     }
 
     Image {

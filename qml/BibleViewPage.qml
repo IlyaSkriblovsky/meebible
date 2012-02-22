@@ -96,6 +96,7 @@ Page {
             id: column
 
             Header {
+                id: floatingHeader
                 text: bibleView.title || "MeeBible"
                 withIcon: true
                 height: settings.floatingHeader ? 70 : 0
@@ -179,12 +180,18 @@ Page {
         id: copyBanner
         text: qsTr("Copied")
     }
+    InfoBanner {
+        id: bookmarkBanner
+        text: qsTr("Bookmarked")
+    }
 
     Row {
         id: verseActions
 
         anchors.top: header.bottom
         anchors.horizontalCenter: parent.horizontalCenter
+
+        anchors.topMargin: Math.max(floatingHeader.height - flickable.contentY, 0)
 
         opacity: 0.0
 
@@ -209,7 +216,7 @@ Page {
 
 
         EditBubbleButton {
-            text: "Copy"
+            text: qsTr("Copy")
             platformStyle: EditBubbleButtonStyle {
                 position: "horizontal-left"
             }
@@ -221,17 +228,7 @@ Page {
             }
         }
         EditBubbleButton {
-            text: "Bookmark"
-            platformStyle: EditBubbleButtonStyle {
-                position: "horizontal-center"
-            }
-
-            onClicked: {
-                bibleView.bookmarkSelectedVerses()
-            }
-        }
-        EditBubbleButton {
-            text: "Share"
+            text: qsTr("Share")
             platformStyle: EditBubbleButtonStyle {
                 position: "horizontal-center"
             }
@@ -239,6 +236,25 @@ Page {
             onClicked: {
                 bibleView.shareSelectedVerses()
                 bibleView.clearSelection()
+            }
+        }
+        EditBubbleButton {
+            platformStyle: EditBubbleButtonStyle {
+                position: "horizontal-center"
+            }
+
+            text: qsTr("Bookmark")
+
+            // Image {
+            //     anchors.verticalCenter: parent.verticalCenter
+            //     anchors.horizontalCenter: parent.horizontalCenter
+            //     source: 'image://theme/icon-m-common-favorite-mark'
+            // }
+
+            onClicked: {
+                bibleView.bookmarkSelectedVerses()
+                bibleView.clearSelection()
+                bookmarkBanner.show()
             }
         }
         EditBubbleButton {
@@ -375,19 +391,11 @@ Page {
 
         function load() { source = "PlaceDialog.qml" }
 
-        function open() {
-            load()
-            item.open(
-                placeAccesser.bookCode(bibleView),
-                placeAccesser.chapterNo(bibleView)
-            )
-        }
+        function open() { load(); item.open(bibleView.place) }
 
         Connections {
             target: placeDialog.item
-            // onAccepted: bibleView.setAndLoad(placeDialog.item.bookCode(), placeDialog.item.chapterNo(), placeDialog.item.verseNo())
-
-            onAccepted: bibleView.place = placeAccesser.placeOneVerse(placeDialog.item.bookCode(), placeDialog.item.chapterNo(), placeDialog.item.verseNo())
+            onAccepted: bibleView.place = placeDialog.item.place()
         }
     }
 
@@ -483,9 +491,9 @@ Page {
 
 
         ToolIcon {
-            platformIconId: "toolbar-search"
-            onClicked: searchDialog.open()
-            visible: ! NOSEARCH
+            // platformIconId: "toolbar-tag"
+            iconSource: "bookmarks.png"
+            onClicked: bookmarksSheet.open()
         }
 
         ToolIcon {
@@ -735,9 +743,10 @@ Page {
 
         MenuLayout {
             MenuItem {
-                text: qsTr("Bookmarks")
+                text: qsTr("Search")
 
-                onClicked: bookmarksSheet.open()
+                onClicked: searchDialog.open()
+                visible: ! NOSEARCH
             }
 
             MenuItem {

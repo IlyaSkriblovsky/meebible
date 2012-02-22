@@ -259,23 +259,21 @@ void BibleView::displayHtml(QString html)
 
 void BibleView::showSelectedVerses(QSet<int> verses)
 {
-    if (verses.size() == 0 || (verses.size() == 1 && verses.contains(1)))
-        needToScroll(0);
-    else
-    {
-        QList<int> list = verses.toList();
-        qSort(list);
+    QList<int> list = verses.toList();
+    qSort(list);
 
-        QStringList strList;
-        foreach (int v, list)
-            strList << QString::number(v);
+    QStringList strList;
+    foreach (int v, list)
+        strList << QString::number(v);
 
-        page()->mainFrame()->evaluateJavaScript(
-            QString("selectVerses([%1])")
-                .arg(strList.join(","))
-        );
+    page()->mainFrame()->evaluateJavaScript(
+        QString("selectVerses([%1])")
+            .arg(strList.join(","))
+    );
+    if (verses.size() > 0)
         needToScroll(page()->mainFrame()->evaluateJavaScript(QString("verseOffset(%1)").arg(list.at(0))).toInt());
-    }
+    else
+        needToScroll(0);
 }
 
 void BibleView::clearDisplay(const QString& error)
@@ -537,7 +535,6 @@ void BibleView::clearSelection()
 void BibleView::verseSelectionChanged(QList<int> verses)
 {
     qSort(verses);
-    qDebug() << "selectedVerses:" << verses;
 
     _place.setVerses(verses.toSet());
 
@@ -550,6 +547,7 @@ void BibleView::verseSelectionChanged(QList<int> verses)
 void BibleView::bookmarkSelectedVerses()
 {
     QString text = selectedText();
+    text.replace("\n", " ");
 
-    Bookmarks::instance()->addBookmark(_place, "Some title", text);
+    Bookmarks::instance()->addBookmark(_place, text);
 }
