@@ -66,5 +66,6 @@ Sheet {
                 }
             }
         }
+        ScrollDecorator { flickableItem: list }
     }
 }
