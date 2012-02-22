@@ -111,8 +111,12 @@ QVariant Bookmarks::data(const QModelIndex& index, int role) const
 
 
 
-void Bookmarks::addBookmark(const Place& place, const QString& text)
+bool Bookmarks::addBookmark(const Place& place, const QString& text)
 {
+    for (int i = 0; i < _bookmarks.size(); i++)
+        if (_bookmarks.at(i).place == place)
+            return false;
+
     beginInsertRows(QModelIndex(), _bookmarks.size(), _bookmarks.size());
 
     Bookmark b;
@@ -121,4 +125,14 @@ void Bookmarks::addBookmark(const Place& place, const QString& text)
 
     _bookmarks.append(b);
     endInsertRows();
+}
+
+
+void Bookmarks::deleteBookmark(int index)
+{
+    if (index < 0 || index >= _bookmarks.size()) return;
+
+    beginRemoveRows(QModelIndex(), index, index);
+    _bookmarks.removeAt(index);
+    endRemoveRows();
 }

@@ -182,7 +182,6 @@ Page {
     }
     InfoBanner {
         id: bookmarkBanner
-        text: qsTr("Bookmarked")
     }
 
     Row {
@@ -245,16 +244,14 @@ Page {
 
             text: qsTr("Bookmark")
 
-            // Image {
-            //     anchors.verticalCenter: parent.verticalCenter
-            //     anchors.horizontalCenter: parent.horizontalCenter
-            //     source: 'image://theme/icon-m-common-favorite-mark'
-            // }
-
             onClicked: {
-                bibleView.bookmarkSelectedVerses()
-                bibleView.clearSelection()
+                if (bibleView.bookmarkSelectedVerses())
+                    bookmarkBanner.text = qsTr("Bookmarked")
+                else
+                    bookmarkBanner.text = qsTr("Already in bookmarks")
                 bookmarkBanner.show()
+
+                bibleView.clearSelection()
             }
         }
         EditBubbleButton {

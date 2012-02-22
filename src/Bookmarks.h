@@ -29,10 +29,14 @@ class Bookmarks: public QAbstractListModel
         virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
 
 
-        void addBookmark(
+        bool addBookmark(
             const Place& place,
             const QString& text
         );
+
+
+    public slots:
+        void deleteBookmark(int index);
 
 
     private:

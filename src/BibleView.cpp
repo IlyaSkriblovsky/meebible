@@ -544,10 +544,10 @@ void BibleView::verseSelectionChanged(QList<int> verses)
 
 
 
-void BibleView::bookmarkSelectedVerses()
+bool BibleView::bookmarkSelectedVerses()
 {
     QString text = selectedText();
     text.replace("\n", " ");
 
-    Bookmarks::instance()->addBookmark(_place, text);
+    return Bookmarks::instance()->addBookmark(_place, text);
 }

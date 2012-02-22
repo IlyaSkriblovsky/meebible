@@ -40,7 +40,7 @@ public:
     bool sameChapter(const Place& other);
 
 
-    bool operator == (const Place& other);
+    bool operator == (const Place& other) const;
 
 
 private:

@@ -169,7 +169,7 @@ bool Place::isValid(const Translation* translation) const
 
 
 
-bool Place::operator == (const Place& other)
+bool Place::operator == (const Place& other) const
 {
     return  _bookCode == other._bookCode &&
             _chapterNo == other._chapterNo &&

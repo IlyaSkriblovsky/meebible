@@ -1,7 +1,6 @@
 import QtQuick 1.1
 
 import com.meego 1.0
-import com.meego.extras 1.0
 
 
 Sheet {
@@ -54,18 +53,39 @@ Sheet {
 
             model: bookmarks
 
-            delegate: ListDelegate {
+            delegate: BookmarkItem {
                 x: 10
                 width: parent.width - 20
-
-                clip: true
 
                 onClicked: {
                     dialog.bookmarkSelected(model.place)
                     dialog.accept()
                 }
+
+                onPressAndHold: {
+                    dialog._pressAndHoldIndex = index
+                    itemMenu.open()
+                }
             }
         }
         ScrollDecorator { flickableItem: list }
+    }
+
+
+    property int _pressAndHoldIndex: -1
+
+    Menu {
+        id: itemMenu
+
+        MenuLayout {
+            MenuItem {
+                text: qsTr("Delete")
+
+                onClicked: {
+                    console.log(dialog._pressAndHoldIndex)
+                    bookmarks.deleteBookmark(dialog._pressAndHoldIndex)
+                }
+            }
+        }
     }
 }
