@@ -23,6 +23,7 @@ class Bookmarks: public QAbstractListModel
 
 
         Bookmarks();
+        ~Bookmarks();
 
         virtual int rowCount(const QModelIndex& index = QModelIndex()) const;
         virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;

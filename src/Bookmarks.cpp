@@ -1,6 +1,8 @@
 #include "Bookmarks.h"
 
 #include <QDebug>
+#include <QSettings>
+#include <QStringList>
 
 #include "Place.h"
 #include "Settings.h"
@@ -26,6 +28,53 @@ Bookmarks::Bookmarks()
     roleNames[PlaceRole] = "place";
     roleNames[PlaceTextRole] = "placeText";
     setRoleNames(roleNames);
+
+
+    QSettings settings;
+    int size = settings.beginReadArray("Bookmarks");
+    for (int i = 0; i < size; i++)
+    {
+        settings.setArrayIndex(i);
+
+        QStringList vstr = settings.value("verses").toString().split(",");
+
+        QSet<int> verses;
+        foreach (QString v, vstr)
+            verses << v.toInt();
+
+        Bookmark b;
+        b.place = Place(
+            settings.value("bookCode").toString(),
+            settings.value("chapterNo").toInt(),
+            verses
+        );
+        b.text = settings.value("text").toString();
+
+        _bookmarks << b;
+    }
+    settings.endArray();
+}
+
+
+Bookmarks::~Bookmarks()
+{
+    QSettings settings;
+
+    settings.beginWriteArray("Bookmarks");
+    for (int i = 0; i < _bookmarks.size(); i++)
+    {
+        settings.setArrayIndex(i);
+
+        QStringList vstr;
+        foreach (int v, _bookmarks.at(i).place.verses())
+            vstr << QString::number(v);
+
+        settings.setValue("bookCode", _bookmarks.at(i).place.bookCode());
+        settings.setValue("chapterNo", _bookmarks.at(i).place.chapterNo());
+        settings.setValue("verses", vstr.join(","));
+        settings.setValue("text", _bookmarks.at(i).text);
+    }
+    settings.endArray();
 }
 
 

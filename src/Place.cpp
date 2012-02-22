@@ -60,7 +60,7 @@ QString Place::verseString() const
         }
         else
         {
-            if (prev != groupStart) verseString += "-" + QString::number(prev);
+            if (prev != groupStart) verseString += QString::fromUtf8("–") + QString::number(prev);
             if (cur != -1) verseString += "," + QString::number(cur);
             prev = cur;
             groupStart = cur;
