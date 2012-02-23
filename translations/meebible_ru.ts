@@ -38,9 +38,8 @@
         <translation type="obsolete">MeeBible — читалка Библии с открытым исходным кодом</translation>
     </message>
     <message>
-        <location filename="../qml/AboutPage.qml" line="35"/>
         <source>?? MeeBible -- the open source Bible reader</source>
-        <translation>MeeBible — читалка Библии с открытым исходным кодом</translation>
+        <translation type="obsolete">MeeBible — читалка Библии с открытым исходным кодом</translation>
     </message>
     <message>
         <source>If you want to support development of MeeBible, please consider buying &lt;a href=&apos;http://store.ovi.com/content/215454&apos;&gt;paid version from Ovi Store&lt;/a&gt;!</source>
@@ -108,6 +107,11 @@
         <source>New World Translation © Watch Tower Bible and Tract Society of Pennsylvania</source>
         <translation type="obsolete">Перевод нового мира © Watch Tower Bible and Tract Society of Pennsylvania</translation>
     </message>
+    <message>
+        <location filename="../qml/AboutPage.qml" line="35"/>
+        <source>the open source Bible reader</source>
+        <translation>читалка Библии с открытым исходным кодом</translation>
+    </message>
 </context>
 <context>
     <name>BibleView</name>
@@ -125,111 +129,111 @@
 <context>
     <name>BibleViewPage</name>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="218"/>
+        <location filename="../qml/BibleViewPage.qml" line="221"/>
         <source>Copy</source>
         <translation>Копир.</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="230"/>
+        <location filename="../qml/BibleViewPage.qml" line="235"/>
         <source>Share</source>
         <translation>Отправ.</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="245"/>
+        <location filename="../qml/BibleViewPage.qml" line="254"/>
         <source>Bookmark</source>
         <translation>В закладки</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="249"/>
+        <location filename="../qml/BibleViewPage.qml" line="258"/>
         <source>Bookmarked</source>
         <translation>Добавлено в закладки</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="251"/>
+        <location filename="../qml/BibleViewPage.qml" line="260"/>
         <source>Already in bookmarks</source>
         <translation>Уже в закладках</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="301"/>
+        <location filename="../qml/BibleViewPage.qml" line="314"/>
         <source>Before you start to read, MeeBible have to load translation list from server</source>
         <translation>Прежде, чем начать читать, MeeBible должна загрузить список переводов с сервера</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="311"/>
+        <location filename="../qml/BibleViewPage.qml" line="324"/>
         <source>Try again</source>
         <translation>Попробовать ещё раз</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="348"/>
-        <location filename="../qml/BibleViewPage.qml" line="366"/>
+        <location filename="../qml/BibleViewPage.qml" line="361"/>
+        <location filename="../qml/BibleViewPage.qml" line="379"/>
         <source>Loading chapter</source>
         <translation>Загрузка главы</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="372"/>
+        <location filename="../qml/BibleViewPage.qml" line="385"/>
         <source>Loading translation list</source>
         <translation>Загрузка переводов</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="378"/>
+        <location filename="../qml/BibleViewPage.qml" line="391"/>
         <source>Loading book list</source>
         <translation>Загрузка списка книг</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="404"/>
+        <location filename="../qml/BibleViewPage.qml" line="417"/>
         <source>Please notice</source>
         <translation>Обратите внимание</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="406"/>
+        <location filename="../qml/BibleViewPage.qml" line="419"/>
         <source>Full-text search works only for downloaded chapters. If you want to search whole Bible you must download it first using the app menu.</source>
         <translation>Полнотекстовый поиск работает только по уже скачанным главам. Если вы хотите искать по всей Библии, вам нужно закачать её всю с помощью меню программы.</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="408"/>
-        <location filename="../qml/BibleViewPage.qml" line="458"/>
-        <location filename="../qml/BibleViewPage.qml" line="562"/>
-        <location filename="../qml/BibleViewPage.qml" line="626"/>
+        <location filename="../qml/BibleViewPage.qml" line="421"/>
+        <location filename="../qml/BibleViewPage.qml" line="471"/>
+        <location filename="../qml/BibleViewPage.qml" line="575"/>
+        <location filename="../qml/BibleViewPage.qml" line="639"/>
         <source>OK</source>
         <translation>ОК</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="454"/>
+        <location filename="../qml/BibleViewPage.qml" line="467"/>
         <source>Cannot load translation list</source>
         <translation>Не удалось загрузить список переводов</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="456"/>
+        <location filename="../qml/BibleViewPage.qml" line="469"/>
         <source>Please check internet connection</source>
         <translation>Проверьте подключение к интернету</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="683"/>
+        <location filename="../qml/BibleViewPage.qml" line="696"/>
         <source>Done</source>
         <translation>Готово</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="707"/>
+        <location filename="../qml/BibleViewPage.qml" line="720"/>
         <source>Are you ready to download whole Bible?</source>
         <translation>Вы готовы скачать Библию целиком?</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="708"/>
+        <location filename="../qml/BibleViewPage.qml" line="721"/>
         <source>This may take 10-15 minutes and you&apos;d better do it over Wi-Fi connection</source>
         <translation>Это может занять 10-15 минут и делать это через Wi-Fi-соединение</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="710"/>
+        <location filename="../qml/BibleViewPage.qml" line="723"/>
         <source>Download</source>
         <translation>Скачать</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="711"/>
+        <location filename="../qml/BibleViewPage.qml" line="724"/>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="751"/>
+        <location filename="../qml/BibleViewPage.qml" line="764"/>
         <source>Search</source>
         <translation>Поиск</translation>
     </message>
@@ -247,27 +251,27 @@
         <translation type="obsolete">Ничего не выбрано</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="758"/>
+        <location filename="../qml/BibleViewPage.qml" line="771"/>
         <source>Font size</source>
         <translation>Размер шрифта</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="763"/>
+        <location filename="../qml/BibleViewPage.qml" line="776"/>
         <source>Line spacing</source>
         <translation>Межстрочный интервал</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="768"/>
+        <location filename="../qml/BibleViewPage.qml" line="781"/>
         <source>Download Bible</source>
         <translation>Скачать Библию</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="773"/>
+        <location filename="../qml/BibleViewPage.qml" line="786"/>
         <source>Settings</source>
         <translation>Настройки</translation>
     </message>
     <message>
-        <location filename="../qml/BibleViewPage.qml" line="778"/>
+        <location filename="../qml/BibleViewPage.qml" line="791"/>
         <source>About MeeBible</source>
         <translation>О программе MeeBible</translation>
     </message>

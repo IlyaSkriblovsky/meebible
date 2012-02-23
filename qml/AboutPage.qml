@@ -32,7 +32,7 @@ Page {
 
 
             Label {
-                text: qsTr("?? MeeBible -- the open source Bible reader")
+                text: "MeeBible — " + qsTr("the open source Bible reader")
 
                 width: parent.width
             }
