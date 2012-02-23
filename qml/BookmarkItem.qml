@@ -21,7 +21,6 @@ Item {
 
     BorderImage {
         anchors.fill: parent
-        // Fill page porders
         visible: mouseArea.pressed
         source: theme.inverted ? "image://theme/meegotouch-panel-inverted-background-pressed" : "image://theme/meegotouch-panel-background-pressed"
     }

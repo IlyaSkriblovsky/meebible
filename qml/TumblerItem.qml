@@ -16,7 +16,7 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        color: '#ccc'
+        color: theme.inverted ? '#444' : '#ccc'
         visible: mouseArea.pressed
     }
 
@@ -29,6 +29,7 @@ Item {
 
         font.pixelSize: 26
         font.bold: true
+        color: mouseArea.pressed ? "#797979" : (theme.inverted ? "#ffffff" : "#282828")
     }
 
     Label {
@@ -39,8 +40,8 @@ Item {
 
         anchors.top: title.bottom
 
-        color: theme.inverted ? "#888" : "#444"
         font.family: "Nokia Pure Text Light"
+        color: mouseArea.pressed ? "#797979" : (theme.inverted ? "#c8c8c8" : "#505050")
     }
 
     Image {
