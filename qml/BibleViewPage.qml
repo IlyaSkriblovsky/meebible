@@ -488,8 +488,7 @@ Page {
 
 
         ToolIcon {
-            // platformIconId: "toolbar-tag"
-            iconSource: "bookmarks.png"
+            iconSource: theme.inverted ? "bookmarks-inverted.png" : "bookmarks.png"
             onClicked: bookmarksSheet.open()
         }
 
