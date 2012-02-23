@@ -214,10 +214,15 @@ Page {
         ]
 
 
+        property bool narrow: false
+
+
         EditBubbleButton {
             text: qsTr("Copy")
             platformStyle: EditBubbleButtonStyle {
                 position: "horizontal-left"
+                buttonPaddingLeft: verseActions.narrow ? 0 : 8
+                buttonPaddingRight: verseActions.narrow ? 0 : 8
             }
 
             onClicked: {
@@ -230,6 +235,8 @@ Page {
             text: qsTr("Share")
             platformStyle: EditBubbleButtonStyle {
                 position: "horizontal-center"
+                buttonPaddingLeft: verseActions.narrow ? 0 : 8
+                buttonPaddingRight: verseActions.narrow ? 0 : 8
             }
 
             onClicked: {
@@ -240,6 +247,8 @@ Page {
         EditBubbleButton {
             platformStyle: EditBubbleButtonStyle {
                 position: "horizontal-center"
+                buttonPaddingLeft: verseActions.narrow ? 0 : 8
+                buttonPaddingRight: verseActions.narrow ? 0 : 8
             }
 
             text: qsTr("Bookmark")
@@ -267,6 +276,10 @@ Page {
             }
 
             onClicked: bibleView.clearSelection()
+        }
+
+        Component.onCompleted: {
+            narrow = width > 480
         }
     }
 
