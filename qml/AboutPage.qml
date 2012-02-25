@@ -68,12 +68,12 @@ Page {
 
                 height: 60
 
-                Image {
-                    source: "image://theme/icon-s-common-next"
-                    anchors.right: parent.right
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.rightMargin: 10
-                }
+                // Image {
+                //     source: "image://theme/icon-s-common-next"
+                //     anchors.right: parent.right
+                //     anchors.verticalCenter: parent.verticalCenter
+                //     anchors.rightMargin: 10
+                // }
 
                 Loader {
                     id: feedbackPage
