@@ -6,7 +6,7 @@
     error_log("FEEDBACK from $name");
 
     $db = new SQLite3("feedback.sqlite");
-    $stmt = $db->prepare("INSERT INTO feedback (name, email, message) VALUES (:name, :email, :message)");
+    $stmt = $db->prepare("INSERT INTO feedback (time, name, email, message) VALUES (datetime('now'), :name, :email, :message)");
     $stmt->bindValue(":name", $name);
     $stmt->bindValue(":email", $email);
     $stmt->bindValue(":message", $message);
