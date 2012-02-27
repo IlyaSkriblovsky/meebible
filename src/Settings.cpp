@@ -1,45 +1,55 @@
 #include "Settings.h"
 
+#include <QDebug>
+
 #include "Language.h"
 #include "Languages.h"
 #include "Translation.h"
 
 
+Settings* Settings::_instance = 0;
+
+
 Settings::Settings(Languages* langs, QObject* parent):
-    QObject(parent)
+    QObject(parent), _languages(langs)
 {
-    _language = langs->langByCode(_settings.value("General/langCode", "e").toString());
+    if (_instance)
+        qFatal("Second copy of Settings singleton");
+    _instance = this;
 
-    if (_language == 0)
-        _translation = 0;
-    else
-    {
-        _translation = _language->translationByCode(
-            _settings.value("General/transCode", "nwt").toString()
-        );
-    }
+    _langCode       = _settings.value("General/langCode", "e").toString();
+    _transCode      = _settings.value("General/transCode", "kjv").toString();
 
+    QString bookCode= _settings.value("General/bookCode", "ge").toString();
+    if (bookCode.isEmpty()) bookCode = "ge";
+    int chapterNo   = _settings.value("General/chapterNo", 1).toInt();
 
-    _bookCode =         _settings.value("General/bookCode", "ge").toString();
-    _chapterNo =        _settings.value("General/chapterNo", 1).toInt();
-    _floatingHeader =   _settings.value("General/floatingHeader", true).toBool();
-    _fontSize =         _settings.value("General/fontSize", 30).toInt();
-    _lineSpacing =      _settings.value("General/lineSpacing", 1.3).toFloat();
-    _scrollPos =        _settings.value("General/scrollPos", 0).toInt();
-    _fullscreen =       _settings.value("General/fullscreen", false).toBool();
-    _inverted =         _settings.value("General/inverted", false).toBool();
+    _place          = Place(bookCode, chapterNo);
+
+    _floatingHeader = _settings.value("General/floatingHeader", true).toBool();
+    _fontSize       = _settings.value("General/fontSize", 30).toDouble();
+    _fontName       = _settings.value("General/fontName", "Nokia Pure Text Light").toString();
+    _lineSpacing    = _settings.value("General/lineSpacing", 1.3).toDouble();
+    _scrollPos      = _settings.value("General/scrollPos", 0).toInt();
+    _fullscreen     = _settings.value("General/fullscreen", false).toBool();
+    _inverted       = _settings.value("General/inverted", false).toBool();
 
     _searchNoticeShown = _settings.value("Notices/searchNoticeShown", false).toBool();
+
+    _webService     = _settings.value("Internals/webService", "meebible.org").toString();
+
+    connect(_languages, SIGNAL(loadingFinished()), this, SLOT(onLanguagesLoadingFinished()));
 }
 
 Settings::~Settings()
 {
-    _settings.setValue("General/langCode", _language ? _language->code() : "");
-    _settings.setValue("General/transCode", _translation ? _translation->code() : "");
-    _settings.setValue("General/bookCode", _bookCode);
-    _settings.setValue("General/chapterNo", _chapterNo);
+    _settings.setValue("General/langCode", _langCode);
+    _settings.setValue("General/transCode", _transCode);
+    _settings.setValue("General/bookCode", _place.bookCode());
+    _settings.setValue("General/chapterNo", _place.chapterNo());
     _settings.setValue("General/floatingHeader", _floatingHeader);
     _settings.setValue("General/fontSize", _fontSize);
+    _settings.setValue("General/fontName", _fontName);
     _settings.setValue("General/lineSpacing", _lineSpacing);
     _settings.setValue("General/scrollPos", _scrollPos);
     _settings.setValue("General/fullscreen", _fullscreen);
@@ -49,60 +59,66 @@ Settings::~Settings()
 }
 
 
+void Settings::onLanguagesLoadingFinished()
+{
+    languageChanged();
+    translationChanged();
+}
+
+
 
 Language* Settings::language() const
 {
-    return _language;
+    return _languages->langByCode(_langCode);
 }
 
 void Settings::setLanguage(Language* lang)
 {
-    if (_language == lang) return;
+    if (lang->code() == _langCode) return;
 
-    _language = lang;
+    _langCode = lang->code();
+
+    if (language() && language()->translationByCode(_transCode) == 0)
+    {
+        Translation* trans = language()->translationAt(0);
+        if (trans)
+            _transCode = trans->code();
+    }
+
     languageChanged();
+    translationChanged();
 }
 
 
 Translation* Settings::translation() const
 {
-    return _translation;
+    Language *lang = language();
+    if (lang)
+        return lang->translationByCode(_transCode);
+    else
+        return 0;
 }
 
 void Settings::setTranslation(Translation* translation)
 {
-    if (_translation == translation) return;
+    if (translation->code() == _transCode) return;
 
-    _translation = translation;
+    _transCode = translation->code();
     translationChanged();
 }
 
 
-QString Settings::bookCode() const
+Place Settings::place() const
 {
-    return _bookCode;
+    return _place;
 }
 
-void Settings::setBookCode(const QString& bookCode)
+void Settings::setPlace(const Place& place)
 {
-    if (_bookCode == bookCode) return;
+    if (_place == place) return;
 
-    _bookCode = bookCode;
-    bookCodeChanged();
-}
-
-
-int Settings::chapterNo() const
-{
-    return _chapterNo;
-}
-
-void Settings::setChapterNo(int chapterNo)
-{
-    if (_chapterNo == chapterNo) return;
-
-    _chapterNo = chapterNo;
-    chapterNoChanged();
+    _place = place;
+    placeChanged();
 }
 
 
@@ -123,12 +139,12 @@ void Settings::setFloatingHeader(bool show)
 
 
 
-int Settings::fontSize() const
+double Settings::fontSize() const
 {
     return _fontSize;
 }
 
-void Settings::setFontSize(int size)
+void Settings::setFontSize(double size)
 {
     if (_fontSize != size)
     {
@@ -138,12 +154,27 @@ void Settings::setFontSize(int size)
 }
 
 
-float Settings::lineSpacing() const
+QString Settings::fontName() const
+{
+    return _fontName;
+}
+
+void Settings::setFontName(const QString& name)
+{
+    if (_fontName != name)
+    {
+        _fontName = name;
+        fontNameChanged();
+    }
+}
+
+
+double Settings::lineSpacing() const
 {
     return _lineSpacing;
 }
 
-void Settings::setLineSpacing(float spacing)
+void Settings::setLineSpacing(double spacing)
 {
     if (_lineSpacing != spacing)
     {

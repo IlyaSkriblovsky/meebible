@@ -4,6 +4,8 @@
 #include <QThread>
 #include <QSqlDatabase>
 
+#include "Place.h"
+
 class Translation;
 
 class SearchThread: public QThread
@@ -15,7 +17,7 @@ public:
     ~SearchThread();
 
 signals:
-    void matchFound(QString bookCode, int chapterNo, QString match, int matchCount);
+    void matchFound(Place place, QString match, int matchCount);
 
 protected:
     void run();

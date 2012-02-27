@@ -16,13 +16,23 @@ Place::Place(const QString& bookCode, int chapterNo, const QSet<int>& verses)
 }
 
 
-QString Place::toString(const Translation* translation) const
+void Place::setBookCode(const QString& bookCode)
 {
-    if (_verses.size() == 0)
-        return QString("%1 %2")
-                .arg(translation->bookName(_bookCode))
-                .arg(_chapterNo);
+    _bookCode = bookCode;
+}
+void Place::setChapterNo(int chapterNo)
+{
+    _chapterNo = chapterNo;
+}
+void Place::setVerses(const QSet<int>& verses)
+{
+    _verses = verses;
+}
 
+
+
+QString Place::verseString() const
+{
     QList<int> list = _verses.toList();
     qSort(list);
 
@@ -50,17 +60,54 @@ QString Place::toString(const Translation* translation) const
         }
         else
         {
-            if (prev != groupStart) verseString += "-" + QString::number(prev);
+            if (prev != groupStart) verseString += QString::fromUtf8("–") + QString::number(prev);
             if (cur != -1) verseString += "," + QString::number(cur);
             prev = cur;
             groupStart = cur;
         }
     }
 
+    return verseString;
+}
+
+
+QString Place::toString(const Translation* translation) const
+{
+    if (! isValid(translation))
+        return QString();
+
+    if (_verses.size() == 0)
+        return QString("%1 %2")
+                .arg(translation->bookName(_bookCode))
+                .arg(_chapterNo);
+
     return QString("%1 %2:%3")
             .arg(translation->bookName(_bookCode))
             .arg(_chapterNo)
-            .arg(verseString);
+            .arg(verseString());
+}
+
+QString Place::toStringChapterOnly(const Translation* translation) const
+{
+    if (! isValid(translation))
+        return QString();
+
+    return QString("%1 %2")
+            .arg(translation->bookName(_bookCode))
+            .arg(_chapterNo);
+}
+
+QString Place::toStringCode() const
+{
+    if (_verses.size() == 0)
+        return QString("%1 %2")
+            .arg(_bookCode)
+            .arg(_chapterNo);
+
+    return QString("%1 %2:%3")
+            .arg(_bookCode)
+            .arg(_chapterNo)
+            .arg(verseString());
 }
 
 
@@ -104,6 +151,7 @@ Place Place::nextChapter(const Translation* translation) const
 
 bool Place::isValid(const Translation* translation) const
 {
+    if (! translation) return false;
     if (! translation->hasBook(_bookCode)) return false;
 
     if (_chapterNo < 1 || _chapterNo > translation->chaptersInBook(_bookCode)) return false;
@@ -117,4 +165,18 @@ bool Place::isValid(const Translation* translation) const
     }
 
     return true;
+}
+
+
+
+bool Place::operator == (const Place& other) const
+{
+    return  _bookCode == other._bookCode &&
+            _chapterNo == other._chapterNo &&
+            _verses == other._verses;
+}
+
+bool Place::sameChapter(const Place& other)
+{
+    return _bookCode == other._bookCode && _chapterNo == other._chapterNo;
 }

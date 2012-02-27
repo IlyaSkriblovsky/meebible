@@ -6,12 +6,17 @@ Item {
     property alias checked: _switch.checked
 
 
-    width: parent.width
-    height: _switch.height
+    anchors.left: parent.left
+    anchors.right: parent.right
+
+    height: 65
 
     Label {
         id: _label
         font.bold: true
+
+        anchors.left: parent.left
+        anchors.leftMargin: 10
 
         anchors.verticalCenter: parent.verticalCenter
     }
@@ -20,6 +25,8 @@ Item {
         id: _switch
 
         anchors.right: parent.right
+        anchors.rightMargin: 10
+
         anchors.verticalCenter: parent.verticalCenter
     }
 }

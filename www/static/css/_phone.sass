@@ -1,0 +1,45 @@
+#phone
+    position: relative
+
+    float: right
+    margin:
+        left: 20px
+        top: 30px
+        right: -150px
+
+    width: 250px
+    height: 508px
+
+    background: url(/static/img/phone_body.png)
+
+    #screen-wrapper
+        position: absolute
+
+        left: 36px
+        top: 68px
+
+        width: 176px
+        height: 314px
+
+        overflow: hidden
+
+        .screen
+            position: absolute
+            display: none
+
+            width: 100%
+            height: 100%
+
+            &.visible
+                display: block
+
+    #screen-1
+        background: url(/static/img/screen-1.png)
+    #screen-2
+        background: url(/static/img/screen-2.png)
+    #screen-3
+        background: url(/static/img/screen-3.png)
+    #screen-4
+        background: url(/static/img/screen-4.png)
+    #screen-5
+        background: url(/static/img/screen-5.png)

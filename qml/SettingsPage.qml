@@ -8,17 +8,6 @@ Page {
 
     property bool __created: false
 
-    Binding {
-        target: settings
-        property: 'inverted'
-        value: theme.inverted
-        when: __created
-    }
-    Component.onCompleted: {
-        theme.inverted = settings.inverted
-        __created = true
-    }
-
 
     TumblerButtonStyle {
         id: tumblerStyleBlue
@@ -46,80 +35,82 @@ Page {
 
         flickableDirection: Flickable.VerticalFlick
 
-        contentWidth: column.width + 20
-        contentHeight: column.height + 40
+        contentWidth: column.width
+        contentHeight: column.height
 
         Column {
             id: column
 
-            x: 10
-            width: settingsPage.width - 20
+            width: settingsPage.width
 
-            y: 20
+            TumblerItem {
+                titleText: qsTr("Language")
+                valueText: settings.language ? settings.language.selfname : qsTr('<not loaded yet>')
 
-            spacing: 30
+                onClicked: languageDialog.open()
+            }
 
-            Column {
-                id: language
+            TumblerItem {
+                titleText: qsTr("Translation")
+                valueText: settings.translation ? settings.translation.name : qsTr('<not loaded yet>')
 
-                width: parent.width
+                onClicked: transDialog.open()
+            }
 
-                spacing: 20
+            Rectangle {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.margins: 10
 
-                Label {
-                    text: qsTr("Language")
-                    font.bold: true
-                }
+                height: childrenRect.height + 20
 
-                TumblerButton {
-                    text: settings.language.selfname
+                radius: 5
 
-                    x: 40
-                    width: parent.width - 80
+                color: 'transparent'
 
-                    style: tumblerStyleBlue
+                border.color: '#888'
+                border.width: 1
 
-                    onClicked: languageDialog.open()
+                Column {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.margins: 20
+
+                    y: 10
+
+                    Label {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+
+                        text: settings.translation ?
+                            '<html><style>a{color:' + (theme.inverted ? '#8080ff' : '#0000ff') + '}</style>' +
+                            'Available at <a href="' + settings.translation.sourceUrl + '">' + settings.translation.sourceUrl + '</a>' +
+                            '</html>' : ''
+                        font.pixelSize: 20
+
+                        onLinkActivated: Qt.openUrlExternally(settings.translation.sourceUrl)
+                    }
+                    Label {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+
+                        text: settings.translation ? settings.translation.copyright : ''
+                        visible: settings.translation != null  &&  settings.translation.copyright != ''
+                        font.pixelSize: 20
+                    }
                 }
             }
 
-            Column {
-                id: translation
+            Item {
+                width: 1
+                height: 20
+            }
 
-                width: parent.width
+            TumblerItem {
+                titleText: qsTr("Font")
+                valueText: settings.fontName
 
-                spacing: 20
-
-                Label {
-                    text: qsTr("Translation")
-                    font.bold: true
-                }
-
-                TumblerButton {
-                    text: settings.translation.name
-
-                    x: 40
-                    width: parent.width - 80
-
-                    style: tumblerStyleBlue
-
-                    onClicked: transDialog.open()
-                }
-
-                Label {
-                    text: 'Available at <a href="' + settings.translation.sourceUrl + '">' + settings.translation.sourceUrl + '</a>'
-                    font.pixelSize: 20
-                    x: 40
-                    width: parent.width - x
-
-                    onLinkActivated: Qt.openUrlExternally(settings.translation.sourceUrl)
-                }
-                Label {
-                    text: settings.translation.copyright
-                    font.pixelSize: 20
-                    x: 40
-                    width: parent.width - x
-                }
+                onClicked: fontDialog.open()
             }
 
             LabeledSwitch {
@@ -143,10 +134,20 @@ Page {
                 onCheckedChanged: theme.inverted = checked
             }
 
-            Button {
-                text: qsTr("Clear cache")
 
-                anchors.horizontalCenter: parent.horizontalCenter
+            ButtonWithHelp {
+                buttonText: qsTr("Update translation list")
+                helpTitle: qsTr("Reload languages")
+                helpMessage: qsTr("When new translation is published on MeeBible's server, use this button to update translation list")
+
+                onClicked: languages.reload(false)
+            }
+
+
+            ButtonWithHelp {
+                buttonText: qsTr("Clear cache")
+                helpTitle: qsTr("Cache clearing")
+                helpMessage: qsTr("This will delete all downloaded Bible chapters from your phone. Do this to force reloading chapters when some error was fixed in translation on the server side.")
 
                 onClicked: clearCacheConfirmation.open()
             }
@@ -191,6 +192,38 @@ Page {
     }
 
 
+    ModelSelectionDialog {
+        id: fontDialog
+
+        titleText: qsTr("Select Font")
+
+        header: Label {
+            text: qsTr("Not all fonts can display all languages")
+            color: "#666"
+
+            wrapMode: Text.Wrap
+
+            anchors.left: parent.left
+            anchors.right: parent.right
+        }
+
+        model: ListModel {
+            id: fontModel
+
+            ListElement { value: "Nokia Pure" }
+            ListElement { value: "Nokia Standard" }
+            ListElement { value: "DejaVu Sans" }
+            ListElement { value: "Times" }
+            ListElement { value: "Georgia" }
+            ListElement { value: "Trebuchet" }
+        }
+
+        onAccepted: {
+            settings.fontName = fontModel.get(selectedIndex).value
+        }
+    }
+
+
     QueryDialog {
         id: clearCacheConfirmation
 
@@ -201,7 +234,11 @@ Page {
         acceptButtonText: qsTr("Clear")
         rejectButtonText: qsTr("Cancel")
 
-        onAccepted: cache.clearCache()
+        onAccepted: {
+            cache.clearCache()
+            settings.translation.reload(false)
+            bibleView.loadChapter()
+        }
     }
 
 

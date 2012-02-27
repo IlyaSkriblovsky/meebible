@@ -1,0 +1,6 @@
+RewriteEngine on
+RewriteBase /
+
+RewriteCond %{REQUEST_URI} !^/route\.php
+RewriteCond %{REQUEST_URI} !^/static\/
+RewriteRule ^(.*)$ /route.php [L]

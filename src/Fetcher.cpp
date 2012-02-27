@@ -104,9 +104,11 @@ void Fetcher::nextBook(int book)
 
     for (int chapter = 1; chapter <= _chaptersInCurrentBook; chapter++)
     {
-        if (! Cache::instance()->hasChapter(_translation, bookCode, chapter))
+        Place place(bookCode, chapter);
+
+        if (! Cache::instance()->hasChapter(_translation, place))
         {
-            ChapterRequest* request = _translation->requestChapter(_nam, bookCode, chapter);
+            ChapterRequest* request = _translation->requestChapter(_nam, place);
             request->setParent(this);
             connect(request, SIGNAL(finished(QString)), this, SLOT(onChapterRequestFinished(QString)));
         }
@@ -136,11 +138,12 @@ void Fetcher::onChapterRequestFinished(QString html)
 
     double bookPercent = (double)_finishedChapters / _chaptersInCurrentBook;
     double overallPercent = (double)_overallFinishedChapters / _chaptersInTranslation;
-    update(_translation->bookName(request->bookCode()), bookPercent, overallPercent);
+    Place place = request->place();
+    update(_translation->bookName(place.bookCode()), bookPercent, overallPercent);
 
 
     if (request->error() == QNetworkReply::NoError)
-        Cache::instance()->saveChapter(_translation, request->bookCode(), request->chapterNo(), html);
+        Cache::instance()->saveChapter(_translation, place, html);
     else
         qDebug() << "Error" << request->error();
 

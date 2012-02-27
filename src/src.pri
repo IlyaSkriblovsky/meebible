@@ -1,4 +1,5 @@
-QT += core sql network xml xmlpatterns webkit gui declarative
+# QT += core sql network xml xmlpatterns webkit gui declarative
+QT += core sql network xml webkit gui declarative
 
 # DEFINES += DEBUGPATHS
 
@@ -14,6 +15,7 @@ INSTALLS += target
 
 
 
+CONFIG += shareuiinterface-maemo-meegotouch mdatauri
 CONFIG += qdeclarative-boostable
 CONFIG += console
 CONFIG += warn_on
@@ -30,25 +32,22 @@ HEADERS +=                      \
     src/Languages.h             \
     src/Translation.h           \
     src/ChapterRequest.h        \
-    src/Source.h                \
     src/BibleView.h             \
     src/Cache.h                 \
     src/Paths.h                 \
     src/Place.h                 \
-    src/EasyXml.h               \
     src/BibleWebPage.h          \
     src/Fetcher.h               \
     src/Utils.h                 \
     src/Settings.h              \
-    src/MultiSource.h           \
-    src/MultiTranslation.h      \
-    src/Parser.h                \
-    src/ParserFactory.h         \
-    src/BibleOnlineParser.h     \
-    src/BibeleLVParser.h        \
-    src/CCArabicParser.h        \
-    src/KJBOParser.h            \
-    src/NWTParser.h
+    src/MetaInfoParser.h        \
+    src/TranslationInfoParser.h \
+    src/MetaInfoLoader.h        \
+    src/Feedback.h              \
+    src/NetworkUtils.h          \
+    src/StartupTracker.h        \
+    src/Bookmarks.h             \
+    src/PlaceAccesser.h
 
 SOURCES +=                      \
     src/main.cpp                \
@@ -56,24 +55,21 @@ SOURCES +=                      \
     src/Languages.cpp           \
     src/Translation.cpp         \
     src/ChapterRequest.cpp      \
-    src/Source.cpp              \
     src/BibleView.cpp           \
     src/Cache.cpp               \
     src/Paths.cpp               \
     src/Place.cpp               \
-    src/EasyXml.cpp             \
     src/BibleWebPage.cpp        \
     src/Fetcher.cpp             \
     src/Settings.cpp            \
-    src/MultiSource.cpp         \
-    src/MultiTranslation.cpp    \
-    src/Parser.cpp              \
-    src/ParserFactory.cpp       \
-    src/BibleOnlineParser.cpp   \
-    src/BibeleLVParser.cpp      \
-    src/CCArabicParser.cpp      \
-    src/KJBOParser.cpp          \
-    src/NWTParser.cpp
+    src/MetaInfoParser.cpp      \
+    src/TranslationInfoParser.cpp\
+    src/MetaInfoLoader.cpp      \
+    src/Feedback.cpp            \
+    src/NetworkUtils.cpp        \
+    src/StartupTracker.cpp      \
+    src/Bookmarks.cpp           \
+    src/PlaceAccesser.cpp
 
 
 !nosearch:HEADERS +=            \

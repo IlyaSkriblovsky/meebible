@@ -1,6 +1,10 @@
 import QtQuick 1.1
-import com.meego 1.0
+
+// for EditBubbleButton
+import "/usr/lib/qt4/imports/com/meego/" 1.0
+
 import com.meego.extras 1.0
+
 import MeeBible 0.1
 
 Page {
@@ -13,20 +17,14 @@ Page {
 
     Binding {
         target: settings
-        property: "bookCode"
-        value: bibleView.bookCode
-        when: created
-    }
-    Binding {
-        target: settings
-        property: "chapterNo"
-        value: bibleView.chapterNo
+        property: "place"
+        value: bibleView.place
         when: created
     }
     Binding {
         target: settings
         property: "fontSize"
-        value: fontSizeSlider.value
+        value: fontSizeSlider.fontSize()
         when: created
     }
     Binding {
@@ -41,23 +39,31 @@ Page {
         value: flickable.contentY
         when: firstScrollPosSet
     }
+    Binding {
+        target: settings
+        property: 'inverted'
+        value: theme.inverted
+        when: created
+    }
     Component.onCompleted: {
-        bibleView.bookCode = settings.bookCode
-        bibleView.chapterNo = settings.chapterNo
-        fontSizeSlider.value = settings.fontSize
+        bibleView.place = settings.place
+        fontSizeSlider.setFontSize(settings.fontSize)
         lineSpacingSlider.value = settings.lineSpacing
+        theme.inverted = settings.inverted
         created = true
+
+        languages.reload(true)
     }
 
 
     Header {
         id: header
-        text: bibleView.title
+        text: bibleView.title || "MeeBible"
         withIcon: true
         height: settings.floatingHeader ? 0 : 70
         visible: ! settings.floatingHeader
 
-        rtl: settings.translation.rtl
+        rtl: settings.translation != null  &&  settings.translation.rtl
     }
 
 
@@ -90,12 +96,13 @@ Page {
             id: column
 
             Header {
-                text: bibleView.title
+                id: floatingHeader
+                text: bibleView.title || "MeeBible"
                 withIcon: true
                 height: settings.floatingHeader ? 70 : 0
                 visible: settings.floatingHeader
 
-                rtl: settings.translation.rtl
+                rtl: settings.translation != null  &&  settings.translation.rtl
             }
 
             BibleView {
@@ -113,7 +120,10 @@ Page {
                 inverted: theme.inverted
 
 
-                Component.onCompleted: loadChapter()
+                fontName: settings.fontName
+
+
+                // Component.onCompleted: loadChapter()
 
                 onChapterLoaded: {
                     if (! firstScrollPosSet)
@@ -122,11 +132,14 @@ Page {
                         firstScrollPosSet = true
                     }
 
-                    page.state = "normal"
+                    // page.state = "normal"
                 }
 
-                onChapterLoadingError: { flickable.contentY = 0; page.state = "normal" }
-                onLoading: page.state = "loading"
+                onChapterLoadingError: {
+                    flickable.contentY = 0
+                    // page.state = "normal"
+                }
+                // onLoading: page.state = "loading"
 
 
                 function scrollTo(y)
@@ -162,81 +175,223 @@ Page {
     ScrollDecorator { flickableItem: flickable }
 
 
+
+    InfoBanner {
+        id: copyBanner
+        text: qsTr("Copied")
+    }
+    InfoBanner {
+        id: bookmarkBanner
+    }
+
+    Row {
+        id: verseActions
+
+        anchors.top: header.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+
+        anchors.topMargin: Math.max(floatingHeader.height - flickable.contentY, 0)
+
+        opacity: 0.0
+
+        Behavior on opacity {
+            NumberAnimation {
+                duration: 100
+            }
+        }
+
+
+        states: [
+            State {
+                name: "visible"
+                when: bibleView.selectedVerses.length > 0
+
+                PropertyChanges {
+                    target: verseActions
+                    opacity: 1.0
+                }
+            }
+        ]
+
+
+        property bool narrow: false
+
+
+        EditBubbleButton {
+            text: qsTr("Copy")
+            platformStyle: EditBubbleButtonStyle {
+                position: "horizontal-left"
+                buttonPaddingLeft: verseActions.narrow ? 0 : 8
+                buttonPaddingRight: verseActions.narrow ? 0 : 8
+            }
+
+            onClicked: {
+                bibleView.copySelectedVerses()
+                bibleView.clearSelection()
+                copyBanner.show()
+            }
+        }
+        EditBubbleButton {
+            text: qsTr("Share")
+            platformStyle: EditBubbleButtonStyle {
+                position: "horizontal-center"
+                buttonPaddingLeft: verseActions.narrow ? 0 : 8
+                buttonPaddingRight: verseActions.narrow ? 0 : 8
+            }
+
+            onClicked: {
+                bibleView.shareSelectedVerses()
+                bibleView.clearSelection()
+            }
+        }
+        EditBubbleButton {
+            platformStyle: EditBubbleButtonStyle {
+                position: "horizontal-center"
+                buttonPaddingLeft: verseActions.narrow ? 0 : 8
+                buttonPaddingRight: verseActions.narrow ? 0 : 8
+            }
+
+            text: qsTr("Bookmark")
+
+            onClicked: {
+                if (bibleView.bookmarkSelectedVerses())
+                    bookmarkBanner.text = qsTr("Bookmarked")
+                else
+                    bookmarkBanner.text = qsTr("Already in bookmarks")
+                bookmarkBanner.show()
+
+                bibleView.clearSelection()
+            }
+        }
+        EditBubbleButton {
+            platformStyle: EditBubbleButtonStyle {
+                position: "horizontal-right"
+            }
+
+            Image {
+                anchors.verticalCenter: parent.verticalCenter
+                x: 4
+
+                source: 'image://theme/icon-m-toolbar-close'
+            }
+
+            onClicked: bibleView.clearSelection()
+        }
+
+        Component.onCompleted: {
+            narrow = width > 480
+        }
+    }
+
+
+
+    Item {
+        id: xmlLoadingFailed
+
+        anchors.top: header.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+
+        visible: (!languages.loading && !languages.loaded) || (settings.translation != null && !settings.translation.loading && !settings.translation.loaded)
+
+        Label {
+            id: xmlLoadingFailedLabel
+
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.leftMargin: 30
+            anchors.rightMargin: 30
+
+            horizontalAlignment: Text.AlignHCenter
+
+            wrapMode: Text.Wrap
+
+            font.pixelSize: 30
+            color: '#800'
+
+            text: qsTr("Before you start to read, MeeBible have to load translation list from server")
+        }
+
+        MouseArea { anchors.fill: parent }
+
+        Button {
+            anchors.top: xmlLoadingFailedLabel.bottom
+            anchors.topMargin: 30
+            anchors.horizontalCenter: xmlLoadingFailedLabel.horizontalCenter
+
+            text: qsTr("Try again")
+
+            onClicked: languages.reload(true)
+        }
+    }
+
+
     Rectangle {
         id: busyIndicator
 
         anchors.fill: parent
 
-        color: theme.inverted ? '#000' : '#fff'
+        color: theme.inverted ? '#000' : '#e0e0e0'
+
+        opacity: (languages.loading || (settings.translation && settings.translation.loading) || bibleView.loadingChapter) ? 0.8 : 0.0
 
         BusyIndicator {
             id: realBusyIndicator
 
             anchors.centerIn: parent
 
+            running: busyIndicator.visible && busyIndicator.opacity > 0.0
+
             platformStyle: BusyIndicatorStyle {
                 size: "large"
             }
         }
 
-        state: "invisible"
+        Label {
+            id: busyLabel
 
-        states: [
-            State {
-                name: "invisible"
+            anchors.top: realBusyIndicator.bottom
+            anchors.topMargin: 30
+            anchors.horizontalCenter: realBusyIndicator.horizontalCenter
 
-                PropertyChanges {
-                    target: busyIndicator
-                    opacity: 0.0
-                }
-                PropertyChanges {
-                    target: realBusyIndicator
-                    running: false
-                }
-            },
-            State {
-                name: "visible"
+            font.pixelSize: 36
 
-                PropertyChanges {
-                    target: busyIndicator
-                    opacity: 0.8
-                }
-                PropertyChanges {
-                    target: realBusyIndicator
-                    running: true
-                }
-            }
-        ]
+            text: qsTr("Loading chapter")
+        }
 
-        transitions: Transition {
+        MouseArea {
+            anchors.fill: parent
+        }
+
+        Behavior on opacity {
             NumberAnimation {
-                properties: "opacity"
                 duration: 100
             }
         }
+
+        states: [
+            State {
+                name: "chapter"
+                when: bibleView.loadingChapter
+
+                PropertyChanges { target: busyLabel; text: qsTr("Loading chapter") }
+            },
+            State {
+                name: "languages"
+                when: languages.loading
+
+                PropertyChanges { target: busyLabel; text: qsTr("Loading translation list") }
+            },
+            State {
+                name: "translation"
+                when: settings.translation.loading
+
+                PropertyChanges { target: busyLabel; text: qsTr("Loading book list") }
+            }
+        ]
     }
-
-    state: "normal"
-
-    states: [
-        State {
-            name: "normal"
-
-            PropertyChanges {
-                target: busyIndicator
-                state: "invisible"
-            }
-        },
-        State {
-            name: "loading"
-
-            PropertyChanges {
-                target: busyIndicator
-                state: "visible"
-            }
-        }
-    ]
-
 
 
     Loader {
@@ -246,11 +401,11 @@ Page {
 
         function load() { source = "PlaceDialog.qml" }
 
-        function open() { load(); item.open(bibleView.bookCode, bibleView.chapterNo) }
+        function open() { load(); item.open(bibleView.place) }
 
         Connections {
             target: placeDialog.item
-            onAccepted: bibleView.setAndLoad(placeDialog.item.bookCode(), placeDialog.item.chapterNo(), placeDialog.item.verseNo())
+            onAccepted: bibleView.place = placeDialog.item.place()
         }
     }
 
@@ -285,7 +440,8 @@ Page {
             target: searchDialog.item
             onPlaceSelected: {
                 searchDialog.item.close()
-                bibleView.setAndLoad(bookCode, chapterNo, 1)
+                // bibleView.setAndLoad(bookCode, chapterNo, 1)
+                bibleView.place = place
                 bibleView.startSearchMode(searchDialog.item.query)
             }
         }
@@ -304,6 +460,25 @@ Page {
         }
     }
 
+
+    QueryDialog {
+        id: xmlLoadingFailedNotice
+
+        titleText: qsTr("Cannot load translation list")
+
+        message: qsTr("Please check internet connection")
+
+        acceptButtonText: qsTr("OK")
+
+        Connections {
+            target: languages
+            onLoadingError: xmlLoadingFailedNotice.open()
+        }
+        Connections {
+            target: settings.translation
+            onLoadingError: xmlLoadingFailedNotice.open()
+        }
+    }
 
 
     tools: ToolBarLayout {
@@ -326,9 +501,8 @@ Page {
 
 
         ToolIcon {
-            platformIconId: "toolbar-search"
-            onClicked: searchDialog.open()
-            visible: ! NOSEARCH
+            iconSource: theme.inverted ? "bookmarks-inverted.png" : "bookmarks.png"
+            onClicked: bookmarksSheet.open()
         }
 
         ToolIcon {
@@ -352,14 +526,14 @@ Page {
             anchors.leftMargin: 10
             width: 50
 
-            onClicked: fontSizeSlider.value -= 2
+            onClicked: fontSizeSlider.value -= 1
         }
 
 
         Slider {
             id: fontSizeSlider
-            minimumValue: 16
-            maximumValue: 60
+            minimumValue: 8  // 16
+            maximumValue: 24 // 60
             stepSize: 1.0
 
             valueIndicatorVisible: true
@@ -367,9 +541,18 @@ Page {
             anchors.left: fontSizeSmaller.right
             anchors.right: fontSizeBigger.left
 
+            function fontSize() {
+                return value * value / 4
+            }
+            function setFontSize(size) {
+                value = parseInt(Math.sqrt(size * 4))
+            }
+
             onValueChanged: {
-                var factor = parseFloat(value) / bibleView.fontSize
-                bibleView.fontSize = value
+                var realSize = fontSize()
+
+                var factor = parseFloat(realSize) / bibleView.fontSize
+                bibleView.fontSize = realSize
                 flickable.contentY *= factor * factor
             }
         }
@@ -384,7 +567,7 @@ Page {
             anchors.verticalCenter: parent.verticalCenter
             width: 50
 
-            onClicked: fontSizeSlider.value += 2
+            onClicked: fontSizeSlider.value += 1
         }
 
         ToolButton {
@@ -544,16 +727,31 @@ Page {
     }
 
 
-    SettingsPage {
+    Loader {
         id: settingsPage
+
+        function load() { source = "SettingsPage.qml" }
+        function open() { load(); pageStack.push(item) }
     }
 
-    AboutPage {
+    Loader {
         id: aboutPage
+
+        function load() { source = "AboutPage.qml" }
+        function open() { load(); pageStack.push(item) }
     }
 
+    Loader {
+        id: bookmarksSheet
+        function load() { source = "BookmarksSheet.qml" }
+        function open() { load(); item.open() }
 
-    InfoBanner { id: copyBanner }
+        Connections {
+            target: bookmarksSheet.item
+            onBookmarkSelected: bibleView.place = place
+        }
+    }
+
 
 
     Menu {
@@ -563,17 +761,10 @@ Page {
 
         MenuLayout {
             MenuItem {
-                text: qsTr("Copy selected verses")
-                onClicked: {
-                    if (bibleView.copySelectedVerses())
-                    {
-                        copyBanner.text = qsTr("Copied")
-                        bibleView.clearSelection()
-                    }
-                    else
-                        copyBanner.text = qsTr("Nothing selected")
-                    copyBanner.show()
-                }
+                text: qsTr("Search")
+
+                onClicked: searchDialog.open()
+                visible: ! NOSEARCH
             }
 
             MenuItem {
@@ -593,12 +784,12 @@ Page {
 
             MenuItem {
                 text: qsTr("Settings")
-                onClicked: pageStack.push(settingsPage)
+                onClicked: settingsPage.open()
             }
 
             MenuItem {
                 text: qsTr("About MeeBible")
-                onClicked: pageStack.push(aboutPage)
+                onClicked: aboutPage.open()
             }
         }
     }

@@ -7,30 +7,17 @@
 #include <QDebug>
 #include <QVariant>
 
-#include "Utils.h"
+#include <QNetworkReply>
+
 #include "Paths.h"
+#include "MetaInfoLoader.h"
+#include "MetaInfoParser.h"
+#include "Cache.h"
 
 
 Languages::Languages()
+    : _loading(false)
 {
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "langs");
-    db.setDatabaseName(Paths::langsDB());
-    if (! db.open())
-    {
-        qDebug() << "Cannot open langs db";
-        QCoreApplication::exit(1);
-    }
-
-
-    QSqlQuery select("SELECT * FROM langs ORDER BY engname", db);
-    while (select.next())
-        _languages.append(new Language(
-            select.value(0).toString(),
-            select.value(1).toString(),
-            select.value(2).toString()
-        ));
-
-
     QHash<int, QByteArray> roleNames;
     roleNames[Qt::DisplayRole] = "value";
     roleNames[CodeRole] = "code";
@@ -43,6 +30,15 @@ Languages::~Languages()
 {
     for (int i = 0; i < _languages.size(); i++)
         delete _languages.at(i);
+}
+
+
+
+void Languages::addLanguage(Language* language)
+{
+    beginInsertRows(QModelIndex(), _languages.size(), _languages.size());
+    _languages.append(language);
+    endInsertRows();
 }
 
 
@@ -95,4 +91,83 @@ QVariant Languages::data(const QModelIndex& index, int role) const
 Language* Languages::langAt(int row) const
 {
     return _languages.at(row);
+}
+
+
+
+
+void Languages::reload(bool useCache)
+{
+    if (useCache  &&  Cache::instance()->hasXML("meta"))
+    {
+        loadFromXML(Cache::instance()->loadXML("meta"));
+        loadingFinished();
+        loadedChanged();
+        return;
+    }
+
+    QNetworkReply* reply = MetaInfoLoader::instance()->nam()->get(QNetworkRequest(Paths::wsUrl("meta")));
+    connect(reply, SIGNAL(finished()), this, SLOT(metaXMLReceived()));
+
+    setLoading(true);
+}
+
+
+void Languages::metaXMLReceived()
+{
+    QNetworkReply* reply = dynamic_cast<QNetworkReply*>(sender());
+    reply->deleteLater();
+
+    if (reply->error() != QNetworkReply::NoError)
+    {
+        setLoading(false);
+        loadingError();
+        return;
+    }
+
+    QString content = QString::fromUtf8(reply->readAll());
+
+    loadFromXML(content);
+
+    Cache::instance()->saveXML("meta", content);
+
+    setLoading(false);
+    loadingFinished();
+    loadedChanged();
+}
+
+void Languages::loadFromXML(const QString& xml)
+{
+    clear();
+
+    MetaInfoParser handler(this);
+    QXmlSimpleReader reader;
+    reader.setContentHandler(&handler);
+    reader.setErrorHandler(&handler);
+
+    QXmlInputSource source;
+    source.setData(xml);
+
+    reader.parse(source);
+}
+
+void Languages::setLoading(bool loading)
+{
+    if (_loading != loading)
+    {
+        _loading = loading;
+        loadingChanged();
+    }
+}
+
+void Languages::clear()
+{
+    beginResetModel();
+
+    for (int i = 0; i < _languages.size(); i++)
+        delete _languages.at(i);
+
+    _languages.clear();
+
+    endResetModel();
 }

@@ -7,6 +7,8 @@
 #include <QStringList>
 #include <QVariantList>
 
+#include "Place.h"
+
 
 class QNetworkAccessManager;
 
@@ -25,51 +27,112 @@ class Translation: public QAbstractListModel
     Q_PROPERTY(QString copyright READ copyright NOTIFY copyrightChanged)
     Q_PROPERTY(bool rtl READ rtl NOTIFY rtlChanged)
 
-public:
-    enum Roles {
-        BookCodeRole = Qt::UserRole + 1,
-        BookNameRole,
-        VerseCountsRole
-    };
+    Q_PROPERTY(bool loading READ loading NOTIFY loadingChanged)
+    Q_PROPERTY(bool loaded READ loaded NOTIFY loadedChanged)
+
+    public:
+        enum Roles {
+            BookCodeRole = Qt::UserRole + 1,
+            BookNameRole,
+            VerseCountsRole
+        };
 
 
-    Translation();
-    virtual ~Translation();
-
-    virtual const Language* language() const = 0;
-
-    virtual QString code() const = 0;
-    virtual QString name() const = 0;
-    virtual QString sourceUrl() const = 0;
-    virtual QString copyright() const = 0;
-
-    Q_INVOKABLE virtual QString bookName(const QString& bookCode) const = 0;
-    Q_INVOKABLE virtual QStringList bookCodes() const = 0;
-    bool hasBook(const QString& bookCode) const;
-
-    Q_INVOKABLE virtual int chaptersInBook(const QString& bookCode) const;
-    Q_INVOKABLE virtual int versesInChapter(const QString& bookCode, int chapterNo) const;
-
-    virtual QList<int> verseCounts(const QString& bookCode) const = 0;
-
-    virtual ChapterRequest* requestChapter(QNetworkAccessManager* nam, const QString& bookCode, int chapterNo) = 0;
+        struct BookInfo
+        {
+            QString code;
+            QString name;
+            QList<int> chapterSize;
+        };
 
 
-    virtual int rowCount(const QModelIndex& index = QModelIndex()) const;
-    virtual QVariant data(const QModelIndex& index, int role) const;
+        Translation(
+            const QString& code,
+            Language* language,
+            const QString& name,
+            const QString& sourceUrl,
+            const QString& copyright,
+            bool rtl
+        );
+
+        const Language* language() const { return _language; }
+
+        QString code() const { return _code; }
+        QString name() const { return _name; }
+        QString sourceUrl() const { return _sourceUrl; }
+        QString copyright() const { return _copyright; }
+        bool rtl() const { return _rtl; }
 
 
-    Q_INVOKABLE QString bookCodeAt(int row) const;
+
+        Q_INVOKABLE virtual QString bookName(const QString& bookCode) const;
+        Q_INVOKABLE virtual QStringList bookCodes() const;
+        bool hasBook(const QString& bookCode) const;
+
+        Q_INVOKABLE virtual int chaptersInBook(const QString& bookCode) const;
+        Q_INVOKABLE virtual int versesInChapter(const QString& bookCode, int chapterNo) const;
+
+        virtual QList<int> verseCounts(const QString& bookCode) const;
+
+        virtual ChapterRequest* requestChapter(QNetworkAccessManager* nam, const Place& place);
 
 
-    virtual bool rtl() const;
+        virtual int rowCount(const QModelIndex& index = QModelIndex()) const;
+        virtual QVariant data(const QModelIndex& index, int role) const;
 
 
-signals:
-    void nameChanged();
-    void sourceUrlChanged();
-    void copyrightChanged();
-    void rtlChanged();
+        Q_INVOKABLE QString bookCodeAt(int row) const;
+
+
+        void loadFromXML(const QString& xml);
+
+        bool loading() { return _loading; }
+
+        bool loaded() { return _bookCodes.size() > 0; }
+
+
+    public slots:
+        void reload(bool useCache);
+
+
+    signals:
+        void nameChanged();
+        void sourceUrlChanged();
+        void copyrightChanged();
+        void rtlChanged();
+
+        void loadingFinished();
+        void loadingError();
+        void loadingChanged();
+        void loadedChanged();
+
+
+    private slots:
+        void translationXMLReceived();
+
+
+    private:
+        QString _code;
+
+        Language* _language;
+
+        QString _name;
+        QString _sourceUrl;
+        QString _copyright;
+        bool _rtl;
+
+        QMap<QString, BookInfo> _books;
+        QStringList _bookCodes;
+
+
+        bool _loading;
+
+        void setLoading(bool loading);
+
+
+        void addBookInfo(const BookInfo& bookInfo);
+
+        friend class TranslationInfoParser;
 };
 
 #endif // TRANSLATION_H

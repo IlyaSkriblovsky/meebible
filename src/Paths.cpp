@@ -1,6 +1,11 @@
 #include "Paths.h"
 
+#include <QDebug>
+
 #include <QDesktopServices>
+
+
+#include "Settings.h"
 
 
 QDir Paths::_cacheDir;
@@ -68,4 +73,38 @@ QString Paths::nwt_xslt()
 QString Paths::translationFile(const QString& locale)
 {
     return _translationsDir.filePath(QString("meebible_%1").arg(locale));
+}
+
+
+
+QUrl Paths::wsUrl(const QString& path)
+{
+    return QUrl(QString("http://%1/%2")
+        .arg(Settings::instance()->webService())
+        .arg(path))
+    ;
+}
+
+
+
+QString Paths::cachedXML(const QString& name)
+{
+    return _cacheDir.filePath(name + ".xml");
+}
+
+QStringList Paths::allCachedXML(const QString& prefix)
+{
+    QStringList files = _cacheDir.entryList(QStringList("*.xml"));
+    QStringList result;
+    for (int i = 0; i < files.size(); i++)
+    {
+        QString file = files.at(i);
+        if (file.startsWith(prefix))
+        {
+            file.replace(".xml", "");
+            result.append(file);
+        }
+    }
+
+    return result;
 }

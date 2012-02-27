@@ -4,6 +4,9 @@
 #include <QObject>
 #include <QRegExp>
 #include <QSqlDatabase>
+#include <QSqlQuery>
+
+#include "Place.h"
 
 class Translation;
 
@@ -22,11 +25,11 @@ public:
     Cache();
     virtual ~Cache();
 
-    void saveChapter(const Translation* translation, const QString& bookCode, int chapterNo, QString html);
+    void saveChapter(const Translation* translation, const Place& place, QString html);
 
-    QString loadChapter(const Translation* translation, const QString& bookCode, int chapterNo);
+    QString loadChapter(const Translation* translation, const Place& place);
 
-    bool hasChapter(const Translation* translation, const QString& bookCode, int chapterNo);
+    bool hasChapter(const Translation* translation, const Place& place);
 
     int totalChaptersInCache(const Translation* translation);
 
@@ -34,6 +37,11 @@ public:
     #ifndef NOSEARCH
         bool searchInProgress() const { return _searchInProgress; }
     #endif
+
+
+    void saveXML(const QString& name, const QString& content);
+    bool hasXML(const QString& name);
+    QString loadXML(const QString& name);
 
 
 public slots:
@@ -47,7 +55,7 @@ public slots:
 signals:
     #ifndef NOSEARCH
         void searchStarted();
-        void matchFound(QString bookCode, int chapterNo, QString match, int matchCount);
+        void matchFound(Place place, QString match, int matchCount);
         void searchFinished();
         void searchInProgressChanged();
     #endif
@@ -57,6 +65,11 @@ private:
     static Cache* _instance;
 
     QSqlDatabase _db;
+
+    QSqlQuery _stmt_saveChapter;
+    QSqlQuery _stmt_loadChapter;
+    QSqlQuery _stmt_hasChapter;
+    QSqlQuery _stmt_totalChapters;
 
     QRegExp _stripTags;
     QRegExp _stripSpaces;
@@ -71,7 +84,7 @@ private:
 
 private slots:
     #ifndef NOSEARCH
-        void onThreadMatchFound(const QString& bookCode, int chapterNo, QString match, int matchCount);
+        void onThreadMatchFound(Place place, QString match, int matchCount);
         void onThreadFinished();
     #endif
 };

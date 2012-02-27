@@ -2,6 +2,7 @@
 #define BIBLEVIEW_H
 
 #include <QGraphicsWebView>
+#include <QSet>
 
 class QNetworkAccessManager;
 
@@ -18,8 +19,7 @@ class BibleView: public QGraphicsWebView
 
     Q_PROPERTY(Translation* translation READ translation WRITE setTranslation NOTIFY translationChanged)
 
-    Q_PROPERTY(QString bookCode READ bookCode WRITE setBookCode NOTIFY bookCodeChanged)
-    Q_PROPERTY(int chapterNo READ chapterNo WRITE setChapterNo NOTIFY chapterNoChanged)
+    Q_PROPERTY(Place place READ place WRITE setPlace NOTIFY placeChanged)
 
     Q_PROPERTY(bool searchMode READ searchMode NOTIFY searchModeChanged)
     Q_PROPERTY(QString searchNeedle READ searchNeedle NOTIFY searchNeedleChanged)
@@ -30,8 +30,13 @@ class BibleView: public QGraphicsWebView
 
     Q_PROPERTY(int fontSize READ fontSize WRITE setFontSize NOTIFY fontSizeChanged)
     Q_PROPERTY(float lineSpacing READ lineSpacing WRITE setLineSpacing NOTIFY lineSpacingChanged)
+    Q_PROPERTY(QString fontName READ fontName WRITE setFontName NOTIFY fontNameChanged)
 
     Q_PROPERTY(bool inverted READ inverted WRITE setInverted)
+
+    Q_PROPERTY(bool loadingChapter READ loadingChapter NOTIFY loadingChapterChanged)
+
+    Q_PROPERTY(QList<int> selectedVerses READ selectedVerses NOTIFY selectedVersesChanged)
 
 public:
     explicit BibleView(QGraphicsItem *parent = 0);
@@ -40,14 +45,8 @@ public:
     Q_INVOKABLE void setTranslation(Translation *translation);
     Translation* translation() const;
 
-    QString bookCode() const { return _bookCode; }
-    int chapterNo() const { return _chapterNo; }
-    bool validLocation() const;
-
-    void setBookCode(const QString& bookCode) { _bookCode = bookCode; bookCodeChanged(); titleChanged(); }
-    void setChapterNo(int chapterNo) { _chapterNo = chapterNo; chapterNoChanged(); titleChanged(); }
-
-    Place selectedPlace();
+    Place place() const;
+    void setPlace(const Place& place);
 
     int preferredWidth();
     void setPreferredWidth(int width);
@@ -67,16 +66,23 @@ public:
 
     int fontSize() const { return _fontSize; }
     void setFontSize(int value);
+    QString fontName() const { return _fontName; }
+    void setFontName(const QString& value);
     float lineSpacing() const { return _lineSpacing; }
     void setLineSpacing(float value);
 
     bool inverted() const { return _inverted; }
     void setInverted(bool inverted);
 
+    bool loadingChapter() const { return _loadingChapter; }
+
+
+    QList<int> selectedVerses() const;
+
 
 public slots:
-    void loadChapter();
-    void setAndLoad(const QString& bookCode, int chapterNo, int verseNo);
+    // void setAndLoad(const QString& bookCode, int chapterNo, int verseNo);
+    // void loadPlace(const Place& place);
 
     void loadNextChapter();
     void loadPrevChapter();
@@ -87,18 +93,23 @@ public slots:
     #endif
 
     bool copySelectedVerses();
+    bool shareSelectedVerses();
+    bool bookmarkSelectedVerses();
     void clearSelection();
+
+
+    // Called from JS
+    void verseSelectionChanged(QList<int> verses);
 
 
 signals:
     void chapterLoaded();
     void chapterLoadingError();
-    void loading();
+    void loadingChapterChanged();
 
     void translationChanged();
 
-    void bookCodeChanged();
-    void chapterNoChanged();
+    void placeChanged();
 
     void needToScroll(int y);
     void ensureVisible(int y);
@@ -111,14 +122,16 @@ signals:
     void titleChanged();
 
     void fontSizeChanged();
+    void fontNameChanged();
     void lineSpacingChanged();
+
+    void selectedVersesChanged();
+
 
 private:
     Translation* _translation;
 
-    QString _bookCode;
-    int _chapterNo;
-    int _verseNo;
+    Place _place;
 
     QString _js;
     QString _html;
@@ -127,6 +140,7 @@ private:
 
 
     int _fontSize;
+    QString _fontName;
     float _lineSpacing;
 
     bool _inverted;
@@ -140,14 +154,26 @@ private:
     int _matchIndex;
 
 
-    void scrollToVerse(int verseNo);
+    bool _loadingChapter;
+
+
+    void setLoadingChapter(bool loading);
+
+
+    void showSelectedVerses(QSet<int> verses);
 
     void applyFontSize();
+    void applyFontName();
     void applyLineSpacing();
     void applyInverted();
 
 
+    void setSelectedVerses(QList<int> verses);
+
+
 private slots:
+    void loadChapter();
+
     void onChapterRequestFinished(QString html);
 
     void displayHtml(QString html);
@@ -157,6 +183,11 @@ private slots:
     void onLoadFinished(bool ok);
 
     void onLinkClicked(const QUrl& url);
+
+    void onTranslationLoadingFinished();
+
+
+    QString selectedText();
 };
 
 #endif // BIBLEVIEW_H

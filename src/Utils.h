@@ -11,6 +11,15 @@ namespace Utils
             varlist.append(QVariant::fromValue((QObject*)list[i]));
         return varlist;
     }
+
+    QString osName()
+    {
+        #ifdef Q_OS_LINUX
+            return "meego";
+        #else
+            return "unknown";
+        #endif
+    }
 }
 
 #endif

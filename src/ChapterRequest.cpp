@@ -8,15 +8,13 @@
 
 ChapterRequest::ChapterRequest(
     Translation* translation,
-    const QString& bookCode,
-    int chapterNo,
+    const Place& place,
     QNetworkReply* nreply
 ):
     QObject(translation),
     _nreply(nreply),
     _translation(translation),
-    _bookCode(bookCode),
-    _chapterNo(chapterNo)
+    _place(place)
 {
     _nreply->setParent(this);
 
@@ -25,7 +23,14 @@ ChapterRequest::ChapterRequest(
 
 void ChapterRequest::onNReplyFinished()
 {
-    finished(QString::fromUtf8(_nreply->readAll()));
+    if (error() != QNetworkReply::NoError)
+    {
+        finished("HTTP Error");
+        return;
+    }
+
+    QString content = QString::fromUtf8(_nreply->readAll());
+    finished(content);
 }
 
 
@@ -34,14 +39,9 @@ Translation* ChapterRequest::translation() const
     return _translation;
 }
 
-QString ChapterRequest::bookCode() const
+Place ChapterRequest::place() const
 {
-    return _bookCode;
-}
-
-int ChapterRequest::chapterNo() const
-{
-    return _chapterNo;
+    return _place;
 }
 
 QNetworkReply::NetworkError ChapterRequest::error() const

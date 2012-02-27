@@ -1,0 +1,151 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: "";
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+body {
+  font-family: Geneva, Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  color: #444444;
+  line-height: 1.3; }
+
+h1, h2, h3, h4 {
+  font-weight: normal;
+  color: #222222;
+  line-height: 1.2;
+  padding-top: 30px;
+  padding-bottom: 10px;
+  color: #086fa1;
+  text-shadow: 0px 1px 1px #888888; }
+
+h1 {
+  font-size: 200%; }
+
+h2 {
+  font-size: 150%; }
+
+p {
+  margin-bottom: 15px; }
+
+ol, ul {
+  margin: 10px 0 10px 40px; }
+
+ol {
+  list-style: decimal; }
+
+ul {
+  list-style: disc; }
+
+li {
+  padding-bottom: 5px; }
+
+a {
+  color: #444444;
+  text-decoration: underline; }
+  a:hover {
+    color: #086fa1; }
+
+b {
+  font-weight: bold; }
+
+i {
+  font-style: italic; }
+
+u {
+  text-decoration: underline; }
+
+#phone {
+  position: relative;
+  float: right;
+  margin-left: 20px;
+  margin-top: 30px;
+  margin-right: -150px;
+  width: 250px;
+  height: 508px;
+  background: url(/static/img/phone_body.png); }
+  #phone #screen-wrapper {
+    position: absolute;
+    left: 36px;
+    top: 68px;
+    width: 176px;
+    height: 314px;
+    overflow: hidden; }
+    #phone #screen-wrapper .screen {
+      position: absolute;
+      display: none;
+      width: 100%;
+      height: 100%; }
+      #phone #screen-wrapper .screen.visible {
+        display: block; }
+  #phone #screen-1 {
+    background: url(/static/img/screen-1.png); }
+  #phone #screen-2 {
+    background: url(/static/img/screen-2.png); }
+  #phone #screen-3 {
+    background: url(/static/img/screen-3.png); }
+  #phone #screen-4 {
+    background: url(/static/img/screen-4.png); }
+  #phone #screen-5 {
+    background: url(/static/img/screen-5.png); }
+
+#footer {
+  font-size: 70%;
+  text-align: center;
+  color: #888888;
+  margin-top: 50px;
+  margin-bottom: 10px; }
+
+.store-links {
+  font-size: 120%;
+  text-align: center; }
+  .store-links td.variant {
+    width: 250px; }
+  .store-links td.divider {
+    width: 150px;
+    vertical-align: middle; }
+  .store-links .title {
+    margin-bottom: 10px; }
+  .store-links .desc {
+    font-size: 80%; }
+
+#content {
+  max-width: 800px;
+  margin: 0 auto; }

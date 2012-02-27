@@ -32,27 +32,63 @@ Page {
 
 
             Label {
-                text: qsTr("Thank you for using MeeBible, the open source Bible reader for Harmattan")
+                text: "MeeBible — " + qsTr("the open source Bible reader")
 
                 width: parent.width
             }
 
             Label {
-                text: freeversion ? qsTr("If you want to support development of MeeBible, please consider buying paid version from Ovi Store!") : qsTr("Thank you for supporting MeeBible!")
+                text: freeversion ? qsTr("If you want to support development, please consider buying <a href='http://store.ovi.com/content/215454'>paid version</a>!") : qsTr("Thank you for supporting development!")
 
                 width: parent.width
 
                 color: freeversion ? "#800000" : "#008000"
+
+                onLinkActivated: Qt.openUrlExternally(link)
             }
 
             Label {
-                text: qsTr("Currently following Bible translations are supported: <ul> <li>New World Translation in 42 languages</li> <li>King James Version</li> <li>Russian Synodal translation</li> <li>Latvian Revised Bible</li> <li>Smith & Van Dyck Arabic translation</li> </ul>")
+                text: qsTr("Homepage & sources:")
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
 
-                width: parent.width
+            Label {
+                text: '<html><style>a{color:' + (theme.inverted ? '#8080ff' : '#0000ff') + '}</style><a href="http://meebible.org">MeeBible.org</a></html>'
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                font.pixelSize: 34
+
+                onLinkActivated: Qt.openUrlExternally(link)
+            }
+
+            Button {
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                text: qsTr("Send your feedback")
+
+                height: 60
+
+                // Image {
+                //     source: "image://theme/icon-s-common-next"
+                //     anchors.right: parent.right
+                //     anchors.verticalCenter: parent.verticalCenter
+                //     anchors.rightMargin: 10
+                // }
+
+                Loader {
+                    id: feedbackPage
+
+                    function load() { source = "FeedbackPage.qml" }
+
+                    function open() { load(); pageStack.push(item) }
+                }
+
+                onClicked: feedbackPage.open()
             }
 
             Label {
                 text: qsTr("Read God's Word daily!")
+                anchors.horizontalCenter: parent.horizontalCenter
             }
 
             Rectangle {
@@ -68,23 +104,17 @@ Page {
             }
 
             Label {
-                text: qsTr('© 2011 Ilya Skriblovsky<br>E-Mail: <a href="mailto:IlyaSkriblovsky@gmail.com">Ilya.Skriblovsky@gmail.com</a>')
+                text: '<html><style>a{color:' + (theme.inverted ? '#8080ff' : '#0000ff') + '}</style>' +
+                    qsTr('© 2011 Ilya Skriblovsky') + '<br>E-Mail: <a href="mailto:ilya@meebible.org?subject=MeeBible">ilya@meebible.org</a></html>'
                 width: parent.width
 
                 onLinkActivated: Qt.openUrlExternally(link)
             }
 
             Label {
-                text: qsTr("Please contact me with any comments or suggestions or if you want to add new Bible or UI translations.")
+                text: qsTr("Please contact us with any comments or suggestions or if you want to add new Bible or UI translations.")
 
                 width: parent.width
-            }
-
-            Label {
-                text: qsTr('Homepage & sources: <a href="http://projects.developer.nokia.com/meebible">http://projects.developer.nokia.com/meebible</a>')
-                width: parent.width
-
-                onLinkActivated: Qt.openUrlExternally(link)
             }
         }
     }
