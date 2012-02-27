@@ -119,21 +119,15 @@ Page {
 
                 font.pixelSize: 36
 
-                platformStyle: LabelStyle {
-                    inverted: true
-                }
+                // platformStyle: LabelStyle {
+                //     inverted: true
+                // }
             }
 
-            Button {
+            UniDialogButton {
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 text: qsTr(\"Cancel\")
-
-                __dialogButton: true
-
-                platformStyle: ButtonStyle {
-                    inverted: true
-                }
 
                 onClicked: feedback.abort()
             }

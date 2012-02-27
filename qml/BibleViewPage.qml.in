@@ -51,7 +51,8 @@ Page {
         bibleView.place = settings.place
         fontSizeSlider.setFontSize(settings.fontSize)
         lineSpacingSlider.value = settings.lineSpacing
-        theme.inverted = settings.inverted
+        // FIXME:
+        // theme.inverted = settings.inverted
         created = true
 
         languages.reload(true)
@@ -336,8 +337,30 @@ Page {
     }
 
 
+    Connections {
+        target: languages
+        onLoadingChanged: console.log(\"Languages.loading = \" + languages.loading)
+    }
+    Connections {
+        target: settings
+        onLanguageChanged: console.log(\"settings.language = \" + settings.language)
+        onTranslationChanged: console.log(\"settings.translation = \" + settings.translation)
+    }
+    Connections {
+        target: bibleView
+        onLoadingChapterChanged: console.log(\"BibleView.loadingChapter = \" + bibleView.loadingChapter)
+    }
+
+
     Rectangle {
         id: busyIndicator
+
+        Component.onCompleted: {
+            console.log(\"Languages.loading = \" + languages.loading)
+            console.log(\"settings.language = \" + settings.language)
+            console.log(\"settings.translation = \" + settings.translation)
+            console.log(\"BibleView.loadingChapter = \" + bibleView.loadingChapter)
+        }
 
         anchors.fill: parent
 
@@ -401,11 +424,9 @@ Page {
     Loader {
         id: placeDialog
 
-        width: 10; height: 10
-
         function load() { source = \"PlaceDialog.qml\" }
 
-        function open() { load(); item.open(bibleView.place) }
+        function open() { load(); item.run(bibleView.place) }
 
         Connections {
             target: placeDialog.item

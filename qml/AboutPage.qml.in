@@ -37,6 +37,8 @@ Page {
             Label {
                 text: \"MeeBible — \" + qsTr(\"the open source Bible reader\")
 
+                wrapMode: Text.Wrap
+
                 width: parent.width
             }
 
@@ -46,6 +48,8 @@ Page {
                 width: parent.width
 
                 color: freeversion ? \"#800000\" : \"#008000\"
+
+                wrapMode: Text.Wrap
 
                 onLinkActivated: Qt.openUrlExternally(link)
             }
@@ -60,6 +64,8 @@ Page {
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 font.pixelSize: 34
+
+                wrapMode: Text.Wrap
 
                 onLinkActivated: Qt.openUrlExternally(link)
             }
@@ -92,6 +98,8 @@ Page {
             Label {
                 text: qsTr(\"Read God\'s Word daily!\")
                 anchors.horizontalCenter: parent.horizontalCenter
+
+                wrapMode: Text.Wrap
             }
 
             Rectangle {
@@ -112,12 +120,16 @@ Page {
                 width: parent.width
 
                 onLinkActivated: Qt.openUrlExternally(link)
+
+                wrapMode: Text.Wrap
             }
 
             Label {
                 text: qsTr(\"Please contact us with any comments or suggestions or if you want to add new Bible or UI translations.\")
 
                 width: parent.width
+
+                wrapMode: Text.Wrap
             }
         }
     }

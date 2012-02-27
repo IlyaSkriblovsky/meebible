@@ -2,11 +2,9 @@ import QtQuick 1.1
 
 $$QML_IMPORT_QTCOMPONENTS
 
-import MeeBible 0.1
-
 
 ModelSelectionDialog {
-    width: parent.width - 60
+    // width: parent.width - 60
 
     titleText: qsTr(\"Select Language\")
 

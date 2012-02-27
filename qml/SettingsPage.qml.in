@@ -156,8 +156,6 @@ Page {
     Loader {
         id: languageDialog
 
-        width: 10
-        height: 10
 
         function load() { source = \"LanguageDialog.qml\" }
 
@@ -175,8 +173,6 @@ Page {
 
     Loader {
         id: transDialog
-
-        width: 10; height: 10
 
         function load() { source = \"TranslationDialog.qml\" }
 

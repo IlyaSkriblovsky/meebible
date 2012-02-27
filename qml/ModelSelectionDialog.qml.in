@@ -15,12 +15,21 @@ UniDialog {
     property int selectedIndex: -1
 
 
+        Component.onCompleted: {
+            console.log(\"1 = \" + header.height)
+            console.log(\"2 = \" + listView.contentHeight)
+            console.log(\"3 = \" + dialog.parent.height)
+            console.log(\"4 = \" + dialog.height)
+        }
+
     content: Item {
         id: contentItem
         width: parent.width
         anchors.horizontalCenter: parent.horizontalCenter
 
-        height: Math.min(header.height + listView.contentHeight, dialog.parent.height * 0.7)
+        // FIXME:
+        // height: Math.min(header.height + listView.contentHeight, dialog.parent.height * 0.7)
+        height: Math.min(header.height + listView.contentHeight, 800 * 0.7)
 
         Item {
             id: header
