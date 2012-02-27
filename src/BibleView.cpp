@@ -32,7 +32,7 @@
 
 
 BibleView::BibleView(QGraphicsItem *parent):
-    QGraphicsWebView(parent), _translation(0), _fontSize(30), _fontName("Nokia")
+    QGraphicsWebView(parent), _translation(0), _fontSize(30), _fontName("Nokia"), _loadingChapter(false)
 {
     QElapsedTimer timer;
     timer.start();
@@ -80,6 +80,7 @@ BibleView::~BibleView()
 
 void BibleView::setLoadingChapter(bool loading)
 {
+    qWarning() << "setLoadingChapter" << loading;
     if (_loadingChapter != loading)
     {
         _loadingChapter = loading;
@@ -212,6 +213,7 @@ void BibleView::loadChapter()
         {
             connect(request, SIGNAL(finished(QString)), this, SLOT(onChapterRequestFinished(QString)));
 
+            qWarning() << "setLoadingChapter(true) 1";
             setLoadingChapter(true);
         }
     }
@@ -226,6 +228,7 @@ void BibleView::onChapterRequestFinished(QString html)
     {
         clearDisplay(tr("<h3>Cannot load chapter</h3> Please check your internet connection"));
         chapterLoadingError();
+        qWarning() << "setLoadingChapter(false) 2";
         setLoadingChapter(false);
     }
     else
@@ -235,6 +238,7 @@ void BibleView::onChapterRequestFinished(QString html)
             displayHtml(html);
             showSelectedVerses(_place.verses());
             chapterLoaded();
+            qWarning() << "setLoadingChapter(false) 3";
             setLoadingChapter(false);
         }
 
