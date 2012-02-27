@@ -4,6 +4,8 @@ QT += core sql network xml webkit gui declarative
 # DEFINES += DEBUGPATHS
 
 nosearch:DEFINES += NOSEARCH
+noshare: DEFINES += NOSHARE
+
 free:DEFINES += FREEVERSION
 
 symbian: DEFINES += SYMBIAN

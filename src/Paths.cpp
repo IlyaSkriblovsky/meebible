@@ -3,6 +3,7 @@
 #include <QDebug>
 
 #include <QDesktopServices>
+#include <QCoreApplication>
 
 
 #include "Settings.h"
@@ -19,15 +20,21 @@ void Paths::init()
     _cacheDir = QDir(QDesktopServices::storageLocation(QDesktopServices::CacheLocation));
     _cacheDir.mkpath(".");
 
-#ifdef DEBUGPATHS
-    _shareDir = QDir("share");
-    _qmlDir = QDir("qml");
-    _translationsDir = QDir("translations");
-#else
-    _shareDir = QDir(INSTALLPREFIX"/share");
-    _qmlDir = QDir(INSTALLPREFIX"/qml");
-    _translationsDir = QDir(INSTALLPREFIX"/translations");
-#endif
+    #ifdef DEBUGPATHS
+        _shareDir = QDir("share");
+        _qmlDir = QDir("qml");
+        _translationsDir = QDir("translations");
+    #else
+        #ifdef SYMBIAN
+            _shareDir = QDir(QCoreApplication::applicationDirPath() + "/share");
+            _qmlDir = QDir(QCoreApplication::applicationDirPath() + "/qml");
+            _translationsDir = QDir(QCoreApplication::applicationDirPath() + "/translations");
+        #else
+            _shareDir = QDir(INSTALLPREFIX"/share");
+            _qmlDir = QDir(INSTALLPREFIX"/qml");
+            _translationsDir = QDir(INSTALLPREFIX"/translations");
+        #endif
+    #endif
 }
 
 

@@ -237,6 +237,8 @@ Page {
             }
         }
         EditBubbleButton {
+            visible: ! NOSHARE
+
             text: qsTr("Share")
             platformStyle: EditBubbleButtonStyle {
                 position: "horizontal-center"

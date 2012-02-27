@@ -12,8 +12,10 @@
 
 #include <QDesktopServices>
 
-#include <MDataUri>
-#include <maemo-meegotouch-interfaces/shareuiinterface.h>
+#ifndef NOSHARE
+    #include <MDataUri>
+    #include <maemo-meegotouch-interfaces/shareuiinterface.h>
+#endif
 
 #include "ChapterRequest.h"
 #include "Language.h"
@@ -489,6 +491,7 @@ bool BibleView::copySelectedVerses()
     return true;
 }
 
+#ifndef NOSHARE
 bool BibleView::shareSelectedVerses()
 {
     QString text = selectedText();
@@ -524,6 +527,7 @@ bool BibleView::shareSelectedVerses()
 
     return true;
 }
+#endif
 
 
 void BibleView::clearSelection()

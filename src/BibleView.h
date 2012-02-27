@@ -93,7 +93,9 @@ public slots:
     #endif
 
     bool copySelectedVerses();
-    bool shareSelectedVerses();
+    #ifndef NOSHARE
+        bool shareSelectedVerses();
+    #endif
     bool bookmarkSelectedVerses();
     void clearSelection();
 
