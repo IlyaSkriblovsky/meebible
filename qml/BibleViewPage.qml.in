@@ -1,12 +1,13 @@
 import QtQuick 1.1
 
-// for EditBubbleButton
-import "/usr/lib/qt4/imports/com/meego/" 1.0
+// // for EditBubbleButton
+// import \"/usr/lib/qt4/imports/com/meego/\" 1.0
 
-import com.meego.extras 1.0
+$$QML_IMPORT_QTCOMPONENTS
+// import com.meego.extras 1.0
 
 import MeeBible 0.1
-import "unicomponents"
+import \"unicomponents\"
 
 Page {
     id: page
@@ -18,31 +19,31 @@ Page {
 
     Binding {
         target: settings
-        property: "place"
+        property: \"place\"
         value: bibleView.place
         when: created
     }
     Binding {
         target: settings
-        property: "fontSize"
+        property: \"fontSize\"
         value: fontSizeSlider.fontSize()
         when: created
     }
     Binding {
         target: settings
-        property: "lineSpacing"
+        property: \"lineSpacing\"
         value: lineSpacingSlider.value
         when: created
     }
     Binding {
         target: settings
-        property: "scrollPos"
+        property: \"scrollPos\"
         value: flickable.contentY
         when: firstScrollPosSet
     }
     Binding {
         target: settings
-        property: 'inverted'
+        property: \'inverted\'
         value: theme.inverted
         when: created
     }
@@ -59,7 +60,7 @@ Page {
 
     Header {
         id: header
-        text: bibleView.title || "MeeBible"
+        text: bibleView.title || \"MeeBible\"
         withIcon: true
         height: settings.floatingHeader ? 0 : 70
         visible: ! settings.floatingHeader
@@ -98,7 +99,7 @@ Page {
 
             Header {
                 id: floatingHeader
-                text: bibleView.title || "MeeBible"
+                text: bibleView.title || \"MeeBible\"
                 withIcon: true
                 height: settings.floatingHeader ? 70 : 0
                 visible: settings.floatingHeader
@@ -114,7 +115,7 @@ Page {
                 resizesToContents: true
                 preferredWidth: page.width
 
-                url: "about:blank"
+                url: \"about:blank\"
 
                 translation: settings.translation
 
@@ -133,14 +134,14 @@ Page {
                         firstScrollPosSet = true
                     }
 
-                    // page.state = "normal"
+                    // page.state = \"normal\"
                 }
 
                 onChapterLoadingError: {
                     flickable.contentY = 0
-                    // page.state = "normal"
+                    // page.state = \"normal\"
                 }
-                // onLoading: page.state = "loading"
+                // onLoading: page.state = \"loading\"
 
 
                 function scrollTo(y)
@@ -183,7 +184,7 @@ Page {
 
     InfoBanner {
         id: copyBanner
-        text: qsTr("Copied")
+        text: qsTr(\"Copied\")
     }
     InfoBanner {
         id: bookmarkBanner
@@ -208,7 +209,7 @@ Page {
 
         states: [
             State {
-                name: "visible"
+                name: \"visible\"
                 when: bibleView.selectedVerses.length > 0
 
                 PropertyChanges {
@@ -223,9 +224,9 @@ Page {
 
 
         EditBubbleButton {
-            text: qsTr("Copy")
+            text: qsTr(\"Copy\")
             platformStyle: EditBubbleButtonStyle {
-                position: "horizontal-left"
+                position: \"horizontal-left\"
                 buttonPaddingLeft: verseActions.narrow ? 0 : 8
                 buttonPaddingRight: verseActions.narrow ? 0 : 8
             }
@@ -239,9 +240,9 @@ Page {
         EditBubbleButton {
             visible: ! NOSHARE
 
-            text: qsTr("Share")
+            text: qsTr(\"Share\")
             platformStyle: EditBubbleButtonStyle {
-                position: "horizontal-center"
+                position: \"horizontal-center\"
                 buttonPaddingLeft: verseActions.narrow ? 0 : 8
                 buttonPaddingRight: verseActions.narrow ? 0 : 8
             }
@@ -253,18 +254,18 @@ Page {
         }
         EditBubbleButton {
             platformStyle: EditBubbleButtonStyle {
-                position: "horizontal-center"
+                position: \"horizontal-center\"
                 buttonPaddingLeft: verseActions.narrow ? 0 : 8
                 buttonPaddingRight: verseActions.narrow ? 0 : 8
             }
 
-            text: qsTr("Bookmark")
+            text: qsTr(\"Bookmark\")
 
             onClicked: {
                 if (bibleView.bookmarkSelectedVerses())
-                    bookmarkBanner.text = qsTr("Bookmarked")
+                    bookmarkBanner.text = qsTr(\"Bookmarked\")
                 else
-                    bookmarkBanner.text = qsTr("Already in bookmarks")
+                    bookmarkBanner.text = qsTr(\"Already in bookmarks\")
                 bookmarkBanner.show()
 
                 bibleView.clearSelection()
@@ -272,14 +273,14 @@ Page {
         }
         EditBubbleButton {
             platformStyle: EditBubbleButtonStyle {
-                position: "horizontal-right"
+                position: \"horizontal-right\"
             }
 
             Image {
                 anchors.verticalCenter: parent.verticalCenter
                 x: 4
 
-                source: 'image://theme/icon-m-toolbar-close'
+                source: \'image://theme/icon-m-toolbar-close\'
             }
 
             onClicked: bibleView.clearSelection()
@@ -316,9 +317,9 @@ Page {
             wrapMode: Text.Wrap
 
             font.pixelSize: 30
-            color: '#800'
+            color: \'#800\'
 
-            text: qsTr("Before you start to read, MeeBible have to load translation list from server")
+            text: qsTr(\"Before you start to read, MeeBible have to load translation list from server\")
         }
 
         MouseArea { anchors.fill: parent }
@@ -328,7 +329,7 @@ Page {
             anchors.topMargin: 30
             anchors.horizontalCenter: xmlLoadingFailedLabel.horizontalCenter
 
-            text: qsTr("Try again")
+            text: qsTr(\"Try again\")
 
             onClicked: languages.reload(true)
         }
@@ -340,7 +341,7 @@ Page {
 
         anchors.fill: parent
 
-        color: theme.inverted ? '#000' : '#e0e0e0'
+        color: theme.inverted ? \'#000\' : \'#e0e0e0\'
 
         opacity: (languages.loading || (settings.translation && settings.translation.loading) || bibleView.loadingChapter) ? 0.8 : 0.0
 
@@ -361,7 +362,7 @@ Page {
 
             font.pixelSize: 36
 
-            text: qsTr("Loading chapter")
+            text: qsTr(\"Loading chapter\")
         }
 
         MouseArea {
@@ -376,22 +377,22 @@ Page {
 
         states: [
             State {
-                name: "chapter"
+                name: \"chapter\"
                 when: bibleView.loadingChapter
 
-                PropertyChanges { target: busyLabel; text: qsTr("Loading chapter") }
+                PropertyChanges { target: busyLabel; text: qsTr(\"Loading chapter\") }
             },
             State {
-                name: "languages"
+                name: \"languages\"
                 when: languages.loading
 
-                PropertyChanges { target: busyLabel; text: qsTr("Loading translation list") }
+                PropertyChanges { target: busyLabel; text: qsTr(\"Loading translation list\") }
             },
             State {
-                name: "translation"
+                name: \"translation\"
                 when: settings.translation.loading
 
-                PropertyChanges { target: busyLabel; text: qsTr("Loading book list") }
+                PropertyChanges { target: busyLabel; text: qsTr(\"Loading book list\") }
             }
         ]
     }
@@ -402,7 +403,7 @@ Page {
 
         width: 10; height: 10
 
-        function load() { source = "PlaceDialog.qml" }
+        function load() { source = \"PlaceDialog.qml\" }
 
         function open() { load(); item.open(bibleView.place) }
 
@@ -417,18 +418,18 @@ Page {
     QueryDialog {
         id: searchNotice
 
-        titleText: qsTr("Please notice")
+        titleText: qsTr(\"Please notice\")
 
-        message: qsTr("Full-text search works only for downloaded chapters. If you want to search whole Bible you must download it first using the app menu.")
+        message: qsTr(\"Full-text search works only for downloaded chapters. If you want to search whole Bible you must download it first using the app menu.\")
 
-        acceptButtonText: qsTr("OK")
+        acceptButtonText: qsTr(\"OK\")
     }
 
 
     Loader {
         id: searchDialog
 
-        function load() { source = "SearchDialog.qml" }
+        function load() { source = \"SearchDialog.qml\" }
         function open() {
             load()
             item.open()
@@ -456,10 +457,10 @@ Page {
         target: bibleView
         onSearchModeChanged: {
             if (bibleView.searchMode)
-                page.pageStack.toolBar.setTools(searchTools, "set")
+                page.pageStack.toolBar.setTools(searchTools, \"set\")
             else
                 if (! fontTools.visible)
-                    page.pageStack.toolBar.setTools(commonTools, "replace")
+                    page.pageStack.toolBar.setTools(commonTools, \"replace\")
         }
     }
 
@@ -467,11 +468,11 @@ Page {
     QueryDialog {
         id: xmlLoadingFailedNotice
 
-        titleText: qsTr("Cannot load translation list")
+        titleText: qsTr(\"Cannot load translation list\")
 
-        message: qsTr("Please check internet connection")
+        message: qsTr(\"Please check internet connection\")
 
-        acceptButtonText: qsTr("OK")
+        acceptButtonText: qsTr(\"OK\")
 
         Connections {
             target: languages
@@ -488,28 +489,28 @@ Page {
         id: commonTools
 
         UniToolIcon {
-            platformIconId: "toolbar-previous"
+            platformIconId: \"toolbar-previous\"
             onClicked: bibleView.loadPrevChapter()
         }
 
         UniToolIcon {
-            platformIconId: "toolbar-list"
+            platformIconId: \"toolbar-list\"
             onClicked: placeDialog.open()
         }
 
         UniToolIcon {
-            platformIconId: "toolbar-next"
+            platformIconId: \"toolbar-next\"
             onClicked: bibleView.loadNextChapter()
         }
 
 
         UniToolIcon {
-            iconSource: theme.inverted ? "bookmarks-inverted.png" : "bookmarks.png"
+            iconSource: theme.inverted ? \"bookmarks-inverted.png\" : \"bookmarks.png\"
             onClicked: bookmarksSheet.open()
         }
 
         UniToolIcon {
-            platformIconId: "toolbar-view-menu"
+            platformIconId: \"toolbar-view-menu\"
             onClicked: menu.status == DialogStatus.Closed ? menu.open() : menu.close()
         }
     }
@@ -523,7 +524,7 @@ Page {
 
         ToolButton {
             id: fontSizeSmaller
-            text: "–"
+            text: \"–\"
 
             anchors.left: parent.left
             anchors.leftMargin: 10
@@ -562,7 +563,7 @@ Page {
 
         ToolButton {
             id: fontSizeBigger
-            text: "+"
+            text: \"+\"
 
             anchors.right: fontDoneButton.left
             anchors.rightMargin: 10
@@ -575,7 +576,7 @@ Page {
 
         ToolButton {
             id: fontDoneButton
-            text: qsTr("OK")
+            text: qsTr(\"OK\")
 
             anchors.verticalCenter: parent.verticalCenter
 
@@ -583,7 +584,7 @@ Page {
             anchors.rightMargin: 10
             width: 70
 
-            onClicked: page.pageStack.toolBar.setTools(commonTools, "replace")
+            onClicked: page.pageStack.toolBar.setTools(commonTools, \"replace\")
         }
     }
 
@@ -596,7 +597,7 @@ Page {
 
         ToolButton {
             id: lineSpacingSmaller
-            text: "–"
+            text: \"–\"
 
             anchors.left: parent.left
             anchors.leftMargin: 10
@@ -626,7 +627,7 @@ Page {
 
         ToolButton {
             id: lineSpacingBigger
-            text: "+"
+            text: \"+\"
 
             anchors.right: lineSpacingDoneButton.left
             anchors.rightMargin: 10
@@ -639,7 +640,7 @@ Page {
 
         ToolButton {
             id: lineSpacingDoneButton
-            text: qsTr("OK")
+            text: qsTr(\"OK\")
 
             anchors.verticalCenter: parent.verticalCenter
 
@@ -647,7 +648,7 @@ Page {
             anchors.rightMargin: 10
             width: 70
 
-            onClicked: page.pageStack.toolBar.setTools(commonTools, "replace")
+            onClicked: page.pageStack.toolBar.setTools(commonTools, \"replace\")
         }
     }
 
@@ -658,7 +659,7 @@ Page {
         visible: false
 
         UniToolIcon {
-            platformIconId: "toolbar-up"
+            platformIconId: \"toolbar-up\"
 
             onClicked: {
                 if (bibleView.matchIndex > 0)
@@ -673,13 +674,13 @@ Page {
 
             anchors.verticalCenter: parent.verticalCenter
 
-            text: (bibleView.matchIndex + 1) + ' / ' + bibleView.matchCount
+            text: (bibleView.matchIndex + 1) + \' / \' + bibleView.matchCount
 
             font.pixelSize: 30
         }
 
         UniToolIcon {
-            platformIconId: "toolbar-down"
+            platformIconId: \"toolbar-down\"
 
             onClicked: {
                 if (bibleView.matchIndex < bibleView.matchCount - 1)
@@ -690,13 +691,13 @@ Page {
         }
 
         UniToolIcon {
-            platformIconId: "toolbar-search"
+            platformIconId: \"toolbar-search\"
 
             onClicked: searchDialog.open()
         }
 
         ToolButton {
-            text: qsTr("Done")
+            text: qsTr(\"Done\")
 
             anchors.verticalCenter: parent.verticalCenter
             anchors.rightMargin: 20
@@ -711,7 +712,7 @@ Page {
 
         width: 10; height: 10
 
-        function load() { source = "FetcherDialog.qml" }
+        function load() { source = \"FetcherDialog.qml\" }
         function open() { load(); item.open() }
 
         function start() { load(); item.start() }
@@ -720,11 +721,11 @@ Page {
     QueryDialog {
         id: downloadConfirmDialog
 
-        titleText: qsTr("Are you ready to download whole Bible?")
-        message: qsTr("This may take 10-15 minutes and you'd better do it over Wi-Fi connection")
+        titleText: qsTr(\"Are you ready to download whole Bible?\")
+        message: qsTr(\"This may take 10-15 minutes and you\'d better do it over Wi-Fi connection\")
 
-        acceptButtonText: qsTr("Download")
-        rejectButtonText: qsTr("Cancel")
+        acceptButtonText: qsTr(\"Download\")
+        rejectButtonText: qsTr(\"Cancel\")
 
         onAccepted: fetcherDialog.start()
     }
@@ -733,20 +734,20 @@ Page {
     Loader {
         id: settingsPage
 
-        function load() { source = "SettingsPage.qml" }
+        function load() { source = \"SettingsPage.qml\" }
         function open() { load(); pageStack.push(item) }
     }
 
     Loader {
         id: aboutPage
 
-        function load() { source = "AboutPage.qml" }
+        function load() { source = \"AboutPage.qml\" }
         function open() { load(); pageStack.push(item) }
     }
 
     Loader {
         id: bookmarksSheet
-        function load() { source = "BookmarksSheet.qml" }
+        function load() { source = \"BookmarksSheet.qml\" }
         function open() { load(); item.open() }
 
         Connections {
@@ -764,34 +765,34 @@ Page {
 
         MenuLayout {
             MenuItem {
-                text: qsTr("Search")
+                text: qsTr(\"Search\")
 
                 onClicked: searchDialog.open()
                 visible: ! NOSEARCH
             }
 
             MenuItem {
-                text: qsTr("Font size")
-                onClicked: page.pageStack.toolBar.setTools(fontTools, "replace")
+                text: qsTr(\"Font size\")
+                onClicked: page.pageStack.toolBar.setTools(fontTools, \"replace\")
             }
 
             MenuItem {
-                text: qsTr("Line spacing")
-                onClicked: page.pageStack.toolBar.setTools(lineSpacingTools, "replace")
+                text: qsTr(\"Line spacing\")
+                onClicked: page.pageStack.toolBar.setTools(lineSpacingTools, \"replace\")
             }
 
             MenuItem {
-                text: qsTr("Download Bible")
+                text: qsTr(\"Download Bible\")
                 onClicked: downloadConfirmDialog.open()
             }
 
             MenuItem {
-                text: qsTr("Settings")
+                text: qsTr(\"Settings\")
                 onClicked: settingsPage.open()
             }
 
             MenuItem {
-                text: qsTr("About MeeBible")
+                text: qsTr(\"About MeeBible\")
                 onClicked: aboutPage.open()
             }
         }

@@ -1,8 +1,8 @@
 import QtQuick 1.1
 
-import com.meego 1.0
+$$QML_IMPORT_QTCOMPONENTS
 
-import "unicomponents"
+import \"unicomponents\"
 
 
 UniDialog {

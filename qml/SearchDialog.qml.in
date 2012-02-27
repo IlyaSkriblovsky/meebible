@@ -1,9 +1,10 @@
 import QtQuick 1.1
-import com.meego 1.0
-import com.meego.extras 1.0
+
+$$QML_IMPORT_QTCOMPONENTS
+// import com.meego.extras 1.0
 
 import MeeBible 0.1
-import "unicomponents"
+import \"unicomponents\"
 
 Sheet {
     id: dialog
@@ -17,7 +18,7 @@ Sheet {
 
 
     function startSearch() {
-        if (field.text == "")
+        if (field.text == \"\")
             return
 
         cache.search(translation, field.text)
@@ -25,7 +26,7 @@ Sheet {
 
 
     onVisibleChanged: {
-        if (visible && field.text == "")
+        if (visible && field.text == \"\")
             field.forceActiveFocus()
     }
 
@@ -33,7 +34,7 @@ Sheet {
     buttons: [
         SheetButton {
             id: close
-            text: qsTr("Close")
+            text: qsTr(\"Close\")
 
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.right
@@ -45,7 +46,7 @@ Sheet {
         TextField {
             id: field
 
-            placeholderText: qsTr("Search...")
+            placeholderText: qsTr(\"Search...\")
 
             anchors.left: parent.left
             anchors.leftMargin: 10
@@ -55,7 +56,7 @@ Sheet {
 
 
             platformSipAttributes: SipAttributes {
-                actionKeyIcon: "/usr/share/themes/blanco/meegotouch/icons/icon-m-toolbar-search-selected.png"
+                actionKeyIcon: \"/usr/share/themes/blanco/meegotouch/icons/icon-m-toolbar-search-selected.png\"
                 actionKeyEnabled: true
             }
 
@@ -68,8 +69,8 @@ Sheet {
             Image {
                 id: image
 
-                // source: field.text.length > 0 ? "image://theme/icon-m-input-clear" : "image://theme/icon-m-common-search"
-                source: "image://theme/icon-m-common-search"
+                // source: field.text.length > 0 ? \"image://theme/icon-m-input-clear\" : \"image://theme/icon-m-common-search\"
+                source: \"image://theme/icon-m-common-search\"
 
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
@@ -78,7 +79,7 @@ Sheet {
                 width: height
 
 
-//              It seems like MouseArea doesn't work in TextField in 39-5 firmware :(
+//              It seems like MouseArea doesn\'t work in TextField in 39-5 firmware :(
 //                MouseArea {
 //                    anchors.fill: parent
 //
@@ -96,11 +97,11 @@ Sheet {
                 running: visible
             }
 
-            state: cache.searchInProgress ? "busy" : "idle"
+            state: cache.searchInProgress ? \"busy\" : \"idle\"
 
             states: [
                 State {
-                    name: "idle"
+                    name: \"idle\"
 
                     PropertyChanges {
                         target: image
@@ -113,7 +114,7 @@ Sheet {
                     }
                 },
                 State {
-                    name: "busy"
+                    name: \"busy\"
 
                     PropertyChanges {
                         target: image
@@ -137,13 +138,13 @@ Sheet {
             target: cache
 
             onSearchStarted: {
-                item.state = "list"
+                item.state = \"list\"
 
                 results.clear()
             }
             onSearchFinished: {
                 if (results.count == 0)
-                    item.state = "nothing"
+                    item.state = \"nothing\"
             }
 
             onMatchFound: {
@@ -182,7 +183,7 @@ Sheet {
                 x: 10
                 width: parent.width - 20
 
-                // com.meego.extras.CountBubble doesn't works well with inverted theme
+                // com.meego.extras.CountBubble doesn\'t works well with inverted theme
                 Item {
                     anchors.right: parent.right
                     anchors.top: parent.top
@@ -192,14 +193,14 @@ Sheet {
                     height: 25
 
                     BorderImage {
-                        source: "image://theme/meegotouch-countbubble-background"
+                        source: \"image://theme/meegotouch-countbubble-background\"
                         anchors.fill: parent
                         border { left: 10; top: 10; right: 10; bottom: 10 }
                     }
 
                     Text {
                         text: matchCount
-                        color: theme.inverted ? '#fff' : '#000'
+                        color: theme.inverted ? \'#fff\' : \'#000\'
                         font.pixelSize: 15
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.horizontalCenter: parent.horizontalCenter
@@ -217,19 +218,19 @@ Sheet {
             Label {
                 anchors.centerIn: parent
 
-                text: qsTr("Nothing found")
-                color: theme.inverted ? '#444' : '#888'
+                text: qsTr(\"Nothing found\")
+                color: theme.inverted ? \'#444\' : \'#888\'
                 font.pixelSize: 60
-                font.family: "Nokia Pure Text Light"
+                font.family: \"Nokia Pure Text Light\"
             }
         }
 
 
-        state: "list"
+        state: \"list\"
 
         states: [
             State {
-                name: "list"
+                name: \"list\"
 
                 PropertyChanges {
                     target: list
@@ -241,7 +242,7 @@ Sheet {
                 }
             },
             State {
-                name: "nothing"
+                name: \"nothing\"
 
                 PropertyChanges {
                     target: list

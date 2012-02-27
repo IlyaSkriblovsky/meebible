@@ -1,16 +1,16 @@
 import QtQuick 1.1
 
-import com.meego 1.0
-import com.meego.extras 1.0
+$$QML_IMPORT_QTCOMPONENTS
+// import com.meego.extras 1.0
 
 import MeeBible 0.1
-import "unicomponents"
+import \"unicomponents\"
 
 
 UniDialog {
     id: dialog
 
-    titleText: qsTr("Downloading Bible")
+    titleText: qsTr(\"Downloading Bible\")
 
     property Fetcher fetcher: Fetcher {
         translation: settings.translation
@@ -29,7 +29,7 @@ UniDialog {
     }
 
     function start() {
-        label.text = qsTr("Connecting...")
+        label.text = qsTr(\"Connecting...\")
         if (fetcher.start() == false)
         {
             nothingToDo.open()
@@ -45,10 +45,10 @@ UniDialog {
     QueryDialog {
         id: nothingToDo
 
-        titleText: qsTr("Nothing to do")
-        message: qsTr("You already have downloaded whole Bible in selected language and translation")
+        titleText: qsTr(\"Nothing to do\")
+        message: qsTr(\"You already have downloaded whole Bible in selected language and translation\")
 
-        acceptButtonText: qsTr("OK")
+        acceptButtonText: qsTr(\"OK\")
     }
 
 
@@ -68,7 +68,7 @@ UniDialog {
 
                 anchors.bottom: parent.bottom
 
-                color: "white"
+                color: \"white\"
             }
         }
 
@@ -89,7 +89,7 @@ UniDialog {
         }
 
         UniNegativeButton {
-            text: qsTr("Cancel")
+            text: qsTr(\"Cancel\")
 
             anchors.horizontalCenter: parent.horizontalCenter
 

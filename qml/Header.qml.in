@@ -1,5 +1,6 @@
 import QtQuick 1.1
-import com.meego 1.0
+
+$$QML_IMPORT_QTCOMPONENTS
 
 
 Rectangle {
@@ -12,8 +13,8 @@ Rectangle {
 
 
     gradient: Gradient {
-        GradientStop { position: 0.0; color: "#515151" }
-        GradientStop { position: 1.0; color: "#313131" }
+        GradientStop { position: 0.0; color: \"#515151\" }
+        GradientStop { position: 1.0; color: \"#313131\" }
     }
 
     width: parent.width
@@ -29,7 +30,7 @@ Rectangle {
 
         visible: withIcon
 
-        source: withIcon ? "header.png" : ""
+        source: withIcon ? \"header.png\" : \"\"
     }
 
     Label {
@@ -37,9 +38,9 @@ Rectangle {
         y: label.y + 1
         text: label.text
         font.pixelSize: 32
-        color: '#000'
+        color: \'#000\'
 
-        font.family: "Nokia Pure Text Light"
+        font.family: \"Nokia Pure Text Light\"
     }
 
     Label {
@@ -48,15 +49,15 @@ Rectangle {
         anchors.leftMargin: withIcon ? 5 : 20
         anchors.rightMargin: 10
         font.pixelSize: 32
-        color: '#eee'
+        color: \'#eee\'
 
-        font.family: "Nokia Pure Text Light"
+        font.family: \"Nokia Pure Text Light\"
 
-        state: header.rtl ? "rtl" : "ltr"
+        state: header.rtl ? \"rtl\" : \"ltr\"
 
         states: [
             State {
-                name: "rtl"
+                name: \"rtl\"
                 AnchorChanges {
                     target: label
                     anchors.right: header.right
@@ -64,7 +65,7 @@ Rectangle {
             },
 
             State {
-                name: "ltr"
+                name: \"ltr\"
                 AnchorChanges {
                     target: label
                     anchors.left: icon.right
@@ -79,7 +80,7 @@ Rectangle {
         y: 68
         width: parent.width
         height: 1
-        color: theme.inverted ? '#222' : '#000'
+        color: theme.inverted ? \'#222\' : \'#000\'
     }
 
     Rectangle {
@@ -87,6 +88,6 @@ Rectangle {
         y: 69
         width: parent.width
         height: 1
-        color: theme.inverted ? '#000' : '#fff'
+        color: theme.inverted ? \'#000\' : \'#fff\'
     }
 }

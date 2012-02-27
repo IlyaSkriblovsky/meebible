@@ -1,5 +1,6 @@
 import QtQuick 1.1
-import com.meego 1.0
+
+$$QML_IMPORT_QTCOMPONENTS
 
 Item {
     id: item
@@ -16,7 +17,7 @@ Item {
     Rectangle {
         anchors.fill: parent
 
-        color: '#444'
+        color: \'#444\'
         visible: mouseArea.pressed || (selectable && item.ListView.isCurrentItem)
     }
 
@@ -27,13 +28,13 @@ Item {
         anchors.rightMargin: 20
 
         text: value
-        color: 'white'
+        color: \'white\'
 
-        state: item.centered ? "centered" : (item.rtl ? "rtl" : "")
+        state: item.centered ? \"centered\" : (item.rtl ? \"rtl\" : \"\")
 
         states: [
             State {
-                name: "centered"
+                name: \"centered\"
                 AnchorChanges {
                     target: label
                     anchors.horizontalCenter: item.horizontalCenter
@@ -41,7 +42,7 @@ Item {
             },
 
             State {
-                name: "rtl"
+                name: \"rtl\"
                 AnchorChanges {
                     target: label
                     anchors.right: item.right

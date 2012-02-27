@@ -1,14 +1,14 @@
 import QtQuick 1.1
 
-import com.meego 1.0
+$$QML_IMPORT_QTCOMPONENTS
 
-import "unicomponents"
+import \"unicomponents\"
 
 
 UniDialog {
     id: dialog
 
-    titleText: qsTr("Select Book")
+    titleText: qsTr(\"Select Book\")
 
     property alias bookModel: bookList.model
 
@@ -16,7 +16,7 @@ UniDialog {
 
 
     function open(place) {
-        contentItem.state = "bookSelection"
+        contentItem.state = \"bookSelection\"
         if (status == DialogStatus.Closed)
             status = DialogStatus.Opening
 
@@ -29,7 +29,7 @@ UniDialog {
 
 
     function place() {
-        var bookCode = "xxx"
+        var bookCode = \"xxx\"
         if (bookList.currentIndex != -1)
             bookCode = bookModel.bookCodeAt(bookList.currentIndex)
 
@@ -76,7 +76,7 @@ UniDialog {
                 rtl: settings.translation.rtl
 
                 onClicked: {
-                    contentItem.state = "chapterSelection"
+                    contentItem.state = \"chapterSelection\"
                 }
             }
 
@@ -86,7 +86,7 @@ UniDialog {
 
                 chaptersModel.clear()
 
-                if (bookCode != "")
+                if (bookCode != \"\")
                 {
                     var chaptersCount = bookList.model.chaptersInBook(bookCode)
                     for (var i = 1; i <= chaptersCount; i++)
@@ -123,8 +123,8 @@ UniDialog {
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
 
-                    text: qsTr("Chapter:")
-                    color: "white"
+                    text: qsTr(\"Chapter:\")
+                    color: \"white\"
                 }
             }
             Item {
@@ -141,8 +141,8 @@ UniDialog {
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
 
-                    text: qsTr("Verse:")
-                    color: "white"
+                    text: qsTr(\"Verse:\")
+                    color: \"white\"
                 }
             }
 
@@ -225,9 +225,9 @@ UniDialog {
                 width: parent.width / 4
                 anchors.bottom: parent.bottom
 
-                text: "←"
+                text: \"←\"
 
-                onClicked: contentItem.state = "bookSelection"
+                onClicked: contentItem.state = \"bookSelection\"
             }
 
             UniDialogButton {
@@ -238,18 +238,18 @@ UniDialog {
                 anchors.right: parent.right
                 anchors.bottom: parent.bottom
 
-                text: qsTr("OK")
+                text: qsTr(\"OK\")
 
                 onClicked: dialog.accept()
             }
         }
 
 
-        state: "bookSelection"
+        state: \"bookSelection\"
 
         states: [
             State {
-                name: "bookSelection"
+                name: \"bookSelection\"
 
                 AnchorChanges {
                     target: bookList
@@ -257,7 +257,7 @@ UniDialog {
                 }
             },
             State {
-                name: "chapterSelection"
+                name: \"chapterSelection\"
 
                 AnchorChanges {
                     target: bookList

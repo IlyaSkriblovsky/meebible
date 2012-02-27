@@ -1,5 +1,7 @@
 import QtQuick 1.1
-import com.meego 1.0
+
+$$QML_IMPORT_QTCOMPONENTS
+
 import MeeBible 0.1
 
 PageStackWindow {
@@ -9,14 +11,14 @@ PageStackWindow {
 
     Binding {
         target: settings
-        property: "fullscreen"
+        property: \"fullscreen\"
         value: ! window.showStatusBar
         when: created
     }
 
     Binding {
         target: window
-        property: "showStatusBar"
+        property: \"showStatusBar\"
         value: ! settings.fullscreen
         when: ! created
     }

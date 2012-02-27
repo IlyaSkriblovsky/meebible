@@ -1,8 +1,9 @@
 import QtQuick 1.1
-import com.meego 1.0
-import com.meego.extras 1.0
 
-import "unicomponents"
+$$QML_IMPORT_QTCOMPONENTS
+// import com.meego.extras 1.0
+
+import \"unicomponents\"
 
 Page {
     id: settingsPage
@@ -14,13 +15,13 @@ Page {
     TumblerButtonStyle {
         id: tumblerStyleBlue
 
-        textColor: theme.inverted ? '#aaf' : '#006'
+        textColor: theme.inverted ? \'#aaf\' : \'#006\'
     }
 
 
     Header {
         id: header
-        text: qsTr("Settings")
+        text: qsTr(\"Settings\")
     }
 
 
@@ -46,15 +47,15 @@ Page {
             width: settingsPage.width
 
             TumblerItem {
-                titleText: qsTr("Language")
-                valueText: settings.language ? settings.language.selfname : qsTr('<not loaded yet>')
+                titleText: qsTr(\"Language\")
+                valueText: settings.language ? settings.language.selfname : qsTr(\'<not loaded yet>\')
 
                 onClicked: languageDialog.open()
             }
 
             TumblerItem {
-                titleText: qsTr("Translation")
-                valueText: settings.translation ? settings.translation.name : qsTr('<not loaded yet>')
+                titleText: qsTr(\"Translation\")
+                valueText: settings.translation ? settings.translation.name : qsTr(\'<not loaded yet>\')
 
                 onClicked: transDialog.open()
             }
@@ -68,9 +69,9 @@ Page {
 
                 radius: 5
 
-                color: 'transparent'
+                color: \'transparent\'
 
-                border.color: '#888'
+                border.color: \'#888\'
                 border.width: 1
 
                 Column {
@@ -85,9 +86,9 @@ Page {
                         anchors.right: parent.right
 
                         text: settings.translation ?
-                            '<html><style>a{color:' + (theme.inverted ? '#8080ff' : '#0000ff') + '}</style>' +
-                            'Available at <a href="' + settings.translation.sourceUrl + '">' + settings.translation.sourceUrl + '</a>' +
-                            '</html>' : ''
+                            \'<html><style>a{color:\' + (theme.inverted ? \'#8080ff\' : \'#0000ff\') + \'}</style>\' +
+                            \'Available at <a href=\"\' + settings.translation.sourceUrl + \'\">\' + settings.translation.sourceUrl + \'</a>\' +
+                            \'</html>\' : \'\'
                         font.pixelSize: 20
 
                         onLinkActivated: Qt.openUrlExternally(settings.translation.sourceUrl)
@@ -96,8 +97,8 @@ Page {
                         anchors.left: parent.left
                         anchors.right: parent.right
 
-                        text: settings.translation ? settings.translation.copyright : ''
-                        visible: settings.translation != null  &&  settings.translation.copyright != ''
+                        text: settings.translation ? settings.translation.copyright : \'\'
+                        visible: settings.translation != null  &&  settings.translation.copyright != \'\'
                         font.pixelSize: 20
                     }
                 }
@@ -109,28 +110,28 @@ Page {
             }
 
             TumblerItem {
-                titleText: qsTr("Font")
+                titleText: qsTr(\"Font\")
                 valueText: settings.fontName
 
                 onClicked: fontDialog.open()
             }
 
             LabeledSwitch {
-                text: qsTr("Scroll header with the text")
+                text: qsTr(\"Scroll header with the text\")
 
                 checked: settings.floatingHeader
                 onCheckedChanged: settings.floatingHeader = checked
             }
 
             LabeledSwitch {
-                text: qsTr("Fullscreen")
+                text: qsTr(\"Fullscreen\")
 
                 checked: ! window.showStatusBar
                 onCheckedChanged: window.showStatusBar = ! checked
             }
 
             LabeledSwitch {
-                text: qsTr("Inverted theme")
+                text: qsTr(\"Inverted theme\")
 
                 checked: theme.inverted
                 onCheckedChanged: theme.inverted = checked
@@ -138,18 +139,18 @@ Page {
 
 
             ButtonWithHelp {
-                buttonText: qsTr("Update translation list")
-                helpTitle: qsTr("Reload languages")
-                helpMessage: qsTr("When new translation is published on MeeBible's server, use this button to update translation list")
+                buttonText: qsTr(\"Update translation list\")
+                helpTitle: qsTr(\"Reload languages\")
+                helpMessage: qsTr(\"When new translation is published on MeeBible\'s server, use this button to update translation list\")
 
                 onClicked: languages.reload(false)
             }
 
 
             ButtonWithHelp {
-                buttonText: qsTr("Clear cache")
-                helpTitle: qsTr("Cache clearing")
-                helpMessage: qsTr("This will delete all downloaded Bible chapters from your phone. Do this to force reloading chapters when some error was fixed in translation on the server side.")
+                buttonText: qsTr(\"Clear cache\")
+                helpTitle: qsTr(\"Cache clearing\")
+                helpMessage: qsTr(\"This will delete all downloaded Bible chapters from your phone. Do this to force reloading chapters when some error was fixed in translation on the server side.\")
 
                 onClicked: clearCacheConfirmation.open()
             }
@@ -164,7 +165,7 @@ Page {
         width: 10
         height: 10
 
-        function load() { source = "LanguageDialog.qml" }
+        function load() { source = \"LanguageDialog.qml\" }
 
         function open() { load(); item.open() }
 
@@ -183,7 +184,7 @@ Page {
 
         width: 10; height: 10
 
-        function load() { source = "TranslationDialog.qml" }
+        function load() { source = \"TranslationDialog.qml\" }
 
         function open() { load(); item.open() }
 
@@ -197,11 +198,11 @@ Page {
     ModelSelectionDialog {
         id: fontDialog
 
-        titleText: qsTr("Select Font")
+        titleText: qsTr(\"Select Font\")
 
         header: Label {
-            text: qsTr("Not all fonts can display all languages")
-            color: "#666"
+            text: qsTr(\"Not all fonts can display all languages\")
+            color: \"#666\"
 
             wrapMode: Text.Wrap
 
@@ -212,12 +213,12 @@ Page {
         model: ListModel {
             id: fontModel
 
-            ListElement { value: "Nokia Pure" }
-            ListElement { value: "Nokia Standard" }
-            ListElement { value: "DejaVu Sans" }
-            ListElement { value: "Times" }
-            ListElement { value: "Georgia" }
-            ListElement { value: "Trebuchet" }
+            ListElement { value: \"Nokia Pure\" }
+            ListElement { value: \"Nokia Standard\" }
+            ListElement { value: \"DejaVu Sans\" }
+            ListElement { value: \"Times\" }
+            ListElement { value: \"Georgia\" }
+            ListElement { value: \"Trebuchet\" }
         }
 
         onAccepted: {
@@ -229,12 +230,12 @@ Page {
     QueryDialog {
         id: clearCacheConfirmation
 
-        titleText: qsTr("Do you want to clear the cache?")
+        titleText: qsTr(\"Do you want to clear the cache?\")
 
-        message: qsTr("This will delete all downloaded Bible chapters from your phone")
+        message: qsTr(\"This will delete all downloaded Bible chapters from your phone\")
 
-        acceptButtonText: qsTr("Clear")
-        rejectButtonText: qsTr("Cancel")
+        acceptButtonText: qsTr(\"Clear\")
+        rejectButtonText: qsTr(\"Cancel\")
 
         onAccepted: {
             cache.clearCache()
@@ -246,7 +247,7 @@ Page {
 
     tools: ToolBarLayout {
         UniToolIcon {
-            platformIconId: "toolbar-back"
+            platformIconId: \"toolbar-back\"
             onClicked: pageStack.pop()
         }
     }

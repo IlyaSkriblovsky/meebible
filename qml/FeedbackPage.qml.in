@@ -1,7 +1,8 @@
 import QtQuick 1.1
-import com.meego 1.0
 
-import "unicomponents"
+$$QML_IMPORT_QTCOMPONENTS
+
+import \"unicomponents\"
 
 Page {
     id: page
@@ -15,7 +16,7 @@ Page {
 
     Header {
         id: header
-        text: qsTr("Feedback")
+        text: qsTr(\"Feedback\")
     }
 
 
@@ -48,7 +49,7 @@ Page {
 
                 width: parent.width
 
-                placeholderText: qsTr("Your name")
+                placeholderText: qsTr(\"Your name\")
             }
 
             TextField {
@@ -56,7 +57,7 @@ Page {
 
                 width: parent.width
 
-                placeholderText: qsTr("Your E-Mail")
+                placeholderText: qsTr(\"Your E-Mail\")
 
                 inputMethodHints: Qt.ImhEmailCharactersOnly
             }
@@ -68,7 +69,7 @@ Page {
 
                 height: 400
 
-                placeholderText: qsTr("Comments\nSuggestions\nImprovements\nCritics\nNew translations\n...")
+                placeholderText: qsTr(\"Comments\\nSuggestions\\nImprovements\\nCritics\\nNew translations\\n...\")
             }
 
             Button {
@@ -76,10 +77,10 @@ Page {
 
                 width: parent.width
 
-                text: qsTr("Send")
+                text: qsTr(\"Send\")
 
                 onClicked: {
-                    if (emailField.text.trim() != '')
+                    if (emailField.text.trim() != \'\')
                         page.sendForm()
                     else
                         noEmailConfirmation.open()
@@ -106,7 +107,7 @@ Page {
                 running: busyDialog.status != DialogStatus.Closed
 
                 platformStyle: BusyIndicatorStyle {
-                    size: "large"
+                    size: \"large\"
                     inverted: true
                 }
             }
@@ -114,7 +115,7 @@ Page {
             Label {
                 anchors.horizontalCenter: parent.horizontalCenter
 
-                text: qsTr("Sending feedback")
+                text: qsTr(\"Sending feedback\")
 
                 font.pixelSize: 36
 
@@ -126,7 +127,7 @@ Page {
             Button {
                 anchors.horizontalCenter: parent.horizontalCenter
 
-                text: qsTr("Cancel")
+                text: qsTr(\"Cancel\")
 
                 __dialogButton: true
 
@@ -143,32 +144,32 @@ Page {
     QueryDialog {
         id: thanksDialog
 
-        titleText: qsTr("Feedback sent")
+        titleText: qsTr(\"Feedback sent\")
 
-        message: qsTr("Thank you! Your feedback is highly appreciated. We will answer you as soon as possible.")
+        message: qsTr(\"Thank you! Your feedback is highly appreciated. We will answer you as soon as possible.\")
 
-        acceptButtonText: qsTr("OK")
+        acceptButtonText: qsTr(\"OK\")
     }
 
     QueryDialog {
         id: failDialog
 
-        titleText: qsTr("Sending failed")
+        titleText: qsTr(\"Sending failed\")
 
-        message: qsTr("Your feedback was not sent. Please check internet connection and try again.")
+        message: qsTr(\"Your feedback was not sent. Please check internet connection and try again.\")
 
-        acceptButtonText: qsTr("OK")
+        acceptButtonText: qsTr(\"OK\")
     }
 
     QueryDialog {
         id: noEmailConfirmation
 
-        titleText: qsTr("No E-Mail?")
+        titleText: qsTr(\"No E-Mail?\")
 
-        message: qsTr("You have not specified E-Mail address. We will not be able to answer you!")
+        message: qsTr(\"You have not specified E-Mail address. We will not be able to answer you!\")
 
-        acceptButtonText: qsTr("Send anyway")
-        rejectButtonText: qsTr("Return to form")
+        acceptButtonText: qsTr(\"Send anyway\")
+        rejectButtonText: qsTr(\"Return to form\")
 
         onAccepted: page.sendForm()
     }
@@ -192,7 +193,7 @@ Page {
 
     tools: ToolBarLayout {
         UniToolIcon {
-            platformIconId: "toolbar-back"
+            platformIconId: \"toolbar-back\"
             onClicked: pageStack.pop()
         }
     }
