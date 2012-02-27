@@ -15,6 +15,17 @@ QDir Paths::_qmlDir;
 QDir Paths::_translationsDir;
 
 
+QString Paths::correctSlashes(const QString& path)
+{
+    #ifdef SYMBIAN
+        QString tmp = path;
+        return tmp.replace("/", "\\");
+    #else
+        return path;
+    #endif
+}
+
+
 void Paths::init()
 {
     _cacheDir = QDir(QDesktopServices::storageLocation(QDesktopServices::CacheLocation));
@@ -40,46 +51,46 @@ void Paths::init()
 
 QString Paths::cacheDB()
 {
-    return _cacheDir.filePath("cache.sqlite");
+    return correctSlashes(_cacheDir.filePath("cache.sqlite"));
 }
 
 
 QString Paths::langsDB()
 {
-    return _shareDir.filePath("langs.sqlite");
+    return correctSlashes(_shareDir.filePath("langs.sqlite"));
 }
 
 QString Paths::transDB()
 {
-    return _shareDir.filePath("trans.sqlite");
+    return correctSlashes(_shareDir.filePath("trans.sqlite"));
 }
 
 
 QString Paths::qmlMain()
 {
-    return _qmlDir.filePath("main.qml");
+    return correctSlashes(_qmlDir.filePath("main.qml"));
 }
 
 
 QString Paths::script_js()
 {
-    return _shareDir.filePath("script.js");
+    return correctSlashes(_shareDir.filePath("script.js"));
 }
 
 QString Paths::style_css()
 {
-    return _shareDir.filePath("style.css");
+    return correctSlashes(_shareDir.filePath("style.css"));
 }
 
 QString Paths::nwt_xslt()
 {
-    return _shareDir.filePath("nwt.xslt");
+    return correctSlashes(_shareDir.filePath("nwt.xslt"));
 }
 
 
 QString Paths::translationFile(const QString& locale)
 {
-    return _translationsDir.filePath(QString("meebible_%1").arg(locale));
+    return correctSlashes(_translationsDir.filePath(QString("meebible_%1").arg(locale)));
 }
 
 
@@ -96,7 +107,7 @@ QUrl Paths::wsUrl(const QString& path)
 
 QString Paths::cachedXML(const QString& name)
 {
-    return _cacheDir.filePath(name + ".xml");
+    return correctSlashes(_cacheDir.filePath(name + ".xml"));
 }
 
 QStringList Paths::allCachedXML(const QString& prefix)
@@ -109,7 +120,7 @@ QStringList Paths::allCachedXML(const QString& prefix)
         if (file.startsWith(prefix))
         {
             file.replace(".xml", "");
-            result.append(file);
+            result.append(correctSlashes(file));
         }
     }
 
