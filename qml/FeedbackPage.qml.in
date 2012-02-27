@@ -101,15 +101,15 @@ Page {
 
             spacing: 20
 
-            BusyIndicator {
+            UniLargeBusyIndicator {
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 running: busyDialog.status != DialogStatus.Closed
 
-                platformStyle: BusyIndicatorStyle {
-                    size: \"large\"
-                    inverted: true
-                }
+                // platformStyle: BusyIndicatorStyle {
+                //     size: \"large\"
+                //     inverted: true
+                // }
             }
 
             Label {

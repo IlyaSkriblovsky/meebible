@@ -223,68 +223,68 @@ Page {
         property bool narrow: false
 
 
-        EditBubbleButton {
-            text: qsTr(\"Copy\")
-            platformStyle: EditBubbleButtonStyle {
-                position: \"horizontal-left\"
-                buttonPaddingLeft: verseActions.narrow ? 0 : 8
-                buttonPaddingRight: verseActions.narrow ? 0 : 8
-            }
+        // EditBubbleButton {
+        //     text: qsTr(\"Copy\")
+        //     platformStyle: EditBubbleButtonStyle {
+        //         position: \"horizontal-left\"
+        //         buttonPaddingLeft: verseActions.narrow ? 0 : 8
+        //         buttonPaddingRight: verseActions.narrow ? 0 : 8
+        //     }
 
-            onClicked: {
-                bibleView.copySelectedVerses()
-                bibleView.clearSelection()
-                copyBanner.show()
-            }
-        }
-        EditBubbleButton {
-            visible: ! NOSHARE
+        //     onClicked: {
+        //         bibleView.copySelectedVerses()
+        //         bibleView.clearSelection()
+        //         copyBanner.show()
+        //     }
+        // }
+        // EditBubbleButton {
+        //     visible: ! NOSHARE
 
-            text: qsTr(\"Share\")
-            platformStyle: EditBubbleButtonStyle {
-                position: \"horizontal-center\"
-                buttonPaddingLeft: verseActions.narrow ? 0 : 8
-                buttonPaddingRight: verseActions.narrow ? 0 : 8
-            }
+        //     text: qsTr(\"Share\")
+        //     platformStyle: EditBubbleButtonStyle {
+        //         position: \"horizontal-center\"
+        //         buttonPaddingLeft: verseActions.narrow ? 0 : 8
+        //         buttonPaddingRight: verseActions.narrow ? 0 : 8
+        //     }
 
-            onClicked: {
-                bibleView.shareSelectedVerses()
-                bibleView.clearSelection()
-            }
-        }
-        EditBubbleButton {
-            platformStyle: EditBubbleButtonStyle {
-                position: \"horizontal-center\"
-                buttonPaddingLeft: verseActions.narrow ? 0 : 8
-                buttonPaddingRight: verseActions.narrow ? 0 : 8
-            }
+        //     onClicked: {
+        //         bibleView.shareSelectedVerses()
+        //         bibleView.clearSelection()
+        //     }
+        // }
+        // EditBubbleButton {
+        //     platformStyle: EditBubbleButtonStyle {
+        //         position: \"horizontal-center\"
+        //         buttonPaddingLeft: verseActions.narrow ? 0 : 8
+        //         buttonPaddingRight: verseActions.narrow ? 0 : 8
+        //     }
 
-            text: qsTr(\"Bookmark\")
+        //     text: qsTr(\"Bookmark\")
 
-            onClicked: {
-                if (bibleView.bookmarkSelectedVerses())
-                    bookmarkBanner.text = qsTr(\"Bookmarked\")
-                else
-                    bookmarkBanner.text = qsTr(\"Already in bookmarks\")
-                bookmarkBanner.show()
+        //     onClicked: {
+        //         if (bibleView.bookmarkSelectedVerses())
+        //             bookmarkBanner.text = qsTr(\"Bookmarked\")
+        //         else
+        //             bookmarkBanner.text = qsTr(\"Already in bookmarks\")
+        //         bookmarkBanner.show()
 
-                bibleView.clearSelection()
-            }
-        }
-        EditBubbleButton {
-            platformStyle: EditBubbleButtonStyle {
-                position: \"horizontal-right\"
-            }
+        //         bibleView.clearSelection()
+        //     }
+        // }
+        // EditBubbleButton {
+        //     platformStyle: EditBubbleButtonStyle {
+        //         position: \"horizontal-right\"
+        //     }
 
-            Image {
-                anchors.verticalCenter: parent.verticalCenter
-                x: 4
+        //     Image {
+        //         anchors.verticalCenter: parent.verticalCenter
+        //         x: 4
 
-                source: \'image://theme/icon-m-toolbar-close\'
-            }
+        //         source: \'image://theme/icon-m-toolbar-close\'
+        //     }
 
-            onClicked: bibleView.clearSelection()
-        }
+        //     onClicked: bibleView.clearSelection()
+        // }
 
         Component.onCompleted: {
             narrow = width > 480

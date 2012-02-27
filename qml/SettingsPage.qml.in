@@ -12,12 +12,6 @@ Page {
     property bool __created: false
 
 
-    TumblerButtonStyle {
-        id: tumblerStyleBlue
-
-        textColor: theme.inverted ? \'#aaf\' : \'#006\'
-    }
-
 
     Header {
         id: header

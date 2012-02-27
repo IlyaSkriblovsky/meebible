@@ -6,6 +6,12 @@ SHAREFILES = \
     share/splash-inverted.png       \
     share/splash-ls-inverted.png
 
-shares.files = $$SHAREFILES
-shares.path = $$INSTALLDIR/share
-INSTALLS += shares
+symbian {
+    shares.sources = $$SHAREFILES
+    shares.path = share
+    DEPLOYMENT += shares
+} else {
+    shares.files = $$SHAREFILES
+    shares.path = $$INSTALLDIR/share
+    INSTALLS += shares
+}
