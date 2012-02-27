@@ -1,10 +1,11 @@
 import QtQuick 1.1
 
-// This is for CommonDialog
-import "/usr/lib/qt4/imports/com/meego/" 1.0
+import com.meego 1.0
+
+import "unicomponents"
 
 
-CommonDialog {
+UniDialog {
     id: dialog
 
     titleText: qsTr("Select Book")
@@ -217,37 +218,25 @@ CommonDialog {
             }
 
 
-            Button {
+            UniDialogButton {
                 id: backButton
-
-                __dialogButton: true
 
                 anchors.left: parent.left
                 width: parent.width / 4
                 anchors.bottom: parent.bottom
-
-                platformStyle: ButtonStyle {
-                    inverted: true
-                }
 
                 text: "←"
 
                 onClicked: contentItem.state = "bookSelection"
             }
 
-            Button {
+            UniDialogButton {
                 id: acceptButton
-
-                __dialogButton: true
 
                 anchors.left: backButton.right
                 anchors.leftMargin: 20
                 anchors.right: parent.right
                 anchors.bottom: parent.bottom
-
-                platformStyle: ButtonStyle {
-                    inverted: true
-                }
 
                 text: qsTr("OK")
 

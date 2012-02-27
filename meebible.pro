@@ -24,3 +24,11 @@ free:invoker.files = meebible-invoker-free.sh
 !free:invoker.files = meebible-invoker.sh
 invoker.path = $$INSTALLDIR/bin
 INSTALLS += invoker
+
+
+symbian {
+    TARGET.UID3 = 0xe0cd6015
+
+    include(deployment.pri)
+    qtcAddDeployment()
+}

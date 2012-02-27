@@ -1,10 +1,11 @@
 import QtQuick 1.1
 
-// This is for CommonDialog
-import "/usr/lib/qt4/imports/com/meego/" 1.0
+import com.meego 1.0
+
+import "unicomponents"
 
 
-CommonDialog {
+UniDialog {
     id: dialog
 
     property alias model: listView.model

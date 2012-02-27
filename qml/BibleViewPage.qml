@@ -6,6 +6,7 @@ import "/usr/lib/qt4/imports/com/meego/" 1.0
 import com.meego.extras 1.0
 
 import MeeBible 0.1
+import "unicomponents"
 
 Page {
     id: page
@@ -155,8 +156,12 @@ Page {
                 }
 
                 onNeedToScroll: {
-                    scrollTo(y)
+                    if (verseActions.visible)
+                        scrollTo(Math.max(y - verseActions.height, 0))
+                    else
+                        scrollTo(y)
                 }
+
 
                 onEnsureVisible: {
                     var gap = 50
@@ -337,16 +342,12 @@ Page {
 
         opacity: (languages.loading || (settings.translation && settings.translation.loading) || bibleView.loadingChapter) ? 0.8 : 0.0
 
-        BusyIndicator {
+        UniLargeBusyIndicator {
             id: realBusyIndicator
 
             anchors.centerIn: parent
 
             running: busyIndicator.visible && busyIndicator.opacity > 0.0
-
-            platformStyle: BusyIndicatorStyle {
-                size: "large"
-            }
         }
 
         Label {
@@ -484,28 +485,28 @@ Page {
     tools: ToolBarLayout {
         id: commonTools
 
-        ToolIcon {
+        UniToolIcon {
             platformIconId: "toolbar-previous"
             onClicked: bibleView.loadPrevChapter()
         }
 
-        ToolIcon {
+        UniToolIcon {
             platformIconId: "toolbar-list"
             onClicked: placeDialog.open()
         }
 
-        ToolIcon {
+        UniToolIcon {
             platformIconId: "toolbar-next"
             onClicked: bibleView.loadNextChapter()
         }
 
 
-        ToolIcon {
+        UniToolIcon {
             iconSource: theme.inverted ? "bookmarks-inverted.png" : "bookmarks.png"
             onClicked: bookmarksSheet.open()
         }
 
-        ToolIcon {
+        UniToolIcon {
             platformIconId: "toolbar-view-menu"
             onClicked: menu.status == DialogStatus.Closed ? menu.open() : menu.close()
         }
@@ -654,7 +655,7 @@ Page {
 
         visible: false
 
-        ToolIcon {
+        UniToolIcon {
             platformIconId: "toolbar-up"
 
             onClicked: {
@@ -675,7 +676,7 @@ Page {
             font.pixelSize: 30
         }
 
-        ToolIcon {
+        UniToolIcon {
             platformIconId: "toolbar-down"
 
             onClicked: {
@@ -686,7 +687,7 @@ Page {
             }
         }
 
-        ToolIcon {
+        UniToolIcon {
             platformIconId: "toolbar-search"
 
             onClicked: searchDialog.open()

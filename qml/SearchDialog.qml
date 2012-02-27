@@ -1,7 +1,9 @@
 import QtQuick 1.1
 import com.meego 1.0
 import com.meego.extras 1.0
+
 import MeeBible 0.1
+import "unicomponents"
 
 Sheet {
     id: dialog
@@ -84,7 +86,7 @@ Sheet {
 //                }
             }
 
-            BusyIndicator {
+            UniTextFieldBusyIndicator {
                 id: busyIndicator
 
                 anchors.verticalCenter: parent.verticalCenter
@@ -92,11 +94,6 @@ Sheet {
                 anchors.rightMargin: 15
 
                 running: visible
-
-                platformStyle: BusyIndicatorStyle {
-                    size: "medium"
-                    inverted: false
-                }
             }
 
             state: cache.searchInProgress ? "busy" : "idle"

@@ -1,6 +1,8 @@
 import QtQuick 1.1
 import com.meego 1.0
 
+import "unicomponents"
+
 Page {
 
     Header {
@@ -121,7 +123,7 @@ Page {
     ScrollDecorator { flickableItem: flickable }
 
     tools: ToolBarLayout {
-        ToolIcon {
+        UniToolIcon {
             platformIconId: "toolbar-back"
             onClicked: pageStack.pop()
         }

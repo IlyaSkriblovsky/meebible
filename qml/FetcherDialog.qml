@@ -1,14 +1,13 @@
 import QtQuick 1.1
 
-// This is for CommonDialog
-import "/usr/lib/qt4/imports/com/meego/" 1.0
-
+import com.meego 1.0
 import com.meego.extras 1.0
 
 import MeeBible 0.1
+import "unicomponents"
 
 
-CommonDialog {
+UniDialog {
     id: dialog
 
     titleText: qsTr("Downloading Bible")
@@ -89,16 +88,7 @@ CommonDialog {
             maximumValue: 1.0
         }
 
-        Button {
-            // NegativeButtonStyle doesn't work, probably
-            // due to com.meego/com.nokia.meego namespace clash
-            platformStyle: ButtonStyle {
-                textColor: "#ffffff"
-                pressedTextColor: "#8c8c8c"
-                background: "image://theme/meegotouch-button-negative-background"
-                pressedBackground: "image://theme/meegotouch-button-negative-background-pressed"
-            }
-
+        UniNegativeButton {
             text: qsTr("Cancel")
 
             anchors.horizontalCenter: parent.horizontalCenter

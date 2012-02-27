@@ -1,6 +1,8 @@
 import QtQuick 1.1
 import com.meego 1.0
 
+import "unicomponents"
+
 Page {
     id: page
 
@@ -189,7 +191,7 @@ Page {
 
 
     tools: ToolBarLayout {
-        ToolIcon {
+        UniToolIcon {
             platformIconId: "toolbar-back"
             onClicked: pageStack.pop()
         }
