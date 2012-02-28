@@ -1,5 +1,5 @@
 import Qt 4.7
-import com.meego 1.0
+import com.nokia.meego 1.1
 
 Dialog {
     id: dialog
@@ -8,6 +8,7 @@ Dialog {
     property alias titleText: titleLabel.text
 
 
+    // FIXME: seems to be a loop on width property
     width: screen.currentOrientation == Screen.Portrait ? parent.width * 0.9 : parent.width * 0.8
 
 
