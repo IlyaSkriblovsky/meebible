@@ -210,6 +210,7 @@ Page {
         model: ListModel {
             id: fontModel
 
+            ListElement { value: "Nokia Pure Text Light" }
             ListElement { value: "Nokia Pure" }
             ListElement { value: "Nokia Standard" }
             ListElement { value: "DejaVu Sans" }
