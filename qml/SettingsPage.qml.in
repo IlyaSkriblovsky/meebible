@@ -79,8 +79,10 @@ Page {
                         anchors.left: parent.left
                         anchors.right: parent.right
 
+                        wrapMode: Text.Wrap
+
                         text: settings.translation ?
-                            \'<html><style>a{color:\' + (theme.inverted ? \'#8080ff\' : \'#0000ff\') + \'}</style>\' +
+                            \'<html><style>a{color:\' + (settings.inverted ? \'#8080ff\' : \'#0000ff\') + \'}</style>\' +
                             \'Available at <a href=\"\' + settings.translation.sourceUrl + \'\">\' + settings.translation.sourceUrl + \'</a>\' +
                             \'</html>\' : \'\'
                         font.pixelSize: 20
@@ -90,6 +92,8 @@ Page {
                     Label {
                         anchors.left: parent.left
                         anchors.right: parent.right
+
+                        wrapMode: Text.Wrap
 
                         text: settings.translation ? settings.translation.copyright : \'\'
                         visible: settings.translation != null  &&  settings.translation.copyright != \'\'
@@ -127,8 +131,8 @@ Page {
             LabeledSwitch {
                 text: qsTr(\"Inverted theme\")
 
-                checked: theme.inverted
-                onCheckedChanged: theme.inverted = checked
+                checked: settings.inverted
+                onCheckedChanged: settings.inverted = checked
             }
 
 

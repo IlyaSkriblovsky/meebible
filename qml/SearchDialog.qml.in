@@ -200,7 +200,7 @@ Sheet {
 
                     Text {
                         text: matchCount
-                        color: theme.inverted ? \'#fff\' : \'#000\'
+                        color: settings.inverted ? \'#fff\' : \'#000\'
                         font.pixelSize: 15
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.horizontalCenter: parent.horizontalCenter
@@ -219,7 +219,7 @@ Sheet {
                 anchors.centerIn: parent
 
                 text: qsTr(\"Nothing found\")
-                color: theme.inverted ? \'#444\' : \'#888\'
+                color: settings.inverted ? \'#444\' : \'#888\'
                 font.pixelSize: 60
                 font.family: \"Nokia Pure Text Light\"
             }

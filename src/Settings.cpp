@@ -32,7 +32,10 @@ Settings::Settings(Languages* langs, QObject* parent):
     _lineSpacing    = _settings.value("General/lineSpacing", 1.3).toDouble();
     _scrollPos      = _settings.value("General/scrollPos", 0).toInt();
     _fullscreen     = _settings.value("General/fullscreen", false).toBool();
-    _inverted       = _settings.value("General/inverted", false).toBool();
+
+    #ifndef SYMBIAN
+        _inverted       = _settings.value("General/inverted", false).toBool();
+    #endif
 
     _searchNoticeShown = _settings.value("Notices/searchNoticeShown", false).toBool();
 
@@ -53,7 +56,10 @@ Settings::~Settings()
     _settings.setValue("General/lineSpacing", _lineSpacing);
     _settings.setValue("General/scrollPos", _scrollPos);
     _settings.setValue("General/fullscreen", _fullscreen);
-    _settings.setValue("General/inverted", _inverted);
+
+    #ifndef SYMBIAN
+        _settings.setValue("General/inverted", _inverted);
+    #endif
 
     _settings.setValue("Notices/searchNoticeShown", _searchNoticeShown);
 }
@@ -220,11 +226,22 @@ bool Settings::searchNoticeShown() const { return _searchNoticeShown; }
 void Settings::setSearchNoticeShown(bool shown) { _searchNoticeShown = shown; }
 
 
+bool Settings::inverted() const
+{
+    #ifdef SYMBIAN
+        return true;
+    #else
+        return _inverted;
+    #endif
+}
+
 void Settings::setInverted(bool inverted)
 {
-    if (_inverted != inverted)
-    {
-        _inverted = inverted;
-        invertedChanged();
-    }
+    #ifndef SYMBIAN
+        if (_inverted != inverted)
+        {
+            _inverted = inverted;
+            invertedChanged();
+        }
+    #endif
 }

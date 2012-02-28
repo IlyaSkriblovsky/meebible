@@ -74,7 +74,7 @@ class Settings: public QObject
         void setSearchNoticeShown(bool shown);
 
 
-        bool inverted() const { return _inverted; }
+        bool inverted() const;
         void setInverted(bool inverted);
 
 
@@ -126,7 +126,9 @@ class Settings: public QObject
 
         bool _searchNoticeShown;
 
-        bool _inverted;
+        #ifndef SYMBIAN
+            bool _inverted;
+        #endif
 
         QString _transCode;
         QString _langCode;

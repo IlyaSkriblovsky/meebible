@@ -80,7 +80,7 @@ Rectangle {
         y: 68
         width: parent.width
         height: 1
-        color: theme.inverted ? \'#222\' : \'#000\'
+        color: settings.inverted ? \'#222\' : \'#000\'
     }
 
     Rectangle {
@@ -88,6 +88,6 @@ Rectangle {
         y: 69
         width: parent.width
         height: 1
-        color: theme.inverted ? \'#000\' : \'#fff\'
+        color: settings.inverted ? \'#000\' : \'#fff\'
     }
 }

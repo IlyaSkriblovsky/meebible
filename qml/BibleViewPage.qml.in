@@ -41,12 +41,13 @@ Page {
         value: flickable.contentY
         when: firstScrollPosSet
     }
-    Binding {
-        target: settings
-        property: \'inverted\'
-        value: theme.inverted
-        when: created
-    }
+    // FIXME:
+    // Binding {
+    //     target: settings
+    //     property: \'inverted\'
+    //     value: theme.inverted
+    //     when: created
+    // }
     Component.onCompleted: {
         bibleView.place = settings.place
         fontSizeSlider.setFontSize(settings.fontSize)
@@ -120,7 +121,7 @@ Page {
 
                 translation: settings.translation
 
-                inverted: theme.inverted
+                inverted: settings.inverted
 
 
                 fontName: settings.fontName
@@ -364,7 +365,7 @@ Page {
 
         anchors.fill: parent
 
-        color: theme.inverted ? \'#000\' : \'#e0e0e0\'
+        color: settings.inverted ? \'#000\' : \'#e0e0e0\'
 
         opacity: (languages.loading || (settings.translation && settings.translation.loading) || bibleView.loadingChapter) ? 0.8 : 0.0
 
@@ -526,7 +527,7 @@ Page {
 
 
         UniToolIcon {
-            iconSource: theme.inverted ? \"bookmarks-inverted.png\" : \"bookmarks.png\"
+            iconSource: settings.inverted ? \"bookmarks-inverted.png\" : \"bookmarks.png\"
             onClicked: bookmarksSheet.open()
         }
 
@@ -731,8 +732,6 @@ Page {
     Loader {
         id: fetcherDialog
 
-        width: 10; height: 10
-
         function load() { source = \"FetcherDialog.qml\" }
         function open() { load(); item.open() }
 
@@ -785,6 +784,12 @@ Page {
         visualParent: pageStack
 
         MenuLayout {
+            MenuItem {
+                text: qsTr(\"Quit\")
+
+                onClicked: Qt.quit()
+            }
+
             MenuItem {
                 text: qsTr(\"Search\")
 

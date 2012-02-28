@@ -55,11 +55,16 @@ UniDialog {
     content: Column {
         id: contentItem
 
-        width: parent.width
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.leftMargin: 14
+        anchors.rightMargin: 14
+
         spacing: 20
 
         Item {
-            width: dialog.width
+            anchors.left: parent.left
+            anchors.right: parent.right
 
             height: 40
 
@@ -74,7 +79,9 @@ UniDialog {
 
         ProgressBar {
             id: bookProgress
-            width: dialog.width
+
+            anchors.left: parent.left
+            anchors.right: parent.right
 
             minimumValue: 0.0
             maximumValue: 1.0
@@ -82,7 +89,9 @@ UniDialog {
 
         ProgressBar {
             id: overallProgress
-            width: dialog.width
+
+            anchors.left: parent.left
+            anchors.right: parent.right
 
             minimumValue: 0.0
             maximumValue: 1.0
