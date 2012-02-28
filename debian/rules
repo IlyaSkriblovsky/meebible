@@ -10,10 +10,10 @@ builddir-free:
 
 
 builddir/Makefile: builddir
-	cd builddir && qmake PREFIX=/usr ../$(APPNAME).pro
+	cd builddir && qmake PREFIX=/usr ../$(APPNAME).pro BUILDDIR=builddir
 
 builddir-free/Makefile: builddir-free
-	cd builddir-free && qmake CONFIG+=free PREFIX=/usr ../$(APPNAME).pro
+	cd builddir-free && qmake CONFIG+=free PREFIX=/usr ../$(APPNAME).pro BUILDDIR=builddir-free
 
 build: build-stamp
 
