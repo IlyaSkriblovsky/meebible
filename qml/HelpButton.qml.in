@@ -6,7 +6,7 @@ Image {
     property alias titleText: notice.titleText
     property alias message: notice.message
 
-    source: settings.inverted ? \'image://theme/icon-s-description-inverse\' : \'image://theme/icon-s-description\'
+    source: settings.inverted ? \"help-button-inverted.png\" : \"help-button.png\"
 
     opacity: mouseArea.pressed ? 0.5 : 1.0
 
