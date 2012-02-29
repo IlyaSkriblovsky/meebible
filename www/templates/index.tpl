@@ -39,6 +39,7 @@
                 <li>Russian Synodal Translation</li>
                 <li>Latvian Revised Bible</li>
                 <li>Arabic Smith &amp; Van Dyke Version</li>
+                <li>Svenska Folkbibeln (Swedish People's Bible)</li>
             </ul>
         </p>
 
