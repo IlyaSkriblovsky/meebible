@@ -30,7 +30,8 @@
 
 
 BibleView::BibleView(QGraphicsItem *parent):
-    QGraphicsWebView(parent), _translation(0), _fontSize(30), _fontName("Nokia")
+    QGraphicsWebView(parent), _translation(0), _fontSize(30), _fontName("Nokia"),
+    _loadingChapter(false)
 {
     QElapsedTimer timer;
     timer.start();
