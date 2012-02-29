@@ -21,13 +21,9 @@ SearchThread::~SearchThread()
 {
 }
 
-#include <QElapsedTimer>
 
 void SearchThread::run()
 {
-    QElapsedTimer timer;
-    timer.start();
-
     QSqlQuery select(_db);
     select.prepare(
         "SELECT bookCode, chapterNo, unicodeMatch(:needle, text) as match, matchCount() "
