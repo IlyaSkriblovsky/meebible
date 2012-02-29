@@ -1,6 +1,14 @@
+meebible (2.0.1) unstable; urgency=low
+
+  * Fixed bug with hanging on "Loading chapter"
+
+ -- Ilya Skriblovsky <Ilya.Skriblovsky@gmail.com>  Thu, 29 Jan 2012 20:46:00 +0400
+
 meebible (2.0.0) unstable; urgency=low
 
   * Parsing moved to meebible.org web service
+  * Bookmarks
+  * Font changes
 
  -- Ilya Skriblovsky <Ilya.Skriblovsky@gmail.com>  Thu, 26 Jan 2012 22:28:00 +0400
 
