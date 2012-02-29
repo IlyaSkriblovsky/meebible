@@ -53,11 +53,14 @@ for bookNo, bookCode, bookName, chapterCount in izip(count(1), bookCodes, bookNa
         elif line.startswith('<p>'):
             m = verse_re.match(line)
             if m is not None:
-                verses.append(m.group(1))
+                text = m.group(1)
+                text = re.sub(r'\b(HERRENS|HERREN|HERRE)\b', r'<span class="smallcaps">\1</span>', text)
+                verses.append(text)
                 tmp1.write('{0:02}.htm:{1}\n'.format(bookNo, line.encode('latin1')))
                 tmp2.write('{0:02} {1} {2}: {3}\n'.format(bookNo, chapterNo, len(verses), m.group(1).encode('latin1')))
             else:
                 raise Exception('Strange verse: {0} {1}:{2}'.format(bookNo, chapterNo, len(verses)+1))
+
 
 c.execute("vacuum")
 
