@@ -3,43 +3,61 @@ import QtQuick 1.1
 $$QML_IMPORT_QTCOMPONENTS
 
 
-Sheet {
+import \"unicomponents\"
+
+Page {
     signal bookmarkSelected(variant place)
 
 
     id: dialog
 
-    buttons: [
-        Label {
-            id: header
+    Header {
+        id: header
+        text: qsTr(\"Bookmarks\")
+    }
 
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.left: parent.left
-            anchors.leftMargin: 10
 
-            text: qsTr(\"Bookmarks\")
-
-            font.pixelSize: 32
-            font.family: \"Nokia Pure Text Light\"
-            font.bold: false
-        },
-
-        SheetButton {
-            text: qsTr(\"Close\")
-
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.right: parent.right
-            anchors.rightMargin: 10
-
-            onClicked: dialog.reject()
+    tools: ToolBarLayout {
+        UniToolIcon {
+            platformIconId: \"toolbar-back\"
+            onClicked: pageStack.pop()
         }
-    ]
+    }
+
+    // buttons: [
+    //     Label {
+    //         id: header
+
+    //         anchors.verticalCenter: parent.verticalCenter
+    //         anchors.left: parent.left
+    //         anchors.leftMargin: 10
+
+    //         text: qsTr(\"Bookmarks\")
+
+    //         font.pixelSize: 32
+    //         font.family: \"Nokia Pure Text Light\"
+    //         font.bold: false
+    //     },
+
+    //     SheetButton {
+    //         text: qsTr(\"Close\")
+
+    //         anchors.verticalCenter: parent.verticalCenter
+    //         anchors.right: parent.right
+    //         anchors.rightMargin: 10
+
+    //         onClicked: dialog.reject()
+    //     }
+    // ]
 
 
-    content: Item {
+    Item {
         id: item
 
-        anchors.fill: parent
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: header.bottom
+        anchors.bottom: parent.bottom
 
 
         ListView {
@@ -59,7 +77,8 @@ Sheet {
 
                 onClicked: {
                     dialog.bookmarkSelected(model.place)
-                    dialog.accept()
+                    // dialog.accept()
+                    pageStack.pop()
                 }
 
                 onPressAndHold: {

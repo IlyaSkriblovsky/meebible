@@ -761,7 +761,8 @@ Page {
     Loader {
         id: bookmarksSheet
         function load() { source = \"BookmarksSheet.qml\" }
-        function open() { load(); item.open() }
+        // function open() { load(); item.open() }
+        function open() { load(); pageStack.push(item) }
 
         Connections {
             target: bookmarksSheet.item
