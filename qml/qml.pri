@@ -24,7 +24,7 @@ QMAKE_SUBSTITUTES += \
 symbian {
     QML_IMPORT_QTCOMPONENTS = "import com.nokia.symbian 1.1"
 
-    qml.sources = qml/*.qml qml/*.png
+    qml.sources = $$BUILDDIR/qml/*.qml qml/*.png
     qml.path = qml
     DEPLOYMENT += qml
 
@@ -34,7 +34,7 @@ symbian {
 } else {
     QML_IMPORT_QTCOMPONENTS = "import com.nokia.meego 1.0"
 
-    qml.files = qml/*.qml qml/*.png
+    qml.files = $$BUILDDIR/qml/*.qml qml/*.png
     qml.path = $$INSTALLDIR/qml
     INSTALLS += qml
 
