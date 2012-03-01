@@ -97,12 +97,17 @@ UniDialog {
             maximumValue: 1.0
         }
 
+    }
+
+    uniButtons: [
         UniNegativeButton {
+            id: cancelButton
+
             text: qsTr(\"Cancel\")
 
             anchors.horizontalCenter: parent.horizontalCenter
 
             onClicked: dialog.reject()
         }
-    }
+    ]
 }

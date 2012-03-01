@@ -67,7 +67,7 @@ Page {
 
                 width: parent.width
 
-                height: 400
+                // height: 400
 
                 placeholderText: qsTr(\"Comments\\nSuggestions\\nImprovements\\nCritics\\nNew translations\\n...\")
             }
@@ -92,17 +92,21 @@ Page {
     ScrollDecorator { flickableItem: flickable }
 
 
-    Dialog {
+    UniDialog {
         id: busyDialog
 
-        content: Column {
+        titleText: qsTr(\"Sending feedback\")
+
+        content: Item {
             anchors.left: parent.left
             anchors.right: parent.right
 
-            spacing: 20
+            height: indicator.height + 2 * 30
 
             UniLargeBusyIndicator {
-                anchors.horizontalCenter: parent.horizontalCenter
+                id: indicator
+
+                anchors.centerIn: parent
 
                 running: busyDialog.status != DialogStatus.Closed
 
@@ -111,19 +115,9 @@ Page {
                 //     inverted: true
                 // }
             }
+        }
 
-            Label {
-                anchors.horizontalCenter: parent.horizontalCenter
-
-                text: qsTr(\"Sending feedback\")
-
-                font.pixelSize: 36
-
-                // platformStyle: LabelStyle {
-                //     inverted: true
-                // }
-            }
-
+        uniButtons: [
             UniDialogButton {
                 anchors.horizontalCenter: parent.horizontalCenter
 
@@ -131,7 +125,7 @@ Page {
 
                 onClicked: feedback.abort()
             }
-        }
+        ]
     }
 
 

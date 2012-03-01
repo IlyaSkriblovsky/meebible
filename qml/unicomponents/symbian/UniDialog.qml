@@ -6,6 +6,8 @@ Dialog {
 
     property alias titleText: titleLabel.text
 
+    property alias uniButtons: buttonsParent.children
+
     onClickedOutside: reject()
 
     title: [
@@ -45,10 +47,16 @@ Dialog {
         }
     ]
 
-    // buttons: [
-    //     Button {
-    //         text: "Close"
-    //         onClicked: dialog.reject()
-    //     }
-    // ]
+    buttons: Item {
+        width: parent.width
+        height: buttonsParent.children.length > 0 ? buttonsParent.height + 8 * 2 : 0
+
+        Row {
+            id: buttonsParent
+
+            anchors.centerIn: parent
+
+            spacing: 8
+        }
+    }
 }

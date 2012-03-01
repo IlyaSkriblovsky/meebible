@@ -50,7 +50,7 @@ UniDialog {
 
         // FIXME
         // height: dialog.parent.height * 0.8
-        height: 400
+        height: SYMBIAN ? dialog.platformContentMaximumHeight : dialog.parent.height * 0.8
 
         clip: true
 
@@ -100,11 +100,10 @@ UniDialog {
 
             anchors.left: bookList.right
             width: parent.width
-            height: parent.height
 
 
+            anchors.top: parent.top
             anchors.bottom: parent.bottom
-
 
 
             Item {
@@ -268,6 +267,4 @@ UniDialog {
             AnchorAnimation { duration: 200 }
         }
     }
-
-    buttons: Item { }
 }

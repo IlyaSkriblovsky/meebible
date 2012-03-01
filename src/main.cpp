@@ -110,6 +110,13 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     #endif
 
 
+    #ifdef SYMBIAN
+        qDebug() << "Symbian";
+        view->rootContext()->setContextProperty("SYMBIAN", true);
+    #else
+        view->rootContext()->setContextProperty("SYMBIAN", false);
+    #endif
+
     #ifdef NOSEARCH
         qDebug() << "Search disabled";
         view->rootContext()->setContextProperty("NOSEARCH", true);
