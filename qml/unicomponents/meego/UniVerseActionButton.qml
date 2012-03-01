@@ -6,8 +6,12 @@ import "/usr/lib/qt4/imports/com/nokia/meego/" 1.1
 EditBubbleButton {
     id: button
 
+    property string iconSource: ""
+
     property string buttonType: "c"
     property bool narrow: false
+
+    property int innerWidth: width
 
     platformStyle: EditBubbleButtonStyle {
         position: {

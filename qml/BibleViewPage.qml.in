@@ -275,12 +275,7 @@ Page {
             buttonType: \"r\"
             narrow: verseActions.narrow
 
-            Image {
-                anchors.verticalCenter: parent.verticalCenter
-                x: 4
-
-                source: SYMBIAN ? \"verse-actions-close-symbian.png\" : \"verse-actions-close.png\"
-            }
+            iconSource: SYMBIAN ? \"verse-actions-close-symbian.png\" : \"verse-actions-close.png\"
 
             onClicked: bibleView.clearSelection()
         }

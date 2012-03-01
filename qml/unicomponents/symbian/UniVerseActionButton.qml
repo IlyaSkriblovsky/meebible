@@ -5,20 +5,21 @@ Item {
     id: button
 
     property alias text: label.text
+    property alias iconSource: icon.source
 
     property string buttonType: "c"
     property bool narrow: false
 
     signal clicked
 
-
-    width: content.width
-    height: content.height + 10
+    property int innerWidth: Math.max(label.width, icon.width)
+    width: innerWidth + 2*platformStyle.paddingLarge
+    height: content.height + platformStyle.paddingMedium
 
     Item {
         id: content
 
-        width: label.width + 2*platformStyle.paddingLarge
+        width: parent.width
         height: privateStyle.buttonSize
 
         anchors.bottom: parent.bottom
@@ -28,6 +29,14 @@ Item {
             source: privateStyle.imagePath("qtg_fr_pushbutton_segmented_" + button.buttonType + "_" + (mouseArea.pressed ? "pressed" : "normal"))
             border { left: 20; top: 20; right: 20; bottom: 20 }
             anchors.fill: parent
+        }
+
+        Image {
+            id: icon
+
+            anchors.centerIn: parent
+
+            visible: source != ""
         }
 
         Label {
