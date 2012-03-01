@@ -36,6 +36,7 @@
                 <li>New World Translation in 42 languages<!-- (from <a href="http://watchtower.org">watchtower.org</a>) --></li>
                 <li>King James Bible</li>
                 <li>New International Bible</li>
+                <li>English Standard Version</li>
                 <li>Russian Synodal Translation</li>
                 <li>Latvian Revised Bible</li>
                 <li>Arabic Smith &amp; Van Dyke Version</li>
