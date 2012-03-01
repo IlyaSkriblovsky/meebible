@@ -80,7 +80,11 @@
         <h2>Source code</h2>
 
         <p>
-            Full source code is available at <a href="https://bitbucket.org/IlyaSkriblovsky/meebible">BitBucket project page</a>.
+            Full source code and bagtracking are available at <a href="https://projects.developer.nokia.com/meebible">MeeBible's page on Nokia Developer</a>.
+        </p>
+
+        <p>
+            You may also fork me on <a href="https://bitbucket.org/IlyaSkriblovsky/meebible">BitBucket</a>.
         </p>
 
         <h2>Support</h2>
