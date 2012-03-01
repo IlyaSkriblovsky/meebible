@@ -34,6 +34,11 @@ return array(
     ),
 
     array(
+        'url'   =>  '/fb',
+        'view'  =>  'feedback-view'
+    ),
+
+    array(
         'url'   =>  '*',
         'view'  =>  '404'
     )
