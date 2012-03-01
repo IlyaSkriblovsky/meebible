@@ -105,8 +105,6 @@ UniDialog {
 
             text: qsTr(\"Cancel\")
 
-            anchors.horizontalCenter: parent.horizontalCenter
-
             onClicked: dialog.reject()
         }
     ]

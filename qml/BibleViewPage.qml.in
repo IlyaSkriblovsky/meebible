@@ -1,8 +1,5 @@
 import QtQuick 1.1
 
-// // for EditBubbleButton
-// import \"/usr/lib/qt4/imports/com/meego/\" 1.0
-
 $$QML_IMPORT_QTCOMPONENTS
 import com.nokia.extras 1.1
 
@@ -64,7 +61,7 @@ Page {
         id: header
         text: bibleView.title || \"MeeBible\"
         withIcon: true
-        height: settings.floatingHeader ? 0 : 70
+        height: settings.floatingHeader ? 0 : defaultHeight
         visible: ! settings.floatingHeader
 
         rtl: settings.translation != null  &&  settings.translation.rtl
@@ -103,7 +100,7 @@ Page {
                 id: floatingHeader
                 text: bibleView.title || \"MeeBible\"
                 withIcon: true
-                height: settings.floatingHeader ? 70 : 0
+                height: settings.floatingHeader ? defaultHeight : 0
                 visible: settings.floatingHeader
 
                 rtl: settings.translation != null  &&  settings.translation.rtl
@@ -225,71 +222,72 @@ Page {
         property bool narrow: false
 
 
-        // EditBubbleButton {
-        //     text: qsTr(\"Copy\")
-        //     platformStyle: EditBubbleButtonStyle {
-        //         position: \"horizontal-left\"
-        //         buttonPaddingLeft: verseActions.narrow ? 0 : 8
-        //         buttonPaddingRight: verseActions.narrow ? 0 : 8
-        //     }
+        UniVerseActionButton {
+            text: qsTr(\"Copy\")
 
-        //     onClicked: {
-        //         bibleView.copySelectedVerses()
-        //         bibleView.clearSelection()
-        //         copyBanner.show()
-        //     }
-        // }
-        // EditBubbleButton {
-        //     visible: ! NOSHARE
+            buttonType: \"l\"
+            narrow: verseActions.narrow
 
-        //     text: qsTr(\"Share\")
-        //     platformStyle: EditBubbleButtonStyle {
-        //         position: \"horizontal-center\"
-        //         buttonPaddingLeft: verseActions.narrow ? 0 : 8
-        //         buttonPaddingRight: verseActions.narrow ? 0 : 8
-        //     }
+            onClicked: {
+                bibleView.copySelectedVerses()
+                bibleView.clearSelection()
+                if (SYMBIAN)
+                    copyBanner.open()
+                else
+                    copyBanner.show()
+            }
+        }
 
-        //     onClicked: {
-        //         bibleView.shareSelectedVerses()
-        //         bibleView.clearSelection()
-        //     }
-        // }
-        // EditBubbleButton {
-        //     platformStyle: EditBubbleButtonStyle {
-        //         position: \"horizontal-center\"
-        //         buttonPaddingLeft: verseActions.narrow ? 0 : 8
-        //         buttonPaddingRight: verseActions.narrow ? 0 : 8
-        //     }
+        UniVerseActionButton {
+            visible: ! NOSHARE
 
-        //     text: qsTr(\"Bookmark\")
+            text: qsTr(\"Share\")
 
-        //     onClicked: {
-        //         if (bibleView.bookmarkSelectedVerses())
-        //             bookmarkBanner.text = qsTr(\"Bookmarked\")
-        //         else
-        //             bookmarkBanner.text = qsTr(\"Already in bookmarks\")
-        //         bookmarkBanner.show()
+            narrow: verseActions.narrow
 
-        //         bibleView.clearSelection()
-        //     }
-        // }
-        // EditBubbleButton {
-        //     platformStyle: EditBubbleButtonStyle {
-        //         position: \"horizontal-right\"
-        //     }
+            onClicked: {
+                bibleView.shareSelectedVerses()
+                bibleView.clearSelection()
+            }
+        }
 
-        //     Image {
-        //         anchors.verticalCenter: parent.verticalCenter
-        //         x: 4
+        UniVerseActionButton {
+            text: qsTr(\"Bookmark\")
 
-        //         source: \'image://theme/icon-m-toolbar-close\'
-        //     }
+            narrow: verseActions.narrow
 
-        //     onClicked: bibleView.clearSelection()
-        // }
+            onClicked: {
+                if (bibleView.bookmarkSelectedVerses())
+                    bookmarkBanner.text = qsTr(\"Bookmarked\")
+                else
+                    bookmarkBanner.text = qsTr(\"Already in bookmarks\")
+
+                if (SYMBIAN)
+                    bookmarkBanner.open()
+                else
+                    bookmarkBanner.show()
+
+                bibleView.clearSelection()
+            }
+        }
+
+        UniVerseActionButton {
+            buttonType: \"r\"
+            narrow: verseActions.narrow
+
+            Image {
+                anchors.verticalCenter: parent.verticalCenter
+                x: 4
+
+                source: SYMBIAN ? \"verse-actions-close-symbian.png\" : \"verse-actions-close.png\"
+            }
+
+            onClicked: bibleView.clearSelection()
+        }
+
 
         Component.onCompleted: {
-            narrow = width > 480
+            narrow = width > screen.displayWidth
         }
     }
 

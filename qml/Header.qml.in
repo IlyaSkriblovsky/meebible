@@ -11,6 +11,8 @@ Rectangle {
     property bool withIcon: false
     property bool rtl: false
 
+    property int defaultHeight: SYMBIAN ? 60 : 70
+
 
     gradient: Gradient {
         GradientStop { position: 0.0; color: \"#515151\" }
@@ -18,7 +20,7 @@ Rectangle {
     }
 
     width: parent.width
-    height: 70
+    height: defaultHeight
 
     Image {
         id: icon
@@ -37,10 +39,10 @@ Rectangle {
         x: label.x
         y: label.y + 1
         text: label.text
-        font.pixelSize: 32
+        font.pixelSize: label.font.pixelSize
         color: \'#000\'
 
-        font.family: \"Nokia Pure Text Light\"
+        font.family: label.font.family
     }
 
     Label {
@@ -48,7 +50,7 @@ Rectangle {
         anchors.verticalCenter: parent.verticalCenter
         anchors.leftMargin: withIcon ? 5 : 20
         anchors.rightMargin: 10
-        font.pixelSize: 32
+        font.pixelSize: SYMBIAN ? 26 : 32
         color: \'#eee\'
 
         font.family: \"Nokia Pure Text Light\"
@@ -77,17 +79,18 @@ Rectangle {
 
     Rectangle {
         x: 0
-        y: 68
         width: parent.width
         height: 1
+        anchors.bottom: bottomLine1.top
         color: settings.inverted ? \'#222\' : \'#000\'
     }
 
     Rectangle {
         x: 0
-        y: 69
+        id: bottomLine1
         width: parent.width
         height: 1
+        anchors.bottom: parent.bottom
         color: settings.inverted ? \'#000\' : \'#fff\'
     }
 }
