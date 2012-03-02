@@ -48,9 +48,25 @@ UniDialog {
 
         anchors.horizontalCenter: parent.horizontalCenter
 
-        // FIXME
-        // height: dialog.parent.height * 0.8
-        height: SYMBIAN ? dialog.platformContentMaximumHeight : dialog.parent.height * 0.8
+
+        Binding {
+            when: SYMBIAN
+
+            target: contentItem
+            property: \"height\"
+            value: dialog.platformContentMaximumHeight
+        }
+
+        Binding {
+            when: ! SYMBIAN
+
+            target: contentItem
+            property: \"height\"
+            value: (screen.currentOrientation == Screen.Portrait ?
+                      screen.displayWidth * 0.8
+                    : screen.displayHeight * 0.8)
+        }
+
 
         clip: true
 

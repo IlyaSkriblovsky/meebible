@@ -11,7 +11,7 @@ Dialog {
 
 
     // FIXME: seems to be a loop on width property
-    width: screen.currentOrientation == Screen.Portrait ? parent.width * 0.9 : parent.width * 0.8
+    width: screen.currentOrientation == Screen.Portrait ? screen.displayHeight * 0.9 : screen.displayWidth * 0.8
 
 
     title: [
