@@ -646,6 +646,8 @@ Page {
                 bibleView.lineSpacing = value
                 flickable.contentY *= factor
             }
+
+            valueIndicatorText: value.toFixed(1)
         }
 
         ToolButton {
