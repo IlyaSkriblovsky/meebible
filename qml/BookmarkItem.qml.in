@@ -19,10 +19,18 @@ Item {
 
     clip: true
 
-    BorderImage {
+    // BorderImage {
+    //     anchors.fill: parent
+    //     visible: mouseArea.pressed
+    //     source: settings.inverted ? \"image://theme/meegotouch-panel-inverted-background-pressed\" : \"image://theme/meegotouch-panel-background-pressed\"
+    // }
+
+    Rectangle {
         anchors.fill: parent
         visible: mouseArea.pressed
-        source: settings.inverted ? \"image://theme/meegotouch-panel-inverted-background-pressed\" : \"image://theme/meegotouch-panel-background-pressed\"
+
+        color: settings.inverted ? \"#ffffff\" : \"#221f1f\"
+        opacity: settings.inverted ? 0.2 : 0.1
     }
 
     Column {

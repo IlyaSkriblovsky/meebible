@@ -526,7 +526,7 @@ Page {
 
 
         UniToolIcon {
-            iconSource: settings.inverted ? \"bookmarks-inverted.png\" : \"bookmarks.png\"
+            iconSource: \"bookmarks\" + (SYMBIAN ? \"-symbian\" : \"\") + (settings.inverted ? \"-inverted\" : \"\") + \".png\"
             onClicked: bookmarksSheet.open()
         }
 
@@ -767,7 +767,7 @@ Page {
     Loader {
         id: bookmarksSheet
         function load() { source = \"BookmarksSheet.qml\" }
-        function open() { load(); item.openSheet() }
+        function open() { load(); item.openSheet(pageStack) }
 
         Connections {
             target: bookmarksSheet.item
