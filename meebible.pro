@@ -34,7 +34,7 @@ symbian {
 
     vendorinfo = \
         "; Localised Vendor name" \
-        "%Ilya Skriblovsky" \
+        "%{\"Ilya Skriblovsky\"}" \
         " " \
         "; Unique Vendor name" \
         ":\"Ilya Skriblovsky\"" \
