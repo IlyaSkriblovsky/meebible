@@ -551,6 +551,8 @@ Page {
             anchors.leftMargin: 10
             width: 50
 
+            anchors.verticalCenter: parent.verticalCenter
+
             onClicked: fontSizeSlider.value -= 1
         }
 
@@ -644,6 +646,8 @@ Page {
                 bibleView.lineSpacing = value
                 flickable.contentY *= factor
             }
+
+            valueIndicatorText: value.toFixed(1)
         }
 
         ToolButton {
@@ -783,11 +787,7 @@ Page {
         visualParent: pageStack
 
         MenuLayout {
-            MenuItem {
-                text: qsTr(\"Quit\")
-
-                onClicked: Qt.quit()
-            }
+            id: menuLayout
 
             MenuItem {
                 text: qsTr(\"Search\")
@@ -796,14 +796,69 @@ Page {
                 visible: ! NOSEARCH
             }
 
-            MenuItem {
-                text: qsTr(\"Font size\")
-                onClicked: page.pageStack.toolBar.setTools(fontTools, \"replace\")
+
+            function fontSizeClicked() {
+                page.pageStack.toolBar.setTools(fontTools, \"replace\")
+            }
+
+            function lineSpacingClicked() {
+                page.pageStack.toolBar.setTools(lineSpacingTools, \"replace\")
+            }
+
+            Item {
+                visible: SYMBIAN
+
+                width: parent.width
+                height: childrenRect.height
+
+                Item {
+                    anchors.left: parent.left
+                    anchors.right: parent.horizontalCenter
+                    height: childrenRect.height
+
+                    MenuItem {
+                        text: qsTr(\"Font size\")
+                        onClicked: {
+                            menuLayout.fontSizeClicked()
+                            menu.close()
+                        }
+
+                        Rectangle {
+                            width: 1
+                            height: parent.height
+                            anchors.right: parent.right
+                            color: \"#4a4a4a\"
+                        }
+                    }
+                }
+
+                Item {
+                    anchors.left: parent.horizontalCenter
+                    anchors.right: parent.right
+                    height: childrenRect.height
+
+                    MenuItem {
+                        text: qsTr(\"Line spacing\")
+                        onClicked: {
+                            menuLayout.lineSpacingClicked()
+                            menu.close()
+                        }
+                    }
+                }
             }
 
             MenuItem {
+                visible: ! SYMBIAN
+
+                text: qsTr(\"Font size\")
+                onClicked: menuLayout.fontSizeClicked()
+            }
+
+            MenuItem {
+                visible: ! SYMBIAN
+
                 text: qsTr(\"Line spacing\")
-                onClicked: page.pageStack.toolBar.setTools(lineSpacingTools, \"replace\")
+                onClicked: menuLayout.lineSpacingClicked()
             }
 
             MenuItem {
@@ -819,6 +874,14 @@ Page {
             MenuItem {
                 text: qsTr(\"About MeeBible\")
                 onClicked: aboutPage.open()
+            }
+
+            MenuItem {
+                visible: SYMBIAN
+
+                text: qsTr(\"Quit\")
+
+                onClicked: Qt.quit()
             }
         }
     }
