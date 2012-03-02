@@ -796,14 +796,38 @@ Page {
                 visible: ! NOSEARCH
             }
 
-            MenuItem {
-                text: qsTr(\"Font size\")
-                onClicked: page.pageStack.toolBar.setTools(fontTools, \"replace\")
-            }
+            Item {
+                width: parent.width
+                height: childrenRect.height
 
-            MenuItem {
-                text: qsTr(\"Line spacing\")
-                onClicked: page.pageStack.toolBar.setTools(lineSpacingTools, \"replace\")
+                Item {
+                    anchors.left: parent.left
+                    anchors.right: parent.horizontalCenter
+                    height: childrenRect.height
+
+                    MenuItem {
+                        text: qsTr(\"Font size\")
+                        onClicked: page.pageStack.toolBar.setTools(fontTools, \"replace\")
+
+                        Rectangle {
+                            width: 1
+                            height: parent.height
+                            anchors.right: parent.right
+                            color: \"#4a4a4a\"
+                        }
+                    }
+                }
+
+                Item {
+                    anchors.left: parent.horizontalCenter
+                    anchors.right: parent.right
+                    height: childrenRect.height
+
+                    MenuItem {
+                        text: qsTr(\"Line spacing\")
+                        onClicked: page.pageStack.toolBar.setTools(lineSpacingTools, \"replace\")
+                    }
+                }
             }
 
             MenuItem {
