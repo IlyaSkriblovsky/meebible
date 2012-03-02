@@ -281,8 +281,14 @@ Page {
         }
 
 
-        Component.onCompleted: {
-            narrow = width > screen.displayWidth
+        Component.onCompleted: verseActions.updateNarrow()
+        Connections {
+            target: page
+            onWidthChanged: verseActions.updateNarrow()
+        }
+
+        function updateNarrow() {
+            verseActions.narrow = verseActions.width > page.width * 0.9
         }
     }
 
@@ -761,8 +767,7 @@ Page {
     Loader {
         id: bookmarksSheet
         function load() { source = \"BookmarksSheet.qml\" }
-        // function open() { load(); item.open() }
-        function open() { load(); pageStack.push(item) }
+        function open() { load(); item.openSheet() }
 
         Connections {
             target: bookmarksSheet.item

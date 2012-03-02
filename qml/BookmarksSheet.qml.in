@@ -5,60 +5,19 @@ $$QML_IMPORT_QTCOMPONENTS
 
 import \"unicomponents\"
 
-Page {
+UniSheet {
+    id: dialog
+
     signal bookmarkSelected(variant place)
 
 
-    id: dialog
-
-    Header {
-        id: header
-        text: qsTr(\"Bookmarks\")
-    }
+    headerText: qsTr(\"Bookmarks\")
 
 
-    tools: ToolBarLayout {
-        UniToolIcon {
-            platformIconId: \"toolbar-back\"
-            onClicked: pageStack.pop()
-        }
-    }
-
-    // buttons: [
-    //     Label {
-    //         id: header
-
-    //         anchors.verticalCenter: parent.verticalCenter
-    //         anchors.left: parent.left
-    //         anchors.leftMargin: 10
-
-    //         text: qsTr(\"Bookmarks\")
-
-    //         font.pixelSize: 32
-    //         font.family: \"Nokia Pure Text Light\"
-    //         font.bold: false
-    //     },
-
-    //     SheetButton {
-    //         text: qsTr(\"Close\")
-
-    //         anchors.verticalCenter: parent.verticalCenter
-    //         anchors.right: parent.right
-    //         anchors.rightMargin: 10
-
-    //         onClicked: dialog.reject()
-    //     }
-    // ]
-
-
-    Item {
+    content: Item {
         id: item
 
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: header.bottom
-        anchors.bottom: parent.bottom
-
+        anchors.fill: parent
 
         ListView {
             id: list
@@ -77,8 +36,7 @@ Page {
 
                 onClicked: {
                     dialog.bookmarkSelected(model.place)
-                    // dialog.accept()
-                    pageStack.pop()
+                    dialog.closeSheet()
                 }
 
                 onPressAndHold: {
