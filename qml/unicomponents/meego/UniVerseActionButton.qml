@@ -14,6 +14,8 @@ EditBubbleButton {
     property int innerWidth: width
 
     platformStyle: EditBubbleButtonStyle {
+        id: buttonStyle
+
         position: {
             switch (button.buttonType)
             {
@@ -23,8 +25,8 @@ EditBubbleButton {
             }
         }
 
-        buttonPaddingLeft : button.narrow ? 0 : 8
-        buttonPaddingRight: button.narrow ? 0 : 8
+        buttonPaddingLeft : (icon.source != "" ? 10 : 0) + (button.narrow ? 0 : 8)
+        buttonPaddingRight: (icon.source != "" ? 10 : 0) + (button.narrow ? 0 : 8)
     }
 
 
@@ -32,7 +34,7 @@ EditBubbleButton {
         id: icon
 
         anchors.verticalCenter: parent.verticalCenter
-        x: 4
+        x: (button.width - icon.width) / 2 - 4
 
         visible: source != ""
     }

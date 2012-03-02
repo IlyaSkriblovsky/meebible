@@ -7,6 +7,8 @@ Dialog {
 
     property alias titleText: titleLabel.text
 
+    property alias uniButtons: buttonsParent.children
+
 
     // FIXME: seems to be a loop on width property
     width: screen.currentOrientation == Screen.Portrait ? parent.width * 0.9 : parent.width * 0.8
@@ -55,4 +57,19 @@ Dialog {
             }
         }
     ]
+
+    buttons: Item {
+        width: parent.width
+
+        height: buttonsParent.children.length > 0 ? buttonsParent.height + 25 : 0
+
+        Column {
+            id: buttonsParent
+
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottom: parent.bottom
+
+            spacing: 10
+        }
+    }
 }

@@ -67,9 +67,12 @@ Page {
 
                 width: parent.width
 
-                // height: 400
-
                 placeholderText: qsTr(\"Comments\\nSuggestions\\nImprovements\\nCritics\\nNew translations\\n...\")
+
+                Component.onCompleted: {
+                    if (! SYMBIAN)
+                        height = 400
+                }
             }
 
             Button {

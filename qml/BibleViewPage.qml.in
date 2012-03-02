@@ -273,9 +273,8 @@ Page {
 
         UniVerseActionButton {
             buttonType: \"r\"
-            narrow: verseActions.narrow
 
-            iconSource: SYMBIAN ? \"verse-actions-close-symbian.png\" : \"verse-actions-close.png\"
+            iconSource: SYMBIAN ? \"verse-actions-close-symbian.png\" : \"image://theme/icon-m-toolbar-close\"
 
             onClicked: bibleView.clearSelection()
         }
