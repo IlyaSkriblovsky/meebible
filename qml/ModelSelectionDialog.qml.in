@@ -28,7 +28,7 @@ UniDialog {
             when: SYMBIAN
 
             target: contentItem
-            property: "maximumContentHeight"
+            property: \"maximumContentHeight\"
             value: dialog.platformContentMaximumHeight
         }
 
@@ -36,7 +36,7 @@ UniDialog {
             when: ! SYMBIAN
 
             target: contentItem
-            property: "maximumContentHeight"
+            property: \"maximumContentHeight\"
             value: (screen.currentOrientation == Screen.Portrait ?
                       screen.displayWidth * 0.8
                     : screen.displayHeight * 0.8)
