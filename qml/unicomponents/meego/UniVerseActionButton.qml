@@ -30,14 +30,6 @@ EditBubbleButton {
     }
 
 
-    // Rectangle {
-    //     anchors.fill: parent
-    //     color: 'red'
-    //     opacity: 0.3
-    //     visible: icon.source != ""
-    // }
-
-
     Image {
         id: icon
 
@@ -46,12 +38,5 @@ EditBubbleButton {
         x: (button.width - icon.width) / 2 - 4
 
         visible: source != ""
-    }
-
-    Component.onCompleted: {
-        if (icon.source != "") {
-            console.log(width)
-            console.log(icon.width)
-        }
     }
 }
