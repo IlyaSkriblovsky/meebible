@@ -855,12 +855,15 @@ Page {
             }
 
             MenuItem {
-                visible: SYMBIAN
+                id: quitMenuItem
 
                 text: qsTr(\"Quit\")
 
                 onClicked: Qt.quit()
             }
+
+            // Just setting \"visible: false\" breaks round corners
+            Component.onCompleted: if (! SYMBIAN) quitMenuItem.destroy()
         }
     }
 }
