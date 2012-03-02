@@ -20,9 +20,29 @@ UniDialog {
         width: parent.width
         anchors.horizontalCenter: parent.horizontalCenter
 
-        // FIXME:
-        // height: Math.min(header.height + listView.contentHeight, dialog.parent.height * 0.7)
-        height: Math.min(header.height + listView.contentHeight, 800 * 0.7)
+
+        property int maximumContentHeight: 500
+        height: Math.min(header.height + listView.contentHeight, maximumContentHeight)
+
+        Binding {
+            when: SYMBIAN
+
+            target: contentItem
+            property: "maximumContentHeight"
+            value: dialog.platformContentMaximumHeight
+        }
+
+        Binding {
+            when: ! SYMBIAN
+
+            target: contentItem
+            property: "maximumContentHeight"
+            value: (screen.currentOrientation == Screen.Portrait ?
+                      screen.displayWidth * 0.8
+                    : screen.displayHeight * 0.8)
+        }
+
+
 
         Item {
             id: header
