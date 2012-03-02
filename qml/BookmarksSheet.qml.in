@@ -59,7 +59,6 @@ UniSheet {
                 text: qsTr(\"Delete\")
 
                 onClicked: {
-                    console.log(dialog._pressAndHoldIndex)
                     bookmarks.deleteBookmark(dialog._pressAndHoldIndex)
                 }
             }

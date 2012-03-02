@@ -336,30 +336,9 @@ Page {
     }
 
 
-    Connections {
-        target: languages
-        onLoadingChanged: console.log(\"Languages.loading = \" + languages.loading)
-    }
-    Connections {
-        target: settings
-        onLanguageChanged: console.log(\"settings.language = \" + settings.language)
-        onTranslationChanged: console.log(\"settings.translation = \" + settings.translation)
-    }
-    Connections {
-        target: bibleView
-        onLoadingChapterChanged: console.log(\"BibleView.loadingChapter = \" + bibleView.loadingChapter)
-    }
-
-
     Rectangle {
         id: busyIndicator
 
-        Component.onCompleted: {
-            console.log(\"Languages.loading = \" + languages.loading)
-            console.log(\"settings.language = \" + settings.language)
-            console.log(\"settings.translation = \" + settings.translation)
-            console.log(\"BibleView.loadingChapter = \" + bibleView.loadingChapter)
-        }
 
         anchors.fill: parent
 
