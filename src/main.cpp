@@ -104,31 +104,32 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     view->rootContext()->setContextProperty("placeAccesser", &placeAccesser);
 
     #ifdef FREEVERSION
-        view->rootContext()->setContextProperty("freeversion", true);
+        view->rootContext()->setContextProperty("freeversion", QVariant(true));
     #else
-        view->rootContext()->setContextProperty("freeversion", false);
+        view->rootContext()->setContextProperty("freeversion", QVariant(false));
     #endif
 
 
     #ifdef SYMBIAN
         qDebug() << "Symbian";
-        view->rootContext()->setContextProperty("SYMBIAN", true);
+        view->rootContext()->setContextProperty("SYMBIAN", QVariant(true));
     #else
-        view->rootContext()->setContextProperty("SYMBIAN", false);
+        qDebug() << "NOT Symbian";
+        view->rootContext()->setContextProperty("SYMBIAN", QVariant(false));
     #endif
 
     #ifdef NOSEARCH
         qDebug() << "Search disabled";
-        view->rootContext()->setContextProperty("NOSEARCH", true);
+        view->rootContext()->setContextProperty("NOSEARCH", QVariant(true));
     #else
-        view->rootContext()->setContextProperty("NOSEARCH", false);
+        view->rootContext()->setContextProperty("NOSEARCH", QVariant(false));
     #endif
 
     #ifdef NOSHARE
         qDebug() << "Verse sharing disabled";
-        view->rootContext()->setContextProperty("NOSHARE", true);
+        view->rootContext()->setContextProperty("NOSHARE", QVariant(true));
     #else
-        view->rootContext()->setContextProperty("NOSHARE", false);
+        view->rootContext()->setContextProperty("NOSHARE", QVariant(false));
     #endif
 
 
