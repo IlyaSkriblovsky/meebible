@@ -32,6 +32,8 @@ symbian {
     TARGET.UID3 = 0xe0cd6015
     DEPLOYMENT.display_name = MeeBible
 
+    ICON = meebible.svg
+
     vendorinfo = \
         "; Localised Vendor name" \
         "%{\"Ilya Skriblovsky\"}" \
