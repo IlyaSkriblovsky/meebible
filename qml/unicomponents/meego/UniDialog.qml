@@ -10,7 +10,6 @@ Dialog {
     property alias uniButtons: buttonsParent.children
 
 
-    // FIXME: seems to be a loop on width property
     width: screen.currentOrientation == Screen.Portrait ? screen.displayHeight * 0.9 : screen.displayWidth * 0.8
 
 
