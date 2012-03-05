@@ -40,6 +40,8 @@ Page {
                 wrapMode: Text.Wrap
 
                 width: parent.width
+
+                $$QML_SYMBIAN_THEME
             }
 
             Label {
@@ -52,11 +54,15 @@ Page {
                 wrapMode: Text.Wrap
 
                 onLinkActivated: Qt.openUrlExternally(link)
+
+                $$QML_SYMBIAN_THEME
             }
 
             Label {
                 text: qsTr(\"Homepage & sources:\")
                 anchors.horizontalCenter: parent.horizontalCenter
+
+                $$QML_SYMBIAN_THEME
             }
 
             Label {
@@ -68,6 +74,8 @@ Page {
                 wrapMode: Text.Wrap
 
                 onLinkActivated: Qt.openUrlExternally(link)
+
+                $$QML_SYMBIAN_THEME
             }
 
             Button {
@@ -93,6 +101,8 @@ Page {
                 }
 
                 onClicked: feedbackPage.open()
+
+                $$QML_SYMBIAN_THEME
             }
 
             Label {
@@ -100,6 +110,8 @@ Page {
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 wrapMode: Text.Wrap
+
+                $$QML_SYMBIAN_THEME
             }
 
             Rectangle {
@@ -122,6 +134,8 @@ Page {
                 onLinkActivated: Qt.openUrlExternally(link)
 
                 wrapMode: Text.Wrap
+
+                $$QML_SYMBIAN_THEME
             }
 
             Label {
@@ -130,6 +144,8 @@ Page {
                 width: parent.width
 
                 wrapMode: Text.Wrap
+
+                $$QML_SYMBIAN_THEME
             }
         }
     }

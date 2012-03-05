@@ -50,6 +50,8 @@ Page {
                 width: parent.width
 
                 placeholderText: qsTr(\"Your name\")
+
+                $$QML_SYMBIAN_THEME
             }
 
             TextField {
@@ -60,6 +62,8 @@ Page {
                 placeholderText: qsTr(\"Your E-Mail\")
 
                 inputMethodHints: Qt.ImhEmailCharactersOnly
+
+                $$QML_SYMBIAN_THEME
             }
 
             TextArea {
@@ -73,6 +77,8 @@ Page {
                     if (! SYMBIAN)
                         height = 400
                 }
+
+                $$QML_SYMBIAN_THEME
             }
 
             Button {
@@ -88,6 +94,8 @@ Page {
                     else
                         noEmailConfirmation.open()
                 }
+
+                $$QML_SYMBIAN_THEME
             }
 
         }

@@ -54,6 +54,8 @@ UniSheet {
     Menu {
         id: itemMenu
 
+        $$QML_SYMBIAN_THEME
+
         MenuLayout {
             MenuItem {
                 text: qsTr(\"Delete\")
@@ -61,6 +63,8 @@ UniSheet {
                 onClicked: {
                     bookmarks.deleteBookmark(dialog._pressAndHoldIndex)
                 }
+
+                $$QML_SYMBIAN_THEME
             }
         }
     }

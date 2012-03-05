@@ -4,4 +4,6 @@ ToolButton {
     id: self
 
     property alias platformIconId: self.iconSource
+
+    platformInverted: !settings.inverted
 }

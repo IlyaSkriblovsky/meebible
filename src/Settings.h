@@ -126,9 +126,7 @@ class Settings: public QObject
 
         bool _searchNoticeShown;
 
-        #ifndef SYMBIAN
-            bool _inverted;
-        #endif
+        bool _inverted;
 
         QString _transCode;
         QString _langCode;

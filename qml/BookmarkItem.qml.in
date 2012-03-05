@@ -44,6 +44,8 @@ Item {
             font.bold: true
             font.pixelSize: 26
             color: mouseArea.pressed ? \"#797979\" : (settings.inverted ? \"#ffffff\" : \"#282828\")
+
+            $$QML_SYMBIAN_THEME
         }
 
         Label {
@@ -57,6 +59,8 @@ Item {
 
             width: parent.width
             elide: Text.ElideRight
+
+            $$QML_SYMBIAN_THEME
         }
     }
 

@@ -23,6 +23,8 @@ Item {
         anchors.centerIn: parent
 
         onClicked: item.clicked()
+
+        $$QML_SYMBIAN_THEME
     }
 
     HelpButton {

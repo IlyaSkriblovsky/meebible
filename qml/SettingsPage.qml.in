@@ -88,6 +88,8 @@ Page {
                         font.pixelSize: 20
 
                         onLinkActivated: Qt.openUrlExternally(settings.translation.sourceUrl)
+
+                        $$QML_SYMBIAN_THEME
                     }
                     Label {
                         anchors.left: parent.left
@@ -98,6 +100,8 @@ Page {
                         text: settings.translation ? settings.translation.copyright : \'\'
                         visible: settings.translation != null  &&  settings.translation.copyright != \'\'
                         font.pixelSize: 20
+
+                        $$QML_SYMBIAN_THEME
                     }
                 }
             }

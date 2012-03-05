@@ -320,6 +320,8 @@ Page {
             color: \'#800\'
 
             text: qsTr(\"Before you start to read, MeeBible have to load translation list from server\")
+
+            $$QML_SYMBIAN_THEME
         }
 
         MouseArea { anchors.fill: parent }
@@ -332,6 +334,8 @@ Page {
             text: qsTr(\"Try again\")
 
             onClicked: languages.reload(true)
+
+            $$QML_SYMBIAN_THEME
         }
     }
 
@@ -364,6 +368,8 @@ Page {
             font.pixelSize: 36
 
             text: qsTr(\"Loading chapter\")
+
+            $$QML_SYMBIAN_THEME
         }
 
         MouseArea {
@@ -509,7 +515,7 @@ Page {
         }
 
         UniToolIcon {
-            platformIconId: \"toolbar-view-menu\"
+            platformIconId: SYMBIAN ? \"toolbar-menu\" : \"toolbar-view-menu\"
             onClicked: menu.status == DialogStatus.Closed ? menu.open() : menu.close()
         }
     }
@@ -532,6 +538,8 @@ Page {
             anchors.verticalCenter: parent.verticalCenter
 
             onClicked: fontSizeSlider.value -= 1
+
+            $$QML_SYMBIAN_THEME
         }
 
 
@@ -560,6 +568,8 @@ Page {
                 bibleView.fontSize = realSize
                 flickable.contentY *= factor * factor
             }
+
+            $$QML_SYMBIAN_THEME
         }
 
         ToolButton {
@@ -573,6 +583,8 @@ Page {
             width: 50
 
             onClicked: fontSizeSlider.value += 1
+
+            $$QML_SYMBIAN_THEME
         }
 
         ToolButton {
@@ -586,6 +598,8 @@ Page {
             width: 70
 
             onClicked: page.pageStack.toolBar.setTools(commonTools, \"replace\")
+
+            $$QML_SYMBIAN_THEME
         }
     }
 
@@ -605,6 +619,8 @@ Page {
             width: 50
 
             onClicked: lineSpacingSlider.value -= 0.2
+
+            $$QML_SYMBIAN_THEME
         }
 
 
@@ -626,6 +642,8 @@ Page {
             }
 
             valueIndicatorText: value.toFixed(1)
+
+            $$QML_SYMBIAN_THEME
         }
 
         ToolButton {
@@ -639,6 +657,8 @@ Page {
             width: 50
 
             onClicked: lineSpacingSlider.value += 0.2
+
+            $$QML_SYMBIAN_THEME
         }
 
         ToolButton {
@@ -652,6 +672,8 @@ Page {
             width: 70
 
             onClicked: page.pageStack.toolBar.setTools(commonTools, \"replace\")
+
+            $$QML_SYMBIAN_THEME
         }
     }
 
@@ -680,6 +702,8 @@ Page {
             text: (bibleView.matchIndex + 1) + \' / \' + bibleView.matchCount
 
             font.pixelSize: 30
+
+            $$QML_SYMBIAN_THEME
         }
 
         UniToolIcon {
@@ -706,6 +730,8 @@ Page {
             anchors.rightMargin: 20
 
             onClicked: bibleView.stopSearchMode()
+
+            $$QML_SYMBIAN_THEME
         }
     }
 
@@ -764,6 +790,8 @@ Page {
 
         visualParent: pageStack
 
+        $$QML_SYMBIAN_THEME
+
         MenuLayout {
             id: menuLayout
 
@@ -772,6 +800,8 @@ Page {
 
                 onClicked: searchDialog.open()
                 visible: ! NOSEARCH
+
+                $$QML_SYMBIAN_THEME
             }
 
 
@@ -805,8 +835,10 @@ Page {
                             width: 1
                             height: parent.height
                             anchors.right: parent.right
-                            color: \"#4a4a4a\"
+                            color: settings.inverted ? \"#4a4a4a\" : \"#d8d8d8\"
                         }
+
+                        $$QML_SYMBIAN_THEME
                     }
                 }
 
@@ -821,6 +853,8 @@ Page {
                             menuLayout.lineSpacingClicked()
                             menu.close()
                         }
+
+                        $$QML_SYMBIAN_THEME
                     }
                 }
             }
@@ -830,6 +864,8 @@ Page {
 
                 text: qsTr(\"Font size\")
                 onClicked: menuLayout.fontSizeClicked()
+
+                $$QML_SYMBIAN_THEME
             }
 
             MenuItem {
@@ -837,21 +873,29 @@ Page {
 
                 text: qsTr(\"Line spacing\")
                 onClicked: menuLayout.lineSpacingClicked()
+
+                $$QML_SYMBIAN_THEME
             }
 
             MenuItem {
                 text: qsTr(\"Download Bible\")
                 onClicked: downloadConfirmDialog.open()
+
+                $$QML_SYMBIAN_THEME
             }
 
             MenuItem {
                 text: qsTr(\"Settings\")
                 onClicked: settingsPage.open()
+
+                $$QML_SYMBIAN_THEME
             }
 
             MenuItem {
                 text: qsTr(\"About MeeBible\")
                 onClicked: aboutPage.open()
+
+                $$QML_SYMBIAN_THEME
             }
 
             MenuItem {
@@ -860,6 +904,8 @@ Page {
                 text: qsTr(\"Quit\")
 
                 onClicked: Qt.quit()
+
+                $$QML_SYMBIAN_THEME
             }
 
             // Just setting \"visible: false\" breaks round corners

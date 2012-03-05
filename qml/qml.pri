@@ -23,6 +23,7 @@ QMAKE_SUBSTITUTES += \
 
 symbian {
     QML_IMPORT_QTCOMPONENTS = "import com.nokia.symbian 1.1"
+    QML_SYMBIAN_THEME = "platformInverted: !settings.inverted"
 
     qml.sources = qml/*.qml qml/*.png
     qml.path = qml

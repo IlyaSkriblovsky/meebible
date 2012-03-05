@@ -8,6 +8,7 @@ Dialog {
 
     property alias uniButtons: buttonsParent.children
 
+
     onClickedOutside: reject()
 
     title: [
