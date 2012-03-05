@@ -148,7 +148,7 @@ Page {
             ButtonWithHelp {
                 buttonText: qsTr(\"Clear cache\")
                 helpTitle: qsTr(\"Cache clearing\")
-                helpMessage: qsTr(\"This will delete all downloaded Bible chapters from your phone. Do this to force reloading chapters when some error was fixed in translation on the server side.\")
+                helpMessage: qsTr(\"This will delete all downloaded Bible chapters from your phone\")
 
                 onClicked: clearCacheConfirmation.open()
             }
