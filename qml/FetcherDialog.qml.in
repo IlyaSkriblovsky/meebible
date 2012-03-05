@@ -46,7 +46,7 @@ UniDialog {
         id: nothingToDo
 
         titleText: qsTr(\"Nothing to do\")
-        message: qsTr(\"You already have downloaded whole Bible in selected language and translation\")
+        message: qsTr(\"You already have downloaded whole Bible in selected language and translation\") + (SYMBIAN ? \"\\n\" : \"\")
 
         acceptButtonText: qsTr(\"OK\")
     }

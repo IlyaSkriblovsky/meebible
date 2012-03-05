@@ -3,8 +3,11 @@ import QtQuick 1.1
 $$QML_IMPORT_QTCOMPONENTS
 
 Image {
+    id: root
+
     property alias titleText: notice.titleText
-    property alias message: notice.message
+
+    property string message: \"\"
 
     source: settings.inverted ? \"help-button-inverted.png\" : \"help-button.png\"
 
@@ -12,6 +15,8 @@ Image {
 
     QueryDialog {
         id: notice
+
+        message: root.message + (SYMBIAN ? \"\\n\" : \"\")
 
         acceptButtonText: qsTr(\"OK\")
     }

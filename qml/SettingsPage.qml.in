@@ -227,7 +227,7 @@ Page {
 
         titleText: qsTr(\"Do you want to clear the cache?\")
 
-        message: qsTr(\"This will delete all downloaded Bible chapters from your phone\")
+        message: qsTr(\"This will delete all downloaded Bible chapters from your phone\") + (SYMBIAN ? \"\\n\" : \"\")
 
         acceptButtonText: qsTr(\"Clear\")
         rejectButtonText: qsTr(\"Cancel\")

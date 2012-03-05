@@ -419,7 +419,7 @@ Page {
 
         titleText: qsTr(\"Please notice\")
 
-        message: qsTr(\"Full-text search works only for downloaded chapters. If you want to search whole Bible you must download it first using the app menu.\")
+        message: qsTr(\"Full-text search works only for downloaded chapters. If you want to search whole Bible you must download it first using the app menu.\") + (SYMBIAN ? \"\\n\" : \"\")
 
         acceptButtonText: qsTr(\"OK\")
     }
@@ -469,7 +469,7 @@ Page {
 
         titleText: qsTr(\"Cannot load translation list\")
 
-        message: qsTr(\"Please check internet connection\")
+        message: qsTr(\"Please check internet connection\") + (SYMBIAN ? \"\\n\" : \"\")
 
         acceptButtonText: qsTr(\"OK\")
 
@@ -723,7 +723,7 @@ Page {
         id: downloadConfirmDialog
 
         titleText: qsTr(\"Are you ready to download whole Bible?\")
-        message: qsTr(\"This may take 10-15 minutes and you\'d better do it over Wi-Fi connection\")
+        message: qsTr(\"This may take 10-15 minutes and you\'d better do it over Wi-Fi connection\") + (SYMBIAN ? \"\\n\" : \"\")
 
         acceptButtonText: qsTr(\"Download\")
         rejectButtonText: qsTr(\"Cancel\")

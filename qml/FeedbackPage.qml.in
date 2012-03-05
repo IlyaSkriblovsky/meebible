@@ -134,7 +134,7 @@ Page {
 
         titleText: qsTr(\"Feedback sent\")
 
-        message: qsTr(\"Thank you! Your feedback is highly appreciated. We will answer you as soon as possible.\")
+        message: qsTr(\"Thank you! Your feedback is highly appreciated. We will answer you as soon as possible.\") + (SYMBIAN ? \"\\n\" : \"\")
 
         acceptButtonText: qsTr(\"OK\")
     }
@@ -144,7 +144,7 @@ Page {
 
         titleText: qsTr(\"Sending failed\")
 
-        message: qsTr(\"Your feedback was not sent. Please check internet connection and try again.\")
+        message: qsTr(\"Your feedback was not sent. Please check internet connection and try again.\") + (SYMBIAN ? \"\\n\" : \"\")
 
         acceptButtonText: qsTr(\"OK\")
     }
@@ -154,7 +154,7 @@ Page {
 
         titleText: qsTr(\"No E-Mail?\")
 
-        message: qsTr(\"You have not specified E-Mail address. We will not be able to answer you!\")
+        message: qsTr(\"You have not specified E-Mail address. We will not be able to answer you!\") + (SYMBIAN ? \"\\n\" : \"\")
 
         acceptButtonText: qsTr(\"Send anyway\")
         rejectButtonText: qsTr(\"Return to form\")
