@@ -16,9 +16,13 @@ namespace Utils
     {
         #ifdef Q_OS_LINUX
             return "meego";
-        #else
-            return "unknown";
         #endif
+
+        #ifdef Q_OS_SYMBIAN
+            return "symbian";
+        #endif
+
+        return "unknown";
     }
 }
 
