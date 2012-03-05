@@ -90,7 +90,10 @@ QVariant Languages::data(const QModelIndex& index, int role) const
 
 Language* Languages::langAt(int row) const
 {
-    return _languages.at(row);
+    if (row >= 0 && row < _languages.size())
+        return _languages.at(row);
+    else
+        return 0;
 }
 
 

@@ -170,7 +170,8 @@ Page {
             onAccepted: {
                 settings.language = languageDialog.item.language()
 
-                transDialog.open()
+                if (settings.language.translationsCount() > 1)
+                    transDialog.open()
             }
         }
     }
