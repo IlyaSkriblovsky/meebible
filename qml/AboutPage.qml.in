@@ -139,6 +139,8 @@ Page {
             }
 
             Label {
+                visible: SYMBIAN
+
                 text: \"<html><style>a{color:\" + (settings.inverted ? \"#8080ff\" : \"#0000ff\") + \"}</style>\" +
                     qsTr(\"Beta testing: Simon Botes of \") + \"<a href=\\\"http://store.ovi.com/publisher/AppCRAFT\\\">AppCRAFT</a></html>\"
                 width: parent.width
