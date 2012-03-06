@@ -28,7 +28,13 @@ Settings::Settings(Languages* langs, QObject* parent):
 
     _floatingHeader = _settings.value("General/floatingHeader", true).toBool();
     _fontSize       = _settings.value("General/fontSize", 30).toDouble();
-    _fontName       = _settings.value("General/fontName", "Nokia Pure Text Light").toString();
+
+    #ifdef SYMBIAN
+        _fontName       = _settings.value("General/fontName", "Nokia Sans").toString();
+    #else
+        _fontName       = _settings.value("General/fontName", "Nokia Pure Text Light").toString();
+    #endif
+
     _lineSpacing    = _settings.value("General/lineSpacing", 1.3).toDouble();
     _scrollPos      = _settings.value("General/scrollPos", 0).toInt();
     _fullscreen     = _settings.value("General/fullscreen", false).toBool();

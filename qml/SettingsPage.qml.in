@@ -207,10 +207,13 @@ Page {
 
             anchors.left: parent.left
             anchors.right: parent.right
+            anchors.leftMargin: 10
         }
 
-        model: ListModel {
-            id: fontModel
+        model: SYMBIAN ? symbianFonts : meegoFonts
+
+        ListModel {
+            id: meegoFonts
 
             ListElement { value: \"Nokia Pure Text Light\" }
             ListElement { value: \"Nokia Pure\" }
@@ -221,8 +224,18 @@ Page {
             ListElement { value: \"Trebuchet\" }
         }
 
+        ListModel {
+            id: symbianFonts
+
+            ListElement { value: \"Nokia Sans\" }
+            ListElement { value: \"Arial\" }
+            ListElement { value: \"Georgia\" }
+            ListElement { value: \"Times New Roman\" }
+            ListElement { value: \"Verdana\" }
+        }
+
         onAccepted: {
-            settings.fontName = fontModel.get(selectedIndex).value
+            settings.fontName = fontDialog.model.get(selectedIndex).value
         }
     }
 

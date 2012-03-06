@@ -10,8 +10,6 @@
 #include <QTranslator>
 #include <QLocale>
 
-#include <QFontDatabase>
-
 #include "Paths.h"
 #include "Cache.h"
 #include "Languages.h"
@@ -143,18 +141,6 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     StartupTracker startupTracker;
     startupTracker.sendStartupInfo();
-
-
-    qDebug() << "FONTS:";
-    QFontDatabase fonts;
-    foreach (QString family, fonts.families())
-    {
-        qDebug() << "Family:" << family;
-        foreach (QString style, font.styles(family))
-        {
-            qDebug() << "\t" << "Style:" << style;
-        }
-    }
 
 
 
