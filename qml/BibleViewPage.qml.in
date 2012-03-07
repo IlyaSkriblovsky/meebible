@@ -227,7 +227,7 @@ Page {
             narrow: verseActions.narrow
 
             onClicked: {
-                bibleView.copySelectedVerses()
+                bibleView.copySelectedVerses(settings.copyVerseNumbers)
                 bibleView.clearSelection()
                 if (SYMBIAN)
                     copyBanner.open()
@@ -244,7 +244,7 @@ Page {
             narrow: verseActions.narrow
 
             onClicked: {
-                bibleView.shareSelectedVerses()
+                bibleView.shareSelectedVerses(settings.copyVerseNumbers)
                 bibleView.clearSelection()
             }
         }

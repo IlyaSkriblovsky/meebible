@@ -471,18 +471,20 @@ void BibleView::applyInverted()
 
 
 
-QString BibleView::selectedText()
+QString BibleView::selectedText(bool withVerseNumbers)
 {
-    QString text = page()->mainFrame()->evaluateJavaScript("selectedText()").toString();
+    QString text = page()->mainFrame()->evaluateJavaScript(
+        withVerseNumbers ? "selectedText(true)" : "selectedText(false)"
+    ).toString();
     text.replace(QString::fromUtf8("\xcc\x81"), "");
 
     return text;
 }
 
 
-bool BibleView::copySelectedVerses()
+bool BibleView::copySelectedVerses(bool withVerseNumbers)
 {
-    QString text = selectedText();
+    QString text = selectedText(withVerseNumbers);
 
     if (text == "")
         return false;
@@ -493,9 +495,9 @@ bool BibleView::copySelectedVerses()
 }
 
 #ifndef NOSHARE
-bool BibleView::shareSelectedVerses()
+bool BibleView::shareSelectedVerses(bool withVerseNumbers)
 {
-    QString text = selectedText();
+    QString text = selectedText(withVerseNumbers);
 
     if (text == "")
         return false;
@@ -551,7 +553,7 @@ void BibleView::verseSelectionChanged(QList<int> verses)
 
 bool BibleView::bookmarkSelectedVerses()
 {
-    QString text = selectedText();
+    QString text = selectedText(false);
     text.replace("\n", " ");
 
     return Bookmarks::instance()->addBookmark(_place, text);

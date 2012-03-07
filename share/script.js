@@ -99,7 +99,7 @@ function verseDivs(verse)
     return result
 }
 
-function selectedText()
+function selectedText(withVerseNumbers)
 {
     var result = ''
 
@@ -125,7 +125,8 @@ function selectedText()
             result += ' '
 
             var divtext = divs[i].innerText
-            if (divs[i].firstElementChild.className == "verse-label")
+
+            if ((!withVerseNumbers) && divs[i].firstElementChild.className == "verse-label")
                 result += divtext.substr(divs[i].firstElementChild.innerText.length)
             else
                 result += divtext

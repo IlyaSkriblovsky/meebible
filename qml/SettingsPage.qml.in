@@ -139,6 +139,13 @@ Page {
                 onCheckedChanged: settings.inverted = checked
             }
 
+            LabeledSwitch {
+                text: qsTr(\"Copy verses with numbers\")
+
+                checked: settings.copyVerseNumbers
+                onCheckedChanged: settings.copyVerseNumbers = checked
+            }
+
 
             ButtonWithHelp {
                 buttonText: qsTr(\"Update translation list\")

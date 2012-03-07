@@ -45,7 +45,9 @@ Settings::Settings(Languages* langs, QObject* parent):
         _inverted       = _settings.value("General/inverted", false).toBool();
     #endif
 
-    _searchNoticeShown = _settings.value("Notices/searchNoticeShown", false).toBool();
+    _copyVerseNumbers   = _settings.value("General/copyVerseNumbers", false).toBool();
+
+    _searchNoticeShown  = _settings.value("Notices/searchNoticeShown", false).toBool();
 
     _webService     = _settings.value("Internals/webService", "meebible.org").toString();
 
@@ -64,8 +66,8 @@ Settings::~Settings()
     _settings.setValue("General/lineSpacing", _lineSpacing);
     _settings.setValue("General/scrollPos", _scrollPos);
     _settings.setValue("General/fullscreen", _fullscreen);
-
     _settings.setValue("General/inverted", _inverted);
+    _settings.setValue("General/copyVerseNumbers", _copyVerseNumbers);
 
     _settings.setValue("Notices/searchNoticeShown", _searchNoticeShown);
 }
@@ -243,5 +245,20 @@ void Settings::setInverted(bool inverted)
     {
         _inverted = inverted;
         invertedChanged();
+    }
+}
+
+
+bool Settings::copyVerseNumbers() const
+{
+    return _copyVerseNumbers;
+}
+
+void Settings::setCopyVerseNumbers(bool copyVerseNumbers)
+{
+    if (copyVerseNumbers != _copyVerseNumbers)
+    {
+        _copyVerseNumbers = copyVerseNumbers;
+        copyVerseNumbersChanged();
     }
 }

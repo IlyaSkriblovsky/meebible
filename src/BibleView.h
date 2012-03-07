@@ -92,9 +92,9 @@ public slots:
         void stopSearchMode();
     #endif
 
-    bool copySelectedVerses();
+    bool copySelectedVerses(bool withVerseNumbers);
     #ifndef NOSHARE
-        bool shareSelectedVerses();
+        bool shareSelectedVerses(bool withVerseNumbers);
     #endif
     bool bookmarkSelectedVerses();
     void clearSelection();
@@ -189,7 +189,7 @@ private slots:
     void onTranslationLoadingFinished();
 
 
-    QString selectedText();
+    QString selectedText(bool withVerseNumbers);
 };
 
 #endif // BIBLEVIEW_H
