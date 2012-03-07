@@ -38,19 +38,17 @@ Page {
         value: flickable.contentY
         when: firstScrollPosSet
     }
-    // FIXME:
-    // Binding {
-    //     target: settings
-    //     property: \'inverted\'
-    //     value: theme.inverted
-    //     when: created
-    // }
+    Binding {
+        target: theme
+        property: \"inverted\"
+        value: settings.inverted
+        when: ! SYMBIAN
+    }
     Component.onCompleted: {
         bibleView.place = settings.place
         fontSizeSlider.setFontSize(settings.fontSize)
         lineSpacingSlider.value = settings.lineSpacing
-        // FIXME:
-        // theme.inverted = settings.inverted
+
         created = true
 
         languages.reload(true)
