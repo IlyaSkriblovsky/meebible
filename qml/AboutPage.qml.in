@@ -37,6 +37,8 @@ Page {
             Label {
                 text: qsTr(\"The open source Bible reader\")
 
+                anchors.horizontalCenter: parent.horizontalCenter
+
                 wrapMode: Text.Wrap
 
                 width: parent.width
