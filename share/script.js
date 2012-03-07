@@ -99,6 +99,16 @@ function verseDivs(verse)
     return result
 }
 
+
+var digitUp = {'0':'⁰','1':'¹','2':'²','3':'³','4':'⁴','5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹'}
+function numberSup(str) {
+    var out = ""
+    for (var i = 0; i < str.length; i++)
+        out += digitUp[str[i]] ? digitUp[str[i]] : str[i]
+    return out
+}
+
+
 function selectedText(withVerseNumbers)
 {
     var result = ''
@@ -126,10 +136,16 @@ function selectedText(withVerseNumbers)
 
             var divtext = divs[i].innerText
 
-            if ((!withVerseNumbers) && divs[i].firstElementChild.className == "verse-label")
-                result += divtext.substr(divs[i].firstElementChild.innerText.length)
-            else
+            if (divs[i].firstElementChild.className != "verse-label")
                 result += divtext
+            else
+            {
+                var withoutVerseNumber = divtext.substr(divs[i].firstElementChild.innerText.length)
+                if (withVerseNumbers)
+                    result += /*numberSup*/(divs[i].firstElementChild.innerText) + ' ' + withoutVerseNumber
+                else
+                    result += withoutVerseNumber
+            }
         }
 
         prev = verse
