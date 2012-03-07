@@ -203,6 +203,7 @@ void BibleView::loadChapter()
         displayHtml(fromCache);
         showSelectedVerses(_place.verses());
         chapterLoaded();
+        setLoadingChapter(false);
     }
     else
     {
