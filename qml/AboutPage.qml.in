@@ -37,7 +37,9 @@ Page {
             Label {
                 text: qsTr(\"The open source Bible reader\")
 
-                anchors.horizontalCenter: parent.horizontalCenter
+                font.pixelSize: 24
+
+                horizontalAlignment: Text.AlignHCenter
 
                 wrapMode: Text.Wrap
 
@@ -62,12 +64,14 @@ Page {
                 $$QML_SYMBIAN_THEME
             }
 
-            Label {
-                text: qsTr(\"Homepage & sources:\")
-                anchors.horizontalCenter: parent.horizontalCenter
+            // Label {
+            //     id: homepageHeadingLabel
 
-                $$QML_SYMBIAN_THEME
-            }
+            //     text: qsTr(\"Homepage & sources:\")
+            //     anchors.horizontalCenter: parent.horizontalCenter
+
+            //     $$QML_SYMBIAN_THEME
+            // }
 
             Label {
                 text: \'<html><style>a{color:\' + (settings.inverted ? \'#8080ff\' : \'#0000ff\') + \'}</style><a href=\"http://meebible.org\">MeeBible.org</a></html>\'
