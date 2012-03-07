@@ -27,13 +27,13 @@
    guidetolerance="10"
    inkscape:pageopacity="0"
    inkscape:pageshadow="2"
-   inkscape:window-width="1280"
-   inkscape:window-height="974"
+   inkscape:window-width="1920"
+   inkscape:window-height="1027"
    id="namedview349"
    showgrid="false"
-   inkscape:zoom="3.4766083"
-   inkscape:cx="18.913736"
-   inkscape:cy="65.744342"
+   inkscape:zoom="4.9166666"
+   inkscape:cx="50.891338"
+   inkscape:cy="35.050937"
    inkscape:window-x="0"
    inkscape:window-y="0"
    inkscape:window-maximized="1"
@@ -1082,7 +1082,7 @@
    x1="47.9995"
    y1="0.00085453148"
    x2="47.9995"
-   y2="142.7505"
+   y2="101.59734"
    id="linearGradient4338-2"
    xlink:href="#linearGradient4600-1"
    gradientUnits="userSpaceOnUse" /><linearGradient
@@ -1095,10 +1095,10 @@
    gradientTransform="matrix(0,-80.694397,-80.694397,0,298.0083,460.85986)"
    spreadMethod="pad"><stop
      id="stop4602-4"
-     style="stop-color:#ffffff;stop-opacity:1"
+     style="stop-color:#ffffff;stop-opacity:1;"
      offset="0" /><stop
      id="stop4604-3"
-     style="stop-color:#000000;stop-opacity:1"
+     style="stop-color:#000000;stop-opacity:0;"
      offset="1" /></linearGradient></defs>
 <linearGradient
    x1="47.9995"
@@ -1171,7 +1171,7 @@
            inkscape:connector-curvature="0"
            d="M 48,8 C 18.365,8 8,18.365 8,48 8,77.633 18.365,88 48,88 77.637,88 88,77.633 88,48 88,18.365 77.637,8 48,8 z m 0,79.023 C 18.842,87.023 9,77.176 9,48 9,18.824 18.842,8.977 48,8.977 77.158,8.977 87,18.824 87,48 87,77.176 77.158,87.023 48,87.023 z"
            id="HIGHLIGHT_GRA5"
-           style="opacity:0.25;fill:url(#linearGradient4338-2);fill-opacity:1" /></g></g></g></g><g
+           style="opacity:0.25000000000000000;fill:url(#linearGradient4338-2);fill-opacity:1" /></g></g></g></g><g
    inkscape:groupmode="layer"
    id="layer4"
    inkscape:label="shadow"
@@ -1179,27 +1179,13 @@
      y="4"
      x="4.25"
      id="image4246"
-     xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAABHNCSVQICAgIfAhkiAAAAtxJREFU
-eJztm1trE1EURlcuvVkaba2XqlX0UUQF8cn//wt80AefrCiUqhgF02mT+rD3oUOgzc7saZvKt2AY
-Zpp8M2edPWdSOAeEEEIIIYQQQgghhBBCiMug02JOfctyAkx8X/K7LWbXtxRNb6jeoA7QB1aAJaCX
-yAUTdwQc+h7PLfndRDbA2HMr35eOqndYmCYN7QHLwKrvl4F1YAu45ed7DXLBGnAEDIED4Lef3wC2
-gQEmsWkHnWDiSv7QjytghHXaXCLnuZFSdWvAHeAhcBuTtwnsAPf8uGkVnmCNOAD2gB9+fgvYxSSu
-NMwGkzPy/C++/wP8BL4B+348JigxeiMdTMoNTNJz4DXwBKuKDa5nBf7ChH0F3vu259cNSewHL9zF
-KusB8AJ4C7wBHvv5+hjVxhi4jVX4RYyBE+wJesTpo7vv11z2z3zGxB7PCosI7HjwXeAV8A6rvqfY
-o1sa1eZbeAmr5It6C/dr+WOsslf870VqRaAKowJXsTHuJVZ5z4CbmNhsRZx1zabDQCS73hE933Y5
-HX/L+HiISTyTSONLBW5ij/B9LlbeZVM6ax17ynawsTw01kYFdjxwDSv1fvC714Uisfw8C4+1UQlt
-/6exqMzdxv+piq4ECUwigUkkMIkEJpHAJBKYRAKTSGASCUwigUkkMIkEJpHAJBKYRAKTSGASCUwi
-gUkkMIkEJpHAJBKYRAKTSGASCUwigUkkMIkEJpHAJNE50mUdxRibNzxz7nADotN4G6/pmMEx1r65
-siMCyw0fYrPbv8/x3ShdYhPJpxfhTFq8hzHWtiGn60VmEhVYefhHPzegvTnMZfbrgPOXMkwvgRj6
-cVuVOPHMD55fRbKjAkfY+gmAT+QWu0zT8bxtzl9MM70Ip0wCb0vgdP5fAlUYldDF5g+v0f7k8kWp
-QDBhFSavokWB5bNtrdWYZhHGwMJcL6lFmjB+1W9hIYQQQgghhBBCCLHw/APUt7SkdG4WewAAAABJ
-RU5ErkJggg==
-"
+     xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAABHNCSVQICAgIfAhkiAAAAtxJREFU eJztm1trE1EURlcuvVkaba2XqlX0UUQF8cn//wt80AefrCiUqhgF02mT+rD3oUOgzc7saZvKt2AY Zpp8M2edPWdSOAeEEEIIIYQQQgghhBBCiMug02JOfctyAkx8X/K7LWbXtxRNb6jeoA7QB1aAJaCX yAUTdwQc+h7PLfndRDbA2HMr35eOqndYmCYN7QHLwKrvl4F1YAu45ed7DXLBGnAEDIED4Lef3wC2 gQEmsWkHnWDiSv7QjytghHXaXCLnuZFSdWvAHeAhcBuTtwnsAPf8uGkVnmCNOAD2gB9+fgvYxSSu NMwGkzPy/C++/wP8BL4B+348JigxeiMdTMoNTNJz4DXwBKuKDa5nBf7ChH0F3vu259cNSewHL9zF KusB8AJ4C7wBHvv5+hjVxhi4jVX4RYyBE+wJesTpo7vv11z2z3zGxB7PCosI7HjwXeAV8A6rvqfY o1sa1eZbeAmr5It6C/dr+WOsslf870VqRaAKowJXsTHuJVZ5z4CbmNhsRZx1zabDQCS73hE933Y5 HX/L+HiISTyTSONLBW5ij/B9LlbeZVM6ax17ynawsTw01kYFdjxwDSv1fvC714Uisfw8C4+1UQlt /6exqMzdxv+piq4ECUwigUkkMIkEJpHAJBKYRAKTSGASCUwigUkkMIkEJpHAJBKYRAKTSGASCUwi gUkkMIkEJpHAJBKYRAKTSGASCUwigUkkMIkEJpHAJNE50mUdxRibNzxz7nADotN4G6/pmMEx1r65 siMCyw0fYrPbv8/x3ShdYhPJpxfhTFq8hzHWtiGn60VmEhVYefhHPzegvTnMZfbrgPOXMkwvgRj6 cVuVOPHMD55fRbKjAkfY+gmAT+QWu0zT8bxtzl9MM70Ip0wCb0vgdP5fAlUYldDF5g+v0f7k8kWp QDBhFSavokWB5bNtrdWYZhHGwMJcL6lFmjB+1W9hIYQQQgghhBBCCLHw/APUt7SkdG4WewAAAABJ RU5ErkJggg== "
      height="88"
      width="88" /></g><g
    inkscape:groupmode="layer"
    id="layer2"
-   inkscape:label="book"><g
+   inkscape:label="book"
+   style="display:inline"><g
      style="display:inline"
      id="layer1"
      transform="matrix(1,0,0,0.99435028,1.5,-1.480226)"><image
