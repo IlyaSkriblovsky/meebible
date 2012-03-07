@@ -35,7 +35,7 @@ Page {
 
 
             Label {
-                text: \"MeeBible — \" + qsTr(\"the open source Bible reader\")
+                text: qsTr(\"The open source Bible reader\")
 
                 wrapMode: Text.Wrap
 
@@ -46,6 +46,8 @@ Page {
 
             Label {
                 text: freeversion ? qsTr(\"If you want to support development, please consider buying <a href=\'http://store.ovi.com/content/215454\'>paid version</a>!\") : qsTr(\"Thank you for supporting development!\")
+
+                visible: ! SYMBIAN
 
                 width: parent.width
 
@@ -84,13 +86,6 @@ Page {
                 text: qsTr(\"Send your feedback\")
 
                 height: 60
-
-                // Image {
-                //     source: \"image://theme/icon-s-common-next\"
-                //     anchors.right: parent.right
-                //     anchors.verticalCenter: parent.verticalCenter
-                //     anchors.rightMargin: 10
-                // }
 
                 Loader {
                     id: feedbackPage
