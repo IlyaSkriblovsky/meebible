@@ -5,6 +5,6 @@ BusyIndicator {
 
     platformStyle: BusyIndicatorStyle {
         size: "large"
-        inverted: inDialog
+        inverted: inDialog || settings.inverted
     }
 }
