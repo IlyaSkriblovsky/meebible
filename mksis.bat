@@ -6,5 +6,5 @@ set SBS_GCCE441BIN=C:\QtSDK\Symbian\tools\gcce4\bin
 set SBS_HOME=C:\QtSDK\Symbian\tools\sbs
 
 C:\QtSDK\Symbian\SDKs\Symbian3Qt474\epoc32\tools\make release-gcce -w
-C:\QtSDK\Symbian\SDKs\Symbian3Qt474\epoc32\tools\make sis
-C:\QtSDK\Symbian\SDKs\Symbian3Qt474\epoc32\tools\make installer_sis
+C:\QtSDK\Symbian\SDKs\Symbian3Qt474\epoc32\tools\make unsigned_sis
+C:\QtSDK\Symbian\SDKs\Symbian3Qt474\epoc32\tools\make unsigned_installer_sis

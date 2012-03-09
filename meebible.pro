@@ -1,4 +1,4 @@
-VERSION = 2.0.0
+VERSION = 2.1.0
 
 TEMPLATE = app
 
@@ -29,7 +29,8 @@ INSTALLS += invoker
 
 
 symbian {
-    TARGET.UID3 = 0xe0cd6015
+    # TARGET.UID3 = 0xe0cd6015
+    TARGET.UID3 = 0x2005E1E7
     DEPLOYMENT.display_name = MeeBible
 
     ICON = meebible.svg
