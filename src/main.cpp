@@ -46,7 +46,9 @@
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
     #ifdef SYMBIAN
-        qInstallMsgHandler(symbianMessageOutput);
+        #ifdef DEBUG
+            qInstallMsgHandler(symbianMessageOutput);
+        #endif
     #endif
 
     #ifndef SYMBIAN
