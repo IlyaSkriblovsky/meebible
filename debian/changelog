@@ -1,3 +1,9 @@
+meebible (2.1.0) unstable; urgency=low
+
+  * Ported to Symbian
+
+ -- Ilya Skriblovsky <Ilya.Skriblovsky@gmail.com>  Thu, 15 Mar 2012 16:22:00 +0400
+
 meebible (2.0.1) unstable; urgency=low
 
   * Fixed bug with hanging on "Loading chapter"
