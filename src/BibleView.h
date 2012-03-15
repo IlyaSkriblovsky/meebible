@@ -103,6 +103,8 @@ public slots:
     // Called from JS
     void verseSelectionChanged(QList<int> verses);
 
+    void reload();
+
 
 signals:
     void chapterLoaded();

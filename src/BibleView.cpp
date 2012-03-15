@@ -152,6 +152,11 @@ void BibleView::setPlace(const Place& place)
         showSelectedVerses(_place.verses());
 }
 
+void BibleView::reload()
+{
+    loadChapter();
+}
+
 
 QList<int> BibleView::selectedVerses() const
 {
