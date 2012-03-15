@@ -38,6 +38,8 @@ private:
     static QDir _shareDir;
     static QDir _qmlDir;
     static QDir _translationsDir;
+
+    static QString correctSlashes(const QString& path);
 };
 
 #endif // PATHS_H

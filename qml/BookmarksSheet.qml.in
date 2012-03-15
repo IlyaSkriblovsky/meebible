@@ -1,0 +1,71 @@
+import QtQuick 1.1
+
+$$QML_IMPORT_QTCOMPONENTS
+
+
+import \"unicomponents\"
+
+UniSheet {
+    id: dialog
+
+    signal bookmarkSelected(variant place)
+
+
+    headerText: qsTr(\"Bookmarks\")
+
+
+    content: Item {
+        id: item
+
+        anchors.fill: parent
+
+        ListView {
+            id: list
+
+            anchors.fill: parent
+
+            clip: true
+
+            cacheBuffer: 50
+
+            model: bookmarks
+
+            delegate: BookmarkItem {
+                x: 10
+                width: parent.width - 20
+
+                onClicked: {
+                    dialog.bookmarkSelected(model.place)
+                    dialog.closeSheet()
+                }
+
+                onPressAndHold: {
+                    dialog._pressAndHoldIndex = index
+                    itemMenu.open()
+                }
+            }
+        }
+        ScrollDecorator { flickableItem: list }
+    }
+
+
+    property int _pressAndHoldIndex: -1
+
+    Menu {
+        id: itemMenu
+
+        $$QML_SYMBIAN_THEME
+
+        MenuLayout {
+            MenuItem {
+                text: qsTr(\"Delete\")
+
+                onClicked: {
+                    bookmarks.deleteBookmark(dialog._pressAndHoldIndex)
+                }
+
+                $$QML_SYMBIAN_THEME
+            }
+        }
+    }
+}

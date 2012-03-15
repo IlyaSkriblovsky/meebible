@@ -33,6 +33,8 @@ class Settings: public QObject
 
     Q_PROPERTY(bool inverted READ inverted WRITE setInverted NOTIFY invertedChanged)
 
+    Q_PROPERTY(bool copyVerseNumbers READ copyVerseNumbers WRITE setCopyVerseNumbers NOTIFY copyVerseNumbersChanged)
+
     Q_PROPERTY(QString webService READ webService)
 
     public:
@@ -74,8 +76,12 @@ class Settings: public QObject
         void setSearchNoticeShown(bool shown);
 
 
-        bool inverted() const { return _inverted; }
+        bool inverted() const;
         void setInverted(bool inverted);
+
+
+        bool copyVerseNumbers() const;
+        void setCopyVerseNumbers(bool copyVerseNumbers);
 
 
         QString webService() const { return _webService; }
@@ -98,6 +104,8 @@ class Settings: public QObject
         void fullscreenChanged();
 
         void invertedChanged();
+
+        void copyVerseNumbersChanged();
 
 
 
@@ -127,6 +135,8 @@ class Settings: public QObject
         bool _searchNoticeShown;
 
         bool _inverted;
+
+        bool _copyVerseNumbers;
 
         QString _transCode;
         QString _langCode;

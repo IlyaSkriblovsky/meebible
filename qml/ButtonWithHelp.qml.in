@@ -1,0 +1,37 @@
+import QtQuick 1.1
+
+$$QML_IMPORT_QTCOMPONENTS
+
+Item {
+    id: item
+
+    property alias buttonText: button.text
+    property alias helpTitle: help.titleText
+    property alias helpMessage: help.message
+
+    signal clicked()
+
+
+    anchors.left: parent.left
+    anchors.right: parent.right
+
+    height: 80
+
+    Button {
+        id: button
+
+        anchors.centerIn: parent
+
+        onClicked: item.clicked()
+
+        $$QML_SYMBIAN_THEME
+    }
+
+    HelpButton {
+        id: help
+
+        anchors.right: parent.right
+        anchors.rightMargin: 15
+        anchors.verticalCenter: parent.verticalCenter
+    }
+}

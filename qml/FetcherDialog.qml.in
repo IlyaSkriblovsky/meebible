@@ -1,0 +1,111 @@
+import QtQuick 1.1
+
+$$QML_IMPORT_QTCOMPONENTS
+import com.nokia.extras 1.1
+
+import MeeBible 0.1
+import \"unicomponents\"
+
+
+UniDialog {
+    id: dialog
+
+    titleText: qsTr(\"Downloading Bible\")
+
+    property Fetcher fetcher: Fetcher {
+        translation: settings.translation
+    }
+
+    Connections {
+        target: fetcher
+
+        onUpdate: {
+            label.text = text
+            bookProgress.value = bookPercent
+            overallProgress.value = overallPercent
+        }
+
+        onFinished: dialog.accept()
+    }
+
+    function start() {
+        label.text = qsTr(\"Connecting...\")
+        if (fetcher.start() == false)
+        {
+            nothingToDo.open()
+            return false
+        }
+        else
+            open()
+    }
+
+    onRejected: fetcher.stop()
+
+
+    QueryDialog {
+        id: nothingToDo
+
+        titleText: qsTr(\"Nothing to do\")
+        message: qsTr(\"You already have downloaded whole Bible in selected language and translation\") + (SYMBIAN ? \"\\n\" : \"\")
+
+        acceptButtonText: qsTr(\"OK\")
+    }
+
+
+    content: Column {
+        id: contentItem
+
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.leftMargin: 14
+        anchors.rightMargin: 14
+
+        spacing: 20
+
+        Item {
+            anchors.left: parent.left
+            anchors.right: parent.right
+
+            height: 40
+
+            Label {
+                id: label
+
+                anchors.bottom: parent.bottom
+
+                color: \"white\"
+            }
+        }
+
+        ProgressBar {
+            id: bookProgress
+
+            anchors.left: parent.left
+            anchors.right: parent.right
+
+            minimumValue: 0.0
+            maximumValue: 1.0
+        }
+
+        ProgressBar {
+            id: overallProgress
+
+            anchors.left: parent.left
+            anchors.right: parent.right
+
+            minimumValue: 0.0
+            maximumValue: 1.0
+        }
+
+    }
+
+    uniButtons: [
+        UniNegativeButton {
+            id: cancelButton
+
+            text: qsTr(\"Cancel\")
+
+            onClicked: dialog.reject()
+        }
+    ]
+}

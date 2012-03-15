@@ -1,0 +1,13 @@
+import QtQuick 1.1
+
+$$QML_IMPORT_QTCOMPONENTS
+
+ModelSelectionDialog {
+    titleText: qsTr(\"Select Translation\")
+
+    model: settings.language
+
+    function translation() {
+        return model.translationAt(selectedIndex)
+    }
+}

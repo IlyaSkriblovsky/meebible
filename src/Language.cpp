@@ -52,7 +52,10 @@ QVariant Language::data(const QModelIndex& index, int role) const
 
 Translation* Language::translationAt(int row) const
 {
-    return _translations.at(row);
+    if (row >= 0 && row < _translations.size())
+        return _translations.at(row);
+    else
+        return 0;
 }
 
 

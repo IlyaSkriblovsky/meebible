@@ -3,7 +3,9 @@
 #include <QtDeclarative>
 #include <QtGlobal>
 
-#include <MDeclarativeCache>
+#ifndef SYMBIAN
+    #include <MDeclarativeCache>
+#endif
 
 #include <QTranslator>
 #include <QLocale>
@@ -24,9 +26,36 @@
 #include "StartupTracker.h"
 
 
+#ifdef SYMBIAN
+    #include <cstdio>
+    void symbianMessageOutput(QtMsgType type, const char *msg)
+    {
+        FILE *f = fopen("c:\\meebible.log", "a");
+        switch (type)
+        {
+            case QtDebugMsg:    fprintf(f, "debug> %s\n", msg); break;
+            case QtWarningMsg:  fprintf(f, "warn > %s\n", msg); break;
+            case QtCriticalMsg: fprintf(f, "crit > %s\n", msg); break;
+            case QtFatalMsg:    fprintf(f, "fatal> %s\n", msg); abort(); break;
+        }
+        fclose(f);
+    }
+#endif
+
+
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
-    QApplication *app = MDeclarativeCache::qApplication(argc, argv);
+    #ifdef SYMBIAN
+        #ifdef DEBUG
+            qInstallMsgHandler(symbianMessageOutput);
+        #endif
+    #endif
+
+    #ifndef SYMBIAN
+        QApplication *app = MDeclarativeCache::qApplication(argc, argv);
+    #else
+        QApplication *app = new QApplication(argc, argv);
+    #endif
     app->setOrganizationName("MeeBible");
     app->setApplicationName("MeeBible");
 
@@ -60,7 +89,11 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qRegisterMetaType<Place>();
 
 
-    QDeclarativeView* view = MDeclarativeCache::qDeclarativeView();
+    #ifndef SYMBIAN
+        QDeclarativeView* view = MDeclarativeCache::qDeclarativeView();
+    #else
+        QDeclarativeView* view = new QDeclarativeView();
+    #endif
     view->setAttribute(Qt::WA_NoSystemBackground);
 
 
@@ -73,17 +106,32 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     view->rootContext()->setContextProperty("placeAccesser", &placeAccesser);
 
     #ifdef FREEVERSION
-        view->rootContext()->setContextProperty("freeversion", true);
+        view->rootContext()->setContextProperty("freeversion", QVariant(true));
     #else
-        view->rootContext()->setContextProperty("freeversion", false);
+        view->rootContext()->setContextProperty("freeversion", QVariant(false));
     #endif
 
 
+    #ifdef SYMBIAN
+        qDebug() << "Symbian";
+        view->rootContext()->setContextProperty("SYMBIAN", QVariant(true));
+    #else
+        qDebug() << "NOT Symbian";
+        view->rootContext()->setContextProperty("SYMBIAN", QVariant(false));
+    #endif
+
     #ifdef NOSEARCH
         qDebug() << "Search disabled";
-        view->rootContext()->setContextProperty("NOSEARCH", true);
+        view->rootContext()->setContextProperty("NOSEARCH", QVariant(true));
     #else
-        view->rootContext()->setContextProperty("NOSEARCH", false);
+        view->rootContext()->setContextProperty("NOSEARCH", QVariant(false));
+    #endif
+
+    #ifdef NOSHARE
+        qDebug() << "Verse sharing disabled";
+        view->rootContext()->setContextProperty("NOSHARE", QVariant(true));
+    #else
+        view->rootContext()->setContextProperty("NOSHARE", QVariant(false));
     #endif
 
 

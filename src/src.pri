@@ -1,12 +1,17 @@
 # QT += core sql network xml xmlpatterns webkit gui declarative
 QT += core sql network xml webkit gui declarative
 
-# DEFINES += DEBUGPATHS
+# DEFINES += DEBUG DEBUGPATHS
 
 nosearch:DEFINES += NOSEARCH
+noshare: DEFINES += NOSHARE
+
 free:DEFINES += FREEVERSION
 
-DEFINES += INSTALLPREFIX=\\\"$$INSTALLDIR\\\"
+symbian: DEFINES += SYMBIAN
+
+
+!symbian: DEFINES += INSTALLPREFIX=\\\"$$INSTALLDIR\\\"
 
 
 TARGET = meebible
@@ -15,16 +20,22 @@ INSTALLS += target
 
 
 
-CONFIG += shareuiinterface-maemo-meegotouch mdatauri
-CONFIG += qdeclarative-boostable
 CONFIG += console
 CONFIG += warn_on
 CONFIG -= debug
 CONFIG -= app_bundle
 
 
-INCLUDEPATH += /usr/include/applauncherd
-LIBS += -licui18n -lsqlite3 -lmdeclarativecache
+LIBS += -lsqlite3
+!nosearch: LIBS += -licui18n
+
+!symbian {
+    CONFIG += shareuiinterface-maemo-meegotouch mdatauri
+
+    CONFIG += qdeclarative-boostable
+    INCLUDEPATH += /usr/include/applauncherd
+    LIBS += -lmdeclarativecache
+}
 
 
 HEADERS +=                      \
@@ -49,6 +60,10 @@ HEADERS +=                      \
     src/Bookmarks.h             \
     src/PlaceAccesser.h
 
+!nosearch:HEADERS +=            \
+    src/SqliteUnicodeSearch.h   \
+    src/SearchThread.h
+
 SOURCES +=                      \
     src/main.cpp                \
     src/Language.cpp            \
@@ -71,10 +86,6 @@ SOURCES +=                      \
     src/Bookmarks.cpp           \
     src/PlaceAccesser.cpp
 
-
-!nosearch:HEADERS +=            \
-    src/SqliteUnicodeSearch.h   \
-    src/SearchThread.h
 !nosearch:SOURCES +=            \
     src/SqliteUnicodeSearch.cpp \
     src/SearchThread.cpp

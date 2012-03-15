@@ -1,0 +1,17 @@
+import QtQuick 1.1
+
+$$QML_IMPORT_QTCOMPONENTS
+
+
+ModelSelectionDialog {
+    // width: parent.width - 60
+
+    titleText: qsTr(\"Select Language\")
+
+    model: languages
+
+
+    function language() {
+        return languages.langAt(selectedIndex)
+    }
+}

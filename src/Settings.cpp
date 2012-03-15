@@ -28,13 +28,26 @@ Settings::Settings(Languages* langs, QObject* parent):
 
     _floatingHeader = _settings.value("General/floatingHeader", true).toBool();
     _fontSize       = _settings.value("General/fontSize", 30).toDouble();
-    _fontName       = _settings.value("General/fontName", "Nokia Pure Text Light").toString();
+
+    #ifdef SYMBIAN
+        _fontName       = _settings.value("General/fontName", "Nokia Sans").toString();
+    #else
+        _fontName       = _settings.value("General/fontName", "Nokia Pure Text Light").toString();
+    #endif
+
     _lineSpacing    = _settings.value("General/lineSpacing", 1.3).toDouble();
     _scrollPos      = _settings.value("General/scrollPos", 0).toInt();
     _fullscreen     = _settings.value("General/fullscreen", false).toBool();
-    _inverted       = _settings.value("General/inverted", false).toBool();
 
-    _searchNoticeShown = _settings.value("Notices/searchNoticeShown", false).toBool();
+    #ifdef SYMBIAN
+        _inverted       = _settings.value("General/inverted", true).toBool();
+    #else
+        _inverted       = _settings.value("General/inverted", false).toBool();
+    #endif
+
+    _copyVerseNumbers   = _settings.value("General/copyVerseNumbers", false).toBool();
+
+    _searchNoticeShown  = _settings.value("Notices/searchNoticeShown", false).toBool();
 
     _webService     = _settings.value("Internals/webService", "meebible.org").toString();
 
@@ -54,6 +67,7 @@ Settings::~Settings()
     _settings.setValue("General/scrollPos", _scrollPos);
     _settings.setValue("General/fullscreen", _fullscreen);
     _settings.setValue("General/inverted", _inverted);
+    _settings.setValue("General/copyVerseNumbers", _copyVerseNumbers);
 
     _settings.setValue("Notices/searchNoticeShown", _searchNoticeShown);
 }
@@ -220,11 +234,31 @@ bool Settings::searchNoticeShown() const { return _searchNoticeShown; }
 void Settings::setSearchNoticeShown(bool shown) { _searchNoticeShown = shown; }
 
 
+bool Settings::inverted() const
+{
+    return _inverted;
+}
+
 void Settings::setInverted(bool inverted)
 {
     if (_inverted != inverted)
     {
         _inverted = inverted;
         invertedChanged();
+    }
+}
+
+
+bool Settings::copyVerseNumbers() const
+{
+    return _copyVerseNumbers;
+}
+
+void Settings::setCopyVerseNumbers(bool copyVerseNumbers)
+{
+    if (copyVerseNumbers != _copyVerseNumbers)
+    {
+        _copyVerseNumbers = copyVerseNumbers;
+        copyVerseNumbersChanged();
     }
 }

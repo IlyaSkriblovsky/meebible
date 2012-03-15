@@ -28,6 +28,7 @@ body[rtl=true] { direction: rtl; }
 .verse.selected .verse-label { color: #c00; }
 
 body[inverted=true] .verse.selected { background: #444; }
+body[inverted=true] .verse.selected .z, .verse.selected .z:first-line { background: #444; }
 body[inverted=true] .verse.selected .verse-label { color: #c44; }
 
 

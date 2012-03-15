@@ -32,6 +32,7 @@ public:
     virtual int rowCount(const QModelIndex& index = QModelIndex()) const;
     virtual QVariant data(const QModelIndex& index, int role) const;
 
+    Q_INVOKABLE int translationsCount() const { return rowCount(); }
     Q_INVOKABLE Translation* translationAt(int row) const;
 
     Translation* translationByCode(const QString& code) const;

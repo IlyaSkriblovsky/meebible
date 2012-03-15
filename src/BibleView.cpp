@@ -10,8 +10,10 @@
 
 #include <QDesktopServices>
 
-#include <MDataUri>
-#include <maemo-meegotouch-interfaces/shareuiinterface.h>
+#ifndef NOSHARE
+    #include <MDataUri>
+    #include <maemo-meegotouch-interfaces/shareuiinterface.h>
+#endif
 
 #include "ChapterRequest.h"
 #include "Language.h"
@@ -145,6 +147,11 @@ void BibleView::setPlace(const Place& place)
         showSelectedVerses(_place.verses());
 }
 
+void BibleView::reload()
+{
+    loadChapter();
+}
+
 
 QList<int> BibleView::selectedVerses() const
 {
@@ -196,6 +203,7 @@ void BibleView::loadChapter()
         displayHtml(fromCache);
         showSelectedVerses(_place.verses());
         chapterLoaded();
+        setLoadingChapter(false);
     }
     else
     {
@@ -463,18 +471,20 @@ void BibleView::applyInverted()
 
 
 
-QString BibleView::selectedText()
+QString BibleView::selectedText(bool withVerseNumbers)
 {
-    QString text = page()->mainFrame()->evaluateJavaScript("selectedText()").toString();
+    QString text = page()->mainFrame()->evaluateJavaScript(
+        withVerseNumbers ? "selectedText(true)" : "selectedText(false)"
+    ).toString();
     text.replace(QString::fromUtf8("\xcc\x81"), "");
 
     return text;
 }
 
 
-bool BibleView::copySelectedVerses()
+bool BibleView::copySelectedVerses(bool withVerseNumbers)
 {
-    QString text = selectedText();
+    QString text = selectedText(withVerseNumbers);
 
     if (text == "")
         return false;
@@ -484,9 +494,10 @@ bool BibleView::copySelectedVerses()
     return true;
 }
 
-bool BibleView::shareSelectedVerses()
+#ifndef NOSHARE
+bool BibleView::shareSelectedVerses(bool withVerseNumbers)
 {
-    QString text = selectedText();
+    QString text = selectedText(withVerseNumbers);
 
     if (text == "")
         return false;
@@ -519,6 +530,7 @@ bool BibleView::shareSelectedVerses()
 
     return true;
 }
+#endif
 
 
 void BibleView::clearSelection()
@@ -541,7 +553,7 @@ void BibleView::verseSelectionChanged(QList<int> verses)
 
 bool BibleView::bookmarkSelectedVerses()
 {
-    QString text = selectedText();
+    QString text = selectedText(false);
     text.replace("\n", " ");
 
     return Bookmarks::instance()->addBookmark(_place, text);

@@ -92,14 +92,18 @@ public slots:
         void stopSearchMode();
     #endif
 
-    bool copySelectedVerses();
-    bool shareSelectedVerses();
+    bool copySelectedVerses(bool withVerseNumbers);
+    #ifndef NOSHARE
+        bool shareSelectedVerses(bool withVerseNumbers);
+    #endif
     bool bookmarkSelectedVerses();
     void clearSelection();
 
 
     // Called from JS
     void verseSelectionChanged(QList<int> verses);
+
+    void reload();
 
 
 signals:
@@ -187,7 +191,7 @@ private slots:
     void onTranslationLoadingFinished();
 
 
-    QString selectedText();
+    QString selectedText(bool withVerseNumbers);
 };
 
 #endif // BIBLEVIEW_H

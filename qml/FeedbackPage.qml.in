@@ -1,0 +1,196 @@
+import QtQuick 1.1
+
+$$QML_IMPORT_QTCOMPONENTS
+
+import \"unicomponents\"
+
+Page {
+    id: page
+
+
+    function sendForm() {
+        busyDialog.open()
+        feedback.send(nameField.text, emailField.text, messageField.text)
+    }
+
+
+    Header {
+        id: header
+        text: qsTr(\"Feedback\")
+    }
+
+
+    Flickable {
+        id: flickable
+
+        flickableDirection: Flickable.VerticalFlick
+
+        clip: true
+
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: header.bottom
+        anchors.bottom: parent.bottom
+
+        contentWidth: form.width
+        contentHeight: form.height + 40
+
+        Column {
+            id: form
+
+            x: 20
+            y: 20
+            width: page.width - 40
+
+            spacing: 20
+
+            TextField {
+                id: nameField
+
+                width: parent.width
+
+                placeholderText: qsTr(\"Your name\")
+
+                $$QML_SYMBIAN_THEME
+            }
+
+            TextField {
+                id: emailField
+
+                width: parent.width
+
+                placeholderText: qsTr(\"Your E-Mail\")
+
+                inputMethodHints: Qt.ImhEmailCharactersOnly
+
+                $$QML_SYMBIAN_THEME
+            }
+
+            TextArea {
+                id: messageField
+
+                width: parent.width
+
+                placeholderText: qsTr(\"Comments\\nSuggestions\\nImprovements\\nCritics\\nNew translations\\n...\")
+
+                Component.onCompleted: {
+                    if (! SYMBIAN)
+                        height = 400
+                }
+
+                $$QML_SYMBIAN_THEME
+            }
+
+            Button {
+                id: sendButton
+
+                width: parent.width
+
+                text: qsTr(\"Send\")
+
+                onClicked: {
+                    if (emailField.text.trim() != \'\')
+                        page.sendForm()
+                    else
+                        noEmailConfirmation.open()
+                }
+
+                $$QML_SYMBIAN_THEME
+            }
+
+        }
+    }
+    ScrollDecorator { flickableItem: flickable }
+
+
+    UniDialog {
+        id: busyDialog
+
+        titleText: qsTr(\"Sending feedback\")
+
+        content: Item {
+            anchors.left: parent.left
+            anchors.right: parent.right
+
+            height: indicator.height + 2 * 30
+
+            UniLargeBusyIndicator {
+                id: indicator
+
+                inDialog: true
+
+                anchors.centerIn: parent
+
+                running: busyDialog.status != DialogStatus.Closed
+            }
+        }
+
+        uniButtons: [
+            UniDialogButton {
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                text: qsTr(\"Cancel\")
+
+                onClicked: feedback.abort()
+            }
+        ]
+    }
+
+
+    QueryDialog {
+        id: thanksDialog
+
+        titleText: qsTr(\"Feedback sent\")
+
+        message: qsTr(\"Thank you! Your feedback is highly appreciated. We will answer you as soon as possible.\") + (SYMBIAN ? \"\\n\" : \"\")
+
+        acceptButtonText: qsTr(\"OK\")
+    }
+
+    QueryDialog {
+        id: failDialog
+
+        titleText: qsTr(\"Sending failed\")
+
+        message: qsTr(\"Your feedback was not sent. Please check internet connection and try again.\") + (SYMBIAN ? \"\\n\" : \"\")
+
+        acceptButtonText: qsTr(\"OK\")
+    }
+
+    QueryDialog {
+        id: noEmailConfirmation
+
+        titleText: qsTr(\"No E-Mail?\")
+
+        message: qsTr(\"You have not specified E-Mail address. We will not be able to answer you!\") + (SYMBIAN ? \"\\n\" : \"\")
+
+        acceptButtonText: qsTr(\"Send anyway\")
+        rejectButtonText: qsTr(\"Return to form\")
+
+        onAccepted: page.sendForm()
+    }
+
+
+    Connections {
+        target: feedback
+
+        onSuccess: {
+            busyDialog.status = DialogStatus.Closed
+            pageStack.pop()
+            thanksDialog.open()
+        }
+        onFail: {
+            busyDialog.close()
+            if (! aborted)
+                failDialog.open()
+        }
+    }
+
+
+    tools: ToolBarLayout {
+        UniToolIcon {
+            platformIconId: \"toolbar-back\"
+            onClicked: pageStack.pop()
+        }
+    }
+}
