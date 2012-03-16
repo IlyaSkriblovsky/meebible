@@ -21,6 +21,7 @@ public class RenderCanvas extends Canvas implements CommandListener {
     int yOffset = 0;
     
     Command cmdFontSize;
+    Command cmdDebugPage;
     Command cmdExit;
     
     RenderCanvas(RenderMidlet midlet) {
@@ -34,6 +35,8 @@ public class RenderCanvas extends Canvas implements CommandListener {
         
         cmdFontSize = new Command("Font size", Command.ITEM, 1);
         addCommand(cmdFontSize);
+        cmdDebugPage = new Command("Debug", Command.HELP, 1);
+        addCommand(cmdDebugPage);
         cmdExit = new Command("Exit", Command.EXIT, 1);
         addCommand(cmdExit);
     }
@@ -71,6 +74,7 @@ public class RenderCanvas extends Canvas implements CommandListener {
         font = Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, lcduiFontSize);
         
         chapRenderer.onFontSizeChanged();
+        setYOffset(yOffset);
     }
     public Font getFont() { return font; }
     
@@ -129,6 +133,8 @@ public class RenderCanvas extends Canvas implements CommandListener {
     public void commandAction(Command command, Displayable displayable) {
         if (command == cmdFontSize)
             midlet.showFontSelector();
+        else if (command == cmdDebugPage)
+            midlet.showDebugPage();
         else if (command == cmdExit)
             midlet.destroyApp(false);
     }

@@ -56,4 +56,19 @@ public class RenderMidlet extends MIDlet {
         getCanvas().setFontSize(getFontSelector().getFontSize());
         showCanvas();
     }
+    
+    
+    
+    DebugPage debugPage = new DebugPage(this);
+    DebugPage getDebugPage() {
+        return debugPage;
+    }
+    
+    void showDebugPage() {
+        Display.getDisplay(this).setCurrent(getDebugPage());
+    }
+    
+    void onDebugPageClosed() {
+        showCanvas();
+    }
 }

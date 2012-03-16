@@ -35,6 +35,8 @@ public class ChapterRenderer {
         this.canvas = canvas;
         parRenderer = new ParagraphRenderer(canvas);
         
+        long t1 = System.currentTimeMillis();
+        
         int parts = 1;
         int delim = text.indexOf('|');
         while (delim != -1) {
@@ -53,13 +55,18 @@ public class ChapterRenderer {
         }
         
         pars[i] = new Paragraph(text.substring(start, text.length()));
+        
+        DebugPage.instance.strCreatingParagraphs.setText((System.currentTimeMillis() - t1) + " ms");
     }
     
     
     public void stupidDraw(Graphics g, int y) {
         for (int i = 0; i < pars.length; i++) {
             if (y + pars[i].getHeight() > 0)
+            {
                 parRenderer.drawPar(pars[i].markup, g, y);
+            }
+
             y += pars[i].getHeight();
             
             if (y > canvas.getHeight())
@@ -71,9 +78,12 @@ public class ChapterRenderer {
     private int chapterHeight = -1;
     public int getChapterHeight() {
         if (chapterHeight == -1) {
+            long t1 = System.currentTimeMillis();
             chapterHeight = 0;
             for (int i = 0; i < pars.length; i++)
                 chapterHeight += pars[i].getHeight();
+            
+            DebugPage.instance.strCalcChapterHeight.setText((System.currentTimeMillis() - t1) + " ms");
         }
         return chapterHeight;
     }
