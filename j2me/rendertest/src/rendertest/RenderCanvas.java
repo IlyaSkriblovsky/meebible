@@ -26,8 +26,8 @@ public class RenderCanvas extends Canvas implements CommandListener {
     
     RenderCanvas(RenderMidlet midlet) {
         this.midlet = midlet;
-        
-        chapRenderer = new ChapterRenderer(this, loadChapter());     
+    
+        chapRenderer = new ChapterRenderer(this, loadChapter());
         
         setFontSize(FontSize.MEDIUM);
         
@@ -49,10 +49,15 @@ public class RenderCanvas extends Canvas implements CommandListener {
             StringBuffer buf = new StringBuffer();
             int ch;
         
-            while ((ch = decoder.read()) != -1) buf.append((char)ch);
+            char[] chs = new char[4096];
+            int len;
+            while ((len = decoder.read(chs, 0, chs.length)) != -1)
+                buf.append(chs, 0, len);
+            
             return buf.toString();
         }
         catch (Exception e) {
+            e.printStackTrace();
             return "cannot load";
         }
     }
@@ -93,8 +98,8 @@ public class RenderCanvas extends Canvas implements CommandListener {
         yOffset = y;
         
         if (yOffset < 0) this.yOffset = 0;
-        if (yOffset + getHeight() > chapRenderer.getChapterHeight())
-            yOffset = chapRenderer.getChapterHeight() - getHeight();
+//        if (yOffset + getHeight() > chapRenderer.getChapterHeight())
+//            yOffset = chapRenderer.getChapterHeight() - getHeight();
         
         repaint();
     }

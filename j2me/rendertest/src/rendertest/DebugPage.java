@@ -6,7 +6,6 @@ public class DebugPage extends Form implements CommandListener {
     
     RenderMidlet midlet;
     
-    StringItem strCreatingParagraphs;
     StringItem strCalcChapterHeight;
 
     Command cmdBack;
@@ -20,10 +19,6 @@ public class DebugPage extends Form implements CommandListener {
         
         this.midlet = midlet;
         
-        strCreatingParagraphs = new StringItem("Creating paragraphs", "");
-        strCreatingParagraphs.setLayout(Item.LAYOUT_NEWLINE_AFTER);
-        append(strCreatingParagraphs);
-
         strCalcChapterHeight = new StringItem("Calc chapter height", "");
         strCalcChapterHeight.setLayout(Item.LAYOUT_NEWLINE_AFTER);
         append(strCalcChapterHeight);

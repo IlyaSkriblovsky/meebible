@@ -13,9 +13,7 @@ import javax.microedition.midlet.*;
 public class RenderMidlet extends MIDlet {
     
     public void startApp() {
-        canvas = new RenderCanvas(this);
-        
-        showCanvas();
+        Display.getDisplay(this).setCurrent(new SplashForm(this));
     }
     
     public void pauseApp() {
@@ -69,6 +67,11 @@ public class RenderMidlet extends MIDlet {
     }
     
     void onDebugPageClosed() {
+        showCanvas();
+    }
+    
+    
+    void onSplashFormClosed() {
         showCanvas();
     }
 }

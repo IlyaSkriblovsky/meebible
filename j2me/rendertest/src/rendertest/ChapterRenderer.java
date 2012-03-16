@@ -55,8 +55,6 @@ public class ChapterRenderer {
         }
         
         pars[i] = new Paragraph(text.substring(start, text.length()));
-        
-        DebugPage.instance.strCreatingParagraphs.setText((System.currentTimeMillis() - t1) + " ms");
     }
     
     
