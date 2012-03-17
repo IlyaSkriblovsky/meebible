@@ -92,6 +92,10 @@ i {
 u {
   text-decoration: underline; }
 
+div.indent {
+  padding-left: 30px;
+  margin-bottom: 15px; }
+
 #phone {
   position: relative;
   float: right;
@@ -133,18 +137,18 @@ u {
   margin-top: 50px;
   margin-bottom: 10px; }
 
-.store-links {
-  font-size: 120%;
+.store-link {
+  display: inline;
+  font-size: 120%; }
+  .store-link.indent-left {
+    margin-left: 10px; }
+  .store-link img {
+    vertical-align: text-bottom; }
+
+.store-link-divider {
+  display: inline-block;
+  width: 100px;
   text-align: center; }
-  .store-links td.variant {
-    width: 250px; }
-  .store-links td.divider {
-    width: 150px;
-    vertical-align: middle; }
-  .store-links .title {
-    margin-bottom: 10px; }
-  .store-links .desc {
-    font-size: 80%; }
 
 #content {
   max-width: 800px;

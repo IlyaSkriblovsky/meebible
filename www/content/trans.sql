@@ -53,7 +53,7 @@ INSERT INTO translationLangs VALUES ('esv', 'e', 'English Standard Version');
 
 INSERT INTO translationLangs VALUES ('svf', 'z', 'Svenska Folkbibeln');
 
-INSERT INTO translationLangs VALUES ('bbg', 'bl', 'Ревизиран (1940)');
+INSERT INTO translationLangs VALUES ('bbg', 'bl', 'Протестантски (1940)');
 
 INSERT INTO translationLangs VALUES ('nwt', 'af',  'Nuwe Wêreld-vertaling');
 INSERT INTO translationLangs VALUES ('nwt', 'al',  'Përkthimi Bota e Re');
