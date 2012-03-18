@@ -20,9 +20,10 @@ public class RenderCanvas extends Canvas implements CommandListener {
     
     int yOffset = 0;
     
-    Command cmdFontSize;
-    Command cmdDebugPage;
-    Command cmdExit;
+    Command cmdFontSize = new Command("Font size", Command.SCREEN, 1);
+    Command cmdLangTrans = new Command("Lang & Trans", Command.SCREEN, 2);
+    Command cmdDebugPage = new Command("Debug", Command.SCREEN, 3);
+    Command cmdExit = new Command("Exit", Command.EXIT, 4);
     
     RenderCanvas(RenderMidlet midlet) {
         this.midlet = midlet;
@@ -33,11 +34,9 @@ public class RenderCanvas extends Canvas implements CommandListener {
         
         setCommandListener(this);
         
-        cmdFontSize = new Command("Font size", Command.ITEM, 1);
         addCommand(cmdFontSize);
-        cmdDebugPage = new Command("Debug", Command.HELP, 1);
         addCommand(cmdDebugPage);
-        cmdExit = new Command("Exit", Command.EXIT, 1);
+        addCommand(cmdLangTrans);
         addCommand(cmdExit);
     }
     
@@ -142,6 +141,18 @@ public class RenderCanvas extends Canvas implements CommandListener {
             midlet.showDebugPage();
         else if (command == cmdExit)
             midlet.destroyApp(false);
+        else if (command == cmdLangTrans) {
+            midlet.getLangTransDialog().open(new LangTransDialog.Listener() {
+                public void selected(String langCode, String transCode) {
+                    System.out.println("langCode=" + langCode + " transCode=" + transCode);
+                    midlet.show(RenderCanvas.this);
+                }
+                
+                public void cancelled() {
+                    midlet.show(RenderCanvas.this);
+                }
+            });
+        }
     }
     
     

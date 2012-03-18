@@ -1,19 +1,20 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package rendertest;
 
 import javax.microedition.lcdui.Display;
-import javax.microedition.midlet.*;
+import javax.microedition.lcdui.Displayable;
+import javax.microedition.midlet.MIDlet;
 
-/**
- * @author ilya
- */
 public class RenderMidlet extends MIDlet {
     
+    static RenderMidlet instance = null;
+    
     public void startApp() {
-        Display.getDisplay(this).setCurrent(new SplashForm(this));
+        instance = this;
+        
+        // Display.getDisplay(this).setCurrent(new SplashForm(this));
+        
+        // getLangTransDialog().open();
+        show(getCanvas());
     }
     
     public void pauseApp() {
@@ -23,8 +24,8 @@ public class RenderMidlet extends MIDlet {
         notifyDestroyed();
     }
     
-    public void showCanvas() {
-        Display.getDisplay(this).setCurrent(getCanvas());
+    public void show(Displayable d) {
+        Display.getDisplay(this).setCurrent(d);
     }
     
     public void showFontSelector() {
@@ -48,11 +49,11 @@ public class RenderMidlet extends MIDlet {
     }
     
     public void fontSelectorCancelled() {
-        showCanvas();
+        show(getCanvas());
     }
     public void fontSelectorAccepted() {
         getCanvas().setFontSize(getFontSelector().getFontSize());
-        showCanvas();
+        show(getCanvas());
     }
     
     
@@ -67,11 +68,19 @@ public class RenderMidlet extends MIDlet {
     }
     
     void onDebugPageClosed() {
-        showCanvas();
+        show(getCanvas());
     }
     
     
     void onSplashFormClosed() {
-        showCanvas();
+        show(getCanvas());
+    }
+    
+    
+    LangTransDialog langTransDialog;
+    LangTransDialog getLangTransDialog() {
+        if (langTransDialog == null)
+            langTransDialog = new LangTransDialog();
+        return langTransDialog;
     }
 }
