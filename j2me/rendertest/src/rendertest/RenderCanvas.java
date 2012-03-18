@@ -22,6 +22,8 @@ public class RenderCanvas extends Canvas implements CommandListener {
     
     int yOffset = 0;
     
+    String langCode;
+    String transCode;
     Book[] books;
 
     Command cmdPlace = new Command("Open place", Command.SCREEN, 1);
@@ -33,7 +35,7 @@ public class RenderCanvas extends Canvas implements CommandListener {
     RenderCanvas(RenderMidlet midlet) {
         this.midlet = midlet;
     
-        chapRenderer = new ChapterRenderer(this, loadChapter());
+        chapRenderer = new ChapterRenderer(this, "");
         
         setFontSize(FontSize.MEDIUM);
         
@@ -73,7 +75,7 @@ public class RenderCanvas extends Canvas implements CommandListener {
     
     private int fontSize = FontSize.MEDIUM;
     public int getFontSize() { return fontSize; }
-    public void setFontSize(int fontSize) {
+    public final void setFontSize(int fontSize) {
         this.fontSize = fontSize;
         
         int lcduiFontSize = Font.SIZE_MEDIUM;
@@ -149,7 +151,9 @@ public class RenderCanvas extends Canvas implements CommandListener {
             midlet.destroyApp(false);
         else if (command == cmdLangTrans) {
             midlet.getLangTransDialog().open(new LangTransDialog.Listener() {
-                public void selected(Book[] books) {
+                public void selected(String langCode, String transCode, Book[] books) {
+                    RenderCanvas.this.langCode = langCode;
+                    RenderCanvas.this.transCode = transCode;
                     RenderCanvas.this.books = books;
                     midlet.show(RenderCanvas.this);
                 }
@@ -163,7 +167,7 @@ public class RenderCanvas extends Canvas implements CommandListener {
             midlet.show(new PlaceSelector(books, new PlaceSelector.Listener() {
                 public void selected(Book book, int chapterNo, int verseNo) {
                     System.out.println("SELECTED: " + book.code + " " + chapterNo + ":" + verseNo);
-                    midlet.show(RenderCanvas.this);
+                    loadChapter(book, chapterNo, verseNo);
                 }
 
                 public void cancelled() { midlet.show(RenderCanvas.this); }
@@ -181,5 +185,30 @@ public class RenderCanvas extends Canvas implements CommandListener {
     protected void pointerDragged(int x, int y) {
         scrollBy(dragOrig - y);
         dragOrig = y;
+    }
+    
+    
+    
+    public void loadChapter(Book book, int chapterNo, int verseNo) {
+        String url = "http://meebible.org/chapter.j2me?lang=" + langCode +
+                "&trans=" + transCode + "&book=" + book.code +
+                "&chapter=" + chapterNo;
+        System.out.println(url);
+        
+        final LoadingSplash splash = new LoadingSplash("Loading chapter...");
+        
+        Loader.load(url, new LoadListener() {
+            public void finished(String content) {
+                chapRenderer = new ChapterRenderer(RenderCanvas.this, content);
+                yOffset = 0;
+                repaint();
+                splash.close(RenderCanvas.this);
+            }
+
+            public void error() {
+                splash.close(RenderCanvas.this);
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+        });
     }
 }

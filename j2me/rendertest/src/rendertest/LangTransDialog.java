@@ -7,7 +7,7 @@ import javax.microedition.lcdui.*;
 public class LangTransDialog {
 
     static abstract class Listener {
-        public abstract void selected(Book[] books);
+        public abstract void selected(String langCode, String transCode, Book[] books);
         public void cancelled() { }
     }
     
@@ -65,7 +65,7 @@ public class LangTransDialog {
             if (c == cmdBack)
                 RenderMidlet.instance.show(langList);
             else if (c == cmdSelect) {
-                Translation trans = (Translation)lang.translations.elementAt(getSelectedIndex());
+                final Translation trans = (Translation)lang.translations.elementAt(getSelectedIndex());
                 
                 final LoadingSplash splash = new LoadingSplash("Loading books...");
                 
@@ -92,7 +92,7 @@ public class LangTransDialog {
                         for (Enumeration e = v_books.elements(); e.hasMoreElements();)
                             books[i++] = (Book)e.nextElement();
                         
-                        listener.selected(books);
+                        listener.selected(lang.code, trans.code, books);
                     }
                     
                     public void error() {

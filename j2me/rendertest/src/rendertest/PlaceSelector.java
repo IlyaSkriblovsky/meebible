@@ -41,10 +41,10 @@ public class PlaceSelector extends Form implements CommandListener {
         if (c == cmdBack)
             listener.cancelled();
         else if (c == cmdOk) {
-            int chapterNo = 0, verseNo = 0;
-            try { chapterNo = Integer.parseInt(chapterField.getString()); }
+            int chapterNo = 1, verseNo = 1;
+            try { chapterNo = Integer.parseInt(chapterField.getString())+1; }
             catch (NumberFormatException e) { }
-            try { verseNo = Integer.parseInt(verseField.getString()); }
+            try { verseNo = Integer.parseInt(verseField.getString())+1; }
             catch (NumberFormatException e) { }
 
             listener.selected(books[bookChoice.getSelectedIndex()], chapterNo, verseNo);
