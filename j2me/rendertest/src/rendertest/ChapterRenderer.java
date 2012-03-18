@@ -71,23 +71,21 @@ public class ChapterRenderer {
     }
     
     
-    private int chapterHeight = -1;
-    public int getChapterHeight() {
-        if (chapterHeight == -1) {
-            long t1 = System.currentTimeMillis();
-            chapterHeight = 0;
-            for (int i = 0; i < pars.length; i++)
-                chapterHeight += pars[i].getHeight();
-            
-            DebugPage.instance.strCalcChapterHeight.setText((System.currentTimeMillis() - t1) + " ms");
-        }
-        return chapterHeight;
-    }
+//    private int chapterHeight = -1;
+//    public int getChapterHeight() {
+//        if (chapterHeight == -1) {
+//            long t1 = System.currentTimeMillis();
+//            chapterHeight = 0;
+//            for (int i = 0; i < pars.length; i++)
+//                chapterHeight += pars[i].getHeight();
+//        }
+//        return chapterHeight;
+//    }
     
     
     public void onFontSizeChanged() {
         for (int i = 0; i < pars.length; i++)
             pars[i].resetHeight();
-        chapterHeight = -1;
+        // chapterHeight = -1;
     }
 }

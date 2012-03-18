@@ -11,14 +11,14 @@ public class PlaceSelector extends Form implements CommandListener {
 
     Book[] books;
     Listener listener;
-    
+
     ChoiceGroup bookChoice = new ChoiceGroup("Book", Choice.POPUP);
     TextField chapterField = new TextField("Chapter", null, 3, TextField.NUMERIC);
     TextField verseField = new TextField("Verse", null, 3, TextField.NUMERIC);
-    
+
     Command cmdBack = new Command("Back", Command.BACK, 1);
     Command cmdOk = new Command("Open", Command.OK, 1);
-    
+
     PlaceSelector(Book[] books, Listener listener) {
         super("Select place");
         
@@ -42,9 +42,9 @@ public class PlaceSelector extends Form implements CommandListener {
             listener.cancelled();
         else if (c == cmdOk) {
             int chapterNo = 1, verseNo = 1;
-            try { chapterNo = Integer.parseInt(chapterField.getString())+1; }
+            try { chapterNo = Integer.parseInt(chapterField.getString()); }
             catch (NumberFormatException e) { }
-            try { verseNo = Integer.parseInt(verseField.getString())+1; }
+            try { verseNo = Integer.parseInt(verseField.getString()); }
             catch (NumberFormatException e) { }
 
             listener.selected(books[bookChoice.getSelectedIndex()], chapterNo, verseNo);

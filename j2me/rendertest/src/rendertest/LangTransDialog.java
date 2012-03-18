@@ -78,12 +78,12 @@ public class LangTransDialog {
                                 if (part.length() == 0) return;
                                 
                                 String[] parts = Utils.split(part, '|');
-                                String[] verseCountsStr = Utils.split(parts[2], ',');
-                                int[] verseCounts = new int[verseCountsStr.length];
-                                for (int i = 0; i < verseCounts.length; i++)
-                                    verseCounts[i] = Integer.parseInt(verseCountsStr[i]);
+//                                String[] verseCountsStr = Utils.split(parts[2], ',');
+//                                int[] verseCounts = new int[verseCountsStr.length];
+//                                for (int i = 0; i < verseCounts.length; i++)
+//                                    verseCounts[i] = Integer.parseInt(verseCountsStr[i]);
                                 
-                                v_books.addElement(new Book(parts[0], parts[1], verseCounts));
+                                v_books.addElement(new Book(parts[0], parts[1])); //, verseCounts));
                             }
                         });
                         

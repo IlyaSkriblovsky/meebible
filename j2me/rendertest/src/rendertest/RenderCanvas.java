@@ -23,9 +23,11 @@ public class RenderCanvas extends Canvas implements CommandListener {
     
     int yOffset = 0;
     
-    String langCode;
-    String transCode;
-    Book[] books;
+    String langCode = "e";
+    String transCode = "nwt";
+    Book[] books = { new Book("ge", "Genesis"), new Book("ex", "Exodus"), new Book("le", "Leviticus"), new Book("nu", "Numbers"), new Book("de", "Deuteronomy"), new Book("jos", "Joshua"), new Book("jg", "Judges"), new Book("ru", "Ruth"), new Book("1sa", "1 Samuel"), new Book("2sa", "2 Samuel"), new Book("1ki", "1 Kings"), new Book("2ki", "2 Kings"), new Book("1ch", "1 Chronicles"), new Book("2ch", "2 Chronicles"), new Book("ezr", "Ezra"), new Book("ne", "Nehemiah"), new Book("es", "Esther"), new Book("job", "Job"), new Book("ps", "Psalms"), new Book("pr", "Proverbs"), new Book("ec", "Ecclesiastes"), new Book("ca", "Song of Solomon"), new Book("isa", "Isaiah"), new Book("jer", "Jeremiah"), new Book("la", "Lamentations"), new Book("eze", "Ezekiel"), new Book("da", "Daniel"), new Book("ho", "Hosea"), new Book("joe", "Joel"), new Book("am", "Amos"), new Book("ob", "Obadiah"), new Book("jon", "Jonah"), new Book("mic", "Micah"), new Book("na", "Nahum"), new Book("hab", "Habakkuk"), new Book("zep", "Zephaniah"), new Book("hag", "Haggai"), new Book("zec", "Zechariah"), new Book("mal", "Malachi"), new Book("mt", "Matthew"), new Book("mr", "Mark"), new Book("lu", "Luke"), new Book("joh", "John"), new Book("ac", "Acts"), new Book("ro", "Romans"), new Book("1co", "1 Corinthians"), new Book("2co", "2 Corinthians"), new Book("ga", "Galatians"), new Book("eph", "Ephesians"), new Book("php", "Philippians"), new Book("col", "Colossians"), new Book("1th", "1 Thessalonians"), new Book("2th", "2 Thessalonians"), new Book("1ti", "1 Timothy"), new Book("2ti", "2 Timothy"), new Book("tit", "Titus"), new Book("phm", "Philemon"), new Book("heb", "Hebrews"), new Book("jas", "James"), new Book("1pe", "1 Peter"), new Book("2pe", "2 Peter"), new Book("1jo", "1 John"), new Book("2jo", "2 John"), new Book("3jo", "3 John"), new Book("jude", "Jude"), new Book("re", "Revelation") };
+    int bookNo = 1;
+    int chapterNo = 1;
     
     Image offscreen;
     Graphics og;
@@ -33,7 +35,6 @@ public class RenderCanvas extends Canvas implements CommandListener {
     Command cmdPlace = new Command("Open place", Command.SCREEN, 1);
     Command cmdFontSize = new Command("Font size", Command.SCREEN, 2);
     Command cmdLangTrans = new Command("Lang & Trans", Command.SCREEN, 3);
-    Command cmdDebugPage = new Command("Debug", Command.SCREEN, 4);
     Command cmdExit = new Command("Exit", Command.EXIT, 5);
     
     RenderCanvas(RenderMidlet midlet) {
@@ -50,33 +51,13 @@ public class RenderCanvas extends Canvas implements CommandListener {
         
         addCommand(cmdPlace);
         addCommand(cmdFontSize);
-        addCommand(cmdDebugPage);
         addCommand(cmdLangTrans);
         addCommand(cmdExit);
-    }
-    
-    
-    String loadChapter() {
-        try {
-            InputStream is = getClass().getResourceAsStream("chapter.txt");
-            Reader decoder = new InputStreamReader(is, "UTF-8");
-            StringBuffer buf = new StringBuffer();
-            int ch;
         
-            char[] chs = new char[4096];
-            int len;
-            while ((len = decoder.read(chs, 0, chs.length)) != -1)
-                buf.append(chs, 0, len);
-            
-            return buf.toString();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            return "cannot load";
-        }
+        loadChapter(books[0], 1, 1);
     }
     
-    
+        
     private Font font;
     
     
@@ -93,49 +74,60 @@ public class RenderCanvas extends Canvas implements CommandListener {
         font = Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, lcduiFontSize);
         
         chapRenderer.onFontSizeChanged();
-        setYOffset(yOffset);
+        forceRepaint();
     }
     public Font getFont() { return font; }
     
     
     
     private int lastDrawnYOffset = -999;
+    private boolean forceRepaint = true;
     protected void paint(Graphics g) {
-        if (lastDrawnYOffset == yOffset) return;
-        
-        // g.setColor(0xe0, 0xe0, 0xe0);
-        // g.fillRect(0, 0, getWidth(), getHeight());
-        
-        
         og.setFont(getFont());
 
-        if (lastDrawnYOffset != -999) {
-            og.copyArea(0, 0, getWidth(), getHeight(), 0, lastDrawnYOffset - yOffset, Graphics.TOP|Graphics.LEFT);
-            
-            og.setColor(0xe0e0e0);
-            if (yOffset > lastDrawnYOffset) {
-                int h = yOffset - lastDrawnYOffset;
-                og.fillRect(0, getHeight() - h, getWidth(), h);
-                chapRenderer.stupidDraw(og, -yOffset, getHeight() - h, h);
+        if (! forceRepaint) {
+            if (yOffset != lastDrawnYOffset) {
+                og.setClip(0, 0, getWidth(), getHeight());
+                og.copyArea(0, 0, getWidth(), getHeight(), 0, lastDrawnYOffset - yOffset, Graphics.TOP|Graphics.LEFT);
+
+                og.setColor(0xe0e0e0);
+                if (yOffset > lastDrawnYOffset) {
+                    int h = yOffset - lastDrawnYOffset;
+                    og.fillRect(0, getHeight() - h, getWidth(), h);
+                    og.setClip(0, getHeight() - h, getWidth(), h);
+                    chapRenderer.stupidDraw(og, -yOffset, getHeight() - h, h);
+                }
+                else {
+                    int h = lastDrawnYOffset - yOffset;
+                    og.fillRect(0, 0, getWidth(), h);
+                    og.setClip(0, 0, getWidth(), h);
+                    chapRenderer.stupidDraw(og, -yOffset, 0, h);
+                }
             }
-            else {
-                int h = lastDrawnYOffset - yOffset;
-                og.fillRect(0, 0, getWidth(), h);
-                chapRenderer.stupidDraw(og, -yOffset, 0, h);
-            }
-        }
-        else
-            chapRenderer.stupidDraw(og, -yOffset, 0, getHeight());
         
-        g.drawRegion(
-            offscreen,
-            g.getClipX(), g.getClipY(), g.getClipWidth(), g.getClipHeight(),
-            Sprite.TRANS_NONE,
-            g.getClipX(), g.getClipY(),
-            Graphics.LEFT|Graphics.TOP
-        );
+            g.drawRegion(
+                offscreen,
+                g.getClipX(), g.getClipY(), g.getClipWidth(), g.getClipHeight(),
+                Sprite.TRANS_NONE,
+                g.getClipX(), g.getClipY(),
+                Graphics.LEFT|Graphics.TOP
+            );
+        }
+        else {
+            og.setColor(0xe0e0e0);
+            og.setClip(0, 0, getWidth(), getHeight());
+            og.fillRect(0, 0, getWidth(), getHeight());
+            chapRenderer.stupidDraw(og, -yOffset, 0, getHeight());
+            g.drawImage(offscreen, 0, 0, Graphics.LEFT|Graphics.TOP);
+        }
         
         lastDrawnYOffset = yOffset;
+        forceRepaint = false;
+    }
+    
+    void forceRepaint() {
+        forceRepaint = true;
+        repaint();
     }
     
     
@@ -183,8 +175,6 @@ public class RenderCanvas extends Canvas implements CommandListener {
     public void commandAction(Command command, Displayable displayable) {
         if (command == cmdFontSize)
             midlet.showFontSelector();
-        else if (command == cmdDebugPage)
-            midlet.showDebugPage();
         else if (command == cmdExit)
             midlet.destroyApp(false);
         else if (command == cmdLangTrans) {
@@ -194,6 +184,7 @@ public class RenderCanvas extends Canvas implements CommandListener {
                     RenderCanvas.this.transCode = transCode;
                     RenderCanvas.this.books = books;
                     midlet.show(RenderCanvas.this);
+                    loadChapter(books[bookNo], chapterNo, 1);
                 }
                 
                 public void cancelled() {
@@ -228,6 +219,14 @@ public class RenderCanvas extends Canvas implements CommandListener {
     
     
     public void loadChapter(Book book, int chapterNo, int verseNo) {
+        this.chapterNo = chapterNo;
+        bookNo = 1;
+        for (int i = 0; i < books.length; i++)
+            if (books[i] == book) {
+                bookNo = i;
+                break;
+            }
+        
         String url = "http://meebible.org/chapter.j2me?lang=" + langCode +
                 "&trans=" + transCode + "&book=" + book.code +
                 "&chapter=" + chapterNo;
@@ -239,7 +238,7 @@ public class RenderCanvas extends Canvas implements CommandListener {
             public void finished(String content) {
                 chapRenderer = new ChapterRenderer(RenderCanvas.this, content);
                 yOffset = 0;
-                repaint();
+                forceRepaint();
                 splash.close(RenderCanvas.this);
             }
 

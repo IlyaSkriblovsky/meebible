@@ -58,20 +58,6 @@ public class RenderMidlet extends MIDlet {
     
     
     
-    DebugPage debugPage = new DebugPage(this);
-    DebugPage getDebugPage() {
-        return debugPage;
-    }
-    
-    void showDebugPage() {
-        Display.getDisplay(this).setCurrent(getDebugPage());
-    }
-    
-    void onDebugPageClosed() {
-        show(getCanvas());
-    }
-    
-    
     void onSplashFormClosed() {
         show(getCanvas());
     }
