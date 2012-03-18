@@ -1,6 +1,8 @@
 package rendertest;
 
 import java.io.*;
+import java.util.Enumeration;
+import java.util.Vector;
 import javax.microedition.lcdui.*;
 
 public class RenderCanvas extends Canvas implements CommandListener {
@@ -20,10 +22,13 @@ public class RenderCanvas extends Canvas implements CommandListener {
     
     int yOffset = 0;
     
-    Command cmdFontSize = new Command("Font size", Command.SCREEN, 1);
-    Command cmdLangTrans = new Command("Lang & Trans", Command.SCREEN, 2);
-    Command cmdDebugPage = new Command("Debug", Command.SCREEN, 3);
-    Command cmdExit = new Command("Exit", Command.EXIT, 4);
+    Book[] books;
+
+    Command cmdPlace = new Command("Open place", Command.SCREEN, 1);
+    Command cmdFontSize = new Command("Font size", Command.SCREEN, 2);
+    Command cmdLangTrans = new Command("Lang & Trans", Command.SCREEN, 3);
+    Command cmdDebugPage = new Command("Debug", Command.SCREEN, 4);
+    Command cmdExit = new Command("Exit", Command.EXIT, 5);
     
     RenderCanvas(RenderMidlet midlet) {
         this.midlet = midlet;
@@ -34,6 +39,7 @@ public class RenderCanvas extends Canvas implements CommandListener {
         
         setCommandListener(this);
         
+        addCommand(cmdPlace);
         addCommand(cmdFontSize);
         addCommand(cmdDebugPage);
         addCommand(cmdLangTrans);
@@ -143,8 +149,8 @@ public class RenderCanvas extends Canvas implements CommandListener {
             midlet.destroyApp(false);
         else if (command == cmdLangTrans) {
             midlet.getLangTransDialog().open(new LangTransDialog.Listener() {
-                public void selected(String langCode, String transCode) {
-                    System.out.println("langCode=" + langCode + " transCode=" + transCode);
+                public void selected(Book[] books) {
+                    RenderCanvas.this.books = books;
                     midlet.show(RenderCanvas.this);
                 }
                 
@@ -152,6 +158,16 @@ public class RenderCanvas extends Canvas implements CommandListener {
                     midlet.show(RenderCanvas.this);
                 }
             });
+        }
+        else if (command == cmdPlace) {
+            midlet.show(new PlaceSelector(books, new PlaceSelector.Listener() {
+                public void selected(Book book, int chapterNo, int verseNo) {
+                    System.out.println("SELECTED: " + book.code + " " + chapterNo + ":" + verseNo);
+                    midlet.show(RenderCanvas.this);
+                }
+
+                public void cancelled() { midlet.show(RenderCanvas.this); }
+            }));
         }
     }
     

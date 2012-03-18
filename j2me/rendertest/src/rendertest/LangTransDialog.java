@@ -6,55 +6,8 @@ import javax.microedition.lcdui.*;
 
 public class LangTransDialog {
 
-    static class Language {
-        public final String code;
-        public final String engname;
-        public final String selfname;
-
-        public Vector translations;
-
-        public Language(String code, String engname, String selfname) {
-            this.code = code;
-            this.engname = engname;
-            this.selfname = selfname;
-            
-            translations = new Vector();
-        }
-
-        public void addTranslation(Translation translation) {
-            translations.addElement(translation);
-        }
-
-        public Translation getTranslation(int i) {
-            return (Translation)translations.elementAt(i);
-        }
-
-        public String toString() { 
-            return engname + " (" + selfname + ")";
-        }
-    }
-    
-    static class Translation {
-        public final Language language;
-        public final String code;
-        public final String name;
-        public final String sourceUrl;
-        public final String copyright;
-        public final boolean rtl;
-        
-        public Translation(Language language, String code, String name, String sourceUrl, String copyright, boolean rtl) {
-            this.language = language;
-            this.code = code;
-            this.name = name;
-            this.sourceUrl = sourceUrl;
-            this.copyright = copyright;
-            this.rtl = rtl;
-        }
-    }
-    
-    
     static abstract class Listener {
-        public abstract void selected(String langCode, String transCode);
+        public abstract void selected(Book[] books);
         public void cancelled() { }
     }
     
@@ -111,8 +64,43 @@ public class LangTransDialog {
         public void commandAction(Command c, Displayable d) {
             if (c == cmdBack)
                 RenderMidlet.instance.show(langList);
-            else if (c == cmdSelect)
-                listener.selected(lang.code, ((Translation)lang.translations.elementAt(getSelectedIndex())).code);
+            else if (c == cmdSelect) {
+                Translation trans = (Translation)lang.translations.elementAt(getSelectedIndex());
+                
+                final LoadingSplash splash = new LoadingSplash("Loading books...");
+                
+                Loader.load("http://meebible.org/translation.j2me?lang=" + lang.code + "&trans=" + trans.code, new LoadListener() {
+                    public void finished(String content) {
+                        final Vector v_books = new Vector();
+                        
+                        Utils.forEachStringPart(content, '\n', new Utils.StringPartCallback() {
+                            public void onPart(String part) {
+                                if (part.length() == 0) return;
+                                
+                                String[] parts = Utils.split(part, '|');
+                                String[] verseCountsStr = Utils.split(parts[2], ',');
+                                int[] verseCounts = new int[verseCountsStr.length];
+                                for (int i = 0; i < verseCounts.length; i++)
+                                    verseCounts[i] = Integer.parseInt(verseCountsStr[i]);
+                                
+                                v_books.addElement(new Book(parts[0], parts[1], verseCounts));
+                            }
+                        });
+                        
+                        Book[] books = new Book[v_books.size()];
+                        int i = 0;
+                        for (Enumeration e = v_books.elements(); e.hasMoreElements();)
+                            books[i++] = (Book)e.nextElement();
+                        
+                        listener.selected(books);
+                    }
+                    
+                    public void error() {
+                        // FIXME
+                        throw new UnsupportedOperationException("Not supported yet.");
+                    }
+                });
+            }
         }
     }
 
@@ -130,7 +118,7 @@ public class LangTransDialog {
     
 
     public void reload() {
-        final LoadingSplash splash = new LoadingSplash("Loading...");
+        final LoadingSplash splash = new LoadingSplash("Loading languages...");
 
         Loader.load("http://meebible.org/meta.j2me", new LoadListener() {
             public void finished(String content) {
@@ -172,6 +160,7 @@ public class LangTransDialog {
             }
 
             public void error() {
+                // FIXME
                 throw new UnsupportedOperationException("Not supported yet.");
             }
         });
