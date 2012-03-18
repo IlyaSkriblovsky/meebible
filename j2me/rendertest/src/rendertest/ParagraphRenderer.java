@@ -12,6 +12,8 @@ public class ParagraphRenderer {
         private RenderCanvas canvas;
         private Graphics graphics;
         private int yStart = 0;
+        private int drawTop = 0;
+        private int drawHeight = 20;
 
         int caretX;
         int caretY;
@@ -29,9 +31,11 @@ public class ParagraphRenderer {
             return caretY + canvas.getFont().getHeight() + canvas.getFont().getHeight() / 2;
         }
         
-        void draw(Graphics graphics, int yStart) {
+        void draw(Graphics graphics, int yStart, int drawTop, int drawHeight) {
             this.graphics = graphics;
             this.yStart = yStart;
+            this.drawTop = drawTop;
+            this.drawHeight = drawHeight;
             new MarkupParser(markup).parse(this);
         }
         
@@ -56,7 +60,7 @@ public class ParagraphRenderer {
                     prevColor = color;
                 }
                 
-                if (caretY + canvas.getFont().getHeight() > 0  &&  caretY < canvas.getHeight())
+                if (caretY + canvas.getFont().getHeight() > drawTop  &&  caretY < drawTop + drawHeight)
                     graphics.drawString(word, caretX, caretY, 0);
             }
             
@@ -85,7 +89,7 @@ public class ParagraphRenderer {
         return new Drawer(markup, canvas).calcHeight();
     }
     
-    void drawPar(String markup, Graphics graphics, int yStart) {
-        new Drawer(markup, canvas).draw(graphics, yStart);
+    void drawPar(String markup, Graphics graphics, int yStart, int drawTop, int drawHeight) {
+        new Drawer(markup, canvas).draw(graphics, yStart, drawTop, drawHeight);
     }
 }

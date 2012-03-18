@@ -58,16 +58,14 @@ public class ChapterRenderer {
     }
     
     
-    public void stupidDraw(Graphics g, int y) {
+    public void stupidDraw(Graphics g, int yOffset, int y, int h) {
         for (int i = 0; i < pars.length; i++) {
-            if (y + pars[i].getHeight() > 0)
-            {
-                parRenderer.drawPar(pars[i].markup, g, y);
-            }
+            if (yOffset + pars[i].getHeight() > y)
+                parRenderer.drawPar(pars[i].markup, g, yOffset, y, h);
 
-            y += pars[i].getHeight();
+            yOffset += pars[i].getHeight();
             
-            if (y > canvas.getHeight())
+            if (yOffset > y+h)
                 break;
         }
     }

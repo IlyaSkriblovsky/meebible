@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.Enumeration;
 import java.util.Vector;
 import javax.microedition.lcdui.*;
+import javax.microedition.lcdui.game.Sprite;
 
 public class RenderCanvas extends Canvas implements CommandListener {
     
@@ -25,6 +26,9 @@ public class RenderCanvas extends Canvas implements CommandListener {
     String langCode;
     String transCode;
     Book[] books;
+    
+    Image offscreen;
+    Graphics og;
 
     Command cmdPlace = new Command("Open place", Command.SCREEN, 1);
     Command cmdFontSize = new Command("Font size", Command.SCREEN, 2);
@@ -34,6 +38,9 @@ public class RenderCanvas extends Canvas implements CommandListener {
     
     RenderCanvas(RenderMidlet midlet) {
         this.midlet = midlet;
+        
+        offscreen = Image.createImage(getWidth(), getHeight());
+        og = offscreen.getGraphics();
     
         chapRenderer = new ChapterRenderer(this, "");
         
@@ -91,13 +98,44 @@ public class RenderCanvas extends Canvas implements CommandListener {
     public Font getFont() { return font; }
     
     
+    
+    private int lastDrawnYOffset = -999;
     protected void paint(Graphics g) {
-        g.setColor(0xe0, 0xe0, 0xe0);
-        g.fillRect(0, 0, getWidth(), getHeight());
+        if (lastDrawnYOffset == yOffset) return;
         
-        g.setFont(getFont());
+        // g.setColor(0xe0, 0xe0, 0xe0);
+        // g.fillRect(0, 0, getWidth(), getHeight());
+        
+        
+        og.setFont(getFont());
 
-        chapRenderer.stupidDraw(g, - yOffset);
+        if (lastDrawnYOffset != -999) {
+            og.copyArea(0, 0, getWidth(), getHeight(), 0, lastDrawnYOffset - yOffset, Graphics.TOP|Graphics.LEFT);
+            
+            og.setColor(0xe0e0e0);
+            if (yOffset > lastDrawnYOffset) {
+                int h = yOffset - lastDrawnYOffset;
+                og.fillRect(0, getHeight() - h, getWidth(), h);
+                chapRenderer.stupidDraw(og, -yOffset, getHeight() - h, h);
+            }
+            else {
+                int h = lastDrawnYOffset - yOffset;
+                og.fillRect(0, 0, getWidth(), h);
+                chapRenderer.stupidDraw(og, -yOffset, 0, h);
+            }
+        }
+        else
+            chapRenderer.stupidDraw(og, -yOffset, 0, getHeight());
+        
+        g.drawRegion(
+            offscreen,
+            g.getClipX(), g.getClipY(), g.getClipWidth(), g.getClipHeight(),
+            Sprite.TRANS_NONE,
+            g.getClipX(), g.getClipY(),
+            Graphics.LEFT|Graphics.TOP
+        );
+        
+        lastDrawnYOffset = yOffset;
     }
     
     
