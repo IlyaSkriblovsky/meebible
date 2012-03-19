@@ -1,4 +1,4 @@
-package rendertest;
+package meebible;
 
 import javax.microedition.lcdui.*;
 

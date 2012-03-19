@@ -1,4 +1,4 @@
-package rendertest;
+package meebible;
 
 class Translation {
     public final Language language;

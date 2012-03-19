@@ -1,4 +1,4 @@
-package rendertest;
+package meebible;
 
 class Book {
     public final String code;
