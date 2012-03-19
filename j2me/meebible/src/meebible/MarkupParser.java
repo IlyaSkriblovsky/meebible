@@ -49,16 +49,21 @@ public class MarkupParser {
                 if (! isWordChar(markup.charAt(pos)))
                     pos++;
                 else {
-                    int start = pos;
+                    StringBuffer buf = new StringBuffer();
 
                     while (pos < markup.length()) {
-                        if (markup.charAt(pos) == '\\') pos++;
-                        else
+                        if (markup.charAt(pos) == '\\') {
+                            pos++;
+                            buf.append(markup.charAt(pos));
+                        }
+                        else {
                             if (! isWordChar(markup.charAt(pos))) break;
+                            buf.append(markup.charAt(pos));
+                        }
                         pos++;
                     }
 
-                    listener.word(markup.substring(start, pos), fontStyle);
+                    listener.word(buf.toString(), fontStyle);
                 }
             }
         }
