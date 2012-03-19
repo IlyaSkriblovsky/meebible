@@ -40,8 +40,7 @@ public class RenderCanvas extends Canvas implements CommandListener {
     RenderCanvas(MeeBibleMidlet midlet) {
         this.midlet = midlet;
         
-        offscreen = Image.createImage(getWidth(), getHeight());
-        og = offscreen.getGraphics();
+        createOffscreen();
     
         chapRenderer = new ChapterRenderer(this, "");
         
@@ -55,11 +54,29 @@ public class RenderCanvas extends Canvas implements CommandListener {
         
         loadSettings();
         
+        setFullScreenMode(fullscreen);
+        
         if (content.length() > 0)
             showContent(content, yOffset);
         else
             loadChapter(bookNo, chapterNo, 1, yOffset);
     }
+
+    private void createOffscreen() {
+        offscreen = Image.createImage(getWidth(), getHeight());
+        og = offscreen.getGraphics();
+    }
+    
+    protected void sizeChanged(int w, int h) {
+        createOffscreen();
+        forceRepaint();
+    }
+
+    private boolean fullscreen = false;
+    protected void showNotify() {
+        setFullScreenMode(fullscreen);
+    }
+    
     
 
     
@@ -94,9 +111,17 @@ public class RenderCanvas extends Canvas implements CommandListener {
     
     
     
+    
     private int lastDrawnYOffset = -999;
     private boolean forceRepaint = true;
     protected void paint(Graphics g) {
+        if (getHeight() != offscreen.getHeight()) {
+            // Workaround for a bug in NetBeans 7.1.1 simulator
+            createOffscreen();
+            forceRepaint = true;
+        }
+            
+        
         if (! forceRepaint) {
             if (yOffset != lastDrawnYOffset) {
                 og.setClip(0, 0, getWidth(), getHeight());
@@ -175,6 +200,12 @@ public class RenderCanvas extends Canvas implements CommandListener {
                 
             case RIGHT: {
                 scrollBy(+ getHeight());
+                break;
+            }
+                
+            case FIRE: {
+                fullscreen = !fullscreen;
+                setFullScreenMode(fullscreen);
                 break;
             }
         }
@@ -282,6 +313,7 @@ public class RenderCanvas extends Canvas implements CommandListener {
             chapterNo = dis.readInt();
             fontSize = dis.readInt();
             yOffset = dis.readInt();
+            fullscreen = dis.readBoolean();
         }
         catch (Exception e) {
             e.printStackTrace(); 
@@ -353,6 +385,7 @@ public class RenderCanvas extends Canvas implements CommandListener {
             dos.writeInt(chapterNo);
             dos.writeInt(fontSize);
             dos.writeInt(yOffset);
+            dos.writeBoolean(fullscreen);
             dos.close();
             byte[] bytes = bos.toByteArray();
             settings.addRecord(bytes, 0, bytes.length);
