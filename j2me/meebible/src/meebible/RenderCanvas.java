@@ -2,6 +2,7 @@ package meebible;
 
 import java.io.*;
 import java.util.Enumeration;
+import java.util.Hashtable;
 import java.util.Vector;
 import javax.microedition.lcdui.*;
 import javax.microedition.lcdui.game.Sprite;
@@ -68,17 +69,26 @@ public class RenderCanvas extends Canvas implements CommandListener {
     public final void setFontSize(int fontSize) {
         this.fontSize = fontSize;
 
-        font = null;
+        resetFonts();
         
         chapRenderer.onFontSizeChanged();
         forceRepaint();
     }
+    
 
-    private Font font;
+    private Hashtable fonts = new Hashtable();
+    private void resetFonts() {
+        fonts.clear();
+    }
     public Font getFont() {
-        if (font == null) {
-            font = Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, fontSize);
-        }
+        return getFont(Font.STYLE_PLAIN);
+    }
+    public Font getFont(int style) {
+        if (fonts.contains(new Integer(style)))
+            return (Font)fonts.get(new Integer(style));
+        
+        Font font = Font.getFont(Font.FACE_SYSTEM, style, fontSize);
+        fonts.put(new Integer(style), font);
         return font;
     }
     
@@ -87,8 +97,6 @@ public class RenderCanvas extends Canvas implements CommandListener {
     private int lastDrawnYOffset = -999;
     private boolean forceRepaint = true;
     protected void paint(Graphics g) {
-        og.setFont(getFont());
-
         if (! forceRepaint) {
             if (yOffset != lastDrawnYOffset) {
                 og.setClip(0, 0, getWidth(), getHeight());
@@ -247,7 +255,7 @@ public class RenderCanvas extends Canvas implements CommandListener {
         
         Loader.load(url, new LoadListener() {
             public void finished(String content) {
-                String title = books[bookNo].name + " " + chapterNo + "|";
+                String title = "^B^U" + books[bookNo].name + " " + chapterNo + "^b^u|";
                 RenderCanvas.this.showContent(title + content, initialYOffset);
                 splash.close(RenderCanvas.this);
             }

@@ -18,6 +18,7 @@ public class ParagraphRenderer {
         int caretX;
         int caretY;
         int prevColor;
+        Font font;
         
         Drawer(String markup, RenderCanvas canvas) {
             this.markup = markup;
@@ -28,7 +29,10 @@ public class ParagraphRenderer {
             this.graphics = null;
             new MarkupParser(markup).parse(this);
             
-            return caretY + canvas.getFont().getHeight() + canvas.getFont().getHeight() / 2;
+            int height = caretY;
+            if (font != null)
+                height += font.getHeight() + font.getHeight() / 2;
+            return height;
         }
         
         void draw(Graphics graphics, int yStart, int drawTop, int drawHeight) {
@@ -43,14 +47,22 @@ public class ParagraphRenderer {
             caretX = SIDE_MARGIN + 3 * canvas.getFont().charWidth(' ');
             caretY = yStart;
             prevColor = -1;
+            
+            font = null;
         }
         
-        private void handleWord(String word, int color) {
-            int wordWidth = canvas.getFont().stringWidth(word);
+        private void handleWord(String word, int color, int fontStyle) {
+            if (font == null || fontStyle != font.getStyle()) {
+                font = canvas.getFont(fontStyle);
+                if (graphics != null)
+                    graphics.setFont(font);
+            }
+            
+            int wordWidth = font.stringWidth(word);
             
             if (caretX + wordWidth >= canvas.getWidth() - SIDE_MARGIN) {
                 caretX = SIDE_MARGIN;
-                caretY += canvas.getFont().getHeight();
+                caretY += font.getHeight();
             }
             
             if (graphics != null) {
@@ -60,19 +72,24 @@ public class ParagraphRenderer {
                     prevColor = color;
                 }
                 
-                if (caretY + canvas.getFont().getHeight() > drawTop  &&  caretY < drawTop + drawHeight)
+                if (caretY + font.getHeight() > drawTop  &&  caretY < drawTop + drawHeight)
                     graphics.drawString(word, caretX, caretY, 0);
             }
             
-            caretX += wordWidth + canvas.getFont().charWidth(' ');
+            caretX += wordWidth;
+            
+            if (graphics != null && (font.getStyle() & Font.STYLE_UNDERLINED) != 0)
+                graphics.drawChar(' ', caretX, caretY, 0);
+            
+            caretX += font.charWidth(' ');
         }
         
-        public void word(String word) {
-            handleWord(word, 0x202020);
+        public void word(String word, int fontStyle) {
+            handleWord(word, 0x202020, fontStyle);
         }
         
-        public void verseNumber(String number) {
-            handleWord(number, 0x808080);
+        public void verseNumber(String number, int fontStyle) {
+            handleWord(number, 0x808080, fontStyle);
         }
     }
     

@@ -2,6 +2,6 @@ package meebible;
 
 public interface MarkupListener {
     void reset();
-    void word(String word);
-    void verseNumber(String number);
+    void word(String word, int fontStyle);
+    void verseNumber(String number, int fontStyle);
 }
