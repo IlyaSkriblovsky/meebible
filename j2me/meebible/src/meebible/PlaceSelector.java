@@ -19,7 +19,7 @@ public class PlaceSelector extends Form implements CommandListener {
     Command cmdBack = new Command("Back", Command.BACK, 1);
     Command cmdOk = new Command("Open", Command.OK, 1);
 
-    PlaceSelector(Book[] books, int selectedBook, Listener listener) {
+    PlaceSelector(Book[] books, int selectedBook, int chapterNo, Listener listener) {
         super("Select place");
         
         this.books = books;
@@ -28,6 +28,8 @@ public class PlaceSelector extends Form implements CommandListener {
         for (int i = 0; i < books.length; i++)
             bookChoice.append(books[i].name, null);
         bookChoice.setSelectedIndex(selectedBook, true);
+        
+        chapterField.setString(new Integer(chapterNo).toString());
         
         append(bookChoice);
         append(chapterField);

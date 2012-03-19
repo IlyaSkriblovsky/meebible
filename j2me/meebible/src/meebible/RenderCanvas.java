@@ -236,7 +236,7 @@ public class RenderCanvas extends Canvas implements CommandListener {
             });
         }
         else if (c == cmdPlace) {
-            midlet.show(new PlaceSelector(books, bookNo, new PlaceSelector.Listener() {
+            midlet.show(new PlaceSelector(books, bookNo, chapterNo, new PlaceSelector.Listener() {
                 public void selected(int bookNo, int chapterNo, int verseNo) {
                     loadChapter(bookNo, chapterNo, verseNo);
                 }
