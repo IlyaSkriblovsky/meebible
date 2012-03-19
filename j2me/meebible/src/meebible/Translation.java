@@ -1,6 +1,6 @@
 package meebible;
 
-class Translation {
+final class Translation {
     public final Language language;
     public final String code;
     public final String name;

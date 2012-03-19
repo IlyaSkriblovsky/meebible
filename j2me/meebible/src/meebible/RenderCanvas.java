@@ -26,7 +26,10 @@ public class RenderCanvas extends Canvas implements CommandListener {
     Book[] books = hardcodedBooks;
     int bookNo = 0;
     int chapterNo = 1;
+    int verseNo = 1;
     String content = "";
+    
+    int parNoFromSettings = 0;
     
     Image offscreen;
     Graphics og;
@@ -57,9 +60,9 @@ public class RenderCanvas extends Canvas implements CommandListener {
         setFullScreenMode(fullscreen);
         
         if (content.length() > 0)
-            showContent(content, yOffset);
+            showContent(content, parNoFromSettings, yOffset);
         else
-            loadChapter(bookNo, chapterNo, 1, yOffset);
+            loadChapter(bookNo, chapterNo, verseNo);
     }
 
     private void createOffscreen() {
@@ -172,7 +175,7 @@ public class RenderCanvas extends Canvas implements CommandListener {
     void setYOffset(int y) {
         yOffset = y;
         
-        if (yOffset < 0) this.yOffset = 0;
+//        if (yOffset < 0) this.yOffset = 0;
 //        if (yOffset + getHeight() > chapRenderer.getChapterHeight())
 //            yOffset = chapRenderer.getChapterHeight() - getHeight();
         
@@ -231,7 +234,7 @@ public class RenderCanvas extends Canvas implements CommandListener {
                     RenderCanvas.this.transCode = transCode;
                     RenderCanvas.this.books = books;
                     midlet.show(RenderCanvas.this);
-                    loadChapter(bookNo, chapterNo, 1);
+                    loadChapter(bookNo, chapterNo, verseNo);
                 }
                 
                 public void cancelled() {
@@ -240,8 +243,9 @@ public class RenderCanvas extends Canvas implements CommandListener {
             });
         }
         else if (c == cmdPlace) {
-            midlet.show(new PlaceSelector(books, bookNo, chapterNo, new PlaceSelector.Listener() {
+            midlet.show(new PlaceSelector(books, bookNo, chapterNo, verseNo, new PlaceSelector.Listener() {
                 public void selected(int bookNo, int chapterNo, int verseNo) {
+                    midlet.show(RenderCanvas.this);
                     loadChapter(bookNo, chapterNo, verseNo);
                 }
 
@@ -266,20 +270,44 @@ public class RenderCanvas extends Canvas implements CommandListener {
     
     
     
-    public final void showContent(String content, int initialYOffset) {
+    public final void showContent(String content, int anchorParNo, int initialYOffset) {
         this.content = content;
         chapRenderer = new ChapterRenderer(this, content);
+        
+        chapRenderer.setAnchorParNo(anchorParNo);
+        
         yOffset = initialYOffset;
         forceRepaint();
     }
     
-    
-    public final void loadChapter(int bookNo, int chapterNo, int verseNo) {
-        loadChapter(bookNo, chapterNo, verseNo, 0);
+    public final void showContent(String content, int verseNo) {
+        this.content = content;
+        chapRenderer = new ChapterRenderer(this, content);
+        
+        ChapterRenderer.VerseLocation loc = chapRenderer.findVerse(verseNo);
+        if (verseNo != 1 && loc.paragraphNo != -1) {
+            chapRenderer.setAnchorParNo(loc.paragraphNo);
+            yOffset = loc.verseOffset;
+        }
+        else {
+            chapRenderer.setAnchorParNo(0);
+            yOffset = 0;
+        }
+        
+        forceRepaint();
     }
-    public final void loadChapter(final int bookNo, final int chapterNo, int verseNo, final int initialYOffset) {
-        this.chapterNo = chapterNo;
+    
+    
+    public final void loadChapter(final int bookNo, final int chapterNo, final int verseNo) {
+        if (content.length() > 0 && bookNo == this.bookNo && chapterNo == this.chapterNo) {
+            showContent(content, verseNo);
+            return;
+        }
+        
+        
         this.bookNo = bookNo;
+        this.chapterNo = chapterNo;
+        this.verseNo = verseNo;
 
         String url = "http://meebible.org/chapter.j2me?lang=" + langCode +
                 "&trans=" + transCode + "&book=" + books[bookNo].code +
@@ -291,7 +319,7 @@ public class RenderCanvas extends Canvas implements CommandListener {
         Loader.load(url, new LoadListener() {
             public void finished(String content) {
                 String title = "^B^U" + books[bookNo].name + " " + chapterNo + "^b^u|";
-                RenderCanvas.this.showContent(title + content, initialYOffset);
+                RenderCanvas.this.showContent(title + content, verseNo);
                 splash.close(RenderCanvas.this);
             }
 
@@ -315,7 +343,9 @@ public class RenderCanvas extends Canvas implements CommandListener {
             transCode = dis.readUTF();
             bookNo = dis.readInt();
             chapterNo = dis.readInt();
+            verseNo = dis.readInt();
             fontSize = dis.readInt();
+            parNoFromSettings = dis.readInt();
             yOffset = dis.readInt();
             fullscreen = dis.readBoolean();
         }
@@ -325,8 +355,11 @@ public class RenderCanvas extends Canvas implements CommandListener {
             transCode = "nwt";
             bookNo = 0;
             chapterNo = 1;
+            verseNo = 1;
             fontSize = Font.SIZE_MEDIUM;
+            parNoFromSettings = 0;
             yOffset = 0;
+            fullscreen = false;
         }
         finally {
             try { if (settings != null) settings.closeRecordStore(); }
@@ -387,7 +420,9 @@ public class RenderCanvas extends Canvas implements CommandListener {
             dos.writeUTF(transCode);
             dos.writeInt(bookNo);
             dos.writeInt(chapterNo);
+            dos.writeInt(verseNo);
             dos.writeInt(fontSize);
+            dos.writeInt(chapRenderer.getAnchorParNo());
             dos.writeInt(yOffset);
             dos.writeBoolean(fullscreen);
             dos.close();

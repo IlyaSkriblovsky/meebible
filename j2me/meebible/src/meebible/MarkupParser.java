@@ -7,7 +7,7 @@ public class MarkupParser {
     public interface MarkupListener {
         void reset();
         void word(String word, int fontStyle);
-        void verseNumber(String number, int fontStyle);
+        boolean verseNumber(String number, int fontStyle);
         void lineBreak(int indentWidth);
     }
 
@@ -37,7 +37,8 @@ public class MarkupParser {
                 int closeBrace = pos;
                 while (markup.charAt(++closeBrace) != '}') { }
                 
-                listener.verseNumber(markup.substring(pos+1, closeBrace), fontStyle);
+                if (! listener.verseNumber(markup.substring(pos+1, closeBrace), fontStyle))
+                    return;
                 
                 pos = closeBrace + 1;
             }

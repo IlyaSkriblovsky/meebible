@@ -20,6 +20,8 @@ public class ParagraphRenderer {
         int prevColor;
         Font font;
         
+        int searchingForVerse;
+        
         Drawer(String markup, RenderCanvas canvas) {
             this.markup = markup;
             this.canvas = canvas;
@@ -27,6 +29,7 @@ public class ParagraphRenderer {
         
         int calcHeight() {
             this.graphics = null;
+            this.searchingForVerse = -1;
             new MarkupParser(markup).parse(this);
             
             int height = caretY;
@@ -35,8 +38,16 @@ public class ParagraphRenderer {
             return height;
         }
         
+        int verseOffset(int verseNo) {
+            this.graphics = null;
+            this.searchingForVerse = verseNo;
+            new MarkupParser(markup).parse(this);
+            return caretY;
+        }
+        
         void draw(Graphics graphics, int yStart, int drawTop, int drawHeight) {
             this.graphics = graphics;
+            this.searchingForVerse = -1;
             this.yStart = yStart;
             this.drawTop = drawTop;
             this.drawHeight = drawHeight;
@@ -91,8 +102,12 @@ public class ParagraphRenderer {
             handleWord(word, 0x202020, fontStyle);
         }
         
-        public void verseNumber(String number, int fontStyle) {
+        public boolean verseNumber(String number, int fontStyle) {
+            if (searchingForVerse != -1 && searchingForVerse == Integer.parseInt(number))
+                return false;
+            
             handleWord(number, 0x808080, fontStyle);
+            return true;
         }
         
         public void lineBreak(int indentWidth) {
@@ -116,5 +131,9 @@ public class ParagraphRenderer {
     
     void drawPar(String markup, Graphics graphics, int yStart, int drawTop, int drawHeight) {
         new Drawer(markup, canvas).draw(graphics, yStart, drawTop, drawHeight);
+    }
+    
+    int verseOffset(String markup, int verseNo) {
+        return new Drawer(markup, canvas).verseOffset(verseNo);
     }
 }

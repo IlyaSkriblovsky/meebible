@@ -2,7 +2,7 @@ package meebible;
 
 import java.util.Vector;
 
-class Language {
+final class Language {
     public final String code;
     public final String engname;
     public final String selfname;

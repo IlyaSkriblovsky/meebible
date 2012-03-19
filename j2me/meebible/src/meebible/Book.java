@@ -1,6 +1,6 @@
 package meebible;
 
-class Book {
+final class Book {
     public final String code;
     public final String name;
     public final int chapterCount;
