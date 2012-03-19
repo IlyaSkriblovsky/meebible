@@ -4,6 +4,14 @@ import javax.microedition.lcdui.Font;
 
 public class MarkupParser {
     
+    public interface MarkupListener {
+        void reset();
+        void word(String word, int fontStyle);
+        void verseNumber(String number, int fontStyle);
+        void lineBreak(int indentWidth);
+    }
+
+    
     public final String markup;
     
     MarkupParser(String markup) {
@@ -43,6 +51,9 @@ public class MarkupParser {
                     case 'i': fontStyle &= ~Font.STYLE_ITALIC; break;
                     case 'U': fontStyle |= Font.STYLE_UNDERLINED; break;
                     case 'u': fontStyle &= ~Font.STYLE_UNDERLINED; break;
+                        
+                    case 'N': listener.lineBreak(3); break;
+                    case 'n': listener.lineBreak(0); break;
                 }
             }
             else {

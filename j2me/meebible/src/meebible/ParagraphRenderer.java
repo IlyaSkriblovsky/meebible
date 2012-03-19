@@ -7,7 +7,7 @@ public class ParagraphRenderer {
     
     public static final int SIDE_MARGIN = 3;
     
-    class Drawer implements MarkupListener {
+    class Drawer implements MarkupParser.MarkupListener {
         private String markup;
         private RenderCanvas canvas;
         private Graphics graphics;
@@ -40,6 +40,9 @@ public class ParagraphRenderer {
             this.yStart = yStart;
             this.drawTop = drawTop;
             this.drawHeight = drawHeight;
+            
+            graphics.setFont(canvas.getFont(Font.STYLE_PLAIN));
+            
             new MarkupParser(markup).parse(this);
         }
         
@@ -48,7 +51,7 @@ public class ParagraphRenderer {
             caretY = yStart;
             prevColor = -1;
             
-            font = null;
+            font = canvas.getFont(Font.STYLE_PLAIN);
         }
         
         private void handleWord(String word, int color, int fontStyle) {
@@ -90,6 +93,11 @@ public class ParagraphRenderer {
         
         public void verseNumber(String number, int fontStyle) {
             handleWord(number, 0x808080, fontStyle);
+        }
+        
+        public void lineBreak(int indentWidth) {
+            caretX = SIDE_MARGIN + indentWidth * font.charWidth(' ');
+            caretY += font.getHeight();
         }
     }
     
