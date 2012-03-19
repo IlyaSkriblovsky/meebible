@@ -69,6 +69,7 @@ public class RenderCanvas extends Canvas implements CommandListener {
     
     protected void sizeChanged(int w, int h) {
         createOffscreen();
+        chapRenderer.resetLayout();
         forceRepaint();
     }
 
@@ -88,7 +89,7 @@ public class RenderCanvas extends Canvas implements CommandListener {
 
         resetFonts();
         
-        chapRenderer.onFontSizeChanged();
+        chapRenderer.resetLayout();
         forceRepaint();
     }
     
@@ -208,6 +209,9 @@ public class RenderCanvas extends Canvas implements CommandListener {
                 setFullScreenMode(fullscreen);
                 break;
             }
+                
+            default:
+                System.out.println("KeyCode=" + keyCode + " GameAction=" + getGameAction(keyCode));
         }
     }
     
@@ -281,9 +285,9 @@ public class RenderCanvas extends Canvas implements CommandListener {
                 "&trans=" + transCode + "&book=" + books[bookNo].code +
                 "&chapter=" + chapterNo;
         System.out.println(url);
-        
+
         final LoadingSplash splash = new LoadingSplash("Loading chapter...");
-        
+
         Loader.load(url, new LoadListener() {
             public void finished(String content) {
                 String title = "^B^U" + books[bookNo].name + " " + chapterNo + "^b^u|";
@@ -293,13 +297,13 @@ public class RenderCanvas extends Canvas implements CommandListener {
 
             public void error() {
                 splash.close(RenderCanvas.this);
-                throw new UnsupportedOperationException("Not supported yet.");
+                throw new RuntimeException("Not supported yet.");
             }
         });
     }
-    
-    
-    
+
+
+
     public final void loadSettings() {
         RecordStore settings = null;
         try {
@@ -333,7 +337,7 @@ public class RenderCanvas extends Canvas implements CommandListener {
         RecordStore lastChapter = null;
         try {
             lastChapter = RecordStore.openRecordStore("lastChapter", false);
-            content = new String(lastChapter.getRecord(1));
+            content = new String(lastChapter.getRecord(1), "UTF-8");
         }
         catch (Exception e) { e.printStackTrace(); content = ""; }
         finally {
@@ -399,7 +403,7 @@ public class RenderCanvas extends Canvas implements CommandListener {
         RecordStore lastChapter = null;
         try {
             lastChapter = RecordStore.openRecordStore("lastChapter", true);
-            byte[] b_content = content.getBytes();
+            byte[] b_content = content.getBytes("UTF-8");
             lastChapter.addRecord(b_content, 0, b_content.length);
         }
         catch (Exception e) { e.printStackTrace(); }

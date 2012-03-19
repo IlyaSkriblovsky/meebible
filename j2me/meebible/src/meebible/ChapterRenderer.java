@@ -83,7 +83,7 @@ public class ChapterRenderer {
 //    }
     
     
-    public void onFontSizeChanged() {
+    public void resetLayout() {
         for (int i = 0; i < pars.length; i++)
             pars[i].resetHeight();
         // chapterHeight = -1;

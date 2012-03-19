@@ -94,7 +94,7 @@ public class LangTransDialog {
                     
                     public void error() {
                         // FIXME
-                        throw new UnsupportedOperationException("Not supported yet.");
+                        throw new RuntimeException("Not supported yet.");
                     }
                 });
             }
@@ -158,7 +158,7 @@ public class LangTransDialog {
 
             public void error() {
                 // FIXME
-                throw new UnsupportedOperationException("Not supported yet.");
+                throw new RuntimeException("Not supported yet.");
             }
         });
     }
