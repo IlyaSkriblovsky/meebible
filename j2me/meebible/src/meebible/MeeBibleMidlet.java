@@ -8,9 +8,9 @@ import javax.microedition.rms.RecordStoreException;
 import javax.microedition.rms.RecordStoreFullException;
 import javax.microedition.rms.RecordStoreNotFoundException;
 
-public class RenderMidlet extends MIDlet {
+public class MeeBibleMidlet extends MIDlet {
     
-    static RenderMidlet instance = null;
+    static MeeBibleMidlet instance = null;
     
     public void startApp() {
         instance = this;

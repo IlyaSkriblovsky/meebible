@@ -32,7 +32,7 @@ public class LangTransDialog {
         public void commandAction(Command c, Displayable d) {
             if (c == cmdSelect) {
                 Language lang = (Language)languages.elementAt(getSelectedIndex());
-                RenderMidlet.instance.show(new TranslationList(this, lang));
+                MeeBibleMidlet.instance.show(new TranslationList(this, lang));
             }
             else if (c == cmdBack)
                 listener.cancelled();
@@ -63,7 +63,7 @@ public class LangTransDialog {
         
         public void commandAction(Command c, Displayable d) {
             if (c == cmdBack)
-                RenderMidlet.instance.show(langList);
+                MeeBibleMidlet.instance.show(langList);
             else if (c == cmdSelect) {
                 final Translation trans = (Translation)lang.translations.elementAt(getSelectedIndex());
                 

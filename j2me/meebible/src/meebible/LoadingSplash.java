@@ -10,11 +10,11 @@ public class LoadingSplash extends Form {
         super(text);
         append(new Gauge("Please wait...", false, Gauge.INDEFINITE, Gauge.CONTINUOUS_RUNNING));
         
-        RenderMidlet.instance.show(this);
+        MeeBibleMidlet.instance.show(this);
     }
     
     void close(Displayable d) {
-        RenderMidlet.instance.show(d);
+        MeeBibleMidlet.instance.show(d);
     }
     
 }

@@ -4,11 +4,11 @@ import javax.microedition.lcdui.*;
 
 public class SplashForm extends Form implements CommandListener {
 
-    RenderMidlet midlet;
+    MeeBibleMidlet midlet;
     
     Command cmdOK;
     
-    SplashForm(RenderMidlet midlet) {
+    SplashForm(MeeBibleMidlet midlet) {
         super("Render test");
         
         append(new StringItem("MIDlet started", ""));

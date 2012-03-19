@@ -4,12 +4,12 @@ import javax.microedition.lcdui.*;
 
 public class FontSelector extends List implements CommandListener {
     
-    RenderMidlet midlet;
+    MeeBibleMidlet midlet;
     
     Command cmdCancel;
     Command cmdSelect;
     
-    FontSelector(RenderMidlet midlet) {
+    FontSelector(MeeBibleMidlet midlet) {
         super("Font size", List.IMPLICIT, new String[] { "Small", "Medium", "Large" }, null);
 
         this.midlet = midlet;

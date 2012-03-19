@@ -21,7 +21,7 @@ public class RenderCanvas extends Canvas implements CommandListener {
 
     
     
-    RenderMidlet midlet;
+    MeeBibleMidlet midlet;
     
     ChapterRenderer chapRenderer;
     
@@ -42,7 +42,7 @@ public class RenderCanvas extends Canvas implements CommandListener {
     Command cmdLangTrans = new Command("Lang & Trans", Command.SCREEN, 3);
     Command cmdExit = new Command("Exit", Command.EXIT, 5);
     
-    RenderCanvas(RenderMidlet midlet) {
+    RenderCanvas(MeeBibleMidlet midlet) {
         this.midlet = midlet;
         
         offscreen = Image.createImage(getWidth(), getHeight());
