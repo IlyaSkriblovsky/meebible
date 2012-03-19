@@ -3,6 +3,10 @@ package rendertest;
 import javax.microedition.lcdui.Display;
 import javax.microedition.lcdui.Displayable;
 import javax.microedition.midlet.MIDlet;
+import javax.microedition.rms.RecordStore;
+import javax.microedition.rms.RecordStoreException;
+import javax.microedition.rms.RecordStoreFullException;
+import javax.microedition.rms.RecordStoreNotFoundException;
 
 public class RenderMidlet extends MIDlet {
     
@@ -21,6 +25,7 @@ public class RenderMidlet extends MIDlet {
     }
     
     public void destroyApp(boolean unconditional) {
+        getCanvas().saveSettings();
         notifyDestroyed();
     }
     
