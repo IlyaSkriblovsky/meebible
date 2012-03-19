@@ -32,17 +32,17 @@ public class FontSelector extends List implements CommandListener {
     
     public void setFontSize(int fontSize) {
         switch (fontSize) {
-            case RenderCanvas.FontSize.SMALL:  setSelectedIndex(0, true); break;
-            case RenderCanvas.FontSize.LARGE:  setSelectedIndex(2, true); break;
+            case Font.SIZE_SMALL:  setSelectedIndex(0, true); break;
+            case Font.SIZE_LARGE:  setSelectedIndex(2, true); break;
             default: setSelectedIndex(1, true); break;
         }
     }
     
     public int getFontSize() {
         switch (getSelectedIndex()) {
-            case 0:  return RenderCanvas.FontSize.SMALL;
-            case 2:  return RenderCanvas.FontSize.LARGE;
-            default: return RenderCanvas.FontSize.MEDIUM;
+            case 0:  return Font.SIZE_SMALL;
+            case 2:  return Font.SIZE_LARGE;
+            default: return Font.SIZE_MEDIUM;
         }
     }
 }

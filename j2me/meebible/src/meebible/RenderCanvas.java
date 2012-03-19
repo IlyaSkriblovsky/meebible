@@ -12,24 +12,17 @@ import javax.microedition.rms.RecordStoreNotOpenException;
 
 public class RenderCanvas extends Canvas implements CommandListener {
     
-    public class FontSize {
-        public static final int SMALL = 10;
-        public static final int MEDIUM = 20;
-        public static final int LARGE = 30;
-    }
-    
-
-    
-    
     MeeBibleMidlet midlet;
     
     ChapterRenderer chapRenderer;
     
     int yOffset = 0;
     
+    final Book[] hardcodedBooks = { new Book("ge", "Genesis", 50), new Book("ex", "Exodus", 40), new Book("le", "Leviticus", 27), new Book("nu", "Numbers", 36), new Book("de", "Deuteronomy", 34), new Book("jos", "Joshua", 24), new Book("jg", "Judges", 21), new Book("ru", "Ruth", 4), new Book("1sa", "1 Samuel", 31), new Book("2sa", "2 Samuel", 24), new Book("1ki", "1 Kings", 22), new Book("2ki", "2 Kings", 25), new Book("1ch", "1 Chronicles", 29), new Book("2ch", "2 Chronicles", 36), new Book("ezr", "Ezra", 10), new Book("ne", "Nehemiah", 13), new Book("es", "Esther", 10), new Book("job", "Job", 42), new Book("ps", "Psalms", 150), new Book("pr", "Proverbs", 31), new Book("ec", "Ecclesiastes", 12), new Book("ca", "Song of Solomon", 8), new Book("isa", "Isaiah", 66), new Book("jer", "Jeremiah", 52), new Book("la", "Lamentations", 5), new Book("eze", "Ezekiel", 48), new Book("da", "Daniel", 12), new Book("ho", "Hosea", 14), new Book("joe", "Joel", 3), new Book("am", "Amos", 9), new Book("ob", "Obadiah", 1), new Book("jon", "Jonah", 4), new Book("mic", "Micah", 7), new Book("na", "Nahum", 3), new Book("hab", "Habakkuk", 3), new Book("zep", "Zephaniah", 3), new Book("hag", "Haggai", 2), new Book("zec", "Zechariah", 14), new Book("mal", "Malachi", 4), new Book("mt", "Matthew", 28), new Book("mr", "Mark", 16), new Book("lu", "Luke", 24), new Book("joh", "John", 21), new Book("ac", "Acts", 28), new Book("ro", "Romans", 16), new Book("1co", "1 Corinthians", 16), new Book("2co", "2 Corinthians", 13), new Book("ga", "Galatians", 6), new Book("eph", "Ephesians", 6), new Book("php", "Philippians", 4), new Book("col", "Colossians", 4), new Book("1th", "1 Thessalonians", 5), new Book("2th", "2 Thessalonians", 3), new Book("1ti", "1 Timothy", 6), new Book("2ti", "2 Timothy", 4), new Book("tit", "Titus", 3), new Book("phm", "Philemon", 1), new Book("heb", "Hebrews", 13), new Book("jas", "James", 5), new Book("1pe", "1 Peter", 5), new Book("2pe", "2 Peter", 3), new Book("1jo", "1 John", 5), new Book("2jo", "2 John", 1), new Book("3jo", "3 John", 1), new Book("jude", "Jude", 1), new Book("re", "Revelation", 22) };
+
     String langCode = "e";
     String transCode = "nwt";
-    Book[] books = { new Book("ge", "Genesis"), new Book("ex", "Exodus"), new Book("le", "Leviticus"), new Book("nu", "Numbers"), new Book("de", "Deuteronomy"), new Book("jos", "Joshua"), new Book("jg", "Judges"), new Book("ru", "Ruth"), new Book("1sa", "1 Samuel"), new Book("2sa", "2 Samuel"), new Book("1ki", "1 Kings"), new Book("2ki", "2 Kings"), new Book("1ch", "1 Chronicles"), new Book("2ch", "2 Chronicles"), new Book("ezr", "Ezra"), new Book("ne", "Nehemiah"), new Book("es", "Esther"), new Book("job", "Job"), new Book("ps", "Psalms"), new Book("pr", "Proverbs"), new Book("ec", "Ecclesiastes"), new Book("ca", "Song of Solomon"), new Book("isa", "Isaiah"), new Book("jer", "Jeremiah"), new Book("la", "Lamentations"), new Book("eze", "Ezekiel"), new Book("da", "Daniel"), new Book("ho", "Hosea"), new Book("joe", "Joel"), new Book("am", "Amos"), new Book("ob", "Obadiah"), new Book("jon", "Jonah"), new Book("mic", "Micah"), new Book("na", "Nahum"), new Book("hab", "Habakkuk"), new Book("zep", "Zephaniah"), new Book("hag", "Haggai"), new Book("zec", "Zechariah"), new Book("mal", "Malachi"), new Book("mt", "Matthew"), new Book("mr", "Mark"), new Book("lu", "Luke"), new Book("joh", "John"), new Book("ac", "Acts"), new Book("ro", "Romans"), new Book("1co", "1 Corinthians"), new Book("2co", "2 Corinthians"), new Book("ga", "Galatians"), new Book("eph", "Ephesians"), new Book("php", "Philippians"), new Book("col", "Colossians"), new Book("1th", "1 Thessalonians"), new Book("2th", "2 Thessalonians"), new Book("1ti", "1 Timothy"), new Book("2ti", "2 Timothy"), new Book("tit", "Titus"), new Book("phm", "Philemon"), new Book("heb", "Hebrews"), new Book("jas", "James"), new Book("1pe", "1 Peter"), new Book("2pe", "2 Peter"), new Book("1jo", "1 John"), new Book("2jo", "2 John"), new Book("3jo", "3 John"), new Book("jude", "Jude"), new Book("re", "Revelation") };
+    Book[] books = hardcodedBooks;
     int bookNo = 0;
     int chapterNo = 1;
     String content = "";
@@ -37,9 +30,10 @@ public class RenderCanvas extends Canvas implements CommandListener {
     Image offscreen;
     Graphics og;
 
-    Command cmdPlace = new Command("Open place", Command.SCREEN, 1);
-    Command cmdFontSize = new Command("Font size", Command.SCREEN, 2);
-    Command cmdLangTrans = new Command("Lang & Trans", Command.SCREEN, 3);
+    Command cmdNextChapter = new Command("Next", Command.SCREEN, 1);
+    Command cmdPlace = new Command("Open place", Command.SCREEN, 2);
+    Command cmdFontSize = new Command("Font size", Command.SCREEN, 3);
+    Command cmdLangTrans = new Command("Lang & Trans", Command.SCREEN, 4);
     Command cmdExit = new Command("Exit", Command.EXIT, 5);
     
     RenderCanvas(MeeBibleMidlet midlet) {
@@ -52,6 +46,7 @@ public class RenderCanvas extends Canvas implements CommandListener {
         
         setCommandListener(this);
         
+        addCommand(cmdNextChapter);
         addCommand(cmdPlace);
         addCommand(cmdFontSize);
         addCommand(cmdLangTrans);
@@ -62,14 +57,13 @@ public class RenderCanvas extends Canvas implements CommandListener {
         if (content.length() > 0)
             showContent(content, yOffset);
         else
-            loadChapter(books[bookNo], chapterNo, 1, yOffset);
+            loadChapter(bookNo, chapterNo, 1, yOffset);
     }
     
-        
-    private Font font;
+
     
     
-    private int fontSize = FontSize.MEDIUM;
+    private int fontSize = Font.SIZE_MEDIUM;
     public int getFontSize() { return fontSize; }
     public final void setFontSize(int fontSize) {
         this.fontSize = fontSize;
@@ -79,14 +73,11 @@ public class RenderCanvas extends Canvas implements CommandListener {
         chapRenderer.onFontSizeChanged();
         forceRepaint();
     }
+
+    private Font font;
     public Font getFont() {
         if (font == null) {
-            int lcduiFontSize = Font.SIZE_MEDIUM;
-            switch (fontSize) {
-                case FontSize.SMALL: lcduiFontSize = Font.SIZE_SMALL; break;
-                case FontSize.LARGE: lcduiFontSize = Font.SIZE_LARGE; break;
-            }
-            font = Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, lcduiFontSize);
+            font = Font.getFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, fontSize);
         }
         return font;
     }
@@ -185,19 +176,19 @@ public class RenderCanvas extends Canvas implements CommandListener {
     protected void keyRepeated(int keyCode) { handleKey(keyCode); }
     
     
-    public void commandAction(Command command, Displayable displayable) {
-        if (command == cmdFontSize)
+    public void commandAction(Command c, Displayable d) {
+        if (c == cmdFontSize)
             midlet.showFontSelector();
-        else if (command == cmdExit)
+        else if (c == cmdExit)
             midlet.destroyApp(false);
-        else if (command == cmdLangTrans) {
+        else if (c == cmdLangTrans) {
             midlet.getLangTransDialog().open(new LangTransDialog.Listener() {
                 public void selected(String langCode, String transCode, Book[] books) {
                     RenderCanvas.this.langCode = langCode;
                     RenderCanvas.this.transCode = transCode;
                     RenderCanvas.this.books = books;
                     midlet.show(RenderCanvas.this);
-                    loadChapter(books[bookNo], chapterNo, 1);
+                    loadChapter(bookNo, chapterNo, 1);
                 }
                 
                 public void cancelled() {
@@ -205,16 +196,17 @@ public class RenderCanvas extends Canvas implements CommandListener {
                 }
             });
         }
-        else if (command == cmdPlace) {
-            midlet.show(new PlaceSelector(books, new PlaceSelector.Listener() {
-                public void selected(Book book, int chapterNo, int verseNo) {
-                    System.out.println("SELECTED: " + book.code + " " + chapterNo + ":" + verseNo);
-                    loadChapter(book, chapterNo, verseNo);
+        else if (c == cmdPlace) {
+            midlet.show(new PlaceSelector(books, bookNo, new PlaceSelector.Listener() {
+                public void selected(int bookNo, int chapterNo, int verseNo) {
+                    loadChapter(bookNo, chapterNo, verseNo);
                 }
 
                 public void cancelled() { midlet.show(RenderCanvas.this); }
             }));
         }
+        else if (c == cmdNextChapter)
+            nextChapter();
     }
     
     
@@ -239,20 +231,15 @@ public class RenderCanvas extends Canvas implements CommandListener {
     }
     
     
-    public final void loadChapter(Book book, int chapterNo, int verseNo) {
-        loadChapter(book, chapterNo, verseNo, 0);
+    public final void loadChapter(int bookNo, int chapterNo, int verseNo) {
+        loadChapter(bookNo, chapterNo, verseNo, 0);
     }
-    public final void loadChapter(Book book, int chapterNo, int verseNo, final int initialYOffset) {
+    public final void loadChapter(final int bookNo, final int chapterNo, int verseNo, final int initialYOffset) {
         this.chapterNo = chapterNo;
-        bookNo = 0;
-        for (int i = 0; i < books.length; i++)
-            if (books[i] == book) {
-                bookNo = i;
-                break;
-            }
-        
+        this.bookNo = bookNo;
+
         String url = "http://meebible.org/chapter.j2me?lang=" + langCode +
-                "&trans=" + transCode + "&book=" + book.code +
+                "&trans=" + transCode + "&book=" + books[bookNo].code +
                 "&chapter=" + chapterNo;
         System.out.println(url);
         
@@ -260,7 +247,8 @@ public class RenderCanvas extends Canvas implements CommandListener {
         
         Loader.load(url, new LoadListener() {
             public void finished(String content) {
-                RenderCanvas.this.showContent(content, initialYOffset);
+                String title = books[bookNo].name + " " + chapterNo + "|";
+                RenderCanvas.this.showContent(title + content, initialYOffset);
                 splash.close(RenderCanvas.this);
             }
 
@@ -275,87 +263,139 @@ public class RenderCanvas extends Canvas implements CommandListener {
     
     public final void loadSettings() {
         RecordStore settings = null;
-        RecordStore lastChapter = null;
         try {
             settings = RecordStore.openRecordStore("settings", false);
-            
-            langCode = new String(settings.getRecord(1));
-            transCode = new String(settings.getRecord(2));
-            bookNo = settings.getRecord(3)[0];
-            chapterNo = settings.getRecord(4)[0];
-            fontSize = settings.getRecord(5)[0];
-            yOffset = Integer.parseInt(new String(settings.getRecord(6)));
+            ByteArrayInputStream bis = new ByteArrayInputStream(settings.getRecord(1));
+            DataInputStream dis = new DataInputStream(bis);            
 
-            
-            lastChapter = RecordStore.openRecordStore("lastChapter", false);
-            try { content = new String(lastChapter.getRecord(1)); }
-            catch (Exception e) { content = ""; }
+            langCode = dis.readUTF();
+            transCode = dis.readUTF();
+            bookNo = dis.readInt();
+            chapterNo = dis.readInt();
+            fontSize = dis.readInt();
+            yOffset = dis.readInt();
         }
-        catch (RecordStoreException e) {
-            e.printStackTrace();
+        catch (Exception e) {
+            e.printStackTrace(); 
+            langCode = "e";
+            transCode = "nwt";
+            bookNo = 0;
+            chapterNo = 1;
+            fontSize = Font.SIZE_MEDIUM;
+            yOffset = 0;
         }
         finally {
-            try {
-                if (settings != null) settings.closeRecordStore();
-                if (lastChapter != null) lastChapter.closeRecordStore();
-            } catch (RecordStoreException ex) {
-                ex.printStackTrace();
+            try { if (settings != null) settings.closeRecordStore(); }
+            catch (RecordStoreException e) { }
+        }
+
+
+        RecordStore lastChapter = null;
+        try {
+            lastChapter = RecordStore.openRecordStore("lastChapter", false);
+            content = new String(lastChapter.getRecord(1));
+        }
+        catch (Exception e) { e.printStackTrace(); content = ""; }
+        finally {
+            try { if (lastChapter != null) lastChapter.closeRecordStore(); }
+            catch (RecordStoreException e) { }
+        }
+
+        
+        RecordStore bookList = null;
+        try {
+            bookList = RecordStore.openRecordStore("bookList", false);
+            books = new Book[bookList.getNumRecords()];
+            for (int i = 0; i < books.length; i++) {
+                ByteArrayInputStream bis = new ByteArrayInputStream(bookList.getRecord(i+1));
+                DataInputStream dis = new DataInputStream(bis);
+                String code = dis.readUTF();
+                String name = dis.readUTF();
+                int chapterCount = dis.readInt();
+                books[i] = new Book(code, name, chapterCount);
             }
+        }
+        catch (Exception e) {
+            e.printStackTrace(); 
+            books = hardcodedBooks;
+        }
+        finally {
+            try { if (bookList != null) bookList.closeRecordStore(); }
+            catch (RecordStoreException e) { }
         }
     }
     
     
     public void saveSettings() {
+        try {
+            RecordStore.deleteRecordStore("settings");
+            RecordStore.deleteRecordStore("lastChapter");
+            RecordStore.deleteRecordStore("bookList");
+        }
+        catch (RecordStoreException e) { }
+
         RecordStore settings = null;
+        try {
+            settings = RecordStore.openRecordStore("settings", true);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            DataOutputStream dos = new DataOutputStream(bos);
+            dos.writeUTF(langCode);
+            dos.writeUTF(transCode);
+            dos.writeInt(bookNo);
+            dos.writeInt(chapterNo);
+            dos.writeInt(fontSize);
+            dos.writeInt(yOffset);
+            dos.close();
+            byte[] bytes = bos.toByteArray();
+            settings.addRecord(bytes, 0, bytes.length);
+        }
+        catch (Exception e) { e.printStackTrace(); }
+        finally {
+            try { if (settings != null) settings.closeRecordStore(); }
+            catch (RecordStoreException e) { }
+        }
+
         RecordStore lastChapter = null;
         try {
-            try {
-                RecordStore.deleteRecordStore("settings");
-                RecordStore.deleteRecordStore("lastChapter");
-            }
-            catch (RecordStoreNotFoundException e) { }
-            
-            settings = RecordStore.openRecordStore("settings", true);
-            
-            // 1
-            byte[] b_langCode = langCode.getBytes();
-            settings.addRecord(b_langCode, 0, b_langCode.length);
-            
-            // 2
-            byte[] b_transCode = transCode.getBytes();
-            settings.addRecord(b_transCode, 0, b_transCode.length);
-            
-            // 3
-            byte[] b_bookNo = new byte[] { (byte)bookNo };
-            settings.addRecord(b_bookNo, 0, b_bookNo.length);
-            
-            // 4
-            byte[] b_chapterNo = new byte[] { (byte)chapterNo };
-            settings.addRecord(b_chapterNo, 0, b_chapterNo.length);
-            
-            // 5
-            byte[] b_fontSize = new byte[] { (byte)getFontSize() };
-            settings.addRecord(b_fontSize, 0, b_fontSize.length);
-            
-            // 6
-            byte[] b_yOffset = new Integer(yOffset).toString().getBytes();
-            settings.addRecord(b_yOffset, 0, b_yOffset.length);
-            
-            
             lastChapter = RecordStore.openRecordStore("lastChapter", true);
             byte[] b_content = content.getBytes();
             lastChapter.addRecord(b_content, 0, b_content.length);
         }
-        catch (RecordStoreException e) {
-            e.printStackTrace();
-        }
+        catch (Exception e) { e.printStackTrace(); }
         finally {
-            try {
-                if (settings != null) settings.closeRecordStore();
-                if (lastChapter != null) lastChapter.closeRecordStore();
-            } catch (RecordStoreException ex) {
-                ex.printStackTrace();
+            try { if (lastChapter != null) lastChapter.closeRecordStore(); }
+            catch (RecordStoreException e) { }
+        }
+
+
+        RecordStore bookList = null;
+        try {
+            bookList = RecordStore.openRecordStore("bookList", true);
+            for (int i = 0; i < books.length; i++) {
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                DataOutputStream dos = new DataOutputStream(bos);
+                dos.writeUTF(books[i].code);
+                dos.writeUTF(books[i].name);
+                dos.writeInt(books[i].chapterCount);
+                dos.close();
+                byte[] bytes = bos.toByteArray();
+                bookList.addRecord(bytes, 0, bytes.length);
             }
         }
+        catch (Exception e) { e.printStackTrace(); }
+        finally {
+            try { if (bookList != null) bookList.closeRecordStore(); }
+            catch (RecordStoreException e) { }
+        }
+    }
+    
+    
+    
+    void nextChapter() {
+        if (chapterNo < books[bookNo].chapterCount)
+            loadChapter(bookNo, chapterNo + 1, 1);
+        else
+            if (bookNo +1 < books.length)
+                loadChapter(bookNo+1, 1, 1);
     }
 }

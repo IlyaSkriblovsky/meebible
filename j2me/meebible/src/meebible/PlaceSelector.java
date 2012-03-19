@@ -5,7 +5,7 @@ import javax.microedition.lcdui.*;
 public class PlaceSelector extends Form implements CommandListener {
 
     static interface Listener {
-        void selected(Book book, int chapterNo, int verseNo);
+        void selected(int bookNo, int chapterNo, int verseNo);
         void cancelled();
     }
 
@@ -19,7 +19,7 @@ public class PlaceSelector extends Form implements CommandListener {
     Command cmdBack = new Command("Back", Command.BACK, 1);
     Command cmdOk = new Command("Open", Command.OK, 1);
 
-    PlaceSelector(Book[] books, Listener listener) {
+    PlaceSelector(Book[] books, int selectedBook, Listener listener) {
         super("Select place");
         
         this.books = books;
@@ -27,6 +27,7 @@ public class PlaceSelector extends Form implements CommandListener {
         
         for (int i = 0; i < books.length; i++)
             bookChoice.append(books[i].name, null);
+        bookChoice.setSelectedIndex(selectedBook, true);
         
         append(bookChoice);
         append(chapterField);
@@ -47,7 +48,7 @@ public class PlaceSelector extends Form implements CommandListener {
             try { verseNo = Integer.parseInt(verseField.getString()); }
             catch (NumberFormatException e) { }
 
-            listener.selected(books[bookChoice.getSelectedIndex()], chapterNo, verseNo);
+            listener.selected(bookChoice.getSelectedIndex(), chapterNo, verseNo);
         }
     }
     
