@@ -33,7 +33,7 @@ symbian {
     unicomponents.path = qml/unicomponents
     DEPLOYMENT += unicomponents
 } else {
-    QML_IMPORT_QTCOMPONENTS = "import com.nokia.meego 1.0"
+    QML_IMPORT_QTCOMPONENTS = "import com.meego 1.0"
 
     qml.files = $$BUILDDIR/qml/*.qml qml/*.png
     qml.path = $$INSTALLDIR/qml

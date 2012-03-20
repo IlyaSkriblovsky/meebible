@@ -1,4 +1,4 @@
-import Qt 4.7
+import QtQuick 1.1
 
 // for EditBubbleButton
 import "/usr/lib/qt4/imports/com/nokia/meego/" 1.1

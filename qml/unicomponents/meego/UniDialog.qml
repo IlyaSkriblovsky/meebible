@@ -1,5 +1,5 @@
-import Qt 4.7
-import com.nokia.meego 1.1
+import QtQuick 1.1
+import com.meego 1.0
 
 Dialog {
     id: dialog
