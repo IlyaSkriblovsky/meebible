@@ -11,7 +11,7 @@
         <h1>MeeBible</h1>
 
         <p>
-            The multilingual Bible reader for Nokia N9 smartphone.
+            <i>The multilingual Bible reader for Symbian^3 and MeeGo smartphones</i>
         </p>
 
         <div id="phone">
@@ -23,6 +23,9 @@
                 <div class="screen" id="screen-5"></div>
             </div>
         </div>
+
+        <h2>Blog</h2>
+            Official MeeBible blog: <a href="http://blog.meebible.org">blog.meebible.org</a>
 
         <h2>About</h2>
 
@@ -41,6 +44,7 @@
                 <li>Latvian Revised Bible</li>
                 <li>Arabic Smith &amp; Van Dyke Version</li>
                 <li>Svenska Folkbibeln (Swedish People's Bible)</li>
+                <li>Bulgarian “Протестантски (1940)”</li>
             </ul>
         </p>
 
@@ -51,41 +55,41 @@
 
         <h2>Download from Nokia Store</h2>
 
-        <p>
-            <div class="store-links">
-                <table>
-                    <tr>
-                        <td class="variant">
-                            <a href="http://store.ovi.com/content/218744">
-                                <img src="/static/img/meebible-free.png"/>
-                                <div class="title">MeeBible Free</div>
-                            </a>
-                            <div class="desc">Fully-functional free version</div>
-                        </td>
-                        <td class="divider">
-                            &larr; or &rarr;
-                        </td>
-                        <td class="variant">
-                            <a href="http://store.ovi.com/content/215454">
-                                <img src="/static/img/meebible.png"/>
-                                <div class="title">MeeBible</div>
-                            </a>
-                            <div class="desc">Donate &euro;5 for further development</div>
-                        </td>
-                    </tr>
-                </table>
+        <h3>Symbian^3</h3>
+
+        <div class="indent">
+            <div class="store-link">
+                <a href="http://store.ovi.com/content/262401"><img src="/static/img/meebible-small.png"/></a>
+                <a href="http://store.ovi.com/content/262401"><span class="title">MeeBible for Symbian^3</span></a>
             </div>
-        </p>
+        </div>
+
+        <h3>MeeGo</h3>
+
+        <div class="indent">
+            Fully-functional free version:
+            <div class="store-link indent-left">
+                <a href="http://store.ovi.com/content/218744"><img src="/static/img/meebible-free-small.png"/></a>
+                <a href="http://store.ovi.com/content/218744"><span class="title">MeeBible Free</span></a>
+            </div>
+        </div>
+        <div class="indent">
+            Donate €5 for further development:
+            <div class="store-link indent-left">
+                <a href="http://store.ovi.com/content/215454"><img src="/static/img/meebible-small.png"/></a>
+                <a href="http://store.ovi.com/content/215454"><span class="title">MeeBible</span></a>
+            </div>
+        </div>
 
 
         <h2>Source code</h2>
 
         <p>
-            Full source code and bagtracking are available at <a href="https://projects.developer.nokia.com/meebible">MeeBible's page on Nokia Developer</a>.
+            Full source code and bug tracking at <a href="https://projects.developer.nokia.com/meebible">MeeBible's page on Nokia Developer</a>.
         </p>
 
         <p>
-            You may also fork me on <a href="https://bitbucket.org/IlyaSkriblovsky/meebible">BitBucket</a>.
+            Alternative source hosting on <a href="https://bitbucket.org/IlyaSkriblovsky/meebible">BitBucket</a>.
         </p>
 
         <h2>Support</h2>
