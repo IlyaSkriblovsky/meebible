@@ -28,7 +28,7 @@ INSERT INTO translations VALUES ('bbg', '', 'Протестантски 1940', '
 
 INSERT INTO translations VALUES ('rvr', '', 'Reina Valera 1960', 'http://www.biblia12.com', '© 1980 Sociedades Bíblicas Unidas', 0);
 
-INSERT INTO translations VALUES ('frs', '', 'Bible Segond 1910', 'http://bibleonline.ru/bible/fra/', '', 0);
+INSERT INTO translations VALUES ('frs', '', 'Louis Segond', 'http://bibleonline.ru/bible/fra/', '', 0);
 
 COMMIT;
 
@@ -61,7 +61,7 @@ INSERT INTO translationLangs VALUES ('bbg', 'bl', 'Протестантски (1
 
 INSERT INTO translationLangs VALUES ('rvr', 's', 'Reina Valera 1960');
 
-INSERT INTO translationLangs VALUES ('frs', 'f', 'Bible Segond 1910');
+INSERT INTO translationLangs VALUES ('frs', 'f', 'Louis Segond');
 
 INSERT INTO translationLangs VALUES ('nwt', 'af',  'Nuwe Wêreld-vertaling');
 INSERT INTO translationLangs VALUES ('nwt', 'al',  'Përkthimi Bota e Re');
