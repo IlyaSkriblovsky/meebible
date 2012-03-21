@@ -1,8 +1,10 @@
 TRANSLATIONS += \
-    translations/meebible_ru.ts
+    translations/meebible_ru.ts \
+    translations/meebible_es.ts
 
 COMPILEDTRANSLATIONS = \
-    translations/meebible_ru.qm
+    translations/meebible_ru.qm \
+    translations/meebible_es.qm
 
 symbian {
     translations.sources = $$COMPILEDTRANSLATIONS

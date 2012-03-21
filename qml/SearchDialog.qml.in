@@ -216,7 +216,12 @@ Sheet {
             anchors.fill: parent
 
             Label {
-                anchors.centerIn: parent
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: parent.left
+                anchors.right: parent.right
+
+                wrapMode: Text.Wrap
+                horizontalAlignment: Text.AlignHCenter
 
                 text: qsTr(\"Nothing found\")
                 color: settings.inverted ? \'#444\' : \'#888\'
