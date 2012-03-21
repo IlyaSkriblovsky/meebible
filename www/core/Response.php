@@ -9,6 +9,7 @@ class Response {
 
     public function render() {
         header("Content-Type: $this->mime");
+        header("Content-Length: " . strlen($this->content));
         foreach ($this->headers as $header)
             header($header);
 
