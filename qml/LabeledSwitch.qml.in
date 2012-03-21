@@ -18,8 +18,12 @@ Item {
 
         anchors.left: parent.left
         anchors.leftMargin: 10
+        anchors.right: _switch.left
+        anchors.rightMargin: 10
 
         anchors.verticalCenter: parent.verticalCenter
+
+        wrapMode: Text.Wrap
 
         $$QML_SYMBIAN_THEME
     }
