@@ -39,7 +39,7 @@ for bookCode, bookUrl in izip(bookCodes, bookUrls):
         if vn != expectedVerseNo: raise Exception('Unexpected verseNo: {0} {1}:{2}'.format(bookCode, cn, vn))
         expectedVerseNo += 1
 
-        chapters[cn-1].append(rv[2].replace('&nbsp', ' ').strip())
+        chapters[cn-1].append(rv[2].replace('&nbsp;', ' ').strip())
 
 
     for c, cn in izip(chapters, count(1)):
