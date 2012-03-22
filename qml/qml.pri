@@ -23,6 +23,7 @@ QMAKE_SUBSTITUTES += \
 
 symbian {
     QML_IMPORT_QTCOMPONENTS = "import com.nokia.symbian 1.1"
+    QML_IMPORT_QTCOMPONENTS_EXTRAS = "import com.nokia.extras 1.1"
     QML_SYMBIAN_THEME = "platformInverted: !settings.inverted"
 
     qml.sources = qml/*.qml qml/*.png
@@ -34,6 +35,7 @@ symbian {
     DEPLOYMENT += unicomponents
 } else {
     QML_IMPORT_QTCOMPONENTS = "import com.meego 1.0"
+    QML_IMPORT_QTCOMPONENTS_EXTRAS = "import com.meego.extras 1.0"
 
     qml.files = $$BUILDDIR/qml/*.qml qml/*.png
     qml.path = $$INSTALLDIR/qml
