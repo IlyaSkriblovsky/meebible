@@ -59,7 +59,7 @@
     </message>
     <message>
         <source>Bookmark</source>
-        <translation>A los favoritos</translation>
+        <translation>Favoritos</translation>
     </message>
     <message>
         <source>Bookmarked</source>
@@ -143,7 +143,7 @@
     </message>
     <message>
         <source>Line spacing</source>
-        <translation>Espaciado entre lineas</translation>
+        <translation>Espaciado</translation>
     </message>
     <message>
         <source>Download Bible</source>
@@ -369,7 +369,7 @@ Nuevas traducciones
     </message>
     <message>
         <source>Update translation list</source>
-        <translation>Actualizar lista de traducciones</translation>
+        <translation>Actualizar traducciones</translation>
     </message>
     <message>
         <source>Reload languages</source>
