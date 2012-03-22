@@ -172,6 +172,10 @@
         <source>Delete</source>
         <translation>Удалить</translation>
     </message>
+    <message>
+        <source>No bookmarks yet</source>
+        <translation>Закладок пока нет</translation>
+    </message>
 </context>
 <context>
     <name>FeedbackPage</name>
@@ -406,6 +410,10 @@ New translations
     <message>
         <source>Cancel</source>
         <translation>Отмена</translation>
+    </message>
+    <message>
+        <source>Available at</source>
+        <translation>Доступно на</translation>
     </message>
 </context>
 <context>

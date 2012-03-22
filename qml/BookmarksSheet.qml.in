@@ -46,7 +46,23 @@ UniSheet {
             }
         }
         ScrollDecorator { flickableItem: list }
+
+
+        Label {
+            visible: list.count == 0
+
+            anchors.fill: parent
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            wrapMode: Text.Wrap
+
+            text: qsTr(\'No bookmarks yet\')
+            color: settings.inverted ? \'#444\' : \'#888\'
+            font.pixelSize: 60
+            font.family: \'Nokia Pure Text Light\'
+        }
     }
+
 
 
     property int _pressAndHoldIndex: -1

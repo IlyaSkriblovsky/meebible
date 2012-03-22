@@ -172,6 +172,10 @@
         <source>Delete</source>
         <translation>Borrar</translation>
     </message>
+    <message>
+        <source>No bookmarks yet</source>
+        <translation>?? No bookmarks yet</translation>
+    </message>
 </context>
 <context>
     <name>FeedbackPage</name>
@@ -406,6 +410,10 @@ Nuevas traducciones
     <message>
         <source>Cancel</source>
         <translation>Cancelar</translation>
+    </message>
+    <message>
+        <source>Available at</source>
+        <translation>?? Available at</translation>
     </message>
 </context>
 <context>

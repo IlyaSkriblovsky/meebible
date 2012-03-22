@@ -83,7 +83,7 @@ Page {
 
                         text: settings.translation ?
                             \'<html><style>a{color:\' + (settings.inverted ? \'#8080ff\' : \'#0000ff\') + \'}</style>\' +
-                            \'Available at <a href=\"\' + settings.translation.sourceUrl + \'\">\' + settings.translation.sourceUrl + \'</a>\' +
+                            qsTr(\'Available at\') + \' <a href=\"\' + settings.translation.sourceUrl + \'\">\' + settings.translation.sourceUrl + \'</a>\' +
                             \'</html>\' : \'\'
                         font.pixelSize: 20
 
