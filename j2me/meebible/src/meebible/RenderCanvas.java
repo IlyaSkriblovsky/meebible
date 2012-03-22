@@ -234,7 +234,7 @@ public class RenderCanvas extends Canvas implements CommandListener {
                     RenderCanvas.this.transCode = transCode;
                     RenderCanvas.this.books = books;
                     midlet.show(RenderCanvas.this);
-                    loadChapter(bookNo, chapterNo, verseNo);
+                    loadChapter(bookNo, chapterNo, verseNo, true);
                 }
                 
                 public void cancelled() {
@@ -299,7 +299,10 @@ public class RenderCanvas extends Canvas implements CommandListener {
     
     
     public final void loadChapter(final int bookNo, final int chapterNo, final int verseNo) {
-        if (content.length() > 0 && bookNo == this.bookNo && chapterNo == this.chapterNo) {
+        loadChapter(bookNo, chapterNo, verseNo, false);
+    }
+    public final void loadChapter(final int bookNo, final int chapterNo, final int verseNo, boolean forceReload) {
+        if (!forceReload && content.length() > 0 && bookNo == this.bookNo && chapterNo == this.chapterNo) {
             showContent(content, verseNo);
             return;
         }
