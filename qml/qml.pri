@@ -19,6 +19,7 @@ QMAKE_SUBSTITUTES += \
     qml/SimpleListDelegate.qml.in   \
     qml/TranslationDialog.qml.in    \
     qml/TumblerItem.qml.in          \
+    qml/DonatePage.qml.in           \
     qml/main.qml.in
 
 symbian {

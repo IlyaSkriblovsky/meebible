@@ -1,10 +1,11 @@
 # QT += core sql network xml xmlpatterns webkit gui declarative
 QT += core sql network xml webkit gui declarative
 
-# DEFINES += DEBUG DEBUGPATHS
+# DEFINES += DEBUG
 
 nosearch:DEFINES += NOSEARCH
 noshare: DEFINES += NOSHARE
+iapdonation: DEFINES += IAPDONATION
 
 free:DEFINES += FREEVERSION
 
@@ -12,6 +13,8 @@ symbian: DEFINES += SYMBIAN
 
 
 !symbian: DEFINES += INSTALLPREFIX=\\\"$$INSTALLDIR\\\"
+
+iapdonation: CONFIG += inapppurchase
 
 
 TARGET = meebible
@@ -64,6 +67,9 @@ HEADERS +=                      \
     src/SqliteUnicodeSearch.h   \
     src/SearchThread.h
 
+iapdonation:HEADERS +=          \
+    src/IAPDonation.h
+
 SOURCES +=                      \
     src/main.cpp                \
     src/Language.cpp            \
@@ -89,3 +95,6 @@ SOURCES +=                      \
 !nosearch:SOURCES +=            \
     src/SqliteUnicodeSearch.cpp \
     src/SearchThread.cpp
+
+iapdonation:SOURCES +=          \
+    src/IAPDonation.cpp
