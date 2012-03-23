@@ -361,7 +361,10 @@ Page {
 
             anchors.top: realBusyIndicator.bottom
             anchors.topMargin: 30
-            anchors.horizontalCenter: realBusyIndicator.horizontalCenter
+            anchors.left: parent.left
+            anchors.right: parent.right
+
+            horizontalAlignment: Text.AlignHCenter
 
             font.pixelSize: 36
 

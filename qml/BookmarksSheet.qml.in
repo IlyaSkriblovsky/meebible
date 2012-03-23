@@ -58,7 +58,7 @@ UniSheet {
 
             text: qsTr(\'No bookmarks yet\')
             color: settings.inverted ? \'#444\' : \'#888\'
-            font.pixelSize: 60
+            font.pixelSize: SYMBIAN ? 48 : 60
             font.family: \'Nokia Pure Text Light\'
         }
     }
