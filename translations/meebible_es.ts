@@ -174,7 +174,7 @@
     </message>
     <message>
         <source>No bookmarks yet</source>
-        <translation>?? No bookmarks yet</translation>
+        <translation>No hay favoritos aun</translation>
     </message>
 </context>
 <context>
@@ -413,7 +413,7 @@ Nuevas traducciones
     </message>
     <message>
         <source>Available at</source>
-        <translation>?? Available at</translation>
+        <translation>Disponible en</translation>
     </message>
 </context>
 <context>
