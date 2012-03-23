@@ -1,0 +1,78 @@
+import QtQuick 1.1
+
+$$QML_IMPORT_QTCOMPONENTS
+
+import MeeBible 0.1
+import \"unicomponents\"
+
+Page {
+    id: page
+
+    property IAPDonation iapDonation: IAPDonation {}
+
+    Header {
+        id: header
+        text: qsTr(\"Donate\")
+    }
+
+    Flickable {
+        id: flickable
+
+        anchors.top: header.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+
+        clip: true
+
+        contentWidth: form.width
+        contentHeight: form.height
+
+        Column {
+            id: form
+
+            x: 20; y: 20
+            width: parent.width - 40
+
+            spacing: 20
+
+            Label {
+                text: qsTr(\"You can support further development of MeeBible by donating a small sum\")
+
+                width: parent.width
+                wrapMode: Text.Wrap
+
+                $$QML_SYMBIAN_THEME
+            }
+
+            Label {
+                text: qsTr(\"Payment will be done via your Nokia Store account\")
+
+                width: parent.width
+                wrapMode: Text.Wrap
+
+                $$QML_SYMBIAN_THEME
+            }
+
+            Repeater {
+                model: [
+                    { price: 1,  productId: \"842694\" },
+                    { price: 2,  productId: \"842695\" },
+                    { price: 3,  productId: \"842696\" },
+                    { price: 5,  productId: \"842698\" },
+                    { price: 10, productId: \"842699\" },
+                ]
+
+                Button {
+                    text: qsTr(\"Donate\") + \" €\" + modelData.price
+
+                    anchors.horizontalCenter: parent.horizontalCenter
+
+                    onClicked: iapDonation.purchase(modelData.productId)
+
+                    $$QML_SYMBIAN_THEME
+                }
+            }
+        }
+    }
+}
