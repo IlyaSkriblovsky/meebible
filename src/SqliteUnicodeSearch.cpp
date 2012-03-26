@@ -6,15 +6,20 @@
 
 #include <sqlite3.h>
 
-#include <unicode/ucol.h>
-#include <unicode/ucnv.h>
-#include <unicode/usearch.h>
+#include "UnicodeCollator.h"
+
+#ifdef SEARCH_ICU
+    #include "ICUUnicodeCollator.h"
+#endif
+#ifdef SEARCH_SIMPLE
+    #include "SimpleUnicodeCollator.h"
+#endif
 
 
 Q_DECLARE_METATYPE(sqlite3*)
 
 
-UCollator *collator = 0;
+UnicodeCollator *collator = 0;
 
 
 void unicode_like(sqlite3_context *ctx, int n, sqlite3_value **args);
@@ -26,32 +31,39 @@ void SqliteUnicodeSearch::installUnicodeSearch(const QSqlDatabase& db)
     sqlite3* sqdb = db.driver()->handle().value<sqlite3*>();
 
     if (collator != 0)
-        ucol_close(collator);
+    {
+        delete collator;
+        collator = 0;
+    }
 
-    UErrorCode err = U_ZERO_ERROR;
-    collator = ucol_open("", &err);
-    ucol_setStrength(collator, UCOL_PRIMARY);
+
+    #ifdef SEARCH_ICU
+        #define __SEARCH_COLLATOR_CREATED
+        qDebug() << "Using ICU search";
+        collator = new ICUUnicodeCollator;
+    #endif
+
+    #ifdef SEARCH_SIMPLE
+        #define __SEARCH_COLLATOR_CREATED
+        qDebug() << "Using simple search";
+        collator = new SimpleUnicodeCollator;
+    #endif
+
+    #ifndef __SEARCH_COLLATOR_CREATED
+        #error "Define search collatir by search-* qmake config options";
+    #endif
+
 
     sqlite3_create_function(
-        sqdb,
-        "unicodeMatch",
-        2,
-        SQLITE_ANY,
-        collator,
-        unicode_like,
-        0,
-        0
+        sqdb, "unicodeMatch", 2,
+        SQLITE_ANY, collator,
+        unicode_like, 0, 0
     );
 
     sqlite3_create_function(
-        sqdb,
-        "matchCount",
-        0,
-        SQLITE_ANY,
-        0,
-        matchCount,
-        0,
-        0
+        sqdb, "matchCount", 0,
+        SQLITE_ANY, 0,
+        matchCount, 0, 0
     );
 }
 
@@ -63,47 +75,23 @@ void unicode_like(sqlite3_context *ctx, int n, sqlite3_value **args)
     Q_UNUSED(n);
     Q_ASSERT(n == 2);
 
-    UErrorCode err = U_ZERO_ERROR;
+    UnicodeCollator *collator = reinterpret_cast<UnicodeCollator*>(sqlite3_user_data(ctx));
+    const char16* needle = reinterpret_cast<const char16*>(sqlite3_value_text16(args[0]));
+    const char16* haystack = reinterpret_cast<const char16*>(sqlite3_value_text16(args[1]));
 
-    UCollator *collator = (UCollator*)sqlite3_user_data(ctx);
+    int firstMatch;
+    count = collator->find(haystack, needle, &firstMatch);
 
-    UChar* needle = (UChar*)sqlite3_value_text16(args[0]);
-    UChar* haystack = (UChar*)sqlite3_value_text16(args[1]);
-
-    UStringSearch *search = usearch_openFromCollator(
-        needle,
-        -1,
-        haystack,
-        -1,
-        collator,
-        0,
-        &err
-    );
-
-
-
-    count = 0;
-
-    int pos = usearch_first(search, &err);
-    int firstpos = pos;
-
-    while (pos != USEARCH_DONE)
-    {
-        count++;
-        pos = usearch_next(search, &err);
-    }
-
-    usearch_close(search);
-
-    if (firstpos == USEARCH_DONE)
+    if (count == 0)
         sqlite3_result_null(ctx);
     else
     {
-        int begin = firstpos > 20 ? firstpos - 20 : 0;
+        int begin = firstMatch > 20 ? firstMatch - 20 : 0;
         int textlen = sqlite3_value_bytes16(args[1]) / 2;
         int len = begin + 45 <= textlen ? 45 : textlen - begin;
         sqlite3_result_text16(ctx, &haystack[begin], len * 2, 0);
     }
+
 }
 
 
@@ -118,45 +106,11 @@ void matchCount(sqlite3_context *ctx, int n, sqlite3_value **args)
 
 QString SqliteUnicodeSearch::highlightMatches(const QString& html, const QString& needle, int* matchCount)
 {
-    if (needle == "")
+    if (needle == "") {
+        *matchCount = 0;
         return html;
-
-    UErrorCode err = U_ZERO_ERROR;
-
-    UChar* needle_c = (UChar*)needle.utf16();
-    UChar* html_c = (UChar*)html.utf16();
-
-    UStringSearch *search = usearch_openFromCollator(
-        needle_c, -1,
-        html_c, -1,
-        collator,
-        0, &err
-    );
-
-
-    QString result = html;
-
-    int count = 0;
-    int pos = usearch_last(search, &err);
-
-    while (pos != USEARCH_DONE)
-    {
-        if (html.indexOf("<", pos) < html.indexOf(">", pos)) // this implies != -1
-        {
-            result.insert(pos + usearch_getMatchedLength(search), "</span>");
-            result.insert(pos, QString("<span id=\"match-%1\" class=\"match\">").arg(count + 1));
-
-            count++;
-        }
-
-        pos = usearch_previous(search, &err);
     }
 
 
-    usearch_close(search);
-
-    if (matchCount != 0)
-        *matchCount = count;
-
-    return result;
+    return collator->markMatches(html, needle, matchCount);
 }

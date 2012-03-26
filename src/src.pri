@@ -38,6 +38,28 @@ LIBS += -lsqlite3
 }
 
 
+!nosearch {
+    HEADERS +=                      \
+        src/SqliteUnicodeSearch.h   \
+        src/SearchThread.h          \
+        src/UnicodeCollator.h
+
+    SOURCES +=                      \
+        src/SqliteUnicodeSearch.cpp \
+        src/SearchThread.cpp
+}
+
+search-icu {
+    HEADERS += src/ICUUnicodeCollator.h
+    SOURCES += src/ICUUnicodeCollator.cpp
+}
+
+search-simple {
+    HEADERS += src/SimpleUnicodeCollator.h
+    SOURCES += src/SimpleUnicodeCollator.cpp
+}
+
+
 HEADERS +=                      \
     src/Language.h              \
     src/Languages.h             \
@@ -60,9 +82,6 @@ HEADERS +=                      \
     src/Bookmarks.h             \
     src/PlaceAccesser.h
 
-!nosearch:HEADERS +=            \
-    src/SqliteUnicodeSearch.h   \
-    src/SearchThread.h
 
 SOURCES +=                      \
     src/main.cpp                \
@@ -85,7 +104,3 @@ SOURCES +=                      \
     src/StartupTracker.cpp      \
     src/Bookmarks.cpp           \
     src/PlaceAccesser.cpp
-
-!nosearch:SOURCES +=            \
-    src/SqliteUnicodeSearch.cpp \
-    src/SearchThread.cpp

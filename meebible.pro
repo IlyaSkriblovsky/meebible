@@ -6,6 +6,20 @@ TEMPLATE = app
 free: INSTALLDIR = /opt/meebible-free
 
 
+search-icu {
+    message("Using ICU search")
+    DEFINES += SEARCH_ICU
+}
+else:search-simple {
+    message("Using simple search")
+    DEFINES += SEARCH_SIMPLE
+}
+else {
+    message("Search disabled")
+    CONFIG += nosearch
+}
+
+
 include(src/src.pri)
 include(share/share.pri)
 include(qml/qml.pri)
