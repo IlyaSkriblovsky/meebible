@@ -174,7 +174,7 @@
     </message>
     <message>
         <source>No bookmarks yet</source>
-        <translation>Закладок пока нет</translation>
+        <translation>Закладок ещё нет</translation>
     </message>
 </context>
 <context>
