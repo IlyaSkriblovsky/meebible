@@ -6,7 +6,7 @@ $$QML_IMPORT_QTCOMPONENTS_EXTRAS
 import MeeBible 0.1
 import \"unicomponents\"
 
-Sheet {
+UniSheet {
     id: dialog
 
 
@@ -31,19 +31,19 @@ Sheet {
     }
 
 
-    buttons: [
-        SheetButton {
-            id: close
-            text: qsTr(\"Close\")
+    headerComponents: [
+        // SheetButton {
+        //     id: close
+        //     text: qsTr(\"Close\")
 
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.right: parent.right
-            anchors.rightMargin: 10
+        //     anchors.verticalCenter: parent.verticalCenter
+        //     anchors.right: parent.right
+        //     anchors.rightMargin: 10
 
-            onClicked: dialog.reject()
-        },
+        //     onClicked: dialog.reject()
+        // },
 
-        TextField {
+        UniSearchField {
             id: field
 
             placeholderText: qsTr(\"Search...\")
@@ -52,16 +52,12 @@ Sheet {
             anchors.leftMargin: 10
             anchors.rightMargin: 10
             anchors.verticalCenter: parent.verticalCenter
-            anchors.right: close.left
+            anchors.right: searchButton.left
 
-
-            platformSipAttributes: SipAttributes {
-                actionKeyIcon: \"/usr/share/themes/blanco/meegotouch/icons/icon-m-toolbar-search-selected.png\"
-                actionKeyEnabled: true
-            }
 
             Keys.onReturnPressed: {
-                platformCloseSoftwareInputPanel()
+                if (! SYMBIAN)
+                    platformCloseSoftwareInputPanel()
                 dialog.startSearch()
             }
 
@@ -127,6 +123,16 @@ Sheet {
                     }
                 }
             ]
+        },
+
+        Button {
+            id: searchButton
+            text: qsTr(\"Search\")
+            anchors.right: parent.right
+            anchors.rightMargin: 10
+            anchors.verticalCenter: parent.verticalCenter
+
+            onClicked: dialog.startSearch()
         }
     ]
 
@@ -175,7 +181,7 @@ Sheet {
                 id: results
             }
 
-            delegate: ListDelegate {
+            delegate: ListItem {
                 onClicked: dialog.placeSelected(place)
 
                 clip: true
@@ -208,7 +214,7 @@ Sheet {
                 }
             }
         }
-        ScrollDecorator { flickableItem: list; __rightPageMargin: 30 }
+        ScrollDecorator { flickableItem: list; }
 
         Item {
             id: nothing

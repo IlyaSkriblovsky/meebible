@@ -1,7 +1,7 @@
 # QT += core sql network xml xmlpatterns webkit gui declarative
 QT += core sql network xml webkit gui declarative
 
-# DEFINES += DEBUG DEBUGPATHS
+# DEFINES += DEBUG
 
 nosearch:DEFINES += NOSEARCH
 noshare: DEFINES += NOSHARE
@@ -27,7 +27,7 @@ CONFIG -= app_bundle
 
 
 LIBS += -lsqlite3
-!nosearch: LIBS += -licui18n
+
 
 !symbian {
     CONFIG += shareuiinterface-maemo-meegotouch mdatauri
@@ -52,6 +52,7 @@ LIBS += -lsqlite3
 search-icu {
     HEADERS += src/ICUUnicodeCollator.h
     SOURCES += src/ICUUnicodeCollator.cpp
+    LIBS += -licui18n
 }
 
 search-simple {

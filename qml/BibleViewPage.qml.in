@@ -439,7 +439,7 @@ Page {
         function load() { source = \"SearchDialog.qml\" }
         function open() {
             load()
-            item.open()
+            item.openSheet(pageStack)
             if (! settings.searchNoticeShown)
             {
                 searchNotice.open()
@@ -450,7 +450,7 @@ Page {
         Connections {
             target: searchDialog.item
             onPlaceSelected: {
-                searchDialog.item.close()
+                searchDialog.item.closeSheet()
                 // bibleView.setAndLoad(bookCode, chapterNo, 1)
                 bibleView.place = place
                 bibleView.startSearchMode(searchDialog.item.query)

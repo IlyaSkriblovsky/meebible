@@ -2,7 +2,7 @@
 QMAKE_SUBSTITUTES += \
     qml/AboutPage.qml.in            \
     qml/BibleViewPage.qml.in        \
-    qml/BookmarkItem.qml.in         \
+    qml/ListItem.qml.in             \
     qml/BookmarksSheet.qml.in       \
     qml/ButtonWithHelp.qml.in       \
     qml/FeedbackPage.qml.in         \

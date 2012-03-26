@@ -9,6 +9,7 @@ Page {
 
     property alias headerText: header.text
     property alias content: contentWrapper.children
+    property alias headerComponents: header.children
 
 
     function openSheet(pageStack) { pageStack.push(this) }
