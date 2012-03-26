@@ -54,7 +54,10 @@ search-icu {
     SOURCES += src/ICUUnicodeCollator.cpp
     LIBS += -licui18n
 }
-
+search-symbian {
+    HEADERS += src/SymbianUnicodeCollator.h
+    SOURCES += src/SymbianUnicodeCollator.cpp
+}
 search-simple {
     HEADERS += src/SimpleUnicodeCollator.h
     SOURCES += src/SimpleUnicodeCollator.cpp

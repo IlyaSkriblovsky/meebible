@@ -14,6 +14,10 @@ else:search-simple {
     message("Using simple search")
     DEFINES += SEARCH_SIMPLE
 }
+else:search-symbian {
+    message("Using Symbian search")
+    DEFINES += SEARCH_SYMBIAN
+}
 else {
     message("Search disabled")
     CONFIG += nosearch

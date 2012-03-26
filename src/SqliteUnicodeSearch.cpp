@@ -11,6 +11,9 @@
 #ifdef SEARCH_ICU
     #include "ICUUnicodeCollator.h"
 #endif
+#ifdef SEARCH_SYMBIAN
+    #include "SymbianUnicodeCollator.h"
+#endif
 #ifdef SEARCH_SIMPLE
     #include "SimpleUnicodeCollator.h"
 #endif
@@ -41,6 +44,12 @@ void SqliteUnicodeSearch::installUnicodeSearch(const QSqlDatabase& db)
         #define __SEARCH_COLLATOR_CREATED
         qDebug() << "Using ICU search";
         collator = new ICUUnicodeCollator;
+    #endif
+
+    #ifdef SEARCH_SYMBIAN
+        #define __SEARCH_COLLATOR_CREATED
+        qDebug() << "Using Symbian search";
+        collator = new SymbianUnicodeCollator;
     #endif
 
     #ifdef SEARCH_SIMPLE

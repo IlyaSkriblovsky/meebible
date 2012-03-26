@@ -181,7 +181,7 @@ UniSheet {
                 id: results
             }
 
-            delegate: ListItem {
+            delegate: UniListItem {
                 onClicked: dialog.placeSelected(place)
 
                 clip: true
@@ -189,7 +189,6 @@ UniSheet {
                 x: 10
                 width: parent.width - 20
 
-                // com.meego.extras.CountBubble doesn\'t works well with inverted theme
                 Item {
                     anchors.right: parent.right
                     anchors.top: parent.top
@@ -199,7 +198,7 @@ UniSheet {
                     height: 25
 
                     BorderImage {
-                        source: \"image://theme/meegotouch-countbubble-background\"
+                        source: \"countbubble.png\"
                         anchors.fill: parent
                         border { left: 10; top: 10; right: 10; bottom: 10 }
                     }
