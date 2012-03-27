@@ -42,26 +42,32 @@ LIBS += -lsqlite3
     HEADERS +=                      \
         src/SqliteUnicodeSearch.h   \
         src/SearchThread.h          \
-        src/UnicodeCollator.h
+        # src/UnicodeCollator.h       \
+        src/UnicodeSearch.h
 
     SOURCES +=                      \
         src/SqliteUnicodeSearch.cpp \
-        src/SearchThread.cpp
+        src/SearchThread.cpp        \
+        src/UnicodeSearch.cpp
 }
 
 search-icu {
-    HEADERS += src/ICUUnicodeCollator.h
-    SOURCES += src/ICUUnicodeCollator.cpp
+    HEADERS +=                      \
+        # src/ICUUnicodeCollator.h    \
+        src/ICUUnicodeSearch.h
+    SOURCES +=                      \
+        # src/ICUUnicodeCollator.cpp  \
+        src/ICUUnicodeSearch.cpp
     LIBS += -licui18n
 }
 search-symbian {
     HEADERS += src/SymbianUnicodeCollator.h
     SOURCES += src/SymbianUnicodeCollator.cpp
 }
-search-simple {
-    HEADERS += src/SimpleUnicodeCollator.h
-    SOURCES += src/SimpleUnicodeCollator.cpp
-}
+# search-simple {
+#     HEADERS += src/SimpleUnicodeCollator.h
+#     SOURCES += src/SimpleUnicodeCollator.cpp
+# }
 
 
 HEADERS +=                      \
