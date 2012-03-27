@@ -126,8 +126,6 @@ QString SqliteUnicodeSearch::highlightMatches(const QString& html, const QString
             resultPos += after.length();
         }
 
-        resultPos += 1;
-
         prevPos = pos;
         pos = usearch->next();
     }

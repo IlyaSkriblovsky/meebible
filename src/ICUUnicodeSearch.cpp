@@ -33,8 +33,8 @@ int ICUUnicodeSearch::start()
 
     UErrorCode err = U_ZERO_ERROR;
     _search = usearch_openFromCollator(
-        static_cast<const UChar*>(haystack()), -1,
         static_cast<const UChar*>(needle()), -1,
+        static_cast<const UChar*>(haystack()), -1,
         _icuCollator, 0, &err
     );
 
