@@ -10,7 +10,7 @@ class ICUUnicodeSearch: public UnicodeSearch
 {
     public:
         ICUUnicodeSearch(const char16* haystack, const char16* needle);
-        ~ICUUnicodeSearch();
+        virtual ~ICUUnicodeSearch();
 
         virtual int start();
         virtual int next();
