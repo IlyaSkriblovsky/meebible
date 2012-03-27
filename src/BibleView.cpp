@@ -364,8 +364,9 @@ void BibleView::startSearchMode(const QString& needle)
     _searchNeedle = needle;
     searchNeedleChanged();
 
-    displayHtml(SqliteUnicodeSearch::highlightMatches(_html, needle, &_matchCount));
+    setHtml(SqliteUnicodeSearch::highlightMatches(_html, needle, &_matchCount));
     matchCountChanged();
+
 
     if (_searchMode == false)
     {
@@ -384,6 +385,7 @@ void BibleView::stopSearchMode()
         _searchMode = false;
         searchModeChanged();
 
+        // setHtml(_html) would be better, but it causes scroll jump
         page()->mainFrame()->evaluateJavaScript(QString("hideAllHighlights()"));
     }
 }

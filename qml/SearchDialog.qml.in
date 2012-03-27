@@ -32,17 +32,6 @@ UniSheet {
 
 
     headerComponents: [
-        // SheetButton {
-        //     id: close
-        //     text: qsTr(\"Close\")
-
-        //     anchors.verticalCenter: parent.verticalCenter
-        //     anchors.right: parent.right
-        //     anchors.rightMargin: 10
-
-        //     onClicked: dialog.reject()
-        // },
-
         UniSearchField {
             id: field
 
@@ -52,7 +41,7 @@ UniSheet {
             anchors.leftMargin: 10
             anchors.rightMargin: 10
             anchors.verticalCenter: parent.verticalCenter
-            anchors.right: searchButton.left
+            anchors.right: SYMBIAN ? searchButton.left : parent.right
 
 
             Keys.onReturnPressed: {
@@ -127,6 +116,9 @@ UniSheet {
 
         Button {
             id: searchButton
+
+            visible: SYMBIAN
+
             text: qsTr(\"Search\")
             anchors.right: parent.right
             anchors.rightMargin: 10

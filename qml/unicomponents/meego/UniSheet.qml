@@ -8,6 +8,7 @@ Sheet {
 
     property alias headerText: header.text
     property alias rejectButtonText: rejectButton.text
+    property alias headerComponents: headerItem.children
 
 
     function openSheet() { open() }
@@ -15,16 +16,25 @@ Sheet {
 
 
     buttons: [
-        Label {
-            id: header
+        Item {
+            id: headerItem
 
-            anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
-            anchors.leftMargin: 20
+            anchors.right: rejectButton.left
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
 
-            font.pixelSize: 32
-            font.family: "Nokia Pure Text Light"
-            font.bold: false
+            Label {
+                id: header
+
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: parent.left
+                anchors.leftMargin: 20
+
+                font.pixelSize: 32
+                font.family: "Nokia Pure Text Light"
+                font.bold: false
+            }
         },
 
         SheetButton {
