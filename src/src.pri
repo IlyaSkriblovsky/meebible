@@ -110,3 +110,6 @@ SOURCES +=                      \
     src/StartupTracker.cpp      \
     src/Bookmarks.cpp           \
     src/PlaceAccesser.cpp
+
+
+include(src/unisimple/unisimple.pri)
