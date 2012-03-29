@@ -112,4 +112,4 @@ SOURCES +=                      \
     src/PlaceAccesser.cpp
 
 
-include(src/unisimple/unisimple.pri)
+include(unisimple/unisimple.pri)

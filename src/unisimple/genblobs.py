@@ -93,8 +93,8 @@ with open('gen_SimplifyDesc.inc.cpp', 'w') as f:
         blob_start = blob.find(r)
         if blob_start == -1: raise Exception('??')
 
-        f.write(u'{{ 0x{0:06x}, {1}, {2} }}, // {3} -> {4}\n'.format(
-            c, blob_start, len(r), unichr(c), r
+        f.write(u'{{ 0x{0:06x}, {1}, {2} }}, // {3:04X} -> {4}\n'.format(
+            c, blob_start, len(r), c, u' '.join('{:04X}'.format(ord(rc)) for rc in r)
         ).encode('utf-8'))
 
 
