@@ -90,7 +90,7 @@ class TokenizerCursor: public sqlite3_tokenizer_cursor
 
         inline bool isSpacingCharClass(const CharClass cc)
         {
-            return (cc & (UCHAR_CLASS_Z | UCHAR_CLASS_P | UCHAR_CLASS_S)) != 0;
+            return (cc & (UCHAR_CLASS_Z | UCHAR_CLASS_P | UCHAR_CLASS_S | UCHAR_CLASS_C)) != 0;
         }
 
         void addToToken(char32 c)
