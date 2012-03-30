@@ -50,7 +50,7 @@ HEADERS +=                      \
     src/Paths.h                 \
     src/Place.h                 \
     src/BibleWebPage.h          \
-    src/Fetcher.h               \
+    src/Fetcher2.h               \
     src/Utils.h                 \
     src/Settings.h              \
     src/MetaInfoParser.h        \
@@ -74,7 +74,7 @@ SOURCES +=                      \
     src/Paths.cpp               \
     src/Place.cpp               \
     src/BibleWebPage.cpp        \
-    src/Fetcher.cpp             \
+    src/Fetcher2.cpp             \
     src/Settings.cpp            \
     src/MetaInfoParser.cpp      \
     src/TranslationInfoParser.cpp\

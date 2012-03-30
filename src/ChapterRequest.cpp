@@ -44,6 +44,11 @@ Place ChapterRequest::place() const
     return _place;
 }
 
+void ChapterRequest::abort()
+{
+    _nreply->abort();
+}
+
 QNetworkReply::NetworkError ChapterRequest::error() const
 {
     return _nreply->error();

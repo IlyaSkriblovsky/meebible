@@ -107,6 +107,11 @@ void Cache::openDB()
         &_stmt_totalChapters, 0
     );
 
+    sqlite3_prepare_v2(_db,
+        "SELECT bookCode, chapterNo FROM html WHERE langCode=? AND transCode=? ORDER BY bookNo, chapterNo", -1,
+        &_stmt_availableChapters, 0
+    );
+
 
     sqlite3_prepare_v2(_db,
         "INSERT INTO text (content) VALUES (?)", -1,
@@ -147,12 +152,10 @@ void Cache::saveChapter(const Translation* translation, const Place& place, QStr
         qCritical() << "Insertion into cache failed:" << sqlite3_errmsg(_db);
 
 
-    QElapsedTimer timer; timer.start();
     sqlite3_reset(_stmt_saveChapter_fts);
     sqlite3_bind_text16(_stmt_saveChapter_fts, 1, html.utf16(), -1, SQLITE_STATIC);
     if (sqlite3_step(_stmt_saveChapter_fts) != SQLITE_DONE)
         qCritical() << "Insertion into text cache failed:" << sqlite3_errmsg(_db);
-    qDebug() << "storing to fts:" << timer.elapsed();
 }
 
 
@@ -285,6 +288,34 @@ QString Cache::loadXML(const QString& name)
     }
 
     return QString::fromUtf8(xml.readAll());
+}
+
+
+QSet<QPair<QString, int> > Cache::availableChapters(const Translation* translation)
+{
+    sqlite3_reset(_stmt_availableChapters);
+    sqlite3_bind_text16(_stmt_availableChapters, 1, translation->language()->code().utf16(), -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text16(_stmt_availableChapters, 2, translation->code().utf16(), -1, SQLITE_TRANSIENT);
+
+    QSet<QPair<QString, int> > result;
+    while (sqlite3_step(_stmt_availableChapters) == SQLITE_ROW)
+        result.insert(QPair<QString, int>(
+            QString::fromUtf16((const ushort*)sqlite3_column_text16(_stmt_availableChapters, 0)),
+            sqlite3_column_int(_stmt_availableChapters, 1)
+        ));
+
+    return result;
+}
+
+
+void Cache::beginTransaction()
+{
+    sqlite3_exec(_db, "BEGIN", 0, 0, 0);
+}
+
+void Cache::commitTransaction()
+{
+    sqlite3_exec(_db, "COMMIT", 0, 0, 0);
 }
 
 

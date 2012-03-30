@@ -16,7 +16,7 @@
 #include "Language.h"
 #include "Translation.h"
 #include "BibleView.h"
-#include "Fetcher.h"
+#include "Fetcher2.h"
 #include "Settings.h"
 #include "MetaInfoLoader.h"
 #include "Feedback.h"
@@ -84,7 +84,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qmlRegisterType<Language>();
     qmlRegisterUncreatableType<Translation>("MeeBible", 0, 1, "Translation", "Translation is abstract");
     qmlRegisterType<BibleView>("MeeBible", 0, 1, "BibleView");
-    qmlRegisterType<Fetcher>("MeeBible", 0, 1, "Fetcher");
+    qmlRegisterType<Fetcher2>("MeeBible", 0, 1, "Fetcher");
 
     qRegisterMetaType<Place>();
 

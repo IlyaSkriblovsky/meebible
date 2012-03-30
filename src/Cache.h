@@ -3,6 +3,8 @@
 
 #include <QObject>
 #include <QRegExp>
+#include <QSet>
+#include <QPair>
 
 #include "Place.h"
 
@@ -34,6 +36,13 @@ public:
     bool hasChapter(const Translation* translation, const Place& place);
 
     int totalChaptersInCache(const Translation* translation);
+
+
+    QSet<QPair<QString, int> > availableChapters(const Translation* translation);
+
+
+    void beginTransaction();
+    void commitTransaction();
 
 
     #ifndef NOSEARCH
@@ -74,6 +83,7 @@ private:
     sqlite3_stmt* _stmt_loadChapter;
     sqlite3_stmt* _stmt_hasChapter;
     sqlite3_stmt* _stmt_totalChapters;
+    sqlite3_stmt* _stmt_availableChapters;
 
     sqlite3_stmt* _stmt_saveChapter_fts;
     sqlite3_stmt* _stmt_ftstest;
