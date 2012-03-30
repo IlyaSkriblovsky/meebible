@@ -4,6 +4,8 @@
 #include <cstring>
 #include <cstdlib>
 
+#include <sqlite3/fts3_tokenizer.h>
+
 #include <unisimple/unisimple.h>
 #include <unisimple/utf8.h>
 

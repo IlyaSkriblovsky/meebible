@@ -1,7 +1,7 @@
 #ifndef TOKENIZER_H
 #define TOKENIZER_H
 
-#include "fts3_tokenizer.h"
+#include <sqlite3/sqlite3.h>
 
 #ifdef __cplusplus
 extern "C" {

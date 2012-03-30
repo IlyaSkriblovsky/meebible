@@ -2,7 +2,7 @@
 #include <cstdio>
 
 #include "sqlite3.h"
-#include "tokenizer.h"
+#include <unisimple/tokenizer.h>
 
 
 int callback(void *user_data, int nCols, char *text[], char *name[])
