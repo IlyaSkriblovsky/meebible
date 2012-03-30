@@ -187,8 +187,6 @@ class Tokenizer: public sqlite3_tokenizer
     private:
         Tokenizer(int argc, const char * const argv[])
         {
-            Q_UNUSED(argc)
-            Q_UNUSED(argv)
         }
 };
 
