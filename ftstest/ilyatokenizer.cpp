@@ -2,11 +2,10 @@
 
 #include <cstdio>
 #include <cstring>
+#include <cstdlib>
 
-#include <unicode/unistr.h>
-#include <unicode/uchar.h>
-#include <unicode/translit.h>
-#include <unicode/normlzr.h>
+#include <unisimple/unisimple.h>
+#include <unisimple/utf8.h>
 
 
 /*
@@ -69,7 +68,6 @@ int ilya_tokenizer_close(sqlite3_tokenizer_cursor *cursor);
 int ilya_tokenizer_next(sqlite3_tokenizer_cursor *cursor, const char **token, int *nBytes, int *startOffset, int *endOffset, int *position);
 
 
-const sqlite3_tokenizer_module *icuDesc = 0;
 sqlite3_tokenizer_module desc = {
     0,
     ilya_tokenizer_create,
@@ -87,199 +85,181 @@ enum State
     TAG
 };
 
-struct ilya_tokenizer: public sqlite3_tokenizer {
-    sqlite3_tokenizer *icu;
+
+class IlyaTokenizerCursor;
+
+class IlyaTokenizerCursor: public sqlite3_tokenizer_cursor
+{
+    public:
+        IlyaTokenizerCursor(const char *input, int length)
+            :_input(input), _input_length(length), _input_pos(0),
+             _token(0), _token_buf_size(0), _token_pos(0),
+             _nToken(0)
+        {
+            if (_input_length == -1)
+                _input_length = strlen(_input);
+        }
+
+        ~IlyaTokenizerCursor()
+        {
+            free(_token);
+        }
+
+        bool nextToken(const char **token, int *length, int *startOffset, int *endOffset, int *position)
+        {
+            char32 c = nextChar();
+            CharClass cc = us::charClass(c);
+            bool in_tag = false;
+            while (c != 0)
+            {
+                if (c == '<')
+                    in_tag = true;
+                else if (c == '>')
+                    in_tag = false;
+                else
+                    if (! in_tag && ! isSpacingCharClass(cc))
+                        break;
+
+                c = nextChar();
+                cc = us::charClass(c);
+            }
+
+            if (c == 0) return false;
+
+
+            *startOffset = _cur_input_offset;
+            _token_pos = 0;
+
+            while (c != 0 && c != '<' && ! isSpacingCharClass(cc))
+            {
+                addToToken(c);
+
+                c = nextChar();
+                cc = us::charClass(c);
+            }
+
+            *token = _token;
+            *length = _token_pos;
+            *endOffset = _cur_input_offset;
+            *position = _nToken++;
+
+            _input_pos = _cur_input_offset;
+
+            return true;
+        }
+
+
+    private:
+        const char *_input;
+        int _input_length;
+        int _input_pos;
+        int _cur_input_offset;
+
+
+        char *_token;
+        int _token_buf_size;
+        int _token_pos;
+
+
+        int _nToken;
+
+
+        char32 nextChar()
+        {
+            _cur_input_offset = _input_pos;
+            if (_input_pos >= _input_length)
+                return 0;
+            else
+            {
+                char32 c;
+                U8_NEXT_UNSAFE(_input, _input_pos, c);
+                return c;
+            }
+        }
+
+        inline bool isSpacingCharClass(const CharClass cc)
+        {
+            return (cc & (UCHAR_CLASS_Z | UCHAR_CLASS_P | UCHAR_CLASS_S)) != 0;
+        }
+
+        void addToToken(char32 c)
+        {
+            static char32 simplified[20];
+            int count = us::simplifyChar(c, simplified);
+
+            for (int i = 0; i < count; i++)
+            {
+                if (_token_buf_size - _token_pos < 4)
+                {
+                    if (_token_buf_size == 0)
+                        _token_buf_size = 20;
+                    else
+                        _token_buf_size *= 2;
+                    _token = (char*)realloc(_token, _token_buf_size);
+                }
+
+                U8_APPEND_UNSAFE(_token, _token_pos, simplified[i]);
+            }
+        }
 };
-struct ilya_tokenizer_cursor: public sqlite3_tokenizer_cursor {
-    sqlite3_tokenizer_cursor *icu_cursor;
 
-    State state;
-    UChar token[100];
-    unsigned char token_utf8[100];
+class IlyaTokenizer: public sqlite3_tokenizer
+{
+    public:
+        IlyaTokenizer(int argc, const char * const argv[])
+        {
+        }
 
-    const char* input;
-    int len;
-    int pos;
-
-    ilya_tokenizer_cursor(const char* input, int len)
-        : state(SPACE), input(input), len(len), pos(0)
-    {
-        if (this->len == -1)
-            this->len = strlen(input);
-    }
-
-    ~ilya_tokenizer_cursor() { }
+        IlyaTokenizerCursor* open(const char *input, int length)
+        {
+            return new IlyaTokenizerCursor(input, length);
+        }
 };
 
 
 
 void install_ilya_tokenizer(sqlite3 *db)
 {
-    if (icuDesc == 0)
-    {
-        int res = queryTokenizer(db, "icu", &icuDesc);
-        if (icuDesc == 0)
-            fprintf(stderr, "Cannot find icu tokenizer\n");
-
-        registerTokenizer(db, "ilya", &desc);
-    }
+    registerTokenizer(db, "ilya", &desc);
 }
-
-
 
 int ilya_tokenizer_create(int argc, const char * const *argv, sqlite3_tokenizer **tokenizer)
 {
-    ilya_tokenizer *t = new ilya_tokenizer;
-    *tokenizer = t;
+    *tokenizer = new IlyaTokenizer(argc, argv);
     return SQLITE_OK;
 }
 
 int ilya_tokenizer_destroy(sqlite3_tokenizer *tokenizer)
 {
-    ilya_tokenizer *t = static_cast<ilya_tokenizer*>(tokenizer);
-    delete t;
+    delete static_cast<IlyaTokenizer*>(tokenizer);
     return SQLITE_OK;
 }
 
 int ilya_tokenizer_open(sqlite3_tokenizer *tokenizer, const char *input, int nBytes, sqlite3_tokenizer_cursor **cursor)
 {
-    ilya_tokenizer_cursor *tc = new ilya_tokenizer_cursor(input, nBytes);
-
-    *cursor = tc;
+    *cursor = static_cast<IlyaTokenizer*>(tokenizer)->open(input, nBytes);
     return SQLITE_OK;
 }
 
 int ilya_tokenizer_close(sqlite3_tokenizer_cursor *cursor)
 {
-    ilya_tokenizer_cursor *tc = static_cast<ilya_tokenizer_cursor*>(cursor);
-
-    delete tc;
+    delete static_cast<IlyaTokenizerCursor*>(cursor);
     return SQLITE_OK;
 }
 
 int ilya_tokenizer_next(sqlite3_tokenizer_cursor *cursor, const char **token, int *nBytes, int *startOffset, int *endOffset, int *position)
 {
-    // printf("=== next\n");
-
-    ilya_tokenizer_cursor *tc = static_cast<ilya_tokenizer_cursor*>(cursor);
-
-
-    int token_pos = 0;
-
-    bool done = false;
-    bool next = true;
-    int word_start = -1, word_end = -1;
-
-    UChar32 c;
-    while (! done && tc->pos < tc->len)
+    IlyaTokenizerCursor *c = static_cast<IlyaTokenizerCursor*>(cursor);
+    if (c->nextToken(token, nBytes, startOffset, endOffset, position))
     {
-        int c_pos = tc->pos;
-
-        if (next)
-            U8_NEXT(tc->input, tc->pos, tc->len, c);
-
-        int type = u_charType(c);
-        int bit = U_MASK(type);
-
-        // printf("state=%d c=0x%x (%c)\n", tc->state, c, c);
-
-        switch (tc->state)
-        {
-            case SPACE:
-                if ((bit & U_GC_Z_MASK) || (bit & U_GC_C_MASK) || (bit & U_GC_P_MASK))
-                {
-                    next = true;
-                }
-                else
-                {
-                    next = false;
-                    if (c == '<')
-                    {
-                        tc->state = TAG;
-                    }
-                    else
-                    {
-                        tc->state = WORD;
-                        word_start = c_pos;
-                    }
-                }
-                break;
-
-            case WORD:
-                if (c == '<')
-                {
-                    tc->state = TAG;
-                    done = true;
-                }
-                else
-                {
-                    if ((bit & U_GC_Z_MASK) == 0 && (bit & U_GC_C_MASK) == 0 && (bit & U_GC_P_MASK) == 0)
-                    {
-                        UBool err;
-                        // U8_APPEND(tc->token, token_pos, sizeof(tc->token), c, err);
-                        tc->token[token_pos++] = c;
-                    }
-                    else
-                    {
-                        tc->state = SPACE;
-                        word_end = c_pos;
-                        done = true;
-                    }
-                }
-
-                next = true;
-                break;
-
-            case TAG:
-                if (c == '>')
-                    tc->state = SPACE;
-                next = true;
-                break;
-        }
-
-    }
-
-    if (word_end == -1)
-        word_end = tc->len;
-
-    Normalizer norm(tc->token, token_pos, UNORM_NFKD);
-    c = norm.first();
-    int p = 0;
-    while (c != Normalizer::DONE)
-    {
-        int type = u_charType(c);
-        int bit = U_MASK(type);
-
-        UBool err;
-
-        if ((bit & U_GC_M_MASK) == 0)
-        {
-            c = u_tolower(c);
-            U8_APPEND(tc->token_utf8, p, sizeof(tc->token_utf8), c, err);
-        }
-
-        c = norm.next();
-    }
-
-
-    if (token_pos > 0)
-    {
-        *token = (char*)tc->token_utf8;
-        *nBytes = p;
-        *startOffset = word_start;
-        *endOffset = word_end;
-        *position = 0;
-
-        printf("\t=== ");
-        for (int i = 0; i < *nBytes; i++)
-            printf("%c", (*token)[i]);
-        printf(" (%d)", *nBytes);
-        printf("\n");
-        printf("\tstart = %d\n", *startOffset);
-        printf("\tend   = %d\n", *endOffset);
-
+        // printf("\t=== [%d:%d] ", *startOffset, *endOffset);
+        // for (int i = 0; i < *nBytes; i++)
+        //     printf("%c", (*token)[i]);
+        // printf("\n");
         return SQLITE_OK;
     }
     else
+    {
         return SQLITE_DONE;
+    }
 }

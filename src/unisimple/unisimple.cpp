@@ -5,6 +5,11 @@
 #include "unisimple.h"
 #include "utf8.h"
 
+
+namespace us
+{
+
+
 struct CharClassDesc
 {
     char32 codepoint;
@@ -61,7 +66,7 @@ int simplifyChar(char32 c, char32 *out)
 
     while (r - l > 1)
     {
-        int m = (r + l ) >> 1;
+        int m = (r + l) >> 1;
 
         char32 mv = simplifyDesc[m].codepoint;
         if (mv >  c) r = m;
@@ -153,3 +158,7 @@ void simplifyUTF8_alloc(const char* input, int inlen, char** buffer, int *bufsiz
 //     printf("bufsize: %d\n", outsize);
 //     free(output);
 // }
+
+
+
+}
