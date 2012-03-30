@@ -3,7 +3,6 @@ QT += core sql network xml webkit gui declarative
 
 # DEFINES += DEBUG
 
-nosearch:DEFINES += NOSEARCH
 noshare: DEFINES += NOSHARE
 
 free:DEFINES += FREEVERSION
@@ -26,8 +25,6 @@ CONFIG -= debug
 CONFIG -= app_bundle
 
 
-LIBS += -lsqlite3
-
 
 !symbian {
     CONFIG += shareuiinterface-maemo-meegotouch mdatauri
@@ -38,32 +35,7 @@ LIBS += -lsqlite3
 }
 
 
-!nosearch {
-    HEADERS +=                      \
-        src/SqliteUnicodeSearch.h   \
-        src/SearchThread.h          \
-        # src/UnicodeCollator.h       \
-        src/UnicodeSearch.h
-
-    SOURCES +=                      \
-        src/SqliteUnicodeSearch.cpp \
-        src/SearchThread.cpp        \
-        src/UnicodeSearch.cpp
-}
-
-search-icu {
-    HEADERS += src/ICUUnicodeSearch.h
-    SOURCES += src/ICUUnicodeSearch.cpp
-    LIBS += -licui18n
-}
-search-symbian {
-    HEADERS += src/SymbianUnicodeSearch.h
-    SOURCES += src/SymbianUnicodeSearch.cpp
-}
-# search-simple {
-#     HEADERS += src/SimpleUnicodeCollator.h
-#     SOURCES += src/SimpleUnicodeCollator.cpp
-# }
+DEFINES += NOSEARCH
 
 
 HEADERS +=                      \
@@ -112,4 +84,5 @@ SOURCES +=                      \
     src/PlaceAccesser.cpp
 
 
+include(sqlite3/sqlite3.pri)
 include(unisimple/unisimple.pri)
