@@ -1447,7 +1447,7 @@ static int process_input(struct callback_data *p, FILE *in);
 ** Make sure the database is open.  If it is not, then open it.  If
 ** the database fails to open, print an error message and exit.
 */
-#include "ilyatokenizer.h"
+#include "tokenizer.h"
 static void open_db(struct callback_data *p){
   if( p->db==0 ){
     sqlite3_open(p->zDbFilename, &p->db);
@@ -1465,7 +1465,7 @@ static void open_db(struct callback_data *p){
     sqlite3_enable_load_extension(p->db, 1);
 #endif
 
-    install_ilya_tokenizer(db);
+    install_unisimple_tokenizer(db);
   }
 }
 

@@ -2,7 +2,7 @@
 #include <cstdio>
 
 #include "sqlite3.h"
-#include "ilyatokenizer.h"
+#include "tokenizer.h"
 
 
 int callback(void *user_data, int nCols, char *text[], char *name[])
@@ -24,9 +24,9 @@ int main()
         return 1;
     }
 
-    install_ilya_tokenizer(db);
+    install_unisimple_tokenizer(db);
 
-    // sqlite3_exec(db, "CREATE VIRTUAL TABLE text USING fts4(tokenize=ilya);", 0, 0, 0);
+    // sqlite3_exec(db, "CREATE VIRTUAL TABLE text USING fts4(tokenize=unisimple);", 0, 0, 0);
     // sqlite3_exec(db, "INSERT INTO text (content) VALUES ('<div>Öö Jêsūs ßß ss Ёлки зелё<div>ные')", 0, 0, 0);
     // printf("\nall:\n");
     // sqlite3_exec(db, "SELECT * FROM text", callback, 0, 0);
@@ -35,7 +35,7 @@ int main()
 
     const char *transCodes[] = { /*"ara",*/ "bbg", "blv", "esv", "frs", "kjv", "niv", "pal", "rus", "rvr", "svf" };
 
-    sqlite3_exec(db, "CREATE VIRTUAL TABLE text USING fts4 (transCode, langCode, bookCode, chapterNo, content, tokenize=icu)", 0, 0, 0);
+    sqlite3_exec(db, "CREATE VIRTUAL TABLE text USING fts4 (transCode, langCode, bookCode, chapterNo, content, tokenize=unisimple)", 0, 0, 0);
 
     for (unsigned int i = 0; i < sizeof(transCodes) / sizeof(transCodes[0]); i++)
     {
