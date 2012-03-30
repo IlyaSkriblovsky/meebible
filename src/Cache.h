@@ -53,6 +53,8 @@ public slots:
 
     void clearCache();
 
+    void ftstest();
+
 
 signals:
     #ifndef NOSEARCH
@@ -74,6 +76,7 @@ private:
     sqlite3_stmt* _stmt_totalChapters;
 
     sqlite3_stmt* _stmt_saveChapter_fts;
+    sqlite3_stmt* _stmt_ftstest;
 
     QRegExp _stripTags;
     QRegExp _stripSpaces;

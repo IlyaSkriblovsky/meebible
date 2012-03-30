@@ -112,6 +112,11 @@ void Cache::openDB()
         "INSERT INTO text (content) VALUES (?)", -1,
         &_stmt_saveChapter_fts, 0
     );
+
+    sqlite3_prepare_v2(_db,
+        "SELECT count(*) FROM text WHERE content MATCH 'Иегова'", -1,
+        &_stmt_ftstest, 0
+    );
 }
 
 
@@ -142,10 +147,12 @@ void Cache::saveChapter(const Translation* translation, const Place& place, QStr
         qCritical() << "Insertion into cache failed:" << sqlite3_errmsg(_db);
 
 
+    QElapsedTimer timer; timer.start();
     sqlite3_reset(_stmt_saveChapter_fts);
     sqlite3_bind_text16(_stmt_saveChapter_fts, 1, html.utf16(), -1, SQLITE_STATIC);
     if (sqlite3_step(_stmt_saveChapter_fts) != SQLITE_DONE)
-        qCritical() << "Insertin into text cache failed:" << sqlite3_errmsg(_db);
+        qCritical() << "Insertion into text cache failed:" << sqlite3_errmsg(_db);
+    qDebug() << "storing to fts:" << timer.elapsed();
 }
 
 
@@ -278,4 +285,16 @@ QString Cache::loadXML(const QString& name)
     }
 
     return QString::fromUtf8(xml.readAll());
+}
+
+
+
+#include <QElapsedTimer>
+void Cache::ftstest()
+{
+    QElapsedTimer timer;
+    timer.start();
+    sqlite3_reset(_stmt_ftstest);
+    sqlite3_step(_stmt_ftstest);
+    qDebug() << "Found: " << sqlite3_column_int(_stmt_ftstest, 0) << "elapsed:" << timer.elapsed();
 }
