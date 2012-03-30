@@ -3,10 +3,12 @@
 
 #include <QObject>
 #include <QRegExp>
-#include <QSqlDatabase>
-#include <QSqlQuery>
 
 #include "Place.h"
+
+
+class sqlite3;
+class sqlite3_stmt;
 
 class Translation;
 
@@ -64,12 +66,14 @@ signals:
 private:
     static Cache* _instance;
 
-    QSqlDatabase _db;
+    sqlite3* _db;
 
-    QSqlQuery _stmt_saveChapter;
-    QSqlQuery _stmt_loadChapter;
-    QSqlQuery _stmt_hasChapter;
-    QSqlQuery _stmt_totalChapters;
+    sqlite3_stmt* _stmt_saveChapter;
+    sqlite3_stmt* _stmt_loadChapter;
+    sqlite3_stmt* _stmt_hasChapter;
+    sqlite3_stmt* _stmt_totalChapters;
+
+    sqlite3_stmt* _stmt_saveChapter_fts;
 
     QRegExp _stripTags;
     QRegExp _stripSpaces;

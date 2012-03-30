@@ -46,10 +46,10 @@ class TokenizerCursor: public sqlite3_tokenizer_cursor
             TokenizerCursor *c = static_cast<TokenizerCursor*>(cursor);
             if (c->nextToken(token, nBytes, startOffset, endOffset, position))
             {
-                // printf("\t=== [%d:%d] ", *startOffset, *endOffset);
-                // for (int i = 0; i < *nBytes; i++)
-                //     printf("%c", (*token)[i]);
-                // printf("\n");
+                printf("\t=== [%d:%d] ", *startOffset, *endOffset);
+                for (int i = 0; i < *nBytes; i++)
+                    printf("%c", (*token)[i]);
+                printf("\n");
                 return SQLITE_OK;
             }
             else
