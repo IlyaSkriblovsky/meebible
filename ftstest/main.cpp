@@ -1,7 +1,7 @@
 #include <cstring>
 #include <cstdio>
 
-#include "sqlite3.h"
+#include <sqlite3/sqlite3.h>
 #include <unisimple/tokenizer.h>
 
 

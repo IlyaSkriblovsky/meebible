@@ -10,7 +10,7 @@
 
 
 #define MAX_CONCURRENT  20
-#define COMMIT_BATCH    25
+#define COMMIT_BATCH    50
 
 
 Fetcher2::Fetcher2(QObject *parent)
@@ -112,7 +112,7 @@ void Fetcher2::commit()
         cache->saveChapter(_translation, task.first, task.second);
     }
     cache->commitTransaction();
-    qDebug() << "storing to fts of" << s << " chaps:" << timer.elapsed();
+    qDebug() << "storing to fts of" << s << "chaps:" << timer.elapsed();
 }
 
 
@@ -131,7 +131,8 @@ void Fetcher2::onChapterRequestFinished(QString html)
         update((double)_totalChaptersAvailable / _totalChaptersInTranslation);
     }
     else
-        qWarning() << "Fetcher error:" << request->error();
+        if (request->error() != QNetworkReply::OperationCanceledError)
+            qWarning() << "Fetcher error:" << request->error();
 
     dispatch();
 }

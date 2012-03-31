@@ -197,7 +197,8 @@ sqlite3_tokenizer_module desc = {
     Tokenizer::sq_destroy,
     Tokenizer::sq_open,
     TokenizerCursor::sq_close,
-    TokenizerCursor::sq_next
+    TokenizerCursor::sq_next,
+    0
 };
 
 

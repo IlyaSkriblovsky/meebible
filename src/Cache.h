@@ -9,6 +9,9 @@
 #include "Place.h"
 
 
+class QThread;
+
+
 class sqlite3;
 class sqlite3_stmt;
 
@@ -79,13 +82,13 @@ private:
 
     sqlite3* _db;
 
-    sqlite3_stmt* _stmt_saveChapter;
+    sqlite3_stmt* _stmt_saveChapter_1;
+    sqlite3_stmt* _stmt_saveChapter_2;
     sqlite3_stmt* _stmt_loadChapter;
     sqlite3_stmt* _stmt_hasChapter;
     sqlite3_stmt* _stmt_totalChapters;
     sqlite3_stmt* _stmt_availableChapters;
 
-    sqlite3_stmt* _stmt_saveChapter_fts;
     sqlite3_stmt* _stmt_ftstest;
 
     QRegExp _stripTags;
@@ -93,7 +96,12 @@ private:
     QRegExp _stripStyles;
 
 
+    QThread* _asyncThread;
+
+    void execWithCheck(const char* sql);
+
     void openDB();
+    void closeDB();
 
     #ifndef NOSEARCH
         bool _searchInProgress;
