@@ -106,6 +106,8 @@ void Cache::openDB()
 
     install_unisimple_tokenizer(_db);
 
+    execWithCheck("PRAGMA synchronous = 0");
+
     execWithCheck(
         "CREATE TABLE IF NOT EXISTS chapters ( "
             "transCode VARCHAR, "
