@@ -80,8 +80,7 @@ private:
 
     sqlite3* _db;
 
-    sqlite3_stmt* _stmt_saveChapter_1;
-    sqlite3_stmt* _stmt_saveChapter_2;
+    sqlite3_stmt* _stmt_saveChapter;
     sqlite3_stmt* _stmt_loadChapter;
     sqlite3_stmt* _stmt_hasChapter;
     sqlite3_stmt* _stmt_totalChapters;

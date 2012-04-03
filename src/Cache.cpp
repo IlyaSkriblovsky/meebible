@@ -7,8 +7,11 @@
 #include <QElapsedTimer>
 #include <QThread>
 
-#include "sqlite3/sqlite3.h"
-#include "sqlite3/sqlite3async.h"
+#include <sqlite3.h>
+
+#ifdef ASYNC_DB_IO
+    #include "3rdparty/sqlite3async/sqlite3async.h"
+#endif
 
 #include "Paths.h"
 #include "Translation.h"
@@ -18,8 +21,6 @@
     #include "SqliteUnicodeSearch.h"
     #include "SearchThread.h"
 #endif
-
-#include "unisimple/tokenizer.h"
 
 
 
@@ -112,8 +113,6 @@ void Cache::openDB()
         SqliteUnicodeSearch::installUnicodeSearch(_db);
     #endif
 
-    install_unisimple_tokenizer(_db);
-
     execWithCheck("PRAGMA synchronous = 0");
 
     execWithCheck(
@@ -124,6 +123,7 @@ void Cache::openDB()
             "bookNo INTEGER, "
             "chapterNo INTEGER, "
             "html TEXT, "
+            "text TEXT, "
             "PRIMARY KEY (transCode, langCode, bookCode, chapterNo)"
         ")"
     );
@@ -134,9 +134,9 @@ void Cache::openDB()
 
     sqlite3_prepare_v2(_db,
         "INSERT OR REPLACE INTO chapters "
-            "(transCode, langCode, bookCode, bookNo, chapterNo, html) "
+            "(transCode, langCode, bookCode, bookNo, chapterNo, html, text) "
             "VALUES "
-            "(?, ?, ?, ?, ?, ?);",
+            "(?, ?, ?, ?, ?, ?, ?);",
         -1,
         &_stmt_saveChapter, 0
     );
@@ -202,6 +202,13 @@ void Cache::saveChapter(const Translation* translation, const Place& place, QStr
     sqlite3_bind_int   (_stmt_saveChapter, 4, translation->bookCodes().indexOf(place.bookCode()));
     sqlite3_bind_int   (_stmt_saveChapter, 5, place.chapterNo());
     sqlite3_bind_text16(_stmt_saveChapter, 6, html.utf16(), -1, SQLITE_STATIC);
+
+    QString text = html;
+    text.replace(_stripStyles, " ");
+    text.replace(_stripTags, " ");
+    text.replace(_stripSpaces, " ");
+    sqlite3_bind_text16(_stmt_saveChapter, 7, text.utf16(), -1, SQLITE_STATIC);
+
 
     sqlite3_step(_stmt_saveChapter);
 }

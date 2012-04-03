@@ -11,7 +11,6 @@ free:DEFINES += FREEVERSION
 
 symbian: DEFINES += SYMBIAN
 
-asyncdb: DEFINES += ASYNC_DB_IO
 
 
 !symbian: DEFINES += INSTALLPREFIX=\\\"$$INSTALLDIR\\\"
@@ -37,6 +36,13 @@ LIBS += -lsqlite3
     CONFIG += qdeclarative-boostable
     INCLUDEPATH += /usr/include/applauncherd
     LIBS += -lmdeclarativecache
+}
+
+
+asyncdb {
+    DEFINES += ASYNC_DB_IO
+    HEADERS += src/3rdparty/sqlite3async/sqlite3async.h
+    SOURCES += src/3rdparty/sqlite3async/sqlite3async.c
 }
 
 
@@ -87,6 +93,3 @@ SOURCES +=                      \
     src/StartupTracker.cpp      \
     src/Bookmarks.cpp           \
     src/PlaceAccesser.cpp
-
-
-include(unisimple/unisimple.pri)
