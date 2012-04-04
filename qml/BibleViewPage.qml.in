@@ -807,12 +807,6 @@ Page {
             }
 
 
-            MenuItem {
-                text: \"FTS test\"
-                onClicked: cache.ftstest()
-            }
-
-
             function fontSizeClicked() {
                 page.pageStack.toolBar.setTools(fontTools, \"replace\")
             }

@@ -65,8 +65,6 @@ public slots:
 
     void clearCache();
 
-    void ftstest();
-
 
 signals:
     #ifndef NOSEARCH
@@ -96,7 +94,9 @@ private:
     QRegExp _stripStyles;
 
 
-    QThread* _asyncThread;
+    #ifdef ASYNC_DB_IO
+        QThread* _asyncThread;
+    #endif
 
     void execWithCheck(const char* sql);
 

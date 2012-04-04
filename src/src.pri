@@ -11,6 +11,8 @@ free:DEFINES += FREEVERSION
 
 symbian: DEFINES += SYMBIAN
 
+asyncdb: DEFINES += ASYNC_DB_IO
+
 
 !symbian: DEFINES += INSTALLPREFIX=\\\"$$INSTALLDIR\\\"
 
@@ -27,6 +29,7 @@ CONFIG -= debug
 CONFIG -= app_bundle
 
 
+LIBS += -lsqlite3
 
 !symbian {
     CONFIG += shareuiinterface-maemo-meegotouch mdatauri
@@ -86,5 +89,4 @@ SOURCES +=                      \
     src/PlaceAccesser.cpp
 
 
-include(sqlite3/sqlite3.pri)
 include(unisimple/unisimple.pri)
