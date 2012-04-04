@@ -1,22 +1,29 @@
-#include <cstdio>
-#include <cstring>
-#include <sys/mman.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <unistd.h>
+#pragma once
+
+#include <list>
 
 typedef unsigned char uint8;
 typedef unsigned short uint16;
 typedef unsigned int uint32;
 
-class FileTree2
+#include "MappedFile.h"
+
+template <uint16 signature, uint8 version, typename Entry, uint16 chunk_size>
+class FileTree
 {
     public:
         typedef void (*walk_callback)(const char* key, int len);
 
 
-        static const uint32 map_size = 10*1024*1024;
+    private:
+        struct Header
+        {
+            uint16 sig;
+            uint8 ver;
+            uint8 clean;
+            uint32 root_off;
+        } __attribute__((packed));
+
 
         struct Node
         {
@@ -24,47 +31,104 @@ class FileTree2
             uint32 left_off;
             uint32 right_off;
 
+            uint32 data_off;
+
             uint8 color;
             uint8 key_len;
             char key[];
         } __attribute__((packed));
 
 
-        FileTree2(const char *filename)
+
+        struct DataChunk
         {
-            fd = open(filename, O_RDWR | O_CREAT, 0644);
+            uint32 next_off;
 
-            struct stat statbuf;
-            fstat(fd, &statbuf);
-            filesize = statbuf.st_size;
+            uint8 entry_count;
 
-            map = (uint8*)mmap(0, map_size, PROT_READ|PROT_WRITE, MAP_SHARED, fd, 0);
-            if (map == MAP_FAILED)
-                fprintf(stderr, "mmap() failed\n");
+            Entry entries[chunk_size];
+        } __attribute__((packed));
 
-            if (filesize == 0)
-            {
-                resize(4);
-                *(uint32*)map = 0x00000000;
-            }
-        }
+    public:
 
-        ~FileTree2()
+        FileTree(const char *filename)
+            :file(filename)
         {
-            munmap(map, map_size);
-            close(fd);
-        }
+            header = file.at<Header>(0);
 
-
-        void add(const char* key)
-        {
-            if (root())
-                node_add(root(), key);
+            if (file.size() < sizeof(Header))
+                clear();
             else
-                setRoot(createNode(0, key));
+                if (file.size() < sizeof(Header) ||
+                    header->sig != signature ||
+                    header->ver != version ||
+                    (header->clean & 0x1) != 1)
+                    clear();
+        }
 
-            while (root()->parent_off)
-                setRoot(node_parent(root()));
+        ~FileTree()
+        {
+        }
+
+
+        bool empty()
+        {
+            return header->root_off == 0;
+        }
+
+
+        void add(const char* key, const Entry& entry)
+        {
+            header->clean = 0;
+
+            Node* node = 0;
+
+            if (root())
+                node = node_search_insert(root(), key, strlen(key));
+            else
+            {
+                node = create_node(0, key);
+                setRoot(node);
+            }
+
+            node_add_match_entry(node, entry);
+
+            // Root node may become non-root due to balancing while adding new node
+            Node* r = root();
+            while (r->parent_off)
+                r = node_parent(r);
+            setRoot(r);
+
+            header->clean = 1;
+        }
+
+        std::list<Entry> search(const char* key)
+        {
+            if (header->root_off == 0) return std::list<Entry>();
+
+            Node* node = node_search(root(), key, strlen(key));
+            if (node == 0) return std::list<Entry>();
+
+            std::list<Entry> result;
+
+            DataChunk* chunk = data_chunk_at(node->data_off);
+            while (chunk)
+            {
+                for (int i = 0; i < chunk->entry_count; i++)
+                    result.push_back(chunk->entries[i]);
+                chunk = data_chunk_at(chunk->next_off);
+            }
+
+            return result;
+        }
+
+        std::list<Entry> search_prefix(const char *key)
+        {
+            if (header->root_off == 0) return std::list<Entry>();
+
+            std::list<Entry> result;
+            node_search_prefix(root(), key, strlen(key), &result);
+            return result;
         }
 
         void print()
@@ -83,58 +147,66 @@ class FileTree2
 
 
     private:
-        int fd;
-        uint8* map;
-        int filesize;
+        MappedFile file;
 
+        Header* header;
 
-        void resize(uint32 newsize)
-        {
-            filesize = newsize;
-            if (ftruncate(fd, filesize) != 0)
-                fprintf(stderr, "ftruncate() failed\n");
-        }
 
 
         inline Node* node_at(uint32 offset)
         {
             if (offset)
-                return reinterpret_cast<Node*>(&map[offset]);
+                return file.at<Node>(offset);
             return 0;
         }
 
         inline uint32 node_off(Node* node)
         {
             if (node)
-                return (uint8*)node - map;
+                return file.off(node);
+            return 0;
+        }
+
+        inline DataChunk* data_chunk_at(uint32 offset)
+        {
+            if (offset) return file.at<DataChunk>(offset);
             return 0;
         }
 
         inline Node* root()
         {
-            uint32 root_off = *(uint32*)map;
-            if (root_off)
-                return node_at(root_off);
-            else
-                return 0;
+            return node_at(header->root_off);
         }
 
         inline void setRoot(Node* node)
         {
-            uint32 root_off = (uint8*)node - map;
-            *(uint32*)map = root_off;
+            header->root_off = file.off(node);
         }
 
-        Node* createNode(Node* parent, const char* key, uint8 color = 0)
+
+        void clear()
+        {
+            printf("Tree cleared\n");
+
+            file.resize(sizeof(Header));
+            header->sig = signature;
+            header->ver = version;
+            header->clean = 1;
+            header->root_off = 0;
+        }
+
+
+        Node* create_node(Node* parent, const char* key, uint8 color = 0)
         {
             // FIXME: align node here
             int key_len = strlen(key);
-            uint32 offs = filesize;
-            resize(filesize + sizeof(Node) + key_len);
+            uint32 offs = file.size();
+            file.grow(sizeof(Node) + key_len);
 
             Node* node = node_at(offs);
             node->parent_off = node_off(parent);
             node->left_off = node->right_off = 0;
+            node->data_off = 0;
             node->color = color;
             node->key_len = key_len;
             memcpy(node->key, key, key_len);
@@ -143,7 +215,7 @@ class FileTree2
         }
 
 
-        inline int strnmcmp(const char* s1, int l1, const char* s2, int l2)
+        inline static int strnmcmp(const char* s1, int l1, const char* s2, int l2)
         {
             if (l1 < l2)
             {
@@ -161,37 +233,101 @@ class FileTree2
             return r;
         }
 
-
-
-        void node_add(Node* node, const char* key)
+        inline static int strnmcmp_prefix(const char* p, int lp, const char* s, int ls)
         {
-            int key_len = strlen(key);
+            if (lp <= ls)
+                return strncmp(p, s, lp);
+            else
+            {
+                int r = strncmp(p, s, ls);
+                if (r != 0) return r;
+                return +1;
+            }
+        }
+
+
+
+        Node* node_search(Node* node, const char* key, int key_len)
+        {
             int r = strnmcmp(key, key_len, node->key, node->key_len);
 
             if (r == 0)
-            {
-                // printf("Found!\n");
-            }
+                return node;
             else if (r < 0)
             {
                 if (node->left_off)
-                    node_add(node_at(node->left_off), key);
+                    return node_search(node_at(node->left_off), key, key_len);
+                else
+                    return 0;
+            }
+            else
+            {
+                if (node->right_off)
+                    return node_search(node_at(node->right_off), key, key_len);
+                else
+                    return 0;
+            }
+        }
+
+        void node_search_prefix(Node* node, const char* key, int key_len, std::list<Entry>* list)
+        {
+            int r = strnmcmp_prefix(key, key_len, node->key, node->key_len);
+
+            if (r <= 0)
+            {
+                if (node->left_off)
+                    node_search_prefix(node_at(node->left_off), key, key_len, list);
+            }
+
+            if (r == 0)
+            {
+                printf("%.*s\n", node->key_len, node->key);
+                DataChunk *chunk = data_chunk_at(node->data_off);
+                while (chunk)
+                {
+                    for (int i = 0; i < chunk->entry_count; i++)
+                        list->push_back(chunk->entries[i]);
+                    chunk = data_chunk_at(chunk->next_off);
+                }
+            }
+
+            if (r >= 0)
+            {
+                if (node->right_off)
+                    node_search_prefix(node_at(node->right_off), key, key_len, list);
+            }
+        }
+
+
+
+        Node* node_search_insert(Node* node, const char* key, int key_len)
+        {
+            int r = strnmcmp(key, key_len, node->key, node->key_len);
+
+            if (r == 0)
+                return node;
+            else if (r < 0)
+            {
+                if (node->left_off)
+                    return node_search_insert(node_at(node->left_off), key, key_len);
                 else
                 {
-                    Node* child = createNode(node, key, 1);
+                    Node* child = create_node(node, key, 1);
                     node->left_off = node_off(child);
                     node_fix(child);
+                    return child;
                 }
             }
             else
             {
                 if (node->right_off)
-                    node_add(node_at(node->right_off), key);
+                    return node_search_insert(node_at(node->right_off), key, key_len);
                 else
                 {
-                    Node* child = createNode(node, key, 1);
+                    Node* child = create_node(node, key, 1);
                     node->right_off = node_off(child);
                     node_fix(child);
+                    return child;
                 }
             }
         }
@@ -225,32 +361,32 @@ class FileTree2
 
 
 
-        Node* node_parent(Node* node)
+        inline Node* node_parent(Node* node)
         {
             if (node->parent_off)
                 return node_at(node->parent_off);
             return 0;
         }
-        Node* node_left(Node* node)
+        inline Node* node_left(Node* node)
         {
             if (node->left_off)
                 return node_at(node->left_off);
             return 0;
         }
-        Node* node_right(Node* node)
+        inline Node* node_right(Node* node)
         {
             if (node->right_off)
                 return node_at(node->right_off);
             return 0;
         }
-        Node* node_grandparent(Node* node)
+        inline Node* node_grandparent(Node* node)
         {
             Node* p = node_parent(node);
             if (p)
                 return node_parent(p);
             return 0;
         }
-        Node* node_uncle(Node* node)
+        inline Node* node_uncle(Node* node)
         {
             Node* gp = node_grandparent(node);
             if (gp)
@@ -366,36 +502,36 @@ class FileTree2
             callback(node->key, node->key_len);
             if (node->right_off) node_walk(node_right(node), callback);
         }
+
+
+
+        uint32 create_data_chunk()
+        {
+            uint32 offs = file.size();
+            file.grow(sizeof(DataChunk));
+
+            DataChunk* chunk = data_chunk_at(offs);
+            chunk->next_off = 0;
+            chunk->entry_count = 0;
+
+            return offs;
+        }
+
+        void node_add_match_entry(Node* node, const Entry& entry)
+        {
+            if (node->data_off == 0)
+                node->data_off = create_data_chunk();
+
+            DataChunk* chunk = data_chunk_at(node->data_off);
+
+            if (chunk->entry_count == chunk_size)
+            {
+                node->data_off = create_data_chunk();
+                DataChunk* new_chunk = data_chunk_at(node->data_off);
+                new_chunk->next_off = file.off(chunk);
+                chunk = new_chunk;
+            }
+
+            chunk->entries[chunk->entry_count++] = entry;
+        }
 };
-
-
-void callback(const char* key, int key_len)
-{
-    for (int i = 0; i < key_len; i++) putchar(key[i]);
-    putchar(' ');
-}
-
-
-#include <iostream>
-#include <fstream>
-#include <string>
-
-int main()
-{
-    FileTree2 tree("t2.bin");
-
-     std::ifstream wordsfile("words.txt");
-     std::string word;
-     while (true)
-     {
-         std::getline(wordsfile, word);
-         if (wordsfile.eof()) break;
-
-         tree.add(word.c_str());
-     }
-
-    // tree.print();
-
-    // tree.walk(callback);
-    // printf("\n");
-}

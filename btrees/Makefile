@@ -1,21 +1,12 @@
-all: btree search filetree mmap filetree2
+all: filetree2
 
-CXXFLAGS = -pipe -Wall -O2
+CXXFLAGS = -pipe -Wall -O3
 
-btree: main.cpp BTree.h
-	g++ $(CXXFLAGS) main.cpp -o $@
+main.o: main.cpp MappedFile.h FileTree.h IndexTree.h
+MappedFile.o: MappedFile.cpp
 
-search: search.cpp
-	g++ $(CXXFLAGS) search.cpp -o $@
-
-filetree: filetree.cpp fileio.h
-	g++ $(CXXFLAGS) filetree.cpp -o $@
-
-mmap: mmap.cpp
-	g++ $(CXXFLAGS) mmap.cpp -o $@
-
-filetree2: filetree2.cpp
-	g++ $(CXXFLAGS) filetree2.cpp -o $@
+filetree2: main.o MappedFile.o
+	g++ $(CXXFLAGS) $^ -o $@
 
 clean:
 	rm -f *.o btree search filetree mmap filetree2
