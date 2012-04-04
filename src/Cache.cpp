@@ -116,7 +116,7 @@ void Cache::openDB()
     execWithCheck("PRAGMA synchronous = 0");
 
     execWithCheck(
-        "CREATE TABLE IF NOT EXISTS chapters ( "
+        "CREATE TABLE IF NOT EXISTS html ( "
             "transCode VARCHAR, "
             "langCode VARCHAR, "
             "bookCode VARCHAR, "
@@ -128,12 +128,12 @@ void Cache::openDB()
         ")"
     );
     execWithCheck(
-        "CREATE INDEX IF NOT EXISTS lc_tc_bn_cn ON chapters "
+        "CREATE INDEX IF NOT EXISTS lc_tc_bn_cn ON html "
         "(langCode, transCode, bookNo, chapterNo)"
     );
 
     sqlite3_prepare_v2(_db,
-        "INSERT OR REPLACE INTO chapters "
+        "INSERT OR REPLACE INTO html "
             "(transCode, langCode, bookCode, bookNo, chapterNo, html, text) "
             "VALUES "
             "(?, ?, ?, ?, ?, ?, ?);",
@@ -142,24 +142,23 @@ void Cache::openDB()
     );
 
     sqlite3_prepare_v2(_db,
-        "SELECT content FROM text WHERE rowid ="
-            "(SELECT text_id FROM chapters WHERE transCode=? AND langCode=? AND bookCode=? AND chapterNo=?)",
+        "SELECT html FROM html WHERE transCode=? AND langCode=? AND bookCode=? AND chapterNo=?",
         -1,
         &_stmt_loadChapter, 0
     );
 
     sqlite3_prepare_v2(_db,
-        "SELECT count(*) FROM chapters WHERE transCode=:transCode AND langCode=:langCode AND bookCode=:bookCode AND chapterNo=:chapterNo", -1,
+        "SELECT count(*) FROM html WHERE transCode=:transCode AND langCode=:langCode AND bookCode=:bookCode AND chapterNo=:chapterNo", -1,
         &_stmt_hasChapter, 0
     );
 
     sqlite3_prepare_v2(_db,
-        "SELECT count(*) FROM chapters WHERE langCode=:langCode AND transCode=:transCode", -1,
+        "SELECT count(*) FROM html WHERE langCode=:langCode AND transCode=:transCode", -1,
         &_stmt_totalChapters, 0
     );
 
     sqlite3_prepare_v2(_db,
-        "SELECT bookCode, chapterNo FROM chapters WHERE langCode=? AND transCode=? ORDER BY bookNo, chapterNo", -1,
+        "SELECT bookCode, chapterNo FROM html WHERE langCode=? AND transCode=? ORDER BY bookNo, chapterNo", -1,
         &_stmt_availableChapters, 0
     );
 }
@@ -210,7 +209,8 @@ void Cache::saveChapter(const Translation* translation, const Place& place, QStr
     sqlite3_bind_text16(_stmt_saveChapter, 7, text.utf16(), -1, SQLITE_STATIC);
 
 
-    sqlite3_step(_stmt_saveChapter);
+    if (sqlite3_step(_stmt_saveChapter) != SQLITE_DONE)
+        qCritical() << "SQL error in saveChapter:" << sqlite3_errmsg(_db);
 }
 
 
