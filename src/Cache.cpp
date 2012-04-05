@@ -211,6 +211,12 @@ void Cache::saveChapter(const Translation* translation, const Place& place, QStr
 
     if (sqlite3_step(_stmt_saveChapter) != SQLITE_DONE)
         qCritical() << "SQL error in saveChapter:" << sqlite3_errmsg(_db);
+    else
+    {
+        QElapsedTimer timer; timer.start();
+
+        qDebug() << "Insertion into index:" << timer.elapsed();
+    }
 }
 
 

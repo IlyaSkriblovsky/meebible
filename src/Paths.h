@@ -32,6 +32,8 @@ public:
     static QString cachedXML(const QString& name);
     static QStringList allCachedXML(const QString& prefix);
 
+    static QString indexFile(const QString& transCode, const QString& langCode);
+
 
 private:
     static QDir _cacheDir;

@@ -126,3 +126,10 @@ QStringList Paths::allCachedXML(const QString& prefix)
 
     return result;
 }
+
+
+
+QString Paths::indexFile(const QString& transCode, const QString& langCode)
+{
+    return correctSlashes(_cacheDir.filePath(transCode + "_" + langCode + ".idx"));
+}
