@@ -3,7 +3,7 @@
 #include <cstdlib>
 
 #include "unisimple.h"
-#include "utf8.h"
+// #include "utf8.h"
 
 
 namespace us
@@ -12,7 +12,7 @@ namespace us
 
 struct CharClassDesc
 {
-    char32 codepoint;
+    char16 codepoint;
     CharClass charclass;
 };
 
@@ -23,12 +23,12 @@ CharClassDesc charClasses[] = {
 
 struct SimplifyDesc
 {
-    char32 codepoint;
+    char16 codepoint;
     unsigned short replacement_start;
     unsigned char replacement_len;
 };
 
-char32 simplifyBlob[] = {
+char16 simplifyBlob[] = {
     #include "gen_Simplify_blob.inc.cpp"
 };
 
@@ -38,7 +38,7 @@ SimplifyDesc simplifyDesc[] = {
 
 
 
-CharClass charClass(char32 c)
+CharClass charClass(char16 c)
 {
     int l = 0;
     int r = sizeof(charClasses) / sizeof(charClasses[0]);
@@ -47,7 +47,7 @@ CharClass charClass(char32 c)
     {
         int m = (r + l) >> 1;
 
-        char32 mv = charClasses[m].codepoint;
+        char16 mv = charClasses[m].codepoint;
         if (mv >  c) r = m;
         if (mv <= c) l = m;
     }
@@ -56,7 +56,7 @@ CharClass charClass(char32 c)
 }
 
 
-int simplifyChar(char32 c, char32 *out)
+int simplifyChar(char16 c, char16 *out)
 {
     if (charClass(c) == UCHAR_CLASS_M)
         return 0;
@@ -68,7 +68,7 @@ int simplifyChar(char32 c, char32 *out)
     {
         int m = (r + l) >> 1;
 
-        char32 mv = simplifyDesc[m].codepoint;
+        char16 mv = simplifyDesc[m].codepoint;
         if (mv >  c) r = m;
         if (mv <= c) l = m;
     }
@@ -81,7 +81,7 @@ int simplifyChar(char32 c, char32 *out)
     }
 
     if (out)
-        memcpy(out, &simplifyBlob[simplifyDesc[l].replacement_start], sizeof(char32) * simplifyDesc[l].replacement_len);
+        memcpy(out, &simplifyBlob[simplifyDesc[l].replacement_start], sizeof(char16) * simplifyDesc[l].replacement_len);
     return simplifyDesc[l].replacement_len;
 }
 
@@ -96,53 +96,53 @@ int simplifyChar(char32 c, char32 *out)
 // if buffer argument is null, this function will malloc() new buffer
 //
 // Caller is responsible to free() buffer even if it created by function
-void simplifyUTF8_alloc(const char* input, int inlen, char** buffer, int *bufsize)
-{
-    if (inlen == -1)
-        inlen = strlen(input);
-
-    int outlen = 0;
-
-    if (*buffer == 0)
-    {
-        outlen = inlen;
-
-        int allocsize = outlen + 1;
-        if (bufsize) *bufsize = allocsize;
-        *buffer = (char*)malloc(allocsize);
-    }
-    else
-        outlen = *bufsize;
-
-    int inpos = 0;
-    int outpos = 0;
-    char32 c;
-
-    char32 simplified[20];
-
-    while (inpos < inlen)
-    {
-        U8_NEXT_UNSAFE(input, inpos, c);
-
-        int simpcount = simplifyChar(c, simplified);
-
-        for (int i = 0; i < simpcount; i++)
-        {
-            if (outlen - outpos < 4)
-            {
-                outlen = outlen * 2;
-
-                int allocsize = outlen + 1;
-                if (bufsize) *bufsize = allocsize;
-                *buffer = (char*)realloc(*buffer, allocsize);
-            }
-
-            U8_APPEND_UNSAFE(*buffer, outpos, simplified[i]);
-        }
-    }
-
-    (*buffer)[outpos++] = 0;
-}
+// void simplifyUTF8_alloc(const char* input, int inlen, char** buffer, int *bufsize)
+// {
+//     if (inlen == -1)
+//         inlen = strlen(input);
+// 
+//     int outlen = 0;
+// 
+//     if (*buffer == 0)
+//     {
+//         outlen = inlen;
+// 
+//         int allocsize = outlen + 1;
+//         if (bufsize) *bufsize = allocsize;
+//         *buffer = (char*)malloc(allocsize);
+//     }
+//     else
+//         outlen = *bufsize;
+// 
+//     int inpos = 0;
+//     int outpos = 0;
+//     char32 c;
+// 
+//     char32 simplified[20];
+// 
+//     while (inpos < inlen)
+//     {
+//         U8_NEXT_UNSAFE(input, inpos, c);
+// 
+//         int simpcount = simplifyChar(c, simplified);
+// 
+//         for (int i = 0; i < simpcount; i++)
+//         {
+//             if (outlen - outpos < 4)
+//             {
+//                 outlen = outlen * 2;
+// 
+//                 int allocsize = outlen + 1;
+//                 if (bufsize) *bufsize = allocsize;
+//                 *buffer = (char*)realloc(*buffer, allocsize);
+//             }
+// 
+//             U8_APPEND_UNSAFE(*buffer, outpos, simplified[i]);
+//         }
+//     }
+// 
+//     (*buffer)[outpos++] = 0;
+// }
 
 
 // int main()

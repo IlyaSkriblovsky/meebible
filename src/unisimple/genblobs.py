@@ -1,6 +1,11 @@
 # -*- coding: utf-8 -*-
 
+ONLY_16BIT = True
+
 lines = [line.strip().split(';') for line in open('UnicodeData.txt').readlines() + open('Additional.txt').readlines()]
+
+if ONLY_16BIT:
+    lines = filter(lambda l: int(l[0], 16) <= 0xffff, lines)
 
 by_code = dict((int(line[0], 16), line) for line in lines)
 
@@ -20,6 +25,10 @@ def decompose(code):
 
     parts = line[5].split(' ')
     if parts[0][0] == '<': parts = parts[1:]
+
+    if ONLY_16BIT:
+        if len(filter(lambda p: int(p, 16) > 0xffff, parts)) > 0:
+            return [code]
 
     import operator
     return reduce(operator.__add__, (
@@ -49,7 +58,7 @@ with open('gen_CharClasses.inc.cpp', 'w') as f:
     for c in sorted(char_class.keys()):
         cc = char_class[c]
         if cc != prev_class:
-            f.write("{{ 0x{0:06x}, UCHAR_CLASS_{1} }},\n".format(c, cc))
+            f.write("{{ 0x{0:04x}, UCHAR_CLASS_{1} }},\n".format(c, cc))
             prev_class = cc
 
 
@@ -79,7 +88,7 @@ with open('gen_Simplify_blob.inc.cpp', 'w') as f:
         s += partlen
         f.write('{0},\n'.format(
             ', '.join(
-                '0x{0:06x}'.format(ord(c))
+                '0x{0:04x}'.format(ord(c))
                 for c in part
             )
         ))
@@ -93,8 +102,8 @@ with open('gen_SimplifyDesc.inc.cpp', 'w') as f:
         blob_start = blob.find(r)
         if blob_start == -1: raise Exception('??')
 
-        f.write(u'{{ 0x{0:06x}, {1}, {2} }}, // {3:04X} -> {4}\n'.format(
-            c, blob_start, len(r), c, u' '.join('{:04X}'.format(ord(rc)) for rc in r)
+        f.write(u'{{ 0x{0:04x}, {1}, {2} }}, // {3:04X} -> {4}\n'.format(
+            c, blob_start, len(r), c, u' '.join('{0:04X}'.format(ord(rc)) for rc in r)
         ).encode('utf-8'))
 
 

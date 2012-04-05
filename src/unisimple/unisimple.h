@@ -1,7 +1,6 @@
-#ifndef UNISIMPLE_H
-#define UNISIMPLE_H
+#pragma once
 
-#include "char32.h"
+#include "unichar.h"
 
 enum CharClass
 {
@@ -17,10 +16,7 @@ enum CharClass
 namespace us
 {
 
-    CharClass charClass(char32 c);
-    int simplifyChar(char32, char32 *out);
-    void simplifyUTF8_alloc(const char* input, int inlen, char** buffer, int *bufsize);
+    CharClass charClass(char16 c);
+    int simplifyChar(char16, char16 *out);
 
 };
-
-#endif
