@@ -805,15 +805,6 @@ Page {
                 $$QML_SYMBIAN_THEME
             }
 
-            MenuItem {
-                text: \"FTS\"
-                onClicked: {
-                    var result = cache.searchTest(settings.translation, \"Иегова\")
-                    for (var i = 0; i < result.length; i++)
-                        console.log(placeAccesser.string(result[i], settings.translation))
-                }
-            }
-
 
             function fontSizeClicked() {
                 page.pageStack.toolBar.setTools(fontTools, \"replace\")
