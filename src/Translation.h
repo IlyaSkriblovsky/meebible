@@ -5,7 +5,6 @@
 #include <QString>
 #include <QList>
 #include <QStringList>
-#include <QVariantList>
 
 #include "Place.h"
 

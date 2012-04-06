@@ -2,6 +2,7 @@
 
 #include <QDebug>
 #include <QDesktopServices>
+#include <QVariant>
 
 #include <QVariant>
 #include <QElapsedTimer>
@@ -16,11 +17,6 @@
 #include "Paths.h"
 #include "Translation.h"
 #include "Language.h"
-
-#ifndef NOSEARCH
-    #include "SqliteUnicodeSearch.h"
-    #include "SearchThread.h"
-#endif
 
 
 
@@ -58,9 +54,6 @@ Cache* Cache::instance()
 
 
 Cache::Cache()
-    #ifndef NOSEARCH
-        : _searchInProgress(false)
-    #endif
 {
     if (_instance)
         qDebug() << "Duplicate Cache instance";
@@ -109,9 +102,6 @@ void Cache::openDB()
     if (sqlite3_open_v2(Paths::cacheDB().toUtf8(), &_db, SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE, "sqlite3async") != SQLITE_OK)
         qCritical() << "Cannot open cache DB";
 
-    #ifndef NOSEARCH
-        SqliteUnicodeSearch::installUnicodeSearch(_db);
-    #endif
 
     execWithCheck("PRAGMA synchronous = 0");
 
@@ -215,6 +205,9 @@ void Cache::saveChapter(const Translation* translation, const Place& place, QStr
     {
         QElapsedTimer timer; timer.start();
 
+        _indexer.setTranslation(translation);
+        _indexer.addDocument(html, sqlite3_last_insert_rowid(_db));
+
         qDebug() << "Insertion into index:" << timer.elapsed();
     }
 }
@@ -293,41 +286,6 @@ int Cache::totalChaptersInCache(const Translation *translation)
         return 0;
     }
 }
-
-
-
-#ifndef NOSEARCH
-void Cache::search(Translation* translation, const QString& text)
-{
-    if (_searchInProgress)
-        return;
-
-    _searchInProgress = true;
-    searchInProgressChanged();
-
-    searchStarted();
-
-    SearchThread* thread = new SearchThread(translation, text);
-    connect(thread, SIGNAL(matchFound(Place, QString, int)), this, SLOT(onThreadMatchFound(Place, QString, int)));
-    connect(thread, SIGNAL(finished()), this, SLOT(onThreadFinished()));
-    connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
-
-    thread->start();
-}
-
-void Cache::onThreadMatchFound(Place place, QString match, int matchCount)
-{
-    matchFound(place, match, matchCount);
-}
-
-void Cache::onThreadFinished()
-{
-    _searchInProgress = false;
-    searchInProgressChanged();
-
-    searchFinished();
-}
-#endif
 
 
 
@@ -419,4 +377,38 @@ void Cache::commitTransaction()
     QElapsedTimer timer; timer.start();
     sqlite3_exec(_db, "COMMIT", 0, 0, 0);
     qDebug() << "commit time:" << timer.elapsed();
+}
+
+
+
+
+QList<QVariant> Cache::searchTest(Translation* translation, const QString& query)
+{
+    QElapsedTimer timer; timer.start();
+
+    _indexer.setTranslation(translation);
+    QSet<int> docids = _indexer.search(query);
+
+    QStringList strIDs;
+    foreach (int docid, docids)
+        strIDs.append(QString::number(docid));
+
+    QString sql = QString("SELECT bookCode, chapterNo, html FROM html WHERE rowid IN (%1) ORDER BY bookNo, chapterNo")
+        .arg(strIDs.join(","));
+
+    sqlite3_stmt* stmt;
+    sqlite3_prepare16_v2(_db,
+        sql.utf16(), -1,
+        &stmt, 0
+    );
+
+    QList<QVariant> result;
+    while (sqlite3_step(stmt) == SQLITE_ROW)
+        result.append(QVariant::fromValue(Place(QString::fromUtf16((const ushort*)sqlite3_column_text16(stmt, 0)), sqlite3_column_int(stmt, 1))));
+
+    sqlite3_finalize(stmt);
+
+    qDebug() << "searchTest elapsed:" << timer.elapsed();
+
+    return result;
 }

@@ -23,9 +23,6 @@
 #include "Paths.h"
 #include "Bookmarks.h"
 
-#ifndef NOSEARCH
-    #include "SqliteUnicodeSearch.h"
-#endif
 
 
 
@@ -255,9 +252,7 @@ void BibleView::displayHtml(QString html)
     _html = html;
     setHtml(_html);
 
-    #ifndef NOSEARCH
-        stopSearchMode();
-    #endif
+    stopSearchMode();
 }
 
 void BibleView::showSelectedVerses(QSet<int> verses)
@@ -358,13 +353,15 @@ void BibleView::setPreferredWidth(int width)
 
 /////////////////////////////////////////
 
-#ifndef NOSEARCH
 void BibleView::startSearchMode(const QString& needle)
 {
     _searchNeedle = needle;
     searchNeedleChanged();
 
-    setHtml(SqliteUnicodeSearch::highlightMatches(_html, needle, &_matchCount));
+    // FIXME:
+    // setHtml(SqliteUnicodeSearch::highlightMatches(_html, needle, &_matchCount));
+    _matchCount = 0;
+
     matchCountChanged();
 
 
@@ -389,7 +386,6 @@ void BibleView::stopSearchMode()
         page()->mainFrame()->evaluateJavaScript(QString("hideAllHighlights()"));
     }
 }
-#endif
 
 void BibleView::setMatchIndex(int index)
 {

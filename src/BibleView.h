@@ -87,10 +87,8 @@ public slots:
     void loadNextChapter();
     void loadPrevChapter();
 
-    #ifndef NOSEARCH
-        void startSearchMode(const QString& needle);
-        void stopSearchMode();
-    #endif
+    void startSearchMode(const QString& needle);
+    void stopSearchMode();
 
     bool copySelectedVerses(bool withVerseNumbers);
     #ifndef NOSHARE

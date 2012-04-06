@@ -7,6 +7,8 @@
 
 
 #include "Settings.h"
+#include "Translation.h"
+#include "Language.h"
 
 
 QDir Paths::_cacheDir;
@@ -129,7 +131,7 @@ QStringList Paths::allCachedXML(const QString& prefix)
 
 
 
-QString Paths::indexFile(const QString& transCode, const QString& langCode)
+QString Paths::indexFile(const Translation* translation)
 {
-    return correctSlashes(_cacheDir.filePath(transCode + "_" + langCode + ".idx"));
+    return correctSlashes(_cacheDir.filePath(translation->code() + "_" + translation->language()->code() + ".idx"));
 }

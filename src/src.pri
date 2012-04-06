@@ -59,7 +59,7 @@ HEADERS +=                      \
     src/Paths.h                 \
     src/Place.h                 \
     src/BibleWebPage.h          \
-    src/Fetcher2.h               \
+    src/Fetcher2.h              \
     src/Utils.h                 \
     src/Settings.h              \
     src/MetaInfoParser.h        \
@@ -69,7 +69,12 @@ HEADERS +=                      \
     src/NetworkUtils.h          \
     src/StartupTracker.h        \
     src/Bookmarks.h             \
-    src/PlaceAccesser.h
+    src/PlaceAccesser.h         \
+    src/MappedFile.h            \
+    src/FileTree.h              \
+    src/IndexTree.h             \
+    src/StringTokenizer.h       \
+    src/Indexer.h
 
 
 SOURCES +=                      \
@@ -92,4 +97,6 @@ SOURCES +=                      \
     src/NetworkUtils.cpp        \
     src/StartupTracker.cpp      \
     src/Bookmarks.cpp           \
-    src/PlaceAccesser.cpp
+    src/PlaceAccesser.cpp       \
+    src/MappedFile.cpp          \
+    src/Indexer.cpp

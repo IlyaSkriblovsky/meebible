@@ -21,7 +21,18 @@ UniSheet {
         if (field.text == \"\")
             return
 
-        cache.search(translation, field.text)
+        // cache.search(translation, field.text)
+        results.clear()
+        var found = cache.searchTest(translation, field.text)
+        for (var i = 0; i < found.length; i++)
+            results.append({
+                title: placeAccesser.string(found[i], settings.translation),
+                subtitle: \"<...>\",
+                place: found[i],
+                matchCount: 0
+            })
+
+        item.state = results.count == 0 ? \"nothing\" : \"list\"
     }
 
 
@@ -82,7 +93,8 @@ UniSheet {
                 running: visible
             }
 
-            state: cache.searchInProgress ? \"busy\" : \"idle\"
+            // state: cache.searchInProgress ? \"busy\" : \"idle\"
+            state: \"idle\"
 
             states: [
                 State {
@@ -132,28 +144,28 @@ UniSheet {
         id: item
 
 
-        Connections {
-            target: cache
+        // Connections {
+        //     target: cache
 
-            onSearchStarted: {
-                item.state = \"list\"
+        //     onSearchStarted: {
+        //         item.state = \"list\"
 
-                results.clear()
-            }
-            onSearchFinished: {
-                if (results.count == 0)
-                    item.state = \"nothing\"
-            }
+        //         results.clear()
+        //     }
+        //     onSearchFinished: {
+        //         if (results.count == 0)
+        //             item.state = \"nothing\"
+        //     }
 
-            onMatchFound: {
-                results.append({
-                    title: placeAccesser.string(place, settings.translation),
-                    subtitle: match,
-                    place: place,
-                    matchCount: matchCount
-                })
-            }
-        }
+        //     onMatchFound: {
+        //         results.append({
+        //             title: placeAccesser.string(place, settings.translation),
+        //             subtitle: match,
+        //             place: place,
+        //             matchCount: matchCount
+        //         })
+        //     }
+        // }
 
 
         anchors.fill: parent
