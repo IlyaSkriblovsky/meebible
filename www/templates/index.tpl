@@ -41,10 +41,14 @@
                 <li>New International Bible</li>
                 <li>English Standard Version</li>
                 <li>Russian Synodal Translation</li>
+                <li>French Louis Segond Translation</li>
+                <li>Italian Versione Diodati Riveduta</li>
+                <li>Portuguese Almeida Corrigida e Revisada Translation</li>
+                <li>Spanish Reina Valera Translation</li>
                 <li>Latvian Revised Bible</li>
-                <li>Arabic Smith &amp; Van Dyke Version</li>
                 <li>Svenska Folkbibeln (Swedish People's Bible)</li>
                 <li>Bulgarian “Протестантски (1940)”</li>
+                <li>Arabic Smith &amp; Van Dyke Version</li>
             </ul>
         </p>
 
