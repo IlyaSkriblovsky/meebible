@@ -96,10 +96,15 @@ void Cache::openDB()
         sqlite3async_control(SQLITEASYNC_HALT, SQLITEASYNC_HALT_NEVER);
         _asyncThread = new SqliteAsyncThread(this);
         _asyncThread->start();
+
+        const char* vfs = "sqlite3async";
+    #else
+        const char* vfs = 0;
     #endif
 
 
-    if (sqlite3_open_v2(Paths::cacheDB().toUtf8(), &_db, SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE, "sqlite3async") != SQLITE_OK)
+    qDebug() << Paths::cacheDB();
+    if (sqlite3_open_v2(Paths::cacheDB().toUtf8(), &_db, SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE, vfs) != SQLITE_OK)
         qCritical() << "Cannot open cache DB";
 
 
@@ -113,7 +118,6 @@ void Cache::openDB()
             "bookNo INTEGER, "
             "chapterNo INTEGER, "
             "html TEXT, "
-            "text TEXT, "
             "PRIMARY KEY (transCode, langCode, bookCode, chapterNo)"
         ")"
     );
@@ -124,9 +128,9 @@ void Cache::openDB()
 
     sqlite3_prepare_v2(_db,
         "INSERT OR REPLACE INTO html "
-            "(transCode, langCode, bookCode, bookNo, chapterNo, html, text) "
+            "(transCode, langCode, bookCode, bookNo, chapterNo, html) "
             "VALUES "
-            "(?, ?, ?, ?, ?, ?, ?);",
+            "(?, ?, ?, ?, ?, ?);",
         -1,
         &_stmt_saveChapter, 0
     );
@@ -192,23 +196,12 @@ void Cache::saveChapter(const Translation* translation, const Place& place, QStr
     sqlite3_bind_int   (_stmt_saveChapter, 5, place.chapterNo());
     sqlite3_bind_text16(_stmt_saveChapter, 6, html.utf16(), -1, SQLITE_STATIC);
 
-    QString text = html;
-    text.replace(_stripStyles, " ");
-    text.replace(_stripTags, " ");
-    text.replace(_stripSpaces, " ");
-    sqlite3_bind_text16(_stmt_saveChapter, 7, text.utf16(), -1, SQLITE_STATIC);
-
-
     if (sqlite3_step(_stmt_saveChapter) != SQLITE_DONE)
         qCritical() << "SQL error in saveChapter:" << sqlite3_errmsg(_db);
     else
     {
-        QElapsedTimer timer; timer.start();
-
         _indexer.setTranslation(translation);
         _indexer.addDocument(html, sqlite3_last_insert_rowid(_db));
-
-        qDebug() << "Insertion into index:" << timer.elapsed();
     }
 }
 
@@ -307,7 +300,18 @@ void Cache::clearCache()
     for (int i = 0; i < xml.size(); i++)
     {
         qDebug() << "Deleting" << Paths::cachedXML(xml.at(i));
-        QFile::remove(Paths::cachedXML(xml.at(i)));
+        if (! QFile::remove(Paths::cachedXML(xml.at(i))))
+            qDebug() << "Can't delete" << Paths::cachedXML(xml.at(i));
+    }
+
+    _indexer.setTranslation(0);
+
+    QStringList idx = Paths::allIndexFiles();
+    for (int i = 0; i < idx.size(); i++)
+    {
+        qDebug() << "Deleting" << idx.at(i);
+        if (! QFile::remove(idx.at(i)))
+            qDebug() << "Can't delete" << idx.at(i);
     }
 }
 

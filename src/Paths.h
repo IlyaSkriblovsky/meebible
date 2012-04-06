@@ -35,6 +35,7 @@ public:
     static QStringList allCachedXML(const QString& prefix);
 
     static QString indexFile(const Translation* translation);
+    static QStringList allIndexFiles();
 
 
 private:

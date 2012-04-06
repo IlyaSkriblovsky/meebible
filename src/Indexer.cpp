@@ -25,7 +25,11 @@ void Indexer::setTranslation(const Translation* translation)
     _translation = translation;
 
     delete _indexFile;
-    _indexFile = new IndexTree(Paths::indexFile(_translation).toUtf8().constData());
+
+    if (_translation)
+        _indexFile = new IndexTree(Paths::indexFile(_translation).toUtf8().constData());
+    else
+        _indexFile = 0;
 }
 
 
