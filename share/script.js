@@ -163,9 +163,8 @@ function verseOffset(verse)
 }
 
 
+/*
 var currentMatchIndex = 0
-
-
 function highlightMatch(matchIndex)
 {
     var span
@@ -184,6 +183,40 @@ function highlightMatch(matchIndex)
     else
         return 0;
 }
+*/
+
+var currentMatch = null
+function highlightMatch(matchIndex)
+{
+    if (currentMatch)
+        currentMatch.className = 'match'
+    currentMatch = null
+
+    var spans = document.getElementsByTagName('span')
+    var count = 0
+    for (var i = 0; i < spans.length; i++)
+    {
+        if (spans[i].className == 'match')
+        {
+            if (count == matchIndex)
+            {
+                currentMatch = spans[i];
+                break;
+            }
+            count++
+        }
+    }
+
+    if (currentMatch)
+    {
+        currentMatch.className = 'match current'
+        return currentMatch.offsetTop
+    }
+    else
+        return 0
+}
+
+
 
 function hideAllHighlights()
 {

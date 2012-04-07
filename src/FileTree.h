@@ -281,7 +281,6 @@ class FileTree
 
             if (r == 0)
             {
-                printf("%.*s\n", node->key_len, node->key);
                 DataChunk *chunk = data_chunk_at(node->data_off);
                 while (chunk)
                 {

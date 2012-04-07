@@ -17,6 +17,9 @@
 #include "Paths.h"
 #include "Translation.h"
 #include "Language.h"
+#include "SearchResult.h"
+#include "SearchQueryParser.h"
+#include "Highlighter.h"
 
 
 
@@ -118,6 +121,7 @@ void Cache::openDB()
             "bookNo INTEGER, "
             "chapterNo INTEGER, "
             "html TEXT, "
+            "text TEXT, "
             "PRIMARY KEY (transCode, langCode, bookCode, chapterNo)"
         ")"
     );
@@ -128,9 +132,9 @@ void Cache::openDB()
 
     sqlite3_prepare_v2(_db,
         "INSERT OR REPLACE INTO html "
-            "(transCode, langCode, bookCode, bookNo, chapterNo, html) "
+            "(transCode, langCode, bookCode, bookNo, chapterNo, html, text) "
             "VALUES "
-            "(?, ?, ?, ?, ?, ?);",
+            "(?, ?, ?, ?, ?, ?, ?);",
         -1,
         &_stmt_saveChapter, 0
     );
@@ -187,21 +191,28 @@ void Cache::saveChapter(const Translation* translation, const Place& place, QStr
     QString transCode = translation->code();
     QString langCode = translation->language()->code();
     QString bookCode = place.bookCode();
+    int bookNo = translation->bookCodes().indexOf(place.bookCode());
 
     sqlite3_reset(_stmt_saveChapter);
     sqlite3_bind_text16(_stmt_saveChapter, 1, transCode.utf16(), -1, SQLITE_STATIC);
     sqlite3_bind_text16(_stmt_saveChapter, 2, langCode.utf16(), -1, SQLITE_STATIC);
     sqlite3_bind_text16(_stmt_saveChapter, 3, bookCode.utf16(), -1, SQLITE_STATIC);
-    sqlite3_bind_int   (_stmt_saveChapter, 4, translation->bookCodes().indexOf(place.bookCode()));
+    sqlite3_bind_int   (_stmt_saveChapter, 4, bookNo);
     sqlite3_bind_int   (_stmt_saveChapter, 5, place.chapterNo());
     sqlite3_bind_text16(_stmt_saveChapter, 6, html.utf16(), -1, SQLITE_STATIC);
+
+    QString text = html;
+    text.replace(_stripStyles, " ");
+    text.replace(_stripTags, " ");
+    text.replace(_stripSpaces, " ");
+    sqlite3_bind_text16(_stmt_saveChapter, 7, text.utf16(), -1, SQLITE_STATIC);
 
     if (sqlite3_step(_stmt_saveChapter) != SQLITE_DONE)
         qCritical() << "SQL error in saveChapter:" << sqlite3_errmsg(_db);
     else
     {
         _indexer.setTranslation(translation);
-        _indexer.addDocument(html, sqlite3_last_insert_rowid(_db));
+        _indexer.addChapter(bookNo, place.chapterNo(), text);
     }
 }
 
@@ -384,35 +395,53 @@ void Cache::commitTransaction()
 }
 
 
-
+typedef QPair<int, int> ChapterId;
 
 QList<QVariant> Cache::searchTest(Translation* translation, const QString& query)
 {
     QElapsedTimer timer; timer.start();
 
+    QList<SearchQueryParser::QueryToken> queryTokens = SearchQueryParser::parseQuery(query);
+
     _indexer.setTranslation(translation);
-    QSet<int> docids = _indexer.search(query);
+    QMap<ChapterId, QList<MatchEntry> > results = _indexer.search(query, 10);
 
-    QStringList strIDs;
-    foreach (int docid, docids)
-        strIDs.append(QString::number(docid));
-
-    QString sql = QString("SELECT bookCode, chapterNo, html FROM html WHERE rowid IN (%1) ORDER BY bookNo, chapterNo")
-        .arg(strIDs.join(","));
+    QString sql = QString("SELECT bookCode, chapterNo, substr(text, ?, 50) FROM html WHERE transCode=? AND langCode=? AND bookNo=? AND chapterNo=? LIMIT 1");
 
     sqlite3_stmt* stmt;
-    sqlite3_prepare16_v2(_db,
-        sql.utf16(), -1,
-        &stmt, 0
-    );
+    sqlite3_prepare16_v2(_db, sql.utf16(), -1, &stmt, 0);
 
-    QList<QVariant> result;
-    while (sqlite3_step(stmt) == SQLITE_ROW)
-        result.append(QVariant::fromValue(Place(QString::fromUtf16((const ushort*)sqlite3_column_text16(stmt, 0)), sqlite3_column_int(stmt, 1))));
+    QList<QVariant> searchResults;
+
+    foreach (const ChapterId& chapterId, results.keys())
+    {
+        const QList<MatchEntry>& entries = results.value(chapterId);
+
+        sqlite3_reset(stmt);
+
+        sqlite3_bind_int(stmt, 1, entries[0].offset < 15 ? 0 : entries[0].offset - 15);
+        sqlite3_bind_text16(stmt, 2, translation->code().utf16(), -1, SQLITE_STATIC);
+        sqlite3_bind_text16(stmt, 3, translation->language()->code().utf16(), -1, SQLITE_STATIC);
+        sqlite3_bind_int(stmt, 4, chapterId.first);
+        sqlite3_bind_int(stmt, 5, chapterId.second);
+
+        if (sqlite3_step(stmt) == SQLITE_ROW)
+        {
+            QString textChunk = QString::fromUtf16((const ushort*)sqlite3_column_text16(stmt, 2));
+
+            searchResults.append(QVariant::fromValue(SearchResult(
+                Place(
+                    QString::fromUtf16((const ushort*)sqlite3_column_text16(stmt, 0)),
+                    sqlite3_column_int(stmt, 1)
+                ),
+                Highlighter::highlight(textChunk, queryTokens, "<u>", "</u>", -1),
+                entries.size()
+            )));
+        }
+    }
 
     sqlite3_finalize(stmt);
 
     qDebug() << "searchTest elapsed:" << timer.elapsed();
-
-    return result;
+    return searchResults;
 }

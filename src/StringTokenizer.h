@@ -37,7 +37,7 @@ class StringTokenizer
 
                 if (c == 0) return;
 
-                int start_offset = text_pos;
+                int start_offset = text_pos-1;
                 token.clear();
 
                 while (c != 0 && c != '<' && ! is_spacing(c))

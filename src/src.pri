@@ -74,7 +74,11 @@ HEADERS +=                      \
     src/FileTree.h              \
     src/IndexTree.h             \
     src/StringTokenizer.h       \
-    src/Indexer.h
+    src/Indexer.h               \
+    src/SearchResult.h          \
+    src/SearchResultAccesser.h  \
+    src/Highlighter.h           \
+    src/SearchQueryParser.h
 
 
 SOURCES +=                      \
@@ -88,7 +92,7 @@ SOURCES +=                      \
     src/Paths.cpp               \
     src/Place.cpp               \
     src/BibleWebPage.cpp        \
-    src/Fetcher2.cpp             \
+    src/Fetcher2.cpp            \
     src/Settings.cpp            \
     src/MetaInfoParser.cpp      \
     src/TranslationInfoParser.cpp\
@@ -99,4 +103,7 @@ SOURCES +=                      \
     src/Bookmarks.cpp           \
     src/PlaceAccesser.cpp       \
     src/MappedFile.cpp          \
-    src/Indexer.cpp
+    src/Indexer.cpp             \
+    src/SearchResultAccesser.cpp\
+    src/Highlighter.cpp         \
+    src/SearchQueryParser.cpp

@@ -21,9 +21,9 @@ class Indexer: public QObject
         const Translation* translation() const { return _translation; }
         void setTranslation(const Translation*);
 
-        void addDocument(const QString& content, int docid);
+        void addChapter(int bookNo, int chapterNo, const QString& content);
 
-        QSet<int> search(const QString& query);
+        QMap<QPair<int, int>, QList<MatchEntry> > search(const QString& query, int cutoffDistance);
 
     private:
         IndexTree* _indexFile;
@@ -31,9 +31,10 @@ class Indexer: public QObject
         const Translation* _translation;
 
 
-        struct AddDocumentClosure{
+        struct AddChapterClosure {
             IndexTree* index;
-            int docid;
+            int bookNo;
+            int chapterNo;
         };
 
         static void onDocumentToken(void* data, const QString& token, int startPos, int endPos, int number);

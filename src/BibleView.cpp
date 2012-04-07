@@ -22,6 +22,8 @@
 #include "BibleWebPage.h"
 #include "Paths.h"
 #include "Bookmarks.h"
+#include "SearchQueryParser.h"
+#include "Highlighter.h"
 
 
 
@@ -358,9 +360,8 @@ void BibleView::startSearchMode(const QString& needle)
     _searchNeedle = needle;
     searchNeedleChanged();
 
-    // FIXME:
-    // setHtml(SqliteUnicodeSearch::highlightMatches(_html, needle, &_matchCount));
-    _matchCount = 0;
+    QList<SearchQueryParser::QueryToken> queryTokens = SearchQueryParser::parseQuery(needle);
+    setHtml(Highlighter::highlight(_html, queryTokens, "<span class=\"match\">", "</span>", 10, &_matchCount));
 
     matchCountChanged();
 
@@ -390,7 +391,7 @@ void BibleView::stopSearchMode()
 void BibleView::setMatchIndex(int index)
 {
     ensureVisible(page()->mainFrame()->evaluateJavaScript(QString("highlightMatch(%1)").arg(
-        index - _matchCount
+        index// - _matchCount
     )).toInt());
 
     _matchIndex = index;

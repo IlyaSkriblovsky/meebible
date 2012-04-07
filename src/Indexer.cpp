@@ -1,10 +1,15 @@
 #include "Indexer.h"
 
+#include <cstring>
+
 #include <QDebug>
+#include <QMultiMap>
+#include <QPair>
 
 #include "Translation.h"
 #include "Paths.h"
 #include "StringTokenizer.h"
+#include "SearchQueryParser.h"
 
 
 Indexer::Indexer(QObject* parent/* = 0*/)
@@ -36,15 +41,20 @@ void Indexer::setTranslation(const Translation* translation)
 
 void Indexer::onDocumentToken(void* data, const QString& token, int startPos, int endPos, int number)
 {
-    Q_UNUSED(startPos); Q_UNUSED(endPos);
+    Q_UNUSED(endPos);
 
-    AddDocumentClosure* closure = static_cast<AddDocumentClosure*>(data);
+    AddChapterClosure* closure = static_cast<AddChapterClosure*>(data);
 
-    closure->index->add(token.toUtf8().constData(), MatchEntry(closure->docid, number));
+    closure->index->add(token.toUtf8().constData(), MatchEntry(
+        closure->bookNo,
+        closure->chapterNo,
+        number,
+        startPos
+    ));
 }
 
 
-void Indexer::addDocument(const QString& content, int docid)
+void Indexer::addChapter(int bookNo, int chapterNo, const QString& content)
 {
     if (_indexFile == 0)
     {
@@ -52,9 +62,10 @@ void Indexer::addDocument(const QString& content, int docid)
         return;
     }
 
-    AddDocumentClosure closure;
+    AddChapterClosure closure;
     closure.index = _indexFile;
-    closure.docid = docid;
+    closure.bookNo = bookNo;
+    closure.chapterNo = chapterNo;
 
     StringTokenizer::tokenize(content, onDocumentToken, &closure);
 }
@@ -69,24 +80,78 @@ void Indexer::onQueryToken(void* data, const QString& token, int startPos, int e
 }
 
 
-QSet<int> Indexer::search(const QString& query)
+typedef QPair<int, int> Chapter;
+typedef QPair<MatchEntry, int> TokenMatch;
+
+QMap<Chapter, QList<MatchEntry> > Indexer::search(const QString& query, int cutoffDistance)
 {
     if (_indexFile == 0)
     {
         qCritical() << "Indexer::_indexFile == 0";
-        return QSet<int>();
+        return QMap<Chapter, QList<MatchEntry> >();
     }
 
-    QueryParseClosure closure;
-    StringTokenizer::tokenize(query, onQueryToken, &closure);
+    QList<SearchQueryParser::QueryToken> queryTokens = SearchQueryParser::parseQuery(query);
+    int queryTokensN = queryTokens.size();
 
-    QSet<int> result;
+    // [BookNo, ChapterNo] => [TokenNo, MatchEntry]
+    QMultiMap<Chapter, TokenMatch> byChapter;
 
-    for (int i = 0; i < closure.tokens.size(); i++)
+    for (int ti = 0; ti < queryTokensN; ti++)
     {
-        std::list<MatchEntry> entries = _indexFile->search(closure.tokens[i].toUtf8());
-        for (std::list<MatchEntry>::const_iterator i = entries.begin(); i != entries.end(); i++)
-            result.insert(i->docid);
+        std::list<MatchEntry> tokenMatches = queryTokens[ti].prefix ?
+            _indexFile->search_prefix(queryTokens[ti].token.toUtf8())
+                :
+            _indexFile->search(queryTokens[ti].token.toUtf8());
+
+        for (std::list<MatchEntry>::iterator i = tokenMatches.begin(); i != tokenMatches.end(); i++)
+            byChapter.insert(Chapter(i->bookNo, i->chapterNo), TokenMatch(*i, ti));
+    }
+
+    QMap<QPair<int, int>, QList<MatchEntry> > result;
+
+    foreach (const Chapter& chapter, byChapter.uniqueKeys())
+    {
+        QList<TokenMatch> values = byChapter.values(chapter);
+        qSort(values); // sorting by MatchEntry (tokenNo)
+
+        bool hasToken[queryTokensN];
+        memset(hasToken, 0, sizeof(hasToken));
+
+        int prevTokenNo = -1;
+        int groupStart = 0;
+
+        for (int i = 0; i <= values.size(); i++)
+        {
+            if (i == values.size() || (prevTokenNo != -1 && values[i].first.tokenNo - prevTokenNo > cutoffDistance))
+            {
+                bool all = true;
+                for (int j = 0; j < queryTokensN; j++)
+                    if (! hasToken[j])
+                    {
+                        all = false;
+                        break;
+                    }
+
+                if (all)
+                {
+                    for (int j = groupStart; j < i; j++)
+                    {
+                        QList<MatchEntry>& list = result[chapter];
+                        list.append(values[j].first);
+                    }
+                }
+
+                memset(hasToken, 0, sizeof(hasToken));
+                groupStart = i;
+            }
+
+            if (i < values.size())
+            {
+                hasToken[values[i].second] = true;
+                prevTokenNo = values[i].first.tokenNo;
+            }
+        }
     }
 
     return result;

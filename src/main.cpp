@@ -24,6 +24,7 @@
 #include "Place.h"
 #include "PlaceAccesser.h"
 #include "StartupTracker.h"
+#include "SearchResultAccesser.h"
 
 
 #ifdef SYMBIAN
@@ -77,6 +78,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     Bookmarks bookmarks;
 
     PlaceAccesser placeAccesser;
+    SearchResultAccesser searchResultAccesser;
 
     QDeclarativeEngine engine;
 
@@ -104,6 +106,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     view->rootContext()->setContextProperty("feedback", &feedback);
     view->rootContext()->setContextProperty("bookmarks", &bookmarks);
     view->rootContext()->setContextProperty("placeAccesser", &placeAccesser);
+    view->rootContext()->setContextProperty("searchResultAccesser", &searchResultAccesser);
 
     #ifdef FREEVERSION
         view->rootContext()->setContextProperty("freeversion", QVariant(true));

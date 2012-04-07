@@ -25,12 +25,15 @@ UniSheet {
         results.clear()
         var found = cache.searchTest(translation, field.text)
         for (var i = 0; i < found.length; i++)
+        {
+            var place = searchResultAccesser.place(found[i])
             results.append({
-                title: placeAccesser.string(found[i], settings.translation),
-                subtitle: \"<...>\",
-                place: found[i],
-                matchCount: 0
+                title: placeAccesser.string(place, settings.translation),
+                subtitle: searchResultAccesser.preview(found[i]),
+                place: place,
+                matchCount: searchResultAccesser.matchCount(found[i])
             })
+        }
 
         item.state = results.count == 0 ? \"nothing\" : \"list\"
     }

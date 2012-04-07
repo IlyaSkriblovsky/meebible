@@ -52,6 +52,7 @@ Item {
 
             width: parent.width
             elide: Text.ElideRight
+            wrapMode: Text.NoWrap
         }
     }
 
