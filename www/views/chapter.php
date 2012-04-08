@@ -99,6 +99,7 @@ else
         "tg" =>  "/tg/bibliya/",
         "tn" =>  "/tn/baebele/",
         "tk" =>  "/tk/kutsalkitap/",
+        "v" =>   "/v/biblia/",
         "xo" =>  "/xo/ibhayibhile/",
         "yr" =>  "/yr/bibeli/",
         "zu" =>  "/zu/ibhayibheli/",
