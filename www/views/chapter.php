@@ -68,6 +68,7 @@ else
         "d" =>   "/d/bibelen/",
         "o" =>   "/o/bijbel/",
         "e" =>   "/e/bible/",
+        "ef" =>  "/ef/bible/",
         "fi" =>  "/fi/raamattu/",
         "f" =>   "/f/bible/",
         "ge" =>  "/ge/bible/",
