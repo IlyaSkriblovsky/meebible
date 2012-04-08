@@ -87,6 +87,7 @@ else
         "t" =>   "/t/biblia/",
         "m" =>   "/m/biblia/",
         "u" =>   "/u/bible/",
+        "rea" => "/rea/bible/",
         "sb" =>  "/sb/bible/",
         "su" =>  "/su/bibele/",
         "sv" =>  "/sv/svetopismo/",

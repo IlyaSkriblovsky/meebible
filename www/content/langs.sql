@@ -34,6 +34,7 @@ INSERT INTO langs VALUES ('p',   'Polish',      'Polski');
 INSERT INTO langs VALUES ('t',   'Portuguese',  'Português');
 INSERT INTO langs VALUES ('m',   'Romanian',    'Română');
 INSERT INTO langs VALUES ('u',   'Russian',     'Русский');
+INSERT INTO langs VALUES ('rea', 'Armenian',    'Հայերեն');
 INSERT INTO langs VALUES ('sb',  'Serbian',     'Српски');
 INSERT INTO langs VALUES ('su',  'Sesotho',     'Sesotho');
 INSERT INTO langs VALUES ('sv',  'Slovenian',   'V Slovenščini');
