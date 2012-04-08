@@ -94,6 +94,7 @@ else
         "sr" =>  "/sr/bijbel/",
         "sw" =>  "/sw/biblia/",
         "z" =>   "/z/bibeln/",
+        "tg" =>  "/tg/bibliya/",
         "tn" =>  "/tn/baebele/",
         "tk" =>  "/tk/kutsalkitap/",
         "xo" =>  "/xo/ibhayibhile/",
