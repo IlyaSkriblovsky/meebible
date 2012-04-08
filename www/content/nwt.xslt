@@ -10,6 +10,9 @@
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
             </head>
             <body>
+                <xsl:if test="@id='rtl'">
+                    <xsl:attribute name="rtl">true</xsl:attribute>
+                </xsl:if>
                 <xsl:apply-templates />
             </body>
         </html>

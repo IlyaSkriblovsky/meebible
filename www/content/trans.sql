@@ -71,6 +71,7 @@ INSERT INTO translationLangs VALUES ('pal', 't', 'Almeida Corrigida e Revisada F
 
 INSERT INTO translationLangs VALUES ('ivr', 'i', 'Versione Diodati Riveduta');
 
+INSERT INTO translationLangs VALUES ('nwt', 'a',   'New World Translation');
 INSERT INTO translationLangs VALUES ('nwt', 'af',  'Nuwe Wêreld-vertaling');
 INSERT INTO translationLangs VALUES ('nwt', 'al',  'Përkthimi Bota e Re');
 INSERT INTO translationLangs VALUES ('nwt', 'bl',  'Превод на новия свят');
@@ -943,6 +944,73 @@ INSERT INTO books VALUES ('ivr', 'i' , 're',   66, 'Apocalisse di Giovanni');
 
 
 
+
+INSERT INTO books VALUES ('nwt', 'a' , 'ge'  , 01, 'تكوين');
+INSERT INTO books VALUES ('nwt', 'a' , 'ex'  , 02, 'خروج');
+INSERT INTO books VALUES ('nwt', 'a' , 'le'  , 03, 'لاويين');
+INSERT INTO books VALUES ('nwt', 'a' , 'nu'  , 04, 'عدد');
+INSERT INTO books VALUES ('nwt', 'a' , 'de'  , 05, 'تثنية');
+INSERT INTO books VALUES ('nwt', 'a' , 'jos' , 06, 'يشوع');
+INSERT INTO books VALUES ('nwt', 'a' , 'jg'  , 07, 'قضاة');
+INSERT INTO books VALUES ('nwt', 'a' , 'ru'  , 08, 'راعوث');
+INSERT INTO books VALUES ('nwt', 'a' , '1sa' , 09, 'صموئيل الاول');
+INSERT INTO books VALUES ('nwt', 'a' , '2sa' , 10, 'صموئيل الثاني');
+INSERT INTO books VALUES ('nwt', 'a' , '1ki' , 11, 'ملوك الاول');
+INSERT INTO books VALUES ('nwt', 'a' , '2ki' , 12, 'ملوك الثاني');
+INSERT INTO books VALUES ('nwt', 'a' , '1ch' , 13, 'أخبار الايام الاول');
+INSERT INTO books VALUES ('nwt', 'a' , '2ch' , 14, 'أخبار الايام الثاني');
+INSERT INTO books VALUES ('nwt', 'a' , 'ezr' , 15, 'عزرا');
+INSERT INTO books VALUES ('nwt', 'a' , 'ne'  , 16, 'نحميا');
+INSERT INTO books VALUES ('nwt', 'a' , 'es'  , 17, 'استير');
+INSERT INTO books VALUES ('nwt', 'a' , 'job' , 18, 'ايوب');
+INSERT INTO books VALUES ('nwt', 'a' , 'ps'  , 19, 'مزمور');
+INSERT INTO books VALUES ('nwt', 'a' , 'pr'  , 20, 'أمثال');
+INSERT INTO books VALUES ('nwt', 'a' , 'ec'  , 21, 'جامعة');
+INSERT INTO books VALUES ('nwt', 'a' , 'ca'  , 22, 'نشيد الاناشيد');
+INSERT INTO books VALUES ('nwt', 'a' , 'isa' , 23, 'إشعيا');
+INSERT INTO books VALUES ('nwt', 'a' , 'jer' , 24, 'إرميا');
+INSERT INTO books VALUES ('nwt', 'a' , 'la'  , 25, 'المراثي');
+INSERT INTO books VALUES ('nwt', 'a' , 'eze' , 26, 'حزقيال');
+INSERT INTO books VALUES ('nwt', 'a' , 'da'  , 27, 'دانيال');
+INSERT INTO books VALUES ('nwt', 'a' , 'ho'  , 28, 'هوشع');
+INSERT INTO books VALUES ('nwt', 'a' , 'joe' , 29, 'يوئيل');
+INSERT INTO books VALUES ('nwt', 'a' , 'am'  , 30, 'عاموس');
+INSERT INTO books VALUES ('nwt', 'a' , 'ob'  , 31, 'عوبديا');
+INSERT INTO books VALUES ('nwt', 'a' , 'jon' , 32, 'يونان');
+INSERT INTO books VALUES ('nwt', 'a' , 'mic' , 33, 'ميخا');
+INSERT INTO books VALUES ('nwt', 'a' , 'na'  , 34, 'ناحوم');
+INSERT INTO books VALUES ('nwt', 'a' , 'hab' , 35, 'حبقوق');
+INSERT INTO books VALUES ('nwt', 'a' , 'zep' , 36, 'صفنيا');
+INSERT INTO books VALUES ('nwt', 'a' , 'hag' , 37, 'حجاي');
+INSERT INTO books VALUES ('nwt', 'a' , 'zec' , 38, 'زكريا');
+INSERT INTO books VALUES ('nwt', 'a' , 'mal' , 39, 'ملاخي');
+INSERT INTO books VALUES ('nwt', 'a' , 'mt'  , 40, 'متى');
+INSERT INTO books VALUES ('nwt', 'a' , 'mr'  , 41, 'مرقس');
+INSERT INTO books VALUES ('nwt', 'a' , 'lu'  , 42, 'لوقا');
+INSERT INTO books VALUES ('nwt', 'a' , 'joh' , 43, 'يوحنا');
+INSERT INTO books VALUES ('nwt', 'a' , 'ac'  , 44, 'أعمال');
+INSERT INTO books VALUES ('nwt', 'a' , 'ro'  , 45, 'روما');
+INSERT INTO books VALUES ('nwt', 'a' , '1co' , 46, 'كورنثوس الاولى');
+INSERT INTO books VALUES ('nwt', 'a' , '2co' , 47, 'كورنثوس الثانية');
+INSERT INTO books VALUES ('nwt', 'a' , 'ga'  , 48, 'غلاطية');
+INSERT INTO books VALUES ('nwt', 'a' , 'eph' , 49, 'افسس');
+INSERT INTO books VALUES ('nwt', 'a' , 'php' , 50, 'فيلبي');
+INSERT INTO books VALUES ('nwt', 'a' , 'col' , 51, 'كولوسي');
+INSERT INTO books VALUES ('nwt', 'a' , '1th' , 52, 'تسالونيكي الاولى');
+INSERT INTO books VALUES ('nwt', 'a' , '2th' , 53, 'تسالونيكي الثانية');
+INSERT INTO books VALUES ('nwt', 'a' , '1ti' , 54, 'تيموثاوس الاولى');
+INSERT INTO books VALUES ('nwt', 'a' , '2ti' , 55, 'تيموثاوس الثانية');
+INSERT INTO books VALUES ('nwt', 'a' , 'tit' , 56, 'تيطس');
+INSERT INTO books VALUES ('nwt', 'a' , 'phm' , 57, 'فليمون');
+INSERT INTO books VALUES ('nwt', 'a' , 'heb' , 58, 'عبرانيين');
+INSERT INTO books VALUES ('nwt', 'a' , 'jas' , 59, 'يعقوب');
+INSERT INTO books VALUES ('nwt', 'a' , '1pe' , 60, 'بطرس الاولى');
+INSERT INTO books VALUES ('nwt', 'a' , '2pe' , 61, 'بطرس الثانية');
+INSERT INTO books VALUES ('nwt', 'a' , '1jo' , 62, 'يوحنا الاولى');
+INSERT INTO books VALUES ('nwt', 'a' , '2jo' , 63, 'يوحنا الثانية');
+INSERT INTO books VALUES ('nwt', 'a' , '3jo' , 64, 'يوحنا الثالثة');
+INSERT INTO books VALUES ('nwt', 'a' , 'jude', 65, 'يهوذا');
+INSERT INTO books VALUES ('nwt', 'a' , 're'  , 66, 'رؤيا');
 
 INSERT INTO books VALUES ('nwt', 'af' , 'ge'  , 01, 'Genesis');
 INSERT INTO books VALUES ('nwt', 'af' , 'ex'  , 02, 'Exodus');

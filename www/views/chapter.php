@@ -56,6 +56,7 @@ if ($trans != 'nwt')
 else
 {
     $url_prefixes = array(
+        "a" =>   "/a/bible/",
         "af" =>  "/af/bybel/",
         "al" =>  "/al/bible/",
         "bl" =>  "/bl/bible/",
