@@ -78,7 +78,8 @@ HEADERS +=                      \
     src/SearchResult.h          \
     src/SearchResultAccesser.h  \
     src/Highlighter.h           \
-    src/SearchQueryParser.h
+    src/SearchQueryParser.h     \
+    src/SearchThread.h
 
 
 SOURCES +=                      \
@@ -106,4 +107,5 @@ SOURCES +=                      \
     src/Indexer.cpp             \
     src/SearchResultAccesser.cpp\
     src/Highlighter.cpp         \
-    src/SearchQueryParser.cpp
+    src/SearchQueryParser.cpp   \
+    src/SearchThread.cpp

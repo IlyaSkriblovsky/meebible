@@ -30,7 +30,7 @@ UniSheet {
 
             model: bookmarks
 
-            delegate: UniListItem {
+            delegate: SubtitledListDelegate {
                 x: 10
                 width: parent.width - 20
 

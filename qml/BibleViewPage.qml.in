@@ -451,9 +451,9 @@ Page {
             target: searchDialog.item
             onPlaceSelected: {
                 searchDialog.item.closeSheet()
-                // bibleView.setAndLoad(bookCode, chapterNo, 1)
                 bibleView.place = place
                 bibleView.startSearchMode(searchDialog.item.query)
+                page.pageStack.toolBar.setTools(searchTools, \"set\")
             }
         }
     }
@@ -686,7 +686,7 @@ Page {
         visible: false
 
         UniToolIcon {
-            platformIconId: \"toolbar-up\"
+            platformIconId: SYMBIAN ? \"toolbar-previous\" : \"toolbar-up\"
 
             onClicked: {
                 if (bibleView.matchIndex > 0)
@@ -702,6 +702,7 @@ Page {
             anchors.verticalCenter: parent.verticalCenter
 
             text: (bibleView.matchIndex + 1) + \' / \' + bibleView.matchCount
+            horizontalAlignment: Text.AlignHCenter
 
             font.pixelSize: 30
 
@@ -709,7 +710,7 @@ Page {
         }
 
         UniToolIcon {
-            platformIconId: \"toolbar-down\"
+            platformIconId: SYMBIAN ? \"toolbar-next\" : \"toolbar-down\"
 
             onClicked: {
                 if (bibleView.matchIndex < bibleView.matchCount - 1)

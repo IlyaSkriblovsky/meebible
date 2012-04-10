@@ -1,6 +1,6 @@
 import QtQuick 1.1
 
-import com.meego 1.0
+$$QML_IMPORT_QTCOMPONENTS
 
 Item {
     id: item
@@ -24,8 +24,8 @@ Item {
         anchors.fill: parent
         visible: mouseArea.pressed
 
-        color: settings.inverted ? "#ffffff" : "#221f1f"
-        opacity: settings.inverted ? 0.2 : 0.1
+        color: SYMBIAN ? \"#288de0\" : (settings.inverted ? \"#ffffff\" : \"#221f1f\")
+        opacity: SYMBIAN ? 0.8 : (settings.inverted ? 0.2 : 0.1)
     }
 
     Column {
@@ -38,22 +38,33 @@ Item {
             text: item.title
             font.bold: true
             font.pixelSize: 26
-            color: mouseArea.pressed ? "#797979" : (settings.inverted ? "#ffffff" : "#282828")
+            color: (mouseArea.pressed && !SYMBIAN) ? \"#797979\" : (settings.inverted ? \"#ffffff\" : \"#282828\")
+
+            $$QML_SYMBIAN_THEME
         }
 
         Label {
             id: text
             text: item.subtitle
-            font.family: "Nokia Pure Text Light"
+            font.family: \"Nokia Pure Text Light\"
             font.pixelSize: 22
-            color: mouseArea.pressed ? "#797979" : (settings.inverted ? "#c8c8c8" : "#505050")
+            color: (mouseArea.pressed && !SYMBIAN) ? \"#797979\" : (settings.inverted ? \"#c8c8c8\" : \"#505050\")
 
-            visible: text != ""
+            visible: text != \"\"
 
             width: parent.width
             elide: Text.ElideRight
             wrapMode: Text.NoWrap
+
+            $$QML_SYMBIAN_THEME
         }
+    }
+
+    Rectangle {
+        color: settings.inverted ? \"#464646\" : \"#d4d4d4\"
+        width: parent.width
+        height: 1
+        anchors.bottom: parent.bottom
     }
 
 

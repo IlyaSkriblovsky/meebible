@@ -55,7 +55,10 @@ public slots:
     void clearCache();
 
 
-    QList<QVariant> searchTest(Translation* translation, const QString& query);
+    void search(Translation* translation, const QString& query, int maxresults);
+
+signals:
+    void searchFinished(QList<QVariant> found);
 
 
 private:
@@ -84,6 +87,10 @@ private:
 
     void openDB();
     void closeDB();
+
+
+    private slots:
+        void onSearchThreadFinished(QList<QVariant> results);
 };
 
 #endif // CACHE_H

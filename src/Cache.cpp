@@ -17,9 +17,7 @@
 #include "Paths.h"
 #include "Translation.h"
 #include "Language.h"
-#include "SearchResult.h"
-#include "SearchQueryParser.h"
-#include "Highlighter.h"
+#include "SearchThread.h"
 
 
 
@@ -395,53 +393,20 @@ void Cache::commitTransaction()
 }
 
 
-typedef QPair<int, int> ChapterId;
-
-QList<QVariant> Cache::searchTest(Translation* translation, const QString& query)
+void Cache::search(Translation* translation, const QString& query, int maxresults)
 {
-    QElapsedTimer timer; timer.start();
-
-    QList<SearchQueryParser::QueryToken> queryTokens = SearchQueryParser::parseQuery(query);
-
     _indexer.setTranslation(translation);
-    QMap<ChapterId, QList<MatchEntry> > results = _indexer.search(query, 10);
 
-    QString sql = QString("SELECT bookCode, chapterNo, substr(text, ?, 50) FROM html WHERE transCode=? AND langCode=? AND bookNo=? AND chapterNo=? LIMIT 1");
+    SearchThread* thread = new SearchThread(_db, &_indexer, translation, query, maxresults, this);
+    connect(thread, SIGNAL(finished(QList<QVariant>)), this, SLOT(onSearchThreadFinished(QList<QVariant>)));
+    thread->start();
+}
 
-    sqlite3_stmt* stmt;
-    sqlite3_prepare16_v2(_db, sql.utf16(), -1, &stmt, 0);
+void Cache::onSearchThreadFinished(QList<QVariant> results)
+{
+    searchFinished(results);
 
-    QList<QVariant> searchResults;
-
-    foreach (const ChapterId& chapterId, results.keys())
-    {
-        const QList<MatchEntry>& entries = results.value(chapterId);
-
-        sqlite3_reset(stmt);
-
-        sqlite3_bind_int(stmt, 1, entries[0].offset < 15 ? 0 : entries[0].offset - 15);
-        sqlite3_bind_text16(stmt, 2, translation->code().utf16(), -1, SQLITE_STATIC);
-        sqlite3_bind_text16(stmt, 3, translation->language()->code().utf16(), -1, SQLITE_STATIC);
-        sqlite3_bind_int(stmt, 4, chapterId.first);
-        sqlite3_bind_int(stmt, 5, chapterId.second);
-
-        if (sqlite3_step(stmt) == SQLITE_ROW)
-        {
-            QString textChunk = QString::fromUtf16((const ushort*)sqlite3_column_text16(stmt, 2));
-
-            searchResults.append(QVariant::fromValue(SearchResult(
-                Place(
-                    QString::fromUtf16((const ushort*)sqlite3_column_text16(stmt, 0)),
-                    sqlite3_column_int(stmt, 1)
-                ),
-                Highlighter::highlight(textChunk, queryTokens, "<u>", "</u>", -1),
-                entries.size()
-            )));
-        }
-    }
-
-    sqlite3_finalize(stmt);
-
-    qDebug() << "searchTest elapsed:" << timer.elapsed();
-    return searchResults;
+    SearchThread* thread = dynamic_cast<SearchThread*>(sender());
+    thread->wait();
+    delete thread;
 }
