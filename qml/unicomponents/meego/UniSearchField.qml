@@ -5,4 +5,8 @@ TextField {
         actionKeyIcon: "/usr/share/themes/blanco/meegotouch/icons/icon-m-toolbar-search-selected.png"
         actionKeyEnabled: true
     }
+
+    platformStyle: TextFieldStyle {
+        paddingLeft: 50
+    }
 }

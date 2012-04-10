@@ -1,0 +1,47 @@
+import QtQuick 1.1
+
+$$QML_IMPORT_QTCOMPONENTS
+
+Item {
+    id: item
+
+    property color bookColor: \"transparent\"
+    property bool highlighted: (mouseArea.pressed || (item.GridView.isCurrentItem))
+    signal clicked()
+
+    Rectangle {
+        anchors.fill: parent
+        gradient: Gradient {
+            GradientStop { position: 0.0; color: Qt.lighter(item.bookColor, item.highlighted ? 1.5 : 1.0) }
+            GradientStop { position: 0.5; color: Qt.lighter(item.bookColor, item.highlighted ? 2.0 : 1.5) }
+            GradientStop { position: 1.0; color: Qt.lighter(item.bookColor, item.highlighted ? 1.5 : 1.0) }
+        }
+    }
+
+    Label {
+        id: label
+
+        clip: true
+
+        anchors.fill: parent
+        anchors.margins: 3
+
+        text: value
+
+        color: highlighted ? \"#888\" : \"#fff\"
+
+        horizontalAlignment: width > paintedWidth ? Text.AlignHCenter : Text.AlignLeft
+        verticalAlignment: Text.AlignVCenter
+        wrapMode: Text.NoWrap
+    }
+
+    MouseArea {
+        id: mouseArea
+        anchors.fill: parent
+
+        onClicked: {
+            item.clicked()
+            item.GridView.view.currentIndex = index
+        }
+    }
+}

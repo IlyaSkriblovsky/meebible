@@ -37,6 +37,8 @@ class Settings: public QObject
 
     Q_PROPERTY(QString webService READ webService)
 
+    Q_PROPERTY(bool gridPlaceSelector READ gridPlaceSelector WRITE setGridPlaceSelector NOTIFY gridPlaceSelectorChanged)
+
     public:
         Settings(Languages* langs, QObject* parent = 0);
         ~Settings();
@@ -86,6 +88,9 @@ class Settings: public QObject
 
         QString webService() const { return _webService; }
 
+        bool gridPlaceSelector() const { return _gridPlaceSelector; }
+        void setGridPlaceSelector(bool value);
+
 
     signals:
         void languageChanged();
@@ -106,6 +111,8 @@ class Settings: public QObject
         void invertedChanged();
 
         void copyVerseNumbersChanged();
+
+        void gridPlaceSelectorChanged();
 
 
 
@@ -143,6 +150,8 @@ class Settings: public QObject
 
 
         QString _webService;
+
+        bool _gridPlaceSelector;
 };
 
 #endif // SETTINGS_H

@@ -1,0 +1,259 @@
+import QtQuick 1.1
+
+$$QML_IMPORT_QTCOMPONENTS
+
+import \"unicomponents\"
+
+import \"BookColors.js\" as BookColors
+
+
+UniDialog {
+    id: dialog
+
+    titleText: qsTr(\"Select Book\")
+
+
+    property int chapterNo: 1
+    property int verseNo: 1
+
+
+    function run(place) {
+        contentItem.state = \"bookSelection\"
+
+        open()
+
+        bookList.currentIndex = settings.translation.bookCodes().indexOf(placeAccesser.bookCode(place))
+        bookList.positionViewAtIndex(bookList.currentIndex, GridView.Center)
+
+        chapterGrid.selected = placeAccesser.chapterNo(place)
+    }
+
+
+    function place() {
+        var bookCode = \"xxx\"
+        if (bookList.currentIndex != -1)
+            bookCode = settings.translation.bookCodeAt(bookList.currentIndex)
+
+        if (verseGrid.selected == 1)
+            return placeAccesser.placeNoVerses(bookCode, chapterGrid.selected)
+        else
+            return placeAccesser.placeOneVerse(bookCode, chapterGrid.selected, verseGrid.selected)
+    }
+
+    content: Item {
+        id: contentItem
+        width: parent.width
+
+        anchors.horizontalCenter: parent.horizontalCenter
+
+
+        Binding {
+            when: SYMBIAN
+
+            target: contentItem
+            property: \"height\"
+            value: dialog.platformContentMaximumHeight
+        }
+
+        Binding {
+            when: ! SYMBIAN
+
+            target: contentItem
+            property: \"height\"
+            value: (screen.currentOrientation == Screen.Portrait ?
+                      screen.displayWidth * 0.8
+                    : screen.displayHeight * 0.8)
+        }
+
+
+        clip: true
+
+        GridView {
+            id: bookList
+
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            anchors.topMargin: 3
+            anchors.bottomMargin: 3
+
+            width: parent.width
+
+            cellWidth: width / Math.floor(width / 100)
+            cellHeight: cellWidth * 0.75
+
+            clip: true
+
+            model: settings.translation
+
+            cacheBuffer: 70
+
+            layoutDirection: settings.translation.rtl ? Qt.RightToLeft : Qt.LeftToRight
+
+            delegate: BookGridDelegate {
+                width: bookList.cellWidth
+                height: bookList.cellHeight
+
+                bookColor: BookColors.bookColor(bookCode)
+
+                // rtl: settings.translation.rtl
+
+                onClicked: {
+                    contentItem.state = \"chapterSelection\"
+                }
+            }
+
+
+            onCurrentIndexChanged: {
+                var bookCode = bookList.model.bookCodeAt(currentIndex)
+
+                chapterGrid.size = bookList.model.chaptersInBook(bookCode)
+                chapterGrid.selected = 1
+            }
+        }
+        ScrollDecorator { flickableItem: bookList }
+
+
+        Item {
+            id: secondPage
+
+            anchors.left: bookList.right
+            width: parent.width
+
+
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+
+
+            Flickable {
+                id: chapterVerseFlickable
+
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.top: parent.top
+                anchors.bottom: spacer.top
+
+                contentHeight: verseGrid.y + verseGrid.height
+
+                flickableDirection: Flickable.VerticalFlick
+
+                clip: true
+
+
+                Label {
+                    id: chapterLabel
+
+                    text: \"Chapter:\"
+
+                    color: \"#fff\"
+                }
+
+                NumberGridSelector {
+                    id: chapterGrid
+
+                    anchors.top: chapterLabel.bottom
+                    width: parent.width
+
+                    size: 10
+
+                    rtl: settings.translation.rtl
+
+                    onSelectedChanged: {
+                        verseGrid.size = bookList.model.versesInChapter(
+                            bookList.model.bookCodeAt(bookList.currentIndex),
+                            chapterGrid.selected
+                        )
+                        verseGrid.selected = 1
+                    }
+                }
+
+                Label {
+                    id: verseLabel
+
+                    anchors.top: chapterGrid.bottom
+                    anchors.topMargin: 10
+
+                    text: \"Verse:\"
+
+                    color: \"#fff\"
+                }
+
+                NumberGridSelector {
+                    id: verseGrid
+
+                    anchors.top: verseLabel.bottom
+                    width: parent.width
+
+                    size: 20
+
+                    rtl: settings.translation.rtl
+                }
+            }
+            ScrollDecorator { flickableItem: chapterVerseFlickable }
+
+
+            Rectangle {
+                id: spacer
+
+                height: 10
+
+                visible: false
+
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.bottom: backButton.top
+            }
+
+
+            UniDialogButton {
+                id: backButton
+
+                anchors.left: parent.left
+                width: parent.width / 4
+                anchors.bottom: parent.bottom
+
+                text: \"←\"
+
+                onClicked: contentItem.state = \"bookSelection\"
+            }
+
+            UniDialogButton {
+                id: acceptButton
+
+                anchors.left: backButton.right
+                anchors.leftMargin: 20
+                anchors.right: parent.right
+                anchors.bottom: parent.bottom
+
+                text: qsTr(\"OK\")
+
+                onClicked: dialog.accept()
+            }
+        }
+
+
+        state: \"bookSelection\"
+
+        states: [
+            State {
+                name: \"bookSelection\"
+
+                AnchorChanges {
+                    target: bookList
+                    anchors.left: contentItem.left
+                }
+            },
+            State {
+                name: \"chapterSelection\"
+
+                AnchorChanges {
+                    target: bookList
+                    anchors.right: contentItem.left
+                }
+            }
+        ]
+
+        transitions: Transition {
+            AnchorAnimation { duration: 100 }
+        }
+    }
+}

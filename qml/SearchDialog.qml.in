@@ -6,17 +6,16 @@ $$QML_IMPORT_QTCOMPONENTS_EXTRAS
 import MeeBible 0.1
 import \"unicomponents\"
 
-UniSheet {
+Page {
     id: dialog
 
-
-    property QtObject translation: settings.translation
 
     property alias query: field.text
 
     property int maxResults: 150
 
     signal placeSelected(variant place)
+    signal closed()
 
 
     function startSearch() {
@@ -25,10 +24,9 @@ UniSheet {
         if (field.state == \"busy\")
             return
 
-        // cache.search(translation, field.text)
         results.clear()
-        cache.search(translation, field.text, dialog.maxResults)
-        field.state = \"busy\"
+        busyIndicator.visible = true
+        cache.search(settings.translation, field.text, dialog.maxResults)
     }
 
     Connections {
@@ -58,7 +56,7 @@ UniSheet {
                 })
             }
 
-            field.state = \"idle\"
+            busyIndicator.visible = false
             item.state = results.count == 0 ? \"nothing\" : \"list\"
         }
     }
@@ -70,7 +68,9 @@ UniSheet {
     }
 
 
-    headerComponents: [
+    Header {
+        id: header
+
         UniSearchField {
             id: field
 
@@ -80,35 +80,22 @@ UniSheet {
             anchors.leftMargin: 10
             anchors.rightMargin: 10
             anchors.verticalCenter: parent.verticalCenter
-            anchors.right: SYMBIAN ? searchButton.left : parent.right
+            anchors.right: searchButton.left
 
 
-            Keys.onReturnPressed: {
-                if (! SYMBIAN)
-                    platformCloseSoftwareInputPanel()
-                dialog.startSearch()
-            }
+            Keys.onReturnPressed: dialog.startSearch()
 
 
             Image {
                 id: image
 
-                // source: field.text.length > 0 ? \"image://theme/icon-m-input-clear\" : \"image://theme/icon-m-common-search\"
-                source: \"image://theme/icon-m-common-search\"
+                source: \"search-infield.png\"
 
                 anchors.verticalCenter: parent.verticalCenter
-                anchors.right: parent.right
-                anchors.rightMargin: 10
+                anchors.left: parent.left
+                anchors.rightMargin: 5
 
                 width: height
-
-
-//              It seems like MouseArea doesn\'t work in TextField in 39-5 firmware :(
-//                MouseArea {
-//                    anchors.fill: parent
-//
-//                    onClicked: field.visible = false // dialog.startSearch()
-//                }
             }
 
             UniTextFieldBusyIndicator {
@@ -118,46 +105,12 @@ UniSheet {
                 anchors.right: parent.right
                 anchors.rightMargin: 15
 
-                running: visible
+                visible: false
             }
+        }
 
-            // state: cache.searchInProgress ? \"busy\" : \"idle\"
-            state: \"idle\"
-
-            states: [
-                State {
-                    name: \"idle\"
-
-                    PropertyChanges {
-                        target: image
-                        visible: true
-                    }
-
-                    PropertyChanges {
-                        target: busyIndicator
-                        visible: false
-                    }
-                },
-                State {
-                    name: \"busy\"
-
-                    PropertyChanges {
-                        target: image
-                        visible: false
-                    }
-
-                    PropertyChanges {
-                        target: busyIndicator
-                        visible: true
-                    }
-                }
-            ]
-        },
-
-        Button {
+        ToolButton {
             id: searchButton
-
-            visible: SYMBIAN
 
             text: qsTr(\"Search\")
             anchors.right: parent.right
@@ -166,37 +119,17 @@ UniSheet {
 
             onClicked: dialog.startSearch()
         }
-    ]
+    }
 
-    content: Item {
+
+    Item {
         id: item
 
 
-        // Connections {
-        //     target: cache
-
-        //     onSearchStarted: {
-        //         item.state = \"list\"
-
-        //         results.clear()
-        //     }
-        //     onSearchFinished: {
-        //         if (results.count == 0)
-        //             item.state = \"nothing\"
-        //     }
-
-        //     onMatchFound: {
-        //         results.append({
-        //             title: placeAccesser.string(place, settings.translation),
-        //             subtitle: match,
-        //             place: place,
-        //             matchCount: matchCount
-        //         })
-        //     }
-        // }
-
-
-        anchors.fill: parent
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: header.bottom
+        anchors.bottom: parent.bottom
 
 
 
@@ -301,5 +234,32 @@ UniSheet {
                 }
             }
         ]
+    }
+
+
+    QueryDialog {
+        id: helpDialog
+
+        titleText: qsTr(\"Search hints\")
+
+        message: qsTr(\"You can search for multiple words, they will be found even if separated by other words.\\n\\nPlace asterisk after word to find it with all different endings (For example: Abra* for Abram and Abraham)\") + (SYMBIAN ? \"\\n\" : \"\")
+
+        acceptButtonText: qsTr(\"OK\")
+    }
+
+
+    tools: ToolBarLayout {
+        UniToolIcon {
+            platformIconId: \"toolbar-back\"
+            onClicked: {
+                pageStack.pop()
+                closed()
+            }
+        }
+
+        UniToolIcon {
+            platformIconId: \"toolbar-settings\"
+            onClicked: helpDialog.open()
+        }
     }
 }

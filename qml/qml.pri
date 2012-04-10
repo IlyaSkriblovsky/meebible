@@ -1,5 +1,6 @@
 # Wildcard doesn't work here
 QMAKE_SUBSTITUTES += \
+    qml/main.qml.in                 \
     qml/AboutPage.qml.in            \
     qml/BibleViewPage.qml.in        \
     qml/ListItem.qml.in             \
@@ -20,14 +21,16 @@ QMAKE_SUBSTITUTES += \
     qml/TranslationDialog.qml.in    \
     qml/TumblerItem.qml.in          \
     qml/SubtitledListDelegate.qml.in\
-    qml/main.qml.in
+    qml/NumberGridSelector.qml.in   \
+    qml/BookGridDelegate.qml.in     \
+    qml/GridPlaceDialog.qml.in
 
 symbian {
     QML_IMPORT_QTCOMPONENTS = "import com.nokia.symbian 1.1"
     QML_IMPORT_QTCOMPONENTS_EXTRAS = "import com.nokia.extras 1.1"
     QML_SYMBIAN_THEME = "platformInverted: !settings.inverted"
 
-    qml.sources = qml/*.qml qml/*.png
+    qml.sources = qml/*.qml qml/*.js qml/*.png
     qml.path = qml
     DEPLOYMENT += qml
 
@@ -38,7 +41,7 @@ symbian {
     QML_IMPORT_QTCOMPONENTS = "import com.meego 1.0"
     QML_IMPORT_QTCOMPONENTS_EXTRAS = "import com.meego.extras 1.0"
 
-    qml.files = $$BUILDDIR/qml/*.qml qml/*.png
+    qml.files = $$BUILDDIR/qml/*.qml qml/*.js qml/*.png
     qml.path = $$INSTALLDIR/qml
     INSTALLS += qml
 

@@ -51,6 +51,8 @@ Settings::Settings(Languages* langs, QObject* parent):
 
     _webService     = _settings.value("Internals/webService", "meebible.org").toString();
 
+    _gridPlaceSelector = _settings.value("General/gridPlaceSelector", true).toBool();
+
     connect(_languages, SIGNAL(loadingFinished()), this, SLOT(onLanguagesLoadingFinished()));
 }
 
@@ -68,6 +70,7 @@ Settings::~Settings()
     _settings.setValue("General/fullscreen", _fullscreen);
     _settings.setValue("General/inverted", _inverted);
     _settings.setValue("General/copyVerseNumbers", _copyVerseNumbers);
+    _settings.setValue("General/gridPlaceSelector", _gridPlaceSelector);
 
     _settings.setValue("Notices/searchNoticeShown", _searchNoticeShown);
 }
@@ -260,5 +263,15 @@ void Settings::setCopyVerseNumbers(bool copyVerseNumbers)
     {
         _copyVerseNumbers = copyVerseNumbers;
         copyVerseNumbersChanged();
+    }
+}
+
+
+void Settings::setGridPlaceSelector(bool value)
+{
+    if (_gridPlaceSelector != value)
+    {
+        _gridPlaceSelector = value;
+        gridPlaceSelectorChanged();
     }
 }

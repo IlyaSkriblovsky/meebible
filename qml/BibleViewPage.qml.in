@@ -420,6 +420,17 @@ Page {
         }
     }
 
+    Loader {
+        id: gridPlaceDialog
+
+        function load() { source = \"GridPlaceDialog.qml\" }
+        function open() { load(); item.run(bibleView.place) }
+        Connections {
+            target: gridPlaceDialog.item
+            onAccepted: bibleView.place = gridPlaceDialog.item.place()
+        }
+    }
+
 
 
     QueryDialog {
@@ -439,7 +450,7 @@ Page {
         function load() { source = \"SearchDialog.qml\" }
         function open() {
             load()
-            item.openSheet(pageStack)
+            pageStack.push(item)
             if (! settings.searchNoticeShown)
             {
                 searchNotice.open()
@@ -450,10 +461,14 @@ Page {
         Connections {
             target: searchDialog.item
             onPlaceSelected: {
-                searchDialog.item.closeSheet()
+                pageStack.pop()
                 bibleView.place = place
                 bibleView.startSearchMode(searchDialog.item.query)
                 page.pageStack.toolBar.setTools(searchTools, \"set\")
+            }
+            onClosed: {
+                if (bibleView.searchMode)
+                    page.pageStack.toolBar.setTools(searchTools, \"set\")
             }
         }
     }
@@ -502,7 +517,7 @@ Page {
 
         UniToolIcon {
             platformIconId: \"toolbar-list\"
-            onClicked: placeDialog.open()
+            onClicked: (settings.gridPlaceSelector ? gridPlaceDialog : placeDialog).open()
         }
 
         UniToolIcon {

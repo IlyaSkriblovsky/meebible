@@ -28,7 +28,7 @@ body[rtl=true] { direction: rtl; }
 .verse.selected .verse-label { color: #c00; }
 
 body[inverted=true] .verse.selected { background: #444; }
-body[inverted=true] .verse.selected .z, .verse.selected .z:first-line { background: #444; }
+body[inverted=true] .verse.selected .z, body[inverted=true] .verse.selected .z:first-line { background: #444; }
 body[inverted=true] .verse.selected .verse-label { color: #c44; }
 
 
@@ -84,7 +84,7 @@ body[layout=indented][rtl=true] .par { margin-right: .8em; }
     font-size: 90%;
 }
 
-.match { background: #8f8; border-radius: 8px; }
+.match { background: #8f8; }
 .match.current { background: #f88; }
 body[inverted=true] .match { background: #060; }
 body[inverted=true] .match.current { background: #600; }
