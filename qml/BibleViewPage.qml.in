@@ -464,11 +464,11 @@ Page {
                 pageStack.pop()
                 bibleView.place = place
                 bibleView.startSearchMode(searchDialog.item.query)
-                page.pageStack.toolBar.setTools(searchTools, \"set\")
+                page.pageStack.toolBar.setTools(searchTools, \"replace\")
             }
             onClosed: {
                 if (bibleView.searchMode)
-                    page.pageStack.toolBar.setTools(searchTools, \"set\")
+                    page.pageStack.toolBar.setTools(searchTools, \"replace\")
             }
         }
     }
@@ -479,7 +479,7 @@ Page {
         target: bibleView
         onSearchModeChanged: {
             if (bibleView.searchMode)
-                page.pageStack.toolBar.setTools(searchTools, \"set\")
+                page.pageStack.toolBar.setTools(searchTools, \"replace\")
             else
                 if (! fontTools.visible)
                     page.pageStack.toolBar.setTools(commonTools, \"replace\")
@@ -830,49 +830,19 @@ Page {
                 page.pageStack.toolBar.setTools(lineSpacingTools, \"replace\")
             }
 
-            Item {
+            CoupledMenuItems {
                 visible: SYMBIAN
 
-                width: parent.width
-                height: childrenRect.height
-
-                Item {
-                    anchors.left: parent.left
-                    anchors.right: parent.horizontalCenter
-                    height: childrenRect.height
-
-                    MenuItem {
-                        text: qsTr(\"Font size\")
-                        onClicked: {
-                            menuLayout.fontSizeClicked()
-                            menu.close()
-                        }
-
-                        Rectangle {
-                            width: 1
-                            height: parent.height
-                            anchors.right: parent.right
-                            color: settings.inverted ? \"#4a4a4a\" : \"#d8d8d8\"
-                        }
-
-                        $$QML_SYMBIAN_THEME
-                    }
+                leftText: qsTr(\"Font size\")
+                onLeftClicked: {
+                    menuLayout.fontSizeClicked()
+                    menu.close()
                 }
 
-                Item {
-                    anchors.left: parent.horizontalCenter
-                    anchors.right: parent.right
-                    height: childrenRect.height
-
-                    MenuItem {
-                        text: qsTr(\"Line spacing\")
-                        onClicked: {
-                            menuLayout.lineSpacingClicked()
-                            menu.close()
-                        }
-
-                        $$QML_SYMBIAN_THEME
-                    }
+                rightText: qsTr(\"Line spacing\")
+                onRightClicked: {
+                    menuLayout.lineSpacingClicked()
+                    menu.close
                 }
             }
 
@@ -908,7 +878,22 @@ Page {
                 $$QML_SYMBIAN_THEME
             }
 
+            CoupledMenuItems {
+                visible: SYMBIAN
+
+                leftText: qsTr(\"About MeeBible\")
+                onLeftClicked: {
+                    aboutPage.open()
+                    menu.close()
+                }
+
+                rightText: qsTr(\"Quit\")
+                onRightClicked: Qt.quit()
+            }
+
             MenuItem {
+                visible: !SYMBIAN
+
                 text: qsTr(\"About MeeBible\")
                 onClicked: aboutPage.open()
 
@@ -917,6 +902,8 @@ Page {
 
             MenuItem {
                 id: quitMenuItem
+
+                visible: !SYMBIAN
 
                 text: qsTr(\"Quit\")
 

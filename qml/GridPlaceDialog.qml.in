@@ -78,7 +78,7 @@ UniDialog {
 
             width: parent.width
 
-            cellWidth: width / Math.floor(width / 100)
+            cellWidth: width / Math.floor(width / (SYMBIAN ? 75 : 100))
             cellHeight: cellWidth * 0.75
 
             clip: true

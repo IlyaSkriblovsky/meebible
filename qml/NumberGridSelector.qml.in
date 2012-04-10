@@ -6,7 +6,7 @@ GridView {
     id: grid
 
     property int selected: 1
-    property int preferredCellWidth: 50
+    property int preferredCellWidth: SYMBIAN ? 40 : 50
     property alias size: grid.model
     property bool rtl: false
 

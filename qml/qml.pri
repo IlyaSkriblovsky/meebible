@@ -23,7 +23,8 @@ QMAKE_SUBSTITUTES += \
     qml/SubtitledListDelegate.qml.in\
     qml/NumberGridSelector.qml.in   \
     qml/BookGridDelegate.qml.in     \
-    qml/GridPlaceDialog.qml.in
+    qml/GridPlaceDialog.qml.in      \
+    qml/CoupledMenuItems.qml.in
 
 symbian {
     QML_IMPORT_QTCOMPONENTS = "import com.nokia.symbian 1.1"

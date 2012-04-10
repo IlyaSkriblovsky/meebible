@@ -21,7 +21,7 @@ Page {
     function startSearch() {
         if (field.text == \"\")
             return
-        if (field.state == \"busy\")
+        if (busyIndicator.visible)
             return
 
         results.clear()
@@ -106,6 +106,7 @@ Page {
                 anchors.rightMargin: 15
 
                 visible: false
+                running: visible
             }
         }
 
