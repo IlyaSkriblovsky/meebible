@@ -2,6 +2,11 @@
 
 #include "FileTree.h"
 
+struct Header
+{
+    uint16 docCount;
+};
+
 struct MatchEntry
 {
     uint8 bookNo;
@@ -42,4 +47,4 @@ inline uint qHash(const MatchEntry& key)
 }
 
 
-typedef FileTree<0x7869, 1, MatchEntry, 4> IndexTree;
+typedef FileTree<0x7869, 2, MatchEntry, 4> IndexTree;

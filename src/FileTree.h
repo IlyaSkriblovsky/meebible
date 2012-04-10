@@ -8,7 +8,7 @@ typedef unsigned int uint32;
 
 #include "MappedFile.h"
 
-template <uint16 signature, uint8 version, typename Entry, uint16 chunk_size>
+template <uint16 signature, uint8 version, typename Header, typename Entry, uint16 chunk_size>
 class FileTree
 {
     public:
@@ -16,12 +16,13 @@ class FileTree
 
 
     private:
-        struct Header
+        struct BaseHeader
         {
             uint16 sig;
             uint8 ver;
             uint8 clean;
             uint32 root_off;
+            Header header;
         } __attribute__((packed));
 
 
@@ -54,15 +55,15 @@ class FileTree
         FileTree(const char *filename)
             :file(filename)
         {
-            header = file.at<Header>(0);
+            baseheader = file.at<BaseHeader>(0);
 
-            if (file.size() < sizeof(Header))
+            if (file.size() < sizeof(BaseHeader))
                 clear();
             else
-                if (file.size() < sizeof(Header) ||
-                    header->sig != signature ||
-                    header->ver != version ||
-                    (header->clean & 0x1) != 1)
+                if (file.size() < sizeof(BaseHeader) ||
+                    baseheader->sig != signature ||
+                    baseheader->ver != version ||
+                    (baseheader->clean & 0x1) != 1)
                     clear();
         }
 
@@ -71,15 +72,21 @@ class FileTree
         }
 
 
+        Header* header()
+        {
+            return &baseheader->header;
+        }
+
+
         bool empty()
         {
-            return header->root_off == 0;
+            return baseheader->root_off == 0;
         }
 
 
         void add(const char* key, const Entry& entry)
         {
-            header->clean = 0;
+            baseheader->clean = 0;
 
             Node* node = 0;
 
@@ -99,12 +106,12 @@ class FileTree
                 r = node_parent(r);
             setRoot(r);
 
-            header->clean = 1;
+            baseheader->clean = 1;
         }
 
         std::list<Entry> search(const char* key)
         {
-            if (header->root_off == 0) return std::list<Entry>();
+            if (baseheader->root_off == 0) return std::list<Entry>();
 
             Node* node = node_search(root(), key, strlen(key));
             if (node == 0) return std::list<Entry>();
@@ -124,7 +131,7 @@ class FileTree
 
         std::list<Entry> search_prefix(const char *key)
         {
-            if (header->root_off == 0) return std::list<Entry>();
+            if (baseheader->root_off == 0) return std::list<Entry>();
 
             std::list<Entry> result;
             node_search_prefix(root(), key, strlen(key), &result);
@@ -149,7 +156,7 @@ class FileTree
     private:
         MappedFile file;
 
-        Header* header;
+        BaseHeader* baseheader;
 
 
 
@@ -175,12 +182,12 @@ class FileTree
 
         inline Node* root()
         {
-            return node_at(header->root_off);
+            return node_at(baseheader->root_off);
         }
 
         inline void setRoot(Node* node)
         {
-            header->root_off = file.off(node);
+            baseheader->root_off = file.off(node);
         }
 
 
@@ -188,11 +195,11 @@ class FileTree
         {
             printf("Tree cleared\n");
 
-            file.resize(sizeof(Header));
-            header->sig = signature;
-            header->ver = version;
-            header->clean = 1;
-            header->root_off = 0;
+            file.resize(sizeof(BaseHeader));
+            memset(baseheader, 0, sizeof(BaseHeader));
+            baseheader->sig = signature;
+            baseheader->ver = version;
+            baseheader->clean = 1;
         }
 
 

@@ -22,6 +22,7 @@ class Indexer: public QObject
         void setTranslation(const Translation*);
 
         void addChapter(int bookNo, int chapterNo, const QString& content);
+        int docCount();
 
         QMap<QPair<int, int>, QList<MatchEntry> > search(const QString& query, int cutoffDistance);
 

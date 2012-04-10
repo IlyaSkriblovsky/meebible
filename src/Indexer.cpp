@@ -68,6 +68,15 @@ void Indexer::addChapter(int bookNo, int chapterNo, const QString& content)
     closure.chapterNo = chapterNo;
 
     StringTokenizer::tokenize(content, onDocumentToken, &closure);
+    _indexFile->header()->docCount++;
+}
+
+
+int Indexer::docCount()
+{
+    if (_indexFile == 0)
+        return 0;
+    return _indexFile->header()->docCount;
 }
 
 
