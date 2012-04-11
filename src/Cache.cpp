@@ -410,3 +410,34 @@ void Cache::onSearchThreadFinished(QList<QVariant> results)
     thread->wait();
     delete thread;
 }
+
+
+void Cache::rebuildIndex(Translation* translation)
+{
+    QElapsedTimer timer; timer.start();
+
+    _indexer.setTranslation(translation);
+    _indexer.clear();
+
+    sqlite3_stmt* stmt;
+    sqlite3_prepare_v2(_db,
+        "SELECT bookNo, chapterNo, text FROM html WHERE transCode=? AND langCode=?",
+        -1,
+        &stmt, 0
+    );
+    sqlite3_bind_text16(stmt, 1, translation->code().utf16(), -1, SQLITE_STATIC);
+    sqlite3_bind_text16(stmt, 2, translation->language()->code().utf16(), -1, SQLITE_STATIC);
+
+    while (sqlite3_step(stmt) == SQLITE_ROW)
+    {
+        _indexer.addChapter(
+            sqlite3_column_int(stmt, 0),
+            sqlite3_column_int(stmt, 1),
+            QString::fromUtf16((const ushort*)sqlite3_column_text16(stmt, 2))
+        );
+    }
+
+    sqlite3_finalize(stmt);
+
+    qDebug() << "rebuild index:" << timer.elapsed();
+}

@@ -21,6 +21,7 @@ class Indexer: public QObject
         const Translation* translation() const { return _translation; }
         void setTranslation(const Translation*);
 
+        void clear();
         void addChapter(int bookNo, int chapterNo, const QString& content);
         int docCount();
 

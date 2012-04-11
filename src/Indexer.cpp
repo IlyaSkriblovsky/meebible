@@ -38,6 +38,11 @@ void Indexer::setTranslation(const Translation* translation)
 }
 
 
+void Indexer::clear()
+{
+    if (_indexFile)
+        _indexFile->clear();
+}
 
 void Indexer::onDocumentToken(void* data, const QString& token, int startPos, int endPos, int number)
 {

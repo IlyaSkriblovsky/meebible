@@ -814,6 +814,11 @@ Page {
             id: menuLayout
 
             MenuItem {
+                text: \"Rebuild index\"
+                onClicked: cache.rebuildIndex(settings.translation)
+            }
+
+            MenuItem {
                 text: qsTr(\"Search\")
 
                 onClicked: searchDialog.open()

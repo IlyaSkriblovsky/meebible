@@ -56,6 +56,7 @@ public slots:
 
 
     void search(Translation* translation, const QString& query, int maxresults);
+    void rebuildIndex(Translation* translation);
 
 signals:
     void searchFinished(QList<QVariant> found);

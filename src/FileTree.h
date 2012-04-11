@@ -84,6 +84,18 @@ class FileTree
         }
 
 
+        void clear()
+        {
+            printf("Tree cleared\n");
+
+            file.resize(sizeof(BaseHeader));
+            memset(baseheader, 0, sizeof(BaseHeader));
+            baseheader->sig = signature;
+            baseheader->ver = version;
+            baseheader->clean = 1;
+        }
+
+
         void add(const char* key, const Entry& entry)
         {
             baseheader->clean = 0;
@@ -190,17 +202,6 @@ class FileTree
             baseheader->root_off = file.off(node);
         }
 
-
-        void clear()
-        {
-            printf("Tree cleared\n");
-
-            file.resize(sizeof(BaseHeader));
-            memset(baseheader, 0, sizeof(BaseHeader));
-            baseheader->sig = signature;
-            baseheader->ver = version;
-            baseheader->clean = 1;
-        }
 
 
         Node* create_node(Node* parent, const char* key, uint8 color = 0)
