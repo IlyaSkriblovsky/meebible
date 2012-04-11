@@ -47,4 +47,4 @@ inline uint qHash(const MatchEntry& key)
 }
 
 
-typedef FileTree<0x7869, 2, MatchEntry, 4> IndexTree;
+typedef FileTree<0x7869, 2, Header, MatchEntry, 4> IndexTree;
