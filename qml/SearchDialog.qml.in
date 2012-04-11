@@ -24,6 +24,9 @@ Page {
         if (busyIndicator.visible)
             return
 
+        if (! SYMBIAN)
+            field.closeSoftwareInputPanel()
+
         results.clear()
         busyIndicator.visible = true
         cache.search(settings.translation, field.text, dialog.maxResults)
@@ -58,6 +61,14 @@ Page {
 
             busyIndicator.visible = false
             item.state = results.count == 0 ? \"nothing\" : \"list\"
+        }
+
+        onRebuildingIndex: {
+            item.state = \"rebuilding\"
+        }
+
+        onIndexRebuilt: {
+            item.state = \"list\"
         }
     }
 
@@ -206,6 +217,35 @@ Page {
             }
         }
 
+        Column {
+            id: rebuilding
+
+            width: parent.width
+            anchors.centerIn: parent
+
+            spacing: 20
+
+            Label {
+                width: parent.width
+
+                wrapMode: Text.Wrap
+                horizontalAlignment: Text.AlignHCenter
+
+                text: qsTr(\"Rebuilding index...\\nThis is one time operation\")
+                color: settings.inverted ? \"#444\" : \"#888\"
+                font.pixelSize: 40
+                font.family: \"Nokia Pure Text Light\"
+            }
+
+            UniLargeBusyIndicator {
+                id: rebuildingIndicator
+
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                running: rebuilding.visible
+            }
+        }
+
 
         state: \"list\"
 
@@ -213,26 +253,23 @@ Page {
             State {
                 name: \"list\"
 
-                PropertyChanges {
-                    target: list
-                    visible: true
-                }
-                PropertyChanges {
-                    target: nothing
-                    visible: false
-                }
+                PropertyChanges { target: list; visible: true }
+                PropertyChanges { target: nothing; visible: false }
+                PropertyChanges { target: rebuilding; visible: false }
             },
             State {
                 name: \"nothing\"
 
-                PropertyChanges {
-                    target: list
-                    visible: false
-                }
-                PropertyChanges {
-                    target: nothing
-                    visible: true
-                }
+                PropertyChanges { target: list; visible: false }
+                PropertyChanges { target: nothing; visible: true }
+                PropertyChanges { target: rebuilding; visible: false }
+            },
+            State {
+                name: \"rebuilding\"
+
+                PropertyChanges { target: list; visible: false }
+                PropertyChanges { target: nothing; visible: false }
+                PropertyChanges { target: rebuilding; visible: true }
             }
         ]
     }
@@ -241,7 +278,7 @@ Page {
     QueryDialog {
         id: helpDialog
 
-        titleText: qsTr(\"Search hints\")
+        titleText: qsTr(\"Search tips\")
 
         message: qsTr(\"You can search for multiple words, they will be found even if separated by other words.\\n\\nPlace asterisk after word to find it with all different endings (For example: Abra* for Abram and Abraham)\") + (SYMBIAN ? \"\\n\" : \"\")
 

@@ -397,8 +397,20 @@ void Cache::search(Translation* translation, const QString& query, int maxresult
 {
     _indexer.setTranslation(translation);
 
-    SearchThread* thread = new SearchThread(_db, &_indexer, translation, query, maxresults, this);
+    qDebug() << "totalChaptersInCache =" << totalChaptersInCache(translation);
+    qDebug() << "indexer.docCount  =" << _indexer.docCount();
+    bool rebuild = totalChaptersInCache(translation) != _indexer.docCount();
+    if (rebuild) rebuildingIndex();
+
+    SearchThread* thread = new SearchThread(
+        _db, &_indexer,
+        rebuild,
+        translation, query,
+        maxresults,
+        this
+    );
     connect(thread, SIGNAL(finished(QList<QVariant>)), this, SLOT(onSearchThreadFinished(QList<QVariant>)));
+    connect(thread, SIGNAL(indexRebuilt()), this, SLOT(onSearchThreadIndexRebuilt()));
     thread->start();
 }
 
@@ -411,33 +423,11 @@ void Cache::onSearchThreadFinished(QList<QVariant> results)
     delete thread;
 }
 
+void Cache::onSearchThreadIndexRebuilt() { indexRebuilt(); }
 
-void Cache::rebuildIndex(Translation* translation)
+
+void Cache::clearIndex(Translation* translation)
 {
-    QElapsedTimer timer; timer.start();
-
     _indexer.setTranslation(translation);
     _indexer.clear();
-
-    sqlite3_stmt* stmt;
-    sqlite3_prepare_v2(_db,
-        "SELECT bookNo, chapterNo, text FROM html WHERE transCode=? AND langCode=?",
-        -1,
-        &stmt, 0
-    );
-    sqlite3_bind_text16(stmt, 1, translation->code().utf16(), -1, SQLITE_STATIC);
-    sqlite3_bind_text16(stmt, 2, translation->language()->code().utf16(), -1, SQLITE_STATIC);
-
-    while (sqlite3_step(stmt) == SQLITE_ROW)
-    {
-        _indexer.addChapter(
-            sqlite3_column_int(stmt, 0),
-            sqlite3_column_int(stmt, 1),
-            QString::fromUtf16((const ushort*)sqlite3_column_text16(stmt, 2))
-        );
-    }
-
-    sqlite3_finalize(stmt);
-
-    qDebug() << "rebuild index:" << timer.elapsed();
 }

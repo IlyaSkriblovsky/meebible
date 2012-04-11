@@ -15,12 +15,14 @@ class SearchThread: public QThread
     public:
         SearchThread(
             sqlite3* db, Indexer* indexer,
+            bool rebuild,
             const Translation* translation, const QString& query,
             int maxResults,
             QObject* parent = 0
         );
 
     signals:
+        void indexRebuilt();
         void finished(QList<QVariant> results);
 
     protected:
@@ -29,6 +31,7 @@ class SearchThread: public QThread
     private:
         sqlite3* _db;
         Indexer* _indexer;
+        bool _rebuild;
         const Translation* _translation;
         QString _query;
         int _maxResults;

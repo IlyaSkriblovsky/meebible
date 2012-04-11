@@ -814,8 +814,8 @@ Page {
             id: menuLayout
 
             MenuItem {
-                text: \"Rebuild index\"
-                onClicked: cache.rebuildIndex(settings.translation)
+                text: \"clear index\"
+                onClicked: cache.clearIndex(settings.translation)
             }
 
             MenuItem {

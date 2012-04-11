@@ -7,6 +7,6 @@ TextField {
     }
 
     platformStyle: TextFieldStyle {
-        paddingLeft: 50
+        paddingLeft: 45
     }
 }

@@ -13,8 +13,15 @@
 #include "SearchResult.h"
 
 
-SearchThread::SearchThread(sqlite3* db, Indexer* indexer, const Translation* translation, const QString& query, int maxResults, QObject* parent/* = 0 */)
+SearchThread::SearchThread(
+    sqlite3* db, Indexer* indexer,
+    bool rebuild,
+    const Translation* translation, const QString& query,
+    int maxResults,
+    QObject* parent/* = 0 */
+)
     : QThread(parent), _db(db), _indexer(indexer),
+     _rebuild(rebuild),
      _translation(translation), _query(query),
      _maxResults(maxResults)
 {
@@ -27,6 +34,32 @@ void SearchThread::run()
     qDebug() << "Search thread started";
 
     QElapsedTimer timer; timer.start();
+
+
+    if (_rebuild)
+    {
+        qDebug() << "Rebuilding index";
+
+        _indexer->clear();
+        sqlite3_stmt* select;
+        sqlite3_prepare_v2(_db,
+            "SELECT bookNo, chapterNo, text FROM html WHERE transCode=? AND langCode=?", -1,
+            &select, 0
+        );
+        sqlite3_bind_text16(select, 1, _translation->code().utf16(), -1, SQLITE_STATIC);
+        sqlite3_bind_text16(select, 2, _translation->language()->code().utf16(), -1, SQLITE_STATIC);
+
+        while (sqlite3_step(select) == SQLITE_ROW)
+            _indexer->addChapter(
+                sqlite3_column_int(select, 0),
+                sqlite3_column_int(select, 1),
+                QString::fromUtf16((const ushort*)sqlite3_column_text16(select, 2))
+            );
+
+        sqlite3_finalize(select);
+        indexRebuilt();
+    }
+
 
     QList<SearchQueryParser::QueryToken> queryTokens = SearchQueryParser::parseQuery(_query);
 

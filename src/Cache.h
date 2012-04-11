@@ -56,10 +56,12 @@ public slots:
 
 
     void search(Translation* translation, const QString& query, int maxresults);
-    void rebuildIndex(Translation* translation);
+    void clearIndex(Translation* translation);
 
 signals:
     void searchFinished(QList<QVariant> found);
+    void rebuildingIndex();
+    void indexRebuilt();
 
 
 private:
@@ -92,6 +94,7 @@ private:
 
     private slots:
         void onSearchThreadFinished(QList<QVariant> results);
+        void onSearchThreadIndexRebuilt();
 };
 
 #endif // CACHE_H
