@@ -243,6 +243,7 @@ void BibleView::onChapterRequestFinished(QString html)
             request->place(),
             html
         );
+        Cache::instance()->syncIndex();
     }
 
     request->deleteLater();

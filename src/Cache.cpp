@@ -214,6 +214,12 @@ void Cache::saveChapter(const Translation* translation, const Place& place, QStr
     }
 }
 
+void Cache::syncIndex()
+{
+    qDebug() << "syncIndex";
+    _indexer.sync();
+}
+
 
 QString Cache::loadChapter(const Translation *translation, const Place& place)
 {
@@ -387,9 +393,7 @@ void Cache::beginTransaction()
 
 void Cache::commitTransaction()
 {
-    QElapsedTimer timer; timer.start();
     sqlite3_exec(_db, "COMMIT", 0, 0, 0);
-    qDebug() << "commit time:" << timer.elapsed();
 }
 
 
@@ -426,8 +430,8 @@ void Cache::onSearchThreadFinished(QList<QVariant> results)
 void Cache::onSearchThreadIndexRebuilt() { indexRebuilt(); }
 
 
-void Cache::clearIndex(Translation* translation)
-{
-    _indexer.setTranslation(translation);
-    _indexer.clear();
-}
+// void Cache::clearIndex(Translation* translation)
+// {
+//     _indexer.setTranslation(translation);
+//     _indexer.clear();
+// }

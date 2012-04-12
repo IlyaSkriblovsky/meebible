@@ -31,6 +31,7 @@ public:
     virtual ~Cache();
 
     void saveChapter(const Translation* translation, const Place& place, QString html);
+    void syncIndex();
 
     QString loadChapter(const Translation* translation, const Place& place);
 
@@ -56,7 +57,7 @@ public slots:
 
 
     void search(Translation* translation, const QString& query, int maxresults);
-    void clearIndex(Translation* translation);
+    // void clearIndex(Translation* translation);
 
 signals:
     void searchFinished(QList<QVariant> found);

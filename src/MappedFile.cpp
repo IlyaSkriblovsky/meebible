@@ -32,3 +32,8 @@ MappedFile::~MappedFile()
 
     close(_fd);
 }
+
+void MappedFile::sync()
+{
+    msync(_map, _size, MS_ASYNC);
+}

@@ -72,6 +72,12 @@ class FileTree
         }
 
 
+        void sync()
+        {
+            file.sync();
+        }
+
+
         Header* header()
         {
             return &baseheader->header;

@@ -824,11 +824,6 @@ Page {
             id: menuLayout
 
             MenuItem {
-                text: \"clear index\"
-                onClicked: cache.clearIndex(settings.translation)
-            }
-
-            MenuItem {
                 text: qsTr(\"Search\")
 
                 onClicked: searchDialog.open()
@@ -915,20 +910,8 @@ Page {
                 $$QML_SYMBIAN_THEME
             }
 
-            MenuItem {
-                id: quitMenuItem
-
-                visible: !SYMBIAN
-
-                text: qsTr(\"Quit\")
-
-                onClicked: Qt.quit()
-
-                $$QML_SYMBIAN_THEME
-            }
-
             // Just setting \"visible: false\" breaks round corners
-            Component.onCompleted: if (! SYMBIAN) quitMenuItem.destroy()
+            // Component.onCompleted: if (! SYMBIAN) quitMenuItem.destroy()
         }
     }
 }

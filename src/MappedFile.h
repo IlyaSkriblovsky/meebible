@@ -11,6 +11,8 @@ class MappedFile
         inline unsigned char* map() { return _map; }
         inline unsigned int size() { return _size; }
 
+        void sync();
+
         inline void resize(unsigned int size)
         {
             _size = size;

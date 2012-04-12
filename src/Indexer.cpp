@@ -76,6 +76,11 @@ void Indexer::addChapter(int bookNo, int chapterNo, const QString& content)
     _indexFile->header()->docCount++;
 }
 
+void Indexer::sync()
+{
+    if (_indexFile) _indexFile->sync();
+}
+
 
 int Indexer::docCount()
 {

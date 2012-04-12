@@ -112,6 +112,7 @@ void Fetcher2::commit()
         cache->saveChapter(_translation, task.first, task.second);
     }
     cache->commitTransaction();
+    cache->syncIndex();
     qDebug() << "storing to fts of" << s << "chaps:" << timer.elapsed();
 }
 
@@ -124,7 +125,6 @@ void Fetcher2::onChapterRequestFinished(QString html)
 
     if (request->error() == QNetworkReply::NoError)
     {
-        // Cache::instance()->saveChapter(_translation, request->place(), html);
         _commitQueue.enqueue(QPair<Place, QString>(request->place(), html));
         _totalChaptersAvailable += 1;
 
