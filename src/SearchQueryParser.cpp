@@ -16,6 +16,9 @@ QList<SearchQueryParser::QueryToken> SearchQueryParser::parseQuery(const QString
 
 void SearchQueryParser::onToken(void* data, const QString& token, int startPos, int endPos, int number)
 {
+    (void)startPos;
+    (void)number;
+
     Closure* closure = static_cast<Closure*>(data);
 
     closure->tokens.append(QueryToken(
