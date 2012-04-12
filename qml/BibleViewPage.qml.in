@@ -410,6 +410,11 @@ Page {
     Loader {
         id: placeDialog
 
+        Component.onCompleted: {
+            if (! settings.gridPlaceSelector)
+                load()
+        }
+
         function load() { source = \"PlaceDialog.qml\" }
 
         function open() { load(); item.run(bibleView.place) }
@@ -422,6 +427,11 @@ Page {
 
     Loader {
         id: gridPlaceDialog
+
+        Component.onCompleted: {
+            if (settings.gridPlaceSelector)
+                load()
+        }
 
         function load() { source = \"GridPlaceDialog.qml\" }
         function open() { load(); item.run(bibleView.place) }
