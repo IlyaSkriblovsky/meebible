@@ -488,6 +488,9 @@ bool BibleView::copySelectedVerses(bool withVerseNumbers)
     if (text == "")
         return false;
 
+    if (withVerseNumbers)
+        text = _place.toString(translation()) + ": " + text;
+
     QClipboard *clipboard = QApplication::clipboard();
     clipboard->setText(text);
     return true;
