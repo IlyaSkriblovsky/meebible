@@ -3,10 +3,19 @@
 
 #include <QObject>
 #include <QRegExp>
-#include <QSqlDatabase>
-#include <QSqlQuery>
+#include <QVariant>
+#include <QSet>
+#include <QPair>
 
 #include "Place.h"
+#include "Indexer.h"
+
+
+class QThread;
+
+
+class sqlite3;
+class sqlite3_stmt;
 
 class Translation;
 
@@ -15,10 +24,6 @@ class Cache: public QObject
 {
     Q_OBJECT
 
-    #ifndef NOSEARCH
-        Q_PROPERTY(bool searchInProgress READ searchInProgress NOTIFY searchInProgressChanged)
-    #endif
-
 public:
     static Cache* instance();
 
@@ -26,6 +31,7 @@ public:
     virtual ~Cache();
 
     void saveChapter(const Translation* translation, const Place& place, QString html);
+    void syncIndex();
 
     QString loadChapter(const Translation* translation, const Place& place);
 
@@ -34,9 +40,11 @@ public:
     int totalChaptersInCache(const Translation* translation);
 
 
-    #ifndef NOSEARCH
-        bool searchInProgress() const { return _searchInProgress; }
-    #endif
+    QSet<QPair<QString, int> > availableChapters(const Translation* translation);
+
+
+    void beginTransaction();
+    void commitTransaction();
 
 
     void saveXML(const QString& name, const QString& content);
@@ -45,48 +53,49 @@ public:
 
 
 public slots:
-    #ifndef NOSEARCH
-        void search(Translation* translation, const QString& text);
-    #endif
-
     void clearCache();
 
 
+    void search(Translation* translation, const QString& query, int maxresults);
+    // void clearIndex(Translation* translation);
+
 signals:
-    #ifndef NOSEARCH
-        void searchStarted();
-        void matchFound(Place place, QString match, int matchCount);
-        void searchFinished();
-        void searchInProgressChanged();
-    #endif
+    void searchFinished(QList<QVariant> found);
+    void rebuildingIndex();
+    void indexRebuilt();
 
 
 private:
     static Cache* _instance;
 
-    QSqlDatabase _db;
+    sqlite3* _db;
 
-    QSqlQuery _stmt_saveChapter;
-    QSqlQuery _stmt_loadChapter;
-    QSqlQuery _stmt_hasChapter;
-    QSqlQuery _stmt_totalChapters;
+    sqlite3_stmt* _stmt_saveChapter;
+    sqlite3_stmt* _stmt_loadChapter;
+    sqlite3_stmt* _stmt_hasChapter;
+    sqlite3_stmt* _stmt_totalChapters;
+    sqlite3_stmt* _stmt_availableChapters;
+
+    #ifdef ASYNC_DB_IO
+        QThread* _asyncThread;
+    #endif
 
     QRegExp _stripTags;
     QRegExp _stripSpaces;
     QRegExp _stripStyles;
 
+    Indexer _indexer;
+
+
+    void execWithCheck(const char* sql);
 
     void openDB();
+    void closeDB();
 
-    #ifndef NOSEARCH
-        bool _searchInProgress;
-    #endif
 
-private slots:
-    #ifndef NOSEARCH
-        void onThreadMatchFound(Place place, QString match, int matchCount);
-        void onThreadFinished();
-    #endif
+    private slots:
+        void onSearchThreadFinished(QList<QVariant> results);
+        void onSearchThreadIndexRebuilt();
 };
 
 #endif // CACHE_H

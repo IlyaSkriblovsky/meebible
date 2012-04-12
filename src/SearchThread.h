@@ -1,32 +1,38 @@
-#ifndef SEARCHTHREAD_H
-#define SEARCHTHREAD_H
+#pragma once
 
 #include <QThread>
-#include <QSqlDatabase>
-
-#include "Place.h"
+#include <QList>
+#include <QVariant>
 
 class Translation;
+class Indexer;
+class sqlite3;
 
 class SearchThread: public QThread
 {
     Q_OBJECT
 
-public:
-    SearchThread(const Translation* translation, const QString& needle, QObject* parent = 0);
-    ~SearchThread();
+    public:
+        SearchThread(
+            sqlite3* db, Indexer* indexer,
+            bool rebuild,
+            const Translation* translation, const QString& query,
+            int maxResults,
+            QObject* parent = 0
+        );
 
-signals:
-    void matchFound(Place place, QString match, int matchCount);
+    signals:
+        void indexRebuilt();
+        void finished(QList<QVariant> results);
 
-protected:
-    void run();
+    protected:
+        virtual void run();
 
-private:
-    QSqlDatabase _db;
-    QString _needle;
-    QString _langCode;
-    QString _transCode;
+    private:
+        sqlite3* _db;
+        Indexer* _indexer;
+        bool _rebuild;
+        const Translation* _translation;
+        QString _query;
+        int _maxResults;
 };
-
-#endif

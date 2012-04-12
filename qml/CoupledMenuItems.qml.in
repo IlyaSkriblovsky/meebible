@@ -1,0 +1,51 @@
+import QtQuick 1.1
+
+$$QML_IMPORT_QTCOMPONENTS
+
+Item {
+    id: coupled
+
+    property alias leftText: left.text
+    property alias rightText: right.text
+
+    signal leftClicked()
+    signal rightClicked()
+
+    width: parent.width
+    height: childrenRect.height
+
+    Item {
+        anchors.left: parent.left
+        anchors.right: parent.horizontalCenter
+        height: childrenRect.height
+
+        MenuItem {
+            id: left
+
+            onClicked: coupled.leftClicked()
+
+            Rectangle {
+                width: 1
+                height: parent.height
+                anchors.right: parent.right
+                color: settings.inverted ? \"#4a4a4a\" : \"#d8d8d8\"
+            }
+
+            $$QML_SYMBIAN_THEME
+        }
+    }
+
+    Item {
+        anchors.left: parent.horizontalCenter
+        anchors.right: parent.right
+        height: childrenRect.height
+
+        MenuItem {
+            id: right
+
+            onClicked: coupled.rightClicked()
+
+            $$QML_SYMBIAN_THEME
+        }
+    }
+}

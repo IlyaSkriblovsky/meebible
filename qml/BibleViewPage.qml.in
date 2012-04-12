@@ -410,6 +410,11 @@ Page {
     Loader {
         id: placeDialog
 
+        Component.onCompleted: {
+            if (! settings.gridPlaceSelector)
+                load()
+        }
+
         function load() { source = \"PlaceDialog.qml\" }
 
         function open() { load(); item.run(bibleView.place) }
@@ -417,6 +422,22 @@ Page {
         Connections {
             target: placeDialog.item
             onAccepted: bibleView.place = placeDialog.item.place()
+        }
+    }
+
+    Loader {
+        id: gridPlaceDialog
+
+        Component.onCompleted: {
+            if (settings.gridPlaceSelector)
+                load()
+        }
+
+        function load() { source = \"GridPlaceDialog.qml\" }
+        function open() { load(); item.run(bibleView.place) }
+        Connections {
+            target: gridPlaceDialog.item
+            onAccepted: bibleView.place = gridPlaceDialog.item.place()
         }
     }
 
@@ -439,7 +460,7 @@ Page {
         function load() { source = \"SearchDialog.qml\" }
         function open() {
             load()
-            item.open()
+            pageStack.push(item)
             if (! settings.searchNoticeShown)
             {
                 searchNotice.open()
@@ -450,10 +471,14 @@ Page {
         Connections {
             target: searchDialog.item
             onPlaceSelected: {
-                searchDialog.item.close()
-                // bibleView.setAndLoad(bookCode, chapterNo, 1)
+                pageStack.pop()
                 bibleView.place = place
                 bibleView.startSearchMode(searchDialog.item.query)
+                page.pageStack.toolBar.setTools(searchTools, \"replace\")
+            }
+            onClosed: {
+                if (bibleView.searchMode)
+                    page.pageStack.toolBar.setTools(searchTools, \"replace\")
             }
         }
     }
@@ -464,7 +489,7 @@ Page {
         target: bibleView
         onSearchModeChanged: {
             if (bibleView.searchMode)
-                page.pageStack.toolBar.setTools(searchTools, \"set\")
+                page.pageStack.toolBar.setTools(searchTools, \"replace\")
             else
                 if (! fontTools.visible)
                     page.pageStack.toolBar.setTools(commonTools, \"replace\")
@@ -502,7 +527,7 @@ Page {
 
         UniToolIcon {
             platformIconId: \"toolbar-list\"
-            onClicked: placeDialog.open()
+            onClicked: (settings.gridPlaceSelector ? gridPlaceDialog : placeDialog).open()
         }
 
         UniToolIcon {
@@ -686,7 +711,7 @@ Page {
         visible: false
 
         UniToolIcon {
-            platformIconId: \"toolbar-up\"
+            platformIconId: SYMBIAN ? \"toolbar-previous\" : \"toolbar-up\"
 
             onClicked: {
                 if (bibleView.matchIndex > 0)
@@ -702,6 +727,7 @@ Page {
             anchors.verticalCenter: parent.verticalCenter
 
             text: (bibleView.matchIndex + 1) + \' / \' + bibleView.matchCount
+            horizontalAlignment: Text.AlignHCenter
 
             font.pixelSize: 30
 
@@ -709,7 +735,7 @@ Page {
         }
 
         UniToolIcon {
-            platformIconId: \"toolbar-down\"
+            platformIconId: SYMBIAN ? \"toolbar-next\" : \"toolbar-down\"
 
             onClicked: {
                 if (bibleView.matchIndex < bibleView.matchCount - 1)
@@ -801,7 +827,6 @@ Page {
                 text: qsTr(\"Search\")
 
                 onClicked: searchDialog.open()
-                visible: ! NOSEARCH
 
                 $$QML_SYMBIAN_THEME
             }
@@ -815,49 +840,19 @@ Page {
                 page.pageStack.toolBar.setTools(lineSpacingTools, \"replace\")
             }
 
-            Item {
+            CoupledMenuItems {
                 visible: SYMBIAN
 
-                width: parent.width
-                height: childrenRect.height
-
-                Item {
-                    anchors.left: parent.left
-                    anchors.right: parent.horizontalCenter
-                    height: childrenRect.height
-
-                    MenuItem {
-                        text: qsTr(\"Font size\")
-                        onClicked: {
-                            menuLayout.fontSizeClicked()
-                            menu.close()
-                        }
-
-                        Rectangle {
-                            width: 1
-                            height: parent.height
-                            anchors.right: parent.right
-                            color: settings.inverted ? \"#4a4a4a\" : \"#d8d8d8\"
-                        }
-
-                        $$QML_SYMBIAN_THEME
-                    }
+                leftText: qsTr(\"Font size\")
+                onLeftClicked: {
+                    menuLayout.fontSizeClicked()
+                    menu.close()
                 }
 
-                Item {
-                    anchors.left: parent.horizontalCenter
-                    anchors.right: parent.right
-                    height: childrenRect.height
-
-                    MenuItem {
-                        text: qsTr(\"Line spacing\")
-                        onClicked: {
-                            menuLayout.lineSpacingClicked()
-                            menu.close()
-                        }
-
-                        $$QML_SYMBIAN_THEME
-                    }
+                rightText: qsTr(\"Line spacing\")
+                onRightClicked: {
+                    menuLayout.lineSpacingClicked()
+                    menu.close
                 }
             }
 
@@ -893,25 +888,30 @@ Page {
                 $$QML_SYMBIAN_THEME
             }
 
+            CoupledMenuItems {
+                visible: SYMBIAN
+
+                leftText: qsTr(\"About MeeBible\")
+                onLeftClicked: {
+                    aboutPage.open()
+                    menu.close()
+                }
+
+                rightText: qsTr(\"Quit\")
+                onRightClicked: Qt.quit()
+            }
+
             MenuItem {
+                visible: !SYMBIAN
+
                 text: qsTr(\"About MeeBible\")
                 onClicked: aboutPage.open()
 
                 $$QML_SYMBIAN_THEME
             }
 
-            MenuItem {
-                id: quitMenuItem
-
-                text: qsTr(\"Quit\")
-
-                onClicked: Qt.quit()
-
-                $$QML_SYMBIAN_THEME
-            }
-
             // Just setting \"visible: false\" breaks round corners
-            Component.onCompleted: if (! SYMBIAN) quitMenuItem.destroy()
+            // Component.onCompleted: if (! SYMBIAN) quitMenuItem.destroy()
         }
     }
 }

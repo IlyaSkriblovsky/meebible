@@ -7,6 +7,8 @@
 
 
 #include "Settings.h"
+#include "Translation.h"
+#include "Language.h"
 
 
 QDir Paths::_cacheDir;
@@ -124,5 +126,22 @@ QStringList Paths::allCachedXML(const QString& prefix)
         }
     }
 
+    return result;
+}
+
+
+
+QString Paths::indexFile(const Translation* translation)
+{
+    return correctSlashes(_cacheDir.filePath(translation->code() + "_" + translation->language()->code() + ".idx"));
+}
+
+
+QStringList Paths::allIndexFiles()
+{
+    QStringList files = _cacheDir.entryList(QStringList("*.idx"));
+    QStringList result;
+    foreach (const QString& basename, files)
+        result.append(correctSlashes(_cacheDir.filePath(basename)));
     return result;
 }

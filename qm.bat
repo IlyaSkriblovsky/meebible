@@ -5,4 +5,4 @@ set QT_GCCE_VERSION=4.4.1
 set SBS_GCCE441BIN=C:\QtSDK\Symbian\tools\gcce4\bin
 set SBS_HOME=C:\QtSDK\Symbian\tools\sbs
 
-C:\QtSDK\Symbian\SDKs\Symbian3Qt474\bin\qmake -r -spec symbian-sbsv2  CONFIG+=nosearch CONFIG+=noshare
+C:\QtSDK\Symbian\SDKs\Symbian3Qt474\bin\qmake -r -spec symbian-sbsv2 CONFIG+=noshare

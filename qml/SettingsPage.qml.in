@@ -140,6 +140,13 @@ Page {
             }
 
             LabeledSwitch {
+                text: qsTr(\"Grid place selector\")
+
+                checked: settings.gridPlaceSelector
+                onCheckedChanged: settings.gridPlaceSelector = checked
+            }
+
+            LabeledSwitch {
                 text: qsTr(\"Copy verses with numbers\")
 
                 checked: settings.copyVerseNumbers

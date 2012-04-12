@@ -6,6 +6,8 @@
 #include <QDir>
 #include <QUrl>
 
+class Translation;
+
 
 class Paths
 {
@@ -31,6 +33,9 @@ public:
 
     static QString cachedXML(const QString& name);
     static QStringList allCachedXML(const QString& prefix);
+
+    static QString indexFile(const Translation* translation);
+    static QStringList allIndexFiles();
 
 
 private:

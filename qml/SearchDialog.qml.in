@@ -6,22 +6,70 @@ $$QML_IMPORT_QTCOMPONENTS_EXTRAS
 import MeeBible 0.1
 import \"unicomponents\"
 
-Sheet {
+Page {
     id: dialog
 
 
-    property QtObject translation: settings.translation
-
     property alias query: field.text
 
+    property int maxResults: 150
+
     signal placeSelected(variant place)
+    signal closed()
 
 
     function startSearch() {
         if (field.text == \"\")
             return
+        if (busyIndicator.visible)
+            return
 
-        cache.search(translation, field.text)
+        if (! SYMBIAN)
+            field.closeSoftwareInputPanel()
+
+        results.clear()
+        busyIndicator.visible = true
+        cache.search(settings.translation, field.text, dialog.maxResults)
+    }
+
+    Connections {
+        target: cache
+
+        onSearchFinished: {
+            results.clear()
+            for (var i = 0; i < found.length; i++)
+            {
+                var place = searchResultAccesser.place(found[i])
+                results.append({
+                    title: placeAccesser.string(place, settings.translation),
+                    subtitle: searchResultAccesser.preview(found[i]),
+                    place: place,
+                    matchCount: searchResultAccesser.matchCount(found[i]),
+                    isLimiter: false
+                })
+            }
+
+            if (found.length == dialog.maxResults)
+            {
+                results.append({
+                    title: \"Too many matches\",
+                    subtitle: \"Search results truncated\",
+                    matchCount: 0,
+                    isLimiter: true
+                })
+            }
+
+            busyIndicator.visible = false
+            item.state = results.count == 0 ? \"nothing\" : \"list\"
+        }
+
+        onRebuildingIndex: {
+            item.state = \"rebuilding\"
+        }
+
+        onIndexRebuilt: {
+            item.state = \"list\"
+        }
     }
 
 
@@ -31,19 +79,10 @@ Sheet {
     }
 
 
-    buttons: [
-        SheetButton {
-            id: close
-            text: qsTr(\"Close\")
+    Header {
+        id: header
 
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.right: parent.right
-            anchors.rightMargin: 10
-
-            onClicked: dialog.reject()
-        },
-
-        TextField {
+        UniSearchField {
             id: field
 
             placeholderText: qsTr(\"Search...\")
@@ -52,39 +91,22 @@ Sheet {
             anchors.leftMargin: 10
             anchors.rightMargin: 10
             anchors.verticalCenter: parent.verticalCenter
-            anchors.right: close.left
+            anchors.right: searchButton.left
 
 
-            platformSipAttributes: SipAttributes {
-                actionKeyIcon: \"/usr/share/themes/blanco/meegotouch/icons/icon-m-toolbar-search-selected.png\"
-                actionKeyEnabled: true
-            }
-
-            Keys.onReturnPressed: {
-                platformCloseSoftwareInputPanel()
-                dialog.startSearch()
-            }
+            Keys.onReturnPressed: dialog.startSearch()
 
 
             Image {
                 id: image
 
-                // source: field.text.length > 0 ? \"image://theme/icon-m-input-clear\" : \"image://theme/icon-m-common-search\"
-                source: \"image://theme/icon-m-common-search\"
+                source: \"search-infield.png\"
 
                 anchors.verticalCenter: parent.verticalCenter
-                anchors.right: parent.right
-                anchors.rightMargin: 10
+                anchors.left: parent.left
+                anchors.rightMargin: 5
 
                 width: height
-
-
-//              It seems like MouseArea doesn\'t work in TextField in 39-5 firmware :(
-//                MouseArea {
-//                    anchors.fill: parent
-//
-//                    onClicked: field.visible = false // dialog.startSearch()
-//                }
             }
 
             UniTextFieldBusyIndicator {
@@ -94,71 +116,32 @@ Sheet {
                 anchors.right: parent.right
                 anchors.rightMargin: 15
 
+                visible: false
                 running: visible
             }
-
-            state: cache.searchInProgress ? \"busy\" : \"idle\"
-
-            states: [
-                State {
-                    name: \"idle\"
-
-                    PropertyChanges {
-                        target: image
-                        visible: true
-                    }
-
-                    PropertyChanges {
-                        target: busyIndicator
-                        visible: false
-                    }
-                },
-                State {
-                    name: \"busy\"
-
-                    PropertyChanges {
-                        target: image
-                        visible: false
-                    }
-
-                    PropertyChanges {
-                        target: busyIndicator
-                        visible: true
-                    }
-                }
-            ]
         }
-    ]
 
-    content: Item {
+        ToolButton {
+            id: searchButton
+
+            text: qsTr(\"Search\")
+            anchors.right: parent.right
+            anchors.rightMargin: 10
+            anchors.verticalCenter: parent.verticalCenter
+
+            onClicked: dialog.startSearch()
+        }
+    }
+
+
+    Item {
         id: item
 
 
-        Connections {
-            target: cache
-
-            onSearchStarted: {
-                item.state = \"list\"
-
-                results.clear()
-            }
-            onSearchFinished: {
-                if (results.count == 0)
-                    item.state = \"nothing\"
-            }
-
-            onMatchFound: {
-                results.append({
-                    title: placeAccesser.string(place, settings.translation),
-                    subtitle: match,
-                    place: place,
-                    matchCount: matchCount
-                })
-            }
-        }
-
-
-        anchors.fill: parent
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: header.bottom
+        anchors.bottom: parent.bottom
 
 
 
@@ -175,16 +158,20 @@ Sheet {
                 id: results
             }
 
-            delegate: ListDelegate {
-                onClicked: dialog.placeSelected(place)
+            delegate: SubtitledListDelegate {
+                onClicked: {
+                    if (! isLimiter)
+                        dialog.placeSelected(place)
+                }
 
                 clip: true
 
                 x: 10
                 width: parent.width - 20
 
-                // com.meego.extras.CountBubble doesn\'t works well with inverted theme
                 Item {
+                    visible: !isLimiter
+
                     anchors.right: parent.right
                     anchors.top: parent.top
                     anchors.topMargin: 15
@@ -193,7 +180,7 @@ Sheet {
                     height: 25
 
                     BorderImage {
-                        source: \"image://theme/meegotouch-countbubble-background\"
+                        source: \"countbubble.png\"
                         anchors.fill: parent
                         border { left: 10; top: 10; right: 10; bottom: 10 }
                     }
@@ -208,7 +195,7 @@ Sheet {
                 }
             }
         }
-        ScrollDecorator { flickableItem: list; __rightPageMargin: 30 }
+        ScrollDecorator { flickableItem: list; }
 
         Item {
             id: nothing
@@ -230,6 +217,35 @@ Sheet {
             }
         }
 
+        Column {
+            id: rebuilding
+
+            width: parent.width
+            anchors.centerIn: parent
+
+            spacing: 20
+
+            Label {
+                width: parent.width
+
+                wrapMode: Text.Wrap
+                horizontalAlignment: Text.AlignHCenter
+
+                text: qsTr(\"Rebuilding index...\\nThis is one time operation\")
+                color: settings.inverted ? \"#444\" : \"#888\"
+                font.pixelSize: 40
+                font.family: \"Nokia Pure Text Light\"
+            }
+
+            UniLargeBusyIndicator {
+                id: rebuildingIndicator
+
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                running: rebuilding.visible
+            }
+        }
+
 
         state: \"list\"
 
@@ -237,27 +253,51 @@ Sheet {
             State {
                 name: \"list\"
 
-                PropertyChanges {
-                    target: list
-                    visible: true
-                }
-                PropertyChanges {
-                    target: nothing
-                    visible: false
-                }
+                PropertyChanges { target: list; visible: true }
+                PropertyChanges { target: nothing; visible: false }
+                PropertyChanges { target: rebuilding; visible: false }
             },
             State {
                 name: \"nothing\"
 
-                PropertyChanges {
-                    target: list
-                    visible: false
-                }
-                PropertyChanges {
-                    target: nothing
-                    visible: true
-                }
+                PropertyChanges { target: list; visible: false }
+                PropertyChanges { target: nothing; visible: true }
+                PropertyChanges { target: rebuilding; visible: false }
+            },
+            State {
+                name: \"rebuilding\"
+
+                PropertyChanges { target: list; visible: false }
+                PropertyChanges { target: nothing; visible: false }
+                PropertyChanges { target: rebuilding; visible: true }
             }
         ]
+    }
+
+
+    QueryDialog {
+        id: helpDialog
+
+        titleText: qsTr(\"Search tips\")
+
+        message: qsTr(\"You can search for multiple words, they will be found even if separated by other words.\\n\\nPlace asterisk after word to find it with all different endings (For example: Abra* for Abram and Abraham)\") + (SYMBIAN ? \"\\n\" : \"\")
+
+        acceptButtonText: qsTr(\"OK\")
+    }
+
+
+    tools: ToolBarLayout {
+        UniToolIcon {
+            platformIconId: \"toolbar-back\"
+            onClicked: {
+                pageStack.pop()
+                closed()
+            }
+        }
+
+        UniToolIcon {
+            platformIconId: \"toolbar-settings\"
+            onClicked: helpDialog.open()
+        }
     }
 }

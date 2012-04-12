@@ -1,14 +1,16 @@
-# QT += core sql network xml xmlpatterns webkit gui declarative
-QT += core sql network xml webkit gui declarative
+QT += core network xml webkit gui declarative
 
-# DEFINES += DEBUG DEBUGPATHS
 
-nosearch:DEFINES += NOSEARCH
+INCLUDEPATH += src
+
+# DEFINES += DEBUG
+
 noshare: DEFINES += NOSHARE
 
 free:DEFINES += FREEVERSION
 
 symbian: DEFINES += SYMBIAN
+
 
 
 !symbian: DEFINES += INSTALLPREFIX=\\\"$$INSTALLDIR\\\"
@@ -27,7 +29,6 @@ CONFIG -= app_bundle
 
 
 LIBS += -lsqlite3
-!nosearch: LIBS += -licui18n
 
 !symbian {
     CONFIG += shareuiinterface-maemo-meegotouch mdatauri
@@ -36,6 +37,16 @@ LIBS += -lsqlite3
     INCLUDEPATH += /usr/include/applauncherd
     LIBS += -lmdeclarativecache
 }
+
+
+asyncdb {
+    DEFINES += ASYNC_DB_IO
+    HEADERS += src/3rdparty/sqlite3async/sqlite3async.h
+    SOURCES += src/3rdparty/sqlite3async/sqlite3async.c
+}
+
+
+DEFINES += NOSEARCH
 
 
 HEADERS +=                      \
@@ -48,7 +59,7 @@ HEADERS +=                      \
     src/Paths.h                 \
     src/Place.h                 \
     src/BibleWebPage.h          \
-    src/Fetcher.h               \
+    src/Fetcher2.h              \
     src/Utils.h                 \
     src/Settings.h              \
     src/MetaInfoParser.h        \
@@ -58,11 +69,18 @@ HEADERS +=                      \
     src/NetworkUtils.h          \
     src/StartupTracker.h        \
     src/Bookmarks.h             \
-    src/PlaceAccesser.h
-
-!nosearch:HEADERS +=            \
-    src/SqliteUnicodeSearch.h   \
+    src/PlaceAccesser.h         \
+    src/MappedFile.h            \
+    src/FileTree.h              \
+    src/IndexTree.h             \
+    src/StringTokenizer.h       \
+    src/Indexer.h               \
+    src/SearchResult.h          \
+    src/SearchResultAccesser.h  \
+    src/Highlighter.h           \
+    src/SearchQueryParser.h     \
     src/SearchThread.h
+
 
 SOURCES +=                      \
     src/main.cpp                \
@@ -75,7 +93,7 @@ SOURCES +=                      \
     src/Paths.cpp               \
     src/Place.cpp               \
     src/BibleWebPage.cpp        \
-    src/Fetcher.cpp             \
+    src/Fetcher2.cpp            \
     src/Settings.cpp            \
     src/MetaInfoParser.cpp      \
     src/TranslationInfoParser.cpp\
@@ -84,8 +102,10 @@ SOURCES +=                      \
     src/NetworkUtils.cpp        \
     src/StartupTracker.cpp      \
     src/Bookmarks.cpp           \
-    src/PlaceAccesser.cpp
-
-!nosearch:SOURCES +=            \
-    src/SqliteUnicodeSearch.cpp \
+    src/PlaceAccesser.cpp       \
+    src/MappedFile.cpp          \
+    src/Indexer.cpp             \
+    src/SearchResultAccesser.cpp\
+    src/Highlighter.cpp         \
+    src/SearchQueryParser.cpp   \
     src/SearchThread.cpp

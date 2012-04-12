@@ -22,10 +22,9 @@
 #include "BibleWebPage.h"
 #include "Paths.h"
 #include "Bookmarks.h"
+#include "SearchQueryParser.h"
+#include "Highlighter.h"
 
-#ifndef NOSEARCH
-    #include "SqliteUnicodeSearch.h"
-#endif
 
 
 
@@ -244,6 +243,7 @@ void BibleView::onChapterRequestFinished(QString html)
             request->place(),
             html
         );
+        Cache::instance()->syncIndex();
     }
 
     request->deleteLater();
@@ -255,9 +255,7 @@ void BibleView::displayHtml(QString html)
     _html = html;
     setHtml(_html);
 
-    #ifndef NOSEARCH
-        stopSearchMode();
-    #endif
+    stopSearchMode();
 }
 
 void BibleView::showSelectedVerses(QSet<int> verses)
@@ -358,14 +356,16 @@ void BibleView::setPreferredWidth(int width)
 
 /////////////////////////////////////////
 
-#ifndef NOSEARCH
 void BibleView::startSearchMode(const QString& needle)
 {
     _searchNeedle = needle;
     searchNeedleChanged();
 
-    displayHtml(SqliteUnicodeSearch::highlightMatches(_html, needle, &_matchCount));
+    QList<SearchQueryParser::QueryToken> queryTokens = SearchQueryParser::parseQuery(needle);
+    setHtml(Highlighter::highlight(_html, queryTokens, "<span class=\"match\">", "</span>", 10, &_matchCount));
+
     matchCountChanged();
+
 
     if (_searchMode == false)
     {
@@ -384,15 +384,15 @@ void BibleView::stopSearchMode()
         _searchMode = false;
         searchModeChanged();
 
+        // setHtml(_html) would be better, but it causes scroll jump
         page()->mainFrame()->evaluateJavaScript(QString("hideAllHighlights()"));
     }
 }
-#endif
 
 void BibleView::setMatchIndex(int index)
 {
     ensureVisible(page()->mainFrame()->evaluateJavaScript(QString("highlightMatch(%1)").arg(
-        index - _matchCount
+        index// - _matchCount
     )).toInt());
 
     _matchIndex = index;
@@ -488,6 +488,9 @@ bool BibleView::copySelectedVerses(bool withVerseNumbers)
 
     if (text == "")
         return false;
+
+    if (withVerseNumbers)
+        text = _place.toString(translation()) + ": " + text;
 
     QClipboard *clipboard = QApplication::clipboard();
     clipboard->setText(text);

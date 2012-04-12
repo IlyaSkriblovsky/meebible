@@ -2,16 +2,42 @@
 
 #include <QDebug>
 #include <QDesktopServices>
+#include <QVariant>
 
 #include <QVariant>
+#include <QElapsedTimer>
+#include <QThread>
+
+#include <sqlite3.h>
+
+#ifdef ASYNC_DB_IO
+    #include "3rdparty/sqlite3async/sqlite3async.h"
+#endif
 
 #include "Paths.h"
 #include "Translation.h"
 #include "Language.h"
+#include "SearchThread.h"
 
-#ifndef NOSEARCH
-    #include "SqliteUnicodeSearch.h"
-    #include "SearchThread.h"
+
+
+#ifdef ASYNC_DB_IO
+
+class SqliteAsyncThread: public QThread
+{
+    public:
+        SqliteAsyncThread(QObject* parent = 0): QThread(parent)
+        {
+        }
+
+        void run()
+        {
+            qDebug() << "Async I/O thread started";
+            sqlite3async_run();
+            qDebug() << "Async I/O thread stopped";
+        }
+};
+
 #endif
 
 
@@ -29,14 +55,14 @@ Cache* Cache::instance()
 
 
 Cache::Cache()
-    #ifndef NOSEARCH
-        : _searchInProgress(false)
-    #endif
 {
     if (_instance)
         qDebug() << "Duplicate Cache instance";
     _instance = this;
 
+    #ifdef ASYNC_DB_IO
+        sqlite3async_initialize(0, 1);
+    #endif
 
     openDB();
 
@@ -48,159 +74,240 @@ Cache::Cache()
     _stripStyles.setMinimal(true);
 }
 
+Cache::~Cache()
+{
+    closeDB();
+}
+
+void Cache::execWithCheck(const char* sql)
+{
+    char *errmsg;
+    sqlite3_exec(_db, sql, 0, 0, &errmsg);
+    if (errmsg)
+    {
+        qCritical() << "SQL error:" << errmsg;
+        sqlite3_free(errmsg);
+    }
+}
+
 
 void Cache::openDB()
 {
-    _db = QSqlDatabase::addDatabase("QSQLITE", "cache");
-    _db.setDatabaseName(Paths::cacheDB());
-    if (! _db.open())
-        qDebug() << "Cannot open cache DB";
+    #ifdef ASYNC_DB_IO
+        sqlite3async_control(SQLITEASYNC_HALT, SQLITEASYNC_HALT_NEVER);
+        _asyncThread = new SqliteAsyncThread(this);
+        _asyncThread->start();
 
-    #ifndef NOSEARCH
-        SqliteUnicodeSearch::installUnicodeSearch(_db);
+        const char* vfs = "sqlite3async";
+    #else
+        const char* vfs = 0;
     #endif
 
-    _db.exec(
+
+    qDebug() << Paths::cacheDB();
+    if (sqlite3_open_v2(Paths::cacheDB().toUtf8(), &_db, SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE, vfs) != SQLITE_OK)
+        qCritical() << "Cannot open cache DB";
+
+
+    execWithCheck("PRAGMA synchronous = 0");
+
+    execWithCheck(
         "CREATE TABLE IF NOT EXISTS html ( "
             "transCode VARCHAR, "
             "langCode VARCHAR, "
             "bookCode VARCHAR, "
             "bookNo INTEGER, "
             "chapterNo INTEGER, "
-            "html, "
-            "text, "
+            "html TEXT, "
+            "text TEXT, "
             "PRIMARY KEY (transCode, langCode, bookCode, chapterNo)"
         ")"
     );
-    _db.exec(
+    execWithCheck(
         "CREATE INDEX IF NOT EXISTS lc_tc_bn_cn ON html "
         "(langCode, transCode, bookNo, chapterNo)"
     );
 
-    _stmt_saveChapter = QSqlQuery(_db);
-    _stmt_saveChapter.prepare("REPLACE INTO html VALUES (:transCode, :langCode, :bookCode, :bookNo, :chapterNo, :html, :text)");
+    sqlite3_prepare_v2(_db,
+        "INSERT OR REPLACE INTO html "
+            "(transCode, langCode, bookCode, bookNo, chapterNo, html, text) "
+            "VALUES "
+            "(?, ?, ?, ?, ?, ?, ?);",
+        -1,
+        &_stmt_saveChapter, 0
+    );
 
-    _stmt_loadChapter = QSqlQuery(_db);
-    _stmt_loadChapter.prepare("SELECT html FROM html WHERE transCode=:transCode AND langCode=:langCode AND bookCode=:bookCode AND chapterNo=:chapterNo");
+    sqlite3_prepare_v2(_db,
+        "SELECT html FROM html WHERE transCode=? AND langCode=? AND bookCode=? AND chapterNo=?",
+        -1,
+        &_stmt_loadChapter, 0
+    );
 
-    _stmt_hasChapter = QSqlQuery(_db);
-    _stmt_hasChapter.prepare("SELECT count(*) FROM html WHERE transCode=:transCode AND langCode=:langCode AND bookCode=:bookCode AND chapterNo=:chapterNo");
+    sqlite3_prepare_v2(_db,
+        "SELECT count(*) FROM html WHERE transCode=:transCode AND langCode=:langCode AND bookCode=:bookCode AND chapterNo=:chapterNo", -1,
+        &_stmt_hasChapter, 0
+    );
 
-    _stmt_totalChapters = QSqlQuery(_db);
-    _stmt_totalChapters.prepare("SELECT count(*) FROM html WHERE langCode=:langCode AND transCode=:transCode");
+    sqlite3_prepare_v2(_db,
+        "SELECT count(*) FROM html WHERE langCode=:langCode AND transCode=:transCode", -1,
+        &_stmt_totalChapters, 0
+    );
+
+    sqlite3_prepare_v2(_db,
+        "SELECT bookCode, chapterNo FROM html WHERE langCode=? AND transCode=? ORDER BY bookNo, chapterNo", -1,
+        &_stmt_availableChapters, 0
+    );
 }
 
-
-Cache::~Cache()
+void Cache::closeDB()
 {
+    if (_db == 0) return;
+
+    sqlite3_finalize(_stmt_saveChapter); _stmt_saveChapter = 0;
+    sqlite3_finalize(_stmt_loadChapter); _stmt_loadChapter = 0;
+    sqlite3_finalize(_stmt_hasChapter); _stmt_hasChapter = 0;
+    sqlite3_finalize(_stmt_totalChapters); _stmt_totalChapters = 0;
+    sqlite3_finalize(_stmt_availableChapters); _stmt_availableChapters = 0;
+
+    #ifdef ASYNC_DB_IO
+        sqlite3async_control(SQLITEASYNC_HALT, SQLITEASYNC_HALT_IDLE);
+        _asyncThread->wait();
+        delete _asyncThread;
+        _asyncThread = 0;
+    #endif
+
+
+    if (sqlite3_close(_db) != SQLITE_OK)
+        qCritical() << "Error while closing DB:" << sqlite3_errmsg(_db);
+    _db = 0;
 }
+
 
 
 void Cache::saveChapter(const Translation* translation, const Place& place, QString html)
 {
-    _stmt_saveChapter.bindValue(":transCode", translation->code());
-    _stmt_saveChapter.bindValue(":langCode", translation->language()->code());
-    _stmt_saveChapter.bindValue(":bookCode", place.bookCode());
-    _stmt_saveChapter.bindValue(":bookNo", translation->bookCodes().indexOf(place.bookCode()));
-    _stmt_saveChapter.bindValue(":chapterNo", place.chapterNo());
-    _stmt_saveChapter.bindValue(":html", html);
+    QString transCode = translation->code();
+    QString langCode = translation->language()->code();
+    QString bookCode = place.bookCode();
+    int bookNo = translation->bookCodes().indexOf(place.bookCode());
+
+    sqlite3_reset(_stmt_saveChapter);
+    sqlite3_bind_text16(_stmt_saveChapter, 1, transCode.utf16(), -1, SQLITE_STATIC);
+    sqlite3_bind_text16(_stmt_saveChapter, 2, langCode.utf16(), -1, SQLITE_STATIC);
+    sqlite3_bind_text16(_stmt_saveChapter, 3, bookCode.utf16(), -1, SQLITE_STATIC);
+    sqlite3_bind_int   (_stmt_saveChapter, 4, bookNo);
+    sqlite3_bind_int   (_stmt_saveChapter, 5, place.chapterNo());
+    sqlite3_bind_text16(_stmt_saveChapter, 6, html.utf16(), -1, SQLITE_STATIC);
 
     QString text = html;
     text.replace(_stripStyles, " ");
     text.replace(_stripTags, " ");
     text.replace(_stripSpaces, " ");
-    _stmt_saveChapter.bindValue(":text", text);
+    sqlite3_bind_text16(_stmt_saveChapter, 7, text.utf16(), -1, SQLITE_STATIC);
 
-    if (! _stmt_saveChapter.exec())
-        qDebug() << "Insertion into cache failed";
+    if (sqlite3_step(_stmt_saveChapter) != SQLITE_DONE)
+        qCritical() << "SQL error in saveChapter:" << sqlite3_errmsg(_db);
+    else
+    {
+        _indexer.setTranslation(translation);
+        _indexer.addChapter(bookNo, place.chapterNo(), text);
+    }
+}
+
+void Cache::syncIndex()
+{
+    qDebug() << "syncIndex";
+    _indexer.sync();
 }
 
 
 QString Cache::loadChapter(const Translation *translation, const Place& place)
 {
-    _stmt_loadChapter.bindValue(":transCode", translation->code());
-    _stmt_loadChapter.bindValue(":langCode", translation->language()->code());
-    _stmt_loadChapter.bindValue(":bookCode", place.bookCode());
-    _stmt_loadChapter.bindValue(":chapterNo", place.chapterNo());
-    if (! _stmt_loadChapter.exec())
-        qDebug() << "Selection from cache failed";
+    QString transCode = translation->code();
+    QString langCode = translation->language()->code();
+    QString bookCode = place.bookCode();
 
-    if (_stmt_loadChapter.next())
-        return _stmt_loadChapter.value(0).toString();
-    else
+    sqlite3_reset(_stmt_loadChapter);
+    sqlite3_bind_text16(_stmt_loadChapter, 1, transCode.utf16(), -1, SQLITE_STATIC);
+    sqlite3_bind_text16(_stmt_loadChapter, 2, langCode.utf16(), -1, SQLITE_STATIC);
+    sqlite3_bind_text16(_stmt_loadChapter, 3, bookCode.utf16(), -1, SQLITE_STATIC);
+    sqlite3_bind_int   (_stmt_loadChapter, 4, place.chapterNo());
+
+    int result = sqlite3_step(_stmt_loadChapter);
+
+    if (result == SQLITE_ROW)
+        return QString::fromUtf16((const ushort*)sqlite3_column_text16(_stmt_loadChapter, 0));
+    else if (result == SQLITE_DONE)
         return QString();
+    else
+    {
+        qCritical() << "SQL error in loadChapter:" << sqlite3_errmsg(_db);
+        return QString();
+    }
 }
 
 
 bool Cache::hasChapter(const Translation* translation, const Place& place)
 {
-    _stmt_hasChapter.bindValue(":transCode", translation->code());
-    _stmt_hasChapter.bindValue(":langCode", translation->language()->code());
-    _stmt_hasChapter.bindValue(":bookCode", place.bookCode());
-    _stmt_hasChapter.bindValue(":chapterNo", place.chapterNo());
-    if (! _stmt_hasChapter.exec())
-        qDebug() << "Selection from cache failed";
+    QString transCode = translation->code();
+    QString langCode = translation->language()->code();
+    QString bookCode = place.bookCode();
 
-    _stmt_hasChapter.next();
-    return _stmt_hasChapter.value(0).toBool();
+    sqlite3_reset(_stmt_hasChapter);
+    sqlite3_bind_text16(_stmt_hasChapter, 1, transCode.utf16(), -1, SQLITE_STATIC);
+    sqlite3_bind_text16(_stmt_hasChapter, 2, langCode.utf16(), -1, SQLITE_STATIC);
+    sqlite3_bind_text16(_stmt_hasChapter, 3, bookCode.utf16(), -1, SQLITE_STATIC);
+    sqlite3_bind_int   (_stmt_hasChapter, 4, place.chapterNo());
+
+    int result = sqlite3_step(_stmt_hasChapter);
+
+    if (result == SQLITE_ROW)
+        return sqlite3_column_int(_stmt_hasChapter, 0) != 0;
+    else if (result == SQLITE_DONE)
+        return false;
+    else
+    {
+        qCritical() << "SQL error in hasChapter:" << sqlite3_errmsg(_db);
+        return false;
+    }
 }
 
 
 int Cache::totalChaptersInCache(const Translation *translation)
 {
-    _stmt_totalChapters.addBindValue(translation->language()->code());
-    _stmt_totalChapters.addBindValue(translation->code());
-    _stmt_totalChapters.exec();
-    _stmt_totalChapters.next();
+    QString transCode = translation->code();
+    QString langCode = translation->language()->code();
 
-    return _stmt_totalChapters.value(0).toInt();
+    sqlite3_reset(_stmt_totalChapters);
+    sqlite3_bind_text16(_stmt_totalChapters, 1, langCode.utf16(), -1, SQLITE_STATIC);
+    sqlite3_bind_text16(_stmt_totalChapters, 2, transCode.utf16(), -1, SQLITE_STATIC);
+
+    int result = sqlite3_step(_stmt_totalChapters);
+
+    if (result == SQLITE_ROW)
+        return sqlite3_column_int(_stmt_totalChapters, 0);
+    else if (result == SQLITE_DONE)
+        return 0;
+    else
+    {
+        qCritical() << "SQL error in totalChaptersInCache:" << sqlite3_errmsg(_db);
+        return 0;
+    }
 }
-
-
-
-#ifndef NOSEARCH
-void Cache::search(Translation* translation, const QString& text)
-{
-    if (_searchInProgress)
-        return;
-
-    _searchInProgress = true;
-    searchInProgressChanged();
-
-    searchStarted();
-
-    SearchThread* thread = new SearchThread(translation, text);
-    connect(thread, SIGNAL(matchFound(Place, QString, int)), this, SLOT(onThreadMatchFound(Place, QString, int)));
-    connect(thread, SIGNAL(finished()), this, SLOT(onThreadFinished()));
-    connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
-
-    thread->start();
-}
-
-void Cache::onThreadMatchFound(Place place, QString match, int matchCount)
-{
-    matchFound(place, match, matchCount);
-}
-
-void Cache::onThreadFinished()
-{
-    _searchInProgress = false;
-    searchInProgressChanged();
-
-    searchFinished();
-}
-#endif
 
 
 
 void Cache::clearCache()
 {
-    _db.close();
-    QSqlDatabase::removeDatabase("cache");
+    closeDB();
 
     QFile cache_db(Paths::cacheDB());
     if (! cache_db.remove())
         qDebug() << "Cannot remove cache db!";
+    else
+        qDebug() << "Cache cleared";
+
+    qDebug() << QFile("/home/user/.cache/MeeBible/MeeBible/cache.sqlite-journal").exists();
 
     openDB();
 
@@ -208,7 +315,18 @@ void Cache::clearCache()
     for (int i = 0; i < xml.size(); i++)
     {
         qDebug() << "Deleting" << Paths::cachedXML(xml.at(i));
-        QFile::remove(Paths::cachedXML(xml.at(i)));
+        if (! QFile::remove(Paths::cachedXML(xml.at(i))))
+            qDebug() << "Can't delete" << Paths::cachedXML(xml.at(i));
+    }
+
+    _indexer.setTranslation(0);
+
+    QStringList idx = Paths::allIndexFiles();
+    for (int i = 0; i < idx.size(); i++)
+    {
+        qDebug() << "Deleting" << idx.at(i);
+        if (! QFile::remove(idx.at(i)))
+            qDebug() << "Can't delete" << idx.at(i);
     }
 }
 
@@ -246,3 +364,74 @@ QString Cache::loadXML(const QString& name)
 
     return QString::fromUtf8(xml.readAll());
 }
+
+
+QSet<QPair<QString, int> > Cache::availableChapters(const Translation* translation)
+{
+    QString transCode = translation->code();
+    QString langCode = translation->language()->code();
+
+    sqlite3_reset(_stmt_availableChapters);
+    sqlite3_bind_text16(_stmt_availableChapters, 1, langCode.utf16(), -1, SQLITE_STATIC);
+    sqlite3_bind_text16(_stmt_availableChapters, 2, transCode.utf16(), -1, SQLITE_STATIC);
+
+    QSet<QPair<QString, int> > result;
+    while (sqlite3_step(_stmt_availableChapters) == SQLITE_ROW)
+        result.insert(QPair<QString, int>(
+            QString::fromUtf16((const ushort*)sqlite3_column_text16(_stmt_availableChapters, 0)),
+            sqlite3_column_int(_stmt_availableChapters, 1)
+        ));
+
+    return result;
+}
+
+
+void Cache::beginTransaction()
+{
+    sqlite3_exec(_db, "BEGIN", 0, 0, 0);
+}
+
+void Cache::commitTransaction()
+{
+    sqlite3_exec(_db, "COMMIT", 0, 0, 0);
+}
+
+
+void Cache::search(Translation* translation, const QString& query, int maxresults)
+{
+    _indexer.setTranslation(translation);
+
+    qDebug() << "totalChaptersInCache =" << totalChaptersInCache(translation);
+    qDebug() << "indexer.docCount  =" << _indexer.docCount();
+    bool rebuild = totalChaptersInCache(translation) != _indexer.docCount();
+    if (rebuild) rebuildingIndex();
+
+    SearchThread* thread = new SearchThread(
+        _db, &_indexer,
+        rebuild,
+        translation, query,
+        maxresults,
+        this
+    );
+    connect(thread, SIGNAL(finished(QList<QVariant>)), this, SLOT(onSearchThreadFinished(QList<QVariant>)));
+    connect(thread, SIGNAL(indexRebuilt()), this, SLOT(onSearchThreadIndexRebuilt()));
+    thread->start();
+}
+
+void Cache::onSearchThreadFinished(QList<QVariant> results)
+{
+    searchFinished(results);
+
+    SearchThread* thread = dynamic_cast<SearchThread*>(sender());
+    thread->wait();
+    delete thread;
+}
+
+void Cache::onSearchThreadIndexRebuilt() { indexRebuilt(); }
+
+
+// void Cache::clearIndex(Translation* translation)
+// {
+//     _indexer.setTranslation(translation);
+//     _indexer.clear();
+// }

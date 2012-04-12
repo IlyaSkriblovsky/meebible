@@ -1,8 +1,6 @@
 #include "Languages.h"
 
 #include <QCoreApplication>
-#include <QSqlDatabase>
-#include <QSqlQuery>
 
 #include <QDebug>
 #include <QVariant>

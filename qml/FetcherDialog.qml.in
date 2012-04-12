@@ -20,8 +20,8 @@ UniDialog {
         target: fetcher
 
         onUpdate: {
-            label.text = text
-            bookProgress.value = bookPercent
+            // label.text = text
+            label.text = parseInt(overallPercent * 100) + \"%\"
             overallProgress.value = overallPercent
         }
 
@@ -63,6 +63,8 @@ UniDialog {
         spacing: 20
 
         Item {
+            // FIXME: should be handled by verticalAlignment instead of nesting into Item
+
             anchors.left: parent.left
             anchors.right: parent.right
 
@@ -72,19 +74,14 @@ UniDialog {
                 id: label
 
                 anchors.bottom: parent.bottom
+                anchors.left: parent.left
+                anchors.right: parent.right
+                horizontalAlignment: Text.AlignHCenter
+
+                font.pixelSize: 30
 
                 color: \"white\"
             }
-        }
-
-        ProgressBar {
-            id: bookProgress
-
-            anchors.left: parent.left
-            anchors.right: parent.right
-
-            minimumValue: 0.0
-            maximumValue: 1.0
         }
 
         ProgressBar {

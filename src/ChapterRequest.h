@@ -23,6 +23,7 @@ public:
     Translation* translation() const;
     Place place() const;
 
+    void abort();
     QNetworkReply::NetworkError error() const;
 
 

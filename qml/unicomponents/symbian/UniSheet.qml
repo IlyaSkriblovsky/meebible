@@ -9,10 +9,12 @@ Page {
 
     property alias headerText: header.text
     property alias content: contentWrapper.children
+    property alias headerComponents: header.children
 
+    signal closed()
 
     function openSheet(pageStack) { pageStack.push(this) }
-    function closeSheet() { pageStack.pop() }
+    function closeSheet() { pageStack.pop(); closed() }
 
 
     Header {
