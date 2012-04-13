@@ -24,8 +24,7 @@ Page {
         if (busyIndicator.visible)
             return
 
-        if (! SYMBIAN)
-            field.closeSoftwareInputPanel()
+        list.forceActiveFocus()
 
         results.clear()
         busyIndicator.visible = true
