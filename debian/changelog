@@ -1,3 +1,11 @@
+meebible (3.0.0) unstable; urgency=low
+
+  * Improved fast search engine
+
+  * Grid-based place selector
+
+ -- Ilya Skriblovsky <Ilya.Skriblovsky@gmail.com>  Thu, 13 Apr 2012 15:25:00 +0400
+
 meebible (2.1.0) unstable; urgency=low
 
   * Ported to Symbian
