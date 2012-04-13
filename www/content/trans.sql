@@ -34,9 +34,9 @@ INSERT INTO translations VALUES ('pal', '', 'Almeida Corrigida e Revisada Fiel',
 
 INSERT INTO translations VALUES ('ivr', '', 'Versione Diodati Riveduta ', 'http://bibleonline.ru/bible/ita/', '', 0);
 
-INSERT INTO translations VALUES ('pts', '', 'Biblia Tysiąclecia', 'http://www.biblia.info.pl/biblia.php', '', 0);
-INSERT INTO translations VALUES ('pwz', '', 'Biblia Warszawska', 'http://www.biblia.info.pl/biblia.php', '', 0);
-INSERT INTO translations VALUES ('pwp', '', 'Biblia Warszawsko-Praska', 'http://www.biblia.info.pl/biblia.php', '', 0);
+INSERT INTO translations VALUES ('pts', '', 'Biblia Tysiąclecia', 'http://www.biblia.info.pl/biblia.php', '© 1989 Wydawnictwo Pallottinum, Poznań', 0);
+INSERT INTO translations VALUES ('pwz', '', 'Biblia Warszawska', 'http://www.biblia.info.pl/biblia.php', '© 1975 Brytyjskie i Zagraniczne Towarzystwo Biblijne, Warszawa', 0);
+INSERT INTO translations VALUES ('pwp', '', 'Biblia Warszawsko-Praska', 'http://www.biblia.info.pl/biblia.php', '© 1997 Kazimierz Romaniuk, Pierwszy Biskup Warszawsko-Praski', 0);
 
 COMMIT;
 
