@@ -19,6 +19,12 @@ Fetcher2::Fetcher2(QObject *parent)
     _nam = new QNetworkAccessManager(this);
 }
 
+Fetcher2::~Fetcher2()
+{
+    qDebug() << "Fetcher2::~dtor";
+    stop();
+}
+
 
 bool Fetcher2::start()
 {
@@ -102,6 +108,9 @@ void Fetcher2::dispatch()
 
 void Fetcher2::commit()
 {
+    if (_commitQueue.size() == 0)
+        return;
+
     Cache* cache = Cache::instance();
 
     QElapsedTimer timer; timer.start(); int s = _commitQueue.size();

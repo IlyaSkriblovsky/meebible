@@ -23,6 +23,10 @@ class Fetcher2: public QObject
     public:
         explicit Fetcher2(QObject *parent = 0);
 
+
+        // Destructor wont be called from QML :(
+        ~Fetcher2();
+
         Translation* translation() const { return _translation; }
         void setTranslation(Translation* translation) { _translation = translation; }
 

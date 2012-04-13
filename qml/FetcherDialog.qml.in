@@ -12,7 +12,8 @@ UniDialog {
 
     titleText: qsTr(\"Downloading Bible\")
 
-    property Fetcher fetcher: Fetcher {
+    Fetcher {
+        id: fetcher
         translation: settings.translation
     }
 
@@ -60,28 +61,19 @@ UniDialog {
         anchors.leftMargin: 14
         anchors.rightMargin: 14
 
-        spacing: 20
+        Label {
+            id: label
 
-        Item {
-            // FIXME: should be handled by verticalAlignment instead of nesting into Item
+            height: 70
 
             anchors.left: parent.left
             anchors.right: parent.right
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
 
-            height: 40
+            font.pixelSize: 30
 
-            Label {
-                id: label
-
-                anchors.bottom: parent.bottom
-                anchors.left: parent.left
-                anchors.right: parent.right
-                horizontalAlignment: Text.AlignHCenter
-
-                font.pixelSize: 30
-
-                color: \"white\"
-            }
+            color: \"white\"
         }
 
         ProgressBar {
