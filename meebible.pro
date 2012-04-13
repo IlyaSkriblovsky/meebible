@@ -54,3 +54,9 @@ symbian {
     include(deployment.pri)
     qtcAddDeployment()
 }
+
+iapdonation {
+    iapFiles.sources = IAP_VARIANTID.TXT
+    iapFiles.path = .
+    DEPLOYMENT += iapFiles
+}

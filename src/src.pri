@@ -6,6 +6,7 @@ INCLUDEPATH += src
 # DEFINES += DEBUG
 
 noshare: DEFINES += NOSHARE
+iapdonation: DEFINES += IAPDONATION
 
 free:DEFINES += FREEVERSION
 
@@ -14,6 +15,8 @@ symbian: DEFINES += SYMBIAN
 
 
 !symbian: DEFINES += INSTALLPREFIX=\\\"$$INSTALLDIR\\\"
+
+iapdonation: CONFIG += inapppurchase
 
 
 TARGET = meebible
@@ -81,6 +84,8 @@ HEADERS +=                      \
     src/SearchQueryParser.h     \
     src/SearchThread.h
 
+iapdonation:HEADERS +=          \
+    src/IAPDonation.h
 
 SOURCES +=                      \
     src/main.cpp                \
@@ -109,3 +114,6 @@ SOURCES +=                      \
     src/Highlighter.cpp         \
     src/SearchQueryParser.cpp   \
     src/SearchThread.cpp
+
+iapdonation:SOURCES +=          \
+    src/IAPDonation.cpp

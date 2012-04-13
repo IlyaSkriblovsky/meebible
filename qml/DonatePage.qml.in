@@ -1,0 +1,135 @@
+import QtQuick 1.1
+
+$$QML_IMPORT_QTCOMPONENTS
+
+import MeeBible 0.1
+import \"unicomponents\"
+
+Page {
+    id: page
+
+    property string currentProductId: \"\"
+    property IAPDonation iapDonation: IAPDonation {
+        onFlowFinished: busy.visible = false
+
+        onPurchaseCompleted: {
+            if (success) successDialog.open()
+            if (alreadyPurchased) alreadyPurchasedDialog.open()
+        }
+    }
+
+    QueryDialog {
+        id: successDialog
+
+        titleText: qsTr(\"Donation accepted\")
+        message: qsTr(\"Thank you for supporting MeeBible!\") + (SYMBIAN ? \"\\n\" : \"\")
+        acceptButtonText: qsTr(\"OK\")
+    }
+
+    QueryDialog {
+        id: alreadyPurchasedDialog
+
+        titleText: qsTr(\"Sorry\")
+        message: qsTr(\"Due to limitations of Nokia Store you can\'t pay same amount twice. Please choose another amount if you want to donate more.\") + (SYMBIAN ? \"\\n\" : \"\")
+        acceptButtonText: qsTr(\"OK\")
+    }
+
+    Timer {
+        // Timer is used to make busyIndicator appear before IAP UI starts
+        id: timer
+        interval: 10
+        repeat: false
+        onTriggered: iapDonation.purchase(currentProductId)
+    }
+
+    Header {
+        id: header
+        text: qsTr(\"Donate\")
+
+        BusyIndicator {
+            id: busy
+
+            anchors.right: parent.right
+            anchors.rightMargin: 20
+            anchors.verticalCenter: parent.verticalCenter
+
+            visible: false
+            running: visible
+        }
+    }
+
+    Flickable {
+        id: flickable
+
+        flickableDirection: Flickable.VerticalFlick
+
+        anchors.top: header.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+
+        clip: true
+
+        contentWidth: width
+        contentHeight: form.height
+
+        Column {
+            id: form
+
+            x: 20; y: 20
+            width: parent.width - 40
+
+            spacing: 20
+
+            Label {
+                text: qsTr(\"You can support further development of MeeBible by donating a small sum\")
+
+                width: parent.width
+                wrapMode: Text.Wrap
+
+                $$QML_SYMBIAN_THEME
+            }
+
+            Label {
+                text: qsTr(\"Payment will be done via your Nokia Store account\")
+
+                width: parent.width
+                wrapMode: Text.Wrap
+
+                $$QML_SYMBIAN_THEME
+            }
+
+            Repeater {
+                model: [
+                    { price: 1,  productId: \"842694\" },
+                    { price: 2,  productId: \"842695\" },
+                    { price: 3,  productId: \"842696\" },
+                    { price: 5,  productId: \"842698\" },
+                    { price: 10, productId: \"842699\" },
+                ]
+
+                Button {
+                    text: qsTr(\"Donate\") + \" €\" + modelData.price
+
+                    anchors.horizontalCenter: parent.horizontalCenter
+
+                    onClicked: {
+                        busy.visible = true
+                        currentProductId = modelData.productId
+                        timer.start()
+                    }
+
+                    $$QML_SYMBIAN_THEME
+                }
+            }
+        }
+    }
+    ScrollDecorator { flickableItem: flickable }
+
+    tools: ToolBarLayout {
+        UniToolIcon {
+            platformIconId: \"toolbar-back\"
+            onClicked: pageStack.pop()
+        }
+    }
+}

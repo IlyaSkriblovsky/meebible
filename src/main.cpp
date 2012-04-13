@@ -26,6 +26,10 @@
 #include "StartupTracker.h"
 #include "SearchResultAccesser.h"
 
+#ifdef IAPDONATION
+    #include "IAPDonation.h"
+#endif
+
 
 #ifdef SYMBIAN
     #include <cstdio>
@@ -89,6 +93,15 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qmlRegisterType<Fetcher2>("MeeBible", 0, 1, "Fetcher");
 
     qRegisterMetaType<Place>();
+
+
+    #ifdef IAPDONATION
+        // IAPDonation iapDonation;
+        qDebug() << "With IAP Donation";
+        qmlRegisterType<IAPDonation>("MeeBible", 0, 1, "IAPDonation");
+    #else
+        qDebug() << "Without IAP Donation";
+    #endif
 
 
     #ifndef SYMBIAN
