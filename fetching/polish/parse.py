@@ -36,15 +36,16 @@ for bookNo in xrange(66):
 
     pos = key2pos + 1
 
+#    for v, cn in izip(verseCount[bookNo], count(1)):
+#        print '{0}|{1}|{2}'.format(bookCodes[bookNo], cn, v)
     for v, cn in izip(verseCount[bookNo], count(1)):
-        print '{0}|{1}|{2}'.format(bookCodes[bookNo], cn, v)
+        print '{0:6}, {1:03}, {2:03}'.format("'{0}'".format(bookCodes[bookNo]), cn, v)
 
 textKey = 'teks________'
 textpos = content.find(textKey)
 text = content[textpos + len(textKey) + 4 : ]
 
 verses = text.split('\n')
-print len(verses)
 
 
 db = sqlite3.Connection(transCode + '.sqlite')
