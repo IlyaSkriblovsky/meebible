@@ -49,9 +49,6 @@ asyncdb {
 }
 
 
-DEFINES += NOSEARCH
-
-
 HEADERS +=                      \
     src/Language.h              \
     src/Languages.h             \

@@ -136,13 +136,6 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
         view->rootContext()->setContextProperty("SYMBIAN", QVariant(false));
     #endif
 
-    #ifdef NOSEARCH
-        qDebug() << "Search disabled";
-        view->rootContext()->setContextProperty("NOSEARCH", QVariant(true));
-    #else
-        view->rootContext()->setContextProperty("NOSEARCH", QVariant(false));
-    #endif
-
     #ifdef NOSHARE
         qDebug() << "Verse sharing disabled";
         view->rootContext()->setContextProperty("NOSHARE", QVariant(true));
