@@ -95,16 +95,6 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qRegisterMetaType<Place>();
 
 
-    #ifdef IAPDONATION
-        // IAPDonation iapDonation;
-        qDebug() << "With IAP Donation";
-        qmlRegisterType<IAPDonation>("MeeBible", 0, 1, "IAPDonation");
-        view->rootContext()->setContextProperty("IAPDONATION", QVariant(true));
-    #else
-        view->rootContext()->setContextProperty("IAPDONATION", QVariant(false));
-    #endif
-
-
     #ifndef SYMBIAN
         QDeclarativeView* view = MDeclarativeCache::qDeclarativeView();
     #else
@@ -141,6 +131,16 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
         view->rootContext()->setContextProperty("NOSHARE", QVariant(true));
     #else
         view->rootContext()->setContextProperty("NOSHARE", QVariant(false));
+    #endif
+
+
+    #ifdef IAPDONATION
+        // IAPDonation iapDonation;
+        qDebug() << "With IAP Donation";
+        qmlRegisterType<IAPDonation>("MeeBible", 0, 1, "IAPDonation");
+        view->rootContext()->setContextProperty("IAPDONATION", QVariant(true));
+    #else
+        view->rootContext()->setContextProperty("IAPDONATION", QVariant(false));
     #endif
 
 
