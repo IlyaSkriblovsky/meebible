@@ -92,6 +92,8 @@ Page {
             }
 
             Button {
+                visible: IAPDONATION
+
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 text: qsTr(\"Donate\")

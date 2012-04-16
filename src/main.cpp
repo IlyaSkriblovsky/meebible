@@ -99,8 +99,9 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
         // IAPDonation iapDonation;
         qDebug() << "With IAP Donation";
         qmlRegisterType<IAPDonation>("MeeBible", 0, 1, "IAPDonation");
+        view->rootContext()->setContextProperty("IAPDONATION", QVariant(true));
     #else
-        qDebug() << "Without IAP Donation";
+        view->rootContext()->setContextProperty("IAPDONATION", QVariant(false));
     #endif
 
 
@@ -132,7 +133,6 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
         qDebug() << "Symbian";
         view->rootContext()->setContextProperty("SYMBIAN", QVariant(true));
     #else
-        qDebug() << "NOT Symbian";
         view->rootContext()->setContextProperty("SYMBIAN", QVariant(false));
     #endif
 
