@@ -852,7 +852,7 @@ Page {
                 rightText: qsTr(\"Line spacing\")
                 onRightClicked: {
                     menuLayout.lineSpacingClicked()
-                    menu.close
+                    menu.close()
                 }
             }
 
