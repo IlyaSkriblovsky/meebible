@@ -1,0 +1,66 @@
+ge|1Moos|1 Mooseksen kirja
+ex|2Moos|2 Mooseksen kirja
+le|3Moos|3 Mooseksen kirja
+nu|4Moos|4 Mooseksen kirja
+de|5Moos|5 Mooseksen kirja
+jos|Joos|Joosuan kirja
+jg|Tuom|Tuomarien kirja
+ru|Ruut|Ruutin kirja
+1sa|1Sam|1 Samuelin kirja
+2sa|2Sam|2 Samuelin kirja
+1ki|1Kun|1. Kuningasten kirja
+2ki|2Kun|2. Kuningasten kirja
+1ch|1Aik|1. Aikakirja
+2ch|2Aik|2. Aikakirja
+ezr|Esra|Esran kirja
+ne|Neh|Nehemian kirja
+es|Est|Esterin kirja
+job|Job|Jobin kirja
+ps|Ps|Psalmien kirja
+pr|Sananl|Sananlaskut
+ec|Saarn|Saarnaaja
+ca|Laul.l|Korkea Veisuu
+isa|Jes|Jesajan kirja
+jer|Jer|Jeremian kirja
+la|Valit|Valitusvirret
+eze|Hes|Hesekielin kirja
+da|Dan|Danielin kirja
+ho|Hoos|Hoosean kirja
+joe|Joel|Jooelin kirja
+am|Aam|Aamoksen kirja
+ob|Ob|Obadjan kirja
+jon|Joona|Joonan kirjat
+mic|Miika|Miikan kirja
+na|Nah|Naahumin kirja
+hab|Hab|Habakukin kirja
+zep|Sef|Sefanjan kirja
+hag|Hagg|Haggain kirja
+zec|Sak|Sakarjan kirja
+mal|Mal|Malakian kirja
+mt|Matt|Matteuksen evankeliumi
+mr|Mark|Markuksen evankeliumi
+lu|Luuk|Luukaksen evankeliumi
+joh|Joh|Johanneksen evankeliumi
+ac|Ap.t|Apostolien Teot
+ro|Room|kirje roomalaisille
+1co|1Kor|1.Korinttolaisillea
+2co|2Kor|2.Korinttolaisille
+ga|Gal|Galatalaisille
+eph|Ef|Efesolaisille
+php|Fil|Filippiläisille
+col|Kol|Kolossalaisille
+1th|1Tess|1.Tessalonikalaisille
+2th|2Tess|2.Tessalonikalaisille
+1ti|1Tim|1.Timoteukselle
+2ti|2Tim|2.Timoteukselle
+tit|Tit|Tiitukselle
+phm|Filem|Filemonille
+heb|Hebr|Kirje hebrealaisille
+jas|Jaak|1. Pietarin kirje
+1pe|1Piet|2. Pietarin kirje
+2pe|2Piet|1. Johanneksen kirje
+1jo|1Joh|2. Johanneksen kirje
+2jo|2Joh|3. Johanneksen kirje
+3jo|3Joh|Jaakobin kirje
+jude|Juud|Juudaan kirje
+re|Ilm|Johanneksen ilmestys
