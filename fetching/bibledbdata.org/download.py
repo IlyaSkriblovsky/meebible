@@ -4,11 +4,13 @@ from itertools import *
 from createxml import create_xml
 
 
-# transUrl = 'indonesian_tb'
-# transCode = 'intb'
+transUrl = 'indonesian_tb'
+transCode = 'intb'
+langCode = 'in'
 
-transUrl = 'german_l'
-transCode = 'glu'
+# transUrl = 'german_l'
+# transCode = 'glu'
+# langCode = 'x'
 
 encoding = 'windows-1252'
 
@@ -35,12 +37,15 @@ for bookNo in xrange(66):
                 r = http.getresponse()
                 break
             except httplib.BadStatusLine: pass
-        if r.status != 200: break
+
+        if r.status != 200:
+            if transCode != 'intb' or bookNo != 58 or chapterNo != 3:
+                break
 
         content = r.read().decode(encoding)
         verses = verse_re.findall(content)
 
-        if bookCodes[bookNo] == '3jo' and chapterNo == 1:
+        if transCode == 'glu' and bookCodes[bookNo] == '3jo' and chapterNo == 1:
             verses = verses[:-1]
 
         for v, vn in izip(verses, count(1)):
@@ -52,7 +57,7 @@ for bookNo in xrange(66):
             f.write(xml.encode('utf-8'))
 
         c.execute("INSERT INTO html (langCode, bookCode, chapterNo, html) VALUES (?, ?, ?, ?)", (
-            'x', bookCodes[bookNo], chapterNo, xml
+            langCode, bookCodes[bookNo], chapterNo, xml
         ))
 
         print '{0}|{1}|{2}'.format(bookCodes[bookNo], chapterNo, len(verses))
