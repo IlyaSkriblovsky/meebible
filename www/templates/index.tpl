@@ -52,6 +52,7 @@
                 <li>Polish translations: Biblia Tysiąclecia, Biblia Warszawska, Biblia Warszawsko-Praska</li>
                 <li>Bulgarian “Протестантски (1940)”</li>
                 <li>Arabic Smith &amp; Van Dyke Version</li>
+                <li>Indinesian Alkitab Terjemahan Baru</li>
             </ul>
         </p>
 
