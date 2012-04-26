@@ -3,11 +3,21 @@ from itertools import *
 
 from createxml import create_xml
 
+
+# transUrl = 'indonesian_tb'
+# transCode = 'intb'
+
+transUrl = 'german_l'
+transCode = 'glu'
+
+encoding = 'windows-1252'
+
+
 bookCodes = [ 'ge', 'ex', 'le', 'nu', 'de', 'jos', 'jg', 'ru', '1sa', '2sa', '1ki', '2ki', '1ch', '2ch', 'ezr', 'ne', 'es', 'job', 'ps', 'pr', 'ec', 'ca', 'isa', 'jer', 'la', 'eze', 'da', 'ho', 'joe', 'am', 'ob', 'jon', 'mic', 'na', 'hab', 'zep', 'hag', 'zec', 'mal', 'mt', 'mr', 'lu', 'joh', 'ac', 'ro', '1co', '2co', 'ga', 'eph', 'php', 'col', '1th', '2th', '1ti', '2ti', 'tit', 'phm', 'heb', 'jas', '1pe', '2pe', '1jo', '2jo', '3jo', 'jude', 're', ]
 
 verse_re = re.compile(r'\n(\d+):(\d+) (.*)<br>')
 
-db = sqlite3.Connection("glu.sqlite")
+db = sqlite3.Connection("{0}.sqlite".format(transCode))
 c = db.cursor()
 c.execute("DROP TABLE IF EXISTS html")
 c.execute("CREATE TABLE html (langCode, bookCode, chapterNo, html, PRIMARY KEY (langCode, bookCode, chapterNo))")
@@ -17,7 +27,7 @@ for bookNo in xrange(66):
     while True:
         chapterNo += 1
 
-        url = '/onlinebibles/german_l/{0:02}_{1:03}.htm'.format(bookNo+1, chapterNo)
+        url = '/onlinebibles/{0}/{1:02}_{2:03}.htm'.format(transUrl, bookNo+1, chapterNo)
         while True:
             try:
                 http = httplib.HTTPConnection('www.bibledbdata.org')
@@ -27,7 +37,7 @@ for bookNo in xrange(66):
             except httplib.BadStatusLine: pass
         if r.status != 200: break
 
-        content = r.read().decode('windows-1251')
+        content = r.read().decode(encoding)
         verses = verse_re.findall(content)
 
         if bookCodes[bookNo] == '3jo' and chapterNo == 1:
@@ -45,7 +55,7 @@ for bookNo in xrange(66):
             'x', bookCodes[bookNo], chapterNo, xml
         ))
 
-        print '{}|{}|{}'.format(bookCodes[bookNo], chapterNo, len(verses))
+        print '{0}|{1}|{2}'.format(bookCodes[bookNo], chapterNo, len(verses))
         sys.stdout.flush()
 
 c.execute("vacuum")
