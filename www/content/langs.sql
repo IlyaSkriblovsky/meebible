@@ -24,6 +24,7 @@ INSERT INTO langs VALUES ('g',   'Greek',       'Ελληνική');
 INSERT INTO langs VALUES ('h',   'Hungarian',   'Magyar');
 INSERT INTO langs VALUES ('in',  'Indonesian',  'Bahasa Indonesia');
 INSERT INTO langs VALUES ('i',   'Italian',     'Italiano');
+INSERT INTO langs VALUES ('ig',  'Igbo',        'Asụsụ Igbo');
 INSERT INTO langs VALUES ('j',   'Japanese',    '日本語');
 INSERT INTO langs VALUES ('ko',  'Korean',      '한국어');
 INSERT INTO langs VALUES ('li',  'Lingala',     'Lingala');
