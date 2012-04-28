@@ -1,7 +1,7 @@
 import httplib, sys, re, sqlite3, subprocess
 
-transCode = 'nkjv'
-bstCode = 'nkjv'
+transCode = 'bbe'
+bstCode = 'bbe'
 langCode = 'e'
 
 
@@ -11,6 +11,7 @@ c = db.cursor()
 c.execute("DROP TABLE IF EXISTS html")
 c.execute("CREATE TABLE html (langCode, bookCode, chapterNo, html, PRIMARY KEY (langCode, bookCode, chapterNo))")
 
+title_re = re.compile(r'<title>.*?</title>', re.DOTALL)
 
 books = [line.strip().split('|') for line in open('books.txt').readlines()]
 
@@ -40,7 +41,12 @@ for book in books:
         content = re.sub(r'<input name ', r'<input name="1" ', content)
         content = re.sub(r'&([^;]{5})', r'&amp;\1', content)
         content = re.sub(r'<g:plusone.*</g:plusone>', r'', content)
+        content = re.sub(title_re, r'', content)
         content = re.sub(r'<<', r'&lt;&lt;', content)
+
+        if bstCode == 'bbe':
+            content = re.sub(r'"versenum">(\d+)</span>\x0d(\s*)<([A-Z][a-zA-Z0-9,. !?:]*)>?', r'"versenum">\1</span>\n\2[\3] ', content)
+            content = re.sub(r'<A Psalm. Of Asaph.>', r'[A Psalm. Of Asaph.]', content)
 
         orig_fn = 'orig_{0}_{1:03}.html'.format(book[0], chapterNo)
         new_fn = '{0}_{1:03}.html'.format(book[0], chapterNo)
