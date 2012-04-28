@@ -40,6 +40,7 @@
                 <li>King James Bible</li>
                 <li>New International Bible</li>
                 <li>English Standard Version</li>
+                <li>New King James Bible</li>
                 <li>Russian Synodal Translation</li>
                 <li>French Louis Segond Translation</li>
                 <li>German Luther 1912 and Schlachter 1951 translations</li>
