@@ -1,0 +1,66 @@
+ge|genesis|Genesis
+ex|exodus|Exodus
+le|leviticus|Leviticus
+nu|numbers|Numbers
+de|deuteronomy|Deuteronomy
+jos|joshua|Joshua
+jg|judges|Judges
+ru|ruth|Ruth
+1sa|1-samuel|1 Samuel
+2sa|2-samuel|2 Samuel
+1ki|1-kings|1 Kings
+2ki|2-kings|2 Kings
+1ch|1-chronicles|1 Chronicles
+2ch|2-chronicles|2 Chronicles
+ezr|ezra|Ezra
+ne|nehemiah|Nehemiah
+es|esther|Esther
+job|job|Job
+ps|psalms|Psalms
+pr|proverbs|Proverbs
+ec|ecclesiastes|Ecclesiastes
+ca|song-of-solomon|Song of Solomon
+isa|isaiah|Isaiah
+jer|jeremiah|Jeremiah
+la|lamentations|Lamentations
+eze|ezekiel|Ezekiel
+da|daniel|Daniel
+ho|hosea|Hosea
+joe|joel|Joel
+am|amos|Amos
+ob|obadiah|Obadiah
+jon|jonah|Jonah
+mic|micah|Micah
+na|nahum|Nahum
+hab|habakkuk|Habakkuk
+zep|zephaniah|Zephaniah
+hag|haggai|Haggai
+zec|zechariah|Zechariah
+mal|malachi|Malachi
+mt|matthew|Matthew
+mr|mark|Mark
+lu|luke|Luke
+joh|john|John
+ac|acts|Acts
+ro|romans|Romans
+1co|1-corinthians|1 Corinthians
+2co|2-corinthians|2 Corinthians
+ga|galatians|Galatians
+eph|ephesians|Ephesians
+php|philippians|Philippians
+col|colossians|Colossians
+1th|1-thessalonians|1 Thessalonians
+2th|2-thessalonians|2 Thessalonians
+1ti|1-timothy|1 Timothy
+2ti|2-timothy|2 Timothy
+tit|titus|Titus
+phm|philemon|Philemon
+heb|hebrews|Hebrews
+jas|james|James
+1pe|1-peter|1 Peter
+2pe|2-peter|2 Peter
+1jo|1-john|1 John
+2jo|2-john|2 John
+3jo|3-john|3 John
+jude|jude|Jude
+re|revelation|Revelation
