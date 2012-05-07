@@ -8,8 +8,8 @@ from createxml import create_xml
 books = [line.strip().split('|') for line in open('books.txt').readlines()]
 
 verse_re = re.compile(
-    r'<A NAME="(\d+)">(\d+). </A>([^<]*)',
-    re.IGNORECASE
+    r'<A NAME="(\d+)">(\d+). </A>(.*?)(?=<br><A NAME|<p><A HREF|<A HREF|<br><!-- WTM)',
+    re.IGNORECASE | re.DOTALL
 )
 
 
@@ -72,7 +72,7 @@ for book in books:
             if v[0] != v[1]: raise Exception('verse no not consistent: {0} != {1}'.format(v[0], v[1]))
             if int(v[0]) != vn: raise Exception('invalid verse no: {0} (should be {1})'.format(v[0], vn))
 
-        xml = create_xml(v[2].replace('\n', ' ').replace('  ', ' ') for v in verses)
+        xml = create_xml(v[2].replace('<br>', ' ').replace('\n', ' ').replace('  ', ' ') for v in verses)
 
         with open('{0}_{1:03}.html'.format(book[0], chapterNo), 'w') as f:
             f.write(xml.encode('utf-8'))
