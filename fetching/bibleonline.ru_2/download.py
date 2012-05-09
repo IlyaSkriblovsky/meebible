@@ -23,12 +23,18 @@ for bookCode in bookCodes:
             boOrder.index(bookCode)+1,
             chapterNo
         )
-        http.request('GET', url)
-        content = http.getresponse().read()
+        while True:
+            try:
+                http.request('GET', url)
+                content = http.getresponse().read()
+                break
+            except:
+                http = httplib.HTTPConnection('bibleonline.ru')
 
         raw_verses = verse_re.findall(content)
 
-        if len(raw_verses) == 0: break
+        if len(raw_verses) == 0:
+            break
 
         for v, vn in izip(raw_verses, count(1)):
             if int(v[0]) != vn: raise Exception('Strange verse no: {0}'.format(v[0]))
