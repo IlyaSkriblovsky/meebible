@@ -62,6 +62,10 @@
         <xsl:apply-templates/>
     </xsl:template>
 
+    <xsl:template match="h:br">
+        <br/>
+    </xsl:template>
+
     <xsl:template match="*">
         <zzz>
             <xsl:copy/>
