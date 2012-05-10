@@ -32,6 +32,7 @@
     </xsl:template>
 
     <xsl:template match="h:h1"/>
+    <xsl:template match="h:h3"/>
 
     <xsl:template match="h:h2">
         <div class="heading">
@@ -55,6 +56,10 @@
             </div>
             <xsl:apply-templates/>
         </div>
+    </xsl:template>
+
+    <xsl:template match="h:span[@class='divine-name']">
+        <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="*">
