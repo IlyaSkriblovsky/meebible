@@ -42,6 +42,7 @@
                 <li>English Standard Version</li>
                 <li>New King James Bible</li>
                 <li>Bible in Basic English</li>
+                <li>The Message translation</li>
                 <li>Russian Synodal Translation</li>
                 <li>French Louis Segond Translation</li>
                 <li>German Luther 1912 and Schlachter 1951 translations</li>
@@ -54,6 +55,7 @@
                 <li>Ukranian translation by І. Огієнко</li>
                 <li>Polish translations: Biblia Tysiąclecia, Biblia Warszawska, Biblia Warszawsko-Praska</li>
                 <li>Bulgarian “Протестантски (1940)”</li>
+                <li>Romanian translation by Dumitru Cornilescu</li>
                 <li>Arabic Smith &amp; Van Dyke Version</li>
                 <li>Indinesian Alkitab Terjemahan Baru</li>
             </ul>
