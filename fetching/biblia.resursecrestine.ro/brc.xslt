@@ -46,6 +46,10 @@
         <xsl:apply-templates/>
     </xsl:template>
 
+    <xsl:template match="h:span[@class='Isus']">
+        <xsl:apply-templates/>
+    </xsl:template>
+
     <xsl:template match="h:li[@class='trimiteriText']"/>
     <xsl:template match="h:li[@id='verset-options']"/>
 
