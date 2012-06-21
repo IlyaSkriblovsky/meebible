@@ -14,7 +14,7 @@ c.execute("CREATE TABLE html (langCode, bookCode, chapterNo, html, PRIMARY KEY (
 
 
 lines = open(sys.argv[1]).readlines()[1:]
-lines = [line.strip() for line in lines]
+lines = [line.strip(' \r\n') for line in lines]
 
 
 prevBook = 0
@@ -58,6 +58,7 @@ for bookNo, book in enumerate(content, 0):
         print '{0}|{1}|{2}'.format(
             bookCodes[bookNo], chapterNo, len(chapter)
         )
+        sys.stdout.flush()
 
 
 c.execute('VACUUM')

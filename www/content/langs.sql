@@ -54,6 +54,7 @@ INSERT INTO langs VALUES ('zu',  'Zulu',        'IsiZulu');
 INSERT INTO langs VALUES ('lv',  'Latvian',     'Latviešu valoda');
 INSERT INTO langs VALUES ('uk',  'Ukranian',    'Українська мова');
 INSERT INTO langs VALUES ('tm',  'Tamil',       'தமிழ்');
+INSERT INTO langs VALUES ('ml',  'Malayalam',   'മലയാളം');
 
 -- INSERT INTO langs VALUES ('bel', 'Belarusian',  'Беларуская мова');
 
