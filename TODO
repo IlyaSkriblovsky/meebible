@@ -6,7 +6,29 @@ Translations:
 
     English:
         New Living Translation
-        New Jerusalem Bible
+        America Standard Version
+        2011 New American Bible Revised Edition
+        2006 The Ignatius Bible [Revised standard version - 2nd catholic edition]
+        1985 New Jerusalem Bible
+        1966 Revised Standard Version Catholic Edition
+        1752 Douay-Rheims Challoner Revison
+        1582-1609 Douay-Rheims Bible
+
+    Afrikaans:
+        De Nieuwe Bijbelvertaling
+        Herziene Statenvertaling
+        Groot Nieuws Bijbel 1996
+
+    Latin:
+        Vulgate
+
+    Jewish:
+
+    Arabic:
+        NIV
+
+    Russian:
+        Современный перевод
 
 
 Support for SWORD translations
@@ -16,3 +38,7 @@ Half-transparent toolbar or hiding toolbar completely
 Guestures for going next or previous chapters
 
 Backlight-on mode
+
+Sorting bookmarks
+
+Full unicode custom TTF font
