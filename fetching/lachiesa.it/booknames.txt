@@ -1,0 +1,66 @@
+Genesi
+Esodo
+Levitico
+Numeri
+Deuteronomio
+Giosuè
+Giudici
+Rut
+1 Samuele
+2 Samuele
+1 Re
+2 Re
+1 Cronache
+2 Cronache
+Esdra
+Neemia
+Ester
+Giobbe
+Salmi
+Proverbi
+Qoèlet
+Cantico dei Cantici
+Isaia
+Geremia
+Lamentazioni
+Ezechiele
+Daniele
+Osea
+Gioele
+Amos
+Abdia
+Giona
+Michea
+Naum
+Abacuc
+Sofonia
+Aggeo
+Zaccaria
+Malachia
+Matteo
+Marco
+Luca
+Giovanni
+Atti degli apostoli
+Romani
+1 Corinzi
+2 Corinzi
+Galati
+Efesini
+Filippesi
+Colossesi
+1 Tessalonicesi
+2 Tessalonicesi
+1 Timoteo
+2 Timoteo
+Tito
+Filemone
+Ebrei
+Giacomo
+1 Pietro
+2 Pietro
+1 Giovanni
+2 Giovanni
+3 Giovanni
+Giuda
+Apocalisse di Giovanni
