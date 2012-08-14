@@ -40,7 +40,9 @@ for bookCode in bookCodes:
         html = u'<html>\n<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/></head>\n<body>\n'
 
         par_opened = False
+        i = 0
         for type, match in all:
+            i += 1
             if type == 'heading':
                 if par_opened:
                     html += u'</div>\n'
@@ -49,13 +51,16 @@ for bookCode in bookCodes:
                 html += u'<div class="heading">{0}</div>\n'.format(match.group(1).replace('<br>', ''))
 
             elif type == 'par':
-                if par_opened: html += u'</div>\n'
-                html += u'<div class="par">\n'
-                par_opened = True
+                if bookCode not in ['ps', 'la']:
+                    if par_opened: html += u'</div>\n'
+                    html += u'<div class="par">\n'
+                    par_opened = True
 
             elif type == 'verse':
                 verseNo = int(match.group(1))
                 verse = match.group(2).strip()
+
+                parBreakAfter = verse.endswith('<br>')
 
                 verse = verse.replace(u'<p class="rientrato">', ' ').strip()
 
@@ -98,13 +103,25 @@ for bookCode in bookCodes:
                     raise Exception("Tag in {0} {1} {2}:{3}".format(transCode, bookCode, chapterNo, verseNo))
 
                 text = verse.replace(u'<br>', u'<br/>')
-                html += u'    <div class="verse" verse="{0}"><div class="verse-label">{0}</div>{1}</div>\n'.format(
-                    verseNo, text
-                )
+                if bookCode in ['ps', 'la']:
+                    html += u'    <div class="par"><div class="verse" verse="{0}"><div class="verse-label">{0}</div>{1}</div></div>\n'.format(verseNo, text)
+                else:
+                    html += u'    <div class="verse" verse="{0}"><div class="verse-label">{0}</div>{1}</div>\n'.format(verseNo, text)
+                    if parBreakAfter and i < len(all):
+                        if par_opened:
+                            html += u'</div>\n'
+                        else:
+                            html = html.replace('<body>', '<body>\n<div class="par">')
+                            html += u'</div>\n'
+                        html += u'<div class="par">\n'
+                        par_opened = True
 
         if par_opened: html += u'</div>\n'
 
         html += u'</body>\n</html>\n'
+
+        html = html.replace(u'<div class="par">\n</div>\n', '')
+        html = html.replace(u'<div class="heading"></div>\n', '')
 
         # print html
 
