@@ -15,7 +15,7 @@ c.execute("CREATE TABLE html (langCode, bookCode, chapterNo, html, PRIMARY KEY (
 
 
 heading_re = re.compile(r'<div class="titoli">(.*?)</div>')
-pars_re = re.compile(r'<p[^>]*><sub>')
+pars_re = re.compile(r'<p[^>]*><sup>')
 verses_re = re.compile('<sup>(\d+)</sup>(.*?)(?:</p>)?\n')
 
 
@@ -31,7 +31,7 @@ for bookCode in bookCodes:
         content = open(filename).read().decode('iso-8859-1')
 
         headings = [ ('heading', match) for match in heading_re.finditer(content) ]
-        pars = [ ('par', match) for match in heading_re.finditer(content) ]
+        pars = [ ('par', match) for match in pars_re.finditer(content) ]
         verses = [ ('verse', match) for match in verses_re.finditer(content) ]
 
         all = headings + pars + verses
