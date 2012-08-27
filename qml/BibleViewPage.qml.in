@@ -317,7 +317,7 @@ Page {
             font.pixelSize: 30
             color: \'#800\'
 
-            text: qsTr(\"Before you start to read, MeeBible have to load translation list from server\")
+            text: qsTr(\"Before you start to read, MeeBible has to load translation list from server\")
 
             $$QML_SYMBIAN_THEME
         }

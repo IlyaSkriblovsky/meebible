@@ -70,7 +70,7 @@
         <translation>Ya esta en favoritos</translation>
     </message>
     <message>
-        <source>Before you start to read, MeeBible have to load translation list from server</source>
+        <source>Before you start to read, MeeBible has to load translation list from server</source>
         <translation>Antes de empezar a leer, MeeBible tiene que cargar lista de traducciones de nuestro servidor</translation>
     </message>
     <message>
