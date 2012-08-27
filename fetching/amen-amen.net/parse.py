@@ -51,8 +51,9 @@ for bookCode in bookCodes:
             elif bookCode == 'mt'  and chapterNo == 12 : content = content.replace('<a href="http://www.iglesia.net/biblia/libros/isaias.html#cap42"><br>\n</a>', '\n')
             elif bookCode == 'ac'  and chapterNo == 7  : content = content.replace('<a href="http://atrevete.com/biblia/rv/genesis.shtml#cap17">\n</a>', ' ')
             elif bookCode == 'ac'  and chapterNo == 13 : content = content.replace('<a href="http://atrevete.com/biblia/rv/lucas.shtml#cap10">\n</a>', ' ')
-            elif bookCode == 'ca':
-                content = re.sub(r'<br>\n(\d+:\d+)', r'</i><br/>\n<i>\1', content)
+            elif bookCode in ('ps', 'ca', 'la'):
+                # content = re.sub(r'<br>\n(\d+:\d+)', r'</i><br/>\n<i>\1', content)
+                content = re.sub(r'</?i>', '', content)
 
 
         content = re.sub(font_re, '', content)
