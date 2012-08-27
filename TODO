@@ -29,6 +29,7 @@ Translations:
 
     Russian:
         Современный перевод
+        Буквальный перевод с древнееврейского
 
 
 Support for SWORD translations
@@ -42,3 +43,5 @@ Backlight-on mode
 Sorting bookmarks
 
 Full unicode custom TTF font
+
+Hardware keys support (for example for Nokia E6)

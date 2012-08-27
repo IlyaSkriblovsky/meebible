@@ -70,7 +70,7 @@
         <translation>Уже в закладках</translation>
     </message>
     <message>
-        <source>Before you start to read, MeeBible have to load translation list from server</source>
+        <source>Before you start to read, MeeBible has to load translation list from server</source>
         <translation>Прежде, чем начать читать, MeeBible должна загрузить список переводов с сервера</translation>
     </message>
     <message>
