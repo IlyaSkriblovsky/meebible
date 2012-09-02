@@ -104,7 +104,7 @@ INSERT INTO translationLangs VALUES ('bbg', 'bl', 'Протестантски (1
 
 INSERT INTO translationLangs VALUES ('rvr', 's', 'Reina Valera 1960');
 INSERT INTO translationLangs VALUES ('snvi', 's', 'Biblia Nueva Versión Internacional 1999');
-INSERT INTO translationLangs VALUES ('shab', 's', 'Biblia Nueva Versión Internacional 1999');
+INSERT INTO translationLangs VALUES ('shab', 's', 'Biblia Dios Habla Hoy Latinoamericana');
 
 INSERT INTO translationLangs VALUES ('frs', 'f', 'Louis Segond');
 
