@@ -45,3 +45,5 @@ Sorting bookmarks
 Full unicode custom TTF font
 
 Hardware keys support (for example for Nokia E6)
+
+Don't parse chapter if HTTP code is not 200 (for temporary disabling)
