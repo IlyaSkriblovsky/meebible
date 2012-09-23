@@ -243,6 +243,8 @@ def PROCESS_BOOK(bookCode, content):
         return outputs
 
 
+    content = content.decode('utf-8').replace(u'\u00ad', u'').encode('utf-8')
+
     dom = minidom.parseString(content)
 
     chapters = convert(dom.documentElement)
