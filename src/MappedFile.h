@@ -15,9 +15,13 @@ class MappedFile
 
         inline void resize(unsigned int size)
         {
+            unsigned int tmpsize = _size;
             _size = size;
             if (size > map_size)
+            {
+                fprintf(stderr, "prev size = %u, new size = %u\n", tmpsize, size);
                 fprintf(stderr, "MappedFile::resize > max_map_size\n");
+            }
         }
 
         inline void grow(unsigned int amount)

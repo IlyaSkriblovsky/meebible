@@ -79,7 +79,9 @@ HEADERS +=                      \
     src/SearchResultAccesser.h  \
     src/Highlighter.h           \
     src/SearchQueryParser.h     \
-    src/SearchThread.h
+    src/SearchThread.h          \
+    src/IndexRebuildThread.h    \
+    src/CacheStorage.h
 
 iapdonation:HEADERS +=          \
     src/IAPDonation.h
@@ -110,7 +112,8 @@ SOURCES +=                      \
     src/SearchResultAccesser.cpp\
     src/Highlighter.cpp         \
     src/SearchQueryParser.cpp   \
-    src/SearchThread.cpp
+    src/SearchThread.cpp        \
+    src/IndexRebuildThread.cpp
 
 iapdonation:SOURCES +=          \
     src/IAPDonation.cpp

@@ -37,6 +37,8 @@ public:
     static QString indexFile(const Translation* translation);
     static QStringList allIndexFiles();
 
+    static QString storageBasename(const Translation* translation);
+
 
 private:
     static QDir _cacheDir;

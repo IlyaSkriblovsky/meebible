@@ -145,3 +145,9 @@ QStringList Paths::allIndexFiles()
         result.append(correctSlashes(_cacheDir.filePath(basename)));
     return result;
 }
+
+
+QString Paths::storageBasename(const Translation* translation)
+{
+    return correctSlashes(_cacheDir.filePath(translation->code() + "_" + translation->language()->code()));
+}
