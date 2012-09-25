@@ -54,6 +54,22 @@ class AppendStorage
 
 
 
+        void clear()
+        {
+            _entryCount = 0;
+
+            _fData.seek(0);
+            _fData.resize(0);
+            _fData.flush();
+
+            _fTable.seek(0);
+            _fTable.resize(0);
+            _fTable.resize(4);
+            _fTable.flush();
+        }
+
+
+
         void bulkSave(const QList<QPair<EntryHeader, QByteArray> >& data)
         {
             TableEntry<EntryHeader> entries[data.size()];

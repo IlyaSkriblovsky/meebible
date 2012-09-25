@@ -57,6 +57,10 @@ class Cache: public QObject
         QString stripHtml(const QString& html);
 
 
+        bool oldStorageFound();
+        void convertOldCacheDB();
+
+
     public slots:
         void clearCache();
 
@@ -93,9 +97,11 @@ class Cache: public QObject
 
 
         CacheStorage *_storage;
+        QString _storageBasename;
 
 
         void openStorage(const Translation* translation);
+        void openStorage(const QString& transCode, const QString& langCode);
         void fillStorageHeader(ChapterStorageHeader *header, const Place& place);
 
 

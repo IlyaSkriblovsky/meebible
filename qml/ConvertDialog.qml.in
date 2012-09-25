@@ -1,0 +1,44 @@
+import QtQuick 1.1
+
+$$QML_IMPORT_QTCOMPONENTS
+
+import \"unicomponents\"
+
+
+PageStackWindow {
+    initialPage: Page {
+        Rectangle {
+            anchors.fill: parent
+            color: \"#000000\"
+        }
+
+        Column {
+            spacing: 80
+
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.margins: 30
+
+            anchors.verticalCenter: parent.verticalCenter
+
+            UniLargeBusyIndicator {
+                anchors.horizontalCenter: parent.horizontalCenter
+                inDialog: true
+                running: true
+            }
+
+            Label {
+                width: parent.width
+
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                wrapMode: Text.Wrap
+
+                font.pixelSize: 30
+
+                text: qsTr(\"MeeBible is converting downloaded texts into the new storage format...\\n\\nPlease wait\")
+                color: \"#ffffff\"
+            }
+        }
+    }
+}

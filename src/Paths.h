@@ -14,13 +14,14 @@ class Paths
 public:
     static void init();
 
-    static QString cacheDB();
+    static QString old_cacheDB();
 
     static QString langsDB();
 
     static QString transDB();
 
     static QString qmlMain();
+    static QString qmlConvertDialog();
 
     static QString script_js();
     static QString style_css();
@@ -38,6 +39,7 @@ public:
     static QStringList allIndexFiles();
 
     static QString storageBasename(const Translation* translation);
+    static QString storageBasename(const QString& transCode, const QString& langCode);
 
 
 private:

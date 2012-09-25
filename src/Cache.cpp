@@ -8,7 +8,7 @@
 #include <QElapsedTimer>
 #include <QThread>
 
-// #include <sqlite3.h>
+#include <sqlite3.h>
 // 
 // #ifdef ASYNC_DB_IO
 //     #include "3rdparty/sqlite3async/sqlite3async.h"
@@ -506,9 +506,26 @@ void Cache::onIndexRebuilt() { indexRebuilt(); }
 
 void Cache::openStorage(const Translation* translation)
 {
-    delete _storage;
+    QString basename = Paths::storageBasename(translation);
+    if (basename != _storageBasename)
+    {
+        qDebug() << "Reopening storage" << basename;
+        delete _storage;
+        _storage = new CacheStorage(basename);
+        _storageBasename = basename;
+    }
+}
 
-    _storage = new CacheStorage(Paths::storageBasename(translation));
+void Cache::openStorage(const QString& transCode, const QString& langCode)
+{
+    QString basename = Paths::storageBasename(transCode, langCode);
+    if (basename != _storageBasename)
+    {
+        qDebug() << "Reopening storage" << basename;
+        delete _storage;
+        _storage = new CacheStorage(basename);
+        _storageBasename = basename;
+    }
 }
 
 
@@ -627,4 +644,75 @@ QString Cache::stripHtml(const QString& html)
     text.replace(QChar(0x00ad), "");
 
     return text;
+}
+
+
+
+bool Cache::oldStorageFound()
+{
+    return QFile(Paths::old_cacheDB()).exists();
+}
+
+
+void Cache::convertOldCacheDB()
+{
+    qDebug() << "Converting old storage";
+
+    QElapsedTimer timer; timer.start();
+
+    sqlite3* db;
+
+    if (sqlite3_open_v2(Paths::old_cacheDB().toUtf8(), &db, SQLITE_OPEN_READONLY, 0) != SQLITE_OK)
+        return;
+
+
+    sqlite3_stmt* selectTrans;
+    sqlite3_prepare_v2(db,
+        "SELECT DISTINCT langCode, transCode FROM html", -1,
+        &selectTrans, 0
+    );
+
+    sqlite3_stmt* selectChapters;
+    sqlite3_prepare_v2(db,
+        "SELECT bookCode, chapterNo, html FROM html WHERE langCode=? AND transCode=? ORDER BY bookNo, chapterNo", -1,
+        &selectChapters, 0
+    );
+
+
+    sqlite3_reset(selectTrans);
+    while (sqlite3_step(selectTrans) == SQLITE_ROW)
+    {
+        QString langCode = QString::fromUtf16((const ushort*)sqlite3_column_text16(selectTrans, 0));
+        QString transCode = QString::fromUtf16((const ushort*)sqlite3_column_text16(selectTrans, 1));
+
+        openStorage(transCode, langCode);
+        _storage->clear();
+
+        QList<QPair<ChapterStorageHeader, QByteArray> > toStorage;
+
+        sqlite3_reset(selectChapters);
+        sqlite3_bind_text16(selectChapters, 1, langCode.utf16(), -1, SQLITE_STATIC);
+        sqlite3_bind_text16(selectChapters, 2, transCode.utf16(), -1, SQLITE_STATIC);
+
+        while (sqlite3_step(selectChapters) == SQLITE_ROW)
+        {
+            toStorage.append(QPair<ChapterStorageHeader, QByteArray>(
+                ChapterStorageHeader(
+                    QString::fromUtf16((const ushort*)sqlite3_column_text16(selectChapters, 0)).toUtf8().data(),
+                    sqlite3_column_int(selectChapters, 1)
+                ),
+                QString::fromUtf16((const ushort*)sqlite3_column_text16(selectChapters, 2)).toUtf8()
+            ));
+        }
+        _storage->bulkSave(toStorage);
+    }
+
+
+    sqlite3_finalize(selectChapters);
+    sqlite3_finalize(selectTrans);
+    sqlite3_close(db);
+
+    QFile(Paths::old_cacheDB()).remove();
+
+    qDebug() << "Converting done" << timer.elapsed();
 }
