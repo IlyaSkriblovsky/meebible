@@ -13,9 +13,14 @@
 #include "Cache.h"
 
 
+Languages* Languages::_instance = 0;
+
+
 Languages::Languages()
     : _loading(false)
 {
+    _instance = this;
+
     QHash<int, QByteArray> roleNames;
     roleNames[Qt::DisplayRole] = "value";
     roleNames[CodeRole] = "code";

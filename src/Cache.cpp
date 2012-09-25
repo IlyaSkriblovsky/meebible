@@ -231,6 +231,13 @@ void Cache::openStorage(const QString& transCode, const QString& langCode)
     }
 }
 
+void Cache::closeStorage()
+{
+    delete _storage;
+    _storage = 0;
+    _storageBasename = "";
+}
+
 
 void Cache::fillStorageHeader(ChapterStorageHeader *header, const Place& place)
 {
@@ -242,6 +249,8 @@ void Cache::fillStorageHeader(ChapterStorageHeader *header, const Place& place)
 
 void Cache::saveChapter(const Translation* translation, const Place& place, QString html)
 {
+    if (html.length() == 0) return;
+
     QElapsedTimer timer; timer.start();
 
     openStorage(translation);
@@ -418,4 +427,11 @@ void Cache::convertOldCacheDB()
     QFile(Paths::old_cacheDB()).remove();
 
     qDebug() << "Converting done" << timer.elapsed();
+}
+
+
+
+void Cache::closeIndex()
+{
+    _indexer.setTranslation(0);
 }

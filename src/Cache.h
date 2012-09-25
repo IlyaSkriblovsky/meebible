@@ -58,6 +58,10 @@ class Cache: public QObject
         void convertOldCacheDB();
 
 
+        void closeStorage();
+        void closeIndex();
+
+
     public slots:
         void clearCache();
 

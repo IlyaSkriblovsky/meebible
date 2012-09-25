@@ -25,6 +25,7 @@
 #include "PlaceAccesser.h"
 #include "StartupTracker.h"
 #include "SearchResultAccesser.h"
+#include "CacheInfo.h"
 
 #ifdef IAPDONATION
     #include "IAPDonation.h"
@@ -104,6 +105,8 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     PlaceAccesser placeAccesser;
     SearchResultAccesser searchResultAccesser;
 
+    CacheInfo cacheInfo;
+
     QDeclarativeEngine engine;
 
 
@@ -131,6 +134,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     view->rootContext()->setContextProperty("bookmarks", &bookmarks);
     view->rootContext()->setContextProperty("placeAccesser", &placeAccesser);
     view->rootContext()->setContextProperty("searchResultAccesser", &searchResultAccesser);
+    view->rootContext()->setContextProperty("cacheInfo", &cacheInfo);
 
     #ifdef FREEVERSION
         view->rootContext()->setContextProperty("freeversion", QVariant(true));

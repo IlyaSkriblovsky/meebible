@@ -25,6 +25,9 @@ class Languages: public QAbstractListModel
         };
 
 
+        static Languages* instance() { return _instance; }
+
+
         Languages();
         ~Languages();
 
@@ -59,6 +62,8 @@ class Languages: public QAbstractListModel
 
 
     private:
+        static Languages* _instance;
+
         QList<Language*> _languages;
 
         bool _loading;

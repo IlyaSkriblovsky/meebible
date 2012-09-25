@@ -42,6 +42,9 @@ public:
     static QString storageBasename(const QString& transCode, const QString& langCode);
 
 
+    static QDir cacheDir() { return _cacheDir; }
+
+
 private:
     static QDir _cacheDir;
     static QDir _shareDir;

@@ -1,0 +1,136 @@
+import QtQuick 1.1
+
+$$QML_IMPORT_QTCOMPONENTS
+
+import \"unicomponents\"
+
+
+Page {
+    id: page
+
+
+    property string transCode: \'\'
+    property string langCode: \'\'
+
+
+    function update() {
+        cacheInfo.update()
+    }
+
+
+    function intPartLength(val) {
+        return parseInt(val).toString().length
+    }
+    function formatFileSize(bytes) {
+        var mags = [\'b\', \'Kb\', \'Mb\', \'Gb\']
+        var mag = 0
+
+        while (intPartLength(bytes) > 3)
+        {
+            bytes = bytes / 1024.0
+            mag++
+        }
+
+        return bytes.toFixed(intPartLength(bytes) < 3 ? 1 : 0) + mags[mag]
+    }
+
+
+
+    Header {
+        id: header
+        text: qsTr(\"Manage cache\")
+    }
+
+
+    Label {
+        id: caption
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: header.bottom
+        anchors.margins: 10
+
+        text: cacheInfo.count > 0 ? qsTr(\"Cached in phone\'s storage:\") : qsTr(\"MeeBible\'s cache is empty\")
+
+        font.pixelSize: 32
+    }
+
+
+    ListView {
+        id: list
+
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: caption.bottom
+        anchors.bottom: parent.bottom
+
+        clip: true
+
+        cacheBuffer: 50
+
+        model: cacheInfo
+
+
+        delegate: SubtitledListDelegate {
+            id: row
+
+            x: 10
+            width: parent.width - 20
+
+            title: translation.name + \' (\' + language.selfname + \')\'
+
+            Binding {
+                target: row
+                property: \"subtitle\"
+                when: indexSize == 0
+                value: qsTr(\"_dataSize_ of data\").replace(\'_dataSize_\', formatFileSize(dataSize))
+            }
+
+            Binding {
+                target: row
+                property: \"subtitle\"
+                when: indexSize > 0
+                value: qsTr(\"_dataSize_ of data and _indexSize_ of search index\").replace(\'_dataSize_\', formatFileSize(dataSize)).replace(\'_indexSize_\', formatFileSize(indexSize))
+            }
+
+            onClicked: {
+                page.transCode = translation.code
+                page.langCode = language.code
+                itemMenu.open()
+            }
+        }
+    }
+    ScrollDecorator { flickableItem: list }
+
+
+    Menu {
+        id: itemMenu
+
+        $$QML_SYMBIAN_THEME
+
+        MenuLayout {
+            MenuItem {
+                text: qsTr(\"Delete from cache\")
+
+                onClicked: cacheInfo.deleteTranslation(page.transCode, page.langCode)
+
+                $$QML_SYMBIAN_THEME
+            }
+
+            MenuItem {
+                text: qsTr(\"Delete search index only\")
+
+                onClicked: cacheInfo.deleteIndexOnly(page.transCode, page.langCode)
+
+                $$QML_SYMBIAN_THEME
+            }
+        }
+    }
+
+
+    tools: ToolBarLayout {
+        UniToolIcon {
+            platformIconId: \"toolbar-back\"
+            onClicked: pageStack.pop()
+        }
+    }
+}
