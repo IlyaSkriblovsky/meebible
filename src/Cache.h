@@ -17,9 +17,6 @@
 class QThread;
 
 
-// class sqlite3;
-// class sqlite3_stmt;
-
 class Translation;
 
 
@@ -77,17 +74,6 @@ class Cache: public QObject
     private:
         static Cache* _instance;
 
-//        sqlite3* _db;
-//
-//        sqlite3_stmt* _stmt_saveChapter;
-//        sqlite3_stmt* _stmt_loadChapter;
-//        sqlite3_stmt* _stmt_hasChapter;
-//        sqlite3_stmt* _stmt_totalChapters;
-//        sqlite3_stmt* _stmt_availableChapters;
-//
-//        #ifdef ASYNC_DB_IO
-//            QThread* _asyncThread;
-//        #endif
 
         QRegExp _stripTags;
         QRegExp _stripSpaces;

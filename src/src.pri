@@ -42,13 +42,6 @@ LIBS += -lsqlite3
 }
 
 
-asyncdb {
-    DEFINES += ASYNC_DB_IO
-    HEADERS += src/3rdparty/sqlite3async/sqlite3async.h
-    SOURCES += src/3rdparty/sqlite3async/sqlite3async.c
-}
-
-
 HEADERS +=                      \
     src/Language.h              \
     src/Languages.h             \
