@@ -51,7 +51,9 @@ Page {
 
         text: cacheInfo.count > 0 ? qsTr(\"Cached in phone\'s storage:\") : qsTr(\"MeeBible\'s cache is empty\")
 
-        font.pixelSize: 32
+        font.pixelSize: 24
+
+        $$QML_SYMBIAN_THEME
     }
 
 
@@ -78,18 +80,20 @@ Page {
 
             title: translation.name + \' (\' + language.selfname + \')\'
 
+            titleFontSize: 24
+
             Binding {
                 target: row
                 property: \"subtitle\"
                 when: indexSize == 0
-                value: qsTr(\"_dataSize_ of data\").replace(\'_dataSize_\', formatFileSize(dataSize))
+                value: qsTr(\"Data: _dataSize_\").replace(\'_dataSize_\', formatFileSize(dataSize))
             }
 
             Binding {
                 target: row
                 property: \"subtitle\"
                 when: indexSize > 0
-                value: qsTr(\"_dataSize_ of data and _indexSize_ of search index\").replace(\'_dataSize_\', formatFileSize(dataSize)).replace(\'_indexSize_\', formatFileSize(indexSize))
+                value: qsTr(\"Data: _dataSize_, Search index: _indexSize_\").replace(\'_dataSize_\', formatFileSize(dataSize)).replace(\'_indexSize_\', formatFileSize(indexSize))
             }
 
             onClicked: {

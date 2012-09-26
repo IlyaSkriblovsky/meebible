@@ -8,6 +8,7 @@ Item {
 
     property string title: model.title
     property string subtitle: model.subtitle
+    property alias titleFontSize: title.font.pixelSize
 
 
     signal clicked
