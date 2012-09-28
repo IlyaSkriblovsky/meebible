@@ -72,7 +72,7 @@ INSERT INTO translations VALUES ('it_cei08', '', 'Conferenza Episcopale Italiana
 INSERT INTO translations VALUES ('it_cei74', '', 'Conferenza Episcopale Italiana (1974)', 'http://www.lachiesa.it/bibbia/cei1974/', '', 0);
 
 INSERT INTO translations VALUES ('se_2k', '', 'Bibel 2000', 'http://www.bibeln.se/las/sok', '© Svenska Bibelsällskapet', 0);
-INSERT INTO translations VALUES ('se_1917', '', 'Bibel 1917', 'http://www.bibeln.se/las/sok', '© Svenska Bibelsällskapet', 0);
+INSERT INTO translations VALUES ('se_1917', '', '1917 års översättning', 'http://www.bibeln.se/las/sok', '© Svenska Bibelsällskapet', 0);
 
 COMMIT;
 
@@ -148,7 +148,7 @@ INSERT INTO translationLangs VALUES ('it_cei08', 'i', 'Conferenza Episcopale Ita
 INSERT INTO translationLangs VALUES ('it_cei74', 'i', 'Conferenza Episcopale Italiana (1974)');
 
 INSERT INTO translationLangs VALUES ('se_2k', 'z', 'Bibel 2000');
-INSERT INTO translationLangs VALUES ('se_1917', 'z', 'Bibel 1917');
+INSERT INTO translationLangs VALUES ('se_1917', 'z', '1917 års översättning');
 
 
 INSERT INTO translationLangs VALUES ('nwt', 'a',   'New World Translation');
