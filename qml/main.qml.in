@@ -29,5 +29,6 @@ PageStackWindow {
 
     initialPage: BibleViewPage {
         id: biblePage
+        window: window
     }
 }

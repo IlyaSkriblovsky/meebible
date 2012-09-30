@@ -14,6 +14,11 @@ Page {
     property bool created: false
     property bool firstScrollPosSet: false
 
+
+    property PageStackWindow window: null
+
+
+
     Binding {
         target: settings
         property: \"place\"
@@ -55,6 +60,58 @@ Page {
     }
 
 
+
+
+
+    //\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//
+    // Stuff for automatic toolbar hiding in Fullscreen mode
+    Timer {
+        id: toolbarTimer
+        interval: 1500
+
+        onTriggered: {
+            if (settings.fullscreen && !flickable.moving && page.pageStack.currentPage == page && menu.status == DialogStatus.Closed)
+                window.showToolBar = false
+            else
+                window.showToolBar = true
+        }
+    }
+
+    Connections {
+        target: flickable
+        onMovingChanged: {
+            if (settings.fullscreen && !flickable.moving)
+                toolbarTimer.restart()
+            else
+                window.showToolBar = true
+        }
+    }
+
+    Connections {
+        target: page.pageStack
+        onCurrentPageChanged: {
+            window.showToolBar = true
+
+            if (settings.fullscreen && page.pageStack.currentPage == page)
+                toolbarTimer.restart()
+        }
+    }
+
+    Connections {
+        target: menu
+        onStatusChanged: {
+            if (settings.fullscreen && menu.status == DialogStatus.Closed && page.pageStack.currentPage == page)
+                toolbarTimer.restart()
+            else
+                window.showToolBar == true
+        }
+    }
+    //\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//
+
+
+
+
+
     Header {
         id: header
         text: bibleView.title || \"MeeBible\"
@@ -90,6 +147,7 @@ Page {
 
             enabled: bibleView.searchMode
         }
+
 
         Column {
             id: column
