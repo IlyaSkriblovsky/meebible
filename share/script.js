@@ -136,9 +136,7 @@ function selectedText(withVerseNumbers)
 
             var divtext = divs[i].innerText
 
-            if (divs[i].firstElementChild.className != "verse-label")
-                result += divtext
-            else
+            if (divs[i].firstElementChild && divs[i].firstElementChild.className == "verse-label")
             {
                 var withoutVerseNumber = divtext.substr(divs[i].firstElementChild.innerText.length)
                 if (withVerseNumbers)
@@ -146,6 +144,8 @@ function selectedText(withVerseNumbers)
                 else
                     result += withoutVerseNumber
             }
+            else
+                result += divtext
         }
 
         prev = verse
