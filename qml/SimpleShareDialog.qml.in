@@ -1,0 +1,99 @@
+import QtQuick 1.1
+
+$$QML_IMPORT_QTCOMPONENTS
+
+
+ModelSelectionDialog {
+    id: dialog
+
+
+    property string bibleTextTitle: \"\"
+    property string bibleText: \"\"
+    property string link: \"\"
+
+    function setText(place, text) {
+        bibleTextTitle = placeAccesser.string(place, settings.translation)
+        bibleText = text
+
+        link = \'http://meebible.org/t/\'
+             + settings.translation.code + \'/\'
+             + settings.language.code + \'/\'
+             + placeAccesser.bookCode(place) + \'/\'
+             + placeAccesser.chapterNo(place) + \'/\'
+             + placeAccesser.verses(place).join(\',\')
+    }
+
+
+    titleText: qsTr(\"Share Bible place\")
+
+
+    model: ListModel {
+        ListElement { key: \'twitter\';     value: \"Twitter\"      }
+        ListElement { key: \'facebook\';    value: \"Facebook\"     }
+        ListElement { key: \'gplus\';       value: \"Google Plus\"  }
+        ListElement { key: \'livejournal\'; value: \"LiveJournal\"  }
+        ListElement { key: \'vk\';          value: \"VKontakte\"    }
+    }
+
+
+    onAccepted: {
+        var service = model.get(selectedIndex).key
+
+
+        switch (service) {
+            case \'twitter\': {
+                var tweet = bibleTextTitle + \': \' + bibleText + \' \' + link
+
+                var url = \'http://twitter.com/intent/tweet?text=\' + encodeURIComponent(tweet)
+
+                console.log(url)
+
+                Qt.openUrlExternally(url)
+                break
+            }
+
+            case \'facebook\': {
+                var url = \'http://m.facebook.com/sharer.php?u=\' + encodeURIComponent(link)
+
+                console.log(url)
+
+                Qt.openUrlExternally(url)
+
+                break
+            }
+
+            case \'livejournal\': {
+                var url = \'http://www.livejournal.com/update.bml?\'
+                        + \'subject=\' + encodeURIComponent(bibleTextTitle)
+                        + \'&event=\' + encodeURIComponent(bibleText + \'<br/><a href=\"\' + link + \'\">via MeeBible</a>\')
+                        + \'&prop_taglist=MeeBible\'
+
+                console.log(url)
+
+                Qt.openUrlExternally(url)
+
+                break
+            }
+
+            case \'vk\': {
+                var url = \'http://vk.com/share.php?url=\' + encodeURIComponent(link)
+
+                console.log(url)
+
+                Qt.openUrlExternally(url)
+
+                break
+            }
+
+            case \'gplus\': {
+                var url = \'http://plus.google.com/share?url=\' + encodeURIComponent(link)
+
+                console.log(url)
+
+                Qt.openUrlExternally(url)
+
+                break
+            }
+        }
+    }
+}

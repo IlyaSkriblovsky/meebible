@@ -97,6 +97,8 @@ public slots:
     bool bookmarkSelectedVerses();
     void clearSelection();
 
+    QString selectedText(bool withVerseNumbers);
+
 
     // Called from JS
     void verseSelectionChanged(QList<int> verses);
@@ -188,8 +190,6 @@ private slots:
 
     void onTranslationLoadingFinished();
 
-
-    QString selectedText(bool withVerseNumbers);
 };
 
 #endif // BIBLEVIEW_H

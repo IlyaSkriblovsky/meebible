@@ -475,8 +475,9 @@ QString BibleView::selectedText(bool withVerseNumbers)
 {
     QString text = page()->mainFrame()->evaluateJavaScript(
         withVerseNumbers ? "selectedText(true)" : "selectedText(false)"
-    ).toString();
+    ).toString().trimmed();
     text.replace(QString::fromUtf8("\xcc\x81"), "");
+    text.replace("  ", " ");
 
     return text;
 }

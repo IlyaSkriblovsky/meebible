@@ -244,7 +244,18 @@ Page {
             narrow: verseActions.narrow
 
             onClicked: {
-                bibleView.shareSelectedVerses(settings.copyVerseNumbers)
+                if (false) // (!SYMBIAN)
+                {
+                    bibleView.shareSelectedVerses(settings.copyVerseNumbers)
+                }
+                else
+                {
+                    simpleShareDialog.open(
+                        bibleView.place,
+                        bibleView.selectedText(settings.copyVerseNumbers)
+                    )
+                }
+
                 bibleView.clearSelection()
             }
         }
@@ -808,6 +819,18 @@ Page {
         Connections {
             target: bookmarksSheet.item
             onBookmarkSelected: bibleView.place = place
+        }
+    }
+
+
+
+    Loader {
+        id: simpleShareDialog
+        function load() { source = \"SimpleShareDialog.qml\" }
+        function open(title, text) {
+            load()
+            item.setText(title, text)
+            item.open()
         }
     }
 
