@@ -150,6 +150,18 @@ div.indent {
   width: 100px;
   text-align: center; }
 
+nokia\:store {
+  vertical-align: middle; }
+  nokia\:store img {
+    vertical-align: middle; }
+
+.download-label {
+  display: inline-block;
+  vertical-align: middle; }
+
+.social {
+  margin-top: 20px; }
+
 #content {
   max-width: 800px;
   margin: 0 auto; }

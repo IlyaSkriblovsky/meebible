@@ -1,9 +1,21 @@
 {extends file="base.tpl"}
 
+{block "meta" append}
+    <meta property="og:site_name" content="meebible.org"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:image" content="http://meebible.org/static/img/meebible.png"/>
+
+    <meta property="og:title" content="MeeBible — Bible reader app"/>
+    <meta property="og:description" content="Bible reading app for Symbian & MeeGo"/>
+{/block}
+
 {block "js" append}
     <script src="http://code.jquery.com/jquery.min.js"></script>
 
     <script src="/static/js/phone.js"></script>
+
+    <script type="text/javascript">var d=document,h=d.getElementsByTagName("html")[0];h.setAttribute("xmlns:nokia","http://www.nokia.com/2011/dxml");</script>
+    <script src="//dropsdk.nokia.com/latest/button/js/all.js" type="text/javascript"></script>
 {/block}
 
 {block body}
@@ -26,6 +38,15 @@
 
         <h2>Blog</h2>
             Official MeeBible blog: <a href="http://blog.meebible.org">blog.meebible.org</a>
+
+            <div class="social">
+                <div class="twitter">
+                    {literal}
+                        <a href="https://twitter.com/MeeBible_org" class="twitter-follow-button" data-show-count="false">Follow @MeeBible_org</a>
+                        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                    {/literal}
+                </div>
+            </div>
 
         <h2>About</h2>
 
@@ -71,27 +92,37 @@
         <h3>Symbian^3</h3>
 
         <div class="indent">
+            <div class="download-label">Fully-functional free version:</div>
+            <!--
             <div class="store-link">
                 <a href="http://store.ovi.com/content/262401"><img src="/static/img/meebible-small.png"/></a>
                 <a href="http://store.ovi.com/content/262401"><span class="title">MeeBible for Symbian^3</span></a>
             </div>
+            -->
+            <nokia:store product_id="262401" size="small" lang="en"></nokia:store>
         </div>
 
         <h3>MeeGo</h3>
 
         <div class="indent">
-            Fully-functional free version:
+            <div class="download-label">Fully-functional free version:</div>
+            <!--
             <div class="store-link indent-left">
                 <a href="http://store.ovi.com/content/218744"><img src="/static/img/meebible-free-small.png"/></a>
                 <a href="http://store.ovi.com/content/218744"><span class="title">MeeBible Free</span></a>
             </div>
+            -->
+            <nokia:store product_id="218744" size="small" lang="en"></nokia:store>
         </div>
         <div class="indent">
-            Donate €5 for further development:
+            <div class="download-label">Donate €5 for further development:</div>
+            <!--
             <div class="store-link indent-left">
                 <a href="http://store.ovi.com/content/215454"><img src="/static/img/meebible-small.png"/></a>
                 <a href="http://store.ovi.com/content/215454"><span class="title">MeeBible</span></a>
             </div>
+            -->
+            <nokia:store product_id="215454" size="small" lang="en"></nokia:store>
         </div>
 
 
@@ -115,4 +146,6 @@
             &copy; 2011–2012 Ilya Skriblovsky
         </div>
     </div>
+
+
 {/block}
