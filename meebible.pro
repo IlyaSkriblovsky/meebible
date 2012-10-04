@@ -29,8 +29,14 @@ INSTALLS += invoker
 
 
 symbian {
-    # TARGET.UID3 = 0xe0cd6015
-    TARGET.UID3 = 0x2005E1E7
+    dev {
+        TARGET.UID3 = 0xe0cd6015
+    }
+    !dev {
+        TARGET.UID3 = 0x2005E1E7
+        TARGET.CAPABILITY += SwEvent
+    }
+
     DEPLOYMENT.display_name = MeeBible
 
     ICON = meebible.svg

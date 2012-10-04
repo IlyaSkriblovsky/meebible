@@ -3,7 +3,7 @@ QT += core network xml webkit gui declarative
 
 INCLUDEPATH += src
 
-# DEFINES += DEBUG
+dev: DEFINES += DEBUG
 
 meegoshare: DEFINES += MEEGO_SHARE
 iapdonation: DEFINES += IAPDONATION

@@ -7,3 +7,5 @@ set SBS_HOME=C:\QtSDK\Symbian\tools\sbs
 
 C:\QtSDK\Symbian\SDKs\Symbian3Qt474\epoc32\tools\make clean -w
 C:\QtSDK\Symbian\SDKs\Symbian3Qt474\epoc32\tools\make distclean -w
+
+del qml\*.qml *.sis
