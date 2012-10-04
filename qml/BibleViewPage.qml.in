@@ -161,16 +161,14 @@ Page {
         focus: true
         Keys.onPressed: {
             if (event.key == Qt.Key_Down || event.key == 16777391) {
-                console.log(\'Down\')
                 bibleView.scrollTo(flickable.contentY + 100)
             }
             else if (event.key == Qt.Key_Up || event.key == 16777390) {
-                console.log(\'Up\')
                 bibleView.scrollTo(flickable.contentY - 100)
             }
-            else {
-                console.log(\'Unknown key \' + event.key)
-            }
+            // else {
+            //     console.log(\'Unknown key \' + event.key)
+            // }
         }
 
 

@@ -86,13 +86,12 @@ HEADERS +=                      \
     src/SearchResultAccesser.h  \
     src/Highlighter.h           \
     src/SearchQueryParser.h     \
-    src/SearchThread.h
+    src/SearchThread.h          \
+    src/MediakeyCaptureItem.h
 
 iapdonation:HEADERS +=          \
     src/IAPDonation.h
 
-symbian: HEADERS +=             \
-    src/MediakeyCaptureItem.h
 
 SOURCES +=                      \
     src/main.cpp                \
@@ -120,10 +119,8 @@ SOURCES +=                      \
     src/SearchResultAccesser.cpp\
     src/Highlighter.cpp         \
     src/SearchQueryParser.cpp   \
-    src/SearchThread.cpp
+    src/SearchThread.cpp        \
+    src/MediakeyCaptureItem.cpp
 
 iapdonation:SOURCES +=          \
     src/IAPDonation.cpp
-
-symbian: SOURCES +=             \
-    src/MediakeyCaptureItem.cpp

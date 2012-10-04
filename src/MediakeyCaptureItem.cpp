@@ -1,5 +1,28 @@
-#include "MediaKeyCaptureItem.h"
-#ifdef Q_WS_S60
+#include "MediakeyCaptureItem.h"
+
+
+
+// The paint method
+void MediakeyCaptureItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+{
+    // This item has no visual
+}
+
+
+
+#ifndef SYMBIAN
+
+// Stub for non-Symbian platform
+
+MediakeyCaptureItem::MediakeyCaptureItem(QDeclarativeItem *parent): QDeclarativeItem(parent)
+{
+}
+
+#else
+
+#include <remconcoreapitargetobserver.h>    // link against RemConCoreApi.lib
+#include <remconcoreapitarget.h>            // and
+#include <remconinterfaceselector.h>        // RemConInterfaceBase.lib
 
 // A private class to access Symbian RemCon API
 class MediakeyCaptureItemPrivate : public QObject, public MRemConCoreApiTargetObserver
@@ -19,12 +42,6 @@ private:
 MediakeyCaptureItem::MediakeyCaptureItem(QDeclarativeItem *parent): QDeclarativeItem(parent)
 {
     d_ptr = new MediakeyCaptureItemPrivate(this);
-}
-
-// The paint method
-void MediakeyCaptureItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
-{
-    // This item has no visual
 }
 
 // Constructor
@@ -48,14 +65,15 @@ void MediakeyCaptureItemPrivate::MrccatoCommand(TRemConCoreApiOperationId aOpera
     //TRequestStatus status;
     switch( aOperationId )
     {
-    case ERemConCoreApiVolumeUp:
-        emit d_ptr->volumeUpPressed();
-        break;
-    case ERemConCoreApiVolumeDown:
-        emit d_ptr->volumeDownPressed();
-        break;
-    default:
-        break;
+        case ERemConCoreApiVolumeUp:
+            emit d_ptr->volumeUpPressed();
+            break;
+        case ERemConCoreApiVolumeDown:
+            emit d_ptr->volumeDownPressed();
+            break;
+        default:
+            break;
     }
 }
-#endif // Q_WS_S60
+
+#endif
