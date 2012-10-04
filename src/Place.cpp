@@ -32,7 +32,7 @@ void Place::setVerses(const QSet<int>& verses)
 
 
 
-QString Place::verseString() const
+QString Place::verseString(bool dash) const
 {
     QList<int> list = _verses.toList();
     qSort(list);
@@ -61,7 +61,15 @@ QString Place::verseString() const
         }
         else
         {
-            if (prev != groupStart) verseString += QString::fromUtf8("–") + QString::number(prev);
+            if (prev != groupStart)
+            {
+                if (dash)
+                    verseString += QString::fromUtf8("–");
+                else
+                    verseString += "-";
+                verseString += QString::number(prev);
+            }
+
             if (cur != -1) verseString += "," + QString::number(cur);
             prev = cur;
             groupStart = cur;

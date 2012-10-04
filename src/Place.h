@@ -51,7 +51,7 @@ private:
     int _chapterNo;
     QSet<int> _verses;
 
-    QString verseString() const;
+    QString verseString(bool dash = false) const;
 };
 
 Q_DECLARE_METATYPE(Place);
