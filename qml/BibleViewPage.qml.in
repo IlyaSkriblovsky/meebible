@@ -145,7 +145,32 @@ Page {
                 duration: 500
             }
 
-            enabled: bibleView.searchMode
+            // enabled: bibleView.searchMode
+        }
+
+
+        MediakeyCapture {
+            onVolumeDownPressed: {
+                bibleView.scrollTo(flickable.contentY + flickable.height)
+            }
+            onVolumeUpPressed: {
+                bibleView.scrollTo(flickable.contentY - flickable.height)
+            }
+        }
+
+        focus: true
+        Keys.onPressed: {
+            if (event.key == Qt.Key_Down || event.key == 16777391) {
+                console.log(\'Down\')
+                bibleView.scrollTo(flickable.contentY + 100)
+            }
+            else if (event.key == Qt.Key_Up || event.key == 16777390) {
+                console.log(\'Up\')
+                bibleView.scrollTo(flickable.contentY - 100)
+            }
+            else {
+                console.log(\'Unknown key \' + event.key)
+            }
         }
 
 
@@ -203,7 +228,9 @@ Page {
                 {
                     var maxY = flickable.contentHeight - flickable.height
                     if (y < maxY)
-                        flickable.contentY = y
+                    {
+                        flickable.contentY = y < 0 ? 0 : y
+                    }
                     else
                         if (maxY < 0)
                             flickable.contentY = 0

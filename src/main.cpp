@@ -30,6 +30,10 @@
     #include "IAPDonation.h"
 #endif
 
+#ifdef SYMBIAN
+    #include "MediakeyCaptureItem.h"
+#endif
+
 
 #ifdef SYMBIAN
     #include <cstdio>
@@ -93,6 +97,11 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qmlRegisterType<Fetcher2>("MeeBible", 0, 1, "Fetcher");
 
     qRegisterMetaType<Place>();
+
+
+    #ifdef SYMBIAN
+        qmlRegisterType<MediakeyCaptureItem>("MeeBible", 0, 1, "MediakeyCapture");
+    #endif
 
 
     #ifndef SYMBIAN
