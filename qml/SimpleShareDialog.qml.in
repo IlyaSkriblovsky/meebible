@@ -15,12 +15,7 @@ ModelSelectionDialog {
         bibleTextTitle = placeAccesser.string(place, settings.translation)
         bibleText = text
 
-        link = \'http://meebible.org/t/\'
-             + settings.translation.code + \'/\'
-             + settings.language.code + \'/\'
-             + placeAccesser.bookCode(place) + \'/\'
-             + placeAccesser.chapterNo(place) + \'/\'
-             + placeAccesser.verses(place).join(\',\')
+        link = placeAccesser.siteUrl(place, settings.translation)
     }
 
 
@@ -28,72 +23,80 @@ ModelSelectionDialog {
 
 
     model: ListModel {
+        ListElement { key: \'sms\';         value: \"SMS\"          }
+        ListElement { key: \'mail\';        value: \"E-Mail\"       }
         ListElement { key: \'twitter\';     value: \"Twitter\"      }
         ListElement { key: \'facebook\';    value: \"Facebook\"     }
-        ListElement { key: \'gplus\';       value: \"Google Plus\"  }
+        ListElement { key: \'gplus\';       value: \"Google+\"  }
         ListElement { key: \'livejournal\'; value: \"LiveJournal\"  }
-        ListElement { key: \'vk\';          value: \"VKontakte\"    }
+        // ListElement { key: \'vk\';          value: \"VKontakte\"    }
+    }
+
+
+
+    function escapeArg(content) {
+        // I don\'t use encodeURIComponent because on Symbian Qt.openUrlExternally
+        // seems to be doing escaping on its own which leads to double escaping.
+        // On MeeGo unescaped URLs work too
+        // I only need to escape \'&\' to not mess with query arguments
+        return content.replace(\'&\', \'%26\')
     }
 
 
     onAccepted: {
         var service = model.get(selectedIndex).key
 
+        var url = \'\'
 
         switch (service) {
+            case \'sms\': {
+                url = \'sms:?body=\' + escapeArg(bibleTextTitle + \'\\n\' + bibleText)
+                break
+            }
+
+            case \'mail\': {
+                url = \'mailto:\'
+                    + \'?subject=\' + escapeArg(bibleTextTitle)
+                    + \'&body=\' + escapeArg(bibleText + \'\\n\' + link)
+
+                break
+            }
+
             case \'twitter\': {
                 var tweet = bibleTextTitle + \': \' + bibleText + \' \' + link
 
-                var url = \'http://twitter.com/intent/tweet?text=\' + encodeURIComponent(tweet)
-
-                console.log(url)
-
-                Qt.openUrlExternally(url)
+                url = \'http://twitter.com/intent/tweet?text=\' + escapeArg(tweet)
                 break
             }
 
             case \'facebook\': {
-                var url = \'http://m.facebook.com/sharer.php?u=\' + encodeURIComponent(link)
-
-                console.log(url)
-
-                Qt.openUrlExternally(url)
-
+                var url = \'http://m.facebook.com/sharer.php?u=\' + escapeArg(link)
                 break
             }
 
             case \'livejournal\': {
                 var url = \'http://www.livejournal.com/update.bml?\'
-                        + \'subject=\' + encodeURIComponent(bibleTextTitle)
-                        + \'&event=\' + encodeURIComponent(bibleText + \'<br/><a href=\"\' + link + \'\">via MeeBible</a>\')
+                        + \'subject=\' + escapeArg(bibleTextTitle)
+                        + \'&event=\' + escapeArg(bibleText + \'<br/><a href=\"\' + link + \'\">via MeeBible</a>\')
                         + \'&prop_taglist=MeeBible\'
-
-                console.log(url)
-
-                Qt.openUrlExternally(url)
-
                 break
             }
 
             case \'vk\': {
-                var url = \'http://vk.com/share.php?url=\' + encodeURIComponent(link)
-
-                console.log(url)
-
-                Qt.openUrlExternally(url)
-
+                var url = \'http://vk.com/share.php?url=\' + escapeArg(link)
                 break
             }
 
             case \'gplus\': {
-                var url = \'http://plus.google.com/share?url=\' + encodeURIComponent(link)
-
-                console.log(url)
-
-                Qt.openUrlExternally(url)
-
+                var url = \'http://plus.google.com/share?url=\' + escapeArg(link)
                 break
             }
+        }
+
+        if (url)
+        {
+            console.log(url)
+            Qt.openUrlExternally(url)
         }
     }
 }

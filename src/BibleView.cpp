@@ -10,7 +10,7 @@
 
 #include <QDesktopServices>
 
-#ifndef NOSHARE
+#ifdef MEEGO_SHARE
     #include <MDataUri>
     #include <maemo-meegotouch-interfaces/shareuiinterface.h>
 #endif
@@ -24,6 +24,7 @@
 #include "Bookmarks.h"
 #include "SearchQueryParser.h"
 #include "Highlighter.h"
+#include "PlaceAccesser.h"
 
 
 
@@ -498,13 +499,18 @@ bool BibleView::copySelectedVerses(bool withVerseNumbers)
     return true;
 }
 
-#ifndef NOSHARE
+#ifdef MEEGO_SHARE
 bool BibleView::shareSelectedVerses(bool withVerseNumbers)
 {
     QString text = selectedText(withVerseNumbers);
 
     if (text == "")
         return false;
+
+
+    PlaceAccesser placeAccesser;
+
+    text += "\n" + placeAccesser.siteUrl(_place, translation());
 
 
     MDataUri duri;

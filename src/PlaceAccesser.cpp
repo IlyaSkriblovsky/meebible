@@ -37,3 +37,9 @@ Place PlaceAccesser::placeOneVerse(const QString& bookCode, int chapterNo, int v
     verses << verse;
     return Place(bookCode, chapterNo, verses);
 }
+
+
+QString PlaceAccesser::siteUrl(const Place& place, Translation* translation)
+{
+    return place.siteUrl(translation);
+}

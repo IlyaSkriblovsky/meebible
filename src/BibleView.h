@@ -91,7 +91,7 @@ public slots:
     void stopSearchMode();
 
     bool copySelectedVerses(bool withVerseNumbers);
-    #ifndef NOSHARE
+    #ifdef MEEGO_SHARE
         bool shareSelectedVerses(bool withVerseNumbers);
     #endif
     bool bookmarkSelectedVerses();

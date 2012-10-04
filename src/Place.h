@@ -40,6 +40,9 @@ public:
     bool sameChapter(const Place& other);
 
 
+    QString siteUrl(const Translation* translation) const;
+
+
     bool operator == (const Place& other) const;
 
 

@@ -3,6 +3,7 @@
 #include <QDebug>
 
 #include "Translation.h"
+#include "Language.h"
 
 
 Place::Place()
@@ -179,4 +180,16 @@ bool Place::operator == (const Place& other) const
 bool Place::sameChapter(const Place& other)
 {
     return _bookCode == other._bookCode && _chapterNo == other._chapterNo;
+}
+
+
+
+QString Place::siteUrl(const Translation* translation) const
+{
+    return QString("http://meebible.org/t/%1/%2/%3/%4/%5")
+        .arg(translation->code())
+        .arg(translation->language()->code())
+        .arg(_bookCode)
+        .arg(_chapterNo)
+        .arg(verseString());
 }

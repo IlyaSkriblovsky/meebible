@@ -5,7 +5,7 @@ INCLUDEPATH += src
 
 # DEFINES += DEBUG
 
-noshare: DEFINES += NOSHARE
+meegoshare: DEFINES += MEEGO_SHARE
 iapdonation: DEFINES += IAPDONATION
 
 free:DEFINES += FREEVERSION

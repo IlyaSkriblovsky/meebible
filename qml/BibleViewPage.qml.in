@@ -237,14 +237,12 @@ Page {
         }
 
         UniVerseActionButton {
-            visible: ! NOSHARE
-
             text: qsTr(\"Share\")
 
             narrow: verseActions.narrow
 
             onClicked: {
-                if (false) // (!SYMBIAN)
+                if (!SYMBIAN)
                 {
                     bibleView.shareSelectedVerses(settings.copyVerseNumbers)
                 }
