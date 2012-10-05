@@ -23,6 +23,7 @@ class FileTree
             uint8 clean;
             uint32 root_off;
             Header header;
+            uint32 file_size;
         } __attribute__((packed));
 
 
@@ -60,11 +61,20 @@ class FileTree
             if (file.size() < sizeof(BaseHeader))
                 clear();
             else
-                if (file.size() < sizeof(BaseHeader) ||
+            {
+                if (file.size() < baseheader->file_size ||
                     baseheader->sig != signature ||
                     baseheader->ver != version ||
-                    (baseheader->clean & 0x1) != 1)
+                    (baseheader->clean & 0x1) != 0x1)
+                {
                     clear();
+                }
+                else
+                {
+                    if (file.size() > baseheader->file_size)
+                        file.resize(baseheader->file_size);
+                }
+            }
         }
 
         ~FileTree()
@@ -99,6 +109,7 @@ class FileTree
             baseheader->sig = signature;
             baseheader->ver = version;
             baseheader->clean = 1;
+            baseheader->file_size = file.size();
         }
 
 
@@ -216,6 +227,7 @@ class FileTree
             int key_len = strlen(key);
             uint32 offs = file.size();
             file.grow(sizeof(Node) + key_len);
+            baseheader->file_size = file.size();
 
             Node* node = node_at(offs);
             node->parent_off = node_off(parent);
@@ -522,6 +534,7 @@ class FileTree
         {
             uint32 offs = file.size();
             file.grow(sizeof(DataChunk));
+            baseheader->file_size = file.size();
 
             DataChunk* chunk = data_chunk_at(offs);
             chunk->next_off = 0;

@@ -2,11 +2,19 @@
 
 #include <QThread>
 #include <QList>
-#include <QVariant>
 
 class Translation;
 class Indexer;
-class sqlite3;
+
+
+struct SearchMatch
+{
+    int bookNo;
+    int chapterNo;
+    int offset;
+    int matchesInChapter;
+};
+
 
 class SearchThread: public QThread
 {
@@ -14,25 +22,28 @@ class SearchThread: public QThread
 
     public:
         SearchThread(
-            sqlite3* db, Indexer* indexer,
-            bool rebuild,
+            Indexer* indexer,
             const Translation* translation, const QString& query,
             int maxResults,
             QObject* parent = 0
         );
 
+        const Translation* translation() const { return _translation; }
+
+        const QList<SearchMatch> results() const { return _results; }
+        QString query() const { return _query; }
+
     signals:
-        void indexRebuilt();
-        void finished(QList<QVariant> results);
+        void finished();
 
     protected:
         virtual void run();
 
     private:
-        sqlite3* _db;
         Indexer* _indexer;
-        bool _rebuild;
         const Translation* _translation;
         QString _query;
         int _maxResults;
+
+        QList<SearchMatch> _results;
 };

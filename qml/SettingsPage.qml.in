@@ -154,6 +154,15 @@ Page {
             }
 
 
+            Button {
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                text: qsTr(\"Manage cache\")
+
+                onClicked: cacheInfoPage.open()
+            }
+
+
             ButtonWithHelp {
                 buttonText: qsTr(\"Update translation list\")
                 helpTitle: qsTr(\"Reload languages\")
@@ -163,13 +172,13 @@ Page {
             }
 
 
-            ButtonWithHelp {
-                buttonText: qsTr(\"Clear cache\")
-                helpTitle: qsTr(\"Cache clearing\")
-                helpMessage: qsTr(\"This will delete all downloaded Bible chapters from your phone\")
+            // ButtonWithHelp {
+            //     buttonText: qsTr(\"Clear cache\")
+            //     helpTitle: qsTr(\"Cache clearing\")
+            //     helpMessage: qsTr(\"This will delete all downloaded Bible chapters from your phone\")
 
-                onClicked: clearCacheConfirmation.open()
-            }
+            //     onClicked: clearCacheConfirmation.open()
+            // }
         }
     }
     ScrollDecorator {flickableItem: flickable }
@@ -268,6 +277,19 @@ Page {
             cache.clearCache()
             settings.translation.reload(false)
             bibleView.reload()
+        }
+    }
+
+
+    Loader {
+        id: cacheInfoPage
+
+        function load() { source = \"CacheInfoPage.qml\" }
+
+        function open() {
+            load()
+            item.update()
+            pageStack.push(item)
         }
     }
 

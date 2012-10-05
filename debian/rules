@@ -10,10 +10,10 @@ builddir-free:
 
 
 builddir/Makefile: builddir
-	cd builddir && qmake PREFIX=/usr ../$(APPNAME).pro BUILDDIR=builddir CONFIG+=asyncdb CONFIG+=meegoshare
+	cd builddir && qmake PREFIX=/usr ../$(APPNAME).pro BUILDDIR=builddir CONFIG+=meegoshare
 
 builddir-free/Makefile: builddir-free
-	cd builddir-free && qmake CONFIG+=free PREFIX=/usr ../$(APPNAME).pro BUILDDIR=builddir-free CONFIG+=asyncdb CONFIG+=meegoshare
+	cd builddir-free && qmake CONFIG+=free PREFIX=/usr ../$(APPNAME).pro BUILDDIR=builddir-free CONFIG+=meegoshare
 
 build: build-stamp
 

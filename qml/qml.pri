@@ -26,6 +26,8 @@ QMAKE_SUBSTITUTES += \
     qml/GridPlaceDialog.qml.in      \
     qml/CoupledMenuItems.qml.in     \
     qml/DonatePage.qml.in           \
+    qml/ConvertDialog.qml.in        \
+    qml/CacheInfoPage.qml.in        \
     qml/SimpleShareDialog.qml.in
 
 symbian {

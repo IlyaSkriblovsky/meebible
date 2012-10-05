@@ -26,11 +26,11 @@
 #include "StartupTracker.h"
 #include "SearchResultAccesser.h"
 #include "MediakeyCaptureItem.h"
+#include "CacheInfo.h"
 
 #ifdef IAPDONATION
     #include "IAPDonation.h"
 #endif
-
 
 
 #ifdef SYMBIAN
@@ -48,6 +48,26 @@
         fclose(f);
     }
 #endif
+
+
+
+
+class CacheConvertThread: public QThread
+{
+    public:
+        CacheConvertThread(Cache* cache): _cache(cache) { }
+
+    protected:
+        virtual void run()
+        {
+            _cache->convertOldCacheDB();
+        }
+
+    private:
+        Cache* _cache;
+};
+
+
 
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
@@ -86,6 +106,8 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     PlaceAccesser placeAccesser;
     SearchResultAccesser searchResultAccesser;
 
+    CacheInfo cacheInfo;
+
     QDeclarativeEngine engine;
 
 
@@ -116,6 +138,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     view->rootContext()->setContextProperty("bookmarks", &bookmarks);
     view->rootContext()->setContextProperty("placeAccesser", &placeAccesser);
     view->rootContext()->setContextProperty("searchResultAccesser", &searchResultAccesser);
+    view->rootContext()->setContextProperty("cacheInfo", &cacheInfo);
 
     #ifdef FREEVERSION
         view->rootContext()->setContextProperty("freeversion", QVariant(true));
@@ -143,10 +166,31 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     #endif
 
 
+
+    QDeclarativeView* convertDialog = 0;
+    if (cache.oldStorageFound())
+    {
+        convertDialog = new QDeclarativeView();
+        convertDialog->setAttribute(Qt::WA_NoSystemBackground);
+        convertDialog->setSource(QUrl::fromLocalFile(Paths::qmlConvertDialog()));
+        convertDialog->showFullScreen();
+
+        QEventLoop* eventLoop = new QEventLoop;
+        CacheConvertThread* thread = new CacheConvertThread(&cache);
+        QObject::connect(thread, SIGNAL(finished()), eventLoop, SLOT(quit()));
+        thread->start();
+        eventLoop->exec();
+        thread->wait();
+        delete thread;
+        delete eventLoop;
+    }
+
     view->setSource(QUrl::fromLocalFile(Paths::qmlMain()));
 
-
     view->showFullScreen();
+
+    delete convertDialog;
+
 
 
     StartupTracker startupTracker;

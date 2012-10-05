@@ -114,14 +114,21 @@ void Fetcher2::commit()
     Cache* cache = Cache::instance();
 
     QElapsedTimer timer; timer.start(); int s = _commitQueue.size();
-    cache->beginTransaction();
-    while (_commitQueue.size() > 0)
+    // cache->beginTransaction();
+    // while (_commitQueue.size() > 0)
+    // {
+    //     QPair<Place, QString> task = _commitQueue.dequeue();
+    //     cache->saveChapter(_translation, task.first, task.second, _commitQueue.size() == 0);
+    // }
+    // cache->commitTransaction();
+    // cache->syncIndex();
+
+    if (_commitQueue.size() > 0)
     {
-        QPair<Place, QString> task = _commitQueue.dequeue();
-        cache->saveChapter(_translation, task.first, task.second);
+        cache->saveChapters(_translation, _commitQueue);
+        _commitQueue.clear();
     }
-    cache->commitTransaction();
-    cache->syncIndex();
+
     qDebug() << "storing to fts of" << s << "chaps:" << timer.elapsed();
 }
 

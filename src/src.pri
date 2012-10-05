@@ -87,11 +87,13 @@ HEADERS +=                      \
     src/Highlighter.h           \
     src/SearchQueryParser.h     \
     src/SearchThread.h          \
-    src/MediakeyCaptureItem.h
+    src/MediakeyCaptureItem.h   \
+    src/IndexRebuildThread.h    \
+    src/CacheStorage.h          \
+    src/CacheInfo.h
 
 iapdonation:HEADERS +=          \
     src/IAPDonation.h
-
 
 SOURCES +=                      \
     src/main.cpp                \
@@ -120,7 +122,9 @@ SOURCES +=                      \
     src/Highlighter.cpp         \
     src/SearchQueryParser.cpp   \
     src/SearchThread.cpp        \
-    src/MediakeyCaptureItem.cpp
+    src/MediakeyCaptureItem.cpp \
+    src/IndexRebuildThread.cpp  \
+    src/CacheInfo.cpp
 
 iapdonation:SOURCES +=          \
     src/IAPDonation.cpp
