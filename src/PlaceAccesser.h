@@ -21,6 +21,8 @@ class PlaceAccesser: public QObject
 
         Place placeNoVerses(const QString& bookCode, int chapterNo);
         Place placeOneVerse(const QString& bookCode, int chapterNo, int verse);
+
+        QString siteUrl(const Place& place, Translation* translation);
 };
 
 #endif

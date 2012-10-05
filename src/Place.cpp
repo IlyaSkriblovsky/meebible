@@ -3,6 +3,7 @@
 #include <QDebug>
 
 #include "Translation.h"
+#include "Language.h"
 
 
 Place::Place()
@@ -31,7 +32,7 @@ void Place::setVerses(const QSet<int>& verses)
 
 
 
-QString Place::verseString() const
+QString Place::verseString(bool dash) const
 {
     QList<int> list = _verses.toList();
     qSort(list);
@@ -60,7 +61,15 @@ QString Place::verseString() const
         }
         else
         {
-            if (prev != groupStart) verseString += QString::fromUtf8("–") + QString::number(prev);
+            if (prev != groupStart)
+            {
+                if (dash)
+                    verseString += QString::fromUtf8("–");
+                else
+                    verseString += "-";
+                verseString += QString::number(prev);
+            }
+
             if (cur != -1) verseString += "," + QString::number(cur);
             prev = cur;
             groupStart = cur;
@@ -179,4 +188,16 @@ bool Place::operator == (const Place& other) const
 bool Place::sameChapter(const Place& other)
 {
     return _bookCode == other._bookCode && _chapterNo == other._chapterNo;
+}
+
+
+
+QString Place::siteUrl(const Translation* translation) const
+{
+    return QString("http://meebible.org/t/%1/%2/%3/%4/%5")
+        .arg(translation->code())
+        .arg(translation->language()->code())
+        .arg(_bookCode)
+        .arg(_chapterNo)
+        .arg(verseString());
 }

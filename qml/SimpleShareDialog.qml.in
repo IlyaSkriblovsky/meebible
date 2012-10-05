@@ -1,0 +1,102 @@
+import QtQuick 1.1
+
+$$QML_IMPORT_QTCOMPONENTS
+
+
+ModelSelectionDialog {
+    id: dialog
+
+
+    property string bibleTextTitle: \"\"
+    property string bibleText: \"\"
+    property string link: \"\"
+
+    function setText(place, text) {
+        bibleTextTitle = placeAccesser.string(place, settings.translation)
+        bibleText = text
+
+        link = placeAccesser.siteUrl(place, settings.translation)
+    }
+
+
+    titleText: qsTr(\"Share Bible place\")
+
+
+    model: ListModel {
+        ListElement { key: \'sms\';         value: \"SMS\"          }
+        ListElement { key: \'mail\';        value: \"E-Mail\"       }
+        ListElement { key: \'twitter\';     value: \"Twitter\"      }
+        ListElement { key: \'facebook\';    value: \"Facebook\"     }
+        ListElement { key: \'gplus\';       value: \"Google+\"  }
+        ListElement { key: \'livejournal\'; value: \"LiveJournal\"  }
+        // ListElement { key: \'vk\';          value: \"VKontakte\"    }
+    }
+
+
+
+    function escapeArg(content) {
+        // I don\'t use encodeURIComponent because on Symbian Qt.openUrlExternally
+        // seems to be doing escaping on its own which leads to double escaping.
+        // On MeeGo unescaped URLs work too
+        // I only need to escape \'&\' to not mess with query arguments
+        return content.replace(\'&\', \'%26\')
+    }
+
+
+    onAccepted: {
+        var service = model.get(selectedIndex).key
+
+        var url = \'\'
+
+        switch (service) {
+            case \'sms\': {
+                url = \'sms:?body=\' + escapeArg(bibleTextTitle + \'\\n\' + bibleText)
+                break
+            }
+
+            case \'mail\': {
+                url = \'mailto:\'
+                    + \'?subject=\' + escapeArg(bibleTextTitle)
+                    + \'&body=\' + escapeArg(bibleText + \'\\n\' + link)
+
+                break
+            }
+
+            case \'twitter\': {
+                var tweet = bibleTextTitle + \': \' + bibleText + \' \' + link
+
+                url = \'http://twitter.com/intent/tweet?text=\' + escapeArg(tweet)
+                break
+            }
+
+            case \'facebook\': {
+                var url = \'http://m.facebook.com/sharer.php?u=\' + escapeArg(link)
+                break
+            }
+
+            case \'livejournal\': {
+                var url = \'http://www.livejournal.com/update.bml?\'
+                        + \'subject=\' + escapeArg(bibleTextTitle)
+                        + \'&event=\' + escapeArg(bibleText + \'<br/><a href=\"\' + link + \'\">via MeeBible</a>\')
+                        + \'&prop_taglist=MeeBible\'
+                break
+            }
+
+            case \'vk\': {
+                var url = \'http://vk.com/share.php?url=\' + escapeArg(link)
+                break
+            }
+
+            case \'gplus\': {
+                var url = \'http://plus.google.com/share?url=\' + escapeArg(link)
+                break
+            }
+        }
+
+        if (url)
+        {
+            console.log(url)
+            Qt.openUrlExternally(url)
+        }
+    }
+}

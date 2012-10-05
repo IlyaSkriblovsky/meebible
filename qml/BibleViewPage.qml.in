@@ -320,14 +320,23 @@ Page {
         }
 
         UniVerseActionButton {
-            visible: ! NOSHARE
-
             text: qsTr(\"Share\")
 
             narrow: verseActions.narrow
 
             onClicked: {
-                bibleView.shareSelectedVerses(settings.copyVerseNumbers)
+                if (!SYMBIAN)
+                {
+                    bibleView.shareSelectedVerses(settings.copyVerseNumbers)
+                }
+                else
+                {
+                    simpleShareDialog.open(
+                        bibleView.place,
+                        bibleView.selectedText(settings.copyVerseNumbers)
+                    )
+                }
+
                 bibleView.clearSelection()
             }
         }
@@ -891,6 +900,18 @@ Page {
         Connections {
             target: bookmarksSheet.item
             onBookmarkSelected: bibleView.place = place
+        }
+    }
+
+
+
+    Loader {
+        id: simpleShareDialog
+        function load() { source = \"SimpleShareDialog.qml\" }
+        function open(title, text) {
+            load()
+            item.setText(title, text)
+            item.open()
         }
     }
 

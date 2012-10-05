@@ -91,11 +91,13 @@ public slots:
     void stopSearchMode();
 
     bool copySelectedVerses(bool withVerseNumbers);
-    #ifndef NOSHARE
+    #ifdef MEEGO_SHARE
         bool shareSelectedVerses(bool withVerseNumbers);
     #endif
     bool bookmarkSelectedVerses();
     void clearSelection();
+
+    QString selectedText(bool withVerseNumbers);
 
 
     // Called from JS
@@ -188,8 +190,6 @@ private slots:
 
     void onTranslationLoadingFinished();
 
-
-    QString selectedText(bool withVerseNumbers);
 };
 
 #endif // BIBLEVIEW_H

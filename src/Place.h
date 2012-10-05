@@ -40,6 +40,9 @@ public:
     bool sameChapter(const Place& other);
 
 
+    QString siteUrl(const Translation* translation) const;
+
+
     bool operator == (const Place& other) const;
 
 
@@ -48,7 +51,7 @@ private:
     int _chapterNo;
     QSet<int> _verses;
 
-    QString verseString() const;
+    QString verseString(bool dash = false) const;
 };
 
 Q_DECLARE_METATYPE(Place);
