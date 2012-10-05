@@ -361,10 +361,10 @@ This is one-time operation</source>
     <message>
         <source>You can search for multiple words, they will be found even if separated by other words.
 
-Place asterisk after word to find it with all different endings (For example: Abra* for Abram and Abraham)</source>
+Place asterisk after word to find it with all different endings (For example: Proph* for Prophet and Prophecy)</source>
         <translation>Вы можете искать несколько слов, они будут найдены даже если в тексте между ними будут другие слова.
 
-Замените окончание слова звёздочкой чтобы найти это слово во всех формах (например: «назар*» найдет и «Назарет» и «Назаретянин»).</translation>
+Замените окончание слова звёздочкой чтобы найти это слово во всех формах (например: «Проро*» найдет и «Пророк» и «Пророчество»).</translation>
     </message>
     <message>
         <source>OK</source>

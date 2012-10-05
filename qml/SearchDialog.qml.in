@@ -279,7 +279,7 @@ Page {
 
         titleText: qsTr(\"Tips\")
 
-        message: qsTr(\"You can search for multiple words, they will be found even if separated by other words.\\n\\nPlace asterisk after word to find it with all different endings (For example: Abra* for Abram and Abraham)\") + (SYMBIAN ? \'\\n\' : \'\')
+        message: qsTr(\"You can search for multiple words, they will be found even if separated by other words.\\n\\nPlace asterisk after word to find it with all different endings (For example: Proph* for Prophet and Prophecy)\") + (SYMBIAN ? \'\\n\' : \'\')
 
         acceptButtonText: qsTr(\"OK\")
     }
