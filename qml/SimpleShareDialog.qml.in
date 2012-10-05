@@ -19,7 +19,7 @@ ModelSelectionDialog {
     }
 
 
-    titleText: qsTr(\"Share Bible place\")
+    titleText: qsTr(\"Share Bible text\")
 
 
     model: ListModel {

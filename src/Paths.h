@@ -28,7 +28,7 @@ public:
 
     static QString nwt_xslt();
 
-    static QString translationFile(const QString& locale);
+    static QString translationsDir();
 
     static QUrl wsUrl(const QString& path);
 

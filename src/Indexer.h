@@ -25,7 +25,7 @@ class Indexer: public QObject
         void addChapter(int bookNo, int chapterNo, const QString& content);
         void sync();
 
-        int docCount();
+        unsigned int docCount();
 
         QMap<QPair<int, int>, QList<MatchEntry> > search(const QString& query, int cutoffDistance);
 

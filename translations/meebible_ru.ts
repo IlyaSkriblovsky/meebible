@@ -35,6 +35,14 @@
         <source>The open source Bible reader</source>
         <translation>Читалка Библии с открытым исходным кодом</translation>
     </message>
+    <message>
+        <source>Beta testing: Simon Botes of {AppCRAFT}</source>
+        <translation>Бета-тестирование: Simon Botes из {AppCRAFT}</translation>
+    </message>
+    <message>
+        <source>Donate</source>
+        <translation>Пожертвовать</translation>
+    </message>
 </context>
 <context>
     <name>BibleView</name>
@@ -498,7 +506,7 @@ Place asterisk after word to find it with all different endings (For example: Ab
         <translation>Управление кэшем</translation>
     </message>
     <message>
-        <source>Cached in phone's storage:</source>
+        <source>Cached in phone&apos;s storage:</source>
         <translation>Хранится в памяти телефона:</translation>
     </message>
     <message>
@@ -520,6 +528,59 @@ Place asterisk after word to find it with all different endings (For example: Ab
     <message>
         <source>Delete search index only</source>
         <translation>Удалить только индекс</translation>
+    </message>
+</context>
+<context>
+    <name>DonatePage</name>
+    <message>
+        <source>Donation accepted</source>
+        <translation>Пожертвование принято</translation>
+    </message>
+    <message>
+        <source>Thank you for supporting MeeBible!</source>
+        <translation>Спасибо вам за поддержку!</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Sorry</source>
+        <translation>Извините</translation>
+    </message>
+    <message>
+        <source>Due to limitations of Nokia Store you can&apos;t pay same amount twice. Please choose another amount if you want to donate more.</source>
+        <translation>Из-за ограничения Nokia Store вы не можете заплатить одну и ту же сумму дважды. Пожалуйста, выберите другую сумму если вы хотите пожертвовать ещё.</translation>
+    </message>
+    <message>
+        <source>Donate</source>
+        <translation>Пожертвовать</translation>
+    </message>
+    <message>
+        <source>You can support further development of MeeBible by donating a small sum</source>
+        <translation>Вы можете поддержать дальнейшее развитие MeeBible, пожертвовав небольшую сумму</translation>
+    </message>
+    <message>
+        <source>Payment will be done via your Nokia Store account</source>
+        <translation>Платёж будет произведён через ваш аккаунт Nokia Store</translation>
+    </message>
+</context>
+<context>
+    <name>ConvertDialog</name>
+    <message>
+        <source>MeeBible is converting downloaded texts into the new storage format...
+
+Please wait</source>
+        <translation>MeeBible конвертирует скачанные тексты в новый формат...
+
+Подождите, пожалуйста</translation>
+    </message>
+</context>
+<context>
+    <name>SimpleShareDialog</name>
+    <message>
+        <source>Share Bible text</source>
+        <translation>Поделиться текстом из Библии</translation>
     </message>
 </context>
 </TS>

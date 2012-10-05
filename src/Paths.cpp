@@ -95,9 +95,9 @@ QString Paths::nwt_xslt()
 }
 
 
-QString Paths::translationFile(const QString& locale)
+QString Paths::translationsDir()
 {
-    return correctSlashes(_translationsDir.filePath(QString("meebible_%1").arg(locale)));
+    return _translationsDir.path();
 }
 
 

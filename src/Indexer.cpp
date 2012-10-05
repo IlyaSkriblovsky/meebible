@@ -82,7 +82,7 @@ void Indexer::sync()
 }
 
 
-int Indexer::docCount()
+unsigned int Indexer::docCount()
 {
     if (_indexFile == 0)
         return 0;
