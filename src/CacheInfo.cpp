@@ -75,12 +75,19 @@ void CacheInfo::update()
     foreach (const QString& ast, asts)
     {
         QString basename = ast.mid(0, ast.length()-4);
-        QStringList parts = basename.split('_');
-        if (parts.length() != 2) continue;
 
-        Language* lang = Languages::instance()->langByCode(parts[1]);
+        int underscorePos = basename.lastIndexOf('_');
+        if (underscorePos == -1) continue;
+
+        // QStringList parts = basename.split('_');
+        // if (parts.length() != 2) continue;
+
+        QString transCode = basename.left(underscorePos);
+        QString langCode = basename.right(basename.length() - underscorePos - 1);
+
+        Language* lang = Languages::instance()->langByCode(langCode);
         if (! lang) continue;
-        Translation* trans = lang->translationByCode(parts[0]);
+        Translation* trans = lang->translationByCode(transCode);
         if (! trans) continue;
 
 
