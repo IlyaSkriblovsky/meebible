@@ -10,7 +10,7 @@ import \"BookColors.js\" as BookColors
 UniDialog {
     id: dialog
 
-    titleText: qsTr(\"Select Book\")
+    titleText: qsTr(\"Select book and verse\")
 
 
     property int chapterNo: 1
@@ -142,7 +142,7 @@ UniDialog {
                 Label {
                     id: chapterLabel
 
-                    text: \"Chapter:\"
+                    text: qsTr(\"Chapter:\")
 
                     color: \"#fff\"
                 }
@@ -172,7 +172,7 @@ UniDialog {
                     anchors.top: chapterGrid.bottom
                     anchors.topMargin: 10
 
-                    text: \"Verse:\"
+                    text: qsTr(\"Verse:\")
 
                     color: \"#fff\"
                 }

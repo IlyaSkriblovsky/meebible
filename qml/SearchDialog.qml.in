@@ -19,7 +19,7 @@ Page {
 
 
     function startSearch() {
-        if (field.text == \"\")
+        if (field.text == \'\')
             return
         if (busyIndicator.visible)
             return
@@ -51,29 +51,29 @@ Page {
             if (found.length == dialog.maxResults)
             {
                 results.append({
-                    title: \"Too many matches\",
-                    subtitle: \"Search results truncated\",
+                    title: qsTr(\"Too many results\"),
+                    subtitle: qsTr(\"First {max} displayed\").replace(\'{max}\', dialog.maxResults),
                     matchCount: 0,
                     isLimiter: true
                 })
             }
 
             busyIndicator.visible = false
-            item.state = results.count == 0 ? \"nothing\" : \"list\"
+            item.state = results.count == 0 ? \'nothing\' : \'list\'
         }
 
         onRebuildingIndex: {
-            item.state = \"rebuilding\"
+            item.state = \'rebuilding\'
         }
 
         onIndexRebuilt: {
-            item.state = \"list\"
+            item.state = \'list\'
         }
     }
 
 
     onVisibleChanged: {
-        if (visible && field.text == \"\")
+        if (visible && field.text == \'\')
             field.forceActiveFocus()
     }
 
@@ -84,7 +84,7 @@ Page {
         UniSearchField {
             id: field
 
-            placeholderText: qsTr(\"Search...\")
+            placeholderText: qsTr(\"Word or phrase\")
 
             anchors.left: parent.left
             anchors.leftMargin: 10
@@ -99,7 +99,7 @@ Page {
             Image {
                 id: image
 
-                source: \"search-infield.png\"
+                source: \'search-infield.png\'
 
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
@@ -123,7 +123,7 @@ Page {
         ToolButton {
             id: searchButton
 
-            text: qsTr(\"Search\")
+            text: qsTr(\"Find\")
             anchors.right: parent.right
             anchors.rightMargin: 10
             anchors.verticalCenter: parent.verticalCenter
@@ -179,7 +179,7 @@ Page {
                     height: 25
 
                     BorderImage {
-                        source: \"countbubble.png\"
+                        source: \'countbubble.png\'
                         anchors.fill: parent
                         border { left: 10; top: 10; right: 10; bottom: 10 }
                     }
@@ -230,8 +230,8 @@ Page {
                 wrapMode: Text.Wrap
                 horizontalAlignment: Text.AlignHCenter
 
-                text: qsTr(\"Rebuilding index...\\nThis is one time operation\")
-                color: settings.inverted ? \"#444\" : \"#888\"
+                text: qsTr(\"Rebuilding index...\\nThis is one-time operation\")
+                color: settings.inverted ? \'#444\' : \'#888\'
                 font.pixelSize: 40
                 font.family: \"Nokia Pure Text Light\"
             }
@@ -246,25 +246,25 @@ Page {
         }
 
 
-        state: \"list\"
+        state: \'list\'
 
         states: [
             State {
-                name: \"list\"
+                name: \'list\'
 
                 PropertyChanges { target: list; visible: true }
                 PropertyChanges { target: nothing; visible: false }
                 PropertyChanges { target: rebuilding; visible: false }
             },
             State {
-                name: \"nothing\"
+                name: \'nothing\'
 
                 PropertyChanges { target: list; visible: false }
                 PropertyChanges { target: nothing; visible: true }
                 PropertyChanges { target: rebuilding; visible: false }
             },
             State {
-                name: \"rebuilding\"
+                name: \'rebuilding\'
 
                 PropertyChanges { target: list; visible: false }
                 PropertyChanges { target: nothing; visible: false }
@@ -277,9 +277,9 @@ Page {
     QueryDialog {
         id: helpDialog
 
-        titleText: qsTr(\"Search tips\")
+        titleText: qsTr(\"Tips\")
 
-        message: qsTr(\"You can search for multiple words, they will be found even if separated by other words.\\n\\nPlace asterisk after word to find it with all different endings (For example: Abra* for Abram and Abraham)\") + (SYMBIAN ? \"\\n\" : \"\")
+        message: qsTr(\"You can search for multiple words, they will be found even if separated by other words.\\n\\nPlace asterisk after word to find it with all different endings (For example: Abra* for Abram and Abraham)\") + (SYMBIAN ? \'\\n\' : \'\')
 
         acceptButtonText: qsTr(\"OK\")
     }
@@ -287,7 +287,7 @@ Page {
 
     tools: ToolBarLayout {
         UniToolIcon {
-            platformIconId: \"toolbar-back\"
+            platformIconId: \'toolbar-back\'
             onClicked: {
                 pageStack.pop()
                 closed()
@@ -295,7 +295,7 @@ Page {
         }
 
         UniToolIcon {
-            platformIconId: \"toolbar-settings\"
+            platformIconId: \'toolbar-settings\'
             onClicked: helpDialog.open()
         }
     }

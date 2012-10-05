@@ -321,12 +321,46 @@ New translations
         <translation>Закрыть</translation>
     </message>
     <message>
-        <source>Search...</source>
-        <translation>Поиск...</translation>
+        <source>Find</source>
+        <translation>Найти</translation>
+    </message>
+    <message>
+        <source>Word or phrase</source>
+        <translation>Слово или фраза</translation>
     </message>
     <message>
         <source>Nothing found</source>
         <translation>Не найдено</translation>
+    </message>
+    <message>
+        <source>Too many results</source>
+        <translation>Слишком много совпадений</translation>
+    </message>
+    <message>
+        <source>First {max} displayed</source>
+        <translation>Показаны первые {max}</translation>
+    </message>
+    <message>
+        <source>Rebuilding index...
+This is one-time operation</source>
+        <translation>Построение индекса...
+Эта операция производится один раз</translation>
+    </message>
+    <message>
+        <source>Tips</source>
+        <translation>Подсказка</translation>
+    </message>
+    <message>
+        <source>You can search for multiple words, they will be found even if separated by other words.
+
+Place asterisk after word to find it with all different endings (For example: Abra* for Abram and Abraham)</source>
+        <translation>Вы можете искать несколько слов, они будут найдены даже если в тексте между ними будут другие слова.
+
+Замените окончание слова звёздочкой чтобы найти это слово во всех формах (например: «назар*» найдет и «Назарет» и «Назаретянин»).</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -415,6 +449,14 @@ New translations
         <source>Available at</source>
         <translation>Доступно на</translation>
     </message>
+    <message>
+        <source>Table-like book selection</source>
+        <translation>Выбор книги в виде таблицы</translation>
+    </message>
+    <message>
+        <source>Manage cache</source>
+        <translation>Управление кэшем</translation>
+    </message>
 </context>
 <context>
     <name>TranslationDialog</name>
@@ -428,6 +470,56 @@ New translations
     <message>
         <source>Close</source>
         <translation>Закрыть</translation>
+    </message>
+</context>
+<context>
+    <name>GridPlaceDialog</name>
+    <message>
+        <source>Select book and verse</source>
+        <translation>Выберите книгу и стих</translation>
+    </message>
+    <message>
+        <source>Chapter:</source>
+        <translation>Глава:</translation>
+    </message>
+    <message>
+        <source>Verse:</source>
+        <translation>Стих:</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+</context>
+<context>
+    <name>CacheInfoPage</name>
+    <message>
+        <source>Manage cache</source>
+        <translation>Управление кэшем</translation>
+    </message>
+    <message>
+        <source>Cached in phone's storage:</source>
+        <translation>Хранится в памяти телефона:</translation>
+    </message>
+    <message>
+        <source>The cache is empty</source>
+        <translation>Кэш пуст</translation>
+    </message>
+    <message>
+        <source>Text: {textSize}</source>
+        <translation>Текст: {textSize}</translation>
+    </message>
+    <message>
+        <source>Text: {textSize}, Search index: {indexSize}</source>
+        <translation>Текст: {textSize}, Поисковый индекс: {indexSize}</translation>
+    </message>
+    <message>
+        <source>Delete from cache</source>
+        <translation>Удалить из кэша</translation>
+    </message>
+    <message>
+        <source>Delete search index only</source>
+        <translation>Удалить только индекс</translation>
     </message>
 </context>
 </TS>

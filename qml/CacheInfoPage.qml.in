@@ -49,7 +49,7 @@ Page {
         anchors.top: header.bottom
         anchors.margins: 10
 
-        text: cacheInfo.count > 0 ? qsTr(\"Cached in phone\'s storage:\") : qsTr(\"MeeBible\'s cache is empty\")
+        text: cacheInfo.count > 0 ? qsTr(\"Cached in phone\'s storage:\") : qsTr(\"The cache is empty\")
 
         font.pixelSize: 24
 
@@ -84,16 +84,16 @@ Page {
 
             Binding {
                 target: row
-                property: \"subtitle\"
+                property: \'subtitle\'
                 when: indexSize == 0
-                value: qsTr(\"Data: _dataSize_\").replace(\'_dataSize_\', formatFileSize(dataSize))
+                value: qsTr(\"Text: {textSize}\").replace(\'{textSize}\', formatFileSize(dataSize))
             }
 
             Binding {
                 target: row
                 property: \"subtitle\"
                 when: indexSize > 0
-                value: qsTr(\"Data: _dataSize_, Search index: _indexSize_\").replace(\'_dataSize_\', formatFileSize(dataSize)).replace(\'_indexSize_\', formatFileSize(indexSize))
+                value: qsTr(\"Text: {textSize}, Search index: {indexSize}\").replace(\'{textSize}\', formatFileSize(dataSize)).replace(\'{indexSize}\', formatFileSize(indexSize))
             }
 
             onClicked: {
@@ -133,7 +133,7 @@ Page {
 
     tools: ToolBarLayout {
         UniToolIcon {
-            platformIconId: \"toolbar-back\"
+            platformIconId: \'toolbar-back\'
             onClicked: pageStack.pop()
         }
     }

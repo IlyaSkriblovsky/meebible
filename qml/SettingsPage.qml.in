@@ -140,7 +140,7 @@ Page {
             }
 
             LabeledSwitch {
-                text: qsTr(\"Grid place selector\")
+                text: qsTr(\"Table-like book selection\")
 
                 checked: settings.gridPlaceSelector
                 onCheckedChanged: settings.gridPlaceSelector = checked
