@@ -49,6 +49,13 @@ asyncdb {
 }
 
 
+symbian {
+    INCLUDEPATH += MW_LAYER_SYSTEMINCLUDE
+    LIBS += -L/epoc32/release/armv5/lib -lremconcoreapi
+    LIBS += -L/epoc32/release/armv5/lib -lremconinterfacebase
+}
+
+
 HEADERS +=                      \
     src/Language.h              \
     src/Languages.h             \
@@ -79,10 +86,12 @@ HEADERS +=                      \
     src/SearchResultAccesser.h  \
     src/Highlighter.h           \
     src/SearchQueryParser.h     \
-    src/SearchThread.h
+    src/SearchThread.h          \
+    src/MediakeyCaptureItem.h
 
 iapdonation:HEADERS +=          \
     src/IAPDonation.h
+
 
 SOURCES +=                      \
     src/main.cpp                \
@@ -110,7 +119,8 @@ SOURCES +=                      \
     src/SearchResultAccesser.cpp\
     src/Highlighter.cpp         \
     src/SearchQueryParser.cpp   \
-    src/SearchThread.cpp
+    src/SearchThread.cpp        \
+    src/MediakeyCaptureItem.cpp
 
 iapdonation:SOURCES +=          \
     src/IAPDonation.cpp
