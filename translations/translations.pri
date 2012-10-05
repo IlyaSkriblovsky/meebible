@@ -4,11 +4,9 @@ TRANSLATIONS += \
     translations/meebible_it.ts \
     translations/meebible_sv.ts
 
-COMPILEDTRANSLATIONS = \
-    translations/meebible_ru.qm \
-    translations/meebible_es.qm \
-    translations/meebible_it.qm \
-    translations/meebible_sv.qm
+
+COMPILEDTRANSLATIONS = translations/*.qm
+
 
 symbian {
     translations.sources = $$COMPILEDTRANSLATIONS
@@ -19,3 +17,20 @@ symbian {
     translations.path = $$INSTALLDIR/translations
     INSTALLS += translations
 }
+
+
+
+# Auto-compiling translations
+
+isEmpty(QMAKE_LRELEASE) {
+    QMAKE_LRELEASE = $$[QT_INSTALL_BINS]/lrelease
+}
+
+TS_DIR = translations
+TSQM.name = lrelease ${QMAKE_FILE_IN}
+TSQM.input = TRANSLATIONS
+TSQM.output = $$TS_DIR/${QMAKE_FILE_BASE}.qm
+TSQM.commands = $$QMAKE_LRELEASE ${QMAKE_FILE_IN}
+TSQM.CONFIG = no_link
+QMAKE_EXTRA_COMPILERS += TSQM
+PRE_TARGETDEPS += compiler_TSQM_make_all
