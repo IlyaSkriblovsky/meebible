@@ -65,15 +65,39 @@ Page {
 
     //\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//
     // Stuff for automatic toolbar hiding in Fullscreen mode
+
+    function canHideToolbar() {
+        return settings.fullscreen
+            && !flickable.moving
+            && page.pageStack.currentPage == page
+            && menu.status == DialogStatus.Closed
+            && page.pageStack.toolBar.tools == commonTools
+    }
+
     Timer {
         id: toolbarTimer
-        interval: 1500
+        interval: 2000
 
         onTriggered: {
-            if (settings.fullscreen && !flickable.moving && page.pageStack.currentPage == page && menu.status == DialogStatus.Closed)
+            if (canHideToolbar())
                 window.showToolBar = false
             else
                 window.showToolBar = true
+        }
+    }
+
+    MouseArea {
+        anchors.top: header.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+
+        z: 10
+
+        onPressed: {
+            mouse.accepted = false
+            window.showToolBar = true
+            toolbarTimer.restart()
         }
     }
 
@@ -140,31 +164,33 @@ Page {
 
         // This applies only to setting contentY programmaticaly
         Behavior on contentY {
+            id: smoothScroll
+
             SmoothedAnimation {
                 velocity: 5000
                 duration: 500
             }
 
-            // enabled: bibleView.searchMode
+            enabled: false
         }
 
 
         MediakeyCapture {
             onVolumeDownPressed: {
-                bibleView.scrollTo(flickable.contentY + flickable.height)
+                bibleView.scrollTo(flickable.contentY + flickable.height, true)
             }
             onVolumeUpPressed: {
-                bibleView.scrollTo(flickable.contentY - flickable.height)
+                bibleView.scrollTo(flickable.contentY - flickable.height, true)
             }
         }
 
         focus: true
         Keys.onPressed: {
             if (event.key == Qt.Key_Down || event.key == 16777391) {
-                bibleView.scrollTo(flickable.contentY + 100)
+                bibleView.scrollTo(flickable.contentY + 100, true)
             }
             else if (event.key == Qt.Key_Up || event.key == 16777390) {
-                bibleView.scrollTo(flickable.contentY - 100)
+                bibleView.scrollTo(flickable.contentY - 100, true)
             }
             // else {
             //     console.log(\'Unknown key \' + event.key)
@@ -222,8 +248,11 @@ Page {
                 // onLoading: page.state = \"loading\"
 
 
-                function scrollTo(y)
+                function scrollTo(y, smooth)
                 {
+                    if (smooth)
+                        smoothScroll.enabled = true
+
                     var maxY = flickable.contentHeight - flickable.height
                     if (y < maxY)
                     {
@@ -234,6 +263,9 @@ Page {
                             flickable.contentY = 0
                         else
                             flickable.contentY = maxY
+
+                    if (smooth)
+                        smoothScroll.enabled = false
                 }
 
                 onNeedToScroll: {
@@ -253,7 +285,7 @@ Page {
                        )
                         return
 
-                    scrollTo(flickY - gap)
+                    scrollTo(flickY - gap, true)
                 }
             }
         }
