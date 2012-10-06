@@ -25,8 +25,8 @@ EditBubbleButton {
             }
         }
 
-        buttonPaddingLeft : (icon.source != "" ? 10 : 0) + (button.narrow ? 0 : 8)
-        buttonPaddingRight: (icon.source != "" ? 10 : 0) + (button.narrow ? 0 : 8)
+        buttonPaddingLeft : (icon.source != "" ? 10 : 0) + (button.narrow ? -6 : 8)
+        buttonPaddingRight: (icon.source != "" ? 10 : 0) + (button.narrow ? -6 : 8)
     }
 
 
