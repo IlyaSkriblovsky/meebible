@@ -1,10 +1,12 @@
 TRANSLATIONS += \
     translations/meebible_ru.ts \
-    translations/meebible_es.ts \
-    translations/meebible_it.ts \
-    translations/meebible_sv.ts \
-    translations/meebible_pt.ts \
-    translations/meebible_fi.ts
+    translations/meebible_es.ts
+#    translations/meebible_ru.ts \
+#    translations/meebible_es.ts \
+#    translations/meebible_it.ts \
+#    translations/meebible_sv.ts \
+#    translations/meebible_pt.ts \
+#    translations/meebible_fi.ts
 
 
 COMPILEDTRANSLATIONS = translations/*.qm
