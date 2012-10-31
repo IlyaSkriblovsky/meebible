@@ -1,4 +1,5 @@
 TRANSLATIONS += \
+    translations/meebible_en.ts \
     translations/meebible_ru.ts \
     translations/meebible_es.ts \
     translations/meebible_it.ts \

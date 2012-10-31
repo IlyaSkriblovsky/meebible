@@ -8,6 +8,7 @@ argparser = argparse.ArgumentParser(description = "Converts translations from JS
 argparser.add_argument("json_filename", metavar = "JSON-file", help = "Input JSON file")
 argparser.add_argument("out_basename", metavar = "out-basename", help = "Output file prefix")
 argparser.add_argument("-m", "--show-missing", action = "store_const", const = True, default = False, help = "Show missing messages")
+argparser.add_argument("-l", "--orig-language", metavar = "orig_language", help = "Treat original strings as translation to that language")
 
 args = argparser.parse_args()
 
@@ -22,6 +23,10 @@ for context in data:
             langs.add(lang)
 
 langs.remove('__')
+
+if args.orig_language:
+    langs.add(args.orig_language)
+
 
 print('Found languages: {0}'.format(', '.join(langs)))
 
@@ -53,11 +58,11 @@ for context in data:
     for message in data[context]:
         source_text = message['__']
 
-        exists = dict((lang, False) for lang in langs)
+        if args.orig_language:
+            message[args.orig_language] = message['__']
 
         for lang in message:
             counters[lang] += 1
-            exists[lang] = True
 
             if lang == '__': continue
 
@@ -72,22 +77,20 @@ for context in data:
             context_tags[lang].appendChild(msg)
 
         for lang in langs:
-            if exists[lang] == False:
+            if lang not in message:
                 missing[lang].append(source_text)
 
 
 
 print('Total messages: {0}'.format(counters['__']))
-# for lang in langs:
-#     if counters[lang] < counters['__']:
-#         print('MISSING: {0} messages for "{1}"'.format(counters['__'] - counters[lang], lang))
+
 
 for lang in langs:
     if missing[lang]:
         if args.show_missing:
             print('MISSING for {0}:'.format(lang))
             for text in missing[lang]:
-                print('\t{0}'.format(text))
+                print(u'\t{0}'.format(text))
         else:
             print('MISSING: {0} messages for {1}'.format(len(missing[lang]), lang))
 
