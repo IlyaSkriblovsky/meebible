@@ -111,6 +111,28 @@ Page {
                 height: 20
             }
 
+
+            TumblerItem {
+                titleText: qsTr(\"Interface language\")
+                valueText: {
+                    switch (settings.uiLanguage)
+                    {
+                        case \'\': return qsTr(\"From system settings\")
+                        case \'en\': return \'English\'
+                        case \'fi\': return \'Finnish\'
+                        case \'it\': return \'Italian\'
+                        case \'pt\': return \'Portuguese\'
+                        case \'ru\': return \'Russian\'
+                        case \'es\': return \'Spanish\'
+                        case \'sv\': return \'Swedish\'
+                        default: return settings.uiLanguage
+                    }
+                }
+
+                onClicked: uiLanguageDialog.open()
+            }
+
+
             TumblerItem {
                 titleText: qsTr(\"Font\")
                 valueText: settings.fontName
@@ -260,6 +282,43 @@ Page {
         onAccepted: {
             settings.fontName = fontDialog.model.get(selectedIndex).value
         }
+    }
+
+
+    ModelSelectionDialog {
+        id: uiLanguageDialog
+
+        titleText: qsTr(\"Interface language\")
+
+        model: ListModel {
+            ListElement { code: \"\"; value: \"From system settings\" }
+            ListElement { code: \"en\"; value: \"English\" }
+            ListElement { code: \"fi\"; value: \"Finnish\" }
+            ListElement { code: \"it\"; value: \"Italian\" }
+            ListElement { code: \"pt\"; value: \"Portuguese\" }
+            ListElement { code: \"ru\"; value: \"Russian\" }
+            ListElement { code: \"es\"; value: \"Spanish\" }
+            ListElement { code: \"sv\"; value: \"Swedish\" }
+        }
+
+        onAccepted: {
+            var newlang = uiLanguageDialog.model.get(selectedIndex).code
+            if (settings.uiLanguage != newlang)
+            {
+                settings.uiLanguage = newlang
+                restartAppNotice.open()
+            }
+        }
+    }
+
+
+    QueryDialog {
+        id: restartAppNotice
+
+        titleText: qsTr(\"Restart needed\")
+        message: qsTr(\"Please restart MeeBible to apply this setting\")
+
+        acceptButtonText: qsTr(\"OK\")
     }
 
 

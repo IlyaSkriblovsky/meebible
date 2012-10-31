@@ -88,16 +88,19 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     Paths::init();
 
-    QTranslator translator;
-    translator.load(QString("meebible_") + QLocale::system().name(), Paths::translationsDir());
-    app->installTranslator(&translator);
-
     Cache cache;
     MetaInfoLoader metaInfoLoader;
 
     Languages languages;
 
     Settings settings(&languages);
+
+    QTranslator translator;
+    QString localeName = settings.uiLanguage();
+    if (localeName.isEmpty())
+        localeName = QLocale::system().name();
+    translator.load(QString("meebible_") + localeName, Paths::translationsDir());
+    app->installTranslator(&translator);
 
     Feedback feedback;
 

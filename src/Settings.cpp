@@ -53,6 +53,8 @@ Settings::Settings(Languages* langs, QObject* parent):
 
     _gridPlaceSelector = _settings.value("General/gridPlaceSelector", true).toBool();
 
+    _uiLanguage = _settings.value("General/uiLanguage", "").toString();
+
     connect(_languages, SIGNAL(loadingFinished()), this, SLOT(onLanguagesLoadingFinished()));
 }
 
@@ -71,6 +73,7 @@ Settings::~Settings()
     _settings.setValue("General/inverted", _inverted);
     _settings.setValue("General/copyVerseNumbers", _copyVerseNumbers);
     _settings.setValue("General/gridPlaceSelector", _gridPlaceSelector);
+    _settings.setValue("General/uiLanguage", _uiLanguage);
 
     _settings.setValue("Notices/searchNoticeShown", _searchNoticeShown);
 }
@@ -273,5 +276,21 @@ void Settings::setGridPlaceSelector(bool value)
     {
         _gridPlaceSelector = value;
         gridPlaceSelectorChanged();
+    }
+}
+
+
+
+QString Settings::uiLanguage() const
+{
+    return _uiLanguage;
+}
+
+void Settings::setUiLanguage(QString value)
+{
+    if (_uiLanguage != value)
+    {
+        _uiLanguage = value;
+        uiLanguageChanged();
     }
 }

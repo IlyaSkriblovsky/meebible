@@ -39,6 +39,8 @@ class Settings: public QObject
 
     Q_PROPERTY(bool gridPlaceSelector READ gridPlaceSelector WRITE setGridPlaceSelector NOTIFY gridPlaceSelectorChanged)
 
+    Q_PROPERTY(QString uiLanguage READ uiLanguage WRITE setUiLanguage NOTIFY uiLanguageChanged)
+
     public:
         Settings(Languages* langs, QObject* parent = 0);
         ~Settings();
@@ -91,6 +93,9 @@ class Settings: public QObject
         bool gridPlaceSelector() const { return _gridPlaceSelector; }
         void setGridPlaceSelector(bool value);
 
+        QString uiLanguage() const;
+        void setUiLanguage(QString value);
+
 
     signals:
         void languageChanged();
@@ -113,6 +118,8 @@ class Settings: public QObject
         void copyVerseNumbersChanged();
 
         void gridPlaceSelectorChanged();
+
+        void uiLanguageChanged();
 
 
 
@@ -152,6 +159,8 @@ class Settings: public QObject
         QString _webService;
 
         bool _gridPlaceSelector;
+
+        QString _uiLanguage;
 };
 
 #endif // SETTINGS_H
