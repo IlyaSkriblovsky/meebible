@@ -111,6 +111,14 @@
 			<source>Available at</source>
 			<translation>Disponível em</translation>
 		</message>
+		<message>
+			<source>Table-like book selection</source>
+			<translation>Tabela como seleção de livro</translation>
+		</message>
+		<message>
+			<source>Manage cache</source>
+			<translation>Gerenciar a memória</translation>
+		</message>
 	</context>
 	<context>
 		<name>FeedbackPage</name>
@@ -238,12 +246,52 @@ Novas traduções
 			<source>The open source Bible reader</source>
 			<translation>O leitor da Bíblia de código aberto</translation>
 		</message>
+		<message>
+			<source>Beta testing: Simon Botes of {AppCRAFT}</source>
+			<translation>Teste Beta: Simon Botes of {AppCRAFT}</translation>
+		</message>
+		<message>
+			<source>Donate</source>
+			<translation>Doação</translation>
+		</message>
 	</context>
 	<context>
 		<name>CacheInfoPage</name>
+		<message>
+			<source>Manage cache</source>
+			<translation>Gerenciar a memória</translation>
+		</message>
+		<message>
+			<source>Cached in phone's storage:</source>
+			<translation>Memória armazenada no telefone:</translation>
+		</message>
+		<message>
+			<source>The cache is empty</source>
+			<translation>A memória está vazia</translation>
+		</message>
+		<message>
+			<source>Text: {textSize}</source>
+			<translation>Texto: {textSize}</translation>
+		</message>
+		<message>
+			<source>Text: {textSize}, Search index: {indexSize}</source>
+			<translation>Texto: {textSize}, índice de pesquisa : {indexSize}</translation>
+		</message>
+		<message>
+			<source>Delete from cache</source>
+			<translation>Excluir da memória</translation>
+		</message>
+		<message>
+			<source>Delete search index only</source>
+			<translation>Excluir somente índice de pesquisa</translation>
+		</message>
 	</context>
 	<context>
 		<name>GridPlaceDialog</name>
+		<message>
+			<source>Select book and verse</source>
+			<translation>Selecione livro e versículo</translation>
+		</message>
 		<message>
 			<source>Chapter:</source>
 			<translation>Capítulo:</translation>
@@ -271,8 +319,42 @@ Novas traduções
 			<translation>Fechar</translation>
 		</message>
 		<message>
+			<source>Find</source>
+			<translation>Encontrar</translation>
+		</message>
+		<message>
+			<source>Word or phrase</source>
+			<translation>Palavra ou frase</translation>
+		</message>
+		<message>
 			<source>Nothing found</source>
 			<translation>Nada foi encontrado</translation>
+		</message>
+		<message>
+			<source>Too many results</source>
+			<translation>Muitos resultados</translation>
+		</message>
+		<message>
+			<source>First {max} displayed</source>
+			<translation>Primeiro {max} exibido</translation>
+		</message>
+		<message>
+			<source>Rebuilding index...
+This is one-time operation</source>
+			<translation>Reconstruindo índice...
+Este é um tempo de operação</translation>
+		</message>
+		<message>
+			<source>Tips</source>
+			<translation>Dicas</translation>
+		</message>
+		<message>
+			<source>You can search for multiple words, they will be found even if separated by other words.
+
+Place asterisk after word to find it with all different endings (For example: Proph* for Prophet and Prophecy)</source>
+			<translation>Você pode pesquisar por várias palavras, elas serão encontradas, mesmo se separadas por outras palavras.
+
+Coloque asterisco após a palavra para encontrá-la com todas as terminações diferentes (por exemplo:  Profe* para Profeta e Profecia)</translation>
 		</message>
 		<message>
 			<source>OK</source>
@@ -309,15 +391,55 @@ Novas traduções
 	<context>
 		<name>DonatePage</name>
 		<message>
+			<source>Donation accepted</source>
+			<translation>Doação aceita</translation>
+		</message>
+		<message>
+			<source>Thank you for supporting MeeBible!</source>
+			<translation>Obrigado por colaborar com MeeBible!</translation>
+		</message>
+		<message>
 			<source>OK</source>
 			<translation>OK</translation>
+		</message>
+		<message>
+			<source>Sorry</source>
+			<translation>Desculpe</translation>
+		</message>
+		<message>
+			<source>Due to limitations of Nokia Store you can't pay same amount twice. Please choose another amount if you want to donate more.</source>
+			<translation>Devido às limitações da Nokia Store você não pode pagar duas vezes o mesmo valor. Por favor escolha outro valor se você quiser doar mais.</translation>
+		</message>
+		<message>
+			<source>Donate</source>
+			<translation>Doação</translation>
+		</message>
+		<message>
+			<source>You can support further development of MeeBible by donating a small sum</source>
+			<translation>Você pode apoiar desenvolvimento da MeeBible doando uma pequena quantia</translation>
+		</message>
+		<message>
+			<source>Payment will be done via your Nokia Store account</source>
+			<translation>O pagamento será feito através da sua conta da Nokia Store</translation>
 		</message>
 	</context>
 	<context>
 		<name>SimpleShareDialog</name>
+		<message>
+			<source>Share Bible text</source>
+			<translation>Compartilhe texto bíblico</translation>
+		</message>
 	</context>
 	<context>
 		<name>ConvertDialog</name>
+		<message>
+			<source>MeeBible is converting downloaded texts into the new storage format...
+
+Please wait</source>
+			<translation>MeeBible está convertendo textos baixados em novo formato de armazenamento...
+
+Por favor aguarde</translation>
+		</message>
 	</context>
 	<context>
 		<name>UniSheet</name>

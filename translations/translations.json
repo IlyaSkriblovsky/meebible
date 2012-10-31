@@ -76,13 +76,15 @@
             "__": "Beta testing: Simon Botes of {AppCRAFT}",
             "ru": "Бета-тестирование: Simon Botes из {AppCRAFT}",
             "it": "Beta testing: Simon Botes di {AppCRAFT}",
-            "sv": "Betatestare: Simon Botes av {AppCRAFT}"
+            "sv": "Betatestare: Simon Botes av {AppCRAFT}",
+            "pt": "Teste Beta: Simon Botes of {AppCRAFT}"
         },
         {
             "__": "Donate",
             "ru": "Пожертвовать",
             "it": "Fai una donazione",
-            "sv": "Donera"
+            "sv": "Donera",
+            "pt": "Doação"
         }
     ],
 
@@ -673,13 +675,15 @@
             "__": "Find",
             "ru": "Найти",
             "it": "Trova",
-            "sv": "Sök"
+            "sv": "Sök",
+            "pt": "Encontrar"
         },
         {
             "__": "Word or phrase",
             "ru": "Слово или фраза",
             "it": "Parola o frase",
-            "sv": "Ord eller fras"
+            "sv": "Ord eller fras",
+            "pt": "Palavra ou frase"
         },
         {
             "__": "Nothing found",
@@ -694,31 +698,36 @@
             "__": "Too many results",
             "ru": "Слишком много совпадений",
             "it": "Troppi risultati",
-            "sv": "För många resultat"
+            "sv": "För många resultat",
+            "pt": "Muitos resultados"
         },
         {
             "__": "First {max} displayed",
             "ru": "Показаны первые {max}",
             "it": "Visualizzati i primi {max} ",
-            "sv": "Första {max} visas"
+            "sv": "Första {max} visas",
+            "pt": "Primeiro {max} exibido"
         },
         {
             "__": "Rebuilding index...\nThis is one-time operation",
             "ru": "Построение индекса...\nЭта операция производится один раз",
             "it": "Rigenerazione indice...\nQuesta operazione verrà effettuata una sola volta",
-            "sv": "Återuppbygger index...\nDetta är en engångsoperation"
+            "sv": "Återuppbygger index...\nDetta är en engångsoperation",
+            "pt": "Reconstruindo índice...\nEste é um tempo de operação"
         },
         {
             "__": "Tips",
             "ru": "Подсказка",
             "it": "Suggerimenti",
-            "sv": "Tips"
+            "sv": "Tips",
+            "pt": "Dicas"
         },
         {
             "__": "You can search for multiple words, they will be found even if separated by other words.\n\nPlace asterisk after word to find it with all different endings (For example: Proph* for Prophet and Prophecy)",
             "ru": "Вы можете искать несколько слов, они будут найдены даже если в тексте между ними будут другие слова.\n\nЗамените окончание слова звёздочкой чтобы найти это слово во всех формах (например: «Проро*» найдет и «Пророк» и «Пророчество»).",
             "it": "E' possibile cercare parole multiple, verranno trovate anche se separate da altre parole.\n\nUsare un asterisco dopo la parola per cercare diverse desinenze (Esempio: Prof* per Profeta e Profezia)",
-            "sv": "Du kan söka efter flera ord, de kommer att hittas även om de är separerade med andra ord.\n\nPlacera asterisk efter ord för att hitta det med alla olika ändelser (Till exempel: Prof* för Profet och Profetera)"
+            "sv": "Du kan söka efter flera ord, de kommer att hittas även om de är separerade med andra ord.\n\nPlacera asterisk efter ord för att hitta det med alla olika ändelser (Till exempel: Prof* för Profet och Profetera)",
+            "pt": "Você pode pesquisar por várias palavras, elas serão encontradas, mesmo se separadas por outras palavras.\n\nColoque asterisco após a palavra para encontrá-la com todas as terminações diferentes (por exemplo:  Profe* para Profeta e Profecia)"
         },
         {
             "__": "OK",
@@ -925,13 +934,15 @@
             "__": "Table-like book selection",
             "ru": "Выбор книги в виде таблицы",
             "it": "Selezione libro a tabella",
-            "sv": "Tabell-liknande bokval"
+            "sv": "Tabell-liknande bokval",
+            "pt": "Tabela como seleção de livro"
         },
         {
             "__": "Manage cache",
             "ru": "Управление кэшем",
             "it": "Gestisci cache",
-            "sv": "Hantera cacheminnet"
+            "sv": "Hantera cacheminnet",
+            "pt": "Gerenciar a memória"
         }
     ],
 
@@ -964,7 +975,8 @@
             "__": "Select book and verse",
             "ru": "Выберите книгу и стих",
             "it": "Scegliere libro e versetto",
-            "sv": "Välj bok och vers"
+            "sv": "Välj bok och vers",
+            "pt": "Selecione livro e versículo"
         },
         {
             "__": "Chapter:",
@@ -1000,43 +1012,50 @@
             "__": "Manage cache",
             "ru": "Управление кэшем",
             "it": "Gestisci cache",
-            "sv": "Hantera cacheminnet"
+            "sv": "Hantera cacheminnet",
+            "pt": "Gerenciar a memória"
         },
         {
             "__": "Cached in phone's storage:",
             "ru": "Хранится в памяти телефона:",
             "it": "Salvato nella cache del telefono:",
-            "sv": "Cachad i telefonens minne:"
+            "sv": "Cachad i telefonens minne:",
+            "pt": "Memória armazenada no telefone:"
         },
         {
             "__": "The cache is empty",
             "ru": "Кэш пуст",
             "it": "La cache è vuota",
-            "sv": "Cacheminnet är tomt"
+            "sv": "Cacheminnet är tomt",
+            "pt": "A memória está vazia"
         },
         {
             "__": "Text: {textSize}",
             "ru": "Текст: {textSize}",
             "it": "Testo: {textSize}",
-            "sv": "Text: {textSize}"
+            "sv": "Text: {textSize}",
+            "pt": "Texto: {textSize}"
         },
         {
             "__": "Text: {textSize}, Search index: {indexSize}",
             "ru": "Текст: {textSize}, Поисковый индекс: {indexSize}",
             "it": "Testo: {textSize}, Indice di ricerca: {indexSize}",
-            "sv": "Text: {textSize}, Sökindex: {indexSize}"
+            "sv": "Text: {textSize}, Sökindex: {indexSize}",
+            "pt": "Texto: {textSize}, índice de pesquisa : {indexSize}"
         },
         {
             "__": "Delete from cache",
             "ru": "Удалить из кэша",
             "it": "Cancella dalla cache",
-            "sv": "Radera från cacheminnet"
+            "sv": "Radera från cacheminnet",
+            "pt": "Excluir da memória"
         },
         {
             "__": "Delete search index only",
             "ru": "Удалить только индекс",
             "it": "Cancella solo l'indice di ricerca",
-            "sv": "Ta endast bort sökindex"
+            "sv": "Ta endast bort sökindex",
+            "pt": "Excluir somente índice de pesquisa"
         }
     ],
 
@@ -1045,13 +1064,15 @@
             "__": "Donation accepted",
             "ru": "Пожертвование принято",
             "it": "Donazione accettata",
-            "sv": "Donationen accepterat"
+            "sv": "Donationen accepterat",
+            "pt": "Doação aceita"
         },
         {
             "__": "Thank you for supporting MeeBible!",
             "ru": "Спасибо вам за поддержку!",
             "it": "Grazie per avere sostenuto lo sviluppo di MeeBible!",
-            "sv": "Tack för att du stödjer MeeBible!"
+            "sv": "Tack för att du stödjer MeeBible!",
+            "pt": "Obrigado por colaborar com MeeBible!"
         },
         {
             "__": "OK",
@@ -1066,31 +1087,36 @@
             "__": "Sorry",
             "ru": "Извините",
             "it": "Spiacente",
-            "sv": "Ursäkta"
+            "sv": "Ursäkta",
+            "pt": "Desculpe"
         },
         {
             "__": "Due to limitations of Nokia Store you can't pay same amount twice. Please choose another amount if you want to donate more.",
             "ru": "Из-за ограничения Nokia Store вы не можете заплатить одну и ту же сумму дважды. Пожалуйста, выберите другую сумму если вы хотите пожертвовать ещё.",
             "it": "Per limitazioni del Nokia Store non puoi pagare lo stesso importo due volte. Si prega di scegliere un altro importo per donare nuovamente.",
-            "sv": "På grund av begränsningar i Nokia Butik kan du inte betala lika mycket två gånger. Vänligen välj ett annat belopp om du vill donera mer."
+            "sv": "På grund av begränsningar i Nokia Butik kan du inte betala lika mycket två gånger. Vänligen välj ett annat belopp om du vill donera mer.",
+            "pt": "Devido às limitações da Nokia Store você não pode pagar duas vezes o mesmo valor. Por favor escolha outro valor se você quiser doar mais."
         },
         {
             "__": "Donate",
             "ru": "Пожертвовать",
             "it": "Fai una donazione",
-            "sv": "Donera"
+            "sv": "Donera",
+            "pt": "Doação"
         },
         {
             "__": "You can support further development of MeeBible by donating a small sum",
             "ru": "Вы можете поддержать дальнейшее развитие MeeBible, пожертвовав небольшую сумму",
             "it": "Puoi aiutare lo sviluppo di MeeBible donando una piccola somma",
-            "sv": "Du kan stödja ytterligare utveckling av MeeBible genom att donera en liten summa pengar"
+            "sv": "Du kan stödja ytterligare utveckling av MeeBible genom att donera en liten summa pengar",
+            "pt": "Você pode apoiar desenvolvimento da MeeBible doando uma pequena quantia"
         },
         {
             "__": "Payment will be done via your Nokia Store account",
             "ru": "Платёж будет произведён через ваш аккаунт Nokia Store",
             "it": "Il pagamento verrà effettuato tramite l'account Nokia Store",
-            "sv": "Betalning kommer att ske via ert Nokia Butik-konto"
+            "sv": "Betalning kommer att ske via ert Nokia Butik-konto",
+            "pt": "O pagamento será feito através da sua conta da Nokia Store"
         }
     ],
 
@@ -1099,7 +1125,8 @@
             "__": "MeeBible is converting downloaded texts into the new storage format...\n\nPlease wait",
             "ru": "MeeBible конвертирует скачанные тексты в новый формат...\n\nПодождите, пожалуйста",
             "it": "Meebible sta convertendo i testi scaricati nel nuovo formato...\n\nAttendere prego",
-            "sv": "MeeBible håller på att omvandla nedladdade texter till det nya lagringsformatet...\n\nVänta"
+            "sv": "MeeBible håller på att omvandla nedladdade texter till det nya lagringsformatet...\n\nVänta",
+            "pt": "MeeBible está convertendo textos baixados em novo formato de armazenamento...\n\nPor favor aguarde"
         }
     ],
 
@@ -1108,7 +1135,8 @@
             "__": "Share Bible text",
             "ru": "Поделиться текстом из Библии",
             "it": "Condividi testo biblico",
-            "sv": "Dela bibeltext"
+            "sv": "Dela bibeltext",
+            "pt": "Compartilhe texto bíblico"
         }
     ]
 }

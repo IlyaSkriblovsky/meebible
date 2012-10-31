@@ -5,3 +5,4 @@
 ^www/error_log
 ^www/access_log
 ^www/static/css/\.sass-cache
+^meebible.sublime-.*$
