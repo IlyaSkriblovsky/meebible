@@ -124,7 +124,7 @@
 		<name>FeedbackPage</name>
 		<message>
 			<source>Feedback</source>
-			<translation>Feedback</translation>
+			<translation>Synpunkter</translation>
 		</message>
 		<message>
 			<source>Your name</source>
