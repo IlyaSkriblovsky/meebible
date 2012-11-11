@@ -254,6 +254,34 @@ Nya översättningar
 			<source>Donate</source>
 			<translation>Donera</translation>
 		</message>
+		<message>
+			<source>Thanks for translating UI to:</source>
+			<translation>Tack för att översätta ansökan</translation>
+		</message>
+		<message>
+			<source>Finnish</source>
+			<translation>Finska</translation>
+		</message>
+		<message>
+			<source>Italian</source>
+			<translation>Italienska</translation>
+		</message>
+		<message>
+			<source>Portuguese</source>
+			<translation>Portugisiska</translation>
+		</message>
+		<message>
+			<source>Russian</source>
+			<translation>Venäjän kieli</translation>
+		</message>
+		<message>
+			<source>Spanish</source>
+			<translation>Spanska</translation>
+		</message>
+		<message>
+			<source>Swedish</source>
+			<translation>Svenska</translation>
+		</message>
 	</context>
 	<context>
 		<name>CacheInfoPage</name>

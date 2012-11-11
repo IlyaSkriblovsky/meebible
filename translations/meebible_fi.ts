@@ -238,6 +238,34 @@ Uudet käännökset
 			<source>The open source Bible reader</source>
 			<translation>Avoimen lähdekoodin Raamatun lukija</translation>
 		</message>
+		<message>
+			<source>Thanks for translating UI to:</source>
+			<translation>Kiitos kääntää sovelluksen</translation>
+		</message>
+		<message>
+			<source>Finnish</source>
+			<translation>Suomen kieli</translation>
+		</message>
+		<message>
+			<source>Italian</source>
+			<translation>Italian kieli</translation>
+		</message>
+		<message>
+			<source>Portuguese</source>
+			<translation>Portugalin kieli</translation>
+		</message>
+		<message>
+			<source>Russian</source>
+			<translation>Ryska</translation>
+		</message>
+		<message>
+			<source>Spanish</source>
+			<translation>Espanjan kieli</translation>
+		</message>
+		<message>
+			<source>Swedish</source>
+			<translation>Ruotsin kieli</translation>
+		</message>
 	</context>
 	<context>
 		<name>CacheInfoPage</name>

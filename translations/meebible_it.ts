@@ -254,6 +254,34 @@ Nuove traduzioni
 			<source>Donate</source>
 			<translation>Fai una donazione</translation>
 		</message>
+		<message>
+			<source>Thanks for translating UI to:</source>
+			<translation>Grazie per la traduzione di applicazioni</translation>
+		</message>
+		<message>
+			<source>Finnish</source>
+			<translation>Finlandese</translation>
+		</message>
+		<message>
+			<source>Italian</source>
+			<translation>Italiano</translation>
+		</message>
+		<message>
+			<source>Portuguese</source>
+			<translation>Portoghese</translation>
+		</message>
+		<message>
+			<source>Russian</source>
+			<translation>Russo</translation>
+		</message>
+		<message>
+			<source>Spanish</source>
+			<translation>Spagnolo</translation>
+		</message>
+		<message>
+			<source>Swedish</source>
+			<translation>Svedese</translation>
+		</message>
 	</context>
 	<context>
 		<name>CacheInfoPage</name>

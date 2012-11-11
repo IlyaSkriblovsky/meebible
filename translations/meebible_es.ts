@@ -238,6 +238,34 @@ Nuevas traducciones
 			<source>The open source Bible reader</source>
 			<translation>El lector Biblico de codigo abierto</translation>
 		</message>
+		<message>
+			<source>Thanks for translating UI to:</source>
+			<translation>Gracias por la traducción de la aplicación</translation>
+		</message>
+		<message>
+			<source>Finnish</source>
+			<translation>Finés</translation>
+		</message>
+		<message>
+			<source>Italian</source>
+			<translation>Italiano</translation>
+		</message>
+		<message>
+			<source>Portuguese</source>
+			<translation>Portugués</translation>
+		</message>
+		<message>
+			<source>Russian</source>
+			<translation>Ruso</translation>
+		</message>
+		<message>
+			<source>Spanish</source>
+			<translation>Español</translation>
+		</message>
+		<message>
+			<source>Swedish</source>
+			<translation>Sueco</translation>
+		</message>
 	</context>
 	<context>
 		<name>CacheInfoPage</name>

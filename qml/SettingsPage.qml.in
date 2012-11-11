@@ -117,14 +117,14 @@ Page {
                 valueText: {
                     switch (settings.uiLanguage)
                     {
-                        case \'\': return qsTr(\"From system settings\")
-                        case \'en\': return \'English\'
-                        case \'fi\': return \'Finnish\'
-                        case \'it\': return \'Italian\'
-                        case \'pt\': return \'Portuguese\'
-                        case \'ru\': return \'Russian\'
-                        case \'es\': return \'Spanish\'
-                        case \'sv\': return \'Swedish\'
+                        case \'\': return qsTr(\"System language\")
+                        case \'en\': return qsTr(\"English\")
+                        case \'fi\': return qsTr(\"Finnish\")
+                        case \'it\': return qsTr(\"Italian\")
+                        case \'pt\': return qsTr(\"Portuguese\")
+                        case \'ru\': return qsTr(\"Russian\")
+                        case \'es\': return qsTr(\"Spanish\")
+                        case \'sv\': return qsTr(\"Swedish\")
                         default: return settings.uiLanguage
                     }
                 }
@@ -291,7 +291,7 @@ Page {
         titleText: qsTr(\"Interface language\")
 
         model: ListModel {
-            ListElement { code: \"\"; value: \"From system settings\" }
+            ListElement { code: \"\";   value: \"System language\" }
             ListElement { code: \"en\"; value: \"English\" }
             ListElement { code: \"fi\"; value: \"Finnish\" }
             ListElement { code: \"it\"; value: \"Italian\" }

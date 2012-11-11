@@ -85,6 +85,69 @@
             "it": "Fai una donazione",
             "sv": "Donera",
             "pt": "Doação"
+        },
+        {
+            "__": "Thanks for translating UI to:",
+            "ru": "За перевод интерфейса программы автор благодарит:",
+            "es": "Gracias por la traducción de la aplicación",
+            "it": "Grazie per la traduzione di applicazioni",
+            "sv": "Tack för att översätta ansökan",
+            "fi": "Kiitos kääntää sovelluksen",
+            "pt": "Obrigado por traduzir aplicação"
+        },
+        {
+            "__": "Finnish",
+            "ru": "Финский",
+            "es": "Finés",
+            "it": "Finlandese",
+            "sv": "Finska",
+            "fi": "Suomen kieli",
+            "pt": "Finlandês"
+        },
+        {
+            "__": "Italian",
+            "ru": "Итальянский",
+            "es": "Italiano",
+            "it": "Italiano",
+            "sv": "Italienska",
+            "fi": "Italian kieli",
+            "pt": "Italiano"
+        },
+        {
+            "__": "Portuguese",
+            "ru": "Португальский",
+            "es": "Portugués",
+            "it": "Portoghese",
+            "sv": "Portugisiska",
+            "fi": "Portugalin kieli",
+            "pt": "Português"
+        },
+        {
+            "__": "Russian",
+            "ru": "Русский",
+            "es": "Ruso",
+            "it": "Russo",
+            "sv": "Venäjän kieli",
+            "fi": "Ryska",
+            "pt": "Russo"
+        },
+        {
+            "__": "Spanish",
+            "ru": "Испанский",
+            "es": "Español",
+            "it": "Spagnolo",
+            "sv": "Spanska",
+            "fi": "Espanjan kieli",
+            "pt": "Espanhol"
+        },
+        {
+            "__": "Swedish",
+            "ru": "Шведский",
+            "es": "Sueco",
+            "it": "Svedese",
+            "sv": "Svenska",
+            "fi": "Ruotsin kieli",
+            "pt": "Sueco"
         }
     ],
 
@@ -943,6 +1006,15 @@
             "it": "Gestisci cache",
             "sv": "Hantera cacheminnet",
             "pt": "Gerenciar a memória"
+        },
+
+        {
+            "__": "Interface language",
+            "ru": "Язык интерфейса"
+        },
+        {
+            "__": "System language",
+            "ru": "Системный язык"
         }
     ],
 

@@ -119,6 +119,14 @@
 			<source>Manage cache</source>
 			<translation>Manage cache</translation>
 		</message>
+		<message>
+			<source>Interface language</source>
+			<translation>Interface language</translation>
+		</message>
+		<message>
+			<source>System language</source>
+			<translation>System language</translation>
+		</message>
 	</context>
 	<context>
 		<name>FeedbackPage</name>
@@ -253,6 +261,34 @@ New translations
 		<message>
 			<source>Donate</source>
 			<translation>Donate</translation>
+		</message>
+		<message>
+			<source>Thanks for translating UI to:</source>
+			<translation>Thanks for translating UI to:</translation>
+		</message>
+		<message>
+			<source>Finnish</source>
+			<translation>Finnish</translation>
+		</message>
+		<message>
+			<source>Italian</source>
+			<translation>Italian</translation>
+		</message>
+		<message>
+			<source>Portuguese</source>
+			<translation>Portuguese</translation>
+		</message>
+		<message>
+			<source>Russian</source>
+			<translation>Russian</translation>
+		</message>
+		<message>
+			<source>Spanish</source>
+			<translation>Spanish</translation>
+		</message>
+		<message>
+			<source>Swedish</source>
+			<translation>Swedish</translation>
 		</message>
 	</context>
 	<context>

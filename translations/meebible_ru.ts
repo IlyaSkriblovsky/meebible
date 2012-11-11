@@ -119,6 +119,14 @@
 			<source>Manage cache</source>
 			<translation>Управление кэшем</translation>
 		</message>
+		<message>
+			<source>Interface language</source>
+			<translation>Язык интерфейса</translation>
+		</message>
+		<message>
+			<source>System language</source>
+			<translation>Системный язык</translation>
+		</message>
 	</context>
 	<context>
 		<name>FeedbackPage</name>
@@ -253,6 +261,34 @@ New translations
 		<message>
 			<source>Donate</source>
 			<translation>Пожертвовать</translation>
+		</message>
+		<message>
+			<source>Thanks for translating UI to:</source>
+			<translation>За перевод интерфейса программы автор благодарит:</translation>
+		</message>
+		<message>
+			<source>Finnish</source>
+			<translation>Финский</translation>
+		</message>
+		<message>
+			<source>Italian</source>
+			<translation>Итальянский</translation>
+		</message>
+		<message>
+			<source>Portuguese</source>
+			<translation>Португальский</translation>
+		</message>
+		<message>
+			<source>Russian</source>
+			<translation>Русский</translation>
+		</message>
+		<message>
+			<source>Spanish</source>
+			<translation>Испанский</translation>
+		</message>
+		<message>
+			<source>Swedish</source>
+			<translation>Шведский</translation>
 		</message>
 	</context>
 	<context>
