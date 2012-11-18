@@ -1,7 +1,7 @@
 import QtQuick 1.1
 
 // for EditBubbleButton
-import "/usr/lib/qt4/imports/com/nokia/meego/" 1.1
+import "/usr/lib/qt4/imports/com/nokia/meego/" 1.0
 
 EditBubbleButton {
     id: button
