@@ -1,4 +1,4 @@
-VERSION = 3.0.0
+VERSION = 3.5.0
 
 TEMPLATE = app
 
