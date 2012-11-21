@@ -7,6 +7,11 @@ return array(
     ),
 
     array(
+        'url'   =>  '/privacy',
+        'view'  =>  'privacy'
+    ),
+
+    array(
         'url'   =>  '/meta',
         'view'  =>  'meta'
     ),
@@ -21,6 +26,12 @@ return array(
         'url'   =>  '/^\/chapter\?/',
         're'    =>  true,
         'view'  =>  'chapter'
+    ),
+
+    array(
+        'url'   =>  '/^\/t\//',
+        're'    =>  true,
+        'view'  =>  'place'
     ),
 
     array(

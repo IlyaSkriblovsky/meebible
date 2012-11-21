@@ -93,36 +93,27 @@
 
         <div class="indent">
             <div class="download-label">Fully-functional free version:</div>
-            <!--
             <div class="store-link">
                 <a href="http://store.ovi.com/content/262401"><img src="/static/img/meebible-small.png"/></a>
                 <a href="http://store.ovi.com/content/262401"><span class="title">MeeBible for Symbian^3</span></a>
             </div>
-            -->
-            <nokia:store product_id="262401" size="small" lang="en"></nokia:store>
         </div>
 
         <h3>MeeGo</h3>
 
         <div class="indent">
             <div class="download-label">Fully-functional free version:</div>
-            <!--
             <div class="store-link indent-left">
                 <a href="http://store.ovi.com/content/218744"><img src="/static/img/meebible-free-small.png"/></a>
                 <a href="http://store.ovi.com/content/218744"><span class="title">MeeBible Free</span></a>
             </div>
-            -->
-            <nokia:store product_id="218744" size="small" lang="en"></nokia:store>
         </div>
         <div class="indent">
             <div class="download-label">Donate €5 for further development:</div>
-            <!--
             <div class="store-link indent-left">
                 <a href="http://store.ovi.com/content/215454"><img src="/static/img/meebible-small.png"/></a>
                 <a href="http://store.ovi.com/content/215454"><span class="title">MeeBible</span></a>
             </div>
-            -->
-            <nokia:store product_id="215454" size="small" lang="en"></nokia:store>
         </div>
 
 
