@@ -188,6 +188,10 @@ Uudet käännökset
 			<source>Return to form</source>
 			<translation>Palata muodostamaan</translation>
 		</message>
+		<message>
+			<source>Privacy policy</source>
+			<translation>Yksityisyyden suoja</translation>
+		</message>
 	</context>
 	<context>
 		<name>BookmarksSheet</name>

@@ -601,6 +601,15 @@
             "sv": "Återgå till formulär",
             "fi": "Palata muodostamaan",
             "pt": "Retornar ao formulário"
+        },
+        {
+            "__": "Privacy policy",
+            "ru": "Положение о конфиденциальности",
+            "es": "Política de privacidad",
+            "it": "Informativa sulla privacy",
+            "sv": "Sekretesspolicy",
+            "fi": "Yksityisyyden suoja",
+            "pt": "Política de privacidade"
         }
     ],
 

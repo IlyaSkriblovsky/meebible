@@ -196,6 +196,10 @@ Nya översättningar
 			<source>Return to form</source>
 			<translation>Återgå till formulär</translation>
 		</message>
+		<message>
+			<source>Privacy policy</source>
+			<translation>Sekretesspolicy</translation>
+		</message>
 	</context>
 	<context>
 		<name>BookmarksSheet</name>

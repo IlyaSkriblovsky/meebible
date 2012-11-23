@@ -75,7 +75,7 @@ Page {
 
                 Component.onCompleted: {
                     if (! SYMBIAN)
-                        height = 400
+                        height = 360
                 }
 
                 $$QML_SYMBIAN_THEME
@@ -98,6 +98,20 @@ Page {
                 $$QML_SYMBIAN_THEME
             }
 
+
+            Label {
+                text: qsTr(\"Privacy policy\")
+
+                wrapMode: Text.Wrap
+
+                color: settings.inverted ? \'#8080ff\' : \'#0000ff\'
+                font.underline: true
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: Qt.openUrlExternally(\'http://meebible.org/privacy\')
+                }
+            }
         }
     }
     ScrollDecorator { flickableItem: flickable }

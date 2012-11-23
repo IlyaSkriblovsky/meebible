@@ -204,6 +204,10 @@ New translations
 			<source>Return to form</source>
 			<translation>Вернуться к форме</translation>
 		</message>
+		<message>
+			<source>Privacy policy</source>
+			<translation>Положение о конфиденциальности</translation>
+		</message>
 	</context>
 	<context>
 		<name>BookmarksSheet</name>

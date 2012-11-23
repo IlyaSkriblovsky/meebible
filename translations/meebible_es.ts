@@ -188,6 +188,10 @@ Nuevas traducciones
 			<source>Return to form</source>
 			<translation>Regresar ak formulario</translation>
 		</message>
+		<message>
+			<source>Privacy policy</source>
+			<translation>Política de privacidad</translation>
+		</message>
 	</context>
 	<context>
 		<name>BookmarksSheet</name>

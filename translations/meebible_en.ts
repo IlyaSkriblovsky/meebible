@@ -204,6 +204,10 @@ New translations
 			<source>Return to form</source>
 			<translation>Return to form</translation>
 		</message>
+		<message>
+			<source>Privacy policy</source>
+			<translation>Privacy policy</translation>
+		</message>
 	</context>
 	<context>
 		<name>BookmarksSheet</name>

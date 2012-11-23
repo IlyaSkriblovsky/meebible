@@ -196,6 +196,10 @@ Nuove traduzioni
 			<source>Return to form</source>
 			<translation>Ritorna al modulo</translation>
 		</message>
+		<message>
+			<source>Privacy policy</source>
+			<translation>Informativa sulla privacy</translation>
+		</message>
 	</context>
 	<context>
 		<name>BookmarksSheet</name>
