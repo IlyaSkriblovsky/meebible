@@ -41,7 +41,7 @@
             "ru": "Свяжитесь со мной если у вас есть замечания, предложения или если вы хотите добавить новые переводы Библии или интерфейса программы.",
             "es": "Por favor contactanos con cualquier comentario o sugerencia, o si quieres agregar una nueva traduccion de la Biblia o traducir la interface de esta aplicacion.",
             "it": "Si prega di contattarci per commenti, suggerimenti e aggiunta di traduzioni della Bibbia o dell'applicazione.",
-            "sv": "Kontakta oss gärna med kommentarer eller förslag, eller om du vill lägga till nya Bibel- eller UI-översättningar.",
+            "sv": "Kontakta oss gärna med kommentarer eller förslag, eller om du vill lägga till nya Bibel- eller användargränssnitt-översättningar.",
             "fi": "Ota meihin yhteyttä, ehdota tai kommentoi, jos haluat lisätä uuden Raamatun tai UI käännöksiä.",
             "pt": "Por favor, entre em contato conosco com quaisquer comentários ou sugestões ou se você quiser adicionar nova Bíblia ou traduções de interface do usuário."
         },
@@ -91,7 +91,7 @@
             "ru": "За перевод интерфейса программы автор благодарит:",
             "es": "Gracias por la traducción de la aplicación",
             "it": "Grazie per la traduzione di applicazioni",
-            "sv": "Tack för att översätta ansökan",
+            "sv": "Tack för översättningen av användargränssnittet:",
             "fi": "Kiitos kääntää sovelluksen",
             "pt": "Obrigado por traduzir aplicação"
         },
@@ -1003,10 +1003,10 @@
             "pt": "Disponível em"
         },
         {
-            "__": "Table-like book selection",
+            "__": "Grid-like book selection",
             "ru": "Выбор книги в виде таблицы",
             "it": "Selezione libro a tabella",
-            "sv": "Tabell-liknande bokval",
+            "sv": "Grid-liknande bokval",
             "pt": "Tabela como seleção de livro"
         },
         {

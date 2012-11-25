@@ -112,8 +112,8 @@
 			<translation>Available at</translation>
 		</message>
 		<message>
-			<source>Table-like book selection</source>
-			<translation>Table-like book selection</translation>
+			<source>Grid-like book selection</source>
+			<translation>Grid-like book selection</translation>
 		</message>
 		<message>
 			<source>Manage cache</source>

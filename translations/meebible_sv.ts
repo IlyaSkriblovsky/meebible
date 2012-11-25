@@ -112,8 +112,8 @@
 			<translation>Finns på</translation>
 		</message>
 		<message>
-			<source>Table-like book selection</source>
-			<translation>Tabell-liknande bokval</translation>
+			<source>Grid-like book selection</source>
+			<translation>Grid-liknande bokval</translation>
 		</message>
 		<message>
 			<source>Manage cache</source>
@@ -236,7 +236,7 @@ Nya översättningar
 		</message>
 		<message>
 			<source>Please contact us with any comments or suggestions or if you want to add new Bible or UI translations.</source>
-			<translation>Kontakta oss gärna med kommentarer eller förslag, eller om du vill lägga till nya Bibel- eller UI-översättningar.</translation>
+			<translation>Kontakta oss gärna med kommentarer eller förslag, eller om du vill lägga till nya Bibel- eller användargränssnitt-översättningar.</translation>
 		</message>
 		<message>
 			<source>Send your feedback</source>
@@ -260,7 +260,7 @@ Nya översättningar
 		</message>
 		<message>
 			<source>Thanks for translating UI to:</source>
-			<translation>Tack för att översätta ansökan</translation>
+			<translation>Tack för översättningen av användargränssnittet:</translation>
 		</message>
 		<message>
 			<source>Finnish</source>

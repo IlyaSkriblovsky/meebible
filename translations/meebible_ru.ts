@@ -112,7 +112,7 @@
 			<translation>Доступно на</translation>
 		</message>
 		<message>
-			<source>Table-like book selection</source>
+			<source>Grid-like book selection</source>
 			<translation>Выбор книги в виде таблицы</translation>
 		</message>
 		<message>

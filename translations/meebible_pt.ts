@@ -112,7 +112,7 @@
 			<translation>Disponível em</translation>
 		</message>
 		<message>
-			<source>Table-like book selection</source>
+			<source>Grid-like book selection</source>
 			<translation>Tabela como seleção de livro</translation>
 		</message>
 		<message>
