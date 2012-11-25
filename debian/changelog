@@ -1,3 +1,9 @@
+meebible (3.5.1) unstable; urgency=low
+
+  * Swedish translation updated
+
+ -- Ilya Skriblovsky <Ilya.Skriblovsky@gmail.com>  Thu, 25 Nov 2012 19:00:00 +0400
+
 meebible (3.5.0) unstable; urgency=low
 
   * True fullscreen mode: bottom panel now hides in fullscreen mode
