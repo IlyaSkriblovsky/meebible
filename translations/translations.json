@@ -80,13 +80,6 @@
             "pt": "Teste Beta: Simon Botes of {AppCRAFT}"
         },
         {
-            "__": "Donate",
-            "ru": "Пожертвовать",
-            "it": "Fai una donazione",
-            "sv": "Donera",
-            "pt": "Doação"
-        },
-        {
             "__": "Thanks for translating UI to:",
             "ru": "За перевод интерфейса программы автор благодарит:",
             "es": "Gracias por la traducción de la aplicación",
@@ -406,6 +399,13 @@
             "sv": "Inställningar",
             "fi": "Asetukset",
             "pt": "Configurações"
+        },
+        {
+            "__": "Donate",
+            "ru": "Пожертвовать",
+            "it": "Fai una donazione",
+            "sv": "Donera",
+            "pt": "Doação"
         },
         {
             "__": "About MeeBible",

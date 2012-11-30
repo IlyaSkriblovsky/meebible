@@ -83,28 +83,28 @@ Page {
                 $$QML_SYMBIAN_THEME
             }
 
-            Button {
-                visible: IAPDONATION
-
-                anchors.horizontalCenter: parent.horizontalCenter
-
-                text: qsTr(\"Donate\")
-
-                width: feedbackButton.width
-                height: 60
-
-                Loader {
-                    id: donatePage
-
-                    function load() { source = \"DonatePage.qml\" }
-
-                    function open() { load(); pageStack.push(item) }
-                }
-
-                onClicked: donatePage.open()
-
-                $$QML_SYMBIAN_THEME
-            }
+//             Button {
+//                 visible: IAPDONATION
+// 
+//                 anchors.horizontalCenter: parent.horizontalCenter
+// 
+//                 text: qsTr(\"Donate\")
+// 
+//                 width: feedbackButton.width
+//                 height: 60
+// 
+//                 Loader {
+//                     id: donatePage
+// 
+//                     function load() { source = \"DonatePage.qml\" }
+// 
+//                     function open() { load(); pageStack.push(item) }
+//                 }
+// 
+//                 onClicked: donatePage.open()
+// 
+//                 $$QML_SYMBIAN_THEME
+//             }
 
             Label {
                 text: qsTr(\"Read God\'s Word daily!\")

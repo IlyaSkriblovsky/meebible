@@ -949,6 +949,14 @@ Page {
 
 
 
+    Loader {
+        id: donatePage
+        function load() { source = \"DonatePage.qml\" }
+        function open() { load(); pageStack.push(item) }
+    }
+
+
+
     Menu {
         id: menu
 
@@ -963,6 +971,13 @@ Page {
                 text: qsTr(\"Search\")
 
                 onClicked: searchDialog.open()
+
+                $$QML_SYMBIAN_THEME
+            }
+
+            MenuItem {
+                text: qsTr(\"Download Bible\")
+                onClicked: downloadConfirmDialog.open()
 
                 $$QML_SYMBIAN_THEME
             }
@@ -1010,14 +1025,24 @@ Page {
                 $$QML_SYMBIAN_THEME
             }
 
-            MenuItem {
-                text: qsTr(\"Download Bible\")
-                onClicked: downloadConfirmDialog.open()
+            CoupledMenuItems {
+                visible: SYMBIAN && IAPDONATION
 
-                $$QML_SYMBIAN_THEME
+                leftText: qsTr(\"Settings\")
+                onLeftClicked: {
+                    settingsPage.open()
+                    menu.close()
+                }
+
+                rightText: qsTr(\"Donate\")
+                onRightClicked: {
+                    donatePage.open()
+                    menu.close()
+                }
             }
 
             MenuItem {
+                visible: ! (SYMBIAN && IAPDONATION)
                 text: qsTr(\"Settings\")
                 onClicked: settingsPage.open()
 
