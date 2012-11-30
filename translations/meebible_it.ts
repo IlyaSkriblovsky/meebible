@@ -255,10 +255,6 @@ Nuove traduzioni
 			<translation>Beta testing: Simon Botes di {AppCRAFT}</translation>
 		</message>
 		<message>
-			<source>Donate</source>
-			<translation>Fai una donazione</translation>
-		</message>
-		<message>
 			<source>Thanks for translating UI to:</source>
 			<translation>Grazie per la traduzione di applicazioni</translation>
 		</message>
@@ -585,6 +581,10 @@ Attendere prego</translation>
 		<message>
 			<source>Settings</source>
 			<translation>Impostazioni</translation>
+		</message>
+		<message>
+			<source>Donate</source>
+			<translation>Fai una donazione</translation>
 		</message>
 		<message>
 			<source>About MeeBible</source>

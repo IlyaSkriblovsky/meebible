@@ -255,10 +255,6 @@ Nya översättningar
 			<translation>Betatestare: Simon Botes av {AppCRAFT}</translation>
 		</message>
 		<message>
-			<source>Donate</source>
-			<translation>Donera</translation>
-		</message>
-		<message>
 			<source>Thanks for translating UI to:</source>
 			<translation>Tack för översättningen av användargränssnittet:</translation>
 		</message>
@@ -585,6 +581,10 @@ Vänta</translation>
 		<message>
 			<source>Settings</source>
 			<translation>Inställningar</translation>
+		</message>
+		<message>
+			<source>Donate</source>
+			<translation>Donera</translation>
 		</message>
 		<message>
 			<source>About MeeBible</source>
