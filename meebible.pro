@@ -29,6 +29,7 @@ INSTALLS += invoker
 
 
 symbian {
+    TARGET.CAPABILITY += NetworkServices
     dev {
         TARGET.UID3 = 0xe0cd6015
     }
