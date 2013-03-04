@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS langs;
 
 
 CREATE TABLE langs (code VARCHAR PRIMARY KEY, engname VARCHAR, selfname VARCHAR);
+BEGIN;
 INSERT INTO langs VALUES ('a',   'Arabic',      'العربية');
 INSERT INTO langs VALUES ('af',  'Afrikaans',   'Afrikaans');
 INSERT INTO langs VALUES ('al',  'Albanian',    'Shqip');
@@ -56,8 +57,9 @@ INSERT INTO langs VALUES ('uk',  'Ukranian',    'Українська мова')
 INSERT INTO langs VALUES ('tm',  'Tamil',       'தமிழ்');
 INSERT INTO langs VALUES ('ml',  'Malayalam',   'മലയാളം');
 INSERT INTO langs VALUES ('ne',  'Nepali',      'नेपाली');
-
+INSERT INTO langs VALUES ('hi',  'Hindi',       'हिन्दी');
 -- INSERT INTO langs VALUES ('bel', 'Belarusian',  'Беларуская мова');
+COMMIT;
 
 
 VACUUM;
