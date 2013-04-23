@@ -219,6 +219,14 @@ Page {
                     $$QML_SYMBIAN_THEME
                 }
                 Label {
+                    text: \'• \' + qsTr(\"German\") + \': Martin Augustin\'
+
+                    width: parent.width
+                    wrapMode: Text.Wrap
+
+                    $$QML_SYMBIAN_THEME
+                }
+                Label {
                     text: \'• \' + qsTr(\"Italian\") + \': Paolo Gherpelli\'
 
                     width: parent.width

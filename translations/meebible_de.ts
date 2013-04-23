@@ -1,14 +1,14 @@
 <?xml version="1.0" ?>
-<TS language="ru" version="2.0">
+<TS language="de" version="2.0">
 	<context>
 		<name>BibleView</name>
 		<message>
 			<source>Current translation doesn't contain this book</source>
-			<translation>Текущий перевод не содержит этой книги</translation>
+			<translation>Dieses Buch ist in der aktuellen Übersetzung nicht enthalten</translation>
 		</message>
 		<message>
 			<source>&lt;h3&gt;Cannot load chapter&lt;/h3&gt; Please check your internet connection</source>
-			<translation>&lt;h3&gt;Не удалось загрузить главу&lt;/h3&gt; Пожалуйста, проверьте подключение к интернету</translation>
+			<translation>&lt;h3&gt;Das Kapitel kann nicht geladen werden&lt;/h3&gt; Bitte Internetverbindung prüfen</translation>
 		</message>
 	</context>
 	<context>
@@ -22,125 +22,125 @@
 		<name>TranslationDialog</name>
 		<message>
 			<source>Select Translation</source>
-			<translation>Выберите перевод</translation>
+			<translation>Übersetzung wählen</translation>
 		</message>
 	</context>
 	<context>
 		<name>SettingsPage</name>
 		<message>
 			<source>Settings</source>
-			<translation>Настройки</translation>
+			<translation>Einstellungen</translation>
 		</message>
 		<message>
 			<source>Language</source>
-			<translation>Язык</translation>
+			<translation>Sprache</translation>
 		</message>
 		<message>
 			<source>&lt;not loaded yet&gt;</source>
-			<translation>&lt;не загружено&gt;</translation>
+			<translation>&lt;noch nicht heruntergeladen&gt;</translation>
 		</message>
 		<message>
 			<source>Translation</source>
-			<translation>Перевод</translation>
+			<translation>Übersetzung</translation>
 		</message>
 		<message>
 			<source>Font</source>
-			<translation>Шрифт</translation>
+			<translation>Schriftart</translation>
 		</message>
 		<message>
 			<source>Scroll header with the text</source>
-			<translation>Прокручиваемый заголовок</translation>
+			<translation>Überschrift mit dem Text scrollen</translation>
 		</message>
 		<message>
 			<source>Fullscreen</source>
-			<translation>На весь экран</translation>
+			<translation>Vollbild</translation>
 		</message>
 		<message>
 			<source>Inverted theme</source>
-			<translation>Инверсная тема</translation>
+			<translation>Invertierte Darstellung</translation>
 		</message>
 		<message>
 			<source>Copy verses with numbers</source>
-			<translation>Копировать стихи с номерами</translation>
+			<translation>Verse mit Nummern kopieren</translation>
 		</message>
 		<message>
 			<source>Update translation list</source>
-			<translation>Обновить переводы</translation>
+			<translation>Übersetzungsliste aktualisieren</translation>
 		</message>
 		<message>
 			<source>Reload languages</source>
-			<translation>Обновить переводы</translation>
+			<translation>Sprachen neu laden</translation>
 		</message>
 		<message>
 			<source>When new translation is published on MeeBible's server, use this button to update translation list</source>
-			<translation>Когда новый перевод опубликован на сайте MeeBible, нужно нажать эту кнопку, чтобы он появился в списке</translation>
+			<translation>Wenn neue Übersetzungen auf dem MeeBible Server veröffentlicht werden kann mit dem Button die Übersetzungsliste aktualisiert werden.</translation>
 		</message>
 		<message>
 			<source>Clear cache</source>
-			<translation>Очистить кэш</translation>
+			<translation>Cache leeren</translation>
 		</message>
 		<message>
 			<source>Cache clearing</source>
-			<translation>Очистка кэша</translation>
+			<translation>Cache leeren...</translation>
 		</message>
 		<message>
 			<source>Select Font</source>
-			<translation>Выберите шрифт</translation>
+			<translation>Schriftart wählen</translation>
 		</message>
 		<message>
 			<source>Not all fonts can display all languages</source>
-			<translation>Не все шрифты хорошо работают со всеми языками</translation>
+			<translation>Nicht alle Schriftarten können alle Sprachen darstellen</translation>
 		</message>
 		<message>
 			<source>Do you want to clear the cache?</source>
-			<translation>Вы действительно хотите очистить кэш?</translation>
+			<translation>Wollen Sie den Cache leeren?</translation>
 		</message>
 		<message>
 			<source>This will delete all downloaded Bible chapters from your phone</source>
-			<translation>Все скачанные главы Библии будут удалены из вашего телефона</translation>
+			<translation>Es werden alle heruntergeladenen Bibelkapitel vom Handy gelöscht</translation>
 		</message>
 		<message>
 			<source>Clear</source>
-			<translation>Очистить</translation>
+			<translation>Leeren</translation>
 		</message>
 		<message>
 			<source>Cancel</source>
-			<translation>Отмена</translation>
+			<translation>Abbrechen</translation>
 		</message>
 		<message>
 			<source>Available at</source>
-			<translation>Доступно на</translation>
+			<translation>Verfügbar auf</translation>
 		</message>
 		<message>
 			<source>Grid-like book selection</source>
-			<translation>Выбор книги в виде таблицы</translation>
+			<translation>Buchauswahl im Tabellen-Stil</translation>
 		</message>
 		<message>
 			<source>Manage cache</source>
-			<translation>Управление кэшем</translation>
+			<translation>Cache verwalten</translation>
 		</message>
 		<message>
 			<source>Interface language</source>
-			<translation>Язык интерфейса</translation>
+			<translation>Programmsprache</translation>
 		</message>
 		<message>
 			<source>System language</source>
-			<translation>Системный язык</translation>
+			<translation>Systemsprache</translation>
 		</message>
 	</context>
 	<context>
 		<name>FeedbackPage</name>
 		<message>
 			<source>Feedback</source>
-			<translation>Обратная связь</translation>
+			<translation>Feedback</translation>
 		</message>
 		<message>
 			<source>Your name</source>
-			<translation>Ваше имя</translation>
+			<translation>Ihr Name</translation>
 		</message>
 		<message>
 			<source>Your E-Mail</source>
-			<translation>Ваш E-Mail</translation>
+			<translation>Ihre Email-Adresse</translation>
 		</message>
 		<message>
 			<source>Comments
@@ -149,32 +149,32 @@ Improvements
 Critics
 New translations
 ...</source>
-			<translation>Комментарии
-Предложения
-Улучшения
-Критика
-Новые переводы
+			<translation>Kommentare
+Vorschläge
+Verbesserungen
+Kritik
+Neue Übersetzungen
 ...</translation>
 		</message>
 		<message>
 			<source>Send</source>
-			<translation>Отправить</translation>
+			<translation>Senden</translation>
 		</message>
 		<message>
 			<source>Sending feedback</source>
-			<translation>Отправка отзыва</translation>
+			<translation>Feedback wird gesendet</translation>
 		</message>
 		<message>
 			<source>Cancel</source>
-			<translation>Отмена</translation>
+			<translation>Abbrechen</translation>
 		</message>
 		<message>
 			<source>Feedback sent</source>
-			<translation>Отзыв отправлен</translation>
+			<translation>Feedback gesendet</translation>
 		</message>
 		<message>
 			<source>Thank you! Your feedback is highly appreciated. We will answer you as soon as possible.</source>
-			<translation>Спасибо! Мы очень ценим Ваши отзывы и ответим как можно скорее.</translation>
+			<translation>Danke! Ihr Feedback wird sehr geschätzt. Wir werden Ihnen sobald wie möglich antworten.</translation>
 		</message>
 		<message>
 			<source>OK</source>
@@ -182,163 +182,163 @@ New translations
 		</message>
 		<message>
 			<source>Sending failed</source>
-			<translation>Не удалось отправить</translation>
+			<translation>Senden fehlgeschlagen</translation>
 		</message>
 		<message>
 			<source>Your feedback was not sent. Please check internet connection and try again.</source>
-			<translation>Ваш отзыв не был отправлен. Пожалуйста, проверьте подключение к интернету и попробуйте ещё раз.</translation>
+			<translation>Ihr Feedback wurde nicht gesendet. Bitte prüfen Sie die Internetverbindung und versuchen es erneut.</translation>
 		</message>
 		<message>
 			<source>No E-Mail?</source>
-			<translation>Нет указан E-Mail?</translation>
+			<translation>Keine Email?</translation>
 		</message>
 		<message>
 			<source>You have not specified E-Mail address. We will not be able to answer you!</source>
-			<translation>Вы не указали ваш E-Mail. Мы не сможем ответить на ваш отзыв!</translation>
+			<translation>Sie haben keine Email-Adresse angegeben. Wir werden Ihnen nicht antworten können!</translation>
 		</message>
 		<message>
 			<source>Send anyway</source>
-			<translation>Всё равно отправить</translation>
+			<translation>Trotzdem senden</translation>
 		</message>
 		<message>
 			<source>Return to form</source>
-			<translation>Вернуться к форме</translation>
+			<translation>Zurück zum Formular</translation>
 		</message>
 		<message>
 			<source>Privacy policy</source>
-			<translation>Положение о конфиденциальности</translation>
+			<translation>Datenschutzerklärung</translation>
 		</message>
 	</context>
 	<context>
 		<name>BookmarksSheet</name>
 		<message>
 			<source>Bookmarks</source>
-			<translation>Закладки</translation>
+			<translation>Lesezeichen</translation>
 		</message>
 		<message>
 			<source>Delete</source>
-			<translation>Удалить</translation>
+			<translation>Löschen</translation>
 		</message>
 		<message>
 			<source>No bookmarks yet</source>
-			<translation>Закладок ещё нет</translation>
+			<translation>Keine Lesezeichen angelegt</translation>
 		</message>
 	</context>
 	<context>
 		<name>AboutPage</name>
 		<message>
 			<source>About MeeBible</source>
-			<translation>О программе MeeBible</translation>
+			<translation>Über MeeBible</translation>
 		</message>
 		<message>
 			<source>If you want to support development, please consider buying &lt;a href='http://store.ovi.com/content/215454'&gt;paid version&lt;/a&gt;!</source>
-			<translation>Вы можете поддержать разработку, купив &lt;a href='http://store.ovi.com/content/215454'&gt;платную версию&lt;/a&gt;!</translation>
+			<translation>Wenn Sie die Entwicklung unterstützen wollen, überlegen Sie bitte die &lt;a href='http://store.ovi.com/content/215454'&gt;Bezahlversion&lt;/a&gt; zu kaufen!</translation>
 		</message>
 		<message>
 			<source>Thank you for supporting development!</source>
-			<translation>Спасибо за поддержку!</translation>
+			<translation>Danke, dass Sie die Entwicklung unterstützen!</translation>
 		</message>
 		<message>
 			<source>© 2011 Ilya Skriblovsky</source>
-			<translation>© 2011 Илья Скрибловский</translation>
+			<translation>© 2011 Ilya Skriblovsky</translation>
 		</message>
 		<message>
 			<source>Please contact us with any comments or suggestions or if you want to add new Bible or UI translations.</source>
-			<translation>Свяжитесь со мной если у вас есть замечания, предложения или если вы хотите добавить новые переводы Библии или интерфейса программы.</translation>
+			<translation>Bitte kontaktieren Sie uns bei Kommentaren oder Vorschlägen, oder wenn Sie neue Bibel- oder Programmübersetzungen hinzufügen möchten.</translation>
 		</message>
 		<message>
 			<source>Send your feedback</source>
-			<translation>Отправить отзыв</translation>
+			<translation>Feedback senden</translation>
 		</message>
 		<message>
 			<source>Read God's Word daily!</source>
-			<translation>Читайте Божье Слово каждый день!</translation>
+			<translation>Lese Gottes Wort jeden Tag!</translation>
 		</message>
 		<message>
 			<source>The open source Bible reader</source>
-			<translation>Читалка Библии с открытым исходным кодом</translation>
+			<translation>Der Open Source Bibel Reader</translation>
 		</message>
 		<message>
 			<source>Beta testing: Simon Botes of {AppCRAFT}</source>
-			<translation>Бета-тестирование: Simon Botes из {AppCRAFT}</translation>
+			<translation>Beta-Tests: Simon Botes von {AppCRAFT}</translation>
 		</message>
 		<message>
 			<source>Thanks for translating UI to:</source>
-			<translation>За перевод интерфейса программы автор благодарит:</translation>
+			<translation>Danke für das Übersetzen der Anwendung in:</translation>
 		</message>
 		<message>
 			<source>Finnish</source>
-			<translation>Финский</translation>
+			<translation>Finnisch</translation>
 		</message>
 		<message>
 			<source>Italian</source>
-			<translation>Итальянский</translation>
+			<translation>Italienisch</translation>
 		</message>
 		<message>
 			<source>Portuguese</source>
-			<translation>Португальский</translation>
+			<translation>Portugiesisch</translation>
 		</message>
 		<message>
 			<source>Russian</source>
-			<translation>Русский</translation>
+			<translation>Russisch</translation>
 		</message>
 		<message>
 			<source>Spanish</source>
-			<translation>Испанский</translation>
+			<translation>Spanisch</translation>
 		</message>
 		<message>
 			<source>Swedish</source>
-			<translation>Шведский</translation>
+			<translation>Schwedisch</translation>
 		</message>
 		<message>
 			<source>German</source>
-			<translation>Немецкий</translation>
+			<translation>Deutsch</translation>
 		</message>
 	</context>
 	<context>
 		<name>CacheInfoPage</name>
 		<message>
 			<source>Manage cache</source>
-			<translation>Управление кэшем</translation>
+			<translation>Cache verwalten</translation>
 		</message>
 		<message>
 			<source>Cached in phone's storage:</source>
-			<translation>Хранится в памяти телефона:</translation>
+			<translation>Im Telefonspeicher gespeichert:</translation>
 		</message>
 		<message>
 			<source>The cache is empty</source>
-			<translation>Кэш пуст</translation>
+			<translation>Der Cache ist leer</translation>
 		</message>
 		<message>
 			<source>Text: {textSize}</source>
-			<translation>Текст: {textSize}</translation>
+			<translation>Text: {textSize}</translation>
 		</message>
 		<message>
 			<source>Text: {textSize}, Search index: {indexSize}</source>
-			<translation>Текст: {textSize}, Поисковый индекс: {indexSize}</translation>
+			<translation>Text: {textSize}, Suchindex: {indexSize}</translation>
 		</message>
 		<message>
 			<source>Delete from cache</source>
-			<translation>Удалить из кэша</translation>
+			<translation>Aus dem Cache löschen</translation>
 		</message>
 		<message>
 			<source>Delete search index only</source>
-			<translation>Удалить только индекс</translation>
+			<translation>Nur den Suchindex löschen</translation>
 		</message>
 	</context>
 	<context>
 		<name>GridPlaceDialog</name>
 		<message>
 			<source>Select book and verse</source>
-			<translation>Выберите книгу и стих</translation>
+			<translation>Buch und Vers wählen</translation>
 		</message>
 		<message>
 			<source>Chapter:</source>
-			<translation>Глава:</translation>
+			<translation>Kapitel:</translation>
 		</message>
 		<message>
 			<source>Verse:</source>
-			<translation>Стих:</translation>
+			<translation>Vers:</translation>
 		</message>
 		<message>
 			<source>OK</source>
@@ -349,52 +349,52 @@ New translations
 		<name>LanguageDialog</name>
 		<message>
 			<source>Select Language</source>
-			<translation>Выберите язык</translation>
+			<translation>Sprache wählen</translation>
 		</message>
 	</context>
 	<context>
 		<name>SearchDialog</name>
 		<message>
 			<source>Close</source>
-			<translation>Закрыть</translation>
+			<translation>Schließen</translation>
 		</message>
 		<message>
 			<source>Find</source>
-			<translation>Найти</translation>
+			<translation>Suchen</translation>
 		</message>
 		<message>
 			<source>Word or phrase</source>
-			<translation>Слово или фраза</translation>
+			<translation>Wort oder Satz</translation>
 		</message>
 		<message>
 			<source>Nothing found</source>
-			<translation>Не найдено</translation>
+			<translation>Nichts gefunden</translation>
 		</message>
 		<message>
 			<source>Too many results</source>
-			<translation>Слишком много совпадений</translation>
+			<translation>Zu viele Ergebnisse</translation>
 		</message>
 		<message>
 			<source>First {max} displayed</source>
-			<translation>Показаны первые {max}</translation>
+			<translation>Die ersten {max} werden angezeigt</translation>
 		</message>
 		<message>
 			<source>Rebuilding index...
 This is one-time operation</source>
-			<translation>Построение индекса...
-Эта операция производится один раз</translation>
+			<translation>Index neu erstellen...
+Es wird nur einmal ausgeführt</translation>
 		</message>
 		<message>
 			<source>Tips</source>
-			<translation>Подсказка</translation>
+			<translation>Tipps</translation>
 		</message>
 		<message>
 			<source>You can search for multiple words, they will be found even if separated by other words.
 
 Place asterisk after word to find it with all different endings (For example: Proph* for Prophet and Prophecy)</source>
-			<translation>Вы можете искать несколько слов, они будут найдены даже если в тексте между ними будут другие слова.
+			<translation>Sie können nach mehreren Worten suchen, diese werden auch gefunden wenn sie durch andere Wörter getrennt sind.
 
-Замените окончание слова звёздочкой чтобы найти это слово во всех формах (например: «Проро*» найдет и «Пророк» и «Пророчество»).</translation>
+Setzen Sie einen Stern nach dem Wort um alle verschiedenen Endungen zu finden (Zum Beispiel: Proph* für Prophet und Prophetie)</translation>
 		</message>
 		<message>
 			<source>OK</source>
@@ -405,19 +405,19 @@ Place asterisk after word to find it with all different endings (For example: Pr
 		<name>FetcherDialog</name>
 		<message>
 			<source>Downloading Bible</source>
-			<translation>Скачивание Библии</translation>
+			<translation>Lade Bibel herunter</translation>
 		</message>
 		<message>
 			<source>Connecting...</source>
-			<translation>Соединение...</translation>
+			<translation>Verbinden...</translation>
 		</message>
 		<message>
 			<source>Nothing to do</source>
-			<translation>Нечего делать</translation>
+			<translation>Nichts zu tun</translation>
 		</message>
 		<message>
 			<source>You already have downloaded whole Bible in selected language and translation</source>
-			<translation>Вы уже скачали текущий перевод Библии целиком</translation>
+			<translation>Sie haben schon die komplette Bibel in der ausgewählten Sprache und Übersetzung heruntergeladen</translation>
 		</message>
 		<message>
 			<source>OK</source>
@@ -425,18 +425,18 @@ Place asterisk after word to find it with all different endings (For example: Pr
 		</message>
 		<message>
 			<source>Cancel</source>
-			<translation>Отмена</translation>
+			<translation>Abbrechen</translation>
 		</message>
 	</context>
 	<context>
 		<name>DonatePage</name>
 		<message>
 			<source>Donation accepted</source>
-			<translation>Пожертвование принято</translation>
+			<translation>Spende angenommen</translation>
 		</message>
 		<message>
 			<source>Thank you for supporting MeeBible!</source>
-			<translation>Спасибо вам за поддержку!</translation>
+			<translation>Danke, dass Sie MeeBible unterstützen!</translation>
 		</message>
 		<message>
 			<source>OK</source>
@@ -444,30 +444,30 @@ Place asterisk after word to find it with all different endings (For example: Pr
 		</message>
 		<message>
 			<source>Sorry</source>
-			<translation>Извините</translation>
+			<translation>Entschuldigung</translation>
 		</message>
 		<message>
 			<source>Due to limitations of Nokia Store you can't pay same amount twice. Please choose another amount if you want to donate more.</source>
-			<translation>Из-за ограничения Nokia Store вы не можете заплатить одну и ту же сумму дважды. Пожалуйста, выберите другую сумму если вы хотите пожертвовать ещё.</translation>
+			<translation>Wegen Limitierungen des Nokia Stores können Sie nicht zweimal den gleiche Betrag bezahlen. Bitte wählen Sie einen anderen Betrag wenn sie nocheinmal spenden möchten.</translation>
 		</message>
 		<message>
 			<source>Donate</source>
-			<translation>Пожертвовать</translation>
+			<translation>Spenden</translation>
 		</message>
 		<message>
 			<source>You can support further development of MeeBible by donating a small sum</source>
-			<translation>Вы можете поддержать дальнейшее развитие MeeBible, пожертвовав небольшую сумму</translation>
+			<translation>Sie können die weitere Entwicklung von MeeBible mit einer kleinen Spende unterstützen</translation>
 		</message>
 		<message>
 			<source>Payment will be done via your Nokia Store account</source>
-			<translation>Платёж будет произведён через ваш аккаунт Nokia Store</translation>
+			<translation>Die Bezahlung wird über Ihr Nokia Store Konto abgewickelt</translation>
 		</message>
 	</context>
 	<context>
 		<name>SimpleShareDialog</name>
 		<message>
 			<source>Share Bible text</source>
-			<translation>Поделиться текстом из Библии</translation>
+			<translation>Bibeltext teilen</translation>
 		</message>
 	</context>
 	<context>
@@ -476,67 +476,67 @@ Place asterisk after word to find it with all different endings (For example: Pr
 			<source>MeeBible is converting downloaded texts into the new storage format...
 
 Please wait</source>
-			<translation>MeeBible конвертирует скачанные тексты в новый формат...
+			<translation>MeeBible konvertiert heruntergeladene Texte in das neue Speicherformat...
 
-Подождите, пожалуйста</translation>
+Bitte warten</translation>
 		</message>
 	</context>
 	<context>
 		<name>UniSheet</name>
 		<message>
 			<source>Close</source>
-			<translation>Закрыть</translation>
+			<translation>Schließen</translation>
 		</message>
 	</context>
 	<context>
 		<name>BibleViewPage</name>
 		<message>
 			<source>Copy</source>
-			<translation>Копир.</translation>
+			<translation>Kopieren</translation>
 		</message>
 		<message>
 			<source>Share</source>
-			<translation>Отправ.</translation>
+			<translation>Teilen</translation>
 		</message>
 		<message>
 			<source>Bookmark</source>
-			<translation>В закладки</translation>
+			<translation>Lesezeichen</translation>
 		</message>
 		<message>
 			<source>Bookmarked</source>
-			<translation>Добавлено в закладки</translation>
+			<translation>Lesezeichen gespeichert</translation>
 		</message>
 		<message>
 			<source>Already in bookmarks</source>
-			<translation>Уже в закладках</translation>
+			<translation>Schon in Lesezeichen</translation>
 		</message>
 		<message>
 			<source>Before you start to read, MeeBible has to load translation list from server</source>
-			<translation>Прежде, чем начать читать, MeeBible должна загрузить список переводов с сервера</translation>
+			<translation>Bevor Sie mit dem Lesen beginnen können muss MeeBible die Übersetzungsliste vom Server laden</translation>
 		</message>
 		<message>
 			<source>Try again</source>
-			<translation>Попробовать ещё раз</translation>
+			<translation>Neu versuchen</translation>
 		</message>
 		<message>
 			<source>Loading chapter</source>
-			<translation>Загрузка главы</translation>
+			<translation>Lade Kapitel</translation>
 		</message>
 		<message>
 			<source>Loading translation list</source>
-			<translation>Загрузка переводов</translation>
+			<translation>Lade Übersetzungsliste</translation>
 		</message>
 		<message>
 			<source>Loading book list</source>
-			<translation>Загрузка списка книг</translation>
+			<translation>Lade Bücherliste</translation>
 		</message>
 		<message>
 			<source>Please notice</source>
-			<translation>Обратите внимание</translation>
+			<translation>Bitte beachten</translation>
 		</message>
 		<message>
 			<source>Full-text search works only for downloaded chapters. If you want to search whole Bible you must download it first using the app menu.</source>
-			<translation>Полнотекстовый поиск работает только по уже скачанным главам. Если вы хотите искать по всей Библии, вам нужно закачать её всю с помощью меню программы.</translation>
+			<translation>Die Volltextsuche funktioniert nur bei heruntergeladenen Kapiteln. Wenn Sie die ganze Bibel durchsuchen wollen, muss diese erst über das Anwendungsmenü heruntergeladen werden.</translation>
 		</message>
 		<message>
 			<source>OK</source>
@@ -544,82 +544,82 @@ Please wait</source>
 		</message>
 		<message>
 			<source>Cannot load translation list</source>
-			<translation>Не удалось загрузить список переводов</translation>
+			<translation>Übersetzungsliste konnte nicht geladen werden</translation>
 		</message>
 		<message>
 			<source>Please check internet connection</source>
-			<translation>Проверьте подключение к интернету</translation>
+			<translation>Bitte Internetverbindung überprüfen</translation>
 		</message>
 		<message>
 			<source>Done</source>
-			<translation>Готово</translation>
+			<translation>Fertig</translation>
 		</message>
 		<message>
 			<source>Are you ready to download whole Bible?</source>
-			<translation>Вы готовы скачать Библию целиком?</translation>
+			<translation>Soll die komplette Bibel heruntergeladen werden?</translation>
 		</message>
 		<message>
 			<source>This may take 10-15 minutes and you'd better do it over Wi-Fi connection</source>
-			<translation>Это может занять 10-15 минут и делать это через Wi-Fi-соединение</translation>
+			<translation>Es kann 10-15 Minuten dauern und sollte am besten mit einer WLAN-Verbindung geladen werden</translation>
 		</message>
 		<message>
 			<source>Download</source>
-			<translation>Скачать</translation>
+			<translation>Download</translation>
 		</message>
 		<message>
 			<source>Cancel</source>
-			<translation>Отмена</translation>
+			<translation>Abbrechen</translation>
 		</message>
 		<message>
 			<source>Search</source>
-			<translation>Поиск</translation>
+			<translation>Suche</translation>
 		</message>
 		<message>
 			<source>Copied</source>
-			<translation>Скопировано</translation>
+			<translation>Kopiert</translation>
 		</message>
 		<message>
 			<source>Font size</source>
-			<translation>Размер шрифта</translation>
+			<translation>Schriftgröße</translation>
 		</message>
 		<message>
 			<source>Line spacing</source>
-			<translation>Межстрочный интервал</translation>
+			<translation>Zeilenabstand</translation>
 		</message>
 		<message>
 			<source>Download Bible</source>
-			<translation>Скачать Библию</translation>
+			<translation>Bibel herunterladen</translation>
 		</message>
 		<message>
 			<source>Settings</source>
-			<translation>Настройки</translation>
+			<translation>Einstellungen</translation>
 		</message>
 		<message>
 			<source>Donate</source>
-			<translation>Пожертвовать</translation>
+			<translation>Spenden</translation>
 		</message>
 		<message>
 			<source>About MeeBible</source>
-			<translation>О программе MeeBible</translation>
+			<translation>Über MeeBible</translation>
 		</message>
 		<message>
 			<source>Quit</source>
-			<translation>Выход</translation>
+			<translation>Beenden</translation>
 		</message>
 	</context>
 	<context>
 		<name>PlaceDialog</name>
 		<message>
 			<source>Select Book</source>
-			<translation>Выберите книгу</translation>
+			<translation>Buch auswählen</translation>
 		</message>
 		<message>
 			<source>Chapter:</source>
-			<translation>Глава:</translation>
+			<translation>Kapitel:</translation>
 		</message>
 		<message>
 			<source>Verse:</source>
-			<translation>Стих:</translation>
+			<translation>Vers:</translation>
 		</message>
 		<message>
 			<source>OK</source>

@@ -11,7 +11,7 @@ Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Bible reader for MeeGo Harmattan
 XB-Description-ru_RU: Читалка Библии для MeeGo Harmattan
-Version: 3.5.1
+Version: 3.5.2
 XSBC-Maemo-Display-Name: MeeBible
 XB-Maemo-Icon-26:
  iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAKRWlDQ1BJQ0MgcHJvZmlsZQAAeNqd
@@ -135,7 +135,7 @@ Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Bible reader for MeeGo Harmattan (free version)
 XB-Description-ru_RU: Читалка Библии для MeeGo Harmattan (бесплатная версия)
-Version: 3.5.1
+Version: 3.5.2
 XSBC-Maemo-Display-Name: MeeBible Free
 XB-Maemo-Icon-26:
  iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAKRWlDQ1BJQ0MgcHJvZmlsZQAAeNqd

@@ -120,6 +120,7 @@ Page {
                         case \'\': return qsTr(\"System language\")
                         case \'en\': return qsTr(\"English\")
                         case \'fi\': return qsTr(\"Finnish\")
+                        case \'de\': return qsTr(\"German\")
                         case \'it\': return qsTr(\"Italian\")
                         case \'pt\': return qsTr(\"Portuguese\")
                         case \'ru\': return qsTr(\"Russian\")
@@ -294,6 +295,7 @@ Page {
             ListElement { code: \"\";   value: \"System language\" }
             ListElement { code: \"en\"; value: \"English\" }
             ListElement { code: \"fi\"; value: \"Finnish\" }
+            ListElement { code: \"de\"; value: \"German\" }
             ListElement { code: \"it\"; value: \"Italian\" }
             ListElement { code: \"pt\"; value: \"Portuguese\" }
             ListElement { code: \"ru\"; value: \"Russian\" }

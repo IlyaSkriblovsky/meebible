@@ -7,7 +7,8 @@
             "it": "Informazioni su MeeBible",
             "sv": "Om MeeBible",
             "fi": "Tietoja MeeBiblesta",
-            "pt": "Sobre a MeeBible"
+            "pt": "Sobre a MeeBible",
+            "de": "Über MeeBible"
         },
         {
             "__": "If you want to support development, please consider buying <a href='http://store.ovi.com/content/215454'>paid version</a>!",
@@ -16,7 +17,8 @@
             "it": "Per sostenere lo sviluppo, si prega di considerare l'acquisto della <a href='http://store.ovi.com/content/215454'>versione a pagamento</a>!",
             "sv": "Om du vill stödja utvecklingen, kan du överväga att köpa <a href='http://store.ovi.com/content/215454'>betalda versionen</a>!",
             "fi": "Jos haluat tukea kehitystä, harkitse ostaa <a href='http://store.ovi.com/content/215454'>maksullinen versio</a>!",
-            "pt": "Se você quiser apoiar o desenvolvimento, considere a compra <a href='http://store.ovi.com/content/215454'>versão paga</a>!"
+            "pt": "Se você quiser apoiar o desenvolvimento, considere a compra <a href='http://store.ovi.com/content/215454'>versão paga</a>!",
+            "de": "Wenn Sie die Entwicklung unterstützen wollen, überlegen Sie bitte die <a href='http://store.ovi.com/content/215454'>Bezahlversion</a> zu kaufen!"
         },
         {
             "__": "Thank you for supporting development!",
@@ -25,7 +27,8 @@
             "it": "Grazie per avere sostenuto lo sviluppo!",
             "sv": "Tack för att du stödjer utvecklingen!",
             "fi": "Kiitos kehityksen tukemisesta!",
-            "pt": "Obrigado por apoiar o desenvolvimento!"
+            "pt": "Obrigado por apoiar o desenvolvimento!",
+            "de": "Danke, dass Sie die Entwicklung unterstützen!"
         },
         {
             "__": "© 2011 Ilya Skriblovsky",
@@ -34,7 +37,8 @@
             "it": "© 2011 Ilya Skriblovsky",
             "sv": "© 2011 Ilya Skriblovsky",
             "fi": "© 2011 Ilya Skriblovsky",
-            "pt": "© 2011 Ilya Skriblovsky"
+            "pt": "© 2011 Ilya Skriblovsky",
+            "de": "© 2011 Ilya Skriblovsky"
         },
         {
             "__": "Please contact us with any comments or suggestions or if you want to add new Bible or UI translations.",
@@ -43,7 +47,8 @@
             "it": "Si prega di contattarci per commenti, suggerimenti e aggiunta di traduzioni della Bibbia o dell'applicazione.",
             "sv": "Kontakta oss gärna med kommentarer eller förslag, eller om du vill lägga till nya Bibel- eller användargränssnitt-översättningar.",
             "fi": "Ota meihin yhteyttä, ehdota tai kommentoi, jos haluat lisätä uuden Raamatun tai UI käännöksiä.",
-            "pt": "Por favor, entre em contato conosco com quaisquer comentários ou sugestões ou se você quiser adicionar nova Bíblia ou traduções de interface do usuário."
+            "pt": "Por favor, entre em contato conosco com quaisquer comentários ou sugestões ou se você quiser adicionar nova Bíblia ou traduções de interface do usuário.",
+            "de": "Bitte kontaktieren Sie uns bei Kommentaren oder Vorschlägen, oder wenn Sie neue Bibel- oder Programmübersetzungen hinzufügen möchten."
         },
         {
             "__": "Send your feedback",
@@ -52,7 +57,8 @@
             "it": "Invia il tuo commento",
             "sv": "Skicka din feedback",
             "fi": "Lähetä palautetta",
-            "pt": "Envie seus comentários"
+            "pt": "Envie seus comentários",
+            "de": "Feedback senden"
         },
         {
             "__": "Read God's Word daily!",
@@ -61,7 +67,8 @@
             "it": "Leggi ogni giorno la Parola di Dio!",
             "sv": "Läs Guds ord dagligen!",
             "fi": "Lue Jumalan Sanaa päivittäin!",
-            "pt": "Leia a palavra de Deus dia a dia!"
+            "pt": "Leia a palavra de Deus dia a dia!",
+            "de": "Lese Gottes Wort jeden Tag!"
         },
         {
             "__": "The open source Bible reader",
@@ -70,14 +77,16 @@
             "it": "Il lettore open source della Bibbia",
             "sv": "Öppen källkod Bibelläsare",
             "fi": "Avoimen lähdekoodin Raamatun lukija",
-            "pt": "O leitor da Bíblia de código aberto"
+            "pt": "O leitor da Bíblia de código aberto",
+            "de": "Der Open Source Bibel Reader"
         },
         {
             "__": "Beta testing: Simon Botes of {AppCRAFT}",
             "ru": "Бета-тестирование: Simon Botes из {AppCRAFT}",
             "it": "Beta testing: Simon Botes di {AppCRAFT}",
             "sv": "Betatestare: Simon Botes av {AppCRAFT}",
-            "pt": "Teste Beta: Simon Botes of {AppCRAFT}"
+            "pt": "Teste Beta: Simon Botes of {AppCRAFT}",
+            "de": "Beta-Tests: Simon Botes von {AppCRAFT}"
         },
         {
             "__": "Thanks for translating UI to:",
@@ -86,7 +95,8 @@
             "it": "Grazie per la traduzione di applicazioni",
             "sv": "Tack för översättningen av användargränssnittet:",
             "fi": "Kiitos kääntää sovelluksen",
-            "pt": "Obrigado por traduzir aplicação"
+            "pt": "Obrigado por traduzir aplicação",
+            "de": "Danke für das Übersetzen der Anwendung in:"
         },
         {
             "__": "Finnish",
@@ -95,7 +105,8 @@
             "it": "Finlandese",
             "sv": "Finska",
             "fi": "Suomen kieli",
-            "pt": "Finlandês"
+            "pt": "Finlandês",
+            "de": "Finnisch"
         },
         {
             "__": "Italian",
@@ -104,7 +115,8 @@
             "it": "Italiano",
             "sv": "Italienska",
             "fi": "Italian kieli",
-            "pt": "Italiano"
+            "pt": "Italiano",
+            "de": "Italienisch"
         },
         {
             "__": "Portuguese",
@@ -113,7 +125,8 @@
             "it": "Portoghese",
             "sv": "Portugisiska",
             "fi": "Portugalin kieli",
-            "pt": "Português"
+            "pt": "Português",
+            "de": "Portugiesisch"
         },
         {
             "__": "Russian",
@@ -122,7 +135,8 @@
             "it": "Russo",
             "sv": "Venäjän kieli",
             "fi": "Ryska",
-            "pt": "Russo"
+            "pt": "Russo",
+            "de": "Russisch"
         },
         {
             "__": "Spanish",
@@ -131,7 +145,8 @@
             "it": "Spagnolo",
             "sv": "Spanska",
             "fi": "Espanjan kieli",
-            "pt": "Espanhol"
+            "pt": "Espanhol",
+            "de": "Spanisch"
         },
         {
             "__": "Swedish",
@@ -140,7 +155,18 @@
             "it": "Svedese",
             "sv": "Svenska",
             "fi": "Ruotsin kieli",
-            "pt": "Sueco"
+            "pt": "Sueco",
+            "de": "Schwedisch"
+        },
+        {
+            "__": "German",
+            "ru": "Немецкий",
+            "es": "Alemán",
+            "it": "Tedesco",
+            "sv": "Tyska",
+            "fi": "Saksa",
+            "pt": "Alemão",
+            "de": "Deutsch"
         }
     ],
 
@@ -152,7 +178,8 @@
             "it": "La traduzione corrente non contiene questo libro",
             "sv": "Aktuell översättning innehåller inte den här boken",
             "fi": "Nykyinen käännös ei sisällä tätä kirjaa",
-            "pt": "A tradução atual não contém este livro"
+            "pt": "A tradução atual não contém este livro",
+            "de": "Dieses Buch ist in der aktuellen Übersetzung nicht enthalten"
         },
         {
             "__": "<h3>Cannot load chapter</h3> Please check your internet connection",
@@ -161,7 +188,8 @@
             "it": "<h3>Impossibile caricare il capitolo</h3> Si prega di verificare la connessione internet",
             "sv": "<h3>Kan inte ladda kapitel</h3> Kontrollera din Internet-anslutning",
             "fi": "<h3>Ei voi ladata luku</h3> Tarkista Internet-yhteys",
-            "pt": "<h3>Não é possível carregar o capítulo</h3> Por favor cheque sua conexão de internet"
+            "pt": "<h3>Não é possível carregar o capítulo</h3> Por favor cheque sua conexão de internet",
+            "de": "<h3>Das Kapitel kann nicht geladen werden</h3> Bitte Internetverbindung prüfen"
         }
     ],
 
@@ -173,7 +201,8 @@
             "it": "Copia",
             "sv": "Kopiera",
             "fi": "Kopioi",
-            "pt": "Cópia"
+            "pt": "Cópia",
+            "de": "Kopieren"
         },
         {
             "__": "Share",
@@ -182,7 +211,8 @@
             "it": "Condividi",
             "sv": "Dela",
             "fi": "Jakaa",
-            "pt": "Compartilhe"
+            "pt": "Compartilhe",
+            "de": "Teilen"
         },
         {
             "__": "Bookmark",
@@ -191,7 +221,8 @@
             "it": "Segnalibro",
             "sv": "Bokmärke",
             "fi": "Lisää kirjanmerkki",
-            "pt": "Marcador"
+            "pt": "Marcador",
+            "de": "Lesezeichen"
         },
         {
             "__": "Bookmarked",
@@ -200,7 +231,8 @@
             "it": "Segnalibro aggiunto",
             "sv": "Bokmärkt",
             "fi": "Kirjanmerkiksi",
-            "pt": "Favoritos"
+            "pt": "Favoritos",
+            "de": "Lesezeichen gespeichert"
         },
         {
             "__": "Already in bookmarks",
@@ -209,7 +241,8 @@
             "it": "Già presente nei segnalibri",
             "sv": "Redan i bokmärken",
             "fi": "Jo kirjanmerkkinä",
-            "pt": "Já presente nos favoritos"
+            "pt": "Já presente nos favoritos",
+            "de": "Schon in Lesezeichen"
         },
         {
             "__": "Before you start to read, MeeBible has to load translation list from server",
@@ -218,7 +251,8 @@
             "it": "Prima di iniziare la lettura, Meebible deve caricare la lista delle traduzioni dal server",
             "sv": "Innan du börjar läsa, behöver MeeBible ladda översättningslistan från servern",
             "fi": "Ennen kuin aloitat lukemaan, MeeBible on ladattava käännöslista palvelimelta",
-            "pt": "Antes de começar a ler, MeeBible tem que carregar a lista de tradução a partir do servidor"
+            "pt": "Antes de começar a ler, MeeBible tem que carregar a lista de tradução a partir do servidor",
+            "de": "Bevor Sie mit dem Lesen beginnen können muss MeeBible die Übersetzungsliste vom Server laden"
         },
         {
             "__": "Try again",
@@ -227,7 +261,8 @@
             "it": "Riprova",
             "sv": "Försök igen",
             "fi": "Yritä uudelleen",
-            "pt": "Tente novamente"
+            "pt": "Tente novamente",
+            "de": "Neu versuchen"
         },
         {
             "__": "Loading chapter",
@@ -236,7 +271,8 @@
             "it": "Caricamento capitolo",
             "sv": "Laddar kapitel",
             "fi": "Ladataan luku",
-            "pt": "Carregando capítulo"
+            "pt": "Carregando capítulo",
+            "de": "Lade Kapitel"
         },
         {
             "__": "Loading translation list",
@@ -245,7 +281,8 @@
             "it": "Caricamento elenco traduzioni",
             "sv": "Laddar översättninglista",
             "fi": "Ladataan käännöslista",
-            "pt": "Carregando lista de traduções"
+            "pt": "Carregando lista de traduções",
+            "de": "Lade Übersetzungsliste"
         },
         {
             "__": "Loading book list",
@@ -254,7 +291,8 @@
             "it": "Caricamento elenco libri",
             "sv": "Laddar boklista",
             "fi": "Ladataan teosluettelo",
-            "pt": "Carregando lista de livros"
+            "pt": "Carregando lista de livros",
+            "de": "Lade Bücherliste"
         },
         {
             "__": "Please notice",
@@ -263,7 +301,8 @@
             "it": "Si prega di notare",
             "sv": "Observera",
             "fi": "Huomioithan",
-            "pt": "Por favor observe"
+            "pt": "Por favor observe",
+            "de": "Bitte beachten"
         },
         {
             "__": "Full-text search works only for downloaded chapters. If you want to search whole Bible you must download it first using the app menu.",
@@ -272,7 +311,8 @@
             "it": "La ricerca nel testo funziona solo per i capitoli scaricati. Per cercare nell'intera Bibbia è necessario prima scaricarla tramite il menu dell'applicazione.",
             "sv": "Fulltextsökning fungerar bara för nedladdade kapitel. Om du vill söka hela Bibeln måste du först ladda ner den med hjälp av app-menyn.",
             "fi": "Koko textin etsiminen toimii vain ladattuissa luvuissa. Jos haluat etsiä koko Raamatun sinun täytyy ladata se ensin käyttäen sovellus valikkoa.",
-            "pt": "A pesquisa de texto completo só funciona para capítulos baixados. Se você deseja pesquisar a Bíblia inteira você deve baixá-la primeiro usando o menu do aplicativo."
+            "pt": "A pesquisa de texto completo só funciona para capítulos baixados. Se você deseja pesquisar a Bíblia inteira você deve baixá-la primeiro usando o menu do aplicativo.",
+            "de": "Die Volltextsuche funktioniert nur bei heruntergeladenen Kapiteln. Wenn Sie die ganze Bibel durchsuchen wollen, muss diese erst über das Anwendungsmenü heruntergeladen werden."
         },
         {
             "__": "OK",
@@ -281,7 +321,8 @@
             "it": "OK",
             "sv": "OK",
             "fi": "OK",
-            "pt": "OK"
+            "pt": "OK",
+            "de": "OK"
         },
         {
             "__": "Cannot load translation list",
@@ -290,7 +331,8 @@
             "it": "Impossibile caricare lista traduzioni",
             "sv": "Kan inte ladda översättningslista",
             "fi": "Ei voi ladata käännöslistaa",
-            "pt": "Impossível carregar a lista de traduções"
+            "pt": "Impossível carregar a lista de traduções",
+            "de": "Übersetzungsliste konnte nicht geladen werden"
         },
         {
             "__": "Please check internet connection",
@@ -299,7 +341,8 @@
             "it": "Si prega di verificare la connessione internet",
             "sv": "Kontrollera internetanslutning",
             "fi": "Tarkista Internetyhteys",
-            "pt": "Por favor cheque sua conexão de internet"
+            "pt": "Por favor cheque sua conexão de internet",
+            "de": "Bitte Internetverbindung überprüfen"
         },
         {
             "__": "Done",
@@ -308,7 +351,8 @@
             "it": "Fatto",
             "sv": "Klar",
             "fi": "Valmis",
-            "pt": "Feito"
+            "pt": "Feito",
+            "de": "Fertig"
         },
         {
             "__": "Are you ready to download whole Bible?",
@@ -317,7 +361,8 @@
             "it": "Pronto a scaricare l'intera Bibbia?",
             "sv": "Är du redo att ladda ner hela Bibeln?",
             "fi": "Oletko valmis lataamaan koko Raamatun?",
-            "pt": "Você está pronto para baixar a Bíblia inteira?"
+            "pt": "Você está pronto para baixar a Bíblia inteira?",
+            "de": "Soll die komplette Bibel heruntergeladen werden?"
         },
         {
             "__": "This may take 10-15 minutes and you'd better do it over Wi-Fi connection",
@@ -326,7 +371,8 @@
             "it": "Questo richiederà 10-15 minuti ed è preferibile usare connessione Wi-Fi",
             "sv": "Det kan ta 10-15 minuter och det är bäst att du gör det via Wi-Fi-anslutning",
             "fi": "Tämä voi kestää 10-15 minuuttia ja teidän on parasta tehdä se Wi-Fi-yhteydellä",
-            "pt": "Isso levará de 10 a 15 minutos e será melhor se você usar uma conexão Wi-Fi"
+            "pt": "Isso levará de 10 a 15 minutos e será melhor se você usar uma conexão Wi-Fi",
+            "de": "Es kann 10-15 Minuten dauern und sollte am besten mit einer WLAN-Verbindung geladen werden"
         },
         {
             "__": "Download",
@@ -335,7 +381,8 @@
             "it": "Scaricamento",
             "sv": "Ladda ner",
             "fi": "Lataa",
-            "pt": "Baixar"
+            "pt": "Baixar",
+            "de": "Download"
         },
         {
             "__": "Cancel",
@@ -344,7 +391,8 @@
             "it": "Annulla",
             "sv": "Avbryt",
             "fi": "Peruuttaa",
-            "pt": "Cancelar"
+            "pt": "Cancelar",
+            "de": "Abbrechen"
         },
         {
             "__": "Search",
@@ -353,7 +401,8 @@
             "it": "Cerca",
             "sv": "Sök",
             "fi": "Etsi",
-            "pt": "Pesquisar"
+            "pt": "Pesquisar",
+            "de": "Suche"
         },
         {
             "__": "Copied",
@@ -362,7 +411,8 @@
             "it": "Copiato",
             "sv": "Kopierad",
             "fi": "Kopioitu",
-            "pt": "Copiado"
+            "pt": "Copiado",
+            "de": "Kopiert"
         },
         {
             "__": "Font size",
@@ -371,7 +421,8 @@
             "it": "Dimensione carattere",
             "sv": "Teckenstorlek",
             "fi": "Fonttikoko",
-            "pt": "Tamanho da fonte"
+            "pt": "Tamanho da fonte",
+            "de": "Schriftgröße"
         },
         {
             "__": "Line spacing",
@@ -380,7 +431,8 @@
             "it": "Interlinea",
             "sv": "Radavstånd",
             "fi": "Riviväli",
-            "pt": "Espaço entre linhas"
+            "pt": "Espaço entre linhas",
+            "de": "Zeilenabstand"
         },
         {
             "__": "Download Bible",
@@ -389,7 +441,8 @@
             "it": "Scarica Bibbia",
             "sv": "Ladda ner Bibel",
             "fi": "Lataa Raamattu",
-            "pt": "Baixar Bíblia"
+            "pt": "Baixar Bíblia",
+            "de": "Bibel herunterladen"
         },
         {
             "__": "Settings",
@@ -398,14 +451,16 @@
             "it": "Impostazioni",
             "sv": "Inställningar",
             "fi": "Asetukset",
-            "pt": "Configurações"
+            "pt": "Configurações",
+            "de": "Einstellungen"
         },
         {
             "__": "Donate",
             "ru": "Пожертвовать",
             "it": "Fai una donazione",
             "sv": "Donera",
-            "pt": "Doação"
+            "pt": "Doação",
+            "de": "Spenden"
         },
         {
             "__": "About MeeBible",
@@ -414,7 +469,8 @@
             "it": "Informazioni su MeeBible",
             "sv": "Om MeeBible",
             "fi": "Tietoja MeeBiblesta",
-            "pt": "Sobre Meebible"
+            "pt": "Sobre Meebible",
+            "de": "Über MeeBible"
         },
         {
             "__": "Quit",
@@ -423,7 +479,8 @@
             "it": "Esci",
             "sv": "Avsluta",
             "fi": "Lopettaa",
-            "pt": "Sair"
+            "pt": "Sair",
+            "de": "Beenden"
         }
     ],
 
@@ -435,7 +492,8 @@
             "it": "Segnalibri",
             "sv": "Bokmärken",
             "fi": "Kirjanmerkit",
-            "pt": "Marcadores"
+            "pt": "Marcadores",
+            "de": "Lesezeichen"
         },
         {
             "__": "Delete",
@@ -444,7 +502,8 @@
             "it": "Cancella",
             "sv": "Ta bort",
             "fi": "Poistaa",
-            "pt": "Apagar"
+            "pt": "Apagar",
+            "de": "Löschen"
         },
         {
             "__": "No bookmarks yet",
@@ -453,7 +512,8 @@
             "it": "Nessun segnalibro",
             "sv": "Inga bokmärken ännu",
             "fi": "Ei kirjanmerkkiä vielä",
-            "pt": "Sem marcadores ainda"
+            "pt": "Sem marcadores ainda",
+            "de": "Keine Lesezeichen angelegt"
         }
     ],
 
@@ -465,7 +525,8 @@
             "it": "Commenti",
             "sv": "Synpunkter",
             "fi": "Palaute",
-            "pt": "Comente"
+            "pt": "Comente",
+            "de": "Feedback"
         },
         {
             "__": "Your name",
@@ -474,7 +535,8 @@
             "it": "Nome",
             "sv": "Ditt namn",
             "fi": "Nimesi",
-            "pt": "Seu nome"
+            "pt": "Seu nome",
+            "de": "Ihr Name"
         },
         {
             "__": "Your E-Mail",
@@ -483,7 +545,8 @@
             "it": "E-Mail",
             "sv": "Din e-post",
             "fi": "Sähköpostiosoitteesi",
-            "pt": "Seu E-Mail"
+            "pt": "Seu E-Mail",
+            "de": "Ihre Email-Adresse"
         },
         {
             "__": "Comments\nSuggestions\nImprovements\nCritics\nNew translations\n...",
@@ -492,7 +555,8 @@
             "it": "Commenti\nSuggerimenti\nMiglioramenti\nCritiche\nNuove traduzioni\n...",
             "sv": "Kommentarer\nFörslag\nFörbättringar\nKritiker\nNya översättningar\n...",
             "fi": "Kommentit\nEhdotuksia\nParannuksia\nKritiikki\nUudet käännökset\n...",
-            "pt": "Comentários\nSugestões\nMelhorias\nCríticas\nNovas traduções\n..."
+            "pt": "Comentários\nSugestões\nMelhorias\nCríticas\nNovas traduções\n...",
+            "de": "Kommentare\nVorschläge\nVerbesserungen\nKritik\nNeue Übersetzungen\n..."
         },
         {
             "__": "Send",
@@ -501,7 +565,8 @@
             "it": "Invia",
             "sv": "Skicka",
             "fi": "Lähetä",
-            "pt": "Enviar"
+            "pt": "Enviar",
+            "de": "Senden"
         },
         {
             "__": "Sending feedback",
@@ -510,7 +575,8 @@
             "it": "Invio commento...",
             "sv": "Skickar feedback...",
             "fi": "Lähetä palautetta...",
-            "pt": "Enviando comentário"
+            "pt": "Enviando comentário",
+            "de": "Feedback wird gesendet"
         },
         {
             "__": "Cancel",
@@ -519,7 +585,8 @@
             "it": "Annulla",
             "sv": "Avbryt",
             "fi": "Peruuta",
-            "pt": "Cancelar"
+            "pt": "Cancelar",
+            "de": "Abbrechen"
         },
         {
             "__": "Feedback sent",
@@ -528,7 +595,8 @@
             "it": "Commento inviato",
             "sv": "Feedback skickat",
             "fi": "Lähetetty palaute",
-            "pt": "Comentário enviado"
+            "pt": "Comentário enviado",
+            "de": "Feedback gesendet"
         },
         {
             "__": "Thank you! Your feedback is highly appreciated. We will answer you as soon as possible.",
@@ -537,7 +605,8 @@
             "it": "Grazie! Il tuo contributo è molto gradito. Risponderemo appena possibile.",
             "sv": "Tack! Din feedback är mycket uppskattat. Vi kommer att svara dig så fort som möjligt.",
             "fi": "Kiitos! Palautteenne on erittäin tervetullutta. Vastaamme sinulle mahdollisimman pian.",
-            "pt": "Obrigado! Seu comentário é muito bem vindo. Nós responderemos assim que possível."
+            "pt": "Obrigado! Seu comentário é muito bem vindo. Nós responderemos assim que possível.",
+            "de": "Danke! Ihr Feedback wird sehr geschätzt. Wir werden Ihnen sobald wie möglich antworten."
         },
         {
             "__": "OK",
@@ -546,7 +615,8 @@
             "it": "OK",
             "sv": "OK",
             "fi": "OK",
-            "pt": "OK"
+            "pt": "OK",
+            "de": "OK"
         },
         {
             "__": "Sending failed",
@@ -555,7 +625,8 @@
             "it": "Invio fallito",
             "sv": "Att skicka misslyckades",
             "fi": "Lähettäminen epäonnistui",
-            "pt": "Falha no envio"
+            "pt": "Falha no envio",
+            "de": "Senden fehlgeschlagen"
         },
         {
             "__": "Your feedback was not sent. Please check internet connection and try again.",
@@ -564,7 +635,8 @@
             "it": "Commento non inviato. Si prega di verificare la connessione Internet e riprovare.",
             "sv": "Din feedback har inte skickats. Kontrollera internetuppkoppling och försök igen.",
             "fi": "Antamaasi palautetta ei lähetetty. Tarkista Internet-yhteys ja yritä uudelleen.",
-            "pt": "Seu comentário não foi enviado. Por favor, cheque sua conexão de internet e tente de novo."
+            "pt": "Seu comentário não foi enviado. Por favor, cheque sua conexão de internet e tente de novo.",
+            "de": "Ihr Feedback wurde nicht gesendet. Bitte prüfen Sie die Internetverbindung und versuchen es erneut."
         },
         {
             "__": "No E-Mail?",
@@ -573,7 +645,8 @@
             "it": "Nessuna E-Mail?",
             "sv": "Ingen e-post?",
             "fi": "Ei sähköpostiosoitetta?",
-            "pt": "Sem Email?"
+            "pt": "Sem Email?",
+            "de": "Keine Email?"
         },
         {
             "__": "You have not specified E-Mail address. We will not be able to answer you!",
@@ -582,7 +655,8 @@
             "it": "Indirizzo E-Mail non specificato. Non saremo in grado di rispondere!",
             "sv": "Du har inte angett e-postadress. Vi kommer inte att kunna svara dig!",
             "fi": "Et ole määritellyt sähköpostiosoitetta. Emme pysty vastaamaan sinulle!",
-            "pt": "Você não especificou o endereço de E-Mail. Nós não poderemos responder a você!"
+            "pt": "Você não especificou o endereço de E-Mail. Nós não poderemos responder a você!",
+            "de": "Sie haben keine Email-Adresse angegeben. Wir werden Ihnen nicht antworten können!"
         },
         {
             "__": "Send anyway",
@@ -591,7 +665,8 @@
             "it": "Invia comunque",
             "sv": "Skicka ändå",
             "fi": "Lähetä joka tapauksessa",
-            "pt": "Enviar mesmo assim"
+            "pt": "Enviar mesmo assim",
+            "de": "Trotzdem senden"
         },
         {
             "__": "Return to form",
@@ -600,7 +675,8 @@
             "it": "Ritorna al modulo",
             "sv": "Återgå till formulär",
             "fi": "Palata muodostamaan",
-            "pt": "Retornar ao formulário"
+            "pt": "Retornar ao formulário",
+            "de": "Zurück zum Formular"
         },
         {
             "__": "Privacy policy",
@@ -609,7 +685,8 @@
             "it": "Informativa sulla privacy",
             "sv": "Sekretesspolicy",
             "fi": "Yksityisyyden suoja",
-            "pt": "Política de privacidade"
+            "pt": "Política de privacidade",
+            "de": "Datenschutzerklärung"
         }
     ],
 
@@ -621,7 +698,8 @@
             "it": "Scaricamento Bibbia",
             "sv": "Laddar ner Bibel",
             "fi": "Lataa Raamattu",
-            "pt": "Baixando a Bíblia"
+            "pt": "Baixando a Bíblia",
+            "de": "Lade Bibel herunter"
         },
         {
             "__": "Connecting...",
@@ -630,7 +708,8 @@
             "it": "Connessione in corso...",
             "sv": "Ansluter ...",
             "fi": "Yhdistä...",
-            "pt": "Conectando..."
+            "pt": "Conectando...",
+            "de": "Verbinden..."
         },
         {
             "__": "Nothing to do",
@@ -639,7 +718,8 @@
             "it": "Niente da fare",
             "sv": "Inget att göra",
             "fi": "Ei mitään tekemistä",
-            "pt": "Nada a fazer"
+            "pt": "Nada a fazer",
+            "de": "Nichts zu tun"
         },
         {
             "__": "You already have downloaded whole Bible in selected language and translation",
@@ -648,7 +728,8 @@
             "it": "L'intera Bibbia nel linguaggio e traduzione selezionati è già stata scaricata",
             "sv": "Du har redan laddat ner hela Bibeln på valt språk och översättning",
             "fi": "Olet jo ladannut koko Raamatun valitulla kielellä ja käännöksellä",
-            "pt": "Você já baixou a Bíblia inteira no idioma e tradução selecionada"
+            "pt": "Você já baixou a Bíblia inteira no idioma e tradução selecionada",
+            "de": "Sie haben schon die komplette Bibel in der ausgewählten Sprache und Übersetzung heruntergeladen"
         },
         {
             "__": "OK",
@@ -657,7 +738,8 @@
             "it": "OK",
             "sv": "OK",
             "fi": "OK",
-            "pt": "OK"
+            "pt": "OK",
+            "de": "OK"
         },
         {
             "__": "Cancel",
@@ -666,7 +748,8 @@
             "it": "Annulla",
             "sv": "Avbryt",
             "fi": "Peruuta",
-            "pt": "Cancelar"
+            "pt": "Cancelar",
+            "de": "Abbrechen"
         }
     ],
 
@@ -678,7 +761,8 @@
             "it": "OK",
             "sv": "OK",
             "fi": "OK",
-            "pt": "OK"
+            "pt": "OK",
+            "de": "OK"
         }
     ],
 
@@ -690,7 +774,8 @@
             "it": "Scegli Lingua",
             "sv": "Välj språk",
             "fi": "Valitse Kieli",
-            "pt": "Selecione o idioma"
+            "pt": "Selecione o idioma",
+            "de": "Sprache wählen"
         }
     ],
 
@@ -702,7 +787,8 @@
             "it": "Scegli Libro",
             "sv": "Välj Bok",
             "fi": "Valitse Kirja",
-            "pt": "Selecione o Livro"
+            "pt": "Selecione o Livro",
+            "de": "Buch auswählen"
         },
         {
             "__": "Chapter:",
@@ -711,7 +797,8 @@
             "it": "Capitolo:",
             "sv": "Kapitel:",
             "fi": "Luku:",
-            "pt": "Capítulo:"
+            "pt": "Capítulo:",
+            "de": "Kapitel:"
         },
         {
             "__": "Verse:",
@@ -720,7 +807,8 @@
             "it": "Versetto:",
             "sv": "Vers:",
             "fi": "Jae:",
-            "pt": "Versículo:"
+            "pt": "Versículo:",
+            "de": "Vers:"
         },
         {
             "__": "OK",
@@ -729,7 +817,8 @@
             "it": "OK",
             "sv": "OK",
             "fi": "OK",
-            "pt": "OK"
+            "pt": "OK",
+            "de": "OK"
         }
     ],
 
@@ -741,21 +830,24 @@
             "it": "Chiudi",
             "sv": "Stäng",
             "fi": "Sulje",
-            "pt": "Fechar"
+            "pt": "Fechar",
+            "de": "Schließen"
         },
         {
             "__": "Find",
             "ru": "Найти",
             "it": "Trova",
             "sv": "Sök",
-            "pt": "Encontrar"
+            "pt": "Encontrar",
+            "de": "Suchen"
         },
         {
             "__": "Word or phrase",
             "ru": "Слово или фраза",
             "it": "Parola o frase",
             "sv": "Ord eller fras",
-            "pt": "Palavra ou frase"
+            "pt": "Palavra ou frase",
+            "de": "Wort oder Satz"
         },
         {
             "__": "Nothing found",
@@ -764,42 +856,48 @@
             "it": "Nessun risultato",
             "sv": "Ingenting hittades",
             "fi": "Mitään ei löytynyt",
-            "pt": "Nada foi encontrado"
+            "pt": "Nada foi encontrado",
+            "de": "Nichts gefunden"
         },
         {
             "__": "Too many results",
             "ru": "Слишком много совпадений",
             "it": "Troppi risultati",
             "sv": "För många resultat",
-            "pt": "Muitos resultados"
+            "pt": "Muitos resultados",
+            "de": "Zu viele Ergebnisse"
         },
         {
             "__": "First {max} displayed",
             "ru": "Показаны первые {max}",
             "it": "Visualizzati i primi {max} ",
             "sv": "Första {max} visas",
-            "pt": "Primeiro {max} exibido"
+            "pt": "Primeiro {max} exibido",
+            "de": "Die ersten {max} werden angezeigt"
         },
         {
             "__": "Rebuilding index...\nThis is one-time operation",
             "ru": "Построение индекса...\nЭта операция производится один раз",
             "it": "Rigenerazione indice...\nQuesta operazione verrà effettuata una sola volta",
             "sv": "Återuppbygger index...\nDetta är en engångsoperation",
-            "pt": "Reconstruindo índice...\nEste é um tempo de operação"
+            "pt": "Reconstruindo índice...\nEste é um tempo de operação",
+            "de": "Index neu erstellen...\nEs wird nur einmal ausgeführt"
         },
         {
             "__": "Tips",
             "ru": "Подсказка",
             "it": "Suggerimenti",
             "sv": "Tips",
-            "pt": "Dicas"
+            "pt": "Dicas",
+            "de": "Tipps"
         },
         {
             "__": "You can search for multiple words, they will be found even if separated by other words.\n\nPlace asterisk after word to find it with all different endings (For example: Proph* for Prophet and Prophecy)",
             "ru": "Вы можете искать несколько слов, они будут найдены даже если в тексте между ними будут другие слова.\n\nЗамените окончание слова звёздочкой чтобы найти это слово во всех формах (например: «Проро*» найдет и «Пророк» и «Пророчество»).",
             "it": "E' possibile cercare parole multiple, verranno trovate anche se separate da altre parole.\n\nUsare un asterisco dopo la parola per cercare diverse desinenze (Esempio: Prof* per Profeta e Profezia)",
             "sv": "Du kan söka efter flera ord, de kommer att hittas även om de är separerade med andra ord.\n\nPlacera asterisk efter ord för att hitta det med alla olika ändelser (Till exempel: Prof* för Profet och Profetera)",
-            "pt": "Você pode pesquisar por várias palavras, elas serão encontradas, mesmo se separadas por outras palavras.\n\nColoque asterisco após a palavra para encontrá-la com todas as terminações diferentes (por exemplo:  Profe* para Profeta e Profecia)"
+            "pt": "Você pode pesquisar por várias palavras, elas serão encontradas, mesmo se separadas por outras palavras.\n\nColoque asterisco após a palavra para encontrá-la com todas as terminações diferentes (por exemplo:  Profe* para Profeta e Profecia)",
+            "de": "Sie können nach mehreren Worten suchen, diese werden auch gefunden wenn sie durch andere Wörter getrennt sind.\n\nSetzen Sie einen Stern nach dem Wort um alle verschiedenen Endungen zu finden (Zum Beispiel: Proph* für Prophet und Prophetie)"
         },
         {
             "__": "OK",
@@ -808,7 +906,8 @@
             "it": "OK",
             "sv": "OK",
             "fi": "OK",
-            "pt": "OK"
+            "pt": "OK",
+            "de": "OK"
         }
     ],
 
@@ -820,7 +919,8 @@
             "it": "Impostazioni",
             "sv": "Inställningar",
             "fi": "Asetukset",
-            "pt": "Configurações"
+            "pt": "Configurações",
+            "de": "Einstellungen"
         },
         {
             "__": "Language",
@@ -829,7 +929,8 @@
             "it": "Lingua",
             "sv": "Språk",
             "fi": "Kieli",
-            "pt": "Idioma"
+            "pt": "Idioma",
+            "de": "Sprache"
         },
         {
             "__": "<not loaded yet>",
@@ -838,7 +939,8 @@
             "it": "<non ancora caricato>",
             "sv": "<inte laddat ännu>",
             "fi": "<ei ole vielä ladattu>",
-            "pt": "<ainda não carregado>"
+            "pt": "<ainda não carregado>",
+            "de": "<noch nicht heruntergeladen>"
         },
         {
             "__": "Translation",
@@ -847,7 +949,8 @@
             "it": "Traduzione",
             "sv": "Översättning",
             "fi": "Käännös",
-            "pt": "Tradução"
+            "pt": "Tradução",
+            "de": "Übersetzung"
         },
         {
             "__": "Font",
@@ -856,7 +959,8 @@
             "it": "Carattere",
             "sv": "Teckensnitt",
             "fi": "Fontti",
-            "pt": "Fonte"
+            "pt": "Fonte",
+            "de": "Schriftart"
         },
         {
             "__": "Scroll header with the text",
@@ -865,7 +969,8 @@
             "it": "Scorri l'intestazione con il testo",
             "sv": "Bläddra rubrik med texten",
             "fi": "Selaa otsikon tekstin mukaan",
-            "pt": "Scorri Cabeçalho de rolagem com o texto"
+            "pt": "Scorri Cabeçalho de rolagem com o texto",
+            "de": "Überschrift mit dem Text scrollen"
         },
         {
             "__": "Fullscreen",
@@ -874,7 +979,8 @@
             "it": "Schermo intero",
             "sv": "Helskärm",
             "fi": "Koko näyttö",
-            "pt": "Tela inteira"
+            "pt": "Tela inteira",
+            "de": "Vollbild"
         },
         {
             "__": "Inverted theme",
@@ -883,7 +989,8 @@
             "it": "Tema colori invertiti",
             "sv": "Inverterat tema",
             "fi": "Käänteinen teema",
-            "pt": "Tema invertido"
+            "pt": "Tema invertido",
+            "de": "Invertierte Darstellung"
         },
         {
             "__": "Copy verses with numbers",
@@ -892,7 +999,8 @@
             "it": "Copia versetti con numero",
             "sv": "Kopiera verser med siffror",
             "fi": "Kopioi jae numerolla",
-            "pt": "Copiar versículos com números"
+            "pt": "Copiar versículos com números",
+            "de": "Verse mit Nummern kopieren"
         },
         {
             "__": "Update translation list",
@@ -901,7 +1009,8 @@
             "it": "Aggiorna elenco traduzioni",
             "sv": "Uppdatera översättningslista",
             "fi": "Päivitä käännöslista",
-            "pt": "Atualizar lista de traduções"
+            "pt": "Atualizar lista de traduções",
+            "de": "Übersetzungsliste aktualisieren"
         },
         {
             "__": "Reload languages",
@@ -910,7 +1019,8 @@
             "it": "Ricarica lingue",
             "sv": "Ladda om språk",
             "fi": "Lataa kielet uudelleen",
-            "pt": "Atualizar idiomas"
+            "pt": "Atualizar idiomas",
+            "de": "Sprachen neu laden"
         },
         {
             "__": "When new translation is published on MeeBible's server, use this button to update translation list",
@@ -919,7 +1029,8 @@
             "it": "Quando nuove traduzioni sono pubblicate sul server di MeeBibile, usa questo pulsante per aggiornare l'elenco traduzioni",
             "sv": "När ny översättning publiceras på MeeBibles server, använd denna knapp för att uppdatera översättningslistan",
             "fi": "Kun uusi käännös julkaistaan MeeBiblen palvelimelle, käytä tätä painiketta päivittämään käännöslista",
-            "pt": "Use este botão para atualizar a lista de traduções quando uma nova tradução é publicada no servidor da Meebible"
+            "pt": "Use este botão para atualizar a lista de traduções quando uma nova tradução é publicada no servidor da Meebible",
+            "de": "Wenn neue Übersetzungen auf dem MeeBible Server veröffentlicht werden kann mit dem Button die Übersetzungsliste aktualisiert werden."
         },
         {
             "__": "Clear cache",
@@ -928,7 +1039,8 @@
             "it": "Cancella cache",
             "sv": "Töm cache",
             "fi": "Tyhjennä välimuisti",
-            "pt": "Limpar memória cache"
+            "pt": "Limpar memória cache",
+            "de": "Cache leeren"
         },
         {
             "__": "Cache clearing",
@@ -937,7 +1049,8 @@
             "it": "Cancellazione cache...",
             "sv": "Tömmer cache...",
             "fi": "Välimuisti tyhjennetään...",
-            "pt": "Limpando a memória cache"
+            "pt": "Limpando a memória cache",
+            "de": "Cache leeren..."
         },
         {
             "__": "Select Font",
@@ -946,7 +1059,8 @@
             "it": "Scelta carattere",
             "sv": "Välj teckensnitt",
             "fi": "Valitse Fontti",
-            "pt": "Selecionar Fonte"
+            "pt": "Selecionar Fonte",
+            "de": "Schriftart wählen"
         },
         {
             "__": "Not all fonts can display all languages",
@@ -955,7 +1069,8 @@
             "it": "Non tutti i caratteri possono visualizzare tutte le lingue",
             "sv": "Inte alla teckensnitt kan visa alla språk",
             "fi": "Kaikki fontit eivät voi näyttää kaikkia kieliä",
-            "pt": "Nem todas as fontes podem ser exibidas em todas os idiomas"
+            "pt": "Nem todas as fontes podem ser exibidas em todas os idiomas",
+            "de": "Nicht alle Schriftarten können alle Sprachen darstellen"
         },
         {
             "__": "Do you want to clear the cache?",
@@ -964,7 +1079,8 @@
             "it": "Vuoi cancellare la cache?",
             "sv": "Vill du rensa cacheminnet?",
             "fi": "Haluatko tyhjentää välimuistin?",
-            "pt": "Você quer limpar a memória cache?"
+            "pt": "Você quer limpar a memória cache?",
+            "de": "Wollen Sie den Cache leeren?"
         },
         {
             "__": "This will delete all downloaded Bible chapters from your phone",
@@ -973,7 +1089,8 @@
             "it": "Questo cancellerà tutti i capitoli della Bibbia scaricati dal telefono",
             "sv": "Detta kommer att ta bort alla nedladdade Bibelkapitel från telefonen",
             "fi": "Tämä poistaa kaikki ladatut Raamatun luvut puhelimestasi",
-            "pt": "Isto irá apagar todos os capítulos da Bíblia baixada no seu telefone"
+            "pt": "Isto irá apagar todos os capítulos da Bíblia baixada no seu telefone",
+            "de": "Es werden alle heruntergeladenen Bibelkapitel vom Handy gelöscht"
         },
         {
             "__": "Clear",
@@ -982,7 +1099,8 @@
             "it": "Cancella",
             "sv": "Rensa",
             "fi": "Poista",
-            "pt": "Limpar"
+            "pt": "Limpar",
+            "de": "Leeren"
         },
         {
             "__": "Cancel",
@@ -991,7 +1109,8 @@
             "it": "Annulla",
             "sv": "Avbryt",
             "fi": "Peruuta",
-            "pt": "Cancelar"
+            "pt": "Cancelar",
+            "de": "Abbrechen"
         },
         {
             "__": "Available at",
@@ -1000,30 +1119,35 @@
             "it": "Disponibile su",
             "sv": "Finns på",
             "fi": "Saatavilla",
-            "pt": "Disponível em"
+            "pt": "Disponível em",
+            "de": "Verfügbar auf"
         },
         {
             "__": "Grid-like book selection",
             "ru": "Выбор книги в виде таблицы",
             "it": "Selezione libro a tabella",
             "sv": "Grid-liknande bokval",
-            "pt": "Tabela como seleção de livro"
+            "pt": "Tabela como seleção de livro",
+            "de": "Buchauswahl im Tabellen-Stil"
         },
         {
             "__": "Manage cache",
             "ru": "Управление кэшем",
             "it": "Gestisci cache",
             "sv": "Hantera cacheminnet",
-            "pt": "Gerenciar a memória"
+            "pt": "Gerenciar a memória",
+            "de": "Cache verwalten"
         },
 
         {
             "__": "Interface language",
-            "ru": "Язык интерфейса"
+            "ru": "Язык интерфейса",
+            "de": "Programmsprache"
         },
         {
             "__": "System language",
-            "ru": "Системный язык"
+            "ru": "Системный язык",
+            "de": "Systemsprache"
         }
     ],
 
@@ -1035,7 +1159,8 @@
             "it": "Scegli Traduzione",
             "sv": "Välj Översättning",
             "fi": "Valitse Käännös",
-            "pt": "Selecione o Idioma"
+            "pt": "Selecione o Idioma",
+            "de": "Übersetzung wählen"
         }
     ],
 
@@ -1047,7 +1172,8 @@
             "it": "Chiudi",
             "sv": "Stäng",
             "fi": "Sulje",
-            "pt": "Fechar"
+            "pt": "Fechar",
+            "de": "Schließen"
         }
     ],
 
@@ -1057,7 +1183,8 @@
             "ru": "Выберите книгу и стих",
             "it": "Scegliere libro e versetto",
             "sv": "Välj bok och vers",
-            "pt": "Selecione livro e versículo"
+            "pt": "Selecione livro e versículo",
+            "de": "Buch und Vers wählen"
         },
         {
             "__": "Chapter:",
@@ -1066,7 +1193,8 @@
             "it": "Capitolo:",
             "sv": "Kapitel:",
             "fi": "Luku:",
-            "pt": "Capítulo:"
+            "pt": "Capítulo:",
+            "de": "Kapitel:"
         },
         {
             "__": "Verse:",
@@ -1075,7 +1203,8 @@
             "it": "Versetto:",
             "sv": "Vers:",
             "fi": "Jae:",
-            "pt": "Versículo:"
+            "pt": "Versículo:",
+            "de": "Vers:"
         },
         {
             "__": "OK",
@@ -1084,7 +1213,8 @@
             "it": "OK",
             "sv": "OK",
             "fi": "OK",
-            "pt": "OK"
+            "pt": "OK",
+            "de": "OK"
         }
     ],
 
@@ -1094,49 +1224,56 @@
             "ru": "Управление кэшем",
             "it": "Gestisci cache",
             "sv": "Hantera cacheminnet",
-            "pt": "Gerenciar a memória"
+            "pt": "Gerenciar a memória",
+            "de": "Cache verwalten"
         },
         {
             "__": "Cached in phone's storage:",
             "ru": "Хранится в памяти телефона:",
             "it": "Salvato nella cache del telefono:",
             "sv": "Cachad i telefonens minne:",
-            "pt": "Memória armazenada no telefone:"
+            "pt": "Memória armazenada no telefone:",
+            "de": "Im Telefonspeicher gespeichert:"
         },
         {
             "__": "The cache is empty",
             "ru": "Кэш пуст",
             "it": "La cache è vuota",
             "sv": "Cacheminnet är tomt",
-            "pt": "A memória está vazia"
+            "pt": "A memória está vazia",
+            "de": "Der Cache ist leer"
         },
         {
             "__": "Text: {textSize}",
             "ru": "Текст: {textSize}",
             "it": "Testo: {textSize}",
             "sv": "Text: {textSize}",
-            "pt": "Texto: {textSize}"
+            "pt": "Texto: {textSize}",
+            "de": "Text: {textSize}"
         },
         {
             "__": "Text: {textSize}, Search index: {indexSize}",
             "ru": "Текст: {textSize}, Поисковый индекс: {indexSize}",
             "it": "Testo: {textSize}, Indice di ricerca: {indexSize}",
             "sv": "Text: {textSize}, Sökindex: {indexSize}",
-            "pt": "Texto: {textSize}, índice de pesquisa : {indexSize}"
+            "pt": "Texto: {textSize}, índice de pesquisa : {indexSize}",
+            "de": "Text: {textSize}, Suchindex: {indexSize}"
         },
         {
             "__": "Delete from cache",
             "ru": "Удалить из кэша",
             "it": "Cancella dalla cache",
             "sv": "Radera från cacheminnet",
-            "pt": "Excluir da memória"
+            "pt": "Excluir da memória",
+            "de": "Aus dem Cache löschen"
         },
         {
             "__": "Delete search index only",
             "ru": "Удалить только индекс",
             "it": "Cancella solo l'indice di ricerca",
             "sv": "Ta endast bort sökindex",
-            "pt": "Excluir somente índice de pesquisa"
+            "pt": "Excluir somente índice de pesquisa",
+            "de": "Nur den Suchindex löschen"
         }
     ],
 
@@ -1146,14 +1283,16 @@
             "ru": "Пожертвование принято",
             "it": "Donazione accettata",
             "sv": "Donationen accepterat",
-            "pt": "Doação aceita"
+            "pt": "Doação aceita",
+            "de": "Spende angenommen"
         },
         {
             "__": "Thank you for supporting MeeBible!",
             "ru": "Спасибо вам за поддержку!",
             "it": "Grazie per avere sostenuto lo sviluppo di MeeBible!",
             "sv": "Tack för att du stödjer MeeBible!",
-            "pt": "Obrigado por colaborar com MeeBible!"
+            "pt": "Obrigado por colaborar com MeeBible!",
+            "de": "Danke, dass Sie MeeBible unterstützen!"
         },
         {
             "__": "OK",
@@ -1162,42 +1301,48 @@
             "it": "OK",
             "sv": "OK",
             "fi": "OK",
-            "pt": "OK"
+            "pt": "OK",
+            "de": "OK"
         },
         {
             "__": "Sorry",
             "ru": "Извините",
             "it": "Spiacente",
             "sv": "Ursäkta",
-            "pt": "Desculpe"
+            "pt": "Desculpe",
+            "de": "Entschuldigung"
         },
         {
             "__": "Due to limitations of Nokia Store you can't pay same amount twice. Please choose another amount if you want to donate more.",
             "ru": "Из-за ограничения Nokia Store вы не можете заплатить одну и ту же сумму дважды. Пожалуйста, выберите другую сумму если вы хотите пожертвовать ещё.",
             "it": "Per limitazioni del Nokia Store non puoi pagare lo stesso importo due volte. Si prega di scegliere un altro importo per donare nuovamente.",
             "sv": "På grund av begränsningar i Nokia Butik kan du inte betala lika mycket två gånger. Vänligen välj ett annat belopp om du vill donera mer.",
-            "pt": "Devido às limitações da Nokia Store você não pode pagar duas vezes o mesmo valor. Por favor escolha outro valor se você quiser doar mais."
+            "pt": "Devido às limitações da Nokia Store você não pode pagar duas vezes o mesmo valor. Por favor escolha outro valor se você quiser doar mais.",
+            "de": "Wegen Limitierungen des Nokia Stores können Sie nicht zweimal den gleiche Betrag bezahlen. Bitte wählen Sie einen anderen Betrag wenn sie nocheinmal spenden möchten."
         },
         {
             "__": "Donate",
             "ru": "Пожертвовать",
             "it": "Fai una donazione",
             "sv": "Donera",
-            "pt": "Doação"
+            "pt": "Doação",
+            "de": "Spenden"
         },
         {
             "__": "You can support further development of MeeBible by donating a small sum",
             "ru": "Вы можете поддержать дальнейшее развитие MeeBible, пожертвовав небольшую сумму",
             "it": "Puoi aiutare lo sviluppo di MeeBible donando una piccola somma",
             "sv": "Du kan stödja ytterligare utveckling av MeeBible genom att donera en liten summa pengar",
-            "pt": "Você pode apoiar desenvolvimento da MeeBible doando uma pequena quantia"
+            "pt": "Você pode apoiar desenvolvimento da MeeBible doando uma pequena quantia",
+            "de": "Sie können die weitere Entwicklung von MeeBible mit einer kleinen Spende unterstützen"
         },
         {
             "__": "Payment will be done via your Nokia Store account",
             "ru": "Платёж будет произведён через ваш аккаунт Nokia Store",
             "it": "Il pagamento verrà effettuato tramite l'account Nokia Store",
             "sv": "Betalning kommer att ske via ert Nokia Butik-konto",
-            "pt": "O pagamento será feito através da sua conta da Nokia Store"
+            "pt": "O pagamento será feito através da sua conta da Nokia Store",
+            "de": "Die Bezahlung wird über Ihr Nokia Store Konto abgewickelt"
         }
     ],
 
@@ -1207,7 +1352,8 @@
             "ru": "MeeBible конвертирует скачанные тексты в новый формат...\n\nПодождите, пожалуйста",
             "it": "Meebible sta convertendo i testi scaricati nel nuovo formato...\n\nAttendere prego",
             "sv": "MeeBible håller på att omvandla nedladdade texter till det nya lagringsformatet...\n\nVänta",
-            "pt": "MeeBible está convertendo textos baixados em novo formato de armazenamento...\n\nPor favor aguarde"
+            "pt": "MeeBible está convertendo textos baixados em novo formato de armazenamento...\n\nPor favor aguarde",
+            "de": "MeeBible konvertiert heruntergeladene Texte in das neue Speicherformat...\n\nBitte warten"
         }
     ],
 
@@ -1217,7 +1363,8 @@
             "ru": "Поделиться текстом из Библии",
             "it": "Condividi testo biblico",
             "sv": "Dela bibeltext",
-            "pt": "Compartilhe texto bíblico"
+            "pt": "Compartilhe texto bíblico",
+            "de": "Bibeltext teilen"
         }
     ]
 }

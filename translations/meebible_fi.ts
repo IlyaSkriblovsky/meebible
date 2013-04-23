@@ -270,6 +270,10 @@ Uudet käännökset
 			<source>Swedish</source>
 			<translation>Ruotsin kieli</translation>
 		</message>
+		<message>
+			<source>German</source>
+			<translation>Saksa</translation>
+		</message>
 	</context>
 	<context>
 		<name>CacheInfoPage</name>

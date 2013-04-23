@@ -290,6 +290,10 @@ New translations
 			<source>Swedish</source>
 			<translation>Swedish</translation>
 		</message>
+		<message>
+			<source>German</source>
+			<translation>German</translation>
+		</message>
 	</context>
 	<context>
 		<name>CacheInfoPage</name>

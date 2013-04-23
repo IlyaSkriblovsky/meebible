@@ -270,6 +270,10 @@ Nuevas traducciones
 			<source>Swedish</source>
 			<translation>Sueco</translation>
 		</message>
+		<message>
+			<source>German</source>
+			<translation>Alemán</translation>
+		</message>
 	</context>
 	<context>
 		<name>CacheInfoPage</name>
