@@ -30,6 +30,9 @@ CONFIG += warn_on
 CONFIG -= debug
 CONFIG -= app_bundle
 
+CONFIG += mobility
+MOBILITY += messaging
+
 
 LIBS += -lsqlite3
 
@@ -90,7 +93,8 @@ HEADERS +=                      \
     src/MediakeyCaptureItem.h   \
     src/IndexRebuildThread.h    \
     src/CacheStorage.h          \
-    src/CacheInfo.h
+    src/CacheInfo.h             \
+    src/MessageHelper.h
 
 iapdonation:HEADERS +=          \
     src/IAPDonation.h
@@ -124,7 +128,8 @@ SOURCES +=                      \
     src/SearchThread.cpp        \
     src/MediakeyCaptureItem.cpp \
     src/IndexRebuildThread.cpp  \
-    src/CacheInfo.cpp
+    src/CacheInfo.cpp           \
+    src/MessageHelper.cpp
 
 iapdonation:SOURCES +=          \
     src/IAPDonation.cpp
