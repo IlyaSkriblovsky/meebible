@@ -1,3 +1,9 @@
+meebible (3.5.3) unstable; urgency=low
+
+  * Fixed encoding in sharing via SMS & E-Mail under Symbian
+
+ -- Ilya Skriblovsky <Ilya.Skriblovsky@gmail.com>  Thu, 10 May 2013 10:17:00 +0400
+
 meebible (3.5.2) unstable; urgency=low
 
   * German translation added
