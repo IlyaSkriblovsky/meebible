@@ -1,3 +1,9 @@
+meebible (3.5.4) unstable; urgency=low
+
+  * Bible link moved to end of Bible quote when sharing via SMS and Twitter on Symbian
+
+ -- Ilya Skriblovsky <Ilya.Skriblovsky@gmail.com>  Thu, 10 May 2013 13:51:00 +0400
+
 meebible (3.5.3) unstable; urgency=low
 
   * Fixed encoding in sharing via SMS & E-Mail under Symbian
