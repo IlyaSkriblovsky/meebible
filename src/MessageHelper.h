@@ -1,6 +1,8 @@
 #ifndef MESSAGEHELPER_H
 #define MESSAGEHELPER_H
 
+#ifdef SYMBIAN
+
 #include <QObject>
 #include <QString>
 
@@ -26,5 +28,7 @@ class MessageHelper: public QObject
     private:
         QMessageService _service;
 };
+
+#endif
 
 #endif

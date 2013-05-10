@@ -1,3 +1,5 @@
+#ifdef SYMBIAN
+
 #include "MessageHelper.h"
 
 #include <QDebug>
@@ -28,3 +30,5 @@ void MessageHelper::composeEmail(const QString& subject, const QString& body)
     msg.setBody(body);
     _service.compose(msg);
 }
+
+#endif
