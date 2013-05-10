@@ -50,14 +50,17 @@ ModelSelectionDialog {
 
         switch (service) {
             case \'sms\': {
-                url = \'sms:?body=\' + escapeArg(bibleTextTitle + \'\\n\' + bibleText)
+                // url = \'sms:?body=\' + escapeArg(bibleTextTitle + \'\\n\' + bibleText)
+                messageHelper.composeSMS(bibleTextTitle + \'\\n\' + bibleText)
                 break
             }
 
             case \'mail\': {
-                url = \'mailto:\'
-                    + \'?subject=\' + escapeArg(bibleTextTitle)
-                    + \'&body=\' + escapeArg(bibleText + \'\\n\' + link)
+                // url = \'mailto:\'
+                //     + \'?subject=\' + escapeArg(bibleTextTitle)
+                //     + \'&body=\' + escapeArg(bibleText + \'\\n\' + link)
+
+                messageHelper.composeEmail(bibleTextTitle, bibleText)
 
                 break
             }
@@ -95,7 +98,6 @@ ModelSelectionDialog {
 
         if (url)
         {
-            console.log(url)
             Qt.openUrlExternally(url)
         }
     }

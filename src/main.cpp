@@ -28,6 +28,10 @@
 #include "MediakeyCaptureItem.h"
 #include "CacheInfo.h"
 
+#ifdef SYMBIAN
+    #include "MessageHelper.h"
+#endif
+
 #ifdef IAPDONATION
     #include "IAPDonation.h"
 #endif
@@ -111,6 +115,10 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     CacheInfo cacheInfo;
 
+    #ifdef SYMBIAN
+        MessageHelper messageHelper;
+    #endif
+
     QDeclarativeEngine engine;
 
 
@@ -142,6 +150,9 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     view->rootContext()->setContextProperty("placeAccesser", &placeAccesser);
     view->rootContext()->setContextProperty("searchResultAccesser", &searchResultAccesser);
     view->rootContext()->setContextProperty("cacheInfo", &cacheInfo);
+    #ifdef SYMBIAN
+        view->rootContext()->setContextProperty("messageHelper", &messageHelper);
+    #endif
 
     #ifdef FREEVERSION
         view->rootContext()->setContextProperty("freeversion", QVariant(true));
