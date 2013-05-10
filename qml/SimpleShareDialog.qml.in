@@ -51,7 +51,7 @@ ModelSelectionDialog {
         switch (service) {
             case \'sms\': {
                 // url = \'sms:?body=\' + escapeArg(bibleTextTitle + \'\\n\' + bibleText)
-                messageHelper.composeSMS(bibleTextTitle + \'\\n\' + bibleText)
+                messageHelper.composeSMS(bibleText + \' (\' + bibleTextTitle + \')\')
                 break
             }
 
@@ -66,7 +66,7 @@ ModelSelectionDialog {
             }
 
             case \'twitter\': {
-                var tweet = bibleTextTitle + \': \' + bibleText + \' \' + link
+                var tweet = bibleText + \' (\' + bibleTextTitle + \') \' + link
 
                 url = \'http://twitter.com/intent/tweet?text=\' + escapeArg(tweet)
                 break
@@ -97,8 +97,6 @@ ModelSelectionDialog {
         }
 
         if (url)
-        {
             Qt.openUrlExternally(url)
-        }
     }
 }
