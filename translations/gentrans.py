@@ -99,4 +99,4 @@ for lang in langs:
 
 for lang in langs:
     with open('{0}_{1}.ts'.format(args.out_basename, lang), 'w') as f:
-        f.write(docs[lang].toprettyxml().encode('utf-8'))
+        f.write(docs[lang].toxml().encode('utf-8'))
