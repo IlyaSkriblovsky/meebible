@@ -122,6 +122,7 @@ Page {
                         case \'fi\': return qsTr(\"Finnish\")
                         case \'de\': return qsTr(\"German\")
                         case \'it\': return qsTr(\"Italian\")
+                        case \'pl\': return qsTr(\"Polish\")
                         case \'pt\': return qsTr(\"Portuguese\")
                         case \'ru\': return qsTr(\"Russian\")
                         case \'es\': return qsTr(\"Spanish\")
@@ -297,6 +298,7 @@ Page {
             ListElement { code: \"fi\"; value: \"Finnish\" }
             ListElement { code: \"de\"; value: \"German\" }
             ListElement { code: \"it\"; value: \"Italian\" }
+            ListElement { code: \"pl\"; value: \"Polish\" }
             ListElement { code: \"pt\"; value: \"Portuguese\" }
             ListElement { code: \"ru\"; value: \"Russian\" }
             ListElement { code: \"es\"; value: \"Spanish\" }

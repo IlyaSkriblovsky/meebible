@@ -235,6 +235,14 @@ Page {
                     $$QML_SYMBIAN_THEME
                 }
                 Label {
+                    text: \'• \' + qsTr(\"Polish\") + \': Mateusz Kitka\'
+
+                    width: parent.width
+                    wrapMode: Text.Wrap
+
+                    $$QML_SYMBIAN_THEME
+                }
+                Label {
                     text: \'• \' + qsTr(\"Portuguese\") + \': Paulo Cecilio Jr\'
 
                     width: parent.width
