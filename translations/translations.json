@@ -1,4 +1,4 @@
-﻿{
+{
     "AboutPage": [
         {
             "__": "About MeeBible",
@@ -922,7 +922,7 @@
             "sv": "Stäng",
             "fi": "Sulje",
             "pt": "Fechar",
-            "de": "Schließen"
+            "de": "Schließen",
             "pl": "Zamknij"
         },
         {
@@ -997,7 +997,7 @@
             "sv": "Du kan söka efter flera ord, de kommer att hittas även om de är separerade med andra ord.\n\nPlacera asterisk efter ord för att hitta det med alla olika ändelser (Till exempel: Prof* för Profet och Profetera)",
             "pt": "Você pode pesquisar por várias palavras, elas serão encontradas, mesmo se separadas por outras palavras.\n\nColoque asterisco após a palavra para encontrá-la com todas as terminações diferentes (por exemplo:  Profe* para Profeta e Profecia)",
             "de": "Sie können nach mehreren Worten suchen, diese werden auch gefunden wenn sie durch andere Wörter getrennt sind.\n\nSetzen Sie einen Stern nach dem Wort um alle verschiedenen Endungen zu finden (Zum Beispiel: Proph* für Prophet und Prophetie)",
-            "pl": "Możesz wyszukiwać kilka słów naraz. Będą odnalezione, nawet jeśli są rozdzielone innymi wyrazami. \n\Umieść gwiazdkę po słowie aby odnaleźć wszystkie warianty końcówek tego słowa. (Na przykład: Pror* dla Prorok i Proroctwo)"
+            "pl": "Możesz wyszukiwać kilka słów naraz. Będą odnalezione, nawet jeśli są rozdzielone innymi wyrazami. \n\nUmieść gwiazdkę po słowie aby odnaleźć wszystkie warianty końcówek tego słowa. (Na przykład: Pror* dla Prorok i Proroctwo)"
         },
         {
             "__": "OK",
