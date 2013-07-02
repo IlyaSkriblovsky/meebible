@@ -1,4 +1,4 @@
-{
+﻿{
     "AboutPage": [
         {
             "__": "About MeeBible",
@@ -9,7 +9,7 @@
             "fi": "Tietoja MeeBiblesta",
             "pt": "Sobre a MeeBible",
             "de": "Über MeeBible",
-            "pl": "O programie MeeBible"        
+            "pl": "MeeBible"
         },
         {
             "__": "If you want to support development, please consider buying <a href='http://store.ovi.com/content/215454'>paid version</a>!",
@@ -106,7 +106,7 @@
             "fi": "Kiitos kääntää sovelluksen",
             "pt": "Obrigado por traduzir aplicação",
             "de": "Danke für das Übersetzen der Anwendung in:",
-            "pl": "Podziękowania za tłumaczenie interfejsu użytkownika dla:"
+            "pl": "Podziękowania za tłumaczenie dla:"
         },
         {
             "__": "Finnish",
@@ -191,7 +191,7 @@
             "es": "Polaco",
             "it": "Polacco",
             "sv": "Polska",
-            "fi": "Puolan kieli",
+            "fi": "Puola",
             "pt": "Polonês",
             "de": "Polnisch",
             "pl": "Polski"
@@ -255,7 +255,7 @@
             "fi": "Lisää kirjanmerkki",
             "pt": "Marcador",
             "de": "Lesezeichen",
-            "pl": "Do ulubionych"
+            "pl": "Zapisz"
         },
         {
             "__": "Bookmarked",
@@ -266,7 +266,7 @@
             "fi": "Kirjanmerkiksi",
             "pt": "Favoritos",
             "de": "Lesezeichen gespeichert",
-            "pl": "Dodano do ulubionych"
+            "pl": "Zapisano w ulubionych"
         },
         {
             "__": "Already in bookmarks",
@@ -409,7 +409,7 @@
             "fi": "Oletko valmis lataamaan koko Raamatun?",
             "pt": "Você está pronto para baixar a Bíblia inteira?",
             "de": "Soll die komplette Bibel heruntergeladen werden?",
-            "pl": "Czy jesteś gotowy do pobrania całej Biblii?"
+            "pl": "Jesteś gotowy do pobrania Biblii?"
         },
         {
             "__": "This may take 10-15 minutes and you'd better do it over Wi-Fi connection",
@@ -453,7 +453,7 @@
             "fi": "Etsi",
             "pt": "Pesquisar",
             "de": "Suche",
-            "pl": "Szukaj"
+            "pl": "Wyszukiwanie"
         },
         {
             "__": "Copied",
@@ -475,7 +475,7 @@
             "fi": "Fonttikoko",
             "pt": "Tamanho da fonte",
             "de": "Schriftgröße",
-            "pl": "Wielkość czcionki"
+            "pl": "Czcionka"
         },
         {
             "__": "Line spacing",
@@ -528,7 +528,7 @@
             "fi": "Tietoja MeeBiblesta",
             "pt": "Sobre Meebible",
             "de": "Über MeeBible",
-            "pl": "O programie MeeBible"
+            "pl": "MeeBible"
         },
         {
             "__": "Quit",
@@ -922,7 +922,7 @@
             "sv": "Stäng",
             "fi": "Sulje",
             "pt": "Fechar",
-            "de": "Schließen",
+            "de": "Schließen"
             "pl": "Zamknij"
         },
         {
@@ -997,7 +997,7 @@
             "sv": "Du kan söka efter flera ord, de kommer att hittas även om de är separerade med andra ord.\n\nPlacera asterisk efter ord för att hitta det med alla olika ändelser (Till exempel: Prof* för Profet och Profetera)",
             "pt": "Você pode pesquisar por várias palavras, elas serão encontradas, mesmo se separadas por outras palavras.\n\nColoque asterisco após a palavra para encontrá-la com todas as terminações diferentes (por exemplo:  Profe* para Profeta e Profecia)",
             "de": "Sie können nach mehreren Worten suchen, diese werden auch gefunden wenn sie durch andere Wörter getrennt sind.\n\nSetzen Sie einen Stern nach dem Wort um alle verschiedenen Endungen zu finden (Zum Beispiel: Proph* für Prophet und Prophetie)",
-            "pl": "Możesz wyszukiwać kilka słów na raz. Będą odnalezione, nawet jeśli są rozdzielone innymi wyrazami. \n\nUmieść gwiazdkę po słowie aby odnaleźć wszystkie warianty końcówek tego słowa. (Na przykład: Pror* dla Prorok i Proroctwo)"
+            "pl": "Możesz wyszukiwać kilka słów naraz. Będą odnalezione, nawet jeśli są rozdzielone innymi wyrazami. \n\Umieść gwiazdkę po słowie aby odnaleźć wszystkie warianty końcówek tego słowa. (Na przykład: Pror* dla Prorok i Proroctwo)"
         },
         {
             "__": "OK",
@@ -1033,7 +1033,7 @@
             "fi": "Kieli",
             "pt": "Idioma",
             "de": "Sprache",
-            "pl": "Język"
+            "pl": "Język Biblii"
         },
         {
             "__": "<not loaded yet>",
@@ -1088,7 +1088,7 @@
             "fi": "Koko näyttö",
             "pt": "Tela inteira",
             "de": "Vollbild",
-            "pl": "Pełny ekran"
+            "pl": "Widok pełnoekranowy"
         },
         {
             "__": "Inverted theme",
@@ -1110,7 +1110,7 @@
             "fi": "Kopioi jae numerolla",
             "pt": "Copiar versículos com números",
             "de": "Verse mit Nummern kopieren",
-            "pl": "Kopiuj wersety razem z cyframi"
+            "pl": "Kopiowanie wersetów z cyframi"
         },
         {
             "__": "Update translation list",
@@ -1154,7 +1154,7 @@
             "fi": "Tyhjennä välimuisti",
             "pt": "Limpar memória cache",
             "de": "Cache leeren",
-            "pl": "Wyczyść pamięć podręczną"
+            "pl": "Wyczyść pamięć"
         },
         {
             "__": "Cache clearing",
@@ -1165,7 +1165,7 @@
             "fi": "Välimuisti tyhjennetään...",
             "pt": "Limpando a memória cache",
             "de": "Cache leeren...",
-            "pl": "Czyszczenie pamięci podręcznej"
+            "pl": "Czyszczenie pamięci"
         },
         {
             "__": "Select Font",
@@ -1198,7 +1198,7 @@
             "fi": "Haluatko tyhjentää välimuistin?",
             "pt": "Você quer limpar a memória cache?",
             "de": "Wollen Sie den Cache leeren?",
-            "pl": "Czy chcesz wyczyścić pamięć podręczną?"
+            "pl": "Wyczyścić pamięć?"
         },
         {
             "__": "This will delete all downloaded Bible chapters from your phone",
@@ -1260,7 +1260,7 @@
             "sv": "Hantera cacheminnet",
             "pt": "Gerenciar a memória",
             "de": "Cache verwalten",
-            "pl": "Zarządzanie pamięcią podręczną"
+            "pl": "Zarządzanie pamięcią"
         },
 
         {
@@ -1358,7 +1358,7 @@
             "sv": "Hantera cacheminnet",
             "pt": "Gerenciar a memória",
             "de": "Cache verwalten",
-            "pl": "Zarządzanie pamięcią podręczną"
+            "pl": "Zarządzanie pamięcią"
         },
         {
             "__": "Cached in phone's storage:",
@@ -1376,7 +1376,7 @@
             "sv": "Cacheminnet är tomt",
             "pt": "A memória está vazia",
             "de": "Der Cache ist leer",
-            "pl": "Pamięć podręczna jest pusta"
+            "pl": "Pamięć jest pusta"
         },
         {
             "__": "Text: {textSize}",
@@ -1403,7 +1403,7 @@
             "sv": "Radera från cacheminnet",
             "pt": "Excluir da memória",
             "de": "Aus dem Cache löschen",
-            "pl": "Usuń z pamięci podręcznej"
+            "pl": "Usuń z pamięci"
         },
         {
             "__": "Delete search index only",
