@@ -420,7 +420,7 @@
             "fi": "Tämä voi kestää 10-15 minuuttia ja teidän on parasta tehdä se Wi-Fi-yhteydellä",
             "pt": "Isso levará de 10 a 15 minutos e será melhor se você usar uma conexão Wi-Fi",
             "de": "Es kann 10-15 Minuten dauern und sollte am besten mit einer WLAN-Verbindung geladen werden",
-            "pl": "To może zająć ok. 10-15 minut. Radzimy skorzystać z połączenia Wi-Fi"
+            "pl": "To może zająć około 10-15 minut. Radzimy skorzystać z połączenia Wi-Fi"
         },
         {
             "__": "Download",
@@ -511,13 +511,13 @@
             "pl": "Ustawienia"
         },
         {
-            "__": "Donate",
-            "ru": "Пожертвовать",
+            "__": "Buy a coffee",
+            "ru": "Купить кофе",
             "it": "Fai una donazione",
             "sv": "Donera",
             "pt": "Doação",
             "de": "Spenden",
-            "pl": "Dotacja"
+            "pl": "Kup kawę"
         },
         {
             "__": "About MeeBible",
@@ -564,7 +564,7 @@
             "fi": "Poistaa",
             "pt": "Apagar",
             "de": "Löschen",
-            "pl": "Skasuj"
+            "pl": "Usuń"
         },
         {
             "__": "No bookmarks yet",
@@ -1424,7 +1424,7 @@
             "sv": "Donationen accepterat",
             "pt": "Doação aceita",
             "de": "Spende angenommen",
-            "pl": "Dotacja zaakceptowana"
+            "pl": "Wsparcie przyjęte"
         },
         {
             "__": "Thank you for supporting MeeBible!",
@@ -1456,7 +1456,7 @@
             "pl": "Przepraszamy"
         },
         {
-            "__": "Due to limitations of Nokia Store you can't pay same amount twice. Please choose another amount if you want to donate more.",
+            "__": "Due to limitations of Nokia Store you can't buy same type of coffee twice. Please choose another coffee if you want to donate more.",
             "ru": "Из-за ограничения Nokia Store вы не можете заплатить одну и ту же сумму дважды. Пожалуйста, выберите другую сумму если вы хотите пожертвовать ещё.",
             "it": "Per limitazioni del Nokia Store non puoi pagare lo stesso importo due volte. Si prega di scegliere un altro importo per donare nuovamente.",
             "sv": "På grund av begränsningar i Nokia Butik kan du inte betala lika mycket två gånger. Vänligen välj ett annat belopp om du vill donera mer.",
@@ -1465,22 +1465,22 @@
             "pl": "Ze względu na ograniczenia Nokia Store, nie można płacić tej samej kwoty dwukrotnie. Prosimy wybrać inną kwotę, jeśli chcesz wspomóc nas ponownie."
         },
         {
-            "__": "Donate",
-            "ru": "Пожертвовать",
+            "__": "Buy a coffee",
+            "ru": "Купить кофе",
             "it": "Fai una donazione",
             "sv": "Donera",
             "pt": "Doação",
             "de": "Spenden",
-            "pl": "Dotacja"
+            "pl": "Kup kawę"
         },
         {
-            "__": "You can support further development of MeeBible by donating a small sum",
-            "ru": "Вы можете поддержать дальнейшее развитие MeeBible, пожертвовав небольшую сумму",
+            "__": "Do you enjoy using MeeBible? Buy me a coffee and support further development!",
+            "ru": "Вам нравится MeeBible? Подарите мне кофе и поддержите этим дальнейшую разработку программы!",
             "it": "Puoi aiutare lo sviluppo di MeeBible donando una piccola somma",
             "sv": "Du kan stödja ytterligare utveckling av MeeBible genom att donera en liten summa pengar",
             "pt": "Você pode apoiar desenvolvimento da MeeBible doando uma pequena quantia",
             "de": "Sie können die weitere Entwicklung von MeeBible mit einer kleinen Spende unterstützen",
-            "pl": "Możesz wspomóc dalszy rozwój MeeBible wpłacając niewielką sumę pieniędzy"
+            "pl": "Czy podoba Ci się korzystanie z MeeBible? Kup mi kawę i wspomóż przyszły rozwój projektu!"
         },
         {
             "__": "Payment will be done via your Nokia Store account",
@@ -1490,6 +1490,52 @@
             "pt": "O pagamento será feito através da sua conta da Nokia Store",
             "de": "Die Bezahlung wird über Ihr Nokia Store Konto abgewickelt",
             "pl": "Płatność zostanie wykonana za pośrednictwem konta Nokia Store"
+        },
+
+        {
+            "__": "Frappe",
+            "ru": "Фраппе",
+            "it": "Fai una donazione",
+            "sv": "Donera",
+            "pt": "Doação",
+            "de": "Spenden",
+            "pl": "Frappe"
+        },
+        {
+            "__": "Espresso",
+            "ru": "Эспрессо",
+            "it": "Fai una donazione",
+            "sv": "Donera",
+            "pt": "Doação",
+            "de": "Spenden",
+            "pl": "Espresso"
+        },
+        {
+            "__": "Latte",
+            "ru": "Латте",
+            "it": "Fai una donazione",
+            "sv": "Donera",
+            "pt": "Doação",
+            "de": "Spenden",
+            "pl": "Latte"
+        },
+        {
+            "__": "Cappuccino",
+            "ru": "Капучино",
+            "it": "Fai una donazione",
+            "sv": "Donera",
+            "pt": "Doação",
+            "de": "Spenden",
+            "pl": "Cappuccino"
+        },
+        {
+            "__": "Mocha & Cake",
+            "ru": "Мокаччино и тортик",
+            "it": "Fai una donazione",
+            "sv": "Donera",
+            "pt": "Doação",
+            "de": "Spenden",
+            "pl": "Mokka z ciastem"
         }
     ],
 

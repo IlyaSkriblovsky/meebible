@@ -1034,7 +1034,7 @@ Page {
                     menu.close()
                 }
 
-                rightText: qsTr(\"Donate\")
+                rightText: qsTr(\"Buy a coffee\")
                 onRightClicked: {
                     donatePage.open()
                     menu.close()

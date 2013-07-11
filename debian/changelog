@@ -1,3 +1,9 @@
+meebible (3.5.5) unstable; urgency=low
+
+  * Polish UI translation added
+
+ -- Ilya Skriblovsky <Ilya.Skriblovsky@gmail.com>  Fri, 28 June 2013 23:05:00 +0400
+
 meebible (3.5.4) unstable; urgency=low
 
   * Bible link moved to end of Bible quote when sharing via SMS and Twitter on Symbian

@@ -30,7 +30,7 @@ Page {
         id: alreadyPurchasedDialog
 
         titleText: qsTr(\"Sorry\")
-        message: qsTr(\"Due to limitations of Nokia Store you can\'t pay same amount twice. Please choose another amount if you want to donate more.\") + (SYMBIAN ? \"\\n\" : \"\")
+        message: qsTr(\"Due to limitations of Nokia Store you can\'t buy same type of coffee twice. Please choose another coffee if you want to donate more.\") + (SYMBIAN ? \"\\n\" : \"\")
         acceptButtonText: qsTr(\"OK\")
     }
 
@@ -44,7 +44,7 @@ Page {
 
     Header {
         id: header
-        text: qsTr(\"Donate\")
+        text: qsTr(\"Buy a coffee\")
 
         BusyIndicator {
             id: busy
@@ -82,7 +82,7 @@ Page {
             spacing: 20
 
             Label {
-                text: qsTr(\"You can support further development of MeeBible by donating a small sum\")
+                text: qsTr(\"Do you enjoy using MeeBible? Buy me a coffee and support further development!\")
 
                 width: parent.width
                 wrapMode: Text.Wrap
@@ -101,15 +101,16 @@ Page {
 
             Repeater {
                 model: [
-                    { price: 1,  productId: \"842694\" },
-                    { price: 2,  productId: \"842695\" },
-                    { price: 3,  productId: \"842696\" },
-                    { price: 5,  productId: \"842698\" },
-                    { price: 10, productId: \"842699\" },
+                    { price: 1,  productId: \"842694\", coffee: \"Frappe\" },
+                    { price: 2,  productId: \"842695\", coffee: \"Espresso\" },
+                    { price: 3,  productId: \"842696\", coffee: \"Latte\" },
+                    { price: 5,  productId: \"842698\", coffee: \"Cappuccino\" },
+                    { price: 10, productId: \"842699\", coffee: \"Mocha & Cake\" },
                 ]
 
                 Button {
-                    text: qsTr(\"Donate\") + \" €\" + modelData.price
+                    text: qsTr(modelData.coffee) + \"   €\" + modelData.price
+                    width: modelData.price == 10 ? 300 : 250
 
                     anchors.horizontalCenter: parent.horizontalCenter
 
