@@ -1,3 +1,5 @@
+![Logo](https://github.com/IlyaSkriblovsky/meebible/blob/master/meebible.png?raw=true) 
+
 # MeeBible
 
 The multilingual Bible reader for Symbian^3 and MeeGo smartphones
