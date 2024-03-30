@@ -162,13 +162,21 @@
         </p>
 
         <h2>Donate</h2>
-        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-            <input type="hidden" name="cmd" value="_s-xclick">
-            <input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
-            ">
-            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-            <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-        </form>
+        <div id="donate-button-container">
+        <div id="donate-button"></div>
+        <script src="https://www.paypalobjects.com/donate/sdk/donate-sdk.js" charset="UTF-8"></script>
+        <script>
+        PayPal.Donation.Button({
+        env:'production',
+        hosted_button_id:'97APBNSQFP8HJ',
+        image: {
+        src:'https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif',
+        alt:'Donate with PayPal button',
+        title:'PayPal - The safer, easier way to pay online!',
+        }
+        }).render('#donate-button');
+        </script>
+        </div>
 
 
         <h2>Privacy policy</h2>
