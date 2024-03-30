@@ -8,7 +8,7 @@ The multilingual Bible reader for Symbian^3 and MeeGo smartphones
 
 With MeeBible you can read God's Word everywhere with your phone. Bible texts are downloaded on the fly from the web and cached for further reading. You can also download whole Bible translation via Wi-Fi network and read it offline.
 
-MeeBible supports **85** Bible translations in **56** languages.
+MeeBible supports **85** Bible translations in **53** languages.
 
 Full-text unicode-aware search is supported. You can find Bible places by phrase or character's name.
 

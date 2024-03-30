@@ -112,16 +112,14 @@
 
         <div class="translations-list" style="display: none">
             {foreach $langs as $langCode => $lang}
-                {if $lang.trans}
-                    <div class="language" code="{$langCode}">
-                        <h3>{$lang.selfname}<span class="lang-separator">|</span><span class="engname">{$lang.engname}</span></h3>
-                        {foreach $lang.trans as $trans}
-                            <div class="translation" code="{$trans.transCode}">
-                                {$trans.name}
-                            </div>
-                        {/foreach}
-                    </div>
-                {/if}
+                <div class="language" code="{$langCode}">
+                    <h3>{$lang.selfname}<span class="lang-separator">|</span><span class="engname">{$lang.engname}</span></h3>
+                    {foreach $lang.trans as $trans}
+                        <div class="translation" code="{$trans.transCode}">
+                            {$trans.name}
+                        </div>
+                    {/foreach}
+                </div>
             {/foreach}
         </div>
 

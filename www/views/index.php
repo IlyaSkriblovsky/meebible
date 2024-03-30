@@ -20,6 +20,13 @@ while ($trans = $r->fetchArray())
     $trans_count++;
 }
 
+function has_translations($lang)
+{
+    return count($lang["trans"]) > 0;
+}
+
+$langs = array_filter($langs, "has_translations");
+
 return new TemplateResponse('index.tpl', array(
     'langs' => $langs,
     'trans_count' => $trans_count
