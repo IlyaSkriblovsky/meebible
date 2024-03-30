@@ -154,13 +154,13 @@
         <h2>Source code</h2>
 
         <p>
-            Full source code is on <a href="https://bitbucket.org/IlyaSkriblovsky/meebible">BitBucket</a>.
+            Full source code is on <a href="https://github.com/IlyaSkriblovsky/meebible">GitHub</a>.
         </p>
 
         <h2>Support</h2>
 
         <p>
-            Please send your questions and comments at <a href="mailto:ilya@meebible.org">ilya@meebible.org</a>.
+            Please send your questions and comments at <a href="mailto:ilyaskriblovsky@gmail.com">ilyaskriblovsky@gmail.com</a>.
         </p>
 
         <h2>Donate</h2>

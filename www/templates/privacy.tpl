@@ -106,7 +106,7 @@
 
     <h3>Contacting us</h3>
 
-    <p>If you have any questions about this Privacy Policy, or our practicies of handling your personal information, please contact us by email: <a href="mailto:ilya@meebible.org">ilya@meebible.org</a>.</p>
+    <p>If you have any questions about this Privacy Policy, or our practicies of handling your personal information, please contact us by email: <a href="mailto:ilyaskriblovsky@gmail.com">ilyaskriblovsky@gmail.com</a>.</p>
 
 
     <p><i>This document was last updated on November 21, 2012</i></p>
