@@ -136,8 +136,8 @@
 
         <div class="indent">
             <div class="store-link">
-                <a href="/static/meebible_3.5.7_signed.sis"><img src="/static/img/meebible-small.png"/></a>
-                <a href="/static/meebible_3.5.7_signed.sis"><span class="title">MeeBible for Symbian^3</span></a>
+                <a href="https://github.com/IlyaSkriblovsky/meebible/releases/download/3.5.7/meebible_3.5.7_signed.sis"><img src="/static/img/meebible-small.png"/></a>
+                <a href="https://github.com/IlyaSkriblovsky/meebible/releases/download/3.5.7/meebible_3.5.7_signed.sis"><span class="title">MeeBible for Symbian^3</span></a>
             </div>
         </div>
 
@@ -145,8 +145,8 @@
 
         <div class="indent">
             <div class="store-link indent-left">
-                <a href="/static/meebible-free_3.5.5_armel.deb"><img src="/static/img/meebible-free-small.png"/></a>
-                <a href="/static/meebible-free_3.5.5_armel.deb"><span class="title">MeeBible for MeeGo</span></a>
+                <a href="https://github.com/IlyaSkriblovsky/meebible/releases/download/3.5.7/meebible-free_3.5.5_armel.deb"><img src="/static/img/meebible-free-small.png"/></a>
+                <a href="https://github.com/IlyaSkriblovsky/meebible/releases/download/3.5.7/meebible-free_3.5.5_armel.deb"><span class="title">MeeBible for MeeGo</span></a>
             </div>
         </div>
 
