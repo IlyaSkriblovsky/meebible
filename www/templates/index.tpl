@@ -130,7 +130,7 @@
         </p>
 
 
-        <h2>Download from Nokia Store</h2>
+        <h2>Download</h2>
 
         <h3>Symbian^3</h3>
 
