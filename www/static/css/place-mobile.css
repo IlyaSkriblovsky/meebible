@@ -1,0 +1,14 @@
+body {
+  padding: 10px; }
+
+h2 {
+  padding: 0;
+  text-shadow: none; }
+
+.quote-block {
+  padding: 10px 0 40px 0; }
+
+.info img {
+  vertical-align: middle; }
+.info div {
+  display: inline; }

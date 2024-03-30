@@ -1,4 +1,3 @@
-qweqwe
 {extends "base.tpl"}
 
 {block body}

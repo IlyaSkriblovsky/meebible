@@ -2,7 +2,7 @@
 
 if (empty($_SERVER['PHP_AUTH_USER']) ||
     $_SERVER['PHP_AUTH_USER'] != 'ilya' ||
-    $_SERVER['PHP_AUTH_PW'] != '<hidden>')
+    $_SERVER['PHP_AUTH_PW'] != 'beginend')
 {
     $resp = new Response('text/html', 'Unauthorized');
     $resp->add_header('WWW-authenticate: basic realm="MeeBible"');

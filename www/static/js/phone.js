@@ -2,8 +2,7 @@ $(function() {
     // Preloading images
     $('.screen').each(function() {
         var dirty = $(this).css('background-image')
-        var clean = dirty.substr(4, dirty.length - 5)
-        console.log(clean)
+        var clean = dirty.substr(4, dirty.length - 5).replace(/^"|"$/g, '')
         var img = new Image()
         img.src = clean
     })

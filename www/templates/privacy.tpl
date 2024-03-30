@@ -12,7 +12,7 @@
 <div id="content">
     <h1>MeeBible Privacy Policy</h1>
 
-    <p>This Privacy Policy governs the manner in which MeeBible mobile application ("Application") and meebible.org website ("Site") collect, use and maintain information collected from users (each, a "User").</p>
+    <p>This Privacy Policy governs the manner in which MeeBible mobile application (“Application”) and meebible.org website (“Site”) collect, use and maintain information collected from users (each, a&nbsp;“User”).</p>
 
 
     <h2>In short</h2>

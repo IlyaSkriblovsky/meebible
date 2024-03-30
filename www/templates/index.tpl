@@ -14,8 +14,24 @@
 
     <script src="/static/js/phone.js"></script>
 
-    <script type="text/javascript">var d=document,h=d.getElementsByTagName("html")[0];h.setAttribute("xmlns:nokia","http://www.nokia.com/2011/dxml");</script>
-    <script src="//dropsdk.nokia.com/latest/button/js/all.js" type="text/javascript"></script>
+    <script>
+        $(function () {
+            $('#show-translations').on('click', function () {
+                $('.translations-list').slideDown()
+                $('#show-translations').remove()
+                return false
+            })
+        })
+    </script>
+{/block}
+
+{block "css" append}
+    <style>
+        .announcement {
+            border-left: 3px solid #c4443b;
+            padding: 15px 0 15px 25px;
+        }
+    </style>
 {/block}
 
 {block body}
@@ -36,6 +52,7 @@
             </div>
         </div>
 
+        <!--
         <h2>Blog</h2>
             Official MeeBible blog: <a href="http://blog.meebible.org">blog.meebible.org</a>
 
@@ -47,6 +64,39 @@
                     {/literal}
                 </div>
             </div>
+        -->
+
+        <h2 class="red">Important announcement</h2>
+        <div class="announcement">
+            <p>
+                2 years have passed since Nokia Store was closed and 2&nbsp;years since the last version of&nbsp;MeeBible was released.
+                Sad to say, but in modern world such a long time without updates means that software is effectively dead.
+            </p>
+            <p>
+                But meebible.org website that is needed for MeeBible to work is still running.
+                This&nbsp;site hosts all Bible translations that MeeBible downloads for&nbsp;reading on&nbsp;smartphones.
+                Hosting of the site costs around $70/year or $5.80/month.
+            </p>
+            <p>
+                I think it would be a good test for whether MeeBible is still needed by people: if&nbsp;your donations will be
+                able to cover operational costs of meebible.org then it&nbsp;will&nbsp;continue to live. If you continue to use MeeBible
+                please consider making a&nbsp;donation to&nbsp;support its infrastructure. MeeBible have always been free, so if
+                it&nbsp;was useful for you, please support it with your "two mites" (Mark 12:43).
+            </p>
+            <p>
+                Sincerely yours,<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;Ilya Skriblovsky
+            </p>
+            <p style="margin-top: 2em">
+                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                    <input type="hidden" name="cmd" value="_s-xclick">
+                    <input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----MIIHNwYJKoZIhvcNAQcEoIIHKDCCByQCAQExggEwMIIBLAIBADCBlDCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20CAQAwDQYJKoZIhvcNAQEBBQAEgYAiRoc4MTOgPYTbWwtriJdekSy6PXiLRize39FXnhj0OZNNFwsOqq1+oGi0iqnYY/ItkC1R8t05Y0Yoj/46EpgQPo30HNgkUdhNigvPfDNPsPGGXe03ZZhYl7JCbBVRIQ9ZQz2OIL/6V8U4C6GwuZuag7B+JG0m6Ks1oQuvIC5sNzELMAkGBSsOAwIaBQAwgbQGCSqGSIb3DQEHATAUBggqhkiG9w0DBwQI7wVyeUMNxfaAgZAcY4vApOplmtDqqRAXKx9xo6sYlq2xV2lfoqIky9rzlDER6oqNalQ86C26i0H4D9a3XrFgNRQxmTlgrG5DWLe4FUqd/rT8dLubSAzNXZRCI6PFXLVlfsFtDZJgzSnlUlzt1QshXAF6HvWseAHL0t+bA/8pDYStFu0csD4FMCeTDKbEOhF0O7S+x8oW8OUrEhagggOHMIIDgzCCAuygAwIBAgIBADANBgkqhkiG9w0BAQUFADCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20wHhcNMDQwMjEzMTAxMzE1WhcNMzUwMjEzMTAxMzE1WjCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20wgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAMFHTt38RMxLXJyO2SmS+Ndl72T7oKJ4u4uw+6awntALWh03PewmIJuzbALScsTS4sZoS1fKciBGoh11gIfHzylvkdNe/hJl66/RGqrj5rFb08sAABNTzDTiqqNpJeBsYs/c2aiGozptX2RlnBktH+SUNpAajW724Nv2Wvhif6sFAgMBAAGjge4wgeswHQYDVR0OBBYEFJaffLvGbxe9WT9S1wob7BDWZJRrMIG7BgNVHSMEgbMwgbCAFJaffLvGbxe9WT9S1wob7BDWZJRroYGUpIGRMIGOMQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExFjAUBgNVBAcTDU1vdW50YWluIFZpZXcxFDASBgNVBAoTC1BheVBhbCBJbmMuMRMwEQYDVQQLFApsaXZlX2NlcnRzMREwDwYDVQQDFAhsaXZlX2FwaTEcMBoGCSqGSIb3DQEJARYNcmVAcGF5cGFsLmNvbYIBADAMBgNVHRMEBTADAQH/MA0GCSqGSIb3DQEBBQUAA4GBAIFfOlaagFrl71+jq6OKidbWFSE+Q4FqROvdgIONth+8kSK//Y/4ihuE4Ymvzn5ceE3S/iBSQQMjyvb+s2TWbQYDwcp129OPIbD9epdr4tJOUNiSojw7BHwYRiPh58S1xGlFgHFXwrEBb3dgNbMUa+u4qectsMAXpVHnD9wIyfmHMYIBmjCCAZYCAQEwgZQwgY4xCzAJBgNVBAYTAlVTMQswCQYDVQQIEwJDQTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEUMBIGA1UEChMLUGF5UGFsIEluYy4xEzARBgNVBAsUCmxpdmVfY2VydHMxETAPBgNVBAMUCGxpdmVfYXBpMRwwGgYJKoZIhvcNAQkBFg1yZUBwYXlwYWwuY29tAgEAMAkGBSsOAwIaBQCgXTAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqGSIb3DQEJBTEPFw0xNjAxMjgyMDI1NTFaMCMGCSqGSIb3DQEJBDEWBBR+oiBNhilmLPqz35Gca9Mc/k25nzANBgkqhkiG9w0BAQEFAASBgKaZLv9lWOjbvB1tjh69zgCa0DJmAQpbgyvPhanfv05PsM+CFMy9cmtwo+iKsD201XUaeQ7jbfwgcSpk3aCB4UsIjlDRrjvsxDmnGL+9RRQ8qBwY7ok+IGOf0+w/iBBbmrmlJphSux0F3o7OMPvN7AZ+IXH9Oa6Wllnse9JRb3mC-----END PKCS7-----
+                    ">
+                    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                    <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+                </form>
+            </p>
+        </div>
 
         <h2>About</h2>
 
@@ -55,32 +105,23 @@
         </p>
 
         <p>
-            MeeBible supports following Bible translations:
-            <ul>
-                <li>New World Translation in 42 languages<!-- (from <a href="http://watchtower.org">watchtower.org</a>) --></li>
-                <li>King James Bible</li>
-                <li>New International Bible</li>
-                <li>English Standard Version</li>
-                <li>New King James Bible</li>
-                <li>Bible in Basic English</li>
-                <li>The Message translation</li>
-                <li>Russian Synodal Translation</li>
-                <li>French Louis Segond Translation</li>
-                <li>German Luther 1912 and Schlachter 1951 translations</li>
-                <li>Italian Versione Diodati Riveduta</li>
-                <li>Portuguese Almeida Corrigida e Revisada Translation</li>
-                <li>Spanish Reina Valera Translation</li>
-                <li>Latvian Revised Bible</li>
-                <li>Svenska Folkbibeln (Swedish People's Bible)</li>
-                <li>Finnish Bible 1912</li>
-                <li>Ukranian translation by І. Огієнко</li>
-                <li>Polish translations: Biblia Tysiąclecia, Biblia Warszawska, Biblia Warszawsko-Praska</li>
-                <li>Bulgarian “Протестантски (1940)”</li>
-                <li>Romanian translation by Dumitru Cornilescu</li>
-                <li>Arabic Smith &amp; Van Dyke Version</li>
-                <li>Indinesian Alkitab Terjemahan Baru</li>
-            </ul>
+            MeeBible supports <b><i>{$trans_count}</i></b> Bible translations in <b><i>{$langs|@count}</i></b> languages. <a href="#" id="show-translations">See the full list.</a>
         </p>
+
+        <div class="translations-list" style="display: none">
+            {foreach $langs as $langCode => $lang}
+                {if $lang.trans}
+                    <div class="language" code="{$langCode}">
+                        <h3>{$lang.selfname}<span class="lang-separator">|</span><span class="engname">{$lang.engname}</span></h3>
+                        {foreach $lang.trans as $trans}
+                            <div class="translation" code="{$trans.transCode}">
+                                {$trans.name}
+                            </div>
+                        {/foreach}
+                    </div>
+                {/if}
+            {/foreach}
+        </div>
 
         <p>
             Full-text unicode-aware search is supported. You can find Bible places by phrase or character's name.
@@ -92,27 +133,18 @@
         <h3>Symbian^3</h3>
 
         <div class="indent">
-            <div class="download-label">Fully-functional free version:</div>
             <div class="store-link">
-                <a href="http://store.ovi.com/content/262401"><img src="/static/img/meebible-small.png"/></a>
-                <a href="http://store.ovi.com/content/262401"><span class="title">MeeBible for Symbian^3</span></a>
+                <a href="/static/meebible_3.5.7_signed.sis"><img src="/static/img/meebible-small.png"/></a>
+                <a href="/static/meebible_3.5.7_signed.sis"><span class="title">MeeBible for Symbian^3</span></a>
             </div>
         </div>
 
         <h3>MeeGo</h3>
 
         <div class="indent">
-            <div class="download-label">Fully-functional free version:</div>
             <div class="store-link indent-left">
-                <a href="http://store.ovi.com/content/218744"><img src="/static/img/meebible-free-small.png"/></a>
-                <a href="http://store.ovi.com/content/218744"><span class="title">MeeBible Free</span></a>
-            </div>
-        </div>
-        <div class="indent">
-            <div class="download-label">Donate €5 for further development:</div>
-            <div class="store-link indent-left">
-                <a href="http://store.ovi.com/content/215454"><img src="/static/img/meebible-small.png"/></a>
-                <a href="http://store.ovi.com/content/215454"><span class="title">MeeBible</span></a>
+                <a href="/static/meebible-free_3.5.5_armel.deb"><img src="/static/img/meebible-free-small.png"/></a>
+                <a href="/static/meebible-free_3.5.5_armel.deb"><span class="title">MeeBible for MeeGo</span></a>
             </div>
         </div>
 
@@ -120,11 +152,7 @@
         <h2>Source code</h2>
 
         <p>
-            Full source code and bug tracking at <a href="https://projects.developer.nokia.com/meebible">MeeBible's page on Nokia Developer</a>.
-        </p>
-
-        <p>
-            Alternative source hosting on <a href="https://bitbucket.org/IlyaSkriblovsky/meebible">BitBucket</a>.
+            Full source code is on <a href="https://bitbucket.org/IlyaSkriblovsky/meebible">BitBucket</a>.
         </p>
 
         <h2>Support</h2>
@@ -133,10 +161,24 @@
             Please send your questions and comments at <a href="mailto:ilya@meebible.org">ilya@meebible.org</a>.
         </p>
 
+        <h2>Donate</h2>
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <input type="hidden" name="cmd" value="_s-xclick">
+            <input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
+            ">
+            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+            <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+        </form>
+
+
+        <h2>Privacy policy</h2>
+
+        <p>
+            By using this site and MeeBible application you agree with our <a href="/privacy">privacy policy</a>. We will never share your personal information.
+        </p>
+
         <div id="footer">
-            &copy; 2011–2012 Ilya Skriblovsky
+            &copy; 2011–2013 Ilya Skriblovsky
         </div>
     </div>
-
-
 {/block}

@@ -12,6 +12,16 @@ return array(
     ),
 
     array(
+        'url'   =>  '/donate',
+        'view'  =>  'donate'
+    ),
+
+    array(
+        'url'   =>  '/donate-mobile',
+        'view'  =>  'donate-mobile'
+    ),
+
+    array(
         'url'   =>  '/meta',
         'view'  =>  'meta'
     ),
@@ -47,6 +57,12 @@ return array(
     array(
         'url'   =>  '/fb',
         'view'  =>  'feedback-view'
+    ),
+
+    array(
+        'url'   =>  '/^\/nwtbible\?/',
+        're'    => true,
+        'view'  => 'nwtbible'
     ),
 
     array(
