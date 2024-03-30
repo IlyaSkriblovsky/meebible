@@ -59,6 +59,7 @@ INSERT INTO langs VALUES ('ml',  'Malayalam',   'മലയാളം');
 INSERT INTO langs VALUES ('ne',  'Nepali',      'नेपाली');
 INSERT INTO langs VALUES ('hi',  'Hindi',       'हिन्दी');
 -- INSERT INTO langs VALUES ('bel', 'Belarusian',  'Беларуская мова');
+INSERT INTO langs VALUES ('heb', 'Hebrew',      'עברית');
 COMMIT;
 
 
