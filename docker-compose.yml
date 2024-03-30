@@ -1,0 +1,20 @@
+version: '2'
+
+services:
+    php:
+        image: php:5.6-fpm
+        restart: unless-stopped
+        volumes:
+            - ./www:/www
+
+    nginx:
+        image: nginx
+        restart: unless-stopped
+        volumes:
+            - ./nginx.conf:/etc/nginx/conf.d/meebible.conf
+            - ./www:/www
+            - ./logs:/logs
+        # ports:
+        #     - "127.0.0.1:10001:80"
+        environment:
+            - VIRTUAL_HOST=meebible.org
