@@ -66,6 +66,7 @@
             </div>
         -->
 
+        <!--
         <h2 class="red">Important announcement</h2>
         <div class="announcement">
             <p>
@@ -97,6 +98,7 @@
                 </form>
             </p>
         </div>
+        -->
 
         <h2>About</h2>
 
