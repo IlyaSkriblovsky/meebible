@@ -9,7 +9,8 @@
             "fi": "Tietoja MeeBiblesta",
             "pt": "Sobre a MeeBible",
             "de": "Über MeeBible",
-            "pl": "MeeBible"
+            "pl": "MeeBible",
+            "hy": "MeeBible ծրագրի մասին"
         },
         {
             "__": "If you want to support development, please consider buying <a href='http://store.ovi.com/content/215454'>paid version</a>!",
@@ -20,7 +21,8 @@
             "fi": "Jos haluat tukea kehitystä, harkitse ostaa <a href='http://store.ovi.com/content/215454'>maksullinen versio</a>!",
             "pt": "Se você quiser apoiar o desenvolvimento, considere a compra <a href='http://store.ovi.com/content/215454'>versão paga</a>!",
             "de": "Wenn Sie die Entwicklung unterstützen wollen, überlegen Sie bitte die <a href='http://store.ovi.com/content/215454'>Bezahlversion</a> zu kaufen!",
-            "pl": "Jeśli chcesz wspomóc dalszy rozwój, prosimy rozważyć kupno <a href='http://store.ovi.com/content/215454'>płatnej wersji</a>!"
+            "pl": "Jeśli chcesz wspomóc dalszy rozwój, prosimy rozważyć kupno <a href='http://store.ovi.com/content/215454'>płatnej wersji</a>!",
+            "hy": "Դուք կարող եք աջակցել մշակմանը գնելով <a href='http://store.ovi.com/content/215454'>վճարովի տարբերակը</a>!"
         },
         {
             "__": "Thank you for supporting development!",
@@ -31,7 +33,8 @@
             "fi": "Kiitos kehityksen tukemisesta!",
             "pt": "Obrigado por apoiar o desenvolvimento!",
             "de": "Danke, dass Sie die Entwicklung unterstützen!",
-            "pl": "Dziękujemy za pomoc w rozwoju!"
+            "pl": "Dziękujemy za pomoc w rozwoju!",
+            "hy": "Շնորհակալությո՜ւն աջակցության համար"
         },
         {
             "__": "© 2011 Ilya Skriblovsky",
@@ -42,7 +45,8 @@
             "fi": "© 2011 Ilya Skriblovsky",
             "pt": "© 2011 Ilya Skriblovsky",
             "de": "© 2011 Ilya Skriblovsky",
-            "pl": "© 2011 Ilya Skriblovsky"
+            "pl": "© 2011 Ilya Skriblovsky",
+            "hy": "© 2011 Իլյա Սկրիբլովսկիյ"
         },
         {
             "__": "Please contact us with any comments or suggestions or if you want to add new Bible or UI translations.",
@@ -53,7 +57,8 @@
             "fi": "Ota meihin yhteyttä, ehdota tai kommentoi, jos haluat lisätä uuden Raamatun tai UI käännöksiä.",
             "pt": "Por favor, entre em contato conosco com quaisquer comentários ou sugestões ou se você quiser adicionar nova Bíblia ou traduções de interface do usuário.",
             "de": "Bitte kontaktieren Sie uns bei Kommentaren oder Vorschlägen, oder wenn Sie neue Bibel- oder Programmübersetzungen hinzufügen möchten.",
-            "pl": "Prosimy o kontakt, w razie jakichkolwiek uwag lub sugestii. Także jeśli chcesz dodać nowe wersje Biblii lub wersje językowe programu."
+            "pl": "Prosimy o kontakt, w razie jakichkolwiek uwag lub sugestii. Także jeśli chcesz dodać nowe wersje Biblii lub wersje językowe programu.",
+            "hy": "Կապվեք ինձ հետ, եթե ունեք դիտողություններ, առաջարկություններ և եթե դուք ուզում եք ավելացնել Աստվածաշնչի կամ ծրագրի նոր թարգմանություններ"
         },
         {
             "__": "Send your feedback",
@@ -64,7 +69,8 @@
             "fi": "Lähetä palautetta",
             "pt": "Envie seus comentários",
             "de": "Feedback senden",
-            "pl": "Prześlij swoją opinię"
+            "pl": "Prześlij swoją opinię",
+            "hy": "Ուղարկել կարծիք"
         },
         {
             "__": "Read God's Word daily!",
@@ -75,7 +81,8 @@
             "fi": "Lue Jumalan Sanaa päivittäin!",
             "pt": "Leia a palavra de Deus dia a dia!",
             "de": "Lese Gottes Wort jeden Tag!",
-            "pl": "Czytaj Słowo Boże każdego dnia!"
+            "pl": "Czytaj Słowo Boże każdego dnia!",
+            "hy": "Ընթերցեք Աստծո Խոսքը ամե՜ն օր"
         },
         {
             "__": "The open source Bible reader",
@@ -86,7 +93,8 @@
             "fi": "Avoimen lähdekoodin Raamatun lukija",
             "pt": "O leitor da Bíblia de código aberto",
             "de": "Der Open Source Bibel Reader",
-            "pl": "Czytnik Biblii o otwartym kodzie źródłowym"
+            "pl": "Czytnik Biblii o otwartym kodzie źródłowym",
+            "hy": "Աստվածաշնչի ընթերցման բաց ելակետային կոդով ծրագիր"
         },
         {
             "__": "Beta testing: Simon Botes of {AppCRAFT}",
@@ -95,7 +103,8 @@
             "sv": "Betatestare: Simon Botes av {AppCRAFT}",
             "pt": "Teste Beta: Simon Botes of {AppCRAFT}",
             "de": "Beta-Tests: Simon Botes von {AppCRAFT}",
-            "pl": "Beta test: Simon Botes z {AppCRAFT}"
+            "pl": "Beta test: Simon Botes z {AppCRAFT}",
+            "hy": "Բետա-փորձարկումը. Simon Botes из {AppCRAFT}"
         },
         {
             "__": "Thanks for translating UI to:",
@@ -106,7 +115,8 @@
             "fi": "Kiitos kääntää sovelluksen",
             "pt": "Obrigado por traduzir aplicação",
             "de": "Danke für das Übersetzen der Anwendung in:",
-            "pl": "Podziękowania za tłumaczenie dla:"
+            "pl": "Podziękowania za tłumaczenie dla:",
+            "hy": "Ծրագրի թարգմանության համար հեղինակը շնորհակալություն է հայտնում."
         },
         {
             "__": "Finnish",
@@ -117,7 +127,8 @@
             "fi": "Suomen kieli",
             "pt": "Finlandês",
             "de": "Finnisch",
-            "pl": "Fiński"
+            "pl": "Fiński",
+            "hy": "Ֆիններեն"
         },
         {
             "__": "Italian",
@@ -128,7 +139,8 @@
             "fi": "Italian kieli",
             "pt": "Italiano",
             "de": "Italienisch",
-            "pl": "Włoski"
+            "pl": "Włoski",
+            "hy": "Իտալերեն"
         },
         {
             "__": "Portuguese",
@@ -139,7 +151,8 @@
             "fi": "Portugalin kieli",
             "pt": "Português",
             "de": "Portugiesisch",
-            "pl": "Portugalski"
+            "pl": "Portugalski",
+            "hy": "Պորտուգալերեն"
         },
         {
             "__": "Russian",
@@ -150,7 +163,8 @@
             "fi": "Ryska",
             "pt": "Russo",
             "de": "Russisch",
-            "pl": "Rosyjski"
+            "pl": "Rosyjski",
+            "hy": "Ռուսերեն"
         },
         {
             "__": "Spanish",
@@ -161,7 +175,8 @@
             "fi": "Espanjan kieli",
             "pt": "Espanhol",
             "de": "Spanisch",
-            "pl": "Hiszpański"
+            "pl": "Hiszpański",
+            "hy": "Իսպաներեն"
         },
         {
             "__": "Swedish",
@@ -172,7 +187,8 @@
             "fi": "Ruotsin kieli",
             "pt": "Sueco",
             "de": "Schwedisch",
-            "pl": "Szwedzki"
+            "pl": "Szwedzki",
+            "hy": "Շվեդերեն"
         },
         {
             "__": "German",
@@ -183,7 +199,8 @@
             "fi": "Saksa",
             "pt": "Alemão",
             "de": "Deutsch",
-            "pl": "Niemiecki"
+            "pl": "Niemiecki",
+            "hy": "Գերմաներեն"
         },
         {
             "__": "Polish",
@@ -194,7 +211,20 @@
             "fi": "Puola",
             "pt": "Polonês",
             "de": "Polnisch",
-            "pl": "Polski"
+            "pl": "Polski",
+            "hy": "Լեհերեն"
+        },
+        {
+            "__": "Armenian",
+            "ru": "Армянский",
+            "es": "Armenio",
+            "it": "Armena",
+            "sv": "Armeniska",
+            "fi": "Armenia",
+            "pt": "Arménio",
+            "de": "Armenisch",
+            "pl": "Armeński",
+            "hy": "Հայերեն"
         }
     ],
 
@@ -208,7 +238,8 @@
             "fi": "Nykyinen käännös ei sisällä tätä kirjaa",
             "pt": "A tradução atual não contém este livro",
             "de": "Dieses Buch ist in der aktuellen Übersetzung nicht enthalten",
-            "pl": "Obecne tłumaczenie nie zawiera tej księgi"
+            "pl": "Obecne tłumaczenie nie zawiera tej księgi",
+            "hy": "Ընթացիկ թարգմանությունը չի պարունակում այս գլուխը"
         },
         {
             "__": "<h3>Cannot load chapter</h3> Please check your internet connection",
@@ -219,7 +250,8 @@
             "fi": "<h3>Ei voi ladata luku</h3> Tarkista Internet-yhteys",
             "pt": "<h3>Não é possível carregar o capítulo</h3> Por favor cheque sua conexão de internet",
             "de": "<h3>Das Kapitel kann nicht geladen werden</h3> Bitte Internetverbindung prüfen",
-            "pl": "<h3>Nie można załadować rozdziału</h3> Prosimy sprawdzić połączenie internetowe"
+            "pl": "<h3>Nie można załadować rozdziału</h3> Prosimy sprawdzić połączenie internetowe",
+            "hy": "<h3>Չհաջողվեց բեռնել գլուխը</h3> Խնդրում ենք ստուգել համացանցի միացումը"
         }
     ],
 
@@ -233,7 +265,8 @@
             "fi": "Kopioi",
             "pt": "Cópia",
             "de": "Kopieren",
-            "pl": "Kopiuj"
+            "pl": "Kopiuj",
+            "hy": "Պատճ."
         },
         {
             "__": "Share",
@@ -244,7 +277,8 @@
             "fi": "Jakaa",
             "pt": "Compartilhe",
             "de": "Teilen",
-            "pl": "Udostępnij"
+            "pl": "Udostępnij",
+            "hy": "Ուղարկ."
         },
         {
             "__": "Bookmark",
@@ -255,7 +289,8 @@
             "fi": "Lisää kirjanmerkki",
             "pt": "Marcador",
             "de": "Lesezeichen",
-            "pl": "Zapisz"
+            "pl": "Zapisz",
+            "hy": "Էջանիշ"
         },
         {
             "__": "Bookmarked",
@@ -266,7 +301,8 @@
             "fi": "Kirjanmerkiksi",
             "pt": "Favoritos",
             "de": "Lesezeichen gespeichert",
-            "pl": "Zapisano w ulubionych"
+            "pl": "Zapisano w ulubionych",
+            "hy": "Ավելացվել է էջանիշերին"
         },
         {
             "__": "Already in bookmarks",
@@ -277,7 +313,8 @@
             "fi": "Jo kirjanmerkkinä",
             "pt": "Já presente nos favoritos",
             "de": "Schon in Lesezeichen",
-            "pl": "Aktulanie w ulubionych"
+            "pl": "Aktulanie w ulubionych",
+            "hy": "Այս էջանիշը կա"
         },
         {
             "__": "Before you start to read, MeeBible has to load translation list from server",
@@ -288,7 +325,8 @@
             "fi": "Ennen kuin aloitat lukemaan, MeeBible on ladattava käännöslista palvelimelta",
             "pt": "Antes de começar a ler, MeeBible tem que carregar a lista de tradução a partir do servidor",
             "de": "Bevor Sie mit dem Lesen beginnen können muss MeeBible die Übersetzungsliste vom Server laden",
-            "pl": "Przed rozpoczęciem czytania, MeeBible musi wczytać listę tłumaczeń z serwera"
+            "pl": "Przed rozpoczęciem czytania, MeeBible musi wczytać listę tłumaczeń z serwera",
+            "hy": "Նախքան ընթերցումն սկսելը MeeBible-ն պետք է բեռնի թարգմանությունների ցանկը սպասառու համակարգչից"
         },
         {
             "__": "Try again",
@@ -299,7 +337,8 @@
             "fi": "Yritä uudelleen",
             "pt": "Tente novamente",
             "de": "Neu versuchen",
-            "pl": "Spróbuj ponownie"
+            "pl": "Spróbuj ponownie",
+            "hy": "Փորձել ևս մեկ անգամ"
         },
         {
             "__": "Loading chapter",
@@ -310,7 +349,8 @@
             "fi": "Ladataan luku",
             "pt": "Carregando capítulo",
             "de": "Lade Kapitel",
-            "pl": "Wczytywanie rozdziału"
+            "pl": "Wczytywanie rozdziału",
+            "hy": "Գլխի բեռնում"
         },
         {
             "__": "Loading translation list",
@@ -321,7 +361,8 @@
             "fi": "Ladataan käännöslista",
             "pt": "Carregando lista de traduções",
             "de": "Lade Übersetzungsliste",
-            "pl": "Wczytywanie listy tłumaczeń"
+            "pl": "Wczytywanie listy tłumaczeń",
+            "hy": "Թարգմանությունների բեռնում"
         },
         {
             "__": "Loading book list",
@@ -332,7 +373,8 @@
             "fi": "Ladataan teosluettelo",
             "pt": "Carregando lista de livros",
             "de": "Lade Bücherliste",
-            "pl": "Wczytywanie listy ksiąg"
+            "pl": "Wczytywanie listy ksiąg",
+            "hy": "Գրքերի ցուցակի բեռնում"
         },
         {
             "__": "Please notice",
@@ -343,7 +385,8 @@
             "fi": "Huomioithan",
             "pt": "Por favor observe",
             "de": "Bitte beachten",
-            "pl": "Prosimy o uwagę"
+            "pl": "Prosimy o uwagę",
+            "hy": "Ուշադրություն դարձրեք"
         },
         {
             "__": "Full-text search works only for downloaded chapters. If you want to search whole Bible you must download it first using the app menu.",
@@ -354,7 +397,8 @@
             "fi": "Koko textin etsiminen toimii vain ladattuissa luvuissa. Jos haluat etsiä koko Raamatun sinun täytyy ladata se ensin käyttäen sovellus valikkoa.",
             "pt": "A pesquisa de texto completo só funciona para capítulos baixados. Se você deseja pesquisar a Bíblia inteira você deve baixá-la primeiro usando o menu do aplicativo.",
             "de": "Die Volltextsuche funktioniert nur bei heruntergeladenen Kapiteln. Wenn Sie die ganze Bibel durchsuchen wollen, muss diese erst über das Anwendungsmenü heruntergeladen werden.",
-            "pl": "Wyszukiwanie pełnego tekstu działa wyłącznie z pobranymi rozdziałami. Jeśli chcesz przeszukać zasoby całej Biblii, musisz ją wpierw pobrać używając menu aplikacji."
+            "pl": "Wyszukiwanie pełnego tekstu działa wyłącznie z pobranymi rozdziałami. Jeśli chcesz przeszukać zasoby całej Biblii, musisz ją wpierw pobrać używając menu aplikacji.",
+            "hy": "Լիակատար որոնումը գործում է միայն բեռնված գլուխներում։ Եթե ցանկանում եք որոնել ամբողջ Աստվածաշնչում, ապա պետք է բեռնել այն ամբողջությամբ՝ օգտվելով ծրագրի ցանկը"
         },
         {
             "__": "OK",
@@ -365,7 +409,8 @@
             "fi": "OK",
             "pt": "OK",
             "de": "OK",
-            "pl": "OK"
+            "pl": "OK",
+            "hy": "Լավ"
         },
         {
             "__": "Cannot load translation list",
@@ -376,7 +421,8 @@
             "fi": "Ei voi ladata käännöslistaa",
             "pt": "Impossível carregar a lista de traduções",
             "de": "Übersetzungsliste konnte nicht geladen werden",
-            "pl": "Nie można wczytać listy tłumaczeń"
+            "pl": "Nie można wczytać listy tłumaczeń",
+            "hy": "Չհաջողվեց բեռնել թարգմանությունների ցուցակը"
         },
         {
             "__": "Please check internet connection",
@@ -387,7 +433,8 @@
             "fi": "Tarkista Internetyhteys",
             "pt": "Por favor cheque sua conexão de internet",
             "de": "Bitte Internetverbindung überprüfen",
-            "pl": "Prosimy sprawdzić połączenie z internetem"
+            "pl": "Prosimy sprawdzić połączenie z internetem",
+            "hy": "Ստուգեք համացանցի միացումը"
         },
         {
             "__": "Done",
@@ -398,7 +445,8 @@
             "fi": "Valmis",
             "pt": "Feito",
             "de": "Fertig",
-            "pl": "Gotowe"
+            "pl": "Gotowe",
+            "hy": "Պատրաստ է"
         },
         {
             "__": "Are you ready to download whole Bible?",
@@ -409,7 +457,8 @@
             "fi": "Oletko valmis lataamaan koko Raamatun?",
             "pt": "Você está pronto para baixar a Bíblia inteira?",
             "de": "Soll die komplette Bibel heruntergeladen werden?",
-            "pl": "Jesteś gotowy do pobrania Biblii?"
+            "pl": "Jesteś gotowy do pobrania Biblii?",
+            "hy": "Պատրա՞ստ եք բեռնել ամբողջ Աստվածաշունչը"
         },
         {
             "__": "This may take 10-15 minutes and you'd better do it over Wi-Fi connection",
@@ -420,7 +469,8 @@
             "fi": "Tämä voi kestää 10-15 minuuttia ja teidän on parasta tehdä se Wi-Fi-yhteydellä",
             "pt": "Isso levará de 10 a 15 minutos e será melhor se você usar uma conexão Wi-Fi",
             "de": "Es kann 10-15 Minuten dauern und sollte am besten mit einer WLAN-Verbindung geladen werden",
-            "pl": "To może zająć około 10-15 minut. Radzimy skorzystać z połączenia Wi-Fi"
+            "pl": "To może zająć około 10-15 minut. Radzimy skorzystać z połączenia Wi-Fi",
+            "hy": "Սա կարող է տևել 10-15 րոպե և լավ է անել Wi-Fi միացումով"
         },
         {
             "__": "Download",
@@ -431,7 +481,8 @@
             "fi": "Lataa",
             "pt": "Baixar",
             "de": "Download",
-            "pl": "Pobierz"
+            "pl": "Pobierz",
+            "hy": "Բեռնել"
         },
         {
             "__": "Cancel",
@@ -442,7 +493,8 @@
             "fi": "Peruuttaa",
             "pt": "Cancelar",
             "de": "Abbrechen",
-            "pl": "Anuluj"
+            "pl": "Anuluj",
+            "hy": "Չեղարկել"
         },
         {
             "__": "Search",
@@ -453,7 +505,8 @@
             "fi": "Etsi",
             "pt": "Pesquisar",
             "de": "Suche",
-            "pl": "Wyszukiwanie"
+            "pl": "Wyszukiwanie",
+            "hy": "Որոնում"
         },
         {
             "__": "Copied",
@@ -464,7 +517,8 @@
             "fi": "Kopioitu",
             "pt": "Copiado",
             "de": "Kopiert",
-            "pl": "Skopiowano"
+            "pl": "Skopiowano",
+            "hy": "Պատճենված է"
         },
         {
             "__": "Font size",
@@ -475,7 +529,8 @@
             "fi": "Fonttikoko",
             "pt": "Tamanho da fonte",
             "de": "Schriftgröße",
-            "pl": "Czcionka"
+            "pl": "Czcionka",
+            "hy": "Տառատեսակի չափսը"
         },
         {
             "__": "Line spacing",
@@ -486,7 +541,8 @@
             "fi": "Riviväli",
             "pt": "Espaço entre linhas",
             "de": "Zeilenabstand",
-            "pl": "Interlinia"
+            "pl": "Interlinia",
+            "hy": "Միջտողային ինտերվալը"
         },
         {
             "__": "Download Bible",
@@ -497,7 +553,8 @@
             "fi": "Lataa Raamattu",
             "pt": "Baixar Bíblia",
             "de": "Bibel herunterladen",
-            "pl": "Pobierz Biblię"
+            "pl": "Pobierz Biblię",
+            "hy": "Բեռնել Աստվածաշունչը"
         },
         {
             "__": "Settings",
@@ -508,16 +565,18 @@
             "fi": "Asetukset",
             "pt": "Configurações",
             "de": "Einstellungen",
-            "pl": "Ustawienia"
+            "pl": "Ustawienia",
+            "hy": "Կայանքներ"
         },
         {
-            "__": "Buy a coffee",
-            "ru": "Купить кофе",
+            "__": "Donate",
+            "ru": "Пожертвовать",
             "it": "Fai una donazione",
             "sv": "Donera",
             "pt": "Doação",
             "de": "Spenden",
-            "pl": "Kup kawę"
+            "pl": "Dotacja",
+            "hy": "Նվիրաբերել"
         },
         {
             "__": "About MeeBible",
@@ -528,7 +587,8 @@
             "fi": "Tietoja MeeBiblesta",
             "pt": "Sobre Meebible",
             "de": "Über MeeBible",
-            "pl": "MeeBible"
+            "pl": "MeeBible",
+            "hy": "MeeBible ծրագրի մասին"
         },
         {
             "__": "Quit",
@@ -539,7 +599,8 @@
             "fi": "Lopettaa",
             "pt": "Sair",
             "de": "Beenden",
-            "pl": "Zamknij"
+            "pl": "Zamknij",
+            "hy": "Ելք"
         }
     ],
 
@@ -553,7 +614,8 @@
             "fi": "Kirjanmerkit",
             "pt": "Marcadores",
             "de": "Lesezeichen",
-            "pl": "Ulubione"
+            "pl": "Ulubione",
+            "hy": "Էջանիշեր"
         },
         {
             "__": "Delete",
@@ -564,7 +626,8 @@
             "fi": "Poistaa",
             "pt": "Apagar",
             "de": "Löschen",
-            "pl": "Usuń"
+            "pl": "Skasuj",
+            "hy": "Հեռացնել"
         },
         {
             "__": "No bookmarks yet",
@@ -575,7 +638,8 @@
             "fi": "Ei kirjanmerkkiä vielä",
             "pt": "Sem marcadores ainda",
             "de": "Keine Lesezeichen angelegt",
-            "pl": "Nie ma ulubionych"
+            "pl": "Nie ma ulubionych",
+            "hy": "Էջանիշեր դեռ չկան"
         }
     ],
 
@@ -589,7 +653,8 @@
             "fi": "Palaute",
             "pt": "Comente",
             "de": "Feedback",
-            "pl": "Opinie"
+            "pl": "Opinie",
+            "hy": "Հետադարձ կապ"
         },
         {
             "__": "Your name",
@@ -600,7 +665,8 @@
             "fi": "Nimesi",
             "pt": "Seu nome",
             "de": "Ihr Name",
-            "pl": "Twoje imię"
+            "pl": "Twoje imię",
+            "hy": "Ձեր անունը"
         },
         {
             "__": "Your E-Mail",
@@ -611,7 +677,8 @@
             "fi": "Sähköpostiosoitteesi",
             "pt": "Seu E-Mail",
             "de": "Ihre Email-Adresse",
-            "pl": "Twój E-Mail"
+            "pl": "Twój E-Mail",
+            "hy": "Ձեր E-Mail-ը"
         },
         {
             "__": "Comments\nSuggestions\nImprovements\nCritics\nNew translations\n...",
@@ -622,7 +689,8 @@
             "fi": "Kommentit\nEhdotuksia\nParannuksia\nKritiikki\nUudet käännökset\n...",
             "pt": "Comentários\nSugestões\nMelhorias\nCríticas\nNovas traduções\n...",
             "de": "Kommentare\nVorschläge\nVerbesserungen\nKritik\nNeue Übersetzungen\n...",
-            "pl": "Komentarze\nSugestie\nUlepszenia\nKrytyka\nNowe tłumaczenia\n..."
+            "pl": "Komentarze\nSugestie\nUlepszenia\nKrytyka\nNowe tłumaczenia\n...",
+            "hy": "Մեկնաբանություններ\nԱռաջարկություններ\nԼավացումներ\nՔննադատություններ\nՆոր թարգմանություններ\n..."
         },
         {
             "__": "Send",
@@ -633,7 +701,8 @@
             "fi": "Lähetä",
             "pt": "Enviar",
             "de": "Senden",
-            "pl": "Wyślij"
+            "pl": "Wyślij",
+            "hy": "Ուղարկել"
         },
         {
             "__": "Sending feedback",
@@ -644,7 +713,8 @@
             "fi": "Lähetä palautetta...",
             "pt": "Enviando comentário",
             "de": "Feedback wird gesendet",
-            "pl": "Wysyłanie opinii"
+            "pl": "Wysyłanie opinii",
+            "hy": "Ուղարկում"
         },
         {
             "__": "Cancel",
@@ -655,7 +725,8 @@
             "fi": "Peruuta",
             "pt": "Cancelar",
             "de": "Abbrechen",
-            "pl": "Anuluj"
+            "pl": "Anuluj",
+            "hy": "Չեղարկել"
         },
         {
             "__": "Feedback sent",
@@ -666,7 +737,8 @@
             "fi": "Lähetetty palaute",
             "pt": "Comentário enviado",
             "de": "Feedback gesendet",
-            "pl": "Opinia została wysłana"
+            "pl": "Opinia została wysłana",
+            "hy": "Ուղարկված է"
         },
         {
             "__": "Thank you! Your feedback is highly appreciated. We will answer you as soon as possible.",
@@ -677,7 +749,8 @@
             "fi": "Kiitos! Palautteenne on erittäin tervetullutta. Vastaamme sinulle mahdollisimman pian.",
             "pt": "Obrigado! Seu comentário é muito bem vindo. Nós responderemos assim que possível.",
             "de": "Danke! Ihr Feedback wird sehr geschätzt. Wir werden Ihnen sobald wie möglich antworten.",
-            "pl": "Dziękujemy! Twoja opinia jest dla nas cenna. Odpowiemy tak szybko jak to możliwe."
+            "pl": "Dziękujemy! Twoja opinia jest dla nas cenna. Odpowiemy tak szybko jak to możliwe.",
+            "hy": "Շնորհակալությո՜ւն։ Մենք մեծ նշանակություն ենք տալիս ձեր կարծիքին և կպատասխանենք հնարավորինս շուտ"
         },
         {
             "__": "OK",
@@ -688,7 +761,8 @@
             "fi": "OK",
             "pt": "OK",
             "de": "OK",
-            "pl": "OK"
+            "pl": "OK",
+            "hy": "Լավ"
         },
         {
             "__": "Sending failed",
@@ -699,7 +773,8 @@
             "fi": "Lähettäminen epäonnistui",
             "pt": "Falha no envio",
             "de": "Senden fehlgeschlagen",
-            "pl": "Wysyłanie nie powiodło się"
+            "pl": "Wysyłanie nie powiodło się",
+            "hy": "Չհաջողվեց ուղարկել"
         },
         {
             "__": "Your feedback was not sent. Please check internet connection and try again.",
@@ -710,7 +785,8 @@
             "fi": "Antamaasi palautetta ei lähetetty. Tarkista Internet-yhteys ja yritä uudelleen.",
             "pt": "Seu comentário não foi enviado. Por favor, cheque sua conexão de internet e tente de novo.",
             "de": "Ihr Feedback wurde nicht gesendet. Bitte prüfen Sie die Internetverbindung und versuchen es erneut.",
-            "pl": "Twoja opinia nie została wysłana. Prosimy sprawdź połączenie internetowe i spróbuj ponownie."
+            "pl": "Twoja opinia nie została wysłana. Prosimy sprawdź połączenie internetowe i spróbuj ponownie.",
+            "hy": "Ձեր կարծիքը չի ուղարկվել։ Խնդրում ենք ստուգել համացանցի միացումը և փորձել ևս մեկ անգամ"
         },
         {
             "__": "No E-Mail?",
@@ -721,7 +797,8 @@
             "fi": "Ei sähköpostiosoitetta?",
             "pt": "Sem Email?",
             "de": "Keine Email?",
-            "pl": "E-Mail nieznany?"
+            "pl": "E-Mail nieznany?",
+            "hy": "E-Mail-ը չի նշված"
         },
         {
             "__": "You have not specified E-Mail address. We will not be able to answer you!",
@@ -732,7 +809,8 @@
             "fi": "Et ole määritellyt sähköpostiosoitetta. Emme pysty vastaamaan sinulle!",
             "pt": "Você não especificou o endereço de E-Mail. Nós não poderemos responder a você!",
             "de": "Sie haben keine Email-Adresse angegeben. Wir werden Ihnen nicht antworten können!",
-            "pl": "Nie wprowadzono adresu E-Mail. Nie będziemy mogli odpowiedzieć!"
+            "pl": "Nie wprowadzono adresu E-Mail. Nie będziemy mogli odpowiedzieć!",
+            "hy": "Դուք չեք նշել ձեր E-Mail-ը։ Մենք չենք կարող պատասխանել ձեզ։"
         },
         {
             "__": "Send anyway",
@@ -743,7 +821,8 @@
             "fi": "Lähetä joka tapauksessa",
             "pt": "Enviar mesmo assim",
             "de": "Trotzdem senden",
-            "pl": "Wyślij mimo wszystko"
+            "pl": "Wyślij mimo wszystko",
+            "hy": "Միևնույն է ուղարկել"
         },
         {
             "__": "Return to form",
@@ -754,7 +833,8 @@
             "fi": "Palata muodostamaan",
             "pt": "Retornar ao formulário",
             "de": "Zurück zum Formular",
-            "pl": "Powrót do formularza"
+            "pl": "Powrót do formularza",
+            "hy": "Վերադառնալ ձևաչափին"
         },
         {
             "__": "Privacy policy",
@@ -765,7 +845,8 @@
             "fi": "Yksityisyyden suoja",
             "pt": "Política de privacidade",
             "de": "Datenschutzerklärung",
-            "pl": "Polityka prywatności"
+            "pl": "Polityka prywatności",
+            "hy": "Գաղտնիության քաղաքականությունը"
         }
     ],
 
@@ -779,7 +860,8 @@
             "fi": "Lataa Raamattu",
             "pt": "Baixando a Bíblia",
             "de": "Lade Bibel herunter",
-            "pl": "Pobieranie Biblii"
+            "pl": "Pobieranie Biblii",
+            "hy": "Աստվածաշնչի բեռնում"
         },
         {
             "__": "Connecting...",
@@ -790,7 +872,8 @@
             "fi": "Yhdistä...",
             "pt": "Conectando...",
             "de": "Verbinden...",
-            "pl": "Łączenie"
+            "pl": "Łączenie",
+            "hy": "Միացում..."
         },
         {
             "__": "Nothing to do",
@@ -801,7 +884,8 @@
             "fi": "Ei mitään tekemistä",
             "pt": "Nada a fazer",
             "de": "Nichts zu tun",
-            "pl": "Nie ma nic do zrobienia"
+            "pl": "Nie ma nic do zrobienia",
+            "hy": "Ոչինչ չկա անելու"
         },
         {
             "__": "You already have downloaded whole Bible in selected language and translation",
@@ -812,7 +896,8 @@
             "fi": "Olet jo ladannut koko Raamatun valitulla kielellä ja käännöksellä",
             "pt": "Você já baixou a Bíblia inteira no idioma e tradução selecionada",
             "de": "Sie haben schon die komplette Bibel in der ausgewählten Sprache und Übersetzung heruntergeladen",
-            "pl": "Pobrałeś już całą Biblię w wybranym języku i tłumaczeniu"
+            "pl": "Pobrałeś już całą Biblię w wybranym języku i tłumaczeniu",
+            "hy": "Դուք արդեն բեռնել եք Աստվածաշնչի ընթացիկ թարգմանությունը"
         },
         {
             "__": "OK",
@@ -823,7 +908,8 @@
             "fi": "OK",
             "pt": "OK",
             "de": "OK",
-            "pl": "OK"
+            "pl": "OK",
+            "hy": "Լավ"
         },
         {
             "__": "Cancel",
@@ -834,7 +920,8 @@
             "fi": "Peruuta",
             "pt": "Cancelar",
             "de": "Abbrechen",
-            "pl": "Anuluj"
+            "pl": "Anuluj",
+            "hy": "Չեղարկել"
         }
     ],
 
@@ -848,7 +935,8 @@
             "fi": "OK",
             "pt": "OK",
             "de": "OK",
-            "pl": "OK"
+            "pl": "OK",
+            "hy": "Լավ"
         }
     ],
 
@@ -862,7 +950,8 @@
             "fi": "Valitse Kieli",
             "pt": "Selecione o idioma",
             "de": "Sprache wählen",
-            "pl": "Wybierz język"
+            "pl": "Wybierz język",
+            "hy": "Ընտրեք լեզուն"
         }
     ],
 
@@ -876,7 +965,8 @@
             "fi": "Valitse Kirja",
             "pt": "Selecione o Livro",
             "de": "Buch auswählen",
-            "pl": "Wybierz księgę"
+            "pl": "Wybierz księgę",
+            "hy": "Ընտրեք գիրքը"
         },
         {
             "__": "Chapter:",
@@ -887,7 +977,8 @@
             "fi": "Luku:",
             "pt": "Capítulo:",
             "de": "Kapitel:",
-            "pl": "Rozdział:"
+            "pl": "Rozdział:",
+            "hy": "Գլուխ."
         },
         {
             "__": "Verse:",
@@ -898,7 +989,8 @@
             "fi": "Jae:",
             "pt": "Versículo:",
             "de": "Vers:",
-            "pl": "Werset:"
+            "pl": "Werset:",
+            "hy": "Խոսք."
         },
         {
             "__": "OK",
@@ -909,7 +1001,8 @@
             "fi": "OK",
             "pt": "OK",
             "de": "OK",
-            "pl": "OK"
+            "pl": "OK",
+            "hy": "Լավ"
         }
     ],
 
@@ -923,7 +1016,8 @@
             "fi": "Sulje",
             "pt": "Fechar",
             "de": "Schließen",
-            "pl": "Zamknij"
+            "pl": "Zamknij",
+            "hy": "Փակել"
         },
         {
             "__": "Find",
@@ -932,7 +1026,8 @@
             "sv": "Sök",
             "pt": "Encontrar",
             "de": "Suchen",
-            "pl": "Znajdź"
+            "pl": "Znajdź",
+            "hy": "Գտնել"
         },
         {
             "__": "Word or phrase",
@@ -941,7 +1036,8 @@
             "sv": "Ord eller fras",
             "pt": "Palavra ou frase",
             "de": "Wort oder Satz",
-            "pl": "Słowo lub fraza"
+            "pl": "Słowo lub fraza",
+            "hy": "Խոսք կամ արտահայտություն"
         },
         {
             "__": "Nothing found",
@@ -952,7 +1048,8 @@
             "fi": "Mitään ei löytynyt",
             "pt": "Nada foi encontrado",
             "de": "Nichts gefunden",
-            "pl": "Nie znaleziono"
+            "pl": "Nie znaleziono",
+            "hy": "Չի գտնվել"
         },
         {
             "__": "Too many results",
@@ -961,7 +1058,8 @@
             "sv": "För många resultat",
             "pt": "Muitos resultados",
             "de": "Zu viele Ergebnisse",
-            "pl": "Zbyt wiele wyników"
+            "pl": "Zbyt wiele wyników",
+            "hy": "Չափից շատ համընկնումներ կան"
         },
         {
             "__": "First {max} displayed",
@@ -970,7 +1068,8 @@
             "sv": "Första {max} visas",
             "pt": "Primeiro {max} exibido",
             "de": "Die ersten {max} werden angezeigt",
-            "pl": "Pierwszy {max} pokazany"
+            "pl": "Pierwszy {max} pokazany",
+            "hy": "Ցույց են տրված առաջին {max}"
         },
         {
             "__": "Rebuilding index...\nThis is one-time operation",
@@ -979,7 +1078,8 @@
             "sv": "Återuppbygger index...\nDetta är en engångsoperation",
             "pt": "Reconstruindo índice...\nEste é um tempo de operação",
             "de": "Index neu erstellen...\nEs wird nur einmal ausgeführt",
-            "pl": "Przebudowa indexu...\nTa operacja jest jednorazowa"
+            "pl": "Przebudowa indexu...\nTa operacja jest jednorazowa",
+            "hy": "Ինդեքսի կառուցում...\nԱյս գործողությունը կատարվում է մեկ անգամ"
         },
         {
             "__": "Tips",
@@ -988,7 +1088,8 @@
             "sv": "Tips",
             "pt": "Dicas",
             "de": "Tipps",
-            "pl": "Porady"
+            "pl": "Porady",
+            "hy": "Հուշում"
         },
         {
             "__": "You can search for multiple words, they will be found even if separated by other words.\n\nPlace asterisk after word to find it with all different endings (For example: Proph* for Prophet and Prophecy)",
@@ -997,7 +1098,8 @@
             "sv": "Du kan söka efter flera ord, de kommer att hittas även om de är separerade med andra ord.\n\nPlacera asterisk efter ord för att hitta det med alla olika ändelser (Till exempel: Prof* för Profet och Profetera)",
             "pt": "Você pode pesquisar por várias palavras, elas serão encontradas, mesmo se separadas por outras palavras.\n\nColoque asterisco após a palavra para encontrá-la com todas as terminações diferentes (por exemplo:  Profe* para Profeta e Profecia)",
             "de": "Sie können nach mehreren Worten suchen, diese werden auch gefunden wenn sie durch andere Wörter getrennt sind.\n\nSetzen Sie einen Stern nach dem Wort um alle verschiedenen Endungen zu finden (Zum Beispiel: Proph* für Prophet und Prophetie)",
-            "pl": "Możesz wyszukiwać kilka słów naraz. Będą odnalezione, nawet jeśli są rozdzielone innymi wyrazami. \n\nUmieść gwiazdkę po słowie aby odnaleźć wszystkie warianty końcówek tego słowa. (Na przykład: Pror* dla Prorok i Proroctwo)"
+            "pl": "Możesz wyszukiwać kilka słów naraz. Będą odnalezione, nawet jeśli są rozdzielone innymi wyrazami. \n\nUmieść gwiazdkę po słowie aby odnaleźć wszystkie warianty końcówek tego słowa. (Na przykład: Pror* dla Prorok i Proroctwo)",
+            "hy": "Դուք կարող եք որոնել մի քանի բառ, դրանք կգտնվեն եթե տեքստում դրանց միջև լինեն այլ բառեր.\n\nՓոխարինեք բառի վերջավորությունը աստղանիշով որպեսզի գտնեք այդ բառը տարբեր ձևակերպումներով (օրինակ. «խոսք*»-ը կգտնի և «խոսքի» և «խոսքում»)։"
         },
         {
             "__": "OK",
@@ -1008,7 +1110,8 @@
             "fi": "OK",
             "pt": "OK",
             "de": "OK",
-            "pl": "OK"
+            "pl": "OK",
+            "hy": "Լավ"
         }
     ],
 
@@ -1022,7 +1125,8 @@
             "fi": "Asetukset",
             "pt": "Configurações",
             "de": "Einstellungen",
-            "pl": "Ustawienia"
+            "pl": "Ustawienia",
+            "hy": "Կայանքներ"
         },
         {
             "__": "Language",
@@ -1033,7 +1137,8 @@
             "fi": "Kieli",
             "pt": "Idioma",
             "de": "Sprache",
-            "pl": "Język Biblii"
+            "pl": "Język Biblii",
+            "hy": "Լեզուն"
         },
         {
             "__": "<not loaded yet>",
@@ -1044,7 +1149,8 @@
             "fi": "<ei ole vielä ladattu>",
             "pt": "<ainda não carregado>",
             "de": "<noch nicht heruntergeladen>",
-            "pl": "<jeszcze nie wczytano>"
+            "pl": "<jeszcze nie wczytano>",
+            "hy": "<չի բեռնված>"
         },
         {
             "__": "Translation",
@@ -1055,7 +1161,8 @@
             "fi": "Käännös",
             "pt": "Tradução",
             "de": "Übersetzung",
-            "pl": "Tłumaczenie"
+            "pl": "Tłumaczenie",
+            "hy": "Թարգմանություն"
         },
         {
             "__": "Font",
@@ -1066,7 +1173,8 @@
             "fi": "Fontti",
             "pt": "Fonte",
             "de": "Schriftart",
-            "pl": "Czcionka"
+            "pl": "Czcionka",
+            "hy": "Տառատեսակ"
         },
         {
             "__": "Scroll header with the text",
@@ -1077,7 +1185,8 @@
             "fi": "Selaa otsikon tekstin mukaan",
             "pt": "Scorri Cabeçalho de rolagem com o texto",
             "de": "Überschrift mit dem Text scrollen",
-            "pl": "Przewijanie nagłówka z tekstem"
+            "pl": "Przewijanie nagłówka z tekstem",
+            "hy": "Պտտվող վերնագիր"
         },
         {
             "__": "Fullscreen",
@@ -1088,7 +1197,8 @@
             "fi": "Koko näyttö",
             "pt": "Tela inteira",
             "de": "Vollbild",
-            "pl": "Widok pełnoekranowy"
+            "pl": "Widok pełnoekranowy",
+            "hy": "Ամբողջ էկրանով"
         },
         {
             "__": "Inverted theme",
@@ -1099,7 +1209,8 @@
             "fi": "Käänteinen teema",
             "pt": "Tema invertido",
             "de": "Invertierte Darstellung",
-            "pl": "Odwrócone kolory tematu"
+            "pl": "Odwrócone kolory tematu",
+            "hy": "Շրջուն թեմա"
         },
         {
             "__": "Copy verses with numbers",
@@ -1110,7 +1221,8 @@
             "fi": "Kopioi jae numerolla",
             "pt": "Copiar versículos com números",
             "de": "Verse mit Nummern kopieren",
-            "pl": "Kopiowanie wersetów z cyframi"
+            "pl": "Kopiowanie wersetów z cyframi",
+            "hy": "Պատճենել խոսքերը համարներով"
         },
         {
             "__": "Update translation list",
@@ -1121,7 +1233,8 @@
             "fi": "Päivitä käännöslista",
             "pt": "Atualizar lista de traduções",
             "de": "Übersetzungsliste aktualisieren",
-            "pl": "Odśwież listę tłumaczeń"
+            "pl": "Odśwież listę tłumaczeń",
+            "hy": "Նորացնել թարգմանությունները"
         },
         {
             "__": "Reload languages",
@@ -1132,7 +1245,8 @@
             "fi": "Lataa kielet uudelleen",
             "pt": "Atualizar idiomas",
             "de": "Sprachen neu laden",
-            "pl": "Wczytaj ponownie języki"
+            "pl": "Wczytaj ponownie języki",
+            "hy": "Վերաբեռնել թարգմանությունները"
         },
         {
             "__": "When new translation is published on MeeBible's server, use this button to update translation list",
@@ -1143,7 +1257,8 @@
             "fi": "Kun uusi käännös julkaistaan MeeBiblen palvelimelle, käytä tätä painiketta päivittämään käännöslista",
             "pt": "Use este botão para atualizar a lista de traduções quando uma nova tradução é publicada no servidor da Meebible",
             "de": "Wenn neue Übersetzungen auf dem MeeBible Server veröffentlicht werden kann mit dem Button die Übersetzungsliste aktualisiert werden.",
-            "pl": "Kiedy nowe tłumaczenie jest dostępne na serwerze MeeBible, użyj tego przycisku aby odświeżyć listę tłumaczeń"
+            "pl": "Kiedy nowe tłumaczenie jest dostępne na serwerze MeeBible, użyj tego przycisku aby odświeżyć listę tłumaczeń",
+            "hy": "Երբ նոր թարգմանությունը հրապարակվում է MeeBible կայքում, հարկավոր է սեղմել այս կոճակը, որպեսզի այն հայտնվի ցուցակում"
         },
         {
             "__": "Clear cache",
@@ -1154,7 +1269,8 @@
             "fi": "Tyhjennä välimuisti",
             "pt": "Limpar memória cache",
             "de": "Cache leeren",
-            "pl": "Wyczyść pamięć"
+            "pl": "Wyczyść pamięć",
+            "hy": "Մաքրել քեշը"
         },
         {
             "__": "Cache clearing",
@@ -1165,7 +1281,8 @@
             "fi": "Välimuisti tyhjennetään...",
             "pt": "Limpando a memória cache",
             "de": "Cache leeren...",
-            "pl": "Czyszczenie pamięci"
+            "pl": "Czyszczenie pamięci",
+            "hy": "Քեշի մաքրում"
         },
         {
             "__": "Select Font",
@@ -1176,7 +1293,8 @@
             "fi": "Valitse Fontti",
             "pt": "Selecionar Fonte",
             "de": "Schriftart wählen",
-            "pl": "Wybierz czcionkę"
+            "pl": "Wybierz czcionkę",
+            "hy": "Ընտրեք տառատեսակ"
         },
         {
             "__": "Not all fonts can display all languages",
@@ -1187,7 +1305,8 @@
             "fi": "Kaikki fontit eivät voi näyttää kaikkia kieliä",
             "pt": "Nem todas as fontes podem ser exibidas em todas os idiomas",
             "de": "Nicht alle Schriftarten können alle Sprachen darstellen",
-            "pl": "Nie wszystkie czcionki mogą wyświetlać każdy język"
+            "pl": "Nie wszystkie czcionki mogą wyświetlać każdy język",
+            "hy": "Ոչ բոլոր տառատեսակներն են գործում բոլոր լեզուների հետ"
         },
         {
             "__": "Do you want to clear the cache?",
@@ -1198,7 +1317,8 @@
             "fi": "Haluatko tyhjentää välimuistin?",
             "pt": "Você quer limpar a memória cache?",
             "de": "Wollen Sie den Cache leeren?",
-            "pl": "Wyczyścić pamięć?"
+            "pl": "Wyczyścić pamięć?",
+            "hy": "Իրո՞ք ուզում եք մաքրել քեշը"
         },
         {
             "__": "This will delete all downloaded Bible chapters from your phone",
@@ -1209,7 +1329,8 @@
             "fi": "Tämä poistaa kaikki ladatut Raamatun luvut puhelimestasi",
             "pt": "Isto irá apagar todos os capítulos da Bíblia baixada no seu telefone",
             "de": "Es werden alle heruntergeladenen Bibelkapitel vom Handy gelöscht",
-            "pl": "To usunie wszystkie pobrane rozdziały Biblii z twojego telefonu"
+            "pl": "To usunie wszystkie pobrane rozdziały Biblii z twojego telefonu",
+            "hy": "Աստվածաշնչի բոլոր բեռնված գլուխները կհեռացվեն ձեր հեռախոսից"
         },
         {
             "__": "Clear",
@@ -1220,7 +1341,8 @@
             "fi": "Poista",
             "pt": "Limpar",
             "de": "Leeren",
-            "pl": "Wyczyść"
+            "pl": "Wyczyść",
+            "hy": "Մաքրել"
         },
         {
             "__": "Cancel",
@@ -1231,7 +1353,8 @@
             "fi": "Peruuta",
             "pt": "Cancelar",
             "de": "Abbrechen",
-            "pl": "Anuluj"
+            "pl": "Anuluj",
+            "hy": "Չեղարկել"
         },
         {
             "__": "Available at",
@@ -1242,7 +1365,8 @@
             "fi": "Saatavilla",
             "pt": "Disponível em",
             "de": "Verfügbar auf",
-            "pl": "Dostępne na"
+            "pl": "Dostępne na",
+            "hy": "Հասանելի է"
         },
         {
             "__": "Grid-like book selection",
@@ -1251,7 +1375,8 @@
             "sv": "Grid-liknande bokval",
             "pt": "Tabela como seleção de livro",
             "de": "Buchauswahl im Tabellen-Stil",
-            "pl": "Wybór ksiąg w formie tabeli"
+            "pl": "Wybór ksiąg w formie tabeli",
+            "hy": "Գրքի ընտրանքը աղյուսակի տեսքով"
         },
         {
             "__": "Manage cache",
@@ -1260,20 +1385,23 @@
             "sv": "Hantera cacheminnet",
             "pt": "Gerenciar a memória",
             "de": "Cache verwalten",
-            "pl": "Zarządzanie pamięcią"
+            "pl": "Zarządzanie pamięcią",
+            "hy": "Քեշի կառավարում"
         },
 
         {
             "__": "Interface language",
             "ru": "Язык интерфейса",
             "de": "Programmsprache",
-            "pl": "Język interfejsu"
+            "pl": "Język interfejsu",
+            "hy": "Ծրագրի լեզուն"
         },
         {
             "__": "System language",
             "ru": "Системный язык",
             "de": "Systemsprache",
-            "pl": "Język systemu"
+            "pl": "Język systemu",
+            "hy": "Համակարգի լեզուն"
         }
     ],
 
@@ -1287,7 +1415,8 @@
             "fi": "Valitse Käännös",
             "pt": "Selecione o Idioma",
             "de": "Übersetzung wählen",
-            "pl": "Wybierz tłumaczenie"
+            "pl": "Wybierz tłumaczenie",
+            "hy": "Ընտրեք թարգմանությունը"
         }
     ],
 
@@ -1301,7 +1430,8 @@
             "fi": "Sulje",
             "pt": "Fechar",
             "de": "Schließen",
-            "pl": "Zamknij"
+            "pl": "Zamknij",
+            "hy": "Փակել"
         }
     ],
 
@@ -1313,7 +1443,8 @@
             "sv": "Välj bok och vers",
             "pt": "Selecione livro e versículo",
             "de": "Buch und Vers wählen",
-            "pl": "Wybierz księgę i werset"
+            "pl": "Wybierz księgę i werset",
+            "hy": "Ընտրեք գիրքը և խոսքը"
         },
         {
             "__": "Chapter:",
@@ -1324,7 +1455,8 @@
             "fi": "Luku:",
             "pt": "Capítulo:",
             "de": "Kapitel:",
-            "pl": "Rozdział:"
+            "pl": "Rozdział:",
+            "hy": "Գլուխ."
         },
         {
             "__": "Verse:",
@@ -1335,7 +1467,8 @@
             "fi": "Jae:",
             "pt": "Versículo:",
             "de": "Vers:",
-            "pl": "Werset:"
+            "pl": "Werset:",
+            "hy": "Խոսք."
         },
         {
             "__": "OK",
@@ -1346,7 +1479,8 @@
             "fi": "OK",
             "pt": "OK",
             "de": "OK",
-            "pl": "OK"
+            "pl": "OK",
+            "hy": "Լավ"
         }
     ],
 
@@ -1358,7 +1492,8 @@
             "sv": "Hantera cacheminnet",
             "pt": "Gerenciar a memória",
             "de": "Cache verwalten",
-            "pl": "Zarządzanie pamięcią"
+            "pl": "Zarządzanie pamięcią",
+            "hy": "Քեշի կառավարում"
         },
         {
             "__": "Cached in phone's storage:",
@@ -1367,7 +1502,8 @@
             "sv": "Cachad i telefonens minne:",
             "pt": "Memória armazenada no telefone:",
             "de": "Im Telefonspeicher gespeichert:",
-            "pl": "Zapisane w pamięci telefonu:"
+            "pl": "Zapisane w pamięci telefonu:",
+            "hy": "Պահվում է հեռախոսի հիշողությունում"
         },
         {
             "__": "The cache is empty",
@@ -1376,7 +1512,8 @@
             "sv": "Cacheminnet är tomt",
             "pt": "A memória está vazia",
             "de": "Der Cache ist leer",
-            "pl": "Pamięć jest pusta"
+            "pl": "Pamięć jest pusta",
+            "hy": "Քեշը դատարկ է"
         },
         {
             "__": "Text: {textSize}",
@@ -1385,7 +1522,8 @@
             "sv": "Text: {textSize}",
             "pt": "Texto: {textSize}",
             "de": "Text: {textSize}",
-            "pl": "Tekst: {textSize}"
+            "pl": "Tekst: {textSize}",
+            "hy": "Տեքստը. {textSize}"
         },
         {
             "__": "Text: {textSize}, Search index: {indexSize}",
@@ -1394,7 +1532,8 @@
             "sv": "Text: {textSize}, Sökindex: {indexSize}",
             "pt": "Texto: {textSize}, índice de pesquisa : {indexSize}",
             "de": "Text: {textSize}, Suchindex: {indexSize}",
-            "pl": "Tekst: {textSize}, Spis wyszukiwania: {indexSize}"
+            "pl": "Tekst: {textSize}, Spis wyszukiwania: {indexSize}",
+            "hy": "Տեքստը. {textSize}, Որոնման ինդեքսը. {indexSize}"
         },
         {
             "__": "Delete from cache",
@@ -1403,7 +1542,8 @@
             "sv": "Radera från cacheminnet",
             "pt": "Excluir da memória",
             "de": "Aus dem Cache löschen",
-            "pl": "Usuń z pamięci"
+            "pl": "Usuń z pamięci",
+            "hy": "Հեռացնել քեշից"
         },
         {
             "__": "Delete search index only",
@@ -1412,7 +1552,8 @@
             "sv": "Ta endast bort sökindex",
             "pt": "Excluir somente índice de pesquisa",
             "de": "Nur den Suchindex löschen",
-            "pl": "Usuń tylko spis wyszukiwania"
+            "pl": "Usuń tylko spis wyszukiwania",
+            "hy": "Հեռացնել միայն ինդեքսը"
         }
     ],
 
@@ -1424,7 +1565,8 @@
             "sv": "Donationen accepterat",
             "pt": "Doação aceita",
             "de": "Spende angenommen",
-            "pl": "Wsparcie przyjęte"
+            "pl": "Dotacja zaakceptowana",
+            "hy": "Նվիրատվությունն ընդունված է"
         },
         {
             "__": "Thank you for supporting MeeBible!",
@@ -1433,7 +1575,8 @@
             "sv": "Tack för att du stödjer MeeBible!",
             "pt": "Obrigado por colaborar com MeeBible!",
             "de": "Danke, dass Sie MeeBible unterstützen!",
-            "pl": "Dziękujemy za wsparcie MeeBible!"
+            "pl": "Dziękujemy za wsparcie MeeBible!",
+            "hy": "Շնորհակալություն աջակցելու համար"
         },
         {
             "__": "OK",
@@ -1444,7 +1587,8 @@
             "fi": "OK",
             "pt": "OK",
             "de": "OK",
-            "pl": "OK"
+            "pl": "OK",
+            "hy": "Լավ"
         },
         {
             "__": "Sorry",
@@ -1453,34 +1597,38 @@
             "sv": "Ursäkta",
             "pt": "Desculpe",
             "de": "Entschuldigung",
-            "pl": "Przepraszamy"
+            "pl": "Przepraszamy",
+            "hy": "Կներեք"
         },
         {
-            "__": "Due to limitations of Nokia Store you can't buy same type of coffee twice. Please choose another coffee if you want to donate more.",
+            "__": "Due to limitations of Nokia Store you can't pay same amount twice. Please choose another amount if you want to donate more.",
             "ru": "Из-за ограничения Nokia Store вы не можете заплатить одну и ту же сумму дважды. Пожалуйста, выберите другую сумму если вы хотите пожертвовать ещё.",
             "it": "Per limitazioni del Nokia Store non puoi pagare lo stesso importo due volte. Si prega di scegliere un altro importo per donare nuovamente.",
             "sv": "På grund av begränsningar i Nokia Butik kan du inte betala lika mycket två gånger. Vänligen välj ett annat belopp om du vill donera mer.",
             "pt": "Devido às limitações da Nokia Store você não pode pagar duas vezes o mesmo valor. Por favor escolha outro valor se você quiser doar mais.",
             "de": "Wegen Limitierungen des Nokia Stores können Sie nicht zweimal den gleiche Betrag bezahlen. Bitte wählen Sie einen anderen Betrag wenn sie nocheinmal spenden möchten.",
-            "pl": "Ze względu na ograniczenia Nokia Store, nie można płacić tej samej kwoty dwukrotnie. Prosimy wybrać inną kwotę, jeśli chcesz wspomóc nas ponownie."
+            "pl": "Ze względu na ograniczenia Nokia Store, nie można płacić tej samej kwoty dwukrotnie. Prosimy wybrać inną kwotę, jeśli chcesz wspomóc nas ponownie.",
+            "hy": "Nokia Store-ի սահմանափակումների պատճառով դուք չեք կարող վճարել միևնույն գումարը երկու անգամ։ Խնդրում ենք ընտրել մեկ այլ գումար, եթե ցանկանում եք նորից նվիրաբերել։"
         },
         {
-            "__": "Buy a coffee",
-            "ru": "Купить кофе",
+            "__": "Donate",
+            "ru": "Пожертвовать",
             "it": "Fai una donazione",
             "sv": "Donera",
             "pt": "Doação",
             "de": "Spenden",
-            "pl": "Kup kawę"
+            "pl": "Dotacja",
+            "hy": "Նվիրաբերել"
         },
         {
-            "__": "Do you enjoy using MeeBible? Buy me a coffee and support further development!",
-            "ru": "Вам нравится MeeBible? Подарите мне кофе и поддержите этим дальнейшую разработку программы!",
+            "__": "You can support further development of MeeBible by donating a small sum",
+            "ru": "Вы можете поддержать дальнейшее развитие MeeBible, пожертвовав небольшую сумму",
             "it": "Puoi aiutare lo sviluppo di MeeBible donando una piccola somma",
             "sv": "Du kan stödja ytterligare utveckling av MeeBible genom att donera en liten summa pengar",
             "pt": "Você pode apoiar desenvolvimento da MeeBible doando uma pequena quantia",
             "de": "Sie können die weitere Entwicklung von MeeBible mit einer kleinen Spende unterstützen",
-            "pl": "Czy podoba Ci się korzystanie z MeeBible? Kup mi kawę i wspomóż przyszły rozwój projektu!"
+            "pl": "Możesz wspomóc dalszy rozwój MeeBible wpłacając niewielką sumę pieniędzy",
+            "hy": "Դուք կարող եք աջակցել MeeBible-ի զարգացմանը նվիրաբերելով ոչ մեծ գումար"
         },
         {
             "__": "Payment will be done via your Nokia Store account",
@@ -1489,53 +1637,8 @@
             "sv": "Betalning kommer att ske via ert Nokia Butik-konto",
             "pt": "O pagamento será feito através da sua conta da Nokia Store",
             "de": "Die Bezahlung wird über Ihr Nokia Store Konto abgewickelt",
-            "pl": "Płatność zostanie wykonana za pośrednictwem konta Nokia Store"
-        },
-
-        {
-            "__": "Frappe",
-            "ru": "Фраппе",
-            "it": "Fai una donazione",
-            "sv": "Donera",
-            "pt": "Doação",
-            "de": "Spenden",
-            "pl": "Frappe"
-        },
-        {
-            "__": "Espresso",
-            "ru": "Эспрессо",
-            "it": "Fai una donazione",
-            "sv": "Donera",
-            "pt": "Doação",
-            "de": "Spenden",
-            "pl": "Espresso"
-        },
-        {
-            "__": "Latte",
-            "ru": "Латте",
-            "it": "Fai una donazione",
-            "sv": "Donera",
-            "pt": "Doação",
-            "de": "Spenden",
-            "pl": "Latte"
-        },
-        {
-            "__": "Cappuccino",
-            "ru": "Капучино",
-            "it": "Fai una donazione",
-            "sv": "Donera",
-            "pt": "Doação",
-            "de": "Spenden",
-            "pl": "Cappuccino"
-        },
-        {
-            "__": "Mocha & Cake",
-            "ru": "Мокаччино и тортик",
-            "it": "Fai una donazione",
-            "sv": "Donera",
-            "pt": "Doação",
-            "de": "Spenden",
-            "pl": "Mokka z ciastem"
+            "pl": "Płatność zostanie wykonana za pośrednictwem konta Nokia Store",
+            "hy": "Վճարումը կիրականացվի ձեր Nokia Store հաշվի միջոցով"
         }
     ],
 
@@ -1547,7 +1650,8 @@
             "sv": "MeeBible håller på att omvandla nedladdade texter till det nya lagringsformatet...\n\nVänta",
             "pt": "MeeBible está convertendo textos baixados em novo formato de armazenamento...\n\nPor favor aguarde",
             "de": "MeeBible konvertiert heruntergeladene Texte in das neue Speicherformat...\n\nBitte warten",
-            "pl": "MeeBible konwertuje pobrany tekst w nowy format...\n\nProsimy czekać"
+            "pl": "MeeBible konwertuje pobrany tekst w nowy format...\n\nProsimy czekać",
+            "hy": "MeeBible-ը փոխակերպում է բեռնված տեքստերը նոր ձևաչափի...\n\nՍպասեք, խնդրեմ"
         }
     ],
 
@@ -1559,7 +1663,8 @@
             "sv": "Dela bibeltext",
             "pt": "Compartilhe texto bíblico",
             "de": "Bibeltext teilen",
-            "pl": "Udostępnij tekst Biblii"
+            "pl": "Udostępnij tekst Biblii",
+            "hy": "Կիսվել տեքստով Աստվածաշնչից"
         }
     ]
 }
