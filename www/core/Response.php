@@ -45,4 +45,14 @@ class XMLResponse extends Response {
     }
 }
 
+
+class Redirect extends Response {
+    public function __construct($url) {
+        parent::__construct('text/plain', "HTTP/1.1 301 Moved Permanently\n$url");
+
+        $this->add_header("HTTP/1.1 301 Moved Permanently");
+        $this->add_header("Location: $url");
+    }
+}
+
 ?>
