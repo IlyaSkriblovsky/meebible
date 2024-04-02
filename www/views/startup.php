@@ -7,6 +7,8 @@
     error_log("STARTUP: os=$os id=$device_id lang=$lang trans=$trans");
 
     $db = new SQLite3("startup.sqlite");
+    $stmt = $db->prepare("CREATE TABLE IF NOT EXISTS startup (id INTEGER PRIMARY KEY, time DATETIME, device_id VARCHAR, os VARCHAR, lang VARCHAR, trans VARCHAR)");
+    $stmt->execute();
     $stmt = $db->prepare("INSERT INTO startup (time, device_id, os, lang, trans) VALUES (datetime('now'), :device_id, :os, :lang, :trans)");
     $stmt->bindValue(":device_id", $device_id);
     $stmt->bindValue(":os", $os);
