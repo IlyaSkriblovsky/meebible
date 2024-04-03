@@ -79,7 +79,7 @@ INSERT INTO translations VALUES ('hin_bsi', '', 'Hindi BSI', 'http://www.wordpro
 
 INSERT INTO translations VALUES ('heb', '', 'Hebrew Tanach', 'http://www.mechon-mamre.org/i/t/k/k0.htm', 'מהדורת מכון ממרא (חשוון התשס"ד) © 2003 כל הזכויות שמורות למכון ממרא', 1);
 
-INSERT INTO translations VALUES ('mn_bodhi', '', 'Majjhima Nikāya (Bhikkhu Ñānamoli & Bhikkhu Bodhi)', 'https://wisdomexperience.org/', '© 2020 Wisdom Publications', 0);
+INSERT INTO translations VALUES ('mn_bodhi', '', 'Majjhima Nikāya (Bhikkhu Ñāṇamoli & Bhikkhu Bodhi)', 'https://wisdomexperience.org/', '© 2020 Wisdom Publications', 0);
 
 COMMIT;
 
@@ -163,7 +163,7 @@ INSERT INTO translationLangs VALUES ('hin_bsi', 'hi', 'Hindi BSI');
 
 INSERT INTO translationLangs VALUES ('heb', 'heb', 'Hebrew Tanach');
 
-INSERT INTO translationLangs VALUES ('mn_bodhi', 'ebd', 'Majjhima Nikāya (Ñāṇamoli & Bodhi)');
+INSERT INTO translationLangs VALUES ('mn_bodhi', 'ebd', 'Majjhima Nikāya (Ñāṇamoli & Bodhi)');
 
 
 -- INSERT INTO translationLangs VALUES ('nwt', 'a',   'New World Translation');
