@@ -13,6 +13,35 @@ c.execute('DROP TABLE IF EXISTS html')
 c.execute('CREATE TABLE html (langCode, bookCode, chapterNo, html, PRIMARY KEY(langCode, bookCode, chapterNo))')
 
 
+raw_unicode_replacements = {
+    b'\xE1\xB8\x8D': b'\x64\xCC\xA3',  # ḍ -> ḍ
+    b'\xE1\xB8\xB7': b'\x6C\xCC\xA3',  # ḷ
+    b'\xE1\xB9\x87': b'\x6E\xCC\xA3',  # ṇ
+    b'\xE1\xB9\xAD': b'\x74\xCC\xA3',  # ṭ
+    # ↓ ṁ, we didn't found combination working on Symbian, so using css hack
+    b'\xE1\xB9\x81': 'm<span class="m-dot-above"></span>'.encode(),
+}
+
+unicode_replacements = {
+    before.decode(): after.decode()
+    for before, after in raw_unicode_replacements.items()
+}
+
+inline_css = [
+    "<style>",
+    "  .par.indented { margin-left: 2em; }",
+    "  .m-dot-above { display: inline-block; width: 0; }",
+    "  .m-dot-above:before {",
+    "    content: '.';",
+    "    position: relative;",
+    "    position: relative;",
+    "    left: -0.5em;",
+    "    top: -1.3ex;",
+    "  }",
+    "</style>",
+]
+
+
 def convert_chapter(chapter_no: int):
     html = BeautifulSoup(open(f'html/{chapter_no:03}.html').read(), 'html.parser')
 
@@ -113,11 +142,12 @@ def convert_chapter(chapter_no: int):
             max_verse_to = verse_to
 
     html = ''.join(map(str, [
-        '<style>',
-        '  .par.indented { margin-left: 2em; }',
-        '</style>',
+        *inline_css,
         body,
     ]))
+
+    for before, after in unicode_replacements.items():
+        html = html.replace(before, after)
 
     c.execute(
         'INSERT INTO html (langCode, bookCode, chapterNo, html) VALUES (?, ?, ?, ?)',
@@ -130,6 +160,7 @@ def convert_chapter(chapter_no: int):
 
 
 for chapter_no in range(1, 152 +1):
+    #if chapter_no != 1: continue
     convert_chapter(chapter_no)
 
 db.commit()
