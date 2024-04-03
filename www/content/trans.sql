@@ -163,7 +163,7 @@ INSERT INTO translationLangs VALUES ('hin_bsi', 'hi', 'Hindi BSI');
 
 INSERT INTO translationLangs VALUES ('heb', 'heb', 'Hebrew Tanach');
 
-INSERT INTO translationLangs VALUES ('mn_bodhi', 'e_b', 'Majjhima Nikāya (Ñāṇamoli & Bodhi)');
+INSERT INTO translationLangs VALUES ('mn_bodhi', 'ebd', 'Majjhima Nikāya (Ñāṇamoli & Bodhi)');
 
 
 -- INSERT INTO translationLangs VALUES ('nwt', 'a',   'New World Translation');
@@ -6206,7 +6206,7 @@ INSERT INTO books VALUES ('nwt', 'zu' , 'jude', 65, 'EkaJuda');
 INSERT INTO books VALUES ('nwt', 'zu' , 're'  , 66, 'IsAmbulo');
 
 
-INSERT INTO books VALUES ('mn_bodhi', 'e_b', 'mn', 152, 'Majjhima Nikāya');
+INSERT INTO books VALUES ('mn_bodhi', 'ebd', 'mn', 152, 'Majjhima Nikāya');
 
 
 COMMIT;

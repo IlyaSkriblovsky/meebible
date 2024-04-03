@@ -16,7 +16,7 @@ INSERT INTO langs VALUES ('b',   'Czech',       'Česky');
 INSERT INTO langs VALUES ('d',   'Danish',      'Dansk');
 INSERT INTO langs VALUES ('o',   'Dutch',       'Nederlands');
 INSERT INTO langs VALUES ('e',   'English',     'English');
-INSERT INTO langs VALUES ('e_b', 'English (Buddhist)', 'English');
+INSERT INTO langs VALUES ('ebd', 'English (Buddhist)', 'English');
 INSERT INTO langs VALUES ('ef',  'Efik',        'Efịk');
 INSERT INTO langs VALUES ('fi',  'Finnish',     'Suomi');
 INSERT INTO langs VALUES ('f',   'French',      'Français');
