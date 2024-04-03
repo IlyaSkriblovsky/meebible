@@ -121,7 +121,7 @@ def convert_chapter(chapter_no: int):
 
     c.execute(
         'INSERT INTO html (langCode, bookCode, chapterNo, html) VALUES (?, ?, ?, ?)',
-        ('e', 'mn', chapter_no, html)
+        ('e_b', 'mn', chapter_no, html)
     )
     with open(f'out/{chapter_no:03}.html', 'w') as f:
         f.write(html)
