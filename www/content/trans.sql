@@ -81,6 +81,8 @@ INSERT INTO translations VALUES ('heb', '', 'Hebrew Tanach', 'http://www.mechon-
 
 INSERT INTO translations VALUES ('mn_bodhi', '', 'Majjhima Nikāya (Bhikkhu Ñāṇamoli & Bhikkhu Bodhi)', 'https://wisdomexperience.org/', '© 2020 Wisdom Publications', 0);
 
+INSERT INTO translations VALUES ('tynd', '', 'Tyndale Bible', '', '', 0);
+
 COMMIT;
 
 
@@ -164,6 +166,8 @@ INSERT INTO translationLangs VALUES ('hin_bsi', 'hi', 'Hindi BSI');
 INSERT INTO translationLangs VALUES ('heb', 'heb', 'Hebrew Tanach');
 
 INSERT INTO translationLangs VALUES ('mn_bodhi', 'ebd', 'Majjhima Nikāya (Ñāṇamoli & Bodhi)');
+
+INSERT INTO translationLangs VALUES ('tynd', 'e', 'Tyndale Bible');
 
 
 -- INSERT INTO translationLangs VALUES ('nwt', 'a',   'New World Translation');
@@ -2986,6 +2990,43 @@ INSERT INTO books VALUES ('heb', 'heb', 'es',  36, 'אסתר');
 INSERT INTO books VALUES ('heb', 'heb', 'da',  37, 'דניאל');
 INSERT INTO books VALUES ('heb', 'heb', 'ezr', 38, 'עזרא');
 INSERT INTO books VALUES ('heb', 'heb', 'ne',  39, 'נחמיה');
+
+
+INSERT INTO books VALUES
+    ('tynd', 'e', 'ge'  ,  1, 'Genesis'),
+    ('tynd', 'e', 'ex'  ,  2, 'Exodus'),
+    ('tynd', 'e', 'le'  ,  3, 'Leviticus'),
+    ('tynd', 'e', 'nu'  ,  4, 'Numbers'),
+    ('tynd', 'e', 'de'  ,  5, 'Deuteronomy'),
+    ('tynd', 'e', 'jon' ,  6, 'Jonah'),
+    ('tynd', 'e', 'mt'  ,  7, 'Matthew'),
+    ('tynd', 'e', 'mr'  ,  8, 'Mark'),
+    ('tynd', 'e', 'lu'  ,  9, 'Luke'),
+    ('tynd', 'e', 'joh' , 10, 'John'),
+    ('tynd', 'e', 'ac'  , 11, 'Acts'),
+    ('tynd', 'e', 'ro'  , 12, 'Romans'),
+    ('tynd', 'e', '1co' , 13, '1 Corinthians'),
+    ('tynd', 'e', '2co' , 14, '2 Corinthians'),
+    ('tynd', 'e', 'ga'  , 15, 'Galatians'),
+    ('tynd', 'e', 'eph' , 16, 'Ephesians'),
+    ('tynd', 'e', 'php' , 17, 'Philippians'),
+    ('tynd', 'e', 'col' , 18, 'Colossians'),
+    ('tynd', 'e', '1th' , 19, '1 Thessalonians'),
+    ('tynd', 'e', '2th' , 20, '2 Thessalonians'),
+    ('tynd', 'e', '1ti' , 21, '1 Timothy'),
+    ('tynd', 'e', '2ti' , 22, '2 Timothy'),
+    ('tynd', 'e', 'tit' , 23, 'Titus'),
+    ('tynd', 'e', 'phm' , 24, 'Philemon'),
+    ('tynd', 'e', 'heb' , 25, 'Hebrews'),
+    ('tynd', 'e', 'jas' , 26, 'James'),
+    ('tynd', 'e', '1pe' , 27, '1 Peter'),
+    ('tynd', 'e', '2pe' , 28, '2 Peter'),
+    ('tynd', 'e', '1jo' , 29, '1 John'),
+    ('tynd', 'e', '2jo' , 30, '2 John'),
+    ('tynd', 'e', '3jo' , 31, '3 John'),
+    ('tynd', 'e', 'jude', 32, 'Jude'),
+    ('tynd', 'e', 're'  , 33, 'Revelation')
+;
 
 
 
@@ -53908,1195 +53949,1197 @@ INSERT INTO chapterSize VALUES ('srp', 'zep' , 003, 020);
 
 
 
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 021, 017);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1sa' , 031, 013);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jg'  , 007, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 022, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'job' , 011, 020);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ki' , 008, 029);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'nu'  , 018, 032);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'job' , 023, 017);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 119, 176);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'de'  , 017, 020);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2pe' , 002, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 're'  , 022, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 082, 008);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eph' , 001, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ho'  , 007, 016);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 032, 011);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ki' , 013, 034);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'job' , 026, 014);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ki' , 020, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ec'  , 002, 026);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 030, 043);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2sa' , 005, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ex'  , 021, 036);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 148, 014);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'joe' , 001, 020);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 131, 003);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 021, 013);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'pr'  , 031, 031);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 073, 028);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'zec' , 012, 014);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 010, 034);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 046, 011);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 079, 013);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ezr' , 003, 013);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 015, 008);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 044, 028);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jos' , 014, 015);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ki' , 011, 043);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ki' , 003, 027);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'heb' , 010, 039);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2sa' , 014, 033);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ki' , 013, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'joh' , 013, 038);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'joh' , 021, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ex'  , 005, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 024, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1co' , 014, 040);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'es'  , 003, 015);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'pr'  , 022, 029);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'nu'  , 013, 033);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'nu'  , 022, 041);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 044, 026);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ch' , 025, 031);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'pr'  , 008, 036);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'da'  , 002, 049);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'de'  , 002, 037);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 025, 034);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'hab' , 002, 020);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ac'  , 012, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ho'  , 005, 015);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ac'  , 004, 037);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'nu'  , 009, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ne'  , 006, 019);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1sa' , 017, 058);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'le'  , 019, 037);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ex'  , 032, 035);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'de'  , 007, 026);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'nu'  , 027, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'le'  , 001, 017);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mt'  , 017, 027);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 036, 038);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ec'  , 001, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1sa' , 018, 030);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 043, 027);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jos' , 008, 035);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 020, 049);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 032, 032);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 030, 033);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jos' , 012, 024);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 035, 029);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'tit' , 002, 015);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jos' , 022, 034);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jg'  , 011, 040);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1sa' , 014, 052);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ex'  , 024, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'de'  , 014, 029);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 060, 012);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'zec' , 002, 013);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mt'  , 008, 034);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'col' , 004, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ac'  , 007, 060);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'lu'  , 022, 071);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'job' , 035, 016);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ch' , 003, 024);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1sa' , 030, 031);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 009, 029);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ch' , 002, 055);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 013, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ch' , 005, 014);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 045, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'da'  , 005, 031);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'job' , 003, 026);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 042, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 001, 019);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ki' , 012, 033);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 072, 020);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1co' , 008, 013);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 102, 028);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ca'  , 008, 014);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eph' , 006, 024);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2sa' , 011, 027);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ec'  , 011, 010);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ch' , 026, 032);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'phm' , 001, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 016, 014);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 052, 034);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 026, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ti' , 006, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mt'  , 022, 046);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ki' , 001, 053);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 016, 016);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'es'  , 006, 014);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'de'  , 025, 019);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'am'  , 003, 015);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 029, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ki' , 010, 036);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'es'  , 007, 010);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 116, 019);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'pr'  , 003, 035);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 012, 028);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ac'  , 023, 035);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 041, 026);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ac'  , 016, 040);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'lu'  , 002, 052);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 019, 038);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jos' , 011, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'am'  , 005, 027);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ki' , 019, 037);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mt'  , 016, 028);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 018, 050);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mt'  , 028, 020);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2sa' , 024, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 024, 067);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'de'  , 012, 032);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jg'  , 004, 024);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mt'  , 002, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 010, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 014, 024);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jos' , 004, 024);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'heb' , 001, 014);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ex'  , 012, 051);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'joh' , 014, 031);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1sa' , 020, 042);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ki' , 012, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ch' , 027, 034);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 086, 017);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1sa' , 021, 015);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 034, 017);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'es'  , 009, 032);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 035, 015);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 024, 010);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 002, 010);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'da'  , 003, 030);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jg'  , 012, 015);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ru'  , 004, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ki' , 004, 034);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'lu'  , 001, 080);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jude', 001, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'da'  , 012, 013);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ne'  , 005, 019);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mt'  , 006, 034);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'joh' , 019, 042);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'heb' , 005, 014);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 020, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'joh' , 018, 040);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'nu'  , 036, 013);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jos' , 010, 043);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 042, 011);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'heb' , 013, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 062, 012);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1jo' , 002, 029);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 050, 011);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 107, 043);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'le'  , 018, 030);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eph' , 005, 033);
-INSERT INTO chapterSize VALUES ('hin_bsi', 're'  , 018, 024);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'joe' , 002, 032);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ezr' , 002, 070);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'zep' , 001, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'php' , 002, 030);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mic' , 001, 016);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 038, 028);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2co' , 009, 015);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 046, 024);
-INSERT INTO chapterSize VALUES ('hin_bsi', 're'  , 001, 020);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 091, 016);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2jo' , 001, 013);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ex'  , 003, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1jo' , 003, 024);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ki' , 021, 026);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mt'  , 023, 039);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 066, 020);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 032, 044);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ch' , 010, 019);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ch' , 035, 027);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ki' , 022, 020);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ex'  , 004, 031);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'tit' , 003, 015);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'lu'  , 021, 038);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ki' , 003, 028);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'le'  , 007, 038);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ch' , 020, 037);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 115, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'de'  , 005, 033);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 008, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'de'  , 019, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 128, 006);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ro'  , 002, 029);
-INSERT INTO chapterSize VALUES ('hin_bsi', 're'  , 020, 015);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ex'  , 031, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ch' , 001, 017);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ru'  , 001, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ro'  , 013, 014);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'nu'  , 005, 031);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ch' , 029, 030);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 027, 014);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 057, 011);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2sa' , 022, 051);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'nu'  , 029, 040);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'es'  , 005, 014);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ki' , 014, 029);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jas' , 004, 017);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mic' , 006, 016);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 008, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ca'  , 005, 016);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 144, 015);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ro'  , 011, 036);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'pr'  , 018, 024);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'heb' , 003, 019);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 060, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 028, 026);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 137, 009);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 130, 008);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 016, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'de'  , 015, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 008, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ac'  , 013, 052);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ki' , 016, 034);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mal' , 002, 017);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ti' , 005, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ac'  , 018, 028);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ac'  , 015, 041);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ca'  , 002, 017);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1co' , 016, 024);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1sa' , 009, 027);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 017, 027);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1sa' , 025, 044);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'le'  , 003, 017);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'lu'  , 009, 062);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 026, 024);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 106, 048);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'zep' , 003, 020);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2co' , 010, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ga'  , 004, 031);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 027, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'nu'  , 014, 045);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 054, 017);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 022, 031);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ca'  , 004, 016);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'joh' , 005, 047);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ac'  , 002, 047);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'de'  , 031, 030);
-INSERT INTO chapterSize VALUES ('hin_bsi', 're'  , 009, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ac'  , 024, 027);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jos' , 019, 051);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'hab' , 003, 019);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 036, 032);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 040, 031);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 048, 047);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'zec' , 009, 017);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'job' , 007, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ga'  , 002, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'job' , 031, 040);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ho'  , 012, 014);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ex'  , 007, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ex'  , 010, 029);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ezr' , 006, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'le'  , 025, 055);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'job' , 001, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'lu'  , 016, 031);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jg'  , 020, 048);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ki' , 010, 029);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 050, 046);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ho'  , 013, 016);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2sa' , 018, 033);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ch' , 009, 031);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 050, 026);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 007, 027);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 031, 040);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ec'  , 007, 029);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ac'  , 028, 031);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'zep' , 002, 015);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 040, 016);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ki' , 002, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ex'  , 029, 046);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 075, 010);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 030, 024);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1sa' , 016, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 050, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 011, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 032, 032);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 025, 012);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'lu'  , 023, 056);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 043, 005);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'zec' , 006, 015);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 026, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ch' , 024, 027);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1pe' , 002, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'zec' , 013, 009);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1co' , 004, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'zec' , 010, 012);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2co' , 011, 033);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'heb' , 006, 020);
-INSERT INTO chapterSize VALUES ('hin_bsi', 're'  , 016, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'heb' , 012, 029);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mr'  , 008, 038);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'pr'  , 016, 033);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'job' , 010, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 136, 026);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1co' , 001, 031);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'pr'  , 011, 031);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'am'  , 009, 015);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'lu'  , 003, 038);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'lu'  , 020, 047);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2co' , 001, 024);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1co' , 002, 016);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 081, 016);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 053, 006);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'nu'  , 006, 027);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 002, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 're'  , 005, 014);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 034, 031);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'job' , 034, 037);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'zec' , 008, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ac'  , 001, 026);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1pe' , 003, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'job' , 032, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1pe' , 005, 014);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'nu'  , 004, 049);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 112, 010);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 023, 006);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'nu'  , 023, 030);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1co' , 013, 013);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ex'  , 008, 032);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'es'  , 008, 017);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 035, 019);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 133, 003);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jos' , 007, 026);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 048, 014);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 039, 029);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ho'  , 002, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'le'  , 002, 016);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ec'  , 008, 017);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2sa' , 008, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ch' , 023, 032);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 022, 024);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'le'  , 004, 035);
-INSERT INTO chapterSize VALUES ('hin_bsi', 're'  , 004, 011);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ch' , 014, 015);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 076, 012);
-INSERT INTO chapterSize VALUES ('hin_bsi', 're'  , 021, 027);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 145, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 001, 031);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ch' , 007, 040);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2th' , 002, 017);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'de'  , 033, 029);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 011, 007);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ki' , 015, 034);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 047, 007);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 114, 008);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mr'  , 009, 050);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ch' , 017, 019);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'pr'  , 020, 030);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'heb' , 011, 040);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ch' , 028, 027);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 003, 027);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 111, 010);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'nu'  , 031, 054);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 046, 013);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ca'  , 006, 013);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mr'  , 012, 044);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'lu'  , 017, 037);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'le'  , 017, 016);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1jo' , 005, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'job' , 009, 035);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 064, 012);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ac'  , 003, 026);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 044, 034);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ac'  , 008, 040);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ch' , 036, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'pr'  , 030, 033);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'job' , 030, 031);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 024, 027);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'zec' , 001, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ro'  , 008, 039);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ti' , 004, 016);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'am'  , 007, 017);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'pr'  , 023, 035);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 065, 013);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'de'  , 011, 032);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1sa' , 006, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 033, 033);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 015, 009);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ca'  , 003, 011);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 021, 014);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mr'  , 015, 047);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ch' , 033, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mt'  , 024, 051);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ne'  , 012, 047);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 008, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 002, 012);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jos' , 021, 045);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'am'  , 001, 015);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ex'  , 027, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 004, 006);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'le'  , 009, 024);
-INSERT INTO chapterSize VALUES ('hin_bsi', 're'  , 015, 008);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ro'  , 005, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 019, 014);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jg'  , 019, 030);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ro'  , 012, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 090, 017);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 005, 012);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ch' , 017, 027);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 025, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'nu'  , 019, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1sa' , 013, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mr'  , 016, 020);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'nu'  , 017, 013);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 019, 014);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mt'  , 003, 017);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ca'  , 001, 017);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 104, 035);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 089, 052);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 023, 049);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 035, 028);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 047, 015);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 001, 031);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 064, 010);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1sa' , 026, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'le'  , 023, 044);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mic' , 004, 013);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 009, 020);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 030, 026);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 013, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ch' , 030, 027);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mt'  , 014, 036);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ro'  , 003, 031);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 043, 013);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 014, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'pr'  , 019, 029);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eph' , 002, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ki' , 011, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ex'  , 025, 040);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 017, 027);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ch' , 014, 017);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1sa' , 029, 011);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ro'  , 006, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1sa' , 028, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ch' , 026, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 140, 013);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'de'  , 020, 020);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1co' , 005, 013);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'pr'  , 006, 035);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 009, 026);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ki' , 024, 020);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jg'  , 002, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'joh' , 002, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ki' , 009, 037);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'job' , 021, 034);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 006, 014);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 141, 010);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'de'  , 006, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ex'  , 013, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'job' , 038, 041);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 037, 036);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'heb' , 008, 013);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'da'  , 010, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mr'  , 002, 028);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'zec' , 003, 010);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 010, 032);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 033, 020);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ki' , 018, 037);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 031, 009);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eph' , 003, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'de'  , 028, 068);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eph' , 004, 032);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 020, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', 're'  , 011, 019);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 101, 008);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ch' , 031, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'le'  , 013, 059);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ec'  , 012, 014);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'joe' , 003, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'le'  , 024, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jg'  , 003, 031);
-INSERT INTO chapterSize VALUES ('hin_bsi', 're'  , 013, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'job' , 029, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ne'  , 002, 020);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ro'  , 015, 033);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jos' , 013, 033);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 052, 009);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jg'  , 013, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 084, 012);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ki' , 006, 033);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 146, 010);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 074, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ki' , 006, 038);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'de'  , 022, 030);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 020, 006);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mr'  , 005, 043);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'job' , 027, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2sa' , 003, 039);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'heb' , 007, 028);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 029, 035);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mic' , 007, 020);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 049, 020);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'da'  , 007, 028);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mic' , 005, 015);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1co' , 006, 020);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mt'  , 011, 030);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'de'  , 024, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'joh' , 010, 042);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'pr'  , 024, 034);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ho'  , 004, 019);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 063, 019);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 010, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ti' , 002, 026);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ch' , 012, 016);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 085, 013);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jos' , 020, 009);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'de'  , 034, 012);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'lu'  , 012, 059);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ex'  , 038, 031);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ch' , 004, 043);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 038, 030);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jos' , 002, 024);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ex'  , 035, 035);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 007, 024);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 108, 013);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ex'  , 022, 031);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 051, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'es'  , 001, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'de'  , 023, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 051, 019);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1sa' , 011, 015);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1pe' , 001, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ex'  , 020, 026);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'job' , 014, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 040, 049);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 015, 005);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1th' , 001, 010);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 012, 008);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'job' , 033, 033);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ne'  , 010, 039);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'php' , 003, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 061, 008);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ac'  , 011, 030);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 028, 009);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ne'  , 011, 036);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mt'  , 021, 046);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 011, 032);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mic' , 003, 012);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ch' , 015, 019);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 001, 028);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 012, 017);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ho'  , 008, 014);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ch' , 027, 009);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 018, 033);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ec'  , 010, 020);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mr'  , 006, 056);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 121, 008);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ne'  , 001, 011);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 125, 005);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2sa' , 016, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'pr'  , 013, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ch' , 022, 019);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 134, 003);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'job' , 028, 028);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ti' , 001, 020);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ki' , 008, 066);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'zec' , 005, 011);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ga'  , 003, 029);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 070, 005);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'de'  , 030, 020);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1sa' , 002, 036);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jos' , 009, 027);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'le'  , 020, 027);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 150, 006);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ex'  , 028, 043);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 023, 020);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2th' , 003, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 042, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'la'  , 001, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 033, 024);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ch' , 011, 047);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'nu'  , 010, 036);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'da'  , 004, 037);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ezr' , 010, 044);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'joh' , 017, 026);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mr'  , 014, 072);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ne'  , 007, 073);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 005, 030);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ac'  , 006, 015);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ki' , 021, 029);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ex'  , 011, 010);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ho'  , 014, 009);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 004, 031);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1sa' , 003, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ac'  , 019, 041);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ch' , 025, 028);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ezr' , 009, 015);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'pr'  , 026, 028);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ho'  , 010, 015);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 080, 019);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 035, 010);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jg'  , 017, 013);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 025, 017);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2sa' , 001, 027);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'da'  , 009, 027);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'hag' , 001, 015);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 019, 015);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 071, 024);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 039, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'nu'  , 033, 056);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 048, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ro'  , 009, 033);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 018, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jg'  , 018, 031);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ki' , 017, 024);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 048, 035);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'la'  , 002, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'hag' , 002, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ac'  , 017, 034);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 002, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ki' , 002, 046);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'lu'  , 007, 050);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 093, 005);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'le'  , 015, 033);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 034, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 097, 012);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'zec' , 004, 014);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jos' , 001, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mr'  , 013, 037);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 031, 055);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 087, 007);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ti' , 004, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'nu'  , 032, 042);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jg'  , 001, 036);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'le'  , 005, 019);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'job' , 040, 024);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 056, 013);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'de'  , 009, 029);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'pr'  , 005, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'joh' , 004, 054);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 034, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'le'  , 022, 033);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jos' , 016, 010);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ki' , 004, 044);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1sa' , 015, 035);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mr'  , 010, 052);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'nu'  , 028, 031);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 039, 013);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 005, 031);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mt'  , 018, 035);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 135, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 095, 011);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mal' , 004, 006);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 122, 009);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'na'  , 002, 013);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 005, 017);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2co' , 003, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ch' , 005, 026);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 046, 034);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'nu'  , 030, 016);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 149, 009);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ex'  , 009, 035);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 033, 026);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 027, 013);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mt'  , 013, 058);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 094, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 038, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 041, 057);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'la'  , 005, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mt'  , 009, 038);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 006, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 031, 024);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ac'  , 022, 030);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 124, 008);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'pr'  , 001, 033);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 023, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 023, 040);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 026, 035);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1sa' , 004, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 029, 024);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'pr'  , 021, 031);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ch' , 016, 014);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'joh' , 006, 071);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'es'  , 010, 003);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1sa' , 012, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ex'  , 034, 035);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 051, 064);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ro'  , 010, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 013, 006);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ec'  , 005, 020);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 040, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 117, 002);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jg'  , 014, 020);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 043, 028);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'lu'  , 024, 053);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'job' , 020, 029);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1sa' , 010, 027);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jg'  , 015, 020);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'nu'  , 016, 050);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 077, 020);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'lu'  , 011, 054);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 014, 007);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 045, 017);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 010, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 021, 032);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 017, 024);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'zec' , 007, 014);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 013, 027);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 055, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 031, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 127, 005);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ezr' , 005, 017);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 036, 012);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mt'  , 010, 042);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'job' , 002, 013);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2pe' , 003, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'pr'  , 014, 035);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2sa' , 010, 019);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 057, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 100, 005);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'lu'  , 018, 043);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 096, 013);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 043, 034);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 016, 011);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2co' , 007, 016);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ex'  , 037, 029);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 012, 020);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ex'  , 006, 030);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'joh' , 009, 041);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'job' , 005, 027);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'job' , 036, 033);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 063, 011);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 067, 007);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ch' , 006, 042);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'heb' , 004, 016);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'na'  , 001, 015);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 037, 028);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2sa' , 023, 039);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 059, 017);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 011, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2co' , 006, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jg'  , 008, 035);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ho'  , 003, 005);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ac'  , 020, 038);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 052, 015);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 006, 010);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jos' , 017, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 045, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'heb' , 009, 028);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 132, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ro'  , 014, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ex'  , 036, 038);
-INSERT INTO chapterSize VALUES ('hin_bsi', 're'  , 014, 020);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ex'  , 030, 038);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 037, 038);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jg'  , 010, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ac'  , 027, 044);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 012, 006);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'da'  , 011, 045);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ob'  , 001, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ex'  , 019, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jg'  , 016, 031);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ec'  , 004, 016);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'lu'  , 006, 049);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ex'  , 033, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'job' , 018, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ch' , 004, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1sa' , 027, 012);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ex'  , 016, 036);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'lu'  , 013, 035);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ne'  , 003, 032);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1sa' , 024, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'am'  , 002, 016);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ho'  , 009, 017);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ru'  , 002, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ch' , 021, 020);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 033, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'job' , 025, 006);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 061, 011);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mt'  , 001, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jas' , 002, 026);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'job' , 041, 034);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 088, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 025, 038);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ne'  , 004, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'nu'  , 001, 054);
-INSERT INTO chapterSize VALUES ('hin_bsi', 're'  , 012, 017);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jg'  , 006, 040);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'da'  , 006, 028);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 034, 031);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'joh' , 015, 027);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'le'  , 016, 034);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ho'  , 011, 012);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'joh' , 007, 053);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'de'  , 010, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ca'  , 007, 013);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jos' , 023, 016);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ki' , 022, 053);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2sa' , 004, 012);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 016, 063);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'joh' , 016, 033);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'pr'  , 017, 028);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'le'  , 021, 024);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'php' , 004, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2co' , 008, 024);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ki' , 005, 027);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ne'  , 009, 038);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ch' , 011, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', 're'  , 008, 013);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 007, 017);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2co' , 013, 014);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2co' , 002, 017);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'es'  , 004, 017);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1sa' , 001, 028);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'de'  , 003, 029);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'pr'  , 015, 033);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'job' , 017, 016);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jon' , 003, 010);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jos' , 006, 027);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 003, 008);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mt'  , 020, 034);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'de'  , 029, 029);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'job' , 016, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'le'  , 012, 008);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'pr'  , 027, 027);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'lu'  , 014, 035);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 065, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'pr'  , 010, 032);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 041, 029);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'de'  , 027, 026);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 105, 045);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ch' , 013, 014);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2co' , 004, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ga'  , 005, 026);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1sa' , 022, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 046, 028);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'joh' , 012, 050);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jon' , 001, 017);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ex'  , 017, 016);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mal' , 001, 014);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ex'  , 002, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'job' , 037, 024);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 017, 015);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mr'  , 011, 033);
-INSERT INTO chapterSize VALUES ('hin_bsi', 're'  , 002, 029);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ch' , 020, 008);
-INSERT INTO chapterSize VALUES ('hin_bsi', 're'  , 019, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jg'  , 021, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ch' , 008, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2th' , 001, 012);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2sa' , 017, 029);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ex'  , 039, 043);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ch' , 019, 011);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jg'  , 009, 057);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'col' , 003, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1sa' , 007, 017);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ki' , 016, 020);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'pr'  , 025, 028);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ru'  , 003, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 006, 030);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ch' , 013, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 008, 009);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'job' , 013, 028);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'pr'  , 004, 027);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 110, 007);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'nu'  , 021, 035);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'job' , 022, 030);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jos' , 018, 028);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'de'  , 018, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'am'  , 006, 014);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'col' , 001, 029);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'le'  , 011, 047);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mr'  , 007, 037);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 118, 029);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 066, 024);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jos' , 005, 015);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'am'  , 008, 014);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'le'  , 014, 057);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'nu'  , 002, 034);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 083, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 001, 006);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'pr'  , 007, 027);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1co' , 012, 031);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ec'  , 009, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'job' , 042, 017);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2sa' , 009, 013);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1sa' , 019, 024);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'joh' , 003, 036);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ti' , 003, 017);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 027, 046);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 042, 038);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ki' , 005, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1jo' , 004, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mt'  , 027, 066);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ezr' , 008, 036);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 039, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1co' , 003, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 109, 031);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ec'  , 003, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 004, 008);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 068, 035);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'pr'  , 002, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'tit' , 001, 016);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ti' , 003, 016);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'nu'  , 020, 029);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ch' , 016, 043);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 099, 009);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1th' , 002, 020);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'nu'  , 007, 089);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 129, 008);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 021, 034);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'nu'  , 008, 026);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ac'  , 026, 032);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ki' , 020, 043);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'nu'  , 026, 065);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 003, 024);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 003, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ro'  , 004, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'de'  , 008, 020);
-INSERT INTO chapterSize VALUES ('hin_bsi', 're'  , 010, 011);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ch' , 003, 017);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2sa' , 015, 037);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'nu'  , 003, 051);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 058, 011);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 120, 007);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mt'  , 012, 050);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ho'  , 006, 011);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 126, 006);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2sa' , 002, 032);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'pr'  , 009, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 003, 026);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jos' , 003, 017);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ch' , 021, 030);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 022, 031);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 053, 012);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ex'  , 001, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 038, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 138, 008);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ch' , 006, 081);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ex'  , 026, 037);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 139, 024);
-INSERT INTO chapterSize VALUES ('hin_bsi', 're'  , 007, 017);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'php' , 001, 030);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ex'  , 018, 027);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2sa' , 013, 039);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ki' , 014, 031);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 113, 009);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ki' , 015, 038);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 030, 012);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 048, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2co' , 005, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', 're'  , 017, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 038, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 029, 011);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ch' , 015, 029);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ch' , 029, 036);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'nu'  , 034, 029);
-INSERT INTO chapterSize VALUES ('hin_bsi', 're'  , 003, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mt'  , 025, 046);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mt'  , 007, 029);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jg'  , 005, 031);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ne'  , 013, 031);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 014, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 059, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ki' , 018, 046);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ga'  , 006, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ch' , 023, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'pr'  , 028, 028);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1co' , 011, 034);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ec'  , 006, 012);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 044, 031);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 098, 009);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 002, 037);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 069, 036);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ch' , 012, 040);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ch' , 008, 040);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2sa' , 020, 026);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mt'  , 005, 048);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ki' , 025, 030);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 039, 008);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 041, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 014, 032);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'de'  , 016, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'zec' , 014, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ch' , 024, 031);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'nu'  , 025, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 049, 026);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'lu'  , 015, 032);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'de'  , 032, 052);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jos' , 024, 033);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 009, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', '3jo' , 001, 014);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ac'  , 025, 027);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'job' , 039, 030);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'job' , 024, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'joh' , 011, 057);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'joh' , 001, 051);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1th' , 005, 028);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ki' , 017, 041);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'da'  , 008, 027);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jas' , 005, 020);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'lu'  , 010, 042);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ki' , 007, 051);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 055, 013);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 015, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mic' , 002, 013);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 015, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'le'  , 010, 020);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ch' , 019, 019);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 006, 013);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'job' , 012, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 142, 007);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 026, 012);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 036, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ch' , 022, 012);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ch' , 009, 044);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ex'  , 023, 033);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'lu'  , 005, 039);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'la'  , 003, 066);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 022, 030);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'am'  , 004, 013);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mt'  , 015, 039);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ne'  , 008, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 018, 032);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ti' , 002, 015);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 028, 017);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'le'  , 026, 046);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ki' , 019, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1jo' , 001, 010);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 044, 030);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 047, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 047, 009);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'de'  , 013, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'heb' , 002, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ti' , 001, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ki' , 007, 020);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 037, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ac'  , 005, 042);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mt'  , 004, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 147, 020);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'lu'  , 008, 056);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 028, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 047, 031);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2sa' , 007, 029);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'col' , 002, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'pr'  , 029, 027);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 143, 012);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'hab' , 001, 017);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ezr' , 001, 011);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1th' , 004, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'nu'  , 012, 016);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'job' , 019, 029);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 007, 034);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 036, 043);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1co' , 007, 040);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ch' , 007, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'nu'  , 035, 034);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 005, 032);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'na'  , 003, 019);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'joh' , 008, 059);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 017, 014);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 040, 017);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ga'  , 001, 024);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 004, 026);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1pe' , 004, 019);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'zec' , 011, 017);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'job' , 004, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'joh' , 020, 031);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ex'  , 015, 027);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ac'  , 010, 048);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ki' , 023, 037);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2sa' , 012, 031);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 032, 020);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 103, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 062, 012);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1sa' , 005, 012);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2sa' , 019, 043);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 045, 005);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 004, 017);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mr'  , 001, 045);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ch' , 001, 054);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2pe' , 001, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ki' , 001, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'le'  , 006, 030);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mt'  , 026, 075);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ch' , 002, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 007, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ho'  , 001, 011);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 009, 011);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1sa' , 008, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'da'  , 001, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 019, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ezr' , 004, 024);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jas' , 001, 027);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'de'  , 004, 049);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jas' , 003, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 123, 004);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2sa' , 006, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 018, 007);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ro'  , 007, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ki' , 009, 028);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'lu'  , 004, 044);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 024, 010);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 049, 033);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ge'  , 045, 028);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'job' , 006, 030);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mr'  , 004, 041);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 092, 015);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'nu'  , 011, 035);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mt'  , 019, 030);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jon' , 004, 011);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 078, 072);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'de'  , 026, 019);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ezr' , 007, 028);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 011, 016);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ch' , 018, 017);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ac'  , 009, 043);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'de'  , 001, 046);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2co' , 012, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 058, 014);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ch' , 032, 033);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 013, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 028, 029);
-INSERT INTO chapterSize VALUES ('hin_bsi', 're'  , 006, 017);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 049, 039);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ch' , 028, 021);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ac'  , 014, 028);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 042, 020);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'la'  , 004, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ac'  , 021, 040);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'isa' , 056, 012);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mr'  , 003, 035);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jon' , 002, 010);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'lu'  , 019, 048);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'pr'  , 012, 028);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1sa' , 023, 029);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'nu'  , 015, 041);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'mal' , 003, 018);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2sa' , 021, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ch' , 018, 034);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jos' , 015, 063);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'de'  , 021, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1co' , 015, 058);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ex'  , 014, 031);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1ch' , 010, 014);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1th' , 003, 013);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ex'  , 040, 038);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'job' , 008, 022);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'eze' , 027, 036);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'jer' , 029, 033);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'le'  , 008, 036);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1co' , 009, 027);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'nu'  , 024, 025);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ro'  , 016, 027);
-INSERT INTO chapterSize VALUES ('hin_bsi', '2ch' , 034, 033);
-INSERT INTO chapterSize VALUES ('hin_bsi', '1co' , 010, 033);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'le'  , 027, 034);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 041, 013);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ro'  , 001, 032);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'es'  , 002, 023);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 054, 007);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 037, 040);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'job' , 015, 035);
-INSERT INTO chapterSize VALUES ('hin_bsi', 'ps'  , 020, 009);
+INSERT INTO chapterSize VALUES
+    ('hin_bsi', 'ge'  , 001, 031),
+    ('hin_bsi', 'ge'  , 002, 025),
+    ('hin_bsi', 'ge'  , 003, 024),
+    ('hin_bsi', 'ge'  , 004, 026),
+    ('hin_bsi', 'ge'  , 005, 032),
+    ('hin_bsi', 'ge'  , 006, 022),
+    ('hin_bsi', 'ge'  , 007, 024),
+    ('hin_bsi', 'ge'  , 008, 022),
+    ('hin_bsi', 'ge'  , 009, 029),
+    ('hin_bsi', 'ge'  , 010, 032),
+    ('hin_bsi', 'ge'  , 011, 032),
+    ('hin_bsi', 'ge'  , 012, 020),
+    ('hin_bsi', 'ge'  , 013, 018),
+    ('hin_bsi', 'ge'  , 014, 024),
+    ('hin_bsi', 'ge'  , 015, 021),
+    ('hin_bsi', 'ge'  , 016, 016),
+    ('hin_bsi', 'ge'  , 017, 027),
+    ('hin_bsi', 'ge'  , 018, 033),
+    ('hin_bsi', 'ge'  , 019, 038),
+    ('hin_bsi', 'ge'  , 020, 018),
+    ('hin_bsi', 'ge'  , 021, 034),
+    ('hin_bsi', 'ge'  , 022, 024),
+    ('hin_bsi', 'ge'  , 023, 020),
+    ('hin_bsi', 'ge'  , 024, 067),
+    ('hin_bsi', 'ge'  , 025, 034),
+    ('hin_bsi', 'ge'  , 026, 035),
+    ('hin_bsi', 'ge'  , 027, 046),
+    ('hin_bsi', 'ge'  , 028, 022),
+    ('hin_bsi', 'ge'  , 029, 035),
+    ('hin_bsi', 'ge'  , 030, 043),
+    ('hin_bsi', 'ge'  , 031, 055),
+    ('hin_bsi', 'ge'  , 032, 032),
+    ('hin_bsi', 'ge'  , 033, 020),
+    ('hin_bsi', 'ge'  , 034, 031),
+    ('hin_bsi', 'ge'  , 035, 029),
+    ('hin_bsi', 'ge'  , 036, 043),
+    ('hin_bsi', 'ge'  , 037, 036),
+    ('hin_bsi', 'ge'  , 038, 030),
+    ('hin_bsi', 'ge'  , 039, 023),
+    ('hin_bsi', 'ge'  , 040, 023),
+    ('hin_bsi', 'ge'  , 041, 057),
+    ('hin_bsi', 'ge'  , 042, 038),
+    ('hin_bsi', 'ge'  , 043, 034),
+    ('hin_bsi', 'ge'  , 044, 034),
+    ('hin_bsi', 'ge'  , 045, 028),
+    ('hin_bsi', 'ge'  , 046, 034),
+    ('hin_bsi', 'ge'  , 047, 031),
+    ('hin_bsi', 'ge'  , 048, 022),
+    ('hin_bsi', 'ge'  , 049, 033),
+    ('hin_bsi', 'ge'  , 050, 026),
+    ('hin_bsi', 'ex'  , 001, 022),
+    ('hin_bsi', 'ex'  , 002, 025),
+    ('hin_bsi', 'ex'  , 003, 022),
+    ('hin_bsi', 'ex'  , 004, 031),
+    ('hin_bsi', 'ex'  , 005, 023),
+    ('hin_bsi', 'ex'  , 006, 030),
+    ('hin_bsi', 'ex'  , 007, 025),
+    ('hin_bsi', 'ex'  , 008, 032),
+    ('hin_bsi', 'ex'  , 009, 035),
+    ('hin_bsi', 'ex'  , 010, 029),
+    ('hin_bsi', 'ex'  , 011, 010),
+    ('hin_bsi', 'ex'  , 012, 051),
+    ('hin_bsi', 'ex'  , 013, 022),
+    ('hin_bsi', 'ex'  , 014, 031),
+    ('hin_bsi', 'ex'  , 015, 027),
+    ('hin_bsi', 'ex'  , 016, 036),
+    ('hin_bsi', 'ex'  , 017, 016),
+    ('hin_bsi', 'ex'  , 018, 027),
+    ('hin_bsi', 'ex'  , 019, 025),
+    ('hin_bsi', 'ex'  , 020, 026),
+    ('hin_bsi', 'ex'  , 021, 036),
+    ('hin_bsi', 'ex'  , 022, 031),
+    ('hin_bsi', 'ex'  , 023, 033),
+    ('hin_bsi', 'ex'  , 024, 018),
+    ('hin_bsi', 'ex'  , 025, 040),
+    ('hin_bsi', 'ex'  , 026, 037),
+    ('hin_bsi', 'ex'  , 027, 021),
+    ('hin_bsi', 'ex'  , 028, 043),
+    ('hin_bsi', 'ex'  , 029, 046),
+    ('hin_bsi', 'ex'  , 030, 038),
+    ('hin_bsi', 'ex'  , 031, 018),
+    ('hin_bsi', 'ex'  , 032, 035),
+    ('hin_bsi', 'ex'  , 033, 023),
+    ('hin_bsi', 'ex'  , 034, 035),
+    ('hin_bsi', 'ex'  , 035, 035),
+    ('hin_bsi', 'ex'  , 036, 038),
+    ('hin_bsi', 'ex'  , 037, 029),
+    ('hin_bsi', 'ex'  , 038, 031),
+    ('hin_bsi', 'ex'  , 039, 043),
+    ('hin_bsi', 'ex'  , 040, 038),
+    ('hin_bsi', 'le'  , 001, 017),
+    ('hin_bsi', 'le'  , 002, 016),
+    ('hin_bsi', 'le'  , 003, 017),
+    ('hin_bsi', 'le'  , 004, 035),
+    ('hin_bsi', 'le'  , 005, 019),
+    ('hin_bsi', 'le'  , 006, 030),
+    ('hin_bsi', 'le'  , 007, 038),
+    ('hin_bsi', 'le'  , 008, 036),
+    ('hin_bsi', 'le'  , 009, 024),
+    ('hin_bsi', 'le'  , 010, 020),
+    ('hin_bsi', 'le'  , 011, 047),
+    ('hin_bsi', 'le'  , 012, 008),
+    ('hin_bsi', 'le'  , 013, 059),
+    ('hin_bsi', 'le'  , 014, 057),
+    ('hin_bsi', 'le'  , 015, 033),
+    ('hin_bsi', 'le'  , 016, 034),
+    ('hin_bsi', 'le'  , 017, 016),
+    ('hin_bsi', 'le'  , 018, 030),
+    ('hin_bsi', 'le'  , 019, 037),
+    ('hin_bsi', 'le'  , 020, 027),
+    ('hin_bsi', 'le'  , 021, 024),
+    ('hin_bsi', 'le'  , 022, 033),
+    ('hin_bsi', 'le'  , 023, 044),
+    ('hin_bsi', 'le'  , 024, 023),
+    ('hin_bsi', 'le'  , 025, 055),
+    ('hin_bsi', 'le'  , 026, 046),
+    ('hin_bsi', 'le'  , 027, 034),
+    ('hin_bsi', 'nu'  , 001, 054),
+    ('hin_bsi', 'nu'  , 002, 034),
+    ('hin_bsi', 'nu'  , 003, 051),
+    ('hin_bsi', 'nu'  , 004, 049),
+    ('hin_bsi', 'nu'  , 005, 031),
+    ('hin_bsi', 'nu'  , 006, 027),
+    ('hin_bsi', 'nu'  , 007, 089),
+    ('hin_bsi', 'nu'  , 008, 026),
+    ('hin_bsi', 'nu'  , 009, 023),
+    ('hin_bsi', 'nu'  , 010, 036),
+    ('hin_bsi', 'nu'  , 011, 035),
+    ('hin_bsi', 'nu'  , 012, 016),
+    ('hin_bsi', 'nu'  , 013, 033),
+    ('hin_bsi', 'nu'  , 014, 045),
+    ('hin_bsi', 'nu'  , 015, 041),
+    ('hin_bsi', 'nu'  , 016, 050),
+    ('hin_bsi', 'nu'  , 017, 013),
+    ('hin_bsi', 'nu'  , 018, 032),
+    ('hin_bsi', 'nu'  , 019, 022),
+    ('hin_bsi', 'nu'  , 020, 029),
+    ('hin_bsi', 'nu'  , 021, 035),
+    ('hin_bsi', 'nu'  , 022, 041),
+    ('hin_bsi', 'nu'  , 023, 030),
+    ('hin_bsi', 'nu'  , 024, 025),
+    ('hin_bsi', 'nu'  , 025, 018),
+    ('hin_bsi', 'nu'  , 026, 065),
+    ('hin_bsi', 'nu'  , 027, 023),
+    ('hin_bsi', 'nu'  , 028, 031),
+    ('hin_bsi', 'nu'  , 029, 040),
+    ('hin_bsi', 'nu'  , 030, 016),
+    ('hin_bsi', 'nu'  , 031, 054),
+    ('hin_bsi', 'nu'  , 032, 042),
+    ('hin_bsi', 'nu'  , 033, 056),
+    ('hin_bsi', 'nu'  , 034, 029),
+    ('hin_bsi', 'nu'  , 035, 034),
+    ('hin_bsi', 'nu'  , 036, 013),
+    ('hin_bsi', 'de'  , 001, 046),
+    ('hin_bsi', 'de'  , 002, 037),
+    ('hin_bsi', 'de'  , 003, 029),
+    ('hin_bsi', 'de'  , 004, 049),
+    ('hin_bsi', 'de'  , 005, 033),
+    ('hin_bsi', 'de'  , 006, 025),
+    ('hin_bsi', 'de'  , 007, 026),
+    ('hin_bsi', 'de'  , 008, 020),
+    ('hin_bsi', 'de'  , 009, 029),
+    ('hin_bsi', 'de'  , 010, 022),
+    ('hin_bsi', 'de'  , 011, 032),
+    ('hin_bsi', 'de'  , 012, 032),
+    ('hin_bsi', 'de'  , 013, 018),
+    ('hin_bsi', 'de'  , 014, 029),
+    ('hin_bsi', 'de'  , 015, 023),
+    ('hin_bsi', 'de'  , 016, 022),
+    ('hin_bsi', 'de'  , 017, 020),
+    ('hin_bsi', 'de'  , 018, 022),
+    ('hin_bsi', 'de'  , 019, 021),
+    ('hin_bsi', 'de'  , 020, 020),
+    ('hin_bsi', 'de'  , 021, 023),
+    ('hin_bsi', 'de'  , 022, 030),
+    ('hin_bsi', 'de'  , 023, 025),
+    ('hin_bsi', 'de'  , 024, 022),
+    ('hin_bsi', 'de'  , 025, 019),
+    ('hin_bsi', 'de'  , 026, 019),
+    ('hin_bsi', 'de'  , 027, 026),
+    ('hin_bsi', 'de'  , 028, 068),
+    ('hin_bsi', 'de'  , 029, 029),
+    ('hin_bsi', 'de'  , 030, 020),
+    ('hin_bsi', 'de'  , 031, 030),
+    ('hin_bsi', 'de'  , 032, 052),
+    ('hin_bsi', 'de'  , 033, 029),
+    ('hin_bsi', 'de'  , 034, 012),
+    ('hin_bsi', 'jos' , 001, 018),
+    ('hin_bsi', 'jos' , 002, 024),
+    ('hin_bsi', 'jos' , 003, 017),
+    ('hin_bsi', 'jos' , 004, 024),
+    ('hin_bsi', 'jos' , 005, 015),
+    ('hin_bsi', 'jos' , 006, 027),
+    ('hin_bsi', 'jos' , 007, 026),
+    ('hin_bsi', 'jos' , 008, 035),
+    ('hin_bsi', 'jos' , 009, 027),
+    ('hin_bsi', 'jos' , 010, 043),
+    ('hin_bsi', 'jos' , 011, 023),
+    ('hin_bsi', 'jos' , 012, 024),
+    ('hin_bsi', 'jos' , 013, 033),
+    ('hin_bsi', 'jos' , 014, 015),
+    ('hin_bsi', 'jos' , 015, 063),
+    ('hin_bsi', 'jos' , 016, 010),
+    ('hin_bsi', 'jos' , 017, 018),
+    ('hin_bsi', 'jos' , 018, 028),
+    ('hin_bsi', 'jos' , 019, 051),
+    ('hin_bsi', 'jos' , 020, 009),
+    ('hin_bsi', 'jos' , 021, 045),
+    ('hin_bsi', 'jos' , 022, 034),
+    ('hin_bsi', 'jos' , 023, 016),
+    ('hin_bsi', 'jos' , 024, 033),
+    ('hin_bsi', 'jg'  , 001, 036),
+    ('hin_bsi', 'jg'  , 002, 023),
+    ('hin_bsi', 'jg'  , 003, 031),
+    ('hin_bsi', 'jg'  , 004, 024),
+    ('hin_bsi', 'jg'  , 005, 031),
+    ('hin_bsi', 'jg'  , 006, 040),
+    ('hin_bsi', 'jg'  , 007, 025),
+    ('hin_bsi', 'jg'  , 008, 035),
+    ('hin_bsi', 'jg'  , 009, 057),
+    ('hin_bsi', 'jg'  , 010, 018),
+    ('hin_bsi', 'jg'  , 011, 040),
+    ('hin_bsi', 'jg'  , 012, 015),
+    ('hin_bsi', 'jg'  , 013, 025),
+    ('hin_bsi', 'jg'  , 014, 020),
+    ('hin_bsi', 'jg'  , 015, 020),
+    ('hin_bsi', 'jg'  , 016, 031),
+    ('hin_bsi', 'jg'  , 017, 013),
+    ('hin_bsi', 'jg'  , 018, 031),
+    ('hin_bsi', 'jg'  , 019, 030),
+    ('hin_bsi', 'jg'  , 020, 048),
+    ('hin_bsi', 'jg'  , 021, 025),
+    ('hin_bsi', 'ru'  , 001, 022),
+    ('hin_bsi', 'ru'  , 002, 023),
+    ('hin_bsi', 'ru'  , 003, 018),
+    ('hin_bsi', 'ru'  , 004, 022),
+    ('hin_bsi', '1sa' , 001, 028),
+    ('hin_bsi', '1sa' , 002, 036),
+    ('hin_bsi', '1sa' , 003, 021),
+    ('hin_bsi', '1sa' , 004, 022),
+    ('hin_bsi', '1sa' , 005, 012),
+    ('hin_bsi', '1sa' , 006, 021),
+    ('hin_bsi', '1sa' , 007, 017),
+    ('hin_bsi', '1sa' , 008, 022),
+    ('hin_bsi', '1sa' , 009, 027),
+    ('hin_bsi', '1sa' , 010, 027),
+    ('hin_bsi', '1sa' , 011, 015),
+    ('hin_bsi', '1sa' , 012, 025),
+    ('hin_bsi', '1sa' , 013, 023),
+    ('hin_bsi', '1sa' , 014, 052),
+    ('hin_bsi', '1sa' , 015, 035),
+    ('hin_bsi', '1sa' , 016, 023),
+    ('hin_bsi', '1sa' , 017, 058),
+    ('hin_bsi', '1sa' , 018, 030),
+    ('hin_bsi', '1sa' , 019, 024),
+    ('hin_bsi', '1sa' , 020, 042),
+    ('hin_bsi', '1sa' , 021, 015),
+    ('hin_bsi', '1sa' , 022, 023),
+    ('hin_bsi', '1sa' , 023, 029),
+    ('hin_bsi', '1sa' , 024, 022),
+    ('hin_bsi', '1sa' , 025, 044),
+    ('hin_bsi', '1sa' , 026, 025),
+    ('hin_bsi', '1sa' , 027, 012),
+    ('hin_bsi', '1sa' , 028, 025),
+    ('hin_bsi', '1sa' , 029, 011),
+    ('hin_bsi', '1sa' , 030, 031),
+    ('hin_bsi', '1sa' , 031, 013),
+    ('hin_bsi', '2sa' , 001, 027),
+    ('hin_bsi', '2sa' , 002, 032),
+    ('hin_bsi', '2sa' , 003, 039),
+    ('hin_bsi', '2sa' , 004, 012),
+    ('hin_bsi', '2sa' , 005, 025),
+    ('hin_bsi', '2sa' , 006, 023),
+    ('hin_bsi', '2sa' , 007, 029),
+    ('hin_bsi', '2sa' , 008, 018),
+    ('hin_bsi', '2sa' , 009, 013),
+    ('hin_bsi', '2sa' , 010, 019),
+    ('hin_bsi', '2sa' , 011, 027),
+    ('hin_bsi', '2sa' , 012, 031),
+    ('hin_bsi', '2sa' , 013, 039),
+    ('hin_bsi', '2sa' , 014, 033),
+    ('hin_bsi', '2sa' , 015, 037),
+    ('hin_bsi', '2sa' , 016, 023),
+    ('hin_bsi', '2sa' , 017, 029),
+    ('hin_bsi', '2sa' , 018, 033),
+    ('hin_bsi', '2sa' , 019, 043),
+    ('hin_bsi', '2sa' , 020, 026),
+    ('hin_bsi', '2sa' , 021, 022),
+    ('hin_bsi', '2sa' , 022, 051),
+    ('hin_bsi', '2sa' , 023, 039),
+    ('hin_bsi', '2sa' , 024, 025),
+    ('hin_bsi', '1ki' , 001, 053),
+    ('hin_bsi', '1ki' , 002, 046),
+    ('hin_bsi', '1ki' , 003, 028),
+    ('hin_bsi', '1ki' , 004, 034),
+    ('hin_bsi', '1ki' , 005, 018),
+    ('hin_bsi', '1ki' , 006, 038),
+    ('hin_bsi', '1ki' , 007, 051),
+    ('hin_bsi', '1ki' , 008, 066),
+    ('hin_bsi', '1ki' , 009, 028),
+    ('hin_bsi', '1ki' , 010, 029),
+    ('hin_bsi', '1ki' , 011, 043),
+    ('hin_bsi', '1ki' , 012, 033),
+    ('hin_bsi', '1ki' , 013, 034),
+    ('hin_bsi', '1ki' , 014, 031),
+    ('hin_bsi', '1ki' , 015, 034),
+    ('hin_bsi', '1ki' , 016, 034),
+    ('hin_bsi', '1ki' , 017, 024),
+    ('hin_bsi', '1ki' , 018, 046),
+    ('hin_bsi', '1ki' , 019, 021),
+    ('hin_bsi', '1ki' , 020, 043),
+    ('hin_bsi', '1ki' , 021, 029),
+    ('hin_bsi', '1ki' , 022, 053),
+    ('hin_bsi', '2ki' , 001, 018),
+    ('hin_bsi', '2ki' , 002, 025),
+    ('hin_bsi', '2ki' , 003, 027),
+    ('hin_bsi', '2ki' , 004, 044),
+    ('hin_bsi', '2ki' , 005, 027),
+    ('hin_bsi', '2ki' , 006, 033),
+    ('hin_bsi', '2ki' , 007, 020),
+    ('hin_bsi', '2ki' , 008, 029),
+    ('hin_bsi', '2ki' , 009, 037),
+    ('hin_bsi', '2ki' , 010, 036),
+    ('hin_bsi', '2ki' , 011, 021),
+    ('hin_bsi', '2ki' , 012, 021),
+    ('hin_bsi', '2ki' , 013, 025),
+    ('hin_bsi', '2ki' , 014, 029),
+    ('hin_bsi', '2ki' , 015, 038),
+    ('hin_bsi', '2ki' , 016, 020),
+    ('hin_bsi', '2ki' , 017, 041),
+    ('hin_bsi', '2ki' , 018, 037),
+    ('hin_bsi', '2ki' , 019, 037),
+    ('hin_bsi', '2ki' , 020, 021),
+    ('hin_bsi', '2ki' , 021, 026),
+    ('hin_bsi', '2ki' , 022, 020),
+    ('hin_bsi', '2ki' , 023, 037),
+    ('hin_bsi', '2ki' , 024, 020),
+    ('hin_bsi', '2ki' , 025, 030),
+    ('hin_bsi', '1ch' , 001, 054),
+    ('hin_bsi', '1ch' , 002, 055),
+    ('hin_bsi', '1ch' , 003, 024),
+    ('hin_bsi', '1ch' , 004, 043),
+    ('hin_bsi', '1ch' , 005, 026),
+    ('hin_bsi', '1ch' , 006, 081),
+    ('hin_bsi', '1ch' , 007, 040),
+    ('hin_bsi', '1ch' , 008, 040),
+    ('hin_bsi', '1ch' , 009, 044),
+    ('hin_bsi', '1ch' , 010, 014),
+    ('hin_bsi', '1ch' , 011, 047),
+    ('hin_bsi', '1ch' , 012, 040),
+    ('hin_bsi', '1ch' , 013, 014),
+    ('hin_bsi', '1ch' , 014, 017),
+    ('hin_bsi', '1ch' , 015, 029),
+    ('hin_bsi', '1ch' , 016, 043),
+    ('hin_bsi', '1ch' , 017, 027),
+    ('hin_bsi', '1ch' , 018, 017),
+    ('hin_bsi', '1ch' , 019, 019),
+    ('hin_bsi', '1ch' , 020, 008),
+    ('hin_bsi', '1ch' , 021, 030),
+    ('hin_bsi', '1ch' , 022, 019),
+    ('hin_bsi', '1ch' , 023, 032),
+    ('hin_bsi', '1ch' , 024, 031),
+    ('hin_bsi', '1ch' , 025, 031),
+    ('hin_bsi', '1ch' , 026, 032),
+    ('hin_bsi', '1ch' , 027, 034),
+    ('hin_bsi', '1ch' , 028, 021),
+    ('hin_bsi', '1ch' , 029, 030),
+    ('hin_bsi', '2ch' , 001, 017),
+    ('hin_bsi', '2ch' , 002, 018),
+    ('hin_bsi', '2ch' , 003, 017),
+    ('hin_bsi', '2ch' , 004, 022),
+    ('hin_bsi', '2ch' , 005, 014),
+    ('hin_bsi', '2ch' , 006, 042),
+    ('hin_bsi', '2ch' , 007, 022),
+    ('hin_bsi', '2ch' , 008, 018),
+    ('hin_bsi', '2ch' , 009, 031),
+    ('hin_bsi', '2ch' , 010, 019),
+    ('hin_bsi', '2ch' , 011, 023),
+    ('hin_bsi', '2ch' , 012, 016),
+    ('hin_bsi', '2ch' , 013, 022),
+    ('hin_bsi', '2ch' , 014, 015),
+    ('hin_bsi', '2ch' , 015, 019),
+    ('hin_bsi', '2ch' , 016, 014),
+    ('hin_bsi', '2ch' , 017, 019),
+    ('hin_bsi', '2ch' , 018, 034),
+    ('hin_bsi', '2ch' , 019, 011),
+    ('hin_bsi', '2ch' , 020, 037),
+    ('hin_bsi', '2ch' , 021, 020),
+    ('hin_bsi', '2ch' , 022, 012),
+    ('hin_bsi', '2ch' , 023, 021),
+    ('hin_bsi', '2ch' , 024, 027),
+    ('hin_bsi', '2ch' , 025, 028),
+    ('hin_bsi', '2ch' , 026, 023),
+    ('hin_bsi', '2ch' , 027, 009),
+    ('hin_bsi', '2ch' , 028, 027),
+    ('hin_bsi', '2ch' , 029, 036),
+    ('hin_bsi', '2ch' , 030, 027),
+    ('hin_bsi', '2ch' , 031, 021),
+    ('hin_bsi', '2ch' , 032, 033),
+    ('hin_bsi', '2ch' , 033, 025),
+    ('hin_bsi', '2ch' , 034, 033),
+    ('hin_bsi', '2ch' , 035, 027),
+    ('hin_bsi', '2ch' , 036, 023),
+    ('hin_bsi', 'ezr' , 001, 011),
+    ('hin_bsi', 'ezr' , 002, 070),
+    ('hin_bsi', 'ezr' , 003, 013),
+    ('hin_bsi', 'ezr' , 004, 024),
+    ('hin_bsi', 'ezr' , 005, 017),
+    ('hin_bsi', 'ezr' , 006, 022),
+    ('hin_bsi', 'ezr' , 007, 028),
+    ('hin_bsi', 'ezr' , 008, 036),
+    ('hin_bsi', 'ezr' , 009, 015),
+    ('hin_bsi', 'ezr' , 010, 044),
+    ('hin_bsi', 'ne'  , 001, 011),
+    ('hin_bsi', 'ne'  , 002, 020),
+    ('hin_bsi', 'ne'  , 003, 032),
+    ('hin_bsi', 'ne'  , 004, 023),
+    ('hin_bsi', 'ne'  , 005, 019),
+    ('hin_bsi', 'ne'  , 006, 019),
+    ('hin_bsi', 'ne'  , 007, 073),
+    ('hin_bsi', 'ne'  , 008, 018),
+    ('hin_bsi', 'ne'  , 009, 038),
+    ('hin_bsi', 'ne'  , 010, 039),
+    ('hin_bsi', 'ne'  , 011, 036),
+    ('hin_bsi', 'ne'  , 012, 047),
+    ('hin_bsi', 'ne'  , 013, 031),
+    ('hin_bsi', 'es'  , 001, 022),
+    ('hin_bsi', 'es'  , 002, 023),
+    ('hin_bsi', 'es'  , 003, 015),
+    ('hin_bsi', 'es'  , 004, 017),
+    ('hin_bsi', 'es'  , 005, 014),
+    ('hin_bsi', 'es'  , 006, 014),
+    ('hin_bsi', 'es'  , 007, 010),
+    ('hin_bsi', 'es'  , 008, 017),
+    ('hin_bsi', 'es'  , 009, 032),
+    ('hin_bsi', 'es'  , 010, 003),
+    ('hin_bsi', 'job' , 001, 022),
+    ('hin_bsi', 'job' , 002, 013),
+    ('hin_bsi', 'job' , 003, 026),
+    ('hin_bsi', 'job' , 004, 021),
+    ('hin_bsi', 'job' , 005, 027),
+    ('hin_bsi', 'job' , 006, 030),
+    ('hin_bsi', 'job' , 007, 021),
+    ('hin_bsi', 'job' , 008, 022),
+    ('hin_bsi', 'job' , 009, 035),
+    ('hin_bsi', 'job' , 010, 022),
+    ('hin_bsi', 'job' , 011, 020),
+    ('hin_bsi', 'job' , 012, 025),
+    ('hin_bsi', 'job' , 013, 028),
+    ('hin_bsi', 'job' , 014, 022),
+    ('hin_bsi', 'job' , 015, 035),
+    ('hin_bsi', 'job' , 016, 022),
+    ('hin_bsi', 'job' , 017, 016),
+    ('hin_bsi', 'job' , 018, 021),
+    ('hin_bsi', 'job' , 019, 029),
+    ('hin_bsi', 'job' , 020, 029),
+    ('hin_bsi', 'job' , 021, 034),
+    ('hin_bsi', 'job' , 022, 030),
+    ('hin_bsi', 'job' , 023, 017),
+    ('hin_bsi', 'job' , 024, 025),
+    ('hin_bsi', 'job' , 025, 006),
+    ('hin_bsi', 'job' , 026, 014),
+    ('hin_bsi', 'job' , 027, 023),
+    ('hin_bsi', 'job' , 028, 028),
+    ('hin_bsi', 'job' , 029, 025),
+    ('hin_bsi', 'job' , 030, 031),
+    ('hin_bsi', 'job' , 031, 040),
+    ('hin_bsi', 'job' , 032, 022),
+    ('hin_bsi', 'job' , 033, 033),
+    ('hin_bsi', 'job' , 034, 037),
+    ('hin_bsi', 'job' , 035, 016),
+    ('hin_bsi', 'job' , 036, 033),
+    ('hin_bsi', 'job' , 037, 024),
+    ('hin_bsi', 'job' , 038, 041),
+    ('hin_bsi', 'job' , 039, 030),
+    ('hin_bsi', 'job' , 040, 024),
+    ('hin_bsi', 'job' , 041, 034),
+    ('hin_bsi', 'job' , 042, 017),
+    ('hin_bsi', 'ps'  , 001, 006),
+    ('hin_bsi', 'ps'  , 002, 012),
+    ('hin_bsi', 'ps'  , 003, 008),
+    ('hin_bsi', 'ps'  , 004, 008),
+    ('hin_bsi', 'ps'  , 005, 012),
+    ('hin_bsi', 'ps'  , 006, 010),
+    ('hin_bsi', 'ps'  , 007, 017),
+    ('hin_bsi', 'ps'  , 008, 009),
+    ('hin_bsi', 'ps'  , 009, 020),
+    ('hin_bsi', 'ps'  , 010, 018),
+    ('hin_bsi', 'ps'  , 011, 007),
+    ('hin_bsi', 'ps'  , 012, 008),
+    ('hin_bsi', 'ps'  , 013, 006),
+    ('hin_bsi', 'ps'  , 014, 007),
+    ('hin_bsi', 'ps'  , 015, 005),
+    ('hin_bsi', 'ps'  , 016, 011),
+    ('hin_bsi', 'ps'  , 017, 015),
+    ('hin_bsi', 'ps'  , 018, 050),
+    ('hin_bsi', 'ps'  , 019, 014),
+    ('hin_bsi', 'ps'  , 020, 009),
+    ('hin_bsi', 'ps'  , 021, 013),
+    ('hin_bsi', 'ps'  , 022, 031),
+    ('hin_bsi', 'ps'  , 023, 006),
+    ('hin_bsi', 'ps'  , 024, 010),
+    ('hin_bsi', 'ps'  , 025, 022),
+    ('hin_bsi', 'ps'  , 026, 012),
+    ('hin_bsi', 'ps'  , 027, 014),
+    ('hin_bsi', 'ps'  , 028, 009),
+    ('hin_bsi', 'ps'  , 029, 011),
+    ('hin_bsi', 'ps'  , 030, 012),
+    ('hin_bsi', 'ps'  , 031, 024),
+    ('hin_bsi', 'ps'  , 032, 011),
+    ('hin_bsi', 'ps'  , 033, 022),
+    ('hin_bsi', 'ps'  , 034, 022),
+    ('hin_bsi', 'ps'  , 035, 028),
+    ('hin_bsi', 'ps'  , 036, 012),
+    ('hin_bsi', 'ps'  , 037, 040),
+    ('hin_bsi', 'ps'  , 038, 022),
+    ('hin_bsi', 'ps'  , 039, 013),
+    ('hin_bsi', 'ps'  , 040, 017),
+    ('hin_bsi', 'ps'  , 041, 013),
+    ('hin_bsi', 'ps'  , 042, 011),
+    ('hin_bsi', 'ps'  , 043, 005),
+    ('hin_bsi', 'ps'  , 044, 026),
+    ('hin_bsi', 'ps'  , 045, 017),
+    ('hin_bsi', 'ps'  , 046, 011),
+    ('hin_bsi', 'ps'  , 047, 009),
+    ('hin_bsi', 'ps'  , 048, 014),
+    ('hin_bsi', 'ps'  , 049, 020),
+    ('hin_bsi', 'ps'  , 050, 023),
+    ('hin_bsi', 'ps'  , 051, 019),
+    ('hin_bsi', 'ps'  , 052, 009),
+    ('hin_bsi', 'ps'  , 053, 006),
+    ('hin_bsi', 'ps'  , 054, 007),
+    ('hin_bsi', 'ps'  , 055, 023),
+    ('hin_bsi', 'ps'  , 056, 013),
+    ('hin_bsi', 'ps'  , 057, 011),
+    ('hin_bsi', 'ps'  , 058, 011),
+    ('hin_bsi', 'ps'  , 059, 017),
+    ('hin_bsi', 'ps'  , 060, 012),
+    ('hin_bsi', 'ps'  , 061, 008),
+    ('hin_bsi', 'ps'  , 062, 012),
+    ('hin_bsi', 'ps'  , 063, 011),
+    ('hin_bsi', 'ps'  , 064, 010),
+    ('hin_bsi', 'ps'  , 065, 013),
+    ('hin_bsi', 'ps'  , 066, 020),
+    ('hin_bsi', 'ps'  , 067, 007),
+    ('hin_bsi', 'ps'  , 068, 035),
+    ('hin_bsi', 'ps'  , 069, 036),
+    ('hin_bsi', 'ps'  , 070, 005),
+    ('hin_bsi', 'ps'  , 071, 024),
+    ('hin_bsi', 'ps'  , 072, 020),
+    ('hin_bsi', 'ps'  , 073, 028),
+    ('hin_bsi', 'ps'  , 074, 023),
+    ('hin_bsi', 'ps'  , 075, 010),
+    ('hin_bsi', 'ps'  , 076, 012),
+    ('hin_bsi', 'ps'  , 077, 020),
+    ('hin_bsi', 'ps'  , 078, 072),
+    ('hin_bsi', 'ps'  , 079, 013),
+    ('hin_bsi', 'ps'  , 080, 019),
+    ('hin_bsi', 'ps'  , 081, 016),
+    ('hin_bsi', 'ps'  , 082, 008),
+    ('hin_bsi', 'ps'  , 083, 018),
+    ('hin_bsi', 'ps'  , 084, 012),
+    ('hin_bsi', 'ps'  , 085, 013),
+    ('hin_bsi', 'ps'  , 086, 017),
+    ('hin_bsi', 'ps'  , 087, 007),
+    ('hin_bsi', 'ps'  , 088, 018),
+    ('hin_bsi', 'ps'  , 089, 052),
+    ('hin_bsi', 'ps'  , 090, 017),
+    ('hin_bsi', 'ps'  , 091, 016),
+    ('hin_bsi', 'ps'  , 092, 015),
+    ('hin_bsi', 'ps'  , 093, 005),
+    ('hin_bsi', 'ps'  , 094, 023),
+    ('hin_bsi', 'ps'  , 095, 011),
+    ('hin_bsi', 'ps'  , 096, 013),
+    ('hin_bsi', 'ps'  , 097, 012),
+    ('hin_bsi', 'ps'  , 098, 009),
+    ('hin_bsi', 'ps'  , 099, 009),
+    ('hin_bsi', 'ps'  , 100, 005),
+    ('hin_bsi', 'ps'  , 101, 008),
+    ('hin_bsi', 'ps'  , 102, 028),
+    ('hin_bsi', 'ps'  , 103, 022),
+    ('hin_bsi', 'ps'  , 104, 035),
+    ('hin_bsi', 'ps'  , 105, 045),
+    ('hin_bsi', 'ps'  , 106, 048),
+    ('hin_bsi', 'ps'  , 107, 043),
+    ('hin_bsi', 'ps'  , 108, 013),
+    ('hin_bsi', 'ps'  , 109, 031),
+    ('hin_bsi', 'ps'  , 110, 007),
+    ('hin_bsi', 'ps'  , 111, 010),
+    ('hin_bsi', 'ps'  , 112, 010),
+    ('hin_bsi', 'ps'  , 113, 009),
+    ('hin_bsi', 'ps'  , 114, 008),
+    ('hin_bsi', 'ps'  , 115, 018),
+    ('hin_bsi', 'ps'  , 116, 019),
+    ('hin_bsi', 'ps'  , 117, 002),
+    ('hin_bsi', 'ps'  , 118, 029),
+    ('hin_bsi', 'ps'  , 119, 176),
+    ('hin_bsi', 'ps'  , 120, 007),
+    ('hin_bsi', 'ps'  , 121, 008),
+    ('hin_bsi', 'ps'  , 122, 009),
+    ('hin_bsi', 'ps'  , 123, 004),
+    ('hin_bsi', 'ps'  , 124, 008),
+    ('hin_bsi', 'ps'  , 125, 005),
+    ('hin_bsi', 'ps'  , 126, 006),
+    ('hin_bsi', 'ps'  , 127, 005),
+    ('hin_bsi', 'ps'  , 128, 006),
+    ('hin_bsi', 'ps'  , 129, 008),
+    ('hin_bsi', 'ps'  , 130, 008),
+    ('hin_bsi', 'ps'  , 131, 003),
+    ('hin_bsi', 'ps'  , 132, 018),
+    ('hin_bsi', 'ps'  , 133, 003),
+    ('hin_bsi', 'ps'  , 134, 003),
+    ('hin_bsi', 'ps'  , 135, 021),
+    ('hin_bsi', 'ps'  , 136, 026),
+    ('hin_bsi', 'ps'  , 137, 009),
+    ('hin_bsi', 'ps'  , 138, 008),
+    ('hin_bsi', 'ps'  , 139, 024),
+    ('hin_bsi', 'ps'  , 140, 013),
+    ('hin_bsi', 'ps'  , 141, 010),
+    ('hin_bsi', 'ps'  , 142, 007),
+    ('hin_bsi', 'ps'  , 143, 012),
+    ('hin_bsi', 'ps'  , 144, 015),
+    ('hin_bsi', 'ps'  , 145, 021),
+    ('hin_bsi', 'ps'  , 146, 010),
+    ('hin_bsi', 'ps'  , 147, 020),
+    ('hin_bsi', 'ps'  , 148, 014),
+    ('hin_bsi', 'ps'  , 149, 009),
+    ('hin_bsi', 'ps'  , 150, 006),
+    ('hin_bsi', 'pr'  , 001, 033),
+    ('hin_bsi', 'pr'  , 002, 022),
+    ('hin_bsi', 'pr'  , 003, 035),
+    ('hin_bsi', 'pr'  , 004, 027),
+    ('hin_bsi', 'pr'  , 005, 023),
+    ('hin_bsi', 'pr'  , 006, 035),
+    ('hin_bsi', 'pr'  , 007, 027),
+    ('hin_bsi', 'pr'  , 008, 036),
+    ('hin_bsi', 'pr'  , 009, 018),
+    ('hin_bsi', 'pr'  , 010, 032),
+    ('hin_bsi', 'pr'  , 011, 031),
+    ('hin_bsi', 'pr'  , 012, 028),
+    ('hin_bsi', 'pr'  , 013, 025),
+    ('hin_bsi', 'pr'  , 014, 035),
+    ('hin_bsi', 'pr'  , 015, 033),
+    ('hin_bsi', 'pr'  , 016, 033),
+    ('hin_bsi', 'pr'  , 017, 028),
+    ('hin_bsi', 'pr'  , 018, 024),
+    ('hin_bsi', 'pr'  , 019, 029),
+    ('hin_bsi', 'pr'  , 020, 030),
+    ('hin_bsi', 'pr'  , 021, 031),
+    ('hin_bsi', 'pr'  , 022, 029),
+    ('hin_bsi', 'pr'  , 023, 035),
+    ('hin_bsi', 'pr'  , 024, 034),
+    ('hin_bsi', 'pr'  , 025, 028),
+    ('hin_bsi', 'pr'  , 026, 028),
+    ('hin_bsi', 'pr'  , 027, 027),
+    ('hin_bsi', 'pr'  , 028, 028),
+    ('hin_bsi', 'pr'  , 029, 027),
+    ('hin_bsi', 'pr'  , 030, 033),
+    ('hin_bsi', 'pr'  , 031, 031),
+    ('hin_bsi', 'ec'  , 001, 018),
+    ('hin_bsi', 'ec'  , 002, 026),
+    ('hin_bsi', 'ec'  , 003, 022),
+    ('hin_bsi', 'ec'  , 004, 016),
+    ('hin_bsi', 'ec'  , 005, 020),
+    ('hin_bsi', 'ec'  , 006, 012),
+    ('hin_bsi', 'ec'  , 007, 029),
+    ('hin_bsi', 'ec'  , 008, 017),
+    ('hin_bsi', 'ec'  , 009, 018),
+    ('hin_bsi', 'ec'  , 010, 020),
+    ('hin_bsi', 'ec'  , 011, 010),
+    ('hin_bsi', 'ec'  , 012, 014),
+    ('hin_bsi', 'ca'  , 001, 017),
+    ('hin_bsi', 'ca'  , 002, 017),
+    ('hin_bsi', 'ca'  , 003, 011),
+    ('hin_bsi', 'ca'  , 004, 016),
+    ('hin_bsi', 'ca'  , 005, 016),
+    ('hin_bsi', 'ca'  , 006, 013),
+    ('hin_bsi', 'ca'  , 007, 013),
+    ('hin_bsi', 'ca'  , 008, 014),
+    ('hin_bsi', 'isa' , 001, 031),
+    ('hin_bsi', 'isa' , 002, 022),
+    ('hin_bsi', 'isa' , 003, 026),
+    ('hin_bsi', 'isa' , 004, 006),
+    ('hin_bsi', 'isa' , 005, 030),
+    ('hin_bsi', 'isa' , 006, 013),
+    ('hin_bsi', 'isa' , 007, 025),
+    ('hin_bsi', 'isa' , 008, 022),
+    ('hin_bsi', 'isa' , 009, 021),
+    ('hin_bsi', 'isa' , 010, 034),
+    ('hin_bsi', 'isa' , 011, 016),
+    ('hin_bsi', 'isa' , 012, 006),
+    ('hin_bsi', 'isa' , 013, 022),
+    ('hin_bsi', 'isa' , 014, 032),
+    ('hin_bsi', 'isa' , 015, 009),
+    ('hin_bsi', 'isa' , 016, 014),
+    ('hin_bsi', 'isa' , 017, 014),
+    ('hin_bsi', 'isa' , 018, 007),
+    ('hin_bsi', 'isa' , 019, 025),
+    ('hin_bsi', 'isa' , 020, 006),
+    ('hin_bsi', 'isa' , 021, 017),
+    ('hin_bsi', 'isa' , 022, 025),
+    ('hin_bsi', 'isa' , 023, 018),
+    ('hin_bsi', 'isa' , 024, 023),
+    ('hin_bsi', 'isa' , 025, 012),
+    ('hin_bsi', 'isa' , 026, 021),
+    ('hin_bsi', 'isa' , 027, 013),
+    ('hin_bsi', 'isa' , 028, 029),
+    ('hin_bsi', 'isa' , 029, 024),
+    ('hin_bsi', 'isa' , 030, 033),
+    ('hin_bsi', 'isa' , 031, 009),
+    ('hin_bsi', 'isa' , 032, 020),
+    ('hin_bsi', 'isa' , 033, 024),
+    ('hin_bsi', 'isa' , 034, 017),
+    ('hin_bsi', 'isa' , 035, 010),
+    ('hin_bsi', 'isa' , 036, 022),
+    ('hin_bsi', 'isa' , 037, 038),
+    ('hin_bsi', 'isa' , 038, 022),
+    ('hin_bsi', 'isa' , 039, 008),
+    ('hin_bsi', 'isa' , 040, 031),
+    ('hin_bsi', 'isa' , 041, 029),
+    ('hin_bsi', 'isa' , 042, 025),
+    ('hin_bsi', 'isa' , 043, 028),
+    ('hin_bsi', 'isa' , 044, 028),
+    ('hin_bsi', 'isa' , 045, 025),
+    ('hin_bsi', 'isa' , 046, 013),
+    ('hin_bsi', 'isa' , 047, 015),
+    ('hin_bsi', 'isa' , 048, 022),
+    ('hin_bsi', 'isa' , 049, 026),
+    ('hin_bsi', 'isa' , 050, 011),
+    ('hin_bsi', 'isa' , 051, 023),
+    ('hin_bsi', 'isa' , 052, 015),
+    ('hin_bsi', 'isa' , 053, 012),
+    ('hin_bsi', 'isa' , 054, 017),
+    ('hin_bsi', 'isa' , 055, 013),
+    ('hin_bsi', 'isa' , 056, 012),
+    ('hin_bsi', 'isa' , 057, 021),
+    ('hin_bsi', 'isa' , 058, 014),
+    ('hin_bsi', 'isa' , 059, 021),
+    ('hin_bsi', 'isa' , 060, 022),
+    ('hin_bsi', 'isa' , 061, 011),
+    ('hin_bsi', 'isa' , 062, 012),
+    ('hin_bsi', 'isa' , 063, 019),
+    ('hin_bsi', 'isa' , 064, 012),
+    ('hin_bsi', 'isa' , 065, 025),
+    ('hin_bsi', 'isa' , 066, 024),
+    ('hin_bsi', 'jer' , 001, 019),
+    ('hin_bsi', 'jer' , 002, 037),
+    ('hin_bsi', 'jer' , 003, 025),
+    ('hin_bsi', 'jer' , 004, 031),
+    ('hin_bsi', 'jer' , 005, 031),
+    ('hin_bsi', 'jer' , 006, 030),
+    ('hin_bsi', 'jer' , 007, 034),
+    ('hin_bsi', 'jer' , 008, 022),
+    ('hin_bsi', 'jer' , 009, 026),
+    ('hin_bsi', 'jer' , 010, 025),
+    ('hin_bsi', 'jer' , 011, 023),
+    ('hin_bsi', 'jer' , 012, 017),
+    ('hin_bsi', 'jer' , 013, 027),
+    ('hin_bsi', 'jer' , 014, 022),
+    ('hin_bsi', 'jer' , 015, 021),
+    ('hin_bsi', 'jer' , 016, 021),
+    ('hin_bsi', 'jer' , 017, 027),
+    ('hin_bsi', 'jer' , 018, 023),
+    ('hin_bsi', 'jer' , 019, 015),
+    ('hin_bsi', 'jer' , 020, 018),
+    ('hin_bsi', 'jer' , 021, 014),
+    ('hin_bsi', 'jer' , 022, 030),
+    ('hin_bsi', 'jer' , 023, 040),
+    ('hin_bsi', 'jer' , 024, 010),
+    ('hin_bsi', 'jer' , 025, 038),
+    ('hin_bsi', 'jer' , 026, 024),
+    ('hin_bsi', 'jer' , 027, 022),
+    ('hin_bsi', 'jer' , 028, 017),
+    ('hin_bsi', 'jer' , 029, 033),
+    ('hin_bsi', 'jer' , 030, 024),
+    ('hin_bsi', 'jer' , 031, 040),
+    ('hin_bsi', 'jer' , 032, 044),
+    ('hin_bsi', 'jer' , 033, 026),
+    ('hin_bsi', 'jer' , 034, 022),
+    ('hin_bsi', 'jer' , 035, 019),
+    ('hin_bsi', 'jer' , 036, 032),
+    ('hin_bsi', 'jer' , 037, 021),
+    ('hin_bsi', 'jer' , 038, 028),
+    ('hin_bsi', 'jer' , 039, 018),
+    ('hin_bsi', 'jer' , 040, 016),
+    ('hin_bsi', 'jer' , 041, 018),
+    ('hin_bsi', 'jer' , 042, 022),
+    ('hin_bsi', 'jer' , 043, 013),
+    ('hin_bsi', 'jer' , 044, 030),
+    ('hin_bsi', 'jer' , 045, 005),
+    ('hin_bsi', 'jer' , 046, 028),
+    ('hin_bsi', 'jer' , 047, 007),
+    ('hin_bsi', 'jer' , 048, 047),
+    ('hin_bsi', 'jer' , 049, 039),
+    ('hin_bsi', 'jer' , 050, 046),
+    ('hin_bsi', 'jer' , 051, 064),
+    ('hin_bsi', 'jer' , 052, 034),
+    ('hin_bsi', 'la'  , 001, 022),
+    ('hin_bsi', 'la'  , 002, 022),
+    ('hin_bsi', 'la'  , 003, 066),
+    ('hin_bsi', 'la'  , 004, 022),
+    ('hin_bsi', 'la'  , 005, 022),
+    ('hin_bsi', 'eze' , 001, 028),
+    ('hin_bsi', 'eze' , 002, 010),
+    ('hin_bsi', 'eze' , 003, 027),
+    ('hin_bsi', 'eze' , 004, 017),
+    ('hin_bsi', 'eze' , 005, 017),
+    ('hin_bsi', 'eze' , 006, 014),
+    ('hin_bsi', 'eze' , 007, 027),
+    ('hin_bsi', 'eze' , 008, 018),
+    ('hin_bsi', 'eze' , 009, 011),
+    ('hin_bsi', 'eze' , 010, 022),
+    ('hin_bsi', 'eze' , 011, 025),
+    ('hin_bsi', 'eze' , 012, 028),
+    ('hin_bsi', 'eze' , 013, 023),
+    ('hin_bsi', 'eze' , 014, 023),
+    ('hin_bsi', 'eze' , 015, 008),
+    ('hin_bsi', 'eze' , 016, 063),
+    ('hin_bsi', 'eze' , 017, 024),
+    ('hin_bsi', 'eze' , 018, 032),
+    ('hin_bsi', 'eze' , 019, 014),
+    ('hin_bsi', 'eze' , 020, 049),
+    ('hin_bsi', 'eze' , 021, 032),
+    ('hin_bsi', 'eze' , 022, 031),
+    ('hin_bsi', 'eze' , 023, 049),
+    ('hin_bsi', 'eze' , 024, 027),
+    ('hin_bsi', 'eze' , 025, 017),
+    ('hin_bsi', 'eze' , 026, 021),
+    ('hin_bsi', 'eze' , 027, 036),
+    ('hin_bsi', 'eze' , 028, 026),
+    ('hin_bsi', 'eze' , 029, 021),
+    ('hin_bsi', 'eze' , 030, 026),
+    ('hin_bsi', 'eze' , 031, 018),
+    ('hin_bsi', 'eze' , 032, 032),
+    ('hin_bsi', 'eze' , 033, 033),
+    ('hin_bsi', 'eze' , 034, 031),
+    ('hin_bsi', 'eze' , 035, 015),
+    ('hin_bsi', 'eze' , 036, 038),
+    ('hin_bsi', 'eze' , 037, 028),
+    ('hin_bsi', 'eze' , 038, 023),
+    ('hin_bsi', 'eze' , 039, 029),
+    ('hin_bsi', 'eze' , 040, 049),
+    ('hin_bsi', 'eze' , 041, 026),
+    ('hin_bsi', 'eze' , 042, 020),
+    ('hin_bsi', 'eze' , 043, 027),
+    ('hin_bsi', 'eze' , 044, 031),
+    ('hin_bsi', 'eze' , 045, 025),
+    ('hin_bsi', 'eze' , 046, 024),
+    ('hin_bsi', 'eze' , 047, 023),
+    ('hin_bsi', 'eze' , 048, 035),
+    ('hin_bsi', 'da'  , 001, 021),
+    ('hin_bsi', 'da'  , 002, 049),
+    ('hin_bsi', 'da'  , 003, 030),
+    ('hin_bsi', 'da'  , 004, 037),
+    ('hin_bsi', 'da'  , 005, 031),
+    ('hin_bsi', 'da'  , 006, 028),
+    ('hin_bsi', 'da'  , 007, 028),
+    ('hin_bsi', 'da'  , 008, 027),
+    ('hin_bsi', 'da'  , 009, 027),
+    ('hin_bsi', 'da'  , 010, 021),
+    ('hin_bsi', 'da'  , 011, 045),
+    ('hin_bsi', 'da'  , 012, 013),
+    ('hin_bsi', 'ho'  , 001, 011),
+    ('hin_bsi', 'ho'  , 002, 023),
+    ('hin_bsi', 'ho'  , 003, 005),
+    ('hin_bsi', 'ho'  , 004, 019),
+    ('hin_bsi', 'ho'  , 005, 015),
+    ('hin_bsi', 'ho'  , 006, 011),
+    ('hin_bsi', 'ho'  , 007, 016),
+    ('hin_bsi', 'ho'  , 008, 014),
+    ('hin_bsi', 'ho'  , 009, 017),
+    ('hin_bsi', 'ho'  , 010, 015),
+    ('hin_bsi', 'ho'  , 011, 012),
+    ('hin_bsi', 'ho'  , 012, 014),
+    ('hin_bsi', 'ho'  , 013, 016),
+    ('hin_bsi', 'ho'  , 014, 009),
+    ('hin_bsi', 'joe' , 001, 020),
+    ('hin_bsi', 'joe' , 002, 032),
+    ('hin_bsi', 'joe' , 003, 021),
+    ('hin_bsi', 'am'  , 001, 015),
+    ('hin_bsi', 'am'  , 002, 016),
+    ('hin_bsi', 'am'  , 003, 015),
+    ('hin_bsi', 'am'  , 004, 013),
+    ('hin_bsi', 'am'  , 005, 027),
+    ('hin_bsi', 'am'  , 006, 014),
+    ('hin_bsi', 'am'  , 007, 017),
+    ('hin_bsi', 'am'  , 008, 014),
+    ('hin_bsi', 'am'  , 009, 015),
+    ('hin_bsi', 'ob'  , 001, 021),
+    ('hin_bsi', 'jon' , 001, 017),
+    ('hin_bsi', 'jon' , 002, 010),
+    ('hin_bsi', 'jon' , 003, 010),
+    ('hin_bsi', 'jon' , 004, 011),
+    ('hin_bsi', 'mic' , 001, 016),
+    ('hin_bsi', 'mic' , 002, 013),
+    ('hin_bsi', 'mic' , 003, 012),
+    ('hin_bsi', 'mic' , 004, 013),
+    ('hin_bsi', 'mic' , 005, 015),
+    ('hin_bsi', 'mic' , 006, 016),
+    ('hin_bsi', 'mic' , 007, 020),
+    ('hin_bsi', 'na'  , 001, 015),
+    ('hin_bsi', 'na'  , 002, 013),
+    ('hin_bsi', 'na'  , 003, 019),
+    ('hin_bsi', 'hab' , 001, 017),
+    ('hin_bsi', 'hab' , 002, 020),
+    ('hin_bsi', 'hab' , 003, 019),
+    ('hin_bsi', 'zep' , 001, 018),
+    ('hin_bsi', 'zep' , 002, 015),
+    ('hin_bsi', 'zep' , 003, 020),
+    ('hin_bsi', 'hag' , 001, 015),
+    ('hin_bsi', 'hag' , 002, 023),
+    ('hin_bsi', 'zec' , 001, 021),
+    ('hin_bsi', 'zec' , 002, 013),
+    ('hin_bsi', 'zec' , 003, 010),
+    ('hin_bsi', 'zec' , 004, 014),
+    ('hin_bsi', 'zec' , 005, 011),
+    ('hin_bsi', 'zec' , 006, 015),
+    ('hin_bsi', 'zec' , 007, 014),
+    ('hin_bsi', 'zec' , 008, 023),
+    ('hin_bsi', 'zec' , 009, 017),
+    ('hin_bsi', 'zec' , 010, 012),
+    ('hin_bsi', 'zec' , 011, 017),
+    ('hin_bsi', 'zec' , 012, 014),
+    ('hin_bsi', 'zec' , 013, 009),
+    ('hin_bsi', 'zec' , 014, 021),
+    ('hin_bsi', 'mal' , 001, 014),
+    ('hin_bsi', 'mal' , 002, 017),
+    ('hin_bsi', 'mal' , 003, 018),
+    ('hin_bsi', 'mal' , 004, 006),
+    ('hin_bsi', 'mt'  , 001, 025),
+    ('hin_bsi', 'mt'  , 002, 023),
+    ('hin_bsi', 'mt'  , 003, 017),
+    ('hin_bsi', 'mt'  , 004, 025),
+    ('hin_bsi', 'mt'  , 005, 048),
+    ('hin_bsi', 'mt'  , 006, 034),
+    ('hin_bsi', 'mt'  , 007, 029),
+    ('hin_bsi', 'mt'  , 008, 034),
+    ('hin_bsi', 'mt'  , 009, 038),
+    ('hin_bsi', 'mt'  , 010, 042),
+    ('hin_bsi', 'mt'  , 011, 030),
+    ('hin_bsi', 'mt'  , 012, 050),
+    ('hin_bsi', 'mt'  , 013, 058),
+    ('hin_bsi', 'mt'  , 014, 036),
+    ('hin_bsi', 'mt'  , 015, 039),
+    ('hin_bsi', 'mt'  , 016, 028),
+    ('hin_bsi', 'mt'  , 017, 027),
+    ('hin_bsi', 'mt'  , 018, 035),
+    ('hin_bsi', 'mt'  , 019, 030),
+    ('hin_bsi', 'mt'  , 020, 034),
+    ('hin_bsi', 'mt'  , 021, 046),
+    ('hin_bsi', 'mt'  , 022, 046),
+    ('hin_bsi', 'mt'  , 023, 039),
+    ('hin_bsi', 'mt'  , 024, 051),
+    ('hin_bsi', 'mt'  , 025, 046),
+    ('hin_bsi', 'mt'  , 026, 075),
+    ('hin_bsi', 'mt'  , 027, 066),
+    ('hin_bsi', 'mt'  , 028, 020),
+    ('hin_bsi', 'mr'  , 001, 045),
+    ('hin_bsi', 'mr'  , 002, 028),
+    ('hin_bsi', 'mr'  , 003, 035),
+    ('hin_bsi', 'mr'  , 004, 041),
+    ('hin_bsi', 'mr'  , 005, 043),
+    ('hin_bsi', 'mr'  , 006, 056),
+    ('hin_bsi', 'mr'  , 007, 037),
+    ('hin_bsi', 'mr'  , 008, 038),
+    ('hin_bsi', 'mr'  , 009, 050),
+    ('hin_bsi', 'mr'  , 010, 052),
+    ('hin_bsi', 'mr'  , 011, 033),
+    ('hin_bsi', 'mr'  , 012, 044),
+    ('hin_bsi', 'mr'  , 013, 037),
+    ('hin_bsi', 'mr'  , 014, 072),
+    ('hin_bsi', 'mr'  , 015, 047),
+    ('hin_bsi', 'mr'  , 016, 020),
+    ('hin_bsi', 'lu'  , 001, 080),
+    ('hin_bsi', 'lu'  , 002, 052),
+    ('hin_bsi', 'lu'  , 003, 038),
+    ('hin_bsi', 'lu'  , 004, 044),
+    ('hin_bsi', 'lu'  , 005, 039),
+    ('hin_bsi', 'lu'  , 006, 049),
+    ('hin_bsi', 'lu'  , 007, 050),
+    ('hin_bsi', 'lu'  , 008, 056),
+    ('hin_bsi', 'lu'  , 009, 062),
+    ('hin_bsi', 'lu'  , 010, 042),
+    ('hin_bsi', 'lu'  , 011, 054),
+    ('hin_bsi', 'lu'  , 012, 059),
+    ('hin_bsi', 'lu'  , 013, 035),
+    ('hin_bsi', 'lu'  , 014, 035),
+    ('hin_bsi', 'lu'  , 015, 032),
+    ('hin_bsi', 'lu'  , 016, 031),
+    ('hin_bsi', 'lu'  , 017, 037),
+    ('hin_bsi', 'lu'  , 018, 043),
+    ('hin_bsi', 'lu'  , 019, 048),
+    ('hin_bsi', 'lu'  , 020, 047),
+    ('hin_bsi', 'lu'  , 021, 038),
+    ('hin_bsi', 'lu'  , 022, 071),
+    ('hin_bsi', 'lu'  , 023, 056),
+    ('hin_bsi', 'lu'  , 024, 053),
+    ('hin_bsi', 'joh' , 001, 051),
+    ('hin_bsi', 'joh' , 002, 025),
+    ('hin_bsi', 'joh' , 003, 036),
+    ('hin_bsi', 'joh' , 004, 054),
+    ('hin_bsi', 'joh' , 005, 047),
+    ('hin_bsi', 'joh' , 006, 071),
+    ('hin_bsi', 'joh' , 007, 053),
+    ('hin_bsi', 'joh' , 008, 059),
+    ('hin_bsi', 'joh' , 009, 041),
+    ('hin_bsi', 'joh' , 010, 042),
+    ('hin_bsi', 'joh' , 011, 057),
+    ('hin_bsi', 'joh' , 012, 050),
+    ('hin_bsi', 'joh' , 013, 038),
+    ('hin_bsi', 'joh' , 014, 031),
+    ('hin_bsi', 'joh' , 015, 027),
+    ('hin_bsi', 'joh' , 016, 033),
+    ('hin_bsi', 'joh' , 017, 026),
+    ('hin_bsi', 'joh' , 018, 040),
+    ('hin_bsi', 'joh' , 019, 042),
+    ('hin_bsi', 'joh' , 020, 031),
+    ('hin_bsi', 'joh' , 021, 025),
+    ('hin_bsi', 'ac'  , 001, 026),
+    ('hin_bsi', 'ac'  , 002, 047),
+    ('hin_bsi', 'ac'  , 003, 026),
+    ('hin_bsi', 'ac'  , 004, 037),
+    ('hin_bsi', 'ac'  , 005, 042),
+    ('hin_bsi', 'ac'  , 006, 015),
+    ('hin_bsi', 'ac'  , 007, 060),
+    ('hin_bsi', 'ac'  , 008, 040),
+    ('hin_bsi', 'ac'  , 009, 043),
+    ('hin_bsi', 'ac'  , 010, 048),
+    ('hin_bsi', 'ac'  , 011, 030),
+    ('hin_bsi', 'ac'  , 012, 025),
+    ('hin_bsi', 'ac'  , 013, 052),
+    ('hin_bsi', 'ac'  , 014, 028),
+    ('hin_bsi', 'ac'  , 015, 041),
+    ('hin_bsi', 'ac'  , 016, 040),
+    ('hin_bsi', 'ac'  , 017, 034),
+    ('hin_bsi', 'ac'  , 018, 028),
+    ('hin_bsi', 'ac'  , 019, 041),
+    ('hin_bsi', 'ac'  , 020, 038),
+    ('hin_bsi', 'ac'  , 021, 040),
+    ('hin_bsi', 'ac'  , 022, 030),
+    ('hin_bsi', 'ac'  , 023, 035),
+    ('hin_bsi', 'ac'  , 024, 027),
+    ('hin_bsi', 'ac'  , 025, 027),
+    ('hin_bsi', 'ac'  , 026, 032),
+    ('hin_bsi', 'ac'  , 027, 044),
+    ('hin_bsi', 'ac'  , 028, 031),
+    ('hin_bsi', 'ro'  , 001, 032),
+    ('hin_bsi', 'ro'  , 002, 029),
+    ('hin_bsi', 'ro'  , 003, 031),
+    ('hin_bsi', 'ro'  , 004, 025),
+    ('hin_bsi', 'ro'  , 005, 021),
+    ('hin_bsi', 'ro'  , 006, 023),
+    ('hin_bsi', 'ro'  , 007, 025),
+    ('hin_bsi', 'ro'  , 008, 039),
+    ('hin_bsi', 'ro'  , 009, 033),
+    ('hin_bsi', 'ro'  , 010, 021),
+    ('hin_bsi', 'ro'  , 011, 036),
+    ('hin_bsi', 'ro'  , 012, 021),
+    ('hin_bsi', 'ro'  , 013, 014),
+    ('hin_bsi', 'ro'  , 014, 023),
+    ('hin_bsi', 'ro'  , 015, 033),
+    ('hin_bsi', 'ro'  , 016, 027),
+    ('hin_bsi', '1co' , 001, 031),
+    ('hin_bsi', '1co' , 002, 016),
+    ('hin_bsi', '1co' , 003, 023),
+    ('hin_bsi', '1co' , 004, 021),
+    ('hin_bsi', '1co' , 005, 013),
+    ('hin_bsi', '1co' , 006, 020),
+    ('hin_bsi', '1co' , 007, 040),
+    ('hin_bsi', '1co' , 008, 013),
+    ('hin_bsi', '1co' , 009, 027),
+    ('hin_bsi', '1co' , 010, 033),
+    ('hin_bsi', '1co' , 011, 034),
+    ('hin_bsi', '1co' , 012, 031),
+    ('hin_bsi', '1co' , 013, 013),
+    ('hin_bsi', '1co' , 014, 040),
+    ('hin_bsi', '1co' , 015, 058),
+    ('hin_bsi', '1co' , 016, 024),
+    ('hin_bsi', '2co' , 001, 024),
+    ('hin_bsi', '2co' , 002, 017),
+    ('hin_bsi', '2co' , 003, 018),
+    ('hin_bsi', '2co' , 004, 018),
+    ('hin_bsi', '2co' , 005, 021),
+    ('hin_bsi', '2co' , 006, 018),
+    ('hin_bsi', '2co' , 007, 016),
+    ('hin_bsi', '2co' , 008, 024),
+    ('hin_bsi', '2co' , 009, 015),
+    ('hin_bsi', '2co' , 010, 018),
+    ('hin_bsi', '2co' , 011, 033),
+    ('hin_bsi', '2co' , 012, 021),
+    ('hin_bsi', '2co' , 013, 014),
+    ('hin_bsi', 'ga'  , 001, 024),
+    ('hin_bsi', 'ga'  , 002, 021),
+    ('hin_bsi', 'ga'  , 003, 029),
+    ('hin_bsi', 'ga'  , 004, 031),
+    ('hin_bsi', 'ga'  , 005, 026),
+    ('hin_bsi', 'ga'  , 006, 018),
+    ('hin_bsi', 'eph' , 001, 023),
+    ('hin_bsi', 'eph' , 002, 022),
+    ('hin_bsi', 'eph' , 003, 021),
+    ('hin_bsi', 'eph' , 004, 032),
+    ('hin_bsi', 'eph' , 005, 033),
+    ('hin_bsi', 'eph' , 006, 024),
+    ('hin_bsi', 'php' , 001, 030),
+    ('hin_bsi', 'php' , 002, 030),
+    ('hin_bsi', 'php' , 003, 021),
+    ('hin_bsi', 'php' , 004, 023),
+    ('hin_bsi', 'col' , 001, 029),
+    ('hin_bsi', 'col' , 002, 023),
+    ('hin_bsi', 'col' , 003, 025),
+    ('hin_bsi', 'col' , 004, 018),
+    ('hin_bsi', '1th' , 001, 010),
+    ('hin_bsi', '1th' , 002, 020),
+    ('hin_bsi', '1th' , 003, 013),
+    ('hin_bsi', '1th' , 004, 018),
+    ('hin_bsi', '1th' , 005, 028),
+    ('hin_bsi', '2th' , 001, 012),
+    ('hin_bsi', '2th' , 002, 017),
+    ('hin_bsi', '2th' , 003, 018),
+    ('hin_bsi', '1ti' , 001, 020),
+    ('hin_bsi', '1ti' , 002, 015),
+    ('hin_bsi', '1ti' , 003, 016),
+    ('hin_bsi', '1ti' , 004, 016),
+    ('hin_bsi', '1ti' , 005, 025),
+    ('hin_bsi', '1ti' , 006, 021),
+    ('hin_bsi', '2ti' , 001, 018),
+    ('hin_bsi', '2ti' , 002, 026),
+    ('hin_bsi', '2ti' , 003, 017),
+    ('hin_bsi', '2ti' , 004, 022),
+    ('hin_bsi', 'tit' , 001, 016),
+    ('hin_bsi', 'tit' , 002, 015),
+    ('hin_bsi', 'tit' , 003, 015),
+    ('hin_bsi', 'phm' , 001, 025),
+    ('hin_bsi', 'heb' , 001, 014),
+    ('hin_bsi', 'heb' , 002, 018),
+    ('hin_bsi', 'heb' , 003, 019),
+    ('hin_bsi', 'heb' , 004, 016),
+    ('hin_bsi', 'heb' , 005, 014),
+    ('hin_bsi', 'heb' , 006, 020),
+    ('hin_bsi', 'heb' , 007, 028),
+    ('hin_bsi', 'heb' , 008, 013),
+    ('hin_bsi', 'heb' , 009, 028),
+    ('hin_bsi', 'heb' , 010, 039),
+    ('hin_bsi', 'heb' , 011, 040),
+    ('hin_bsi', 'heb' , 012, 029),
+    ('hin_bsi', 'heb' , 013, 025),
+    ('hin_bsi', 'jas' , 001, 027),
+    ('hin_bsi', 'jas' , 002, 026),
+    ('hin_bsi', 'jas' , 003, 018),
+    ('hin_bsi', 'jas' , 004, 017),
+    ('hin_bsi', 'jas' , 005, 020),
+    ('hin_bsi', '1pe' , 001, 025),
+    ('hin_bsi', '1pe' , 002, 025),
+    ('hin_bsi', '1pe' , 003, 022),
+    ('hin_bsi', '1pe' , 004, 019),
+    ('hin_bsi', '1pe' , 005, 014),
+    ('hin_bsi', '2pe' , 001, 021),
+    ('hin_bsi', '2pe' , 002, 022),
+    ('hin_bsi', '2pe' , 003, 018),
+    ('hin_bsi', '1jo' , 001, 010),
+    ('hin_bsi', '1jo' , 002, 029),
+    ('hin_bsi', '1jo' , 003, 024),
+    ('hin_bsi', '1jo' , 004, 021),
+    ('hin_bsi', '1jo' , 005, 021),
+    ('hin_bsi', '2jo' , 001, 013),
+    ('hin_bsi', '3jo' , 001, 014),
+    ('hin_bsi', 'jude', 001, 025),
+    ('hin_bsi', 're'  , 001, 020),
+    ('hin_bsi', 're'  , 002, 029),
+    ('hin_bsi', 're'  , 003, 022),
+    ('hin_bsi', 're'  , 004, 011),
+    ('hin_bsi', 're'  , 005, 014),
+    ('hin_bsi', 're'  , 006, 017),
+    ('hin_bsi', 're'  , 007, 017),
+    ('hin_bsi', 're'  , 008, 013),
+    ('hin_bsi', 're'  , 009, 021),
+    ('hin_bsi', 're'  , 010, 011),
+    ('hin_bsi', 're'  , 011, 019),
+    ('hin_bsi', 're'  , 012, 017),
+    ('hin_bsi', 're'  , 013, 018),
+    ('hin_bsi', 're'  , 014, 020),
+    ('hin_bsi', 're'  , 015, 008),
+    ('hin_bsi', 're'  , 016, 021),
+    ('hin_bsi', 're'  , 017, 018),
+    ('hin_bsi', 're'  , 018, 024),
+    ('hin_bsi', 're'  , 019, 021),
+    ('hin_bsi', 're'  , 020, 015),
+    ('hin_bsi', 're'  , 021, 027),
+    ('hin_bsi', 're'  , 022, 021)
+;
 
 
 
@@ -56186,6 +56229,459 @@ INSERT INTO chapterSize VALUES
     ('mn_bodhi', 'mn', 152, 18)
 ;
 
+INSERT INTO chapterSize VALUES
+    ('tynd', 'ge', 1, 31),
+    ('tynd', 'ge', 2, 25),
+    ('tynd', 'ge', 3, 24),
+    ('tynd', 'ge', 4, 26),
+    ('tynd', 'ge', 5, 32),
+    ('tynd', 'ge', 6, 22),
+    ('tynd', 'ge', 7, 24),
+    ('tynd', 'ge', 8, 22),
+    ('tynd', 'ge', 9, 28),
+    ('tynd', 'ge', 10, 32),
+    ('tynd', 'ge', 11, 32),
+    ('tynd', 'ge', 12, 20),
+    ('tynd', 'ge', 13, 18),
+    ('tynd', 'ge', 14, 24),
+    ('tynd', 'ge', 15, 21),
+    ('tynd', 'ge', 16, 16),
+    ('tynd', 'ge', 17, 27),
+    ('tynd', 'ge', 18, 33),
+    ('tynd', 'ge', 19, 38),
+    ('tynd', 'ge', 20, 18),
+    ('tynd', 'ge', 21, 34),
+    ('tynd', 'ge', 22, 24),
+    ('tynd', 'ge', 23, 20),
+    ('tynd', 'ge', 24, 67),
+    ('tynd', 'ge', 25, 34),
+    ('tynd', 'ge', 26, 35),
+    ('tynd', 'ge', 27, 46),
+    ('tynd', 'ge', 28, 22),
+    ('tynd', 'ge', 29, 35),
+    ('tynd', 'ge', 30, 43),
+    ('tynd', 'ge', 31, 55),
+    ('tynd', 'ge', 32, 32),
+    ('tynd', 'ge', 33, 20),
+    ('tynd', 'ge', 34, 31),
+    ('tynd', 'ge', 35, 29),
+    ('tynd', 'ge', 36, 43),
+    ('tynd', 'ge', 37, 36),
+    ('tynd', 'ge', 38, 30),
+    ('tynd', 'ge', 39, 23),
+    ('tynd', 'ge', 40, 23),
+    ('tynd', 'ge', 41, 57),
+    ('tynd', 'ge', 42, 38),
+    ('tynd', 'ge', 43, 34),
+    ('tynd', 'ge', 44, 34),
+    ('tynd', 'ge', 45, 28),
+    ('tynd', 'ge', 46, 34),
+    ('tynd', 'ge', 47, 31),
+    ('tynd', 'ge', 48, 22),
+    ('tynd', 'ge', 49, 33),
+    ('tynd', 'ge', 50, 26),
+    ('tynd', 'ex', 1, 22),
+    ('tynd', 'ex', 2, 25),
+    ('tynd', 'ex', 3, 22),
+    ('tynd', 'ex', 4, 31),
+    ('tynd', 'ex', 5, 23),
+    ('tynd', 'ex', 6, 30),
+    ('tynd', 'ex', 7, 25),
+    ('tynd', 'ex', 8, 32),
+    ('tynd', 'ex', 9, 35),
+    ('tynd', 'ex', 10, 29),
+    ('tynd', 'ex', 11, 10),
+    ('tynd', 'ex', 12, 51),
+    ('tynd', 'ex', 13, 22),
+    ('tynd', 'ex', 14, 31),
+    ('tynd', 'ex', 15, 27),
+    ('tynd', 'ex', 16, 36),
+    ('tynd', 'ex', 17, 16),
+    ('tynd', 'ex', 18, 27),
+    ('tynd', 'ex', 19, 25),
+    ('tynd', 'ex', 20, 26),
+    ('tynd', 'ex', 21, 36),
+    ('tynd', 'ex', 22, 31),
+    ('tynd', 'ex', 23, 33),
+    ('tynd', 'ex', 24, 18),
+    ('tynd', 'ex', 25, 40),
+    ('tynd', 'ex', 26, 37),
+    ('tynd', 'ex', 27, 21),
+    ('tynd', 'ex', 28, 43),
+    ('tynd', 'ex', 29, 46),
+    ('tynd', 'ex', 30, 38),
+    ('tynd', 'ex', 31, 18),
+    ('tynd', 'ex', 32, 35),
+    ('tynd', 'ex', 33, 23),
+    ('tynd', 'ex', 34, 35),
+    ('tynd', 'ex', 35, 35),
+    ('tynd', 'ex', 36, 38),
+    ('tynd', 'ex', 37, 29),
+    ('tynd', 'ex', 38, 31),
+    ('tynd', 'ex', 39, 43),
+    ('tynd', 'ex', 40, 38),
+    ('tynd', 'le', 1, 17),
+    ('tynd', 'le', 2, 16),
+    ('tynd', 'le', 3, 17),
+    ('tynd', 'le', 4, 35),
+    ('tynd', 'le', 5, 19),
+    ('tynd', 'le', 6, 30),
+    ('tynd', 'le', 7, 38),
+    ('tynd', 'le', 8, 36),
+    ('tynd', 'le', 9, 24),
+    ('tynd', 'le', 10, 20),
+    ('tynd', 'le', 11, 47),
+    ('tynd', 'le', 12, 8),
+    ('tynd', 'le', 13, 59),
+    ('tynd', 'le', 14, 57),
+    ('tynd', 'le', 15, 33),
+    ('tynd', 'le', 16, 34),
+    ('tynd', 'le', 17, 16),
+    ('tynd', 'le', 18, 30),
+    ('tynd', 'le', 19, 37),
+    ('tynd', 'le', 20, 27),
+    ('tynd', 'le', 21, 24),
+    ('tynd', 'le', 22, 33),
+    ('tynd', 'le', 23, 44),
+    ('tynd', 'le', 24, 23),
+    ('tynd', 'le', 25, 55),
+    ('tynd', 'le', 26, 46),
+    ('tynd', 'le', 27, 34),
+    ('tynd', 'nu', 1, 54),
+    ('tynd', 'nu', 2, 34),
+    ('tynd', 'nu', 3, 51),
+    ('tynd', 'nu', 4, 49),
+    ('tynd', 'nu', 5, 31),
+    ('tynd', 'nu', 6, 27),
+    ('tynd', 'nu', 7, 89),
+    ('tynd', 'nu', 8, 26),
+    ('tynd', 'nu', 9, 23),
+    ('tynd', 'nu', 10, 36),
+    ('tynd', 'nu', 11, 35),
+    ('tynd', 'nu', 12, 16),
+    ('tynd', 'nu', 13, 33),
+    ('tynd', 'nu', 14, 45),
+    ('tynd', 'nu', 15, 41),
+    ('tynd', 'nu', 16, 50),
+    ('tynd', 'nu', 17, 13),
+    ('tynd', 'nu', 18, 32),
+    ('tynd', 'nu', 19, 22),
+    ('tynd', 'nu', 20, 29),
+    ('tynd', 'nu', 21, 35),
+    ('tynd', 'nu', 22, 41),
+    ('tynd', 'nu', 23, 30),
+    ('tynd', 'nu', 24, 25),
+    ('tynd', 'nu', 25, 18),
+    ('tynd', 'nu', 26, 65),
+    ('tynd', 'nu', 27, 23),
+    ('tynd', 'nu', 28, 31),
+    ('tynd', 'nu', 29, 40),
+    ('tynd', 'nu', 30, 16),
+    ('tynd', 'nu', 31, 54),
+    ('tynd', 'nu', 32, 42),
+    ('tynd', 'nu', 33, 56),
+    ('tynd', 'nu', 34, 29),
+    ('tynd', 'nu', 35, 34),
+    ('tynd', 'nu', 36, 13),
+    ('tynd', 'de', 1, 46),
+    ('tynd', 'de', 2, 37),
+    ('tynd', 'de', 3, 29),
+    ('tynd', 'de', 4, 49),
+    ('tynd', 'de', 5, 33),
+    ('tynd', 'de', 6, 25),
+    ('tynd', 'de', 7, 26),
+    ('tynd', 'de', 8, 20),
+    ('tynd', 'de', 9, 29),
+    ('tynd', 'de', 10, 22),
+    ('tynd', 'de', 11, 32),
+    ('tynd', 'de', 12, 32),
+    ('tynd', 'de', 13, 18),
+    ('tynd', 'de', 14, 29),
+    ('tynd', 'de', 15, 23),
+    ('tynd', 'de', 16, 22),
+    ('tynd', 'de', 17, 20),
+    ('tynd', 'de', 18, 22),
+    ('tynd', 'de', 19, 21),
+    ('tynd', 'de', 20, 20),
+    ('tynd', 'de', 21, 23),
+    ('tynd', 'de', 22, 30),
+    ('tynd', 'de', 23, 25),
+    ('tynd', 'de', 24, 22),
+    ('tynd', 'de', 25, 19),
+    ('tynd', 'de', 26, 19),
+    ('tynd', 'de', 27, 26),
+    ('tynd', 'de', 28, 68),
+    ('tynd', 'de', 29, 29),
+    ('tynd', 'de', 30, 20),
+    ('tynd', 'de', 31, 30),
+    ('tynd', 'de', 32, 52),
+    ('tynd', 'de', 33, 29),
+    ('tynd', 'de', 34, 12),
+    ('tynd', 'jon', 1, 17),
+    ('tynd', 'jon', 2, 10),
+    ('tynd', 'jon', 3, 10),
+    ('tynd', 'jon', 4, 11),
+    ('tynd', 'mt', 1, 25),
+    ('tynd', 'mt', 2, 23),
+    ('tynd', 'mt', 3, 17),
+    ('tynd', 'mt', 4, 25),
+    ('tynd', 'mt', 5, 48),
+    ('tynd', 'mt', 6, 34),
+    ('tynd', 'mt', 7, 29),
+    ('tynd', 'mt', 8, 34),
+    ('tynd', 'mt', 9, 38),
+    ('tynd', 'mt', 10, 42),
+    ('tynd', 'mt', 11, 30),
+    ('tynd', 'mt', 12, 50),
+    ('tynd', 'mt', 13, 58),
+    ('tynd', 'mt', 14, 36),
+    ('tynd', 'mt', 15, 39),
+    ('tynd', 'mt', 16, 28),
+    ('tynd', 'mt', 17, 26),
+    ('tynd', 'mt', 18, 35),
+    ('tynd', 'mt', 19, 30),
+    ('tynd', 'mt', 20, 34),
+    ('tynd', 'mt', 21, 46),
+    ('tynd', 'mt', 22, 46),
+    ('tynd', 'mt', 23, 39),
+    ('tynd', 'mt', 24, 51),
+    ('tynd', 'mt', 25, 46),
+    ('tynd', 'mt', 26, 75),
+    ('tynd', 'mt', 27, 66),
+    ('tynd', 'mt', 28, 20),
+    ('tynd', 'mr', 1, 45),
+    ('tynd', 'mr', 2, 27),
+    ('tynd', 'mr', 3, 35),
+    ('tynd', 'mr', 4, 40),
+    ('tynd', 'mr', 5, 43),
+    ('tynd', 'mr', 6, 56),
+    ('tynd', 'mr', 7, 37),
+    ('tynd', 'mr', 8, 39),
+    ('tynd', 'mr', 9, 49),
+    ('tynd', 'mr', 10, 52),
+    ('tynd', 'mr', 11, 33),
+    ('tynd', 'mr', 12, 44),
+    ('tynd', 'mr', 13, 37),
+    ('tynd', 'mr', 14, 72),
+    ('tynd', 'mr', 15, 47),
+    ('tynd', 'mr', 16, 20),
+    ('tynd', 'lu', 1, 80),
+    ('tynd', 'lu', 2, 52),
+    ('tynd', 'lu', 3, 38),
+    ('tynd', 'lu', 4, 44),
+    ('tynd', 'lu', 5, 39),
+    ('tynd', 'lu', 6, 49),
+    ('tynd', 'lu', 7, 50),
+    ('tynd', 'lu', 8, 56),
+    ('tynd', 'lu', 9, 62),
+    ('tynd', 'lu', 10, 42),
+    ('tynd', 'lu', 11, 54),
+    ('tynd', 'lu', 12, 59),
+    ('tynd', 'lu', 13, 35),
+    ('tynd', 'lu', 14, 35),
+    ('tynd', 'lu', 15, 32),
+    ('tynd', 'lu', 16, 31),
+    ('tynd', 'lu', 17, 36),
+    ('tynd', 'lu', 18, 43),
+    ('tynd', 'lu', 19, 48),
+    ('tynd', 'lu', 20, 47),
+    ('tynd', 'lu', 21, 38),
+    ('tynd', 'lu', 22, 71),
+    ('tynd', 'lu', 23, 56),
+    ('tynd', 'lu', 24, 53),
+    ('tynd', 'joh', 1, 51),
+    ('tynd', 'joh', 2, 25),
+    ('tynd', 'joh', 3, 36),
+    ('tynd', 'joh', 4, 54),
+    ('tynd', 'joh', 5, 47),
+    ('tynd', 'joh', 6, 71),
+    ('tynd', 'joh', 7, 53),
+    ('tynd', 'joh', 8, 59),
+    ('tynd', 'joh', 9, 41),
+    ('tynd', 'joh', 10, 42),
+    ('tynd', 'joh', 11, 56),
+    ('tynd', 'joh', 12, 50),
+    ('tynd', 'joh', 13, 38),
+    ('tynd', 'joh', 14, 31),
+    ('tynd', 'joh', 15, 26),
+    ('tynd', 'joh', 16, 33),
+    ('tynd', 'joh', 17, 26),
+    ('tynd', 'joh', 18, 40),
+    ('tynd', 'joh', 19, 42),
+    ('tynd', 'joh', 20, 31),
+    ('tynd', 'joh', 21, 25),
+    ('tynd', 'ac', 1, 26),
+    ('tynd', 'ac', 2, 47),
+    ('tynd', 'ac', 3, 26),
+    ('tynd', 'ac', 4, 37),
+    ('tynd', 'ac', 5, 41),
+    ('tynd', 'ac', 6, 15),
+    ('tynd', 'ac', 7, 60),
+    ('tynd', 'ac', 8, 40),
+    ('tynd', 'ac', 9, 43),
+    ('tynd', 'ac', 10, 48),
+    ('tynd', 'ac', 11, 30),
+    ('tynd', 'ac', 12, 25),
+    ('tynd', 'ac', 13, 52),
+    ('tynd', 'ac', 14, 27),
+    ('tynd', 'ac', 15, 41),
+    ('tynd', 'ac', 16, 40),
+    ('tynd', 'ac', 17, 34),
+    ('tynd', 'ac', 18, 28),
+    ('tynd', 'ac', 19, 40),
+    ('tynd', 'ac', 20, 38),
+    ('tynd', 'ac', 21, 40),
+    ('tynd', 'ac', 22, 30),
+    ('tynd', 'ac', 23, 35),
+    ('tynd', 'ac', 24, 27),
+    ('tynd', 'ac', 25, 27),
+    ('tynd', 'ac', 26, 32),
+    ('tynd', 'ac', 27, 44),
+    ('tynd', 'ac', 28, 31),
+    ('tynd', 'ro', 1, 32),
+    ('tynd', 'ro', 2, 29),
+    ('tynd', 'ro', 3, 31),
+    ('tynd', 'ro', 4, 25),
+    ('tynd', 'ro', 5, 21),
+    ('tynd', 'ro', 6, 22),
+    ('tynd', 'ro', 7, 25),
+    ('tynd', 'ro', 8, 39),
+    ('tynd', 'ro', 9, 33),
+    ('tynd', 'ro', 10, 21),
+    ('tynd', 'ro', 11, 36),
+    ('tynd', 'ro', 12, 21),
+    ('tynd', 'ro', 13, 14),
+    ('tynd', 'ro', 14, 23),
+    ('tynd', 'ro', 15, 32),
+    ('tynd', 'ro', 16, 27),
+    ('tynd', '1co', 1, 31),
+    ('tynd', '1co', 2, 16),
+    ('tynd', '1co', 3, 23),
+    ('tynd', '1co', 4, 21),
+    ('tynd', '1co', 5, 13),
+    ('tynd', '1co', 6, 20),
+    ('tynd', '1co', 7, 40),
+    ('tynd', '1co', 8, 13),
+    ('tynd', '1co', 9, 27),
+    ('tynd', '1co', 10, 33),
+    ('tynd', '1co', 11, 34),
+    ('tynd', '1co', 12, 31),
+    ('tynd', '1co', 13, 13),
+    ('tynd', '1co', 14, 40),
+    ('tynd', '1co', 15, 58),
+    ('tynd', '1co', 16, 24),
+    ('tynd', '2co', 1, 23),
+    ('tynd', '2co', 2, 17),
+    ('tynd', '2co', 3, 18),
+    ('tynd', '2co', 4, 18),
+    ('tynd', '2co', 5, 21),
+    ('tynd', '2co', 6, 18),
+    ('tynd', '2co', 7, 16),
+    ('tynd', '2co', 8, 24),
+    ('tynd', '2co', 9, 15),
+    ('tynd', '2co', 10, 18),
+    ('tynd', '2co', 11, 33),
+    ('tynd', '2co', 12, 21),
+    ('tynd', '2co', 13, 13),
+    ('tynd', 'ga', 1, 24),
+    ('tynd', 'ga', 2, 21),
+    ('tynd', 'ga', 3, 29),
+    ('tynd', 'ga', 4, 31),
+    ('tynd', 'ga', 5, 25),
+    ('tynd', 'ga', 6, 18),
+    ('tynd', 'eph', 1, 23),
+    ('tynd', 'eph', 2, 22),
+    ('tynd', 'eph', 3, 21),
+    ('tynd', 'eph', 4, 32),
+    ('tynd', 'eph', 5, 33),
+    ('tynd', 'eph', 6, 24),
+    ('tynd', 'php', 1, 30),
+    ('tynd', 'php', 2, 30),
+    ('tynd', 'php', 3, 21),
+    ('tynd', 'php', 4, 23),
+    ('tynd', 'col', 1, 29),
+    ('tynd', 'col', 2, 23),
+    ('tynd', 'col', 3, 25),
+    ('tynd', 'col', 4, 18),
+    ('tynd', '1th', 1, 10),
+    ('tynd', '1th', 2, 20),
+    ('tynd', '1th', 3, 13),
+    ('tynd', '1th', 4, 17),
+    ('tynd', '1th', 5, 28),
+    ('tynd', '2th', 1, 12),
+    ('tynd', '2th', 2, 16),
+    ('tynd', '2th', 3, 18),
+    ('tynd', '1ti', 1, 20),
+    ('tynd', '1ti', 2, 15),
+    ('tynd', '1ti', 3, 16),
+    ('tynd', '1ti', 4, 16),
+    ('tynd', '1ti', 5, 25),
+    ('tynd', '1ti', 6, 21),
+    ('tynd', '2ti', 1, 18),
+    ('tynd', '2ti', 2, 26),
+    ('tynd', '2ti', 3, 16),
+    ('tynd', '2ti', 4, 22),
+    ('tynd', 'tit', 1, 16),
+    ('tynd', 'tit', 2, 15),
+    ('tynd', 'tit', 3, 15),
+    ('tynd', 'phm', 1, 25),
+    ('tynd', 'heb', 1, 14),
+    ('tynd', 'heb', 2, 18),
+    ('tynd', 'heb', 3, 19),
+    ('tynd', 'heb', 4, 16),
+    ('tynd', 'heb', 5, 14),
+    ('tynd', 'heb', 6, 20),
+    ('tynd', 'heb', 7, 28),
+    ('tynd', 'heb', 8, 13),
+    ('tynd', 'heb', 9, 28),
+    ('tynd', 'heb', 10, 39),
+    ('tynd', 'heb', 11, 39),
+    ('tynd', 'heb', 12, 29),
+    ('tynd', 'heb', 13, 25),
+    ('tynd', 'jas', 1, 27),
+    ('tynd', 'jas', 2, 26),
+    ('tynd', 'jas', 3, 18),
+    ('tynd', 'jas', 4, 17),
+    ('tynd', 'jas', 5, 20),
+    ('tynd', '1pe', 1, 25),
+    ('tynd', '1pe', 2, 25),
+    ('tynd', '1pe', 3, 22),
+    ('tynd', '1pe', 4, 18),
+    ('tynd', '1pe', 5, 14),
+    ('tynd', '2pe', 1, 21),
+    ('tynd', '2pe', 2, 22),
+    ('tynd', '2pe', 3, 18),
+    ('tynd', '1jo', 1, 10),
+    ('tynd', '1jo', 2, 29),
+    ('tynd', '1jo', 3, 24),
+    ('tynd', '1jo', 4, 21),
+    ('tynd', '1jo', 5, 21),
+    ('tynd', '2jo', 1, 13),
+    ('tynd', '3jo', 1, 14),
+    ('tynd', 'jude', 1, 25),
+    ('tynd', 're', 1, 20),
+    ('tynd', 're', 2, 29),
+    ('tynd', 're', 3, 22),
+    ('tynd', 're', 4, 11),
+    ('tynd', 're', 5, 14),
+    ('tynd', 're', 6, 17),
+    ('tynd', 're', 7, 17),
+    ('tynd', 're', 8, 13),
+    ('tynd', 're', 9, 21),
+    ('tynd', 're', 10, 10),
+    ('tynd', 're', 11, 18),
+    ('tynd', 're', 12, 19),
+    ('tynd', 're', 13, 18),
+    ('tynd', 're', 14, 20),
+    ('tynd', 're', 15, 8),
+    ('tynd', 're', 16, 21),
+    ('tynd', 're', 17, 18),
+    ('tynd', 're', 18, 24),
+    ('tynd', 're', 19, 21),
+    ('tynd', 're', 20, 15),
+    ('tynd', 're', 21, 26),
+    ('tynd', 're', 22, 21)
+;
 
 COMMIT;
 
