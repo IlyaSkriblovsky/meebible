@@ -10,6 +10,7 @@ parser.add_argument('lang_code')
 parser.add_argument('trans_code')
 parser.add_argument('-s', '--save-html', help='Save HTMLs to specified folder', metavar='dir')
 parser.add_argument('--no-booknames', help="Don't get booknames from xml", action="store_true")
+parser.add_argument('--add-studynote-css', help="Add studynote CSS rule", action="store_true")
 args = parser.parse_args()
 
 book_name2code = {
@@ -91,7 +92,17 @@ html_dir = None
 if args.save_html:
     if not os.path.exists(args.save_html):
         os.mkdir(args.save_html)
-        html_dir = Path(args.save_html)
+    html_dir = Path(args.save_html)
+
+studynote_css = '''<style>
+  .studynote {
+    background: rgba(192, 192, 192, 0.4);
+    border-radius: 3px;
+    font-style: italic;
+    padding: 0 0.3em;
+  }
+</style>
+'''
 
 db = sqlite3.Connection(f'{args.trans_code}.sqlite')
 c = db.cursor()
@@ -103,6 +114,17 @@ books = []
 chapter_sizes = []
 
 xml = BeautifulSoup(open(args.input_xml_filename).read(), 'xml')
+
+for div in list(xml.find_all('DIV')):
+    if len(div.contents) == 1:
+        child = div.contents[0]
+        if div.contents[0].name == 'NOTE':
+            child.name = 'span'
+            del child['type']
+            child['class'] = ['studynote']
+            div.insert_after(child.extract())
+            div.extract()
+
 for book_no, book in enumerate(xml.find_all('BIBLEBOOK'), 1):
     if not args.no_booknames:
         book_name = book['bname']
@@ -114,6 +136,8 @@ for book_no, book in enumerate(xml.find_all('BIBLEBOOK'), 1):
     for chapter_no, chapter in enumerate(book.find_all('CHAPTER'), 1):
         assert chapter_no == int(chapter['cnumber'])
         lines = []
+        if args.add_studynote_css:
+            lines.append(studynote_css)
         expected_verse_no = 1
         for verse in chapter.find_all('VERS'):
             verse_no = int(verse['vnumber'])
@@ -126,7 +150,7 @@ for book_no, book in enumerate(xml.find_all('BIBLEBOOK'), 1):
                 f'<div class="par">',
                 f'  <div class="verse" verse="{verse_no}">',
                 f'    <div class="verse-label">{verse_no}</div>',
-                f'    {verse.text}',
+                f'    {verse.decode_contents()}',
                 f'  </div>',
                 f'</div>',
             ]
