@@ -1,4 +1,6 @@
 from argparse import ArgumentParser
+import os
+from pathlib import Path
 from bs4 import BeautifulSoup
 import sqlite3
 
@@ -6,49 +8,49 @@ parser = ArgumentParser()
 parser.add_argument('input_xml_filename')
 parser.add_argument('lang_code')
 parser.add_argument('trans_code')
+parser.add_argument('-s', '--save-html', help='Save HTMLs to specified folder', metavar='dir')
 args = parser.parse_args()
-print(args)
 
 book_name2code = {
-    "Genesis":     'ge',
-    "Exodus":      'ex',
-    "Leviticus":   'le',
-    "Numbers":     'nu',
-    "Deuteronomy": 'de',
-# 'jos',
-# 'jg',
-# 'ru',
-# '1sa',
-# '2sa',
-# '1ki',
-# '2ki',
-# '1ch',
-# '2ch',
-# 'ezr',
-# 'ne',
-# 'es',
-# 'job',
-# 'ps',
-# 'pr',
-# 'ec',
-# 'ca',
-# 'isa',
-# 'jer',
-# 'la',
-# 'eze',
-# 'da',
-# 'ho',
-# 'joe',
-# 'am',
-# 'ob',
-    "Jonah": 'jon',
-# 'mic',
-# 'na',
-# 'hab',
-# 'zep',
-# 'hag',
-# 'zec',
-# 'mal',
+    "Genesis":         'ge',
+    "Exodus":          'ex',
+    "Leviticus":       'le',
+    "Numbers":         'nu',
+    "Deuteronomy":     'de',
+    "Joshua":          'jos',
+    "Judges":          'jg',
+    "Ruth":            'ru',
+    "1 Samuel":        '1sa',
+    "2 Samuel":        '2sa',
+    "1 Kings":         '1ki',
+    "2 Kings":         '2ki',
+    "1 Chronicles":    '1ch',
+    "2 Chronicles":    '2ch',
+    "Ezra":            'ezr',
+    "Nehemiah":        'ne',
+    "Esther":          'es',
+    "Job":             'job',
+    "Psalm":           'ps',
+    "Proverbs":        'pr',
+    "Ecclesiastes":    'ec',
+    "Song of Solomon": 'ca',
+    "Isaiah":          'isa',
+    "Jeremiah":        'jer',
+    "Lamentations":    'la',
+    "Ezekiel":         'eze',
+    "Daniel":          'da',
+    "Hosea":           'ho',
+    "Joel":            'joe',
+    "Amos":            'am',
+    "Obadiah":         'ob',
+    "Jonah":           'jon',
+    "Micah":           'mic',
+    "Nahum":           'na',
+    "Habakkuk":        'hab',
+    "Zephaniah":       'zep',
+    "Haggai":          'hag',
+    "Zechariah":       'zec',
+    "Malachi":         'mal',
     "Matthew":         'mt',
     "Mark":            'mr',
     "Luke":            'lu',
@@ -78,6 +80,12 @@ book_name2code = {
     "Revelation":      're',
 }
 
+html_dir = None
+if args.save_html:
+    if not os.path.exists(args.save_html):
+        os.mkdir(args.save_html)
+        html_dir = Path(args.save_html)
+
 db = sqlite3.Connection(f'{args.trans_code}.sqlite')
 c = db.cursor()
 c.execute('DROP TABLE IF EXISTS html')
@@ -106,8 +114,9 @@ for book_no, book in enumerate(xml.find_all('BIBLEBOOK'), 1):
                 f'</div>',
             ]
         html = '\n'.join(lines)
-        # with open(f'out/{book_code}_{chapter_no:03}.html', 'w') as f:
-        #     f.write('\n'.join(lines))
+        if html_dir:
+            with open(html_dir / f'{book_code}_{chapter_no:03}.html', 'w') as f:
+                f.write('\n'.join(lines))
 
         c.execute(
             'INSERT INTO html (langCode, bookCode, chapterNo, html) VALUES (?, ?, ?, ?)',
