@@ -86,7 +86,7 @@ INSERT INTO translations VALUES ('oso', '', 'Biblia del oso 1569', '', '', 0);
 INSERT INTO translations VALUES ('cvb', '', 'Coverdale Bible 1535', '', '', 0);
 INSERT INTO translations VALUES ('gnv', '', 'Geneva Bible 1557', '', '', 0);
 INSERT INTO translations VALUES ('mkjv', '', 'Modern King James Version', '', 'Jay P. Green, 1962', 0);
-INSERT INTO translations VALUES ('rvr09', '', 'Reina Valera 1909', '', '', 0);
+INSERT INTO translations VALUES ('rvr09', '', 'Reina Valera 1909', '', '© Sociedades Bíblicas Unidas', 0);
 
 COMMIT;
 
