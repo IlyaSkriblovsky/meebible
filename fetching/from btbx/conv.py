@@ -104,7 +104,7 @@ for book_no, book in enumerate(xml.find_all('BIBLEBOOK'), 1):
         assert chapter_no == int(chapter['cnumber'])
         lines = []
         for verse_no, verse in enumerate(chapter.find_all('VERS'), 1):
-            assert verse_no == int(verse['vnumber'])
+            assert verse_no == int(verse['vnumber']), f'{book_name} {chapter_no}:{verse_no}'
             lines += [
                 f'<div class="par">',
                 f'  <div class="verse" verse="{verse_no}">',
