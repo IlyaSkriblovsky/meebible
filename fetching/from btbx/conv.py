@@ -9,6 +9,7 @@ parser.add_argument('input_xml_filename')
 parser.add_argument('lang_code')
 parser.add_argument('trans_code')
 parser.add_argument('-s', '--save-html', help='Save HTMLs to specified folder', metavar='dir')
+parser.add_argument('--no-booknames', help="Don't get booknames from xml", action="store_true")
 args = parser.parse_args()
 
 book_name2code = {
@@ -80,6 +81,12 @@ book_name2code = {
     "Revelation":      're',
 }
 
+verse_numbering_exceptions = [
+    ('lxx', 'jer', 25, 34),
+    ('lxx', 'jer', 30, 23),
+    ('lxx', 'jer', 32, 15),
+]
+
 html_dir = None
 if args.save_html:
     if not os.path.exists(args.save_html):
@@ -97,14 +104,24 @@ chapter_sizes = []
 
 xml = BeautifulSoup(open(args.input_xml_filename).read(), 'xml')
 for book_no, book in enumerate(xml.find_all('BIBLEBOOK'), 1):
-    book_name = book['bname']
-    book_code = book_name2code[book_name]
+    if not args.no_booknames:
+        book_name = book['bname']
+        book_code = book_name2code[book_name]
+    else:
+        book_name = f'book{book_no}'
+        book_code = list(book_name2code.values())[book_no-1]
     books.append((book_code, book_no, book_name))
     for chapter_no, chapter in enumerate(book.find_all('CHAPTER'), 1):
         assert chapter_no == int(chapter['cnumber'])
         lines = []
-        for verse_no, verse in enumerate(chapter.find_all('VERS'), 1):
-            assert verse_no == int(verse['vnumber']), f'{book_name} {chapter_no}:{verse_no}'
+        expected_verse_no = 1
+        for verse in chapter.find_all('VERS'):
+            verse_no = int(verse['vnumber'])
+            try:
+                assert verse_no == expected_verse_no, f'{book_name} {chapter_no}:{verse_no} ({expected_verse_no})'
+            except AssertionError:
+                if (args.trans_code, book_code, chapter_no, verse_no) not in verse_numbering_exceptions:
+                    raise
             lines += [
                 f'<div class="par">',
                 f'  <div class="verse" verse="{verse_no}">',
@@ -113,6 +130,7 @@ for book_no, book in enumerate(xml.find_all('BIBLEBOOK'), 1):
                 f'  </div>',
                 f'</div>',
             ]
+            expected_verse_no = verse_no + 1
         html = '\n'.join(lines)
         if html_dir:
             with open(html_dir / f'{book_code}_{chapter_no:03}.html', 'w') as f:
