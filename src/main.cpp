@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty("freeversion", false);
-    engine.rootContext()->setContextProperty("SYMBIAN", true);
+    engine.rootContext()->setContextProperty("SYMBIAN", false);
     engine.rootContext()->setContextProperty("settings", &settings);
     engine.rootContext()->setContextProperty("languages", &languages);
     engine.rootContext()->setContextProperty("bookmarks", &bookmarks);

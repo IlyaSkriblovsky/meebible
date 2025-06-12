@@ -3,8 +3,8 @@ import QtQuick.Window 2.15
 import QtQuick.Controls
 
 ApplicationWindow {
-    width: 640
-    height: 480
+    width: 480
+    height: 640
     visible: true
     title: "MeeBible"
 

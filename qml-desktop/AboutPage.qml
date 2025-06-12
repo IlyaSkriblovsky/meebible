@@ -2,14 +2,8 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
-// import "unicomponents"
-
 Page {
 
-    // Header {
-    //     id: header
-    //     text: qsTr("About MeeBible")
-    // }
     id: aboutPage
 
     header: ToolBar {
@@ -19,12 +13,7 @@ Page {
 
             ToolButton {
                 text: "< Back"
-                onClicked: {
-                    // Assumes you're using a StackView
-                    if (aboutPage.StackView.view) {
-                        aboutPage.StackView.view.pop()
-                    }
-                }
+                onClicked: { aboutPage.StackView.view?.pop() }
             }
 
             Label {
@@ -57,8 +46,6 @@ Page {
                 wrapMode: Text.Wrap
 
                 width: parent.width
-
-                // $$QML_SYMBIAN_THEME
             }
 
 
@@ -73,8 +60,6 @@ Page {
                 wrapMode: Text.Wrap
 
                 onLinkActivated: Qt.openUrlExternally(link)
-
-                // $$QML_SYMBIAN_THEME
             }
 
             Button {
@@ -82,8 +67,6 @@ Page {
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 text: qsTr("Send your feedback")
-
-                height: 60
 
                 Loader {
                     id: feedbackPage
@@ -94,8 +77,6 @@ Page {
                 }
 
                 onClicked: feedbackPage.open()
-
-                // $$QML_SYMBIAN_THEME
             }
 
 //             Button {
@@ -127,8 +108,6 @@ Page {
 
                 width: parent.width
                 wrapMode: Text.Wrap
-
-                // $$QML_SYMBIAN_THEME
             }
 
             Rectangle {
@@ -143,36 +122,32 @@ Page {
                 }
             }
 
-            Label {
-                text: "<html>" +
-                    (freeversion ? qsTr("If you want to support development, please consider buying <a href='http://store.ovi.com/content/215454'>paid version</a>!") : qsTr("Thank you for supporting development!")) +
-                    "</html>"
-                textFormat: Text.RichText
-
-                visible: ! SYMBIAN
-
-                width: parent.width
-
-                color: freeversion ? "#800000" : "#008000"
-
-                wrapMode: Text.Wrap
-
-                onLinkActivated: Qt.openUrlExternally(link)
-
-                // $$QML_SYMBIAN_THEME
-            }
+            // Label {
+            //     text: "<html>" +
+            //         (freeversion ? qsTr("If you want to support development, please consider buying <a href='http://store.ovi.com/content/215454'>paid version</a>!") : qsTr("Thank you for supporting development!")) +
+            //         "</html>"
+            //     textFormat: Text.RichText
+            //
+            //     visible: ! SYMBIAN
+            //
+            //     width: parent.width
+            //
+            //     color: freeversion ? "#800000" : "#008000"
+            //
+            //     wrapMode: Text.Wrap
+            //
+            //     onLinkActivated: Qt.openUrlExternally(link)
+            // }
 
             Label {
                 text: '<html>' +
-                    qsTr('© 2011 Ilya Skriblovsky') + '<br>E-Mail: <a href="mailto:ilya@meebible.org?subject=MeeBible">ilya@meebible.org</a></html>'
+                    qsTr('© 2011—2025 Ilya Skriblovsky') + '<br>E-Mail: <a href="mailto:ilyaskriblovsky@gmail.com?subject=MeeBible">ilyaskriblovsky@gmail.com</a></html>'
                 textFormat: Text.RichText
                 width: parent.width
 
                 onLinkActivated: Qt.openUrlExternally(link)
 
                 wrapMode: Text.Wrap
-
-                // $$QML_SYMBIAN_THEME
             }
 
             Label {
@@ -186,21 +161,15 @@ Page {
                 onLinkActivated: Qt.openUrlExternally(link)
 
                 wrapMode: Text.Wrap
-
-                // $$QML_SYMBIAN_THEME
             }
 
             Label {
-                text: qsTr("Please contact us with any comments or suggestions or if you want to add new Bible or UI translations.")
+                text: qsTr("Please contact me with any comments or suggestions or if you want to add new Bible or UI translations.")
 
                 width: parent.width
 
                 wrapMode: Text.Wrap
-
-                // $$QML_SYMBIAN_THEME
             }
-
-
 
             Rectangle {
                 height: 2
@@ -216,85 +185,24 @@ Page {
 
 
             Label {
-                text: qsTr("Thanks for translating UI to:")
+                text: (
+                    'Thanks for translating UI to:'
+                    + '<ul style="text-indent: 0">'
+                    + '<li>' + qsTr("Finnish") + ': Dan Westerlund</li>'
+                    + '<li>' + qsTr("German") + ': Martin Augustin</li>'
+                    + '<li>' + qsTr("Italian") + ': Paolo Gherpelli</li>'
+                    + '<li>' + qsTr("Polish") + ': Mateusz Kitka</li>'
+                    + '<li>' + qsTr("Portuguese") + ': Paulo Cecilio Jr</li>'
+                    + '<li>' + qsTr("Russian") + ': Ilya Skriblovsky</li>'
+                    + '<li>' + qsTr("Spanish") + ': Rafael Rivas</li>'
+                    + '<li>' + qsTr("Swedish") + ': David Sikström (True Media, <a href="http://www.truemedia.se">www.truemedia.se</a>) and Dan Westerlund</li>'
+                    + '</ul>'
+                )
+                textFormat: Text.RichText
 
                 width: parent.width
+                Layout.preferredWidth: width
                 wrapMode: Text.Wrap
-
-                // $$QML_SYMBIAN_THEME
-            }
-
-            ColumnLayout {
-                // anchors.left: parent.left
-                // anchors.right: parent.right
-                // anchors.leftMargin: 30
-                Layout.leftMargin: 30
-
-                Label {
-                    text: '• ' + qsTr("Finnish") + ': Dan Westerlund'
-
-                    width: parent.width
-                    wrapMode: Text.Wrap
-
-                    // $$QML_SYMBIAN_THEME
-                }
-                Label {
-                    text: '• ' + qsTr("German") + ': Martin Augustin'
-
-                    width: parent.width
-                    wrapMode: Text.Wrap
-
-                    // $$QML_SYMBIAN_THEME
-                }
-                Label {
-                    text: '• ' + qsTr("Italian") + ': Paolo Gherpelli'
-
-                    width: parent.width
-                    wrapMode: Text.Wrap
-
-                    // $$QML_SYMBIAN_THEME
-                }
-                Label {
-                    text: '• ' + qsTr("Polish") + ': Mateusz Kitka'
-
-                    width: parent.width
-                    wrapMode: Text.Wrap
-
-                    // $$QML_SYMBIAN_THEME
-                }
-                Label {
-                    text: '• ' + qsTr("Portuguese") + ': Paulo Cecilio Jr'
-
-                    width: parent.width
-                    wrapMode: Text.Wrap
-
-                    // $$QML_SYMBIAN_THEME
-                }
-                Label {
-                    text: '• ' + qsTr("Russian") + ': Ilya Skriblovsky'
-
-                    width: parent.width
-                    wrapMode: Text.Wrap
-
-                    // $$QML_SYMBIAN_THEME
-                }
-                Label {
-                    text: '• ' + qsTr("Spanish") + ': Rafael Rivas'
-
-                    width: parent.width
-                    wrapMode: Text.Wrap
-
-                    // $$QML_SYMBIAN_THEME
-                }
-                Label {
-                    text: "<html>• " + qsTr("Swedish") + ': David Sikström (True Media, <a href="http://www.truemedia.se">www.truemedia.se</a>) and Dan Westerlund'
-                    textFormat: Text.RichText
-
-                    width: parent.width
-                    wrapMode: Text.Wrap
-
-                    // $$QML_SYMBIAN_THEME
-                }
             }
         }
     }
