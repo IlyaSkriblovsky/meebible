@@ -2,3 +2,4 @@
 /logs
 /www/compile
 **/venv/
+/build/

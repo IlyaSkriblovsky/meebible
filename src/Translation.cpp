@@ -27,11 +27,14 @@ Translation::Translation(
       _sourceUrl(sourceUrl), _copyright(copyright),
       _rtl(rtl), _loading(false)
 {
+}
+
+QHash<int, QByteArray> Translation::roleNames() const {
     QHash<int, QByteArray> roleNames;
     roleNames[Qt::DisplayRole] = "value";
     roleNames[BookCodeRole] = "bookCode";
     roleNames[BookNameRole] = "bookName";
-    setRoleNames(roleNames);
+    return roleNames;
 }
 
 

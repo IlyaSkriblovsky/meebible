@@ -33,6 +33,7 @@ class Languages: public QAbstractListModel
 
         Q_INVOKABLE Language* langByCode(const QString& code);
 
+        virtual QHash<int, QByteArray> roleNames() const;
         virtual int rowCount(const QModelIndex& index = QModelIndex()) const;
         virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
 

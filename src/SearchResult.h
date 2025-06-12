@@ -13,6 +13,8 @@ struct SearchResult
         : place(place), preview(preview), matchCount(matchCount)
     {
     }
+
+    virtual ~SearchResult();
 };
 
 Q_DECLARE_METATYPE(SearchResult);

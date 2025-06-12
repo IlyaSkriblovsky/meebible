@@ -132,7 +132,7 @@ QMap<Chapter, QList<MatchEntry> > Indexer::search(const QString& query, int cuto
     foreach (const Chapter& chapter, byChapter.uniqueKeys())
     {
         QList<TokenMatch> values = byChapter.values(chapter);
-        qSort(values); // sorting by MatchEntry (tokenNo)
+        std::sort(values.begin(), values.end());
 
         bool hasToken[queryTokensN];
         memset(hasToken, 0, sizeof(hasToken));

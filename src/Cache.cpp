@@ -46,11 +46,9 @@ Cache::Cache()
     _storage = 0;
 
 
-    _stripTags = QRegExp("<.*>");
-    _stripTags.setMinimal(true);
-    _stripSpaces = QRegExp("\\s+");
-    _stripStyles = QRegExp("<style>.*</style>");
-    _stripStyles.setMinimal(true);
+    _stripTags = QRegularExpression("<.*>", QRegularExpression::InvertedGreedinessOption);
+    _stripSpaces = QRegularExpression("\\s+");
+    _stripStyles = QRegularExpression("<style>.*</style>", QRegularExpression::InvertedGreedinessOption);
 }
 
 Cache::~Cache()
@@ -394,8 +392,8 @@ void Cache::convertOldCacheDB()
     sqlite3_reset(selectTrans);
     while (sqlite3_step(selectTrans) == SQLITE_ROW)
     {
-        QString langCode = QString::fromUtf16((const ushort*)sqlite3_column_text16(selectTrans, 0));
-        QString transCode = QString::fromUtf16((const ushort*)sqlite3_column_text16(selectTrans, 1));
+        QString langCode = QString((const ushort*)sqlite3_column_text16(selectTrans, 0));
+        QString transCode = QString((const ushort*)sqlite3_column_text16(selectTrans, 1));
 
         openStorage(transCode, langCode);
         _storage->clear();
@@ -410,10 +408,10 @@ void Cache::convertOldCacheDB()
         {
             toStorage.append(QPair<ChapterStorageHeader, QByteArray>(
                 ChapterStorageHeader(
-                    QString::fromUtf16((const ushort*)sqlite3_column_text16(selectChapters, 0)).toUtf8().data(),
+                    QString((const ushort*)sqlite3_column_text16(selectChapters, 0)).toUtf8().data(),
                     sqlite3_column_int(selectChapters, 1)
                 ),
-                QString::fromUtf16((const ushort*)sqlite3_column_text16(selectChapters, 2)).toUtf8()
+                QString((const ushort*)sqlite3_column_text16(selectChapters, 2)).toUtf8()
             ));
         }
         _storage->bulkSave(toStorage);

@@ -29,6 +29,7 @@ public:
     void addTranslation(Translation* translation);
 
 
+    virtual QHash<int, QByteArray> roleNames() const;
     virtual int rowCount(const QModelIndex& index = QModelIndex()) const;
     virtual QVariant data(const QModelIndex& index, int role) const;
 

@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QRegExp>
+#include <QRegularExpression>
 #include <QVariant>
 #include <QSet>
 #include <QPair>
@@ -79,9 +80,9 @@ class Cache: public QObject
         static Cache* _instance;
 
 
-        QRegExp _stripTags;
-        QRegExp _stripSpaces;
-        QRegExp _stripStyles;
+        QRegularExpression _stripTags;
+        QRegularExpression _stripSpaces;
+        QRegularExpression _stripStyles;
 
         Indexer _indexer;
 

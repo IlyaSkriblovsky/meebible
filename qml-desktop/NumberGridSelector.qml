@@ -1,0 +1,50 @@
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.15
+import QtQuick.Window 2.2
+import MeeBible 0.1
+
+GridView {
+    id: grid
+
+    property int selected: 1
+    property int preferredCellWidth: SYMBIAN ? 40 : 50
+    property alias size: grid.model
+    property bool rtl: false
+
+    // height: contentHeight
+    height: cellHeight * Math.ceil(size / (width / cellWidth))
+
+    interactive: false
+
+    cellWidth: grid.width / Math.floor(grid.width / grid.preferredCellWidth)
+    cellHeight: cellWidth
+
+    layoutDirection: rtl ? Qt.RightToLeft : Qt.LeftToRight
+
+
+    delegate: Rectangle {
+        width: grid.cellWidth
+        height: grid.cellHeight
+
+        color: (mouseArea.pressed || index+1 == grid.selected) ? "#444" : "transparent"
+
+        Label {
+            anchors.fill: parent
+
+            text: index + 1
+
+            color: "#fff"
+            font.pixelSize: 24
+
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+        }
+
+        MouseArea {
+            id: mouseArea
+            anchors.fill: parent
+            onClicked: grid.selected = index + 1
+        }
+    }
+}

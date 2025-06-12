@@ -9,11 +9,14 @@
 Language::Language(const QString& code, const QString& engname, const QString& selfname)
     : _code(code), _engname(engname), _selfname(selfname)
 {
+}
+
+QHash<int, QByteArray> Language::roleNames() const {
     QHash<int, QByteArray> roleNames;
     roleNames[Qt::DisplayRole] = "value";
     roleNames[TranslationRole] = "translation";
     roleNames[TranslationNameRole] = "translationName";
-    setRoleNames(roleNames);
+    return roleNames;
 }
 
 

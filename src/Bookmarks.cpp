@@ -22,14 +22,6 @@ Bookmarks::Bookmarks()
     _instance = this;
 
 
-    QHash<int, QByteArray> roleNames;
-    roleNames[Qt::DisplayRole] = "title";
-    roleNames[TextRole] = "subtitle";
-    roleNames[PlaceRole] = "place";
-    roleNames[PlaceTextRole] = "placeText";
-    setRoleNames(roleNames);
-
-
     QSettings settings;
     int size = settings.beginReadArray("Bookmarks");
     for (int i = 0; i < size; i++)
@@ -76,6 +68,16 @@ Bookmarks::~Bookmarks()
     }
     settings.endArray();
 }
+
+QHash<int, QByteArray> Bookmarks::roleNames() const {
+    QHash<int, QByteArray> roleNames;
+    roleNames[Qt::DisplayRole] = "title";
+    roleNames[TextRole] = "subtitle";
+    roleNames[PlaceRole] = "place";
+    roleNames[PlaceTextRole] = "placeText";
+    return roleNames;
+}
+
 
 
 int Bookmarks::rowCount(const QModelIndex& index) const

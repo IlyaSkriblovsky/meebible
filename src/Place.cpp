@@ -34,8 +34,8 @@ void Place::setVerses(const QSet<int>& verses)
 
 QString Place::verseString(bool dash) const
 {
-    QList<int> list = _verses.toList();
-    qSort(list);
+    QList<int> list = _verses.values();
+    std::sort(list.begin(), list.end());
 
     QString verseString = "";
 
@@ -93,7 +93,7 @@ QString Place::toString(const Translation* translation) const
     return QString("%1 %2:%3")
             .arg(translation->bookName(_bookCode))
             .arg(_chapterNo)
-            .arg(verseString());
+            .arg(verseString(true));
 }
 
 QString Place::toStringChapterOnly(const Translation* translation) const
@@ -165,10 +165,10 @@ bool Place::isValid(const Translation* translation) const
 
     if (_chapterNo < 1 || _chapterNo > translation->chaptersInBook(_bookCode)) return false;
 
-    QList<int> list = _verses.toList();
+    QList<int> list = _verses.values();
     if (list.size() > 0)
     {
-        qSort(list);
+        std::sort(list.begin(), list.end());
         if (list[0] < 1) return false;
         if (list[list.size() - 1] > translation->versesInChapter(_bookCode, _chapterNo)) return false;
     }

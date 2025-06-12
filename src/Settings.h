@@ -4,10 +4,8 @@
 #include <QSettings>
 
 #include "Place.h"
-
-class Language;
-class Languages;
-class Translation;
+#include "Language.h"
+#include "Languages.h"
 
 
 class Settings: public QObject

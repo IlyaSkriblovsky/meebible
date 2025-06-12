@@ -1,0 +1,263 @@
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.15
+import QtQuick.Window 2.2
+import MeeBible 0.1
+
+Dialog {
+    id: dialog
+
+    title: qsTr("Select Book")
+    width: 200
+    height: 350
+
+    modal: true
+
+    function run(place) {
+        contentItem.state = "bookSelection"
+        open()
+
+        bookList.currentIndex = settings.translation.bookCodes().indexOf(placeAccesser.bookCode(place))
+        bookList.positionViewAtIndex(bookList.currentIndex, ListView.Center)
+
+        chaptersList.currentIndex = placeAccesser.chapterNo(place) - 1
+        chaptersList.positionViewAtIndex(chaptersList.currentIndex, ListView.Contain)
+    }
+
+    function place() {
+        var bookCode = "xxx"
+        if (bookList.currentIndex !== -1)
+            bookCode = settings.translation.bookCodeAt(bookList.currentIndex)
+
+        if (versesList.currentIndex === 0)
+            return placeAccesser.placeNoVerses(
+                bookCode,
+                chaptersList.currentIndex + 1
+            )
+        else
+            return placeAccesser.placeOneVerse(
+                bookCode,
+                chaptersList.currentIndex + 1,
+                versesList.currentIndex + 1
+            )
+    }
+
+    Item {
+        id: contentItem
+
+        width: parent.width
+        height: dialog.availableHeight - dialog.implicitFooterHeight - dialog.implicitHeaderHeight
+
+        clip: true
+
+        ListView {
+            id: bookList
+
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+
+            width: parent.width
+            height: parent.height
+
+            clip: true
+
+            model: settings.translation
+
+            cacheBuffer: 70
+
+            delegate: SimpleListDelegate {
+                selectable: true
+
+                rtl: settings.translation.rtl
+
+                onClicked: {
+                    contentItem.state = "chapterSelection"
+                }
+            }
+
+            onCurrentIndexChanged: {
+                var bookCode = bookList.model.bookCodeAt(currentIndex)
+
+                chaptersModel.clear()
+
+                if (bookCode !== "")
+                {
+                    var chaptersCount = bookList.model.chaptersInBook(bookCode)
+                    for (var i = 1; i <= chaptersCount; i++)
+                        chaptersModel.append({ value: i })
+                }
+            }
+        }
+
+
+        Item {
+            id: secondPage
+
+            anchors.left: bookList.right
+            width: parent.width
+
+
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+
+
+            Item {
+                id: chapterLabel
+
+                height: 30
+
+                anchors.left: parent.left
+                anchors.right: parent.horizontalCenter
+
+                Label {
+                    id: _chapterLabel
+
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+
+                    text: qsTr("Chapter:")
+                    color: "white"
+                }
+            }
+            Item {
+                id: verseLabel
+
+                height: chapterLabel.height
+
+                anchors.left: parent.horizontalCenter
+                anchors.right: parent.right
+
+                Label {
+                    id: _verseLabel
+
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+
+                    text: qsTr("Verse:")
+                    color: "white"
+                }
+            }
+
+
+            ListView {
+                id: chaptersList
+
+                anchors.left: parent.left
+                anchors.right: parent.horizontalCenter
+                anchors.top: chapterLabel.bottom
+                anchors.bottom: spacer.top
+
+                model: ListModel {
+                    id: chaptersModel
+                }
+
+                clip: true
+                cacheBuffer: 70
+
+                delegate: SimpleListDelegate {
+                    centered: true
+                    selectable: true
+                }
+
+                onCurrentIndexChanged: {
+                    versesModel.clear()
+                    if (currentIndex === -1)
+                        return
+
+                    var versesCount = bookList.model.versesInChapter(
+                        bookList.model.bookCodeAt(bookList.currentIndex),
+                        currentIndex + 1
+                    )
+                    for (var i = 1; i <= versesCount; i++)
+                        versesModel.append({ value: i })
+                }
+            }
+
+            ListView {
+                id: versesList
+
+                anchors.left: parent.horizontalCenter
+                anchors.right: parent.right
+                anchors.top: verseLabel.bottom
+                anchors.bottom: spacer.top
+
+                model: ListModel {
+                    id: versesModel
+                }
+
+                clip: true
+                cacheBuffer: 70
+
+                delegate: SimpleListDelegate {
+                    centered: true
+                    selectable: true
+                }
+            }
+
+
+            Rectangle {
+                id: spacer
+
+                height: 10
+
+                visible: false
+
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.bottom: backButton.top
+            }
+
+
+            Button {
+                id: backButton
+
+                anchors.left: parent.left
+                width: parent.width / 4
+                anchors.bottom: parent.bottom
+
+                text: "←"
+
+                onClicked: contentItem.state = "bookSelection"
+            }
+
+            Button {
+                id: acceptButton
+
+                anchors.left: backButton.right
+                anchors.leftMargin: 20
+                anchors.right: parent.right
+                anchors.bottom: parent.bottom
+
+                text: qsTr("OK")
+
+                onClicked: dialog.accept()
+            }
+        }
+
+
+        state: "bookSelection"
+
+        states: [
+            State {
+                name: "bookSelection"
+
+                AnchorChanges {
+                    target: bookList
+                    anchors.left: contentItem.left
+                }
+            },
+            State {
+                name: "chapterSelection"
+
+                AnchorChanges {
+                    target: bookList
+                    anchors.right: contentItem.left
+                }
+            }
+        ]
+
+        transitions: Transition {
+            AnchorAnimation { duration: 200 }
+        }
+    }
+}

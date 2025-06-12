@@ -16,7 +16,7 @@ int PlaceAccesser::chapterNo(const Place& place)
 
 QList<int> PlaceAccesser::verses(const Place& place)
 {
-    return place.verses().toList();
+    return place.verses().values();
 }
 
 

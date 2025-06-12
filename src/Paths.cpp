@@ -2,8 +2,8 @@
 
 #include <QDebug>
 
-#include <QDesktopServices>
 #include <QCoreApplication>
+#include <QStandardPaths>
 
 
 #include "Settings.h"
@@ -30,23 +30,21 @@ QString Paths::correctSlashes(const QString& path)
 
 void Paths::init()
 {
-    _cacheDir = QDir(QDesktopServices::storageLocation(QDesktopServices::CacheLocation));
+    _cacheDir = QDir(QStandardPaths::writableLocation(QStandardPaths::CacheLocation));
     _cacheDir.mkpath(".");
 
-    #ifdef DEBUGPATHS
-        _shareDir = QDir("share");
-        _qmlDir = QDir("qml");
+    #ifdef DESKTOP
+        _shareDir = QDir(":/");
+        _qmlDir = QDir(":/");
         _translationsDir = QDir("translations");
+    #elif SYMBIAN
+        _shareDir = QDir(QCoreApplication::applicationDirPath() + "/share");
+        _qmlDir = QDir(QCoreApplication::applicationDirPath() + "/qml");
+        _translationsDir = QDir(QCoreApplication::applicationDirPath() + "/translations");
     #else
-        #ifdef SYMBIAN
-            _shareDir = QDir(QCoreApplication::applicationDirPath() + "/share");
-            _qmlDir = QDir(QCoreApplication::applicationDirPath() + "/qml");
-            _translationsDir = QDir(QCoreApplication::applicationDirPath() + "/translations");
-        #else
-            _shareDir = QDir(INSTALLPREFIX"/share");
-            _qmlDir = QDir(INSTALLPREFIX"/qml");
-            _translationsDir = QDir(INSTALLPREFIX"/translations");
-        #endif
+        _shareDir = QDir(INSTALLPREFIX"/share");
+        _qmlDir = QDir(INSTALLPREFIX"/qml");
+        _translationsDir = QDir(INSTALLPREFIX"/translations");
     #endif
 }
 

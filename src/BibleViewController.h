@@ -1,0 +1,213 @@
+#ifndef BIBLEVIEWCONTROLLER_H
+#define BIBLEVIEWCONTROLLER_H
+
+#include <QObject>
+#include <QSet>
+#include <QWebEngineView>
+
+class QNetworkAccessManager;
+
+#include "Place.h"
+#include "Translation.h"
+
+
+class BibleViewController: public QObject
+{
+    Q_OBJECT
+
+    // Q_PROPERTY(int preferredWidth READ preferredWidth WRITE setPreferredWidth)
+
+    Q_PROPERTY(Translation* translation READ translation WRITE setTranslation NOTIFY translationChanged)
+
+    Q_PROPERTY(Place place READ place WRITE setPlace NOTIFY placeChanged)
+
+    Q_PROPERTY(bool searchMode READ searchMode NOTIFY searchModeChanged)
+    Q_PROPERTY(QString searchNeedle READ searchNeedle NOTIFY searchNeedleChanged)
+    Q_PROPERTY(int matchCount READ matchCount NOTIFY matchCountChanged)
+    Q_PROPERTY(int matchIndex READ matchIndex WRITE setMatchIndex NOTIFY matchIndexChanged)
+
+    Q_PROPERTY(QString title READ title NOTIFY titleChanged)
+
+    Q_PROPERTY(int fontSize READ fontSize WRITE setFontSize NOTIFY fontSizeChanged)
+    Q_PROPERTY(float lineSpacing READ lineSpacing WRITE setLineSpacing NOTIFY lineSpacingChanged)
+    Q_PROPERTY(QString fontName READ fontName WRITE setFontName NOTIFY fontNameChanged)
+
+    Q_PROPERTY(bool inverted READ inverted WRITE setInverted)
+
+    Q_PROPERTY(bool loadingChapter READ loadingChapter NOTIFY loadingChapterChanged)
+
+    Q_PROPERTY(QList<int> selectedVerses READ selectedVerses NOTIFY selectedVersesChanged)
+
+    Q_PROPERTY(QString webViewUrl READ webViewUrl NOTIFY webViewUrlChanged)
+    Q_PROPERTY(QObject* webView READ webView WRITE setWebView NOTIFY webViewChanged)
+
+    Q_PROPERTY(QString scriptJS READ scriptJS CONSTANT)
+
+public:
+    explicit BibleViewController(QObject *parent = nullptr);
+    ~BibleViewController();
+
+    QObject* webView() const;
+    void setWebView(QObject* webView);
+
+    QString webViewUrl() const;
+    QString scriptJS() const;
+
+    Q_INVOKABLE void setTranslation(Translation *translation);
+    Translation* translation() const;
+
+    Place place() const;
+    void setPlace(const Place& place);
+
+
+    bool searchMode() const { return _searchMode; }
+
+    QString searchNeedle() const { return _searchNeedle; }
+
+    int matchCount() const { return _matchCount; }
+
+    int matchIndex() const { return _matchIndex; }
+    void setMatchIndex(int index);
+
+    QString title() const;
+
+
+    int fontSize() const { return _fontSize; }
+    void setFontSize(int value);
+    QString fontName() const { return _fontName; }
+    void setFontName(const QString& value);
+    float lineSpacing() const { return _lineSpacing; }
+    void setLineSpacing(float value);
+
+    bool inverted() const { return _inverted; }
+    void setInverted(bool inverted);
+
+    bool loadingChapter() const { return _loadingChapter; }
+
+
+    QList<int> selectedVerses() const;
+
+
+public slots:
+    // void setAndLoad(const QString& bookCode, int chapterNo, int verseNo);
+    // void loadPlace(const Place& place);
+
+    void loadNextChapter();
+    void loadPrevChapter();
+
+    void startSearchMode(const QString& needle);
+    void stopSearchMode();
+
+    bool copySelectedVerses(bool withVerseNumbers);
+    #ifdef MEEGO_SHARE
+        bool shareSelectedVerses(bool withVerseNumbers);
+    #endif
+    bool bookmarkSelectedVerses();
+    void clearSelection();
+
+    // QString selectedText(bool withVerseNumbers);
+
+
+    // Called from JS
+    void verseSelectionChanged(QList<int> verses, QString textWithoutNumbers, QString textWithNumbers);
+
+    void reload();
+
+
+signals:
+    void webViewChanged();
+    void webViewUrlChanged();
+    // void wantToRunJavaScript(QString js);
+
+    void chapterLoaded();
+    void chapterLoadingError();
+    void loadingChapterChanged();
+
+    void translationChanged();
+
+    void placeChanged();
+
+    void needToScroll(int y);
+    void ensureVisible(int y);
+
+    void searchModeChanged();
+    void searchNeedleChanged();
+    void matchCountChanged();
+    void matchIndexChanged();
+
+    void titleChanged();
+
+    void fontSizeChanged();
+    void fontNameChanged();
+    void lineSpacingChanged();
+
+    void selectedVersesChanged();
+
+
+private:
+    QObject* _webView;
+
+    Translation* _translation;
+
+    Place _place;
+
+    QString _css;
+    QString _js;
+    QString _html;
+
+    QNetworkAccessManager* _nam;
+
+
+    int _fontSize;
+    QString _fontName;
+    float _lineSpacing;
+
+    bool _inverted;
+
+
+    // Search matching
+
+    bool _searchMode;
+    QString _searchNeedle;
+    int _matchCount;
+    int _matchIndex;
+
+
+    QString _selectedTextWithoutNumbers;
+    QString _selectedTextWithNumbers;
+
+    bool _loadingChapter;
+
+
+    void setLoadingChapter(bool loading);
+
+
+    void showSelectedVerses(QSet<int> verses);
+
+    void applyFontSize();
+    void applyFontName();
+    void applyLineSpacing();
+    void applyInverted();
+
+
+    void setSelectedVerses(QList<int> verses);
+
+
+private slots:
+    void loadChapter();
+
+    void onChapterRequestFinished(QString html);
+
+    void displayHtml(QString html);
+    void clearDisplay(const QString& error = QString());
+
+    void onJavaScriptWindowObjectCleared();
+    void onLoadFinished(bool ok);
+
+    void onLinkClicked(const QUrl& url);
+
+    void onTranslationLoadingFinished();
+
+};
+
+#endif // BIBLEVIEWCONTROLLER_H

@@ -5,8 +5,7 @@
 #include <QList>
 
 #include "IndexTree.h"
-
-class Translation;
+#include "Translation.h"
 
 class Indexer: public QObject
 {

@@ -20,19 +20,22 @@ Languages::Languages()
     : _loading(false)
 {
     _instance = this;
-
-    QHash<int, QByteArray> roleNames;
-    roleNames[Qt::DisplayRole] = "value";
-    roleNames[CodeRole] = "code";
-    roleNames[EngnameRole] = "engname";
-    roleNames[SelfnameRole] = "selfname";
-    setRoleNames(roleNames);
 }
 
 Languages::~Languages()
 {
     for (int i = 0; i < _languages.size(); i++)
         delete _languages.at(i);
+}
+
+
+QHash<int, QByteArray> Languages::roleNames() const {
+    QHash<int, QByteArray> roleNames;
+    roleNames[Qt::DisplayRole] = "value";
+    roleNames[CodeRole] = "code";
+    roleNames[EngnameRole] = "engname";
+    roleNames[SelfnameRole] = "selfname";
+    return roleNames;
 }
 
 
@@ -107,8 +110,8 @@ void Languages::reload(bool useCache)
     if (useCache  &&  Cache::instance()->hasXML("meta"))
     {
         loadFromXML(Cache::instance()->loadXML("meta"));
-        loadingFinished();
-        loadedChanged();
+        emit loadingFinished();
+        emit loadedChanged();
         return;
     }
 

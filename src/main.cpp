@@ -1,216 +1,65 @@
 #include <QApplication>
-#include <QDebug>
-#include <QtDeclarative>
-#include <QtGlobal>
+#include <QGuiApplication>
+#include <QQmlApplicationEngine>
+#include <QQmlContext>
 
-#ifndef SYMBIAN
-    #include <MDeclarativeCache>
-#endif
-
-#include <QTranslator>
-#include <QLocale>
+#include <QQuickImageProvider>
+#include <QStyle>
 
 #include "Paths.h"
 #include "Cache.h"
 #include "Languages.h"
-#include "Language.h"
-#include "Translation.h"
-#include "BibleView.h"
-#include "Fetcher2.h"
 #include "Settings.h"
 #include "MetaInfoLoader.h"
-#include "Feedback.h"
-#include "Bookmarks.h"
+#include "BibleViewController.h"
 #include "Place.h"
 #include "PlaceAccesser.h"
-#include "StartupTracker.h"
-#include "SearchResultAccesser.h"
-#include "MediakeyCaptureItem.h"
-#include "CacheInfo.h"
-
-#ifdef SYMBIAN
-    #include "MessageHelper.h"
-#endif
-
-#ifdef IAPDONATION
-    #include "IAPDonation.h"
-#endif
+#include "Bookmarks.h"
 
 
-#ifdef SYMBIAN
-    #include <cstdio>
-    void symbianMessageOutput(QtMsgType type, const char *msg)
-    {
-        FILE *f = fopen("c:\\meebible.log", "a");
-        switch (type)
-        {
-            case QtDebugMsg:    fprintf(f, "debug> %s\n", msg); break;
-            case QtWarningMsg:  fprintf(f, "warn > %s\n", msg); break;
-            case QtCriticalMsg: fprintf(f, "crit > %s\n", msg); break;
-            case QtFatalMsg:    fprintf(f, "fatal> %s\n", msg); abort(); break;
-        }
-        fclose(f);
-    }
-#endif
-
-
-
-
-class CacheConvertThread: public QThread
+int main(int argc, char *argv[])
 {
-    public:
-        CacheConvertThread(Cache* cache): _cache(cache) { }
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+#endif
+    QApplication app(argc, argv);
 
-    protected:
-        virtual void run()
-        {
-            _cache->convertOldCacheDB();
-        }
-
-    private:
-        Cache* _cache;
-};
-
-
-
-
-Q_DECL_EXPORT int main(int argc, char *argv[])
-{
-    #ifdef SYMBIAN
-        #ifdef DEBUG
-            qInstallMsgHandler(symbianMessageOutput);
-        #endif
-    #endif
-
-    #ifndef SYMBIAN
-        QApplication *app = MDeclarativeCache::qApplication(argc, argv);
-    #else
-        QApplication *app = new QApplication(argc, argv);
-    #endif
-    app->setOrganizationName("MeeBible");
-    app->setApplicationName("MeeBible");
+    app.setOrganizationName("MeeBible");
+    app.setOrganizationDomain("meebible.org");
+    app.setApplicationName("MeeBible");
 
     Paths::init();
 
     Cache cache;
     MetaInfoLoader metaInfoLoader;
-
     Languages languages;
-
     Settings settings(&languages);
-
-    QTranslator translator;
-    QString localeName = settings.uiLanguage();
-    if (localeName.isEmpty())
-        localeName = QLocale::system().name();
-    translator.load(QString("meebible_") + localeName, Paths::translationsDir());
-    app->installTranslator(&translator);
-
-    Feedback feedback;
-
     Bookmarks bookmarks;
 
-    PlaceAccesser placeAccesser;
-    SearchResultAccesser searchResultAccesser;
-
-    CacheInfo cacheInfo;
-
-    #ifdef SYMBIAN
-        MessageHelper messageHelper;
-    #endif
-
-    QDeclarativeEngine engine;
-
-
-    qmlRegisterType<Language>();
-    qmlRegisterUncreatableType<Translation>("MeeBible", 0, 1, "Translation", "Translation is abstract");
-    qmlRegisterType<BibleView>("MeeBible", 0, 1, "BibleView");
-    qmlRegisterType<Fetcher2>("MeeBible", 0, 1, "Fetcher");
-
+    qmlRegisterType<BibleViewController>("MeeBible", 0, 1, "BibleViewController");
     qRegisterMetaType<Place>();
 
+    QQmlApplicationEngine engine;
+    engine.rootContext()->setContextProperty("freeversion", false);
+    engine.rootContext()->setContextProperty("SYMBIAN", true);
+    engine.rootContext()->setContextProperty("settings", &settings);
+    engine.rootContext()->setContextProperty("languages", &languages);
+    engine.rootContext()->setContextProperty("bookmarks", &bookmarks);
 
-    qmlRegisterType<MediakeyCaptureItem>("MeeBible", 0, 1, "MediakeyCapture");
+    PlaceAccesser placeAccesser;
+    engine.rootContext()->setContextProperty("placeAccesser", &placeAccesser);
 
+    const QUrl url(QStringLiteral("qrc:/main.qml"));
+    QObject::connect(
+        &engine,
+        &QQmlApplicationEngine::objectCreated,
+        &app,
+        [url](QObject *obj, const QUrl &objUrl) {
+            if (!obj && url == objUrl)
+                QCoreApplication::exit(-1);
+        },
+        Qt::QueuedConnection);
+    engine.load(url);
 
-    #ifndef SYMBIAN
-        QDeclarativeView* view = MDeclarativeCache::qDeclarativeView();
-    #else
-        QDeclarativeView* view = new QDeclarativeView();
-    #endif
-    view->setAttribute(Qt::WA_NoSystemBackground);
-
-
-    view->rootContext()->setContextProperty("languages", &languages);
-    view->rootContext()->setContextProperty("cache", &cache);
-    view->rootContext()->setContextProperty("metaInfoLoader", &metaInfoLoader);
-    view->rootContext()->setContextProperty("settings", &settings);
-    view->rootContext()->setContextProperty("feedback", &feedback);
-    view->rootContext()->setContextProperty("bookmarks", &bookmarks);
-    view->rootContext()->setContextProperty("placeAccesser", &placeAccesser);
-    view->rootContext()->setContextProperty("searchResultAccesser", &searchResultAccesser);
-    view->rootContext()->setContextProperty("cacheInfo", &cacheInfo);
-    #ifdef SYMBIAN
-        view->rootContext()->setContextProperty("messageHelper", &messageHelper);
-    #endif
-
-    #ifdef FREEVERSION
-        view->rootContext()->setContextProperty("freeversion", QVariant(true));
-    #else
-        view->rootContext()->setContextProperty("freeversion", QVariant(false));
-    #endif
-
-
-    #ifdef SYMBIAN
-        qDebug() << "Symbian";
-        view->rootContext()->setContextProperty("SYMBIAN", QVariant(true));
-    #else
-        view->rootContext()->setContextProperty("SYMBIAN", QVariant(false));
-    #endif
-
-
-
-    #ifdef IAPDONATION
-        // IAPDonation iapDonation;
-        qDebug() << "With IAP Donation";
-        qmlRegisterType<IAPDonation>("MeeBible", 0, 1, "IAPDonation");
-        view->rootContext()->setContextProperty("IAPDONATION", QVariant(true));
-    #else
-        view->rootContext()->setContextProperty("IAPDONATION", QVariant(false));
-    #endif
-
-
-
-    QDeclarativeView* convertDialog = 0;
-    if (cache.oldStorageFound())
-    {
-        convertDialog = new QDeclarativeView();
-        convertDialog->setAttribute(Qt::WA_NoSystemBackground);
-        convertDialog->setSource(QUrl::fromLocalFile(Paths::qmlConvertDialog()));
-        convertDialog->showFullScreen();
-
-        QEventLoop* eventLoop = new QEventLoop;
-        CacheConvertThread* thread = new CacheConvertThread(&cache);
-        QObject::connect(thread, SIGNAL(finished()), eventLoop, SLOT(quit()));
-        thread->start();
-        eventLoop->exec();
-        thread->wait();
-        delete thread;
-        delete eventLoop;
-    }
-
-    view->setSource(QUrl::fromLocalFile(Paths::qmlMain()));
-
-    view->showFullScreen();
-
-    delete convertDialog;
-
-
-
-    StartupTracker startupTracker;
-    startupTracker.sendStartupInfo();
-
-
-
-    return app->exec();
+    return QApplication::exec();
 }
