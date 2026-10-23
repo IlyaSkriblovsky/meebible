@@ -12,6 +12,11 @@ MeeBible supports **85** Bible translations in **53** languages.
 
 Full-text unicode-aware search is supported. You can find Bible places by phrase or character's name.
 
+## Backend maintenance
+
+- [Python migration plan and progress](docs/python-migration-plan.md)
+- [Python backend guide](docs/python-backend.md) (planned; implementation has not started)
+
 ## Support
 
 Please send your questions and comments at ilyaskriblovsky@gmail.com
