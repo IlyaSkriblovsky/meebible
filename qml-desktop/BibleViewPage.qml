@@ -42,6 +42,14 @@ Page {
             }
 
             Button {
+                text: 'Settings'
+                onClicked: {
+                    const page = stack.push('qrc:/SettingsPage.qml');
+                    // page.onBookmarkSelected.connect((place) => { bibleViewController.place = place })
+                }
+            }
+
+            Button {
                 text: 'About'
                 onClicked: stack.push('qrc:/AboutPage.qml')
             }

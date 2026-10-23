@@ -1,0 +1,355 @@
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.15
+
+Page {
+    id: settingsPage
+
+    property bool __created: false
+
+    Header {
+        id: header
+        text: qsTr("Settings")
+    }
+
+    Flickable {
+        id: flickable
+
+        clip: true
+
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: header.bottom
+        anchors.bottom: parent.bottom
+
+        flickableDirection: Flickable.VerticalFlick
+
+        contentWidth: column.width
+        contentHeight: column.height
+
+        Column {
+            id: column
+
+            width: settingsPage.width
+
+            TumblerItem {
+                titleText: qsTr("Language")
+                valueText: settings.language ? settings.language.selfname : qsTr('<not loaded yet>')
+
+                onClicked: languageDialog.open()
+            }
+
+            TumblerItem {
+                titleText: qsTr("Translation")
+                valueText: settings.translation ? settings.translation.name : qsTr('<not loaded yet>')
+
+                onClicked: transDialog.open()
+            }
+
+            Rectangle {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.margins: 10
+
+                height: childrenRect.height + 20
+
+                radius: 5
+
+                color: 'transparent'
+
+                border.color: '#888'
+                border.width: 1
+
+                Column {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.margins: 20
+
+                    y: 10
+
+                    Label {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+
+                        wrapMode: Text.Wrap
+
+
+                        textFormat: Text.RichText
+                        text: settings.translation ?
+                        '<html><style>a{color:' + (settings.inverted ? '#8080ff' : '#0000ff') + '}</style>' +
+                        qsTr('Available at') + ' <a href="' + settings.translation.sourceUrl + '">' + settings.translation.sourceUrl + '</a>' +
+                            '</html>' : ''
+                        font.pixelSize: 20
+
+                        onLinkActivated: Qt.openUrlExternally(settings.translation.sourceUrl)
+                    }
+                    Label {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+
+                        wrapMode: Text.Wrap
+
+                        text: settings.translation ? settings.translation.copyright : ''
+                        visible: settings.translation != null  &&  settings.translation.copyright != ''
+                        font.pixelSize: 20
+                    }
+                }
+            }
+
+            Item {
+                width: 1
+                height: 20
+            }
+
+
+            TumblerItem {
+                titleText: qsTr("Interface language")
+                valueText: {
+                    switch (settings.uiLanguage)
+                    {
+                        case '': return qsTr("System language")
+                        case 'en': return qsTr("English")
+                        case 'fi': return qsTr("Finnish")
+                        case 'de': return qsTr("German")
+                        case 'it': return qsTr("Italian")
+                        case 'pl': return qsTr("Polish")
+                        case 'pt': return qsTr("Portuguese")
+                        case 'ru': return qsTr("Russian")
+                        case 'es': return qsTr("Spanish")
+                        case 'sv': return qsTr("Swedish")
+                        default: return settings.uiLanguage
+                    }
+                }
+
+                onClicked: uiLanguageDialog.open()
+            }
+
+
+            TumblerItem {
+                titleText: qsTr("Font")
+                valueText: settings.fontName
+
+                onClicked: fontDialog.open()
+            }
+
+            LabeledSwitch {
+                text: qsTr("Scroll header with the text")
+
+                checked: settings.floatingHeader
+                onCheckedChanged: settings.floatingHeader = checked
+            }
+
+            LabeledSwitch {
+                text: qsTr("Fullscreen")
+
+                checked: ! window.showStatusBar
+                onCheckedChanged: window.showStatusBar = ! checked
+            }
+
+            LabeledSwitch {
+                text: qsTr("Inverted theme")
+
+                checked: settings.inverted
+                onCheckedChanged: settings.inverted = checked
+            }
+
+            LabeledSwitch {
+                text: qsTr("Grid-like book selection")
+
+                checked: settings.gridPlaceSelector
+                onCheckedChanged: settings.gridPlaceSelector = checked
+            }
+
+            LabeledSwitch {
+                text: qsTr("Copy verses with numbers")
+
+                checked: settings.copyVerseNumbers
+                onCheckedChanged: settings.copyVerseNumbers = checked
+            }
+
+
+            Button {
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                text: qsTr("Manage cache")
+
+                onClicked: cacheInfoPage.open()
+            }
+
+
+            ButtonWithHelp {
+                buttonText: qsTr("Update translation list")
+                helpTitle: qsTr("Reload languages")
+                helpMessage: qsTr("When new translation is published on MeeBible's server, use this button to update translation list")
+
+                onClicked: languages.reload(false)
+            }
+
+
+            // ButtonWithHelp {
+            //     buttonText: qsTr("Clear cache")
+            //     helpTitle: qsTr("Cache clearing")
+            //     helpMessage: qsTr("This will delete all downloaded Bible chapters from your phone")
+
+            //     onClicked: clearCacheConfirmation.open()
+            // }
+        }
+    }
+
+
+    Loader {
+        id: languageDialog
+
+
+        function load() { source = "LanguageDialog.qml" }
+
+        function open() { load(); item.open() }
+
+        Connections {
+            target: languageDialog.item
+            onAccepted: {
+                settings.language = languageDialog.item.language()
+
+                if (settings.language.translationsCount() > 1)
+                    transDialog.open()
+            }
+        }
+    }
+
+    Loader {
+        id: transDialog
+
+        function load() { source = "TranslationDialog.qml" }
+
+        function open() { load(); item.open() }
+
+        Connections {
+            target: transDialog.item
+            onAccepted: settings.translation = transDialog.item.translation()
+        }
+    }
+
+
+    ModelSelectionDialog {
+        id: fontDialog
+
+        titleText: qsTr("Select Font")
+
+        header: Label {
+            text: qsTr("Not all fonts can display all languages")
+            color: "#666"
+
+            wrapMode: Text.Wrap
+
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.leftMargin: 10
+        }
+
+        model: SYMBIAN ? symbianFonts : meegoFonts
+
+        ListModel {
+            id: meegoFonts
+
+            ListElement { value: "Nokia Pure Text Light" }
+            ListElement { value: "Nokia Pure" }
+            ListElement { value: "Nokia Standard" }
+            ListElement { value: "DejaVu Sans" }
+            ListElement { value: "Times" }
+            ListElement { value: "Georgia" }
+            ListElement { value: "Trebuchet" }
+        }
+
+        ListModel {
+            id: symbianFonts
+
+            ListElement { value: "Nokia Sans" }
+            ListElement { value: "Arial" }
+            ListElement { value: "Georgia" }
+            ListElement { value: "Times New Roman" }
+            ListElement { value: "Verdana" }
+        }
+
+        onAccepted: {
+            settings.fontName = fontDialog.model.get(selectedIndex).value
+        }
+    }
+
+
+    ModelSelectionDialog {
+        id: uiLanguageDialog
+
+        titleText: qsTr("Interface language")
+
+        model: ListModel {
+            ListElement { code: "";   value: "System language" }
+            ListElement { code: "en"; value: "English" }
+            ListElement { code: "fi"; value: "Finnish" }
+            ListElement { code: "de"; value: "German" }
+            ListElement { code: "it"; value: "Italian" }
+            ListElement { code: "pl"; value: "Polish" }
+            ListElement { code: "pt"; value: "Portuguese" }
+            ListElement { code: "ru"; value: "Russian" }
+            ListElement { code: "es"; value: "Spanish" }
+            ListElement { code: "sv"; value: "Swedish" }
+        }
+
+        onAccepted: {
+            var newlang = uiLanguageDialog.model.get(selectedIndex).code
+            if (settings.uiLanguage != newlang)
+            {
+                settings.uiLanguage = newlang
+                restartAppNotice.open()
+            }
+        }
+    }
+
+
+    QueryDialog {
+        id: restartAppNotice
+
+        titleText: qsTr("Restart needed")
+        message: qsTr("Please restart MeeBible to apply this setting")
+
+        // acceptButtonText: qsTr("OK")
+    }
+
+
+    QueryDialog {
+        id: clearCacheConfirmation
+
+        titleText: qsTr("Do you want to clear the cache?")
+
+        message: qsTr("This will delete all downloaded Bible chapters from your phone") + (SYMBIAN ? "\n" : "")
+
+        // acceptButtonText: qsTr("Clear")
+        // rejectButtonText: qsTr("Cancel")
+
+        onAccepted: {
+            cache.clearCache()
+            settings.translation.reload(false)
+            bibleView.reload()
+        }
+    }
+
+
+    Loader {
+        id: cacheInfoPage
+
+        function load() { source = "CacheInfoPage.qml" }
+
+        function open() {
+            load()
+            item.update()
+            pageStack.push(item)
+        }
+    }
+
+
+    // tools: ToolBarLayout {
+    //     UniToolIcon {
+    //         platformIconId: "toolbar-back"
+    //         onClicked: pageStack.pop()
+    //     }
+    // }
+}

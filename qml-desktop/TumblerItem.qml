@@ -1,0 +1,64 @@
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.15
+
+
+Item {
+    id: item
+
+    property alias titleText: title.text
+    property alias valueText: value.text
+
+    signal clicked()
+
+    anchors.left: parent.left
+    anchors.right: parent.right
+
+    height: 90
+
+    Rectangle {
+        anchors.fill: parent
+        color: settings.inverted ? "#444" : "#ccc"
+        visible: mouseArea.pressed
+    }
+
+    Label {
+        id: title
+
+        anchors.left: parent.left
+        anchors.top: parent.top
+        anchors.margins: 10
+
+        font.pixelSize: 26
+        font.bold: true
+        color: mouseArea.pressed ? "#797979" : (settings.inverted ? "#ffffff" : "#282828")
+    }
+
+    Label {
+        id: value
+
+        anchors.left: parent.left
+        anchors.leftMargin: 10
+
+        anchors.top: title.bottom
+
+        font.family: "Nokia Pure Text Light"
+        color: mouseArea.pressed ? "#797979" : (settings.inverted ? "#c8c8c8" : "#505050")
+    }
+
+    Image {
+        anchors.right: parent.right
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.rightMargin: 10
+
+        source: settings.inverted ? "tumbler-indicator-inverted.png" : "tumbler-indicator.png"
+    }
+
+    MouseArea {
+        id: mouseArea
+
+        anchors.fill: parent
+
+        onClicked: item.clicked()
+    }
+}

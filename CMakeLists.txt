@@ -59,6 +59,20 @@ qt_add_resources(meebible "qml"
         qml-desktop/verse-actions-close-symbian.png
         qml-desktop/BookmarksPage.qml
         qml-desktop/SubtitledListDelegate.qml
+        qml-desktop/SettingsPage.qml
+        qml-desktop/QueryDialog.qml
+        qml-desktop/LabeledSwitch.qml
+        qml-desktop/TumblerItem.qml
+        qml-desktop/ModelSelectionDialog.qml
+        qml-desktop/ButtonWithHelp.qml
+        qml-desktop/HelpButton.qml
+        qml-desktop/UniDialog.qml
+        qml-desktop/tumbler-indicator.png
+        qml-desktop/tumbler-indicator-inverted.png
+        qml-desktop/help-button.png
+        qml-desktop/help-button-inverted.png
+        qml-desktop/icon-m-common-dialog-close.png
+        qml-desktop/LanguageDialog.qml
 )
 
 target_link_libraries(meebible
