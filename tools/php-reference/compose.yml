@@ -1,0 +1,78 @@
+name: meebible-php56-reference
+
+x-isolation: &isolation
+  platform: linux/amd64
+  read_only: true
+  cap_drop: [ALL]
+  security_opt: [no-new-privileges:true]
+  pids_limit: 64
+  mem_limit: 256m
+  cpus: 1.0
+  restart: "no"
+  logging:
+    driver: json-file
+    options:
+      max-size: 5m
+      max-file: "2"
+
+services:
+  php:
+    <<: *isolation
+    networks: [reference]
+    # Official php:5.6-fpm (5.6.40); pin the index and select amd64.
+    image: php@sha256:4f070f1b7b93cc5ab364839b79a5b26f38d5f89461f7bc0cd4bab4a3ad7d67d7
+    user: "33:33"
+    working_dir: /www
+    command: [php-fpm, -F, -y, /reference/fpm.conf]
+    volumes:
+      - type: bind
+        source: ./.local/snapshot/www
+        target: /www
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ./fpm.conf
+        target: /reference/fpm.conf
+        read_only: true
+      - type: bind
+        source: ./php.ini
+        target: /usr/local/etc/php/conf.d/zz-reference.ini
+        read_only: true
+    tmpfs:
+      - /data:uid=33,gid=33,mode=0700,size=32m,noexec,nosuid,nodev
+      - /www/compile:uid=33,gid=33,mode=0700,size=16m,noexec,nosuid,nodev
+      - /www/cache:uid=33,gid=33,mode=0700,size=16m,noexec,nosuid,nodev
+      - /tmp:uid=33,gid=33,mode=0700,size=16m,noexec,nosuid,nodev
+
+  nginx:
+    <<: *isolation
+    # Docker 29 does not publish ports on an internal-only network.
+    # Only nginx joins this extra bridge; PHP has no external route.
+    networks: [reference, loopback]
+    # Match the repository's nginx version, without its public proxy setup.
+    image: nginx@sha256:9ff236ed47fe39cf1f0acf349d0e5137f8b8a6fd0b46e5117a401010e56222e1
+    user: "101:101"
+    entrypoint: [nginx]
+    command: [-g, "daemon off;"]
+    depends_on: [php]
+    ports:
+      - "127.0.0.1:10056:8080"
+    volumes:
+      - type: bind
+        source: ./.local/snapshot/www
+        target: /www
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ./nginx.conf
+        target: /etc/nginx/nginx.conf
+        read_only: true
+    tmpfs:
+      - /tmp:uid=101,gid=101,mode=0700,size=32m,noexec,nosuid,nodev
+
+networks:
+  reference:
+    internal: true
+  loopback:

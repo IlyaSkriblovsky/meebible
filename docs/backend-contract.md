@@ -2,7 +2,7 @@
 
 Last updated: 2026-10-24.
 
-This is the source-based contract for the Python migration. It describes what the current PHP code does, what the Qt client expects, and which errors we intend to fix. It is not a record of captured HTTP responses. The old server has not been started and production has not been queried for this step.
+This is the source-based contract for the Python migration. It describes what the current PHP code does, what the Qt client expects, and which errors we intend to fix. The isolated old server now passes a small setup check; see the [PHP reference guide](php-reference.md). Full reference response capture and production comparison have not started.
 
 See the [migration plan](python-migration-plan.md) for scope and progress and the [backend guide](python-backend.md) for setup and operation.
 
@@ -17,6 +17,7 @@ The review covers the PHP routes and handlers, response classes, website templat
 | [`www/views/`](../www/views/), [`www/loadchapter.inc.php`](../www/loadchapter.inc.php) | Parameters, queries, responses, errors, and writes |
 | [`www/templates/`](../www/templates/), [`www/static/`](../www/static/) | Public pages, links, forms, and files |
 | [`nginx.conf`](../nginx.conf), [`proxy.conf`](../proxy.conf), [`docker-compose.yml`](../docker-compose.yml) | FastCGI, static files, compression, and proxy settings in the repository |
+| [`tools/php-reference/`](../tools/php-reference/compose.yml) | Tested local PHP environment; image identities and results are in [verification.md](../tools/php-reference/verification.md) |
 | [`src/Paths.cpp`](../src/Paths.cpp), [`src/Settings.cpp`](../src/Settings.cpp) | Service URL and client defaults |
 | [`src/Languages.cpp`](../src/Languages.cpp), [`src/MetaInfoParser.cpp`](../src/MetaInfoParser.cpp) | Metadata requests, parsing, and caching |
 | [`src/Translation.cpp`](../src/Translation.cpp), [`src/TranslationInfoParser.cpp`](../src/TranslationInfoParser.cpp) | Book/chapter metadata and chapter requests |
@@ -26,11 +27,13 @@ The review covers the PHP routes and handlers, response classes, website templat
 | [`src/Feedback.cpp`](../src/Feedback.cpp), [`qml/FeedbackPage.qml.in`](../qml/FeedbackPage.qml.in) | Feedback form and success handling |
 | [`src/Place.cpp`](../src/Place.cpp), [`src/Place.h`](../src/Place.h) | Shared verse URLs |
 
-Statements about PHP code below are source findings. Actual PHP defaults, emitted headers, body bytes, database error behavior, and production proxy settings still need runtime checks. Examples show structure; they are not saved reference responses.
+Statements about PHP code below are source findings unless a local runtime check is named. Step 3 checked startup, sample reads/writes, and isolation. Detailed error cases, full response capture, and production proxy settings still need checks. Examples show structure; they are not saved reference responses.
 
 ### Confirmed environment
 
-- The owner confirmed PHP **5.6.40** from the official **`php:5.6-fpm`** Docker image. Use this version for the local reference server. Record the resolved image digest and architecture when setting it up; the tag alone does not identify the exact image.
+- The owner confirmed PHP **5.6.40** from the official **`php:5.6-fpm`** Docker image. The local reference uses this version. The tag alone does not identify the exact image; use the recorded digest and architecture.
+- The local reference now pins this image by digest and runs linux/amd64 with nginx 1.25.4. SQLite3, DOM, and mbstring are present. PHP runs in `/www`; SQLite is 3.8.10.2 and libxml is 2.9.4. Exact identities and settings are recorded in [verification.md](../tools/php-reference/verification.md).
+- The reference sets `date.timezone=UTC` explicitly because an unset timezone produced warnings during cold Smarty compilation and broke response headers. Other image defaults remain, including UTF-8, displayed errors, no output buffering, `variables_order=EGPCS`, and an unset `request_order`. These are known local settings, not confirmed production settings.
 - No local Qt runtime is available. Installing a current Qt version would not establish the behavior of the old clients. Use versioned historical source code for Qt-specific questions and save source-based fixtures in the test suite later.
 - The exact Qt patch version used by each shipped client is not recorded here. The form encoding paths in upstream 4.7.4 and 4.8.0 were reviewed and agree. This is source evidence, not a test on a phone or proof about every vendor patch.
 - `http://meebible.org/` is available for safe read-only observations as well as the later comparison with local reference responses. Keep production responses separate from local reference captures. Do not use public POST requests or malformed inputs to investigate form handling.
@@ -82,6 +85,8 @@ Methods in this table are the methods used by the client or browser. Old PHP doe
 | Passage redirect | `text/plain` | `HTTP/1.1 301 Moved Permanently\n{location}` |
 
 PHP can add a default charset to text types. Exact XML declaration, escaping, whitespace, charset headers, warnings, and wire bytes must be captured on PHP 5.6. Do not assume that the source Content-Type string is the full wire header.
+
+The step 3 local smoke check observed `application/xml` for metadata, `text/html;charset=UTF-8` for successful chapter/template responses, and `text/plain;charset=UTF-8` for the normal chapter error and POST success. Sample chapter bytes matched SQLite text exactly, including `nwt` and RTL content. The XML declaration was `<?xml version="1.0"?>` followed by a newline. The gzip metadata body decoded to the same bytes as identity. These observations cover only the setup sample; full wire fixtures remain in step 4.
 
 The application does not set cache headers, ETags, cookies, or CORS headers. Static responses and infrastructure may add their own headers. The repository enables gzip, `gzip_vary`, and `gzip_static`, with minimum length 1000, level 5, and XML/text/CSS/JavaScript types. Text/html is also subject to nginx gzip handling. The separate proxy file contains similar settings and a 300-second read timeout; its use in production is not confirmed. MIME mappings and other nginx/PHP defaults are outside these files.
 
@@ -211,7 +216,7 @@ Source-based examples for a value passed to `addQueryItem`:
 | CR followed by LF | `%0D%0A` |
 | `é` | `%C3%A9` |
 
-For example, the value `user+tag@example.org` produces `email=user+tag@example.org`. PHP 5.6.40's [POST parser](https://github.com/php/php-src/blob/php-5.6.40/main/php_variables.c#L280) calls [php_url_decode](https://github.com/php/php-src/blob/php-5.6.40/ext/standard/url.c#L534), which converts a raw `+` to a space. The source path therefore predicts that this address is stored as `user tag@example.org`. A percent-encoded `%2B`, if sent by another client, decodes to a literal plus instead.
+For example, the value `user+tag@example.org` produces `email=user+tag@example.org`. PHP 5.6.40's [POST parser](https://github.com/php/php-src/blob/php-5.6.40/main/php_variables.c#L280) calls [php_url_decode](https://github.com/php/php-src/blob/php-5.6.40/ext/standard/url.c#L534), which converts a raw `+` to a space. The source path predicts that this address is stored as `user tag@example.org`; the step 3 local feedback check confirmed it in the temporary database. A percent-encoded `%2B`, if sent by another client, decodes to a literal plus instead.
 
 This is an existing data-loss bug. A standard Python form parser would keep that bug. Preserving raw plus signs on the two legacy POST endpoints is a possible fix, but it changes how ordinary HTML forms using `+` for spaces are read. There is no reliable way to infer both meanings from the same body. Decide the Python rule explicitly, then test raw Qt-style bytes and the old PHP result locally. Do not use a heuristic based on whether a body contains `%20`.
 
@@ -353,7 +358,7 @@ The changes below are part of the port, not changes to existing PHP in this step
 
 ## Reference and test checklist
 
-This list defines test coverage for later steps. No HTTP test run has been performed yet.
+This list defines full test coverage for later steps. The step 3 setup check covers a small sample; it does not complete this checklist.
 
 | Group | Required checks |
 | --- | --- |
@@ -371,7 +376,7 @@ This list defines test coverage for later steps. No HTTP test run has been perfo
 
 ## Questions for the reference server and production comparison
 
-1. PHP 5.6.40 from official `php:5.6-fpm` is confirmed. Which image digest, architecture, extensions, working directory, charset, error display, and request-order settings reproduce the deployed app? SQLite3 and DOM are required. Old Smarty is loaded for every application route.
+1. The local PHP image, digest, architecture, extensions, working directory, and settings are now recorded. Which production settings differ, especially timezone, displayed errors, and request ordering? Old Smarty is loaded for every application route. Keep the explicit local UTC setting visible in comparisons.
 2. What are the exact headers and body bytes for success, XML errors, chapter errors, passage redirects, and 404? Does any warning or extra output affect the body or length?
 3. Historical Qt 4.7.4/4.8.0 source establishes the encoding above without a local Qt installation. Build fixtures from those rules, verify PHP decoding locally, and decide whether Python preserves raw plus signs on legacy POST endpoints. The exact shipped Qt patch versions remain unknown.
 4. How are omitted fields, duplicate fields, arrays, query/form collisions, HEAD, and unsupported methods handled by PHP 5.6 and the proxy? Run write and invalid-input cases only on temporary local data.

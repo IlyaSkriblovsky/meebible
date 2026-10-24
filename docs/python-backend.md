@@ -1,6 +1,6 @@
 # MeeBible Python backend
 
-**Status: planning. The Python backend is not implemented yet.** This guide will describe the built service and tested commands. The plans below do not mean that the files or commands already exist.
+**Status: PHP reference server ready. The Python backend is not implemented yet.** The tested PHP setup is documented separately below. Python architecture and operating sections remain plans until the service is built.
 
 See the [migration plan](python-migration-plan.md) for work order, status, completion criteria, and decisions. Keep this guide in simple English.
 
@@ -34,6 +34,8 @@ Before the migration, these are the main locations in the project:
 | `src/Paths.cpp`, `src/Translation.cpp`, `src/Languages.cpp` | Client URLs and content loading |
 | `src/StartupTracker.cpp`, `src/Feedback.cpp` | Client POST requests |
 | `docker-compose.yml`, `nginx.conf`, `proxy.conf` | Existing startup and proxy configuration; check whether it matches production |
+| `tools/php-reference/` | Tested, isolated PHP 5.6.40 reference setup and checksum manifest |
+| `docs/php-reference.md` | PHP reference startup, settings, checks, reset, and stop commands |
 | `docs/python-migration-plan.md` | Plan, status, and decisions |
 | `docs/backend-contract.md` | Source-based contract and reference test checklist |
 
@@ -41,13 +43,17 @@ After implementation, add the actual paths for Python code, tests, reference res
 
 ## Local startup
 
-Commands have not been defined or tested yet. During implementation, document requirements, dependency installation, data setup, configuration variables, Docker startup, and a basic availability check. Document the isolated old PHP setup for reference capture separately. The confirmed reference runtime is PHP 5.6.40 from official `php:5.6-fpm`; record the image digest during setup.
+For the old service, follow the tested [PHP reference server guide](php-reference.md). It uses pinned PHP 5.6.40/nginx images, a fixed Git content snapshot, read-only mounts, and temporary startup/feedback databases. Only `http://127.0.0.1:10056` is published. Setup checks and a complete reset passed; image identities and results are in [verification.md](../tools/php-reference/verification.md). The containers were stopped after verification.
+
+Python startup commands have not been defined yet. During implementation, document requirements, dependency installation, data setup, configuration variables, Docker startup, and a basic availability check.
 
 Historical Qt source is used to define client encoding fixtures. A local Qt installation is not a prerequisite; see the form encoding section in the [backend contract](backend-contract.md).
 
 ## Tests
 
 During implementation, add tested commands for quick and full test runs, the target BASE_URL setting, and report locations. Updating reference responses must be an explicit step with a review of differences. Do not update them automatically when tests fail.
+
+The PHP setup check is `python3 tools/php-reference/reference.py check` after local startup. It sends 20 requests to a fixed loopback address, checks four chapter bodies against SQLite, confirms committed synthetic POST rows, and verifies isolation and snapshot hashes. It is not the external contract suite. Reference response fixtures, broad error cases, and full-content checks still belong to later steps.
 
 Production comparison uses a separate, limited read-only procedure described in the plan. Do not point the normal test suite, which includes POST and invalid requests, at production.
 
