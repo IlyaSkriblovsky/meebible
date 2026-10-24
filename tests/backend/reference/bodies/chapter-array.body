@@ -1,0 +1,9 @@
+<br />
+<b>Warning</b>:  preg_match() expects parameter 2 to be string, array given in <b>/www/views/chapter.php</b> on line <b>23</b><br />
+<br />
+<b>Warning</b>:  Cannot modify header information - headers already sent by (output started at /www/views/chapter.php:23) in <b>/www/core/Response.php</b> on line <b>11</b><br />
+<br />
+<b>Warning</b>:  Cannot modify header information - headers already sent by (output started at /www/views/chapter.php:23) in <b>/www/core/Response.php</b> on line <b>12</b><br />
+<br />
+<b>Warning</b>:  Cannot modify header information - headers already sent by (output started at /www/views/chapter.php:23) in <b>/www/core/Response.php</b> on line <b>14</b><br />
+Invalid parameters

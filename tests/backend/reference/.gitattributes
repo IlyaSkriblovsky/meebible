@@ -1,0 +1,4 @@
+# HTTP evidence must retain its exact bytes and original whitespace.
+bodies/* -text -whitespace
+chapters.json.gz binary
+manifest.json text eol=lf

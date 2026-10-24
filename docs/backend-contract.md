@@ -2,7 +2,7 @@
 
 Last updated: 2026-10-24.
 
-This is the source-based contract for the Python migration. It describes what the current PHP code does, what the Qt client expects, and which errors we intend to fix. The isolated old server now passes a small setup check; see the [PHP reference guide](php-reference.md). Full reference response capture and production comparison have not started.
+This is the contract for the Python migration, based on source review and local PHP 5.6.40 observations. It describes the old code, client expectations, and deliberate fixes. Local reference responses and external tests are now available; see the [test guide](backend-tests.md). Production comparison has not started.
 
 See the [migration plan](python-migration-plan.md) for scope and progress and the [backend guide](python-backend.md) for setup and operation.
 
@@ -27,7 +27,7 @@ The review covers the PHP routes and handlers, response classes, website templat
 | [`src/Feedback.cpp`](../src/Feedback.cpp), [`qml/FeedbackPage.qml.in`](../qml/FeedbackPage.qml.in) | Feedback form and success handling |
 | [`src/Place.cpp`](../src/Place.cpp), [`src/Place.h`](../src/Place.h) | Shared verse URLs |
 
-Statements about PHP code below are source findings unless a local runtime check is named. Step 3 checked startup, sample reads/writes, and isolation. Detailed error cases, full response capture, and production proxy settings still need checks. Examples show structure; they are not saved reference responses.
+Statements about PHP code below are source findings unless a local runtime check is named. The [reference manifest](../tests/backend/reference/manifest.json) and saved bodies provide runtime evidence for the captured cases. Examples in this document show structure, not a replacement for those files. Production proxy settings still need checks.
 
 ### Confirmed environment
 
@@ -218,7 +218,7 @@ Source-based examples for a value passed to `addQueryItem`:
 
 For example, the value `user+tag@example.org` produces `email=user+tag@example.org`. PHP 5.6.40's [POST parser](https://github.com/php/php-src/blob/php-5.6.40/main/php_variables.c#L280) calls [php_url_decode](https://github.com/php/php-src/blob/php-5.6.40/ext/standard/url.c#L534), which converts a raw `+` to a space. The source path predicts that this address is stored as `user tag@example.org`; the step 3 local feedback check confirmed it in the temporary database. A percent-encoded `%2B`, if sent by another client, decodes to a literal plus instead.
 
-This is an existing data-loss bug. A standard Python form parser would keep that bug. Preserving raw plus signs on the two legacy POST endpoints is a possible fix, but it changes how ordinary HTML forms using `+` for spaces are read. There is no reliable way to infer both meanings from the same body. Decide the Python rule explicitly, then test raw Qt-style bytes and the old PHP result locally. Do not use a heuristic based on whether a body contains `%20`.
+This is an existing data-loss bug. On 2026-10-24 the owner agreed that Python will preserve raw plus signs on the two legacy POST endpoints. Percent-decode UTF-8 fields without converting raw `+` to space. This changes ordinary HTML forms using `+` for spaces; there is no reliable way to infer both meanings from the same body. `%2B` decodes to plus and `%252B` to literal `%2B`. The tests keep the old PHP result separately. Do not use a heuristic based on whether a body contains `%20`.
 
 ### `/startup`
 
@@ -229,7 +229,7 @@ This is an existing data-loss bug. A standard Python form parser would keep that
 | `lang` | Sent only if a language is selected |
 | `trans` | Sent only if a translation is selected |
 
-The PHP handler reads all four keys without checking them, logs their values, creates `startup` if needed, and inserts one row. Missing `lang` or `trans` is a valid client situation despite the old handler's possible notices. Do not make them required in Python. The handler does not validate codes against the catalog.
+The PHP handler reads all four keys without checking them, logs their values, creates `startup` if needed, and inserts one row. Missing `lang` or `trans` is a valid client situation; local capture confirms SQL NULL is stored for each missing key. Do not make them required in Python. The handler does not validate codes against the catalog.
 
 ```sql
 CREATE TABLE startup (
@@ -273,7 +273,7 @@ Insert values are `datetime('now')`, name, email, and message. The client report
 - IDs are assigned by SQLite. `datetime('now')` uses UTC with second precision. Match the stored timestamp format; IDs and times are variable values in tests.
 - Each request inserts a new row. There is no deduplication or idempotency key. Do not add one by guessing from message contents or device ID.
 - Old handlers do not inspect write results before returning `ok`. Python must commit before success and return an error on failure. Do not silently drop a message or startup record.
-- Missing fields, duplicate fields, arrays, multipart bodies, invalid encoding, and size limits need explicit local tests and documented Python rules. The exact stored value for a missing PHP key needs reference capture; it must not be guessed as SQL NULL or an empty string. Form fixtures must use the historical Qt encoding above; a normal form encoder would incorrectly turn literal plus signs into `%2B`.
+- Local capture confirms missing PHP keys become SQL NULL, empty fields stay empty strings, duplicate scalar keys keep the last value, and an array can become the string `Array`. Invalid UTF-8 can reach SQLite unchanged. Python must reject malformed scalar fields with a controlled 400 and no write: arrays, duplicates, invalid UTF-8, or missing required keys. Required keys are `os`/`device_id` for startup and `name`/`email`/`message` for feedback; empty values are valid. Multipart input and exact size limits remain later decisions. Form fixtures use the historical Qt encoding above; a normal form encoder would incorrectly turn literal plus signs into `%2B`.
 - SQL uses bound parameters. Preserve text, special characters, and line breaks. Test that values cannot change the query.
 
 ## Shared passages: `/t/{trans}/{lang}/{book}/{chapter}/{verses}`
@@ -334,7 +334,7 @@ A read-only metadata check on 2026-10-23 found:
 | Chapter size rows, without language dimension | 58378 |
 | Languages advertised for `nwt` | 44 |
 
-Every advertised pair has its expected content file, and every pair's language exists in the language catalog. Chapter size groups start at 1 and have no gaps; book order numbers have no duplicates within a translation/language pair. These checks do not prove that every chapter row exists in the content files; that is part of the full content test later.
+Every advertised pair has its expected content file, and every pair's language exists in the language catalog. Chapter size groups start at 1 and have no gaps; book order numbers have no duplicates within a translation/language pair. Step 4 also checked that all 109,505 advertised chapter rows contain non-empty HTML in the fixed snapshot. Full mode tests these bytes over HTTP; the final Python image must pass the same checks later.
 
 Local samples include `kjv/e`, `rus/u`, `ara/a`, and `nwt/e`; `ara` and `heb` are marked RTL. Book codes include both `ge` and `1co`. Sample chapters contain complete HTML documents, with different leading whitespace and body attributes. Do not use README counts as a test oracle or silently change catalog data to match them. These counts describe this checkout, not production, and are not permanent API constants.
 
@@ -347,18 +347,18 @@ The changes below are part of the port, not changes to existing PHP in this step
 | Removed features | 404 for `/fb`, `/nwtbible`, and unused J2ME URLs; keep `nwt` content | Add regression cases |
 | Methods | Reads use GET/HEAD; startup/feedback use POST only; unsupported methods must not write | Check old HEAD behavior and define error headers/bodies |
 | File access | Known content paths, read-only SQLite, separate writable data | Exact configuration paths |
-| Invalid input | Controlled errors; no arrays used as scalars, loose numeric conversion, or accidental FastAPI 422 JSON | Duplicate keys, collisions, size limits, and exact errors after local capture |
+| Invalid input | Controlled errors; no arrays used as scalars, loose numeric conversion, or accidental FastAPI 422 JSON; malformed scalar fields return 400 | Multipart bodies, size limits, and remaining collision cases |
 | Normal legacy errors | Keep documented XML/text responses and statuses | Confirm actual wire headers and bytes |
 | Write failures | No success before commit | Choose controlled 5xx body and test disk/database failures |
-| Optional startup fields and empty feedback | Accept legitimate client input | Verify storage of omitted fields; historical Qt encoding is now documented |
-| Literal plus signs in POST forms | Fix the known Qt/PHP data-loss problem deliberately | Decide raw-plus handling for the legacy endpoints and test the difference from standard HTML forms |
+| Optional startup fields and empty feedback | Accept legitimate client input; omitted startup language/translation store NULL | Covered by external tests |
+| Literal plus signs in POST forms | Preserve raw plus signs; percent-decode UTF-8 without HTML form plus conversion | Agreed on 2026-10-24; raw Qt bytes, encoded plus, and standard form difference are tested |
 | Passage links | Accept digit-prefixed book codes; validate the full path and handle missing content | Exact 400/404 policy, missing/partial verses, suffixes, and trailing slashes |
 | HTML output | Escape plain text; keep chapter HTML intact | Compare passage parser output and review external HTTP script |
 | Routing cleanup | Preserve canonical client URLs; no automatic redirects | Whether to accept extra query strings on exact routes or bare metadata paths; record any change explicitly |
 
 ## Reference and test checklist
 
-This list defines full test coverage for later steps. The step 3 setup check covers a small sample; it does not complete this checklist.
+This list defines overall coverage. The [external suite](backend-tests.md) covers the fixed local contract; final environment, failure injection, and production comparison still need later checks.
 
 | Group | Required checks |
 | --- | --- |
@@ -378,9 +378,9 @@ This list defines full test coverage for later steps. The step 3 setup check cov
 
 1. The local PHP image, digest, architecture, extensions, working directory, and settings are now recorded. Which production settings differ, especially timezone, displayed errors, and request ordering? Old Smarty is loaded for every application route. Keep the explicit local UTC setting visible in comparisons.
 2. What are the exact headers and body bytes for success, XML errors, chapter errors, passage redirects, and 404? Does any warning or extra output affect the body or length?
-3. Historical Qt 4.7.4/4.8.0 source establishes the encoding above without a local Qt installation. Build fixtures from those rules, verify PHP decoding locally, and decide whether Python preserves raw plus signs on legacy POST endpoints. The exact shipped Qt patch versions remain unknown.
-4. How are omitted fields, duplicate fields, arrays, query/form collisions, HEAD, and unsupported methods handled by PHP 5.6 and the proxy? Run write and invalid-input cases only on temporary local data.
-5. Do all catalog entries and chapter sizes agree with content rows? Check the whole local data set before release and report existing data gaps separately from port failures.
+3. Historical Qt 4.7.4/4.8.0 source and raw form fixtures establish the behavior above without a local Qt installation. Python raw-plus preservation is agreed and tested as a deliberate difference. The exact shipped Qt patch versions remain unknown.
+4. Local fixtures now cover omitted/duplicate/array fields, a query/form collision, HEAD, and representative unsupported methods. PHP may write on GET/HEAD and may return 200 with diagnostics. Which further multipart, input-limit, and failure-injection cases are needed for the final implementation? Keep all such requests on temporary local data.
+5. All 109,505 advertised chapter bodies matched the fixed local content in the full PHP run. Repeat the full check on the final Python image and report any future data gaps separately from port failures.
 6. How does PHP's HTML parser serialize passages, especially entities, Cyrillic, RTL, superscripts, and split verses? Does the template add any relevant behavior beyond the source findings?
 7. Which repository nginx/proxy settings are active on `http://meebible.org/`? Safe read-only observations can help answer this. Once local responses exist, compare a small safe GET sample, with and without gzip and without following redirects automatically. Classify differences in headers, content, and configuration before changing the contract.
 

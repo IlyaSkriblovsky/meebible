@@ -15,14 +15,16 @@ Statuses: **Not started**, **In progress**, **Done**, **Blocked**. Mark a step a
 | 1 | Agree on scope and workflow | Features to keep and remove are agreed; the plan and separate guide exist | Done |
 | 2 | Describe the external contract from PHP, nginx, and client code | Routes, methods, parameters, responses, errors, and side effects are listed; HTTP, encodings, Qt forms, and client parsers are covered | Done |
 | 3 | Set up an isolated PHP 5.6 reference server | The old service can be started in a repeatable way without public access; it uses a fixed content snapshot and temporary startup/feedback databases; commands and settings are documented | Done |
-| 4 | Capture local reference responses and build external tests | Responses and environment details are saved; tests accept BASE_URL; routes to keep, errors, and POST writes are covered; quick and full test modes exist | Not started |
+| 4 | Capture local reference responses and build external tests | Responses and environment details are saved; tests accept BASE_URL; routes to keep, errors, and POST writes are covered; quick and full test modes exist | Done |
 | 5 | Compare reference responses with meebible.org | A small set of safe GET requests is compared at a low rate; differences in status, headers, and bodies are classified; configuration differences are separated from data and application differences; unexplained differences are recorded | Not started |
-| 6 | Build the Python backend | All features to keep are implemented using the existing SQLite files; removed routes return 404; agreed bugs are fixed; quick contract tests pass | Not started |
+| 6 | Build the Python backend | All features to keep are implemented using the existing SQLite files; removed routes return 404; agreed bugs are fixed; quick contract tests pass | In progress |
 | 7 | Check all content and the final environment | All translations, languages, books, and chapters are checked; POST, errors, permissions, nginx, gzip, and HTTP are tested; every difference from the reference is explained and accepted | Not started |
 | 8 | Prepare the release and operating guide | Tested commands cover startup, tests, updates, backup, restore, and switching servers; dependency versions are pinned; project layout and limits are documented | Not started |
 | 9 | Switch production to Python | User SQLite databases are copied consistently with old writes stopped; the upstream is switched; reads, writes, logs, and redirects are checked; old PHP no longer serves public requests | Not started |
 
 Implementation can proceed in parts as contracts become clear. Run the full content checks and final comparison on the final image and configuration. This plan does not mean that production has already been changed.
+
+The owner will write the Python service. The assistant is preparing the external tests and reference evidence. Keep test tooling independent of the service implementation.
 
 ## Agreed scope
 
@@ -102,3 +104,19 @@ Unsafe behavior in the old implementation is not a compatibility requirement. Co
 - Passed 20 local HTTP checks, including normal pages, XML, identity/gzip, four byte-exact sample chapters (`kjv/e`, `rus/u`, `ara/a`, `nwt/e`), redirects, HEAD, a normal error, and committed startup/feedback rows. Confirmed the old raw-plus decoding bug with synthetic feedback.
 - Tested a full reset and another cold-cache run: both user tables started empty, then gained one row each. All 20 response statuses and decoded body hashes matched. Code/content checksums stayed unchanged. Stopped the containers after verification.
 - Step 3 is complete. Step 4 remains not started: the setup smoke report is not a reference response corpus or the external quick/full test suite. No requests were sent to production and the Python implementation has not started.
+
+### 2026-10-24 — test ownership and Python form decoding
+
+- The owner will implement the Python backend. This work adds external HTTP tests, references, and documentation without writing the service.
+- Agreed to preserve a raw `+` as a plus on startup/feedback. Qt sends spaces as `%20`. Standard HTML forms that use `+` for spaces will therefore be read differently. Keep this deliberate rule in tests; do not use a content-based heuristic.
+- Added separate PHP and Python test profiles. PHP observations record old crashes, diagnostics, and writes; the Python profile requires controlled errors, safe methods, removed routes, and corrected passage handling.
+- Defined 400 responses without writes for malformed form fields: missing required keys, arrays, duplicate scalar keys, and invalid UTF-8. Empty required values remain valid. Startup language/translation remain optional and use SQL NULL when absent, as observed locally.
+- Local capture confirms all 109,505 advertised chapter rows exist. The full test mode checks their exact bytes over HTTP with at most 20 outstanding requests. This is not a check of the future final Python image.
+
+### 2026-10-24 — step 4: local references and external tests
+
+- Saved 95 local request/response cases, XML for all 94 translation/language pairs, all static asset hashes, and the complete 109,505-chapter byte/hash index in [`tests/backend/reference/`](../tests/backend/reference/manifest.json). Original headers, identity/gzip entities, environment details, raw Qt-style forms, and synthetic stored values are retained.
+- Added standard-library test commands with `BASE_URL`, quick/full modes, and a read-only SQLite observer for the target's temporary user data. No application imports or test-only server routes are needed. The runner rejects public targets before requests and never rewrites references. See the [test guide](backend-tests.md).
+- Final quick run passed all 104 checks. A full local run checked every advertised chapter, all translation XML, and all static assets with no failures. A separate nine-check tool test covers negative cases such as changed bytes/order, JSON errors, plus-sign data loss, and writes hidden behind an error response. Details and validation scope are in [test verification](../tests/backend/verification.md).
+- The full sweep used the same fixed chapter index as the final capture. Its PHP CPU limit was raised from one to the two CPUs available in the local VM to reduce emulation time, then restored. No image, application, content, PHP setting, mount, or network changed. The final isolation check passed and the containers were removed.
+- Step 4 is complete. No production requests were made. Production comparison remains step 5; final environment and failure injection remain later checks. The owner has started the Python implementation in parallel and owns step 6. Only test tooling and documentation are part of this result.

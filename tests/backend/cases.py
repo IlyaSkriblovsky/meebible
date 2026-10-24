@@ -1,0 +1,139 @@
+"""Requests shared by explicit reference capture and external test runs."""
+
+from urllib.parse import quote
+
+
+def form(fields):
+    # Historical Qt query encoding. In particular, a literal '+' stays raw.
+    return "&".join(quote(key, safe="") + "=" + quote(value, safe="!$'()*+,;:@/?")
+                    for key, value in fields.items())
+
+
+def cases():
+    result = []
+
+    def add(name, path, kind="bytes", python=None, **options):
+        result.append({"id": name, "path": path, "kind": kind, **options,
+                       **({"python": python} if python else {})})
+
+    add("meta", "/meta", "xml")
+    add("meta-gzip", "/meta", "xml", headers={"Accept-Encoding": "gzip"})
+    add("meta-head", "/meta", method="HEAD")
+    for trans, lang, book, chapter in (
+        ("kjv", "e", "ge", 1), ("kjv", "e", "re", 22),
+        ("kjv", "e", "1co", 1), ("rus", "u", "ge", 1),
+        ("ara", "a", "ge", 1), ("heb", "heb", "ge", 1),
+        ("nwt", "e", "ge", 1), ("nwt", "chs", "ge", 1),
+        ("nwt", "e", "ps", 3),
+    ):
+        add(f"chapter-{trans}-{lang}-{book}-{chapter}",
+            f"/chapter?trans={trans}&lang={lang}&book={book}&chapter={chapter}")
+    add("chapter-gzip", "/chapter?trans=ara&lang=a&book=ge&chapter=1",
+        headers={"Accept-Encoding": "gzip"})
+    add("chapter-head", "/chapter?trans=kjv&lang=e&book=ge&chapter=1", method="HEAD")
+    for name, query in (
+        ("missing", "trans=kjv"), ("empty", "trans=kjv&lang=e&book=ge&chapter="),
+        ("zero", "trans=kjv&lang=e&book=ge&chapter=0"),
+        ("invalid", "trans=KJV&lang=e&book=ge&chapter=1"),
+        ("traversal", "trans=..%2Fstartup&lang=e&book=ge&chapter=1"),
+        ("missing-row", "trans=kjv&lang=e&book=ge&chapter=999"),
+        ("missing-nwt", "trans=nwt&lang=zz&book=ge&chapter=1"),
+        ("leading-zero", "trans=kjv&lang=e&book=ge&chapter=01"),
+        ("huge", "trans=kjv&lang=e&book=ge&chapter=" + "9" * 80),
+    ):
+        add("chapter-" + name, "/chapter?" + query)
+    controlled = {"kind": "controlled", "statuses": [400, 404], "no_write": True}
+    add("chapter-array", "/chapter?trans[]=kjv&lang=e&book=ge&chapter=1", python=controlled)
+    add("chapter-unknown-file", "/chapter?trans=reference_missing&lang=e&book=ge&chapter=1", python=controlled)
+    for name, query in (("missing", "x=1"), ("empty", "trans=&lang=e"),
+                        ("zero", "trans=0&lang=e"), ("unknown", "trans=unknown&lang=e"),
+                        ("sql-text", "trans=%27%20OR%201%3D1--&lang=e")):
+        add("translation-" + name, "/translation?" + query, "xml")
+    add("translation-array", "/translation?trans[]=kjv&lang=e", "xml", python=controlled)
+    for endpoint in ("translation", "chapter"):
+        query = "trans=unknown&trans=kjv&lang=e" + ("&book=ge&chapter=1" if endpoint == "chapter" else "")
+        add(endpoint + "-duplicate", "/" + endpoint + "?" + query,
+            "xml" if endpoint == "translation" else "bytes",
+            python={"kind": "controlled", "statuses": [400], "no_write": True})
+    for name, path in (("home", "/"), ("privacy", "/privacy"), ("donate", "/donate"),
+                       ("donate-mobile", "/donate-mobile"), ("not-found", "/reference-missing")):
+        add(name, path, "page")
+    add("home-gzip", "/", "page", headers={"Accept-Encoding": "gzip"})
+    for name, path in (("passage-single", "/t/kjv/e/ge/1/1"),
+                       ("passage-range", "/t/kjv/e/ge/1/1-3"),
+                       ("passage-gaps", "/t/kjv/e/ge/1/1,3,5"),
+                       ("passage-russian", "/t/rus/u/ge/1/1-3"),
+                       ("passage-rtl", "/t/ara/a/ge/1/1-3"),
+                       ("passage-superscript", "/t/nwt/e/ps/3/1,3"),
+                       ("passage-split-verse", "/t/nwt/e/ac/4/8,24")):
+        add(name, path, "passage")
+    for name, spec in (("sort", "3,1,2"), ("duplicates", "1,1,3,3"),
+                       ("overlap", "1-3,2-5"), ("bounds", "0,1,301")):
+        add("passage-normalize-" + name, "/t/kjv/e/ge/1/" + spec)
+    add("passage-empty", "/t/kjv/e/ge/1/0,301")
+    add("passage-reversed", "/t/kjv/e/ge/1/5-3")
+    add("passage-bad-path", "/t/kjv/e/ge/not-a-number/1")
+    add("passage-digit-book", "/t/kjv/e/1co/1/1-3", python={
+        "kind": "selection", "status": 200, "chapter": "chapter-kjv-e-1co-1", "verses": [1, 2, 3]})
+    for name, path in (("passage-suffix", "/t/kjv/e/ge/1/1garbage"),
+                       ("passage-slash", "/t/kjv/e/ge/1/1/"),
+                       ("passage-missing-chapter", "/t/kjv/e/ge/999/1"),
+                       ("passage-missing-verse", "/t/kjv/e/ge/1/299"),
+                       ("passage-partial-verse", "/t/kjv/e/ge/1/1,299")):
+        add(name, path, python=controlled)
+    for name, path in (("meta-query", "/meta?x=1"), ("meta-slash", "/meta/"),
+                       ("translation-bare", "/translation"), ("chapter-bare", "/chapter"),
+                       ("chapter-empty-query", "/chapter?"), ("privacy-query", "/privacy?x=1"),
+                       ("feedback-query", "/feedback?x=1"), ("code-hidden", "/route.php"),
+                       ("content-hidden", "/content/langs.sqlite"), ("user-data-hidden", "/feedback.sqlite"),
+                       ("j2me-removed", "/meta.j2me")):
+        add(name, path, "page")
+    add("nwtbible-removed", "/nwtbible?trans=nwt&lang=e&book=ge&chapter=1",
+        python={"status": 404, "kind": "controlled"})
+    # Never fetch /fb, even locally. It is a removed route in the Python profile.
+    add("fb-removed", "/fb", python={"status": 404, "kind": "controlled"}, python_only=True)
+    add("static-range", "/static/meebible_3.5.7_signed.sis", headers={"Range": "bytes=0-63"})
+    add("static-css", "/static/css/style.css")
+    add("favicon", "/favicon.ico")
+    add("static-head", "/static/css/style.css", method="HEAD")
+    add("static-missing", "/static/reference-missing.css",
+        python={"status": 404, "kind": "controlled"})
+    startup = {"os": "symbian", "device_id": "reference-only", "lang": "e", "trans": "kjv"}
+    for name, fields in (("startup", startup), ("startup-repeat", startup),
+                         ("startup-optional", {"os": "meego", "device_id": ""}),
+                         ("startup-special", {"os": "unknown", "device_id": "A+B_é&=\r\n'", "lang": "", "trans": ""})):
+        add(name, "/startup", method="POST", body=form(fields), writes=True,
+            python={"kind": "write", "table": "startup", "values": {
+                "os": fields["os"], "device_id": fields["device_id"],
+                "lang": fields.get("lang"), "trans": fields.get("trans")}})
+    for name, fields in (
+        ("feedback", {"name": "Reference check", "email": "user+tag@example.org", "message": "C++ & = % %2B\r\nПривет العربية é '"}),
+        ("feedback-empty", {"name": "", "email": "", "message": ""}),
+        ("feedback-repeat", {"name": "", "email": "", "message": ""}),
+        ("feedback-invalid-email", {"name": "Reference", "email": "not an email address", "message": "Local only"}),
+    ):
+        add(name, "/feedback", method="POST", body=form(fields), writes=True,
+            python={"kind": "write", "table": "feedback", "values": fields})
+    add("feedback-encoded-plus", "/feedback", method="POST", writes=True,
+        body="name=Reference&email=user%2Btag@example.org&message=%252B",
+        python={"kind": "write", "table": "feedback", "values": {
+            "name": "Reference", "email": "user+tag@example.org", "message": "%2B"}})
+    add("feedback-form-plus", "/feedback", method="POST", writes=True,
+        body="name=First+Last&email=&message=raw+plus%20space",
+        python={"kind": "write", "table": "feedback", "values": {
+            "name": "First+Last", "email": "", "message": "raw+plus space"}})
+    for name, endpoint, body in (
+        ("feedback-array", "feedback", "name[]=Reference&email=&message=test"),
+        ("feedback-duplicate", "feedback", "name=One&name=Two&email=&message=test"),
+        ("feedback-invalid-utf8", "feedback", "name=Reference&email=&message=%FF"),
+        ("feedback-missing", "feedback", "name=Reference&email="),
+        ("startup-missing", "startup", "device_id=reference-only"),
+    ):
+        add(name, "/" + endpoint, method="POST", body=body, writes=True,
+            python={"kind": "controlled", "statuses": [400], "no_write": True})
+    for endpoint, method in (("startup", "GET"), ("feedback", "HEAD"), ("feedback", "PUT")):
+        add(endpoint + "-method-" + method.lower(), "/" + endpoint, method=method, writes=True,
+            python={"kind": "method", "status": 405, "allow": ["POST"], "no_write": True})
+    add("chapter-method-post", "/chapter?trans=kjv&lang=e&book=ge&chapter=1", method="POST",
+        body="trans=rus&lang=u", python={"kind": "method", "status": 405, "allow": ["GET", "HEAD"]})
+    return result

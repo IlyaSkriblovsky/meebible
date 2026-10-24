@@ -1,6 +1,6 @@
 # MeeBible Python backend
 
-**Status: PHP reference server ready. The Python backend is not implemented yet.** The tested PHP setup is documented separately below. Python architecture and operating sections remain plans until the service is built.
+**Status: PHP reference server and external tests are ready for implementation work.** The owner is writing the Python service. The architecture and operating sections below remain plans until that service is built and checked.
 
 See the [migration plan](python-migration-plan.md) for work order, status, completion criteria, and decisions. Keep this guide in simple English.
 
@@ -36,6 +36,8 @@ Before the migration, these are the main locations in the project:
 | `docker-compose.yml`, `nginx.conf`, `proxy.conf` | Existing startup and proxy configuration; check whether it matches production |
 | `tools/php-reference/` | Tested, isolated PHP 5.6.40 reference setup and checksum manifest |
 | `docs/php-reference.md` | PHP reference startup, settings, checks, reset, and stop commands |
+| `tests/backend/` | External HTTP tests, reference capture, and saved responses |
+| `docs/backend-tests.md` | Quick/full commands, BASE_URL, data observation, and test expectations |
 | `docs/python-migration-plan.md` | Plan, status, and decisions |
 | `docs/backend-contract.md` | Source-based contract and reference test checklist |
 
@@ -51,9 +53,9 @@ Historical Qt source is used to define client encoding fixtures. A local Qt inst
 
 ## Tests
 
-During implementation, add tested commands for quick and full test runs, the target BASE_URL setting, and report locations. Updating reference responses must be an explicit step with a review of differences. Do not update them automatically when tests fail.
+Use the [external test guide](backend-tests.md) while implementing the service. The tests need only Python's standard library and a separately running server. Set `BASE_URL` and `USER_DATA_DIR` for temporary SQLite files, then run `python3 tests/backend/run.py quick` or `full`. The default Python profile checks deliberate fixes; the PHP profile validates the captured old behavior. Local reports are in `tests/backend/.local/`. Updating references is an explicit capture and review; failures never update them automatically.
 
-The PHP setup check is `python3 tools/php-reference/reference.py check` after local startup. It sends 20 requests to a fixed loopback address, checks four chapter bodies against SQLite, confirms committed synthetic POST rows, and verifies isolation and snapshot hashes. It is not the external contract suite. Reference response fixtures, broad error cases, and full-content checks still belong to later steps.
+The smaller PHP setup check remains `python3 tools/php-reference/reference.py check` after local startup. It checks the isolated server itself. The external suite adds saved responses, malformed requests, form storage checks, and full catalog/content coverage. Both are separate from checks on the final Python image and real phones.
 
 Production comparison uses a separate, limited read-only procedure described in the plan. Do not point the normal test suite, which includes POST and invalid requests, at production.
 

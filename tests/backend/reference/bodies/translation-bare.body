@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        
+            
+                <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+            
+
+            <title>MeeBible</title>
+            <link rel="shortcut" href="/favicon.ico" type="image/x/icon"/>
+            <link rel="icon" href="/favicon.ico" type="image/x/icon"/>
+
+            
+                <link rel="stylesheet" href="/static/css/style.css" />
+            
+
+            
+        
+    </head>
+
+    <body>
+        
+<pre style="text-align: center; color: #c00; font-family: monospace">
+    4  4  0000  4  4
+    4  4  0  0  4  4
+    4444  0  0  4444
+       4  0  0     4
+       4  0000     4
+</pre>
+
+    </body>
+</html>

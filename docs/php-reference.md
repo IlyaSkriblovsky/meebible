@@ -1,6 +1,6 @@
 # Local PHP 5.6 reference server
 
-Last checked: 2026-10-24. Migration step 3 is complete. The Python service and the full reference response set are not built yet.
+Last checked: 2026-10-24. Migration step 3 is complete. Local responses and external tests are available in the [test guide](backend-tests.md). The owner is writing the Python service.
 
 This server runs the old application from a fixed Git revision. Use it for local reference capture, POST tests, and invalid requests. Its settings are known; matching all production settings is a later step.
 
@@ -68,4 +68,4 @@ docker compose -f tools/php-reference/compose.yml down
 
 `down` removes only this reference project's containers and networks. It discards user databases, Smarty output, temporary files, and container logs. It leaves the images, fixed host snapshot, and local reports. To start from empty user databases and a cold Smarty cache, run `up -d` and `check` again. A stop or restart can also discard tmpfs data; never use this setup to store real user records.
 
-The full `down` → `up -d` → `check` cycle was tested. Both database counts returned to zero, and all 20 response statuses and decoded body hashes matched the first run. The server was stopped after verification. The next step is to save a reviewed response corpus and build the external tests described in the [migration plan](python-migration-plan.md).
+The full `down` → `up -d` → `check` cycle was tested. Both database counts returned to zero, and all 20 response statuses and decoded body hashes matched the first run. The server was stopped after setup verification. The [external suite](backend-tests.md) now uses saved local responses and a complete chapter hash index. It has separate profiles for the old PHP observations and the future Python contract.
