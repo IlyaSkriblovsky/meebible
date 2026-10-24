@@ -4,7 +4,7 @@ Last updated: 2026-10-23.
 
 The goal is to keep existing MeeBible clients on Symbian and MeeGo working by replacing PHP 5.6 with a small Python + FastAPI service. New features, new users, and a redesign are out of scope. We will not migrate to PHP 8.
 
-This document tracks the plan, completion criteria, main results, and decisions. Keep the description of the built service and operating instructions in the separate [Python backend guide](python-backend.md). Write project documents in simple English.
+This document tracks the plan, completion criteria, main results, and decisions. The source-based API and website contract is in [Backend contract](backend-contract.md). Keep the description of the built service and operating instructions in the separate [Python backend guide](python-backend.md). Write project documents in simple English.
 
 ## Work plan
 
@@ -13,7 +13,7 @@ Statuses: **Not started**, **In progress**, **Done**, **Blocked**. Mark a step a
 | No. | Step | Completion criteria | Status |
 | --- | --- | --- | --- |
 | 1 | Agree on scope and workflow | Features to keep and remove are agreed; the plan and separate guide exist | Done |
-| 2 | Describe the external contract from PHP, nginx, and client code | Routes, methods, parameters, responses, errors, and side effects are listed; HTTP, encodings, Qt forms, and client parsers are covered | Not started |
+| 2 | Describe the external contract from PHP, nginx, and client code | Routes, methods, parameters, responses, errors, and side effects are listed; HTTP, encodings, Qt forms, and client parsers are covered | Done |
 | 3 | Set up an isolated PHP 5.6 reference server | The old service can be started in a repeatable way without public access; it uses a fixed content snapshot and temporary startup/feedback databases; commands and settings are documented | Not started |
 | 4 | Capture local reference responses and build external tests | Responses and environment details are saved; tests accept BASE_URL; routes to keep, errors, and POST writes are covered; quick and full test modes exist | Not started |
 | 5 | Compare reference responses with meebible.org | A small set of safe GET requests is compared at a low rate; differences in status, headers, and bodies are classified; configuration differences are separated from data and application differences; unexplained differences are recorded | Not started |
@@ -73,3 +73,12 @@ Unsafe behavior in the old implementation is not a compatibility requirement. Co
 - The owner reports that production FPM runs as www-data behind nginx, without a Docker socket or connections to other services. Only `www` is mounted. File permissions are 644/755, content databases are 644, startup/feedback are 666, and the Smarty compile directory is 777. File owners and directory permissions have not been checked separately; mode bits alone do not prove that files cannot be changed.
 - The owner is reviewing temporary PHP protections separately. Closing `/fb` immediately is outside the current work. No server settings were changed while creating these documents.
 - Project documents use simple English so they remain accessible to other contributors.
+
+### 2026-10-23 — step 2: source-based contract
+
+- Added [Backend contract](backend-contract.md), covering routes, HTTP behavior, response formats and errors, SQLite reads/writes, public pages, static files, and client expectations. Runtime-dependent details remain explicit questions for reference capture.
+- Found that the client ignores XML chapter numbers and relies on element order. Full-translation download can have 20 chapter requests outstanding. These are required compatibility checks.
+- Confirmed that startup language/translation fields can be absent and feedback fields can be empty. Do not reject these legitimate client forms or add strict email validation.
+- Found that the old passage route rejects digit-prefixed book codes such as `1co`, although the client creates these links. Fix this during the port, along with loose path parsing and missing-content handling.
+- Checked local metadata and sample chapters in read-only mode. All advertised translation/language pairs have a content file; metadata has no chapter-number gaps. A full check of chapter rows remains in the later test steps.
+- Step 2 is complete. No application or server configuration changed; the PHP reference server, HTTP captures, and production comparison have not started. The next step is the isolated PHP 5.6 reference server.

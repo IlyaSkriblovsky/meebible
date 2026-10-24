@@ -15,6 +15,7 @@ Full-text unicode-aware search is supported. You can find Bible places by phrase
 ## Backend maintenance
 
 - [Python migration plan and progress](docs/python-migration-plan.md)
+- [Backend contract and compatibility checks](docs/backend-contract.md)
 - [Python backend guide](docs/python-backend.md) (planned; implementation has not started)
 
 ## Support

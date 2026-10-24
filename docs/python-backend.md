@@ -4,6 +4,8 @@
 
 See the [migration plan](python-migration-plan.md) for work order, status, completion criteria, and decisions. Keep this guide in simple English.
 
+The [backend contract](backend-contract.md) describes current source behavior, client requirements, intended fixes, and questions for reference capture.
+
 ## Purpose and limits
 
 The service must support existing mobile clients without client updates. Keep HTTP, existing SQLite files with Bible translations, and the external contract of active features. Keep the `nwt` translation. Remove the old `/nwtbible` endpoint, J2ME code, and `/fb`.
@@ -33,6 +35,7 @@ Before the migration, these are the main locations in the project:
 | `src/StartupTracker.cpp`, `src/Feedback.cpp` | Client POST requests |
 | `docker-compose.yml`, `nginx.conf`, `proxy.conf` | Existing startup and proxy configuration; check whether it matches production |
 | `docs/python-migration-plan.md` | Plan, status, and decisions |
+| `docs/backend-contract.md` | Source-based contract and reference test checklist |
 
 After implementation, add the actual paths for Python code, tests, reference responses, dependencies, and configuration. Remove obsolete paths or clearly label them as historical.
 
