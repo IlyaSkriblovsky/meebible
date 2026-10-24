@@ -1,6 +1,6 @@
 # MeeBible Python migration plan
 
-Last updated: 2026-10-23.
+Last updated: 2026-10-24.
 
 The goal is to keep existing MeeBible clients on Symbian and MeeGo working by replacing PHP 5.6 with a small Python + FastAPI service. New features, new users, and a redesign are out of scope. We will not migrate to PHP 8.
 
@@ -46,6 +46,7 @@ Unsafe behavior in the old implementation is not a compatibility requirement. Co
 - Capture the main reference responses from the local old application with known code and a fixed data snapshot. Record the image version, configuration, source revision, and content checksums.
 - Treat responses from meebible.org as extra evidence, not as a trusted source of code, data, or required behavior. Do not use them to overwrite local reference responses automatically.
 - Compare production only after local reference responses are ready. Use a small, representative set of GET requests with a low request rate and limited concurrency. Check the full content set locally.
+- Earlier safe read-only observations from `http://meebible.org/` can help answer configuration questions. Record them separately; they do not replace the later comparison or trusted local reference captures.
 - Record original status codes and headers, including Content-Type/charset, Content-Length, Content-Encoding, Location, Cache-Control, and Vary. Check responses with and without gzip. Do not hide redirects by following them automatically. Compare decoded bodies; compressed bytes do not have to match.
 - Keep Date and other changing headers for diagnosis, but do not require exact matches. Check Content-Length against the actual body representation and compression. The Server version is not part of the client contract.
 - Classify differences by cause: content version, application version, internal nginx, external proxy, changing values, or unknown cause. Reproduce relevant configuration details in the test environment.
@@ -82,3 +83,10 @@ Unsafe behavior in the old implementation is not a compatibility requirement. Co
 - Found that the old passage route rejects digit-prefixed book codes such as `1co`, although the client creates these links. Fix this during the port, along with loose path parsing and missing-content handling.
 - Checked local metadata and sample chapters in read-only mode. All advertised translation/language pairs have a content file; metadata has no chapter-number gaps. A full check of chapter rows remains in the later test steps.
 - Step 2 is complete. No application or server configuration changed; the PHP reference server, HTTP captures, and production comparison have not started. The next step is the isolated PHP 5.6 reference server.
+
+### 2026-10-24 — reference environment and historical Qt forms
+
+- The owner confirmed PHP 5.6.40 from official `php:5.6-fpm`. Record the image digest and verify settings when building the reference server.
+- No local Qt installation is needed for form encoding research. Reviewed upstream Qt 4.7.4 and 4.8.0 source; the relevant paths agree. Exact shipped patch versions remain unknown.
+- Qt sends spaces as `%20` and leaves literal `+` unchanged. PHP 5.6.40's form decoder converts that plus to a space. Added source links and encoding examples to the contract; raw-plus handling in Python remains an explicit decision.
+- Production is available for safe GET observations before the formal comparison. Keep public writes and malformed-input tests on the isolated reference server. No production requests were made during this clarification.

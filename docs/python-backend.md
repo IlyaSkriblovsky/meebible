@@ -41,7 +41,9 @@ After implementation, add the actual paths for Python code, tests, reference res
 
 ## Local startup
 
-Commands have not been defined or tested yet. During implementation, document requirements, dependency installation, data setup, configuration variables, Docker startup, and a basic availability check. Document the isolated old PHP setup for reference capture separately.
+Commands have not been defined or tested yet. During implementation, document requirements, dependency installation, data setup, configuration variables, Docker startup, and a basic availability check. Document the isolated old PHP setup for reference capture separately. The confirmed reference runtime is PHP 5.6.40 from official `php:5.6-fpm`; record the image digest during setup.
+
+Historical Qt source is used to define client encoding fixtures. A local Qt installation is not a prerequisite; see the form encoding section in the [backend contract](backend-contract.md).
 
 ## Tests
 

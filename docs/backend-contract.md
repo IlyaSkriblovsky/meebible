@@ -1,6 +1,6 @@
 # MeeBible backend contract
 
-Last updated: 2026-10-23.
+Last updated: 2026-10-24.
 
 This is the source-based contract for the Python migration. It describes what the current PHP code does, what the Qt client expects, and which errors we intend to fix. It is not a record of captured HTTP responses. The old server has not been started and production has not been queried for this step.
 
@@ -8,7 +8,7 @@ See the [migration plan](python-migration-plan.md) for scope and progress and th
 
 ## Sources and confidence
 
-The review covers the PHP routes and handlers, response classes, website templates, nginx configuration, Qt requests and parsers, and a read-only check of local SQLite metadata and sample chapters.
+The review covers the PHP routes and handlers, response classes, website templates, nginx configuration, Qt requests and parsers, and a read-only check of local SQLite metadata and sample chapters. The form encoding review also uses the upstream Qt 4.7.4, Qt 4.8.0, and PHP 5.6.40 source code linked below.
 
 | Source | What it defines |
 | --- | --- |
@@ -27,6 +27,13 @@ The review covers the PHP routes and handlers, response classes, website templat
 | [`src/Place.cpp`](../src/Place.cpp), [`src/Place.h`](../src/Place.h) | Shared verse URLs |
 
 Statements about PHP code below are source findings. Actual PHP defaults, emitted headers, body bytes, database error behavior, and production proxy settings still need runtime checks. Examples show structure; they are not saved reference responses.
+
+### Confirmed environment
+
+- The owner confirmed PHP **5.6.40** from the official **`php:5.6-fpm`** Docker image. Use this version for the local reference server. Record the resolved image digest and architecture when setting it up; the tag alone does not identify the exact image.
+- No local Qt runtime is available. Installing a current Qt version would not establish the behavior of the old clients. Use versioned historical source code for Qt-specific questions and save source-based fixtures in the test suite later.
+- The exact Qt patch version used by each shipped client is not recorded here. The form encoding paths in upstream 4.7.4 and 4.8.0 were reviewed and agree. This is source evidence, not a test on a phone or proof about every vendor patch.
+- `http://meebible.org/` is available for safe read-only observations as well as the later comparison with local reference responses. Keep production responses separate from local reference captures. Do not use public POST requests or malformed inputs to investigate form handling.
 
 ## Route map
 
@@ -179,7 +186,34 @@ Whole-translation download uses the same endpoint, with up to **20 concurrent ou
 
 ## Startup and feedback writes
 
-Both clients build a `QUrl`, call `addQueryItem`, and POST `encodedQuery()` with `Content-Type: application/x-www-form-urlencoded`, without an explicit charset parameter. Capture exact Qt encoding behavior before choosing parser compatibility rules, especially for spaces and literal plus signs. Ordinary HTML form encoding alone is not proof of what this old Qt client sends.
+Both clients build a `QUrl`, call `addQueryItem`, and POST `encodedQuery()` with `Content-Type: application/x-www-form-urlencoded`, without an explicit charset parameter. They use URL query encoding rather than HTML form encoding.
+
+### Historical Qt encoding
+
+The reviewed upstream code follows this path:
+
+- `addQueryItem` converts key and value to UTF-8 and percent-encodes them, forcing the `&` and `=` delimiters to be encoded inside values.
+- The allowed query characters include `+`, so a literal plus is left unchanged. A space is encoded as `%20`.
+- `encodedQuery()` returns the saved query bytes without another encoding pass. The QByteArray overload of `QNetworkAccessManager::post` places these bytes in a buffer; it does not form-encode the fields again.
+
+Sources: [Qt 4.7.4 addQueryItem](https://github.com/qt/qt/blob/v4.7.4/src/corelib/io/qurl.cpp#L5058), [query character set](https://github.com/qt/qt/blob/v4.7.4/src/corelib/io/qurl.cpp#L3445), [UTF-8 conversion](https://github.com/qt/qt/blob/v4.7.4/src/corelib/io/qurl.cpp#L206), [percent encoder](https://github.com/qt/qt/blob/v4.7.4/src/corelib/tools/qbytearray.cpp#L4098), [encodedQuery](https://github.com/qt/qt/blob/v4.7.4/src/corelib/io/qurl.cpp#L5429), [POST buffer](https://github.com/qt/qt/blob/v4.7.4/src/network/access/qnetworkaccessmanager.cpp#L718). The corresponding [Qt 4.8.0 addQueryItem](https://github.com/qt/qt/blob/v4.8.0/src/corelib/io/qurl.cpp#L5121) and [encodedQuery](https://github.com/qt/qt/blob/v4.8.0/src/corelib/io/qurl.cpp#L5493) behave the same; its percent-encoding helper also matches 4.7.4.
+
+Source-based examples for a value passed to `addQueryItem`:
+
+| Input | Bytes inside the encoded value |
+| --- | --- |
+| Space | `%20` |
+| `+` | `+` |
+| `&` | `%26` |
+| `=` | `%3D` |
+| `%` | `%25` |
+| Literal text `%2B` | `%252B` |
+| CR followed by LF | `%0D%0A` |
+| `é` | `%C3%A9` |
+
+For example, the value `user+tag@example.org` produces `email=user+tag@example.org`. PHP 5.6.40's [POST parser](https://github.com/php/php-src/blob/php-5.6.40/main/php_variables.c#L280) calls [php_url_decode](https://github.com/php/php-src/blob/php-5.6.40/ext/standard/url.c#L534), which converts a raw `+` to a space. The source path therefore predicts that this address is stored as `user tag@example.org`. A percent-encoded `%2B`, if sent by another client, decodes to a literal plus instead.
+
+This is an existing data-loss bug. A standard Python form parser would keep that bug. Preserving raw plus signs on the two legacy POST endpoints is a possible fix, but it changes how ordinary HTML forms using `+` for spaces are read. There is no reliable way to infer both meanings from the same body. Decide the Python rule explicitly, then test raw Qt-style bytes and the old PHP result locally. Do not use a heuristic based on whether a body contains `%20`.
 
 ### `/startup`
 
@@ -234,7 +268,7 @@ Insert values are `datetime('now')`, name, email, and message. The client report
 - IDs are assigned by SQLite. `datetime('now')` uses UTC with second precision. Match the stored timestamp format; IDs and times are variable values in tests.
 - Each request inserts a new row. There is no deduplication or idempotency key. Do not add one by guessing from message contents or device ID.
 - Old handlers do not inspect write results before returning `ok`. Python must commit before success and return an error on failure. Do not silently drop a message or startup record.
-- Missing fields, duplicate fields, arrays, multipart bodies, invalid encoding, and size limits need explicit local tests and documented Python rules. The exact stored value for a missing PHP key needs reference capture; it must not be guessed as SQL NULL or an empty string.
+- Missing fields, duplicate fields, arrays, multipart bodies, invalid encoding, and size limits need explicit local tests and documented Python rules. The exact stored value for a missing PHP key needs reference capture; it must not be guessed as SQL NULL or an empty string. Form fixtures must use the historical Qt encoding above; a normal form encoder would incorrectly turn literal plus signs into `%2B`.
 - SQL uses bound parameters. Preserve text, special characters, and line breaks. Test that values cannot change the query.
 
 ## Shared passages: `/t/{trans}/{lang}/{book}/{chapter}/{verses}`
@@ -311,7 +345,8 @@ The changes below are part of the port, not changes to existing PHP in this step
 | Invalid input | Controlled errors; no arrays used as scalars, loose numeric conversion, or accidental FastAPI 422 JSON | Duplicate keys, collisions, size limits, and exact errors after local capture |
 | Normal legacy errors | Keep documented XML/text responses and statuses | Confirm actual wire headers and bytes |
 | Write failures | No success before commit | Choose controlled 5xx body and test disk/database failures |
-| Optional startup fields and empty feedback | Accept legitimate client input | Verify storage of omitted fields and Qt encoding |
+| Optional startup fields and empty feedback | Accept legitimate client input | Verify storage of omitted fields; historical Qt encoding is now documented |
+| Literal plus signs in POST forms | Fix the known Qt/PHP data-loss problem deliberately | Decide raw-plus handling for the legacy endpoints and test the difference from standard HTML forms |
 | Passage links | Accept digit-prefixed book codes; validate the full path and handle missing content | Exact 400/404 policy, missing/partial verses, suffixes, and trailing slashes |
 | HTML output | Escape plain text; keep chapter HTML intact | Compare passage parser output and review external HTTP script |
 | Routing cleanup | Preserve canonical client URLs; no automatic redirects | Whether to accept extra query strings on exact routes or bare metadata paths; record any change explicitly |
@@ -336,12 +371,12 @@ This list defines test coverage for later steps. No HTTP test run has been perfo
 
 ## Questions for the reference server and production comparison
 
-1. What exact PHP image, extensions, working directory, charset, error display, and request-order settings reproduce the deployed app? SQLite3 and DOM are required. Old Smarty is loaded for every application route.
+1. PHP 5.6.40 from official `php:5.6-fpm` is confirmed. Which image digest, architecture, extensions, working directory, charset, error display, and request-order settings reproduce the deployed app? SQLite3 and DOM are required. Old Smarty is loaded for every application route.
 2. What are the exact headers and body bytes for success, XML errors, chapter errors, passage redirects, and 404? Does any warning or extra output affect the body or length?
-3. Which Qt version/encoding can be reproduced locally for form fixtures? If a Qt runtime is unavailable, keep the plus/space behavior explicitly unverified until it is checked against Qt's implementation or a suitable fixture.
+3. Historical Qt 4.7.4/4.8.0 source establishes the encoding above without a local Qt installation. Build fixtures from those rules, verify PHP decoding locally, and decide whether Python preserves raw plus signs on legacy POST endpoints. The exact shipped Qt patch versions remain unknown.
 4. How are omitted fields, duplicate fields, arrays, query/form collisions, HEAD, and unsupported methods handled by PHP 5.6 and the proxy? Run write and invalid-input cases only on temporary local data.
 5. Do all catalog entries and chapter sizes agree with content rows? Check the whole local data set before release and report existing data gaps separately from port failures.
 6. How does PHP's HTML parser serialize passages, especially entities, Cyrillic, RTL, superscripts, and split verses? Does the template add any relevant behavior beyond the source findings?
-7. Which repository nginx/proxy settings are active on meebible.org? Once local responses exist, compare a small safe GET sample, with and without gzip and without following redirects automatically. Classify differences in headers, content, and configuration before changing the contract.
+7. Which repository nginx/proxy settings are active on `http://meebible.org/`? Safe read-only observations can help answer this. Once local responses exist, compare a small safe GET sample, with and without gzip and without following redirects automatically. Classify differences in headers, content, and configuration before changing the contract.
 
 Store reference environment details and captures with the test tooling when it is built. Update this document when an open point is resolved; keep significant decisions in the migration log.
