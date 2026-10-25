@@ -13,25 +13,26 @@ from support import Page, Response, delta, local_url, user_data
 
 
 class HarnessChecks(unittest.TestCase):
-    def test_translation_nonclient_cases_are_not_required_for_python(self):
+    def test_nonclient_cases_are_not_required_for_python(self):
         required = {case["id"] for case in cases("python")}
         extended = {case["id"] for case in cases("python", include_optional=True)}
-        observations = {"translation-zero", "translation-bare"}
-        optional = {"translation-array", "translation-duplicate"}
+        observations = {"translation-zero", "translation-bare", "chapter-bare"}
+        optional = {"translation-array", "translation-duplicate", "chapter-duplicate", "chapter-method-post"}
         self.assertTrue(required.isdisjoint(observations | optional))
         self.assertTrue(extended.isdisjoint(observations))
         self.assertEqual(extended - required, optional)
-        self.assertTrue({"chapter-array", "chapter-duplicate", "translation-unknown",
-                         "translation-sql-text"}.issubset(required))
+        self.assertTrue({"chapter-array", "chapter-unknown-file", "chapter-traversal",
+                         "translation-unknown", "translation-sql-text",
+                         "startup-missing", "feedback-duplicate"}.issubset(required))
         php = {case["id"] for case in cases("php")}
         self.assertTrue((observations | optional).issubset(php))
         self.assertEqual(php, {case["id"] for case in cases("php", include_optional=True)})
 
-    def test_optional_translation_checks_keep_their_strict_validation(self):
+    def test_optional_query_checks_keep_their_strict_validation(self):
         args = SimpleNamespace(profile="python", user_data=None, php_reference=False,
                                base_url="http://127.0.0.1:8000")
         for case in cases("python", include_optional=True):
-            if not case.get("python_optional"):
+            if not case.get("python_optional") or case["python"]["kind"] != "controlled":
                 continue
             with self.subTest(case=case["id"]):
                 response = Response(400, [("Content-Type", "text/plain")], b"", b"Bad input")
@@ -40,6 +41,23 @@ class HarnessChecks(unittest.TestCase):
                 response.status = 200
                 with patch("run.request", return_value=response), self.assertRaises(AssertionError):
                     check_case(args, {}, {}, case)
+
+    def test_optional_chapter_post_checks_status_allow_and_error_body(self):
+        case = next(case for case in cases("python", include_optional=True)
+                    if case["id"] == "chapter-method-post")
+        args = SimpleNamespace(profile="python", user_data=None, php_reference=False,
+                               base_url="http://127.0.0.1:8000")
+        headers = [("Content-Type", "text/plain"), ("Allow", "GET, HEAD")]
+        response = Response(405, headers, b"", b"Method Not Allowed")
+        with patch("run.request", return_value=response):
+            check_case(args, {}, {}, case)
+        for broken in (
+            Response(200, headers, b"", b"chapter content"),
+            Response(405, [("Content-Type", "text/plain"), ("Allow", "GET")], b"", b"Method Not Allowed"),
+            Response(405, [("Content-Type", "application/json"), ("Allow", "GET, HEAD")], b"", b'{"detail":"Method Not Allowed"}'),
+        ):
+            with self.subTest(response=broken), patch("run.request", return_value=broken), self.assertRaises(AssertionError):
+                check_case(args, {}, {}, case)
 
     def test_never_accept_a_public_target(self):
         for url in ("http://meebible.org", "https://127.0.0.1", "http://127.0.0.1@meebible.org",

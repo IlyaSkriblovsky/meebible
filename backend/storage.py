@@ -13,6 +13,10 @@ LANGS_DB = "langs.sqlite"
 TRANSLATIONS_DB = "trans.sqlite"
 
 
+class ChapterNotFoundError(Exception):
+    pass
+
+
 @contextmanager
 def connect_db(filename: str, write=False) -> Iterator[sqlite3.Connection]:
     suffix = "" if write else "?mode=ro"
@@ -25,10 +29,17 @@ def connect_db(filename: str, write=False) -> Iterator[sqlite3.Connection]:
 
 
 @contextmanager
-def connect_translation_db(trans_code: str) -> Iterator[sqlite3.Connection]:
-    db_path = DB_PATH / (trans_code + ".sqlite")
+def connect_translation_db(
+    trans_code: str, lang_code: str
+) -> Iterator[sqlite3.Connection]:
+    if trans_code == "nwt":
+        db_path = DB_PATH / "nwt" / f"nwt_{lang_code}.sqlite"
+    else:
+        db_path = DB_PATH / f"{trans_code}.sqlite"
+
     if not os.path.exists(db_path):
         raise FileNotFoundError(db_path)
+
     with connect_db(db_path) as con:
         yield con
 
@@ -200,3 +211,26 @@ def load_publication_structure(trans_code: str, lang_code: str) -> PublicationSt
         ]
 
     return PublicationStructure(books=books)
+
+
+def load_chapter_html(
+    trans_code: str, lang_code: str, book_code: str, chapter_no: int
+) -> str:
+    try:
+        with connect_translation_db(trans_code, lang_code) as con:
+            res = con.execute(
+                "SELECT html FROM html WHERE langCode=:lang_code AND bookCode=:book_code AND chapterNo=:chapter_no",
+                {
+                    "lang_code": lang_code,
+                    "book_code": book_code,
+                    "chapter_no": chapter_no,
+                },
+            )
+
+            try:
+                first = next(iter(res))
+                return first[0]
+            except StopIteration:
+                raise ChapterNotFoundError()
+    except FileNotFoundError:
+        raise ChapterNotFoundError()

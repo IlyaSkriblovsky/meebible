@@ -1,3 +1,4 @@
+import re
 from pathlib import Path
 
 from fastapi import FastAPI
@@ -5,8 +6,14 @@ from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import HTMLResponse, Response
 from fastapi.staticfiles import StaticFiles
 from jinja2 import Environment, FileSystemLoader
+from starlette.responses import PlainTextResponse
 
-from backend.storage import load_library, load_publication_structure
+from backend.storage import (
+    ChapterNotFoundError,
+    load_chapter_html,
+    load_library,
+    load_publication_structure,
+)
 
 TEMPLATES = Path(__file__).parent / "templates"
 STATIC = Path(__file__).parent / "static"
@@ -48,3 +55,26 @@ def get_translation(trans: str = "", lang: str = ""):
     structure = load_publication_structure(trans, lang)
     xml = templates_env.get_template("translation.xml").render(structure=structure)
     return XMLResponse(content=xml)
+
+
+@app.api_route("/chapter", methods=["get", "head"])
+def get_chapter(trans: str = "", lang: str = "", book: str = "", chapter: str = ""):
+    if not all([trans, lang, book, chapter]) or chapter == "0":
+        return PlainTextResponse("Not all parameters specified", status_code=400)
+
+    try:
+        chapter_no = int(chapter)
+        assert 0 < chapter_no
+        if chapter_no > 1000:
+            # Reproducing PHP value for the sake of automatic external tests
+            return PlainTextResponse("Chapter does not exists", status_code=400)
+        assert re.match(r"^[a-z0-9_]+$", trans)
+        assert re.match(r"^[a-z]+$", lang)
+    except (ValueError, AssertionError):
+        return PlainTextResponse("Invalid parameters", status_code=400)
+
+    try:
+        content = load_chapter_html(trans, lang, book, chapter_no)
+        return HTMLResponse(content=content)
+    except ChapterNotFoundError:
+        return PlainTextResponse("Chapter does not exists", status_code=400)

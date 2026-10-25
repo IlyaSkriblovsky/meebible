@@ -163,6 +163,10 @@ The client decodes UTF-8 and caches the XML as `trans_{trans}_{lang}`. It preser
 
 Canonical example: `GET /chapter?trans=kjv&lang=e&book=ge&chapter=1`.
 
+[`Translation::requestChapter`](../src/Translation.cpp) builds this URL with exactly one value for each of the four keys, then calls `QNetworkAccessManager::get`. Both normal reading and whole-translation download use this function. The client does not generate duplicate keys, bare `/chapter`, or POST `/chapter` requests.
+
+The old 404 for bare `/chapter` is a PHP-only route observation. Python may handle it as a normal missing-parameter request. Strict duplicate-key rejection and the text/HTML format of a POST 405 response are optional checks enabled by `--include-optional`. Read routes still use GET/HEAD; a normal framework JSON 405 for POST `/chapter` is allowed. Bound SQL values, safe read-only content paths, normal chapter errors, and byte-exact chapter bodies remain required.
+
 After checking that all four fields are non-empty, PHP applies these regexes:
 
 | Field | Regex in PHP | Meaning for normal client values |
@@ -353,16 +357,16 @@ The changes below are part of the port, not changes to existing PHP in this step
 | Area | Python direction | Detail still to settle |
 | --- | --- | --- |
 | Removed features | 404 for `/fb`, `/nwtbible`, and unused J2ME URLs; keep `nwt` content | Add regression cases |
-| Methods | Reads use GET/HEAD; startup/feedback use POST only; unsupported methods must not write | Check old HEAD behavior and define error headers/bodies |
+| Methods | Reads use GET/HEAD; startup/feedback use POST only; unsupported methods must not write. Text/HTML error format for POST `/chapter` is optional; a framework JSON 405 is allowed | Check remaining error headers/bodies |
 | File access | Known content paths, read-only SQLite, separate writable data | Exact configuration paths |
-| Invalid input | Controlled errors and bound SQL values; malformed scalar POST fields return 400. Strict array/duplicate query rejection on `/translation` is optional; chapter file access checks remain required | Multipart bodies, size limits, and remaining collision cases |
+| Invalid input | Controlled errors and bound SQL values; malformed scalar POST fields return 400. Strict array rejection on `/translation` and duplicate-key rejection on `/translation` and `/chapter` are optional; chapter file access checks remain required | Multipart bodies, size limits, and remaining collision cases |
 | Normal legacy errors | Keep documented XML/text responses and statuses | Confirm actual wire headers and bytes |
 | Write failures | No success before commit | Choose controlled 5xx body and test disk/database failures |
 | Optional startup fields and empty feedback | Accept legitimate client input; omitted startup language/translation store NULL | Covered by external tests |
 | Literal plus signs in POST forms | Preserve raw plus signs; percent-decode UTF-8 without HTML form plus conversion | Agreed on 2026-10-24; raw Qt bytes, encoded plus, and standard form difference are tested |
 | Passage links | Accept digit-prefixed book codes; validate the full path and handle missing content | Exact 400/404 policy, missing/partial verses, suffixes, and trailing slashes |
 | HTML output | Escape plain text; keep chapter HTML intact | Compare passage parser output and review external HTTP script |
-| Routing cleanup | Preserve canonical client URLs without redirects; unused `/meta?x=1`, `/meta/`, and bare `/translation` variants are not constrained in Python | Review other route boundary cases separately before changing their requirements |
+| Routing cleanup | Preserve canonical client URLs without redirects; unused `/meta?x=1`, `/meta/`, bare `/translation`, and bare `/chapter` variants are not constrained in Python | Review other route boundary cases separately before changing their requirements |
 
 ## Reference and test checklist
 
@@ -373,7 +377,7 @@ This list defines overall coverage. The [external suite](backend-tests.md) cover
 | Catalog | Complete languages/translations, all attributes, ordering, empty values, Unicode, RTL, valid language references |
 | Translation | All advertised pairs, book order, chapter order/count/verse count, missing and empty query fields, unknown pairs; `0` and bare route responses are PHP-only observations; array/duplicate query rejection is optional in Python |
 | Chapters | Full advertised content set locally, `nwt` layout, first/last chapters, digit-prefixed books, exact decoded bytes, unchanged file checksums |
-| Chapter errors | Missing/empty fields, `0`, invalid codes, unknown codes, missing rows/files, leading zeroes, huge integers, array parameters, no new files |
+| Chapter errors | Missing/empty fields, `0`, invalid codes, unknown codes, missing rows/files, leading zeroes, huge integers, array parameters, no new files; bare route 404 is PHP-only; duplicate rejection and POST error-format checks are optional in Python |
 | Qt forms | Exact encoded bodies, Unicode, spaces, literal `+`, `%`, `&`, `=`, apostrophes, CR/LF, empty feedback, omitted startup language/translation, repeated requests |
 | Writes | One committed row per success, unchanged schema, timestamp format, database failure, no mail, no public test writes |
 | Passages | Single verse, ranges, gaps, duplicates, normalization redirect, superscripts, split verses, Unicode/RTL, digit-prefixed books, invalid paths and missing content |

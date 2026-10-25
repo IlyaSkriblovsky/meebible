@@ -449,7 +449,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--include-optional",
         action="store_true",
-        help="Also run optional strict Python query-validation checks",
+        help="Also run optional Python query-validation and error-format checks",
     )
     parser.add_argument(
         "--user-data", type=Path, default=os.environ.get("USER_DATA_DIR")

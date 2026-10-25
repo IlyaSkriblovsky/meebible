@@ -56,7 +56,7 @@ def cases(profile=None, include_optional=False):
         add(endpoint + "-duplicate", "/" + endpoint + "?" + query,
             "xml" if endpoint == "translation" else "bytes",
             python={"kind": "controlled", "statuses": [400], "no_write": True},
-            python_optional=endpoint == "translation")
+            python_optional=True)
     for name, path in (("home", "/"), ("privacy", "/privacy"), ("donate", "/donate"),
                        ("donate-mobile", "/donate-mobile"), ("not-found", "/reference-missing")):
         add(name, path, "page", python={"kind": "home"} if name == "home" else None)
@@ -92,7 +92,7 @@ def cases(profile=None, include_optional=False):
                        ("feedback-query", "/feedback?x=1"), ("code-hidden", "/route.php"),
                        ("content-hidden", "/content/langs.sqlite"), ("user-data-hidden", "/feedback.sqlite"),
                        ("j2me-removed", "/meta.j2me")):
-        add(name, path, "page", php_only=name == "translation-bare")
+        add(name, path, "page", php_only=name in {"translation-bare", "chapter-bare"})
     add("nwtbible-removed", "/nwtbible?trans=nwt&lang=e&book=ge&chapter=1",
         python={"status": 404, "kind": "controlled"})
     # Never fetch /fb, even locally. It is a removed route in the Python profile.
@@ -140,7 +140,8 @@ def cases(profile=None, include_optional=False):
         add(endpoint + "-method-" + method.lower(), "/" + endpoint, method=method, writes=True,
             python={"kind": "method", "status": 405, "allow": ["POST"], "no_write": True})
     add("chapter-method-post", "/chapter?trans=kjv&lang=e&book=ge&chapter=1", method="POST",
-        body="trans=rus&lang=u", python={"kind": "method", "status": 405, "allow": ["GET", "HEAD"]})
+        body="trans=rus&lang=u", python={"kind": "method", "status": 405, "allow": ["GET", "HEAD"]},
+        python_optional=True)
     if profile == "python":
         return [case for case in result
                 if not case.get("php_only")

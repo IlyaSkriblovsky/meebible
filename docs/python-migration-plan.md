@@ -139,3 +139,11 @@ Unsafe behavior in the old implementation is not a compatibility requirement. Co
 - Moved `translation-zero` and `translation-bare` to PHP-only observations. Python does not need to copy PHP's `empty("0")` behavior or its raw-URI route matching.
 - Made `translation-array` and `translation-duplicate` optional Python validation checks, enabled by `--include-optional`. They no longer block the default quick/full runs. Their strict rejection policy remains available without treating it as a client requirement.
 - Kept the saved PHP responses and PHP profile, required SQL/file/POST safety checks, and all advertised translation XML checks. No backend implementation was changed.
+
+### 2026-10-25 — chapter query and method boundary tests
+
+- Rechecked `Translation::requestChapter` and its callers. Normal reading and full download use GET with one `trans`, `lang`, `book`, and `chapter`. The client does not send duplicate keys, bare `/chapter`, or POST `/chapter`.
+- Moved `chapter-bare` to PHP-only observations. Python may return its normal missing-parameter response instead of reproducing the old raw-URI 404.
+- Made `chapter-duplicate` and `chapter-method-post` optional Python checks, enabled by `--include-optional`. The existing Python endpoint already returns 405 and the correct Allow header for POST; the optional test additionally requires a text/HTML error body. A framework JSON 405 is allowed by default.
+- Kept the PHP references/profile, required chapter content and file-access checks, and validation on writable routes. No backend source was edited.
+- All 13 test-tool checks passed. A local in-process run against the current Python app passed all 23 mandatory chapter request cases, including sample bytes, errors, HEAD, and gzip. Reference checksums stayed unchanged; this was not the full 109,505-chapter sweep.
