@@ -5,6 +5,7 @@ import gzip
 import hashlib
 import http.client
 import json
+import re
 import sqlite3
 import subprocess
 from dataclasses import dataclass
@@ -104,6 +105,8 @@ class Page(HTMLParser):
         self.verses = []
         self.superscripts = []
         self.holes = []
+        self.language_groups = []
+        self.publication_text = set()
         self.feed(body.decode("utf-8"))
 
     def handle_starttag(self, tag, attributes):
@@ -127,6 +130,16 @@ class Page(HTMLParser):
             self.holes.append(node)
         if tag in {"title", "h2"}:
             self.titles.append(node)
+        classes = attrs.get("class", "").split()
+        if tag == "div" and "language" in classes:
+            node["publications"] = []
+            self.language_groups.append(node)
+        if tag == "div" and "translation" in classes:
+            for parent in reversed(self.stack):
+                if "publications" in parent:
+                    parent["publications"].append(node)
+                    node["publication"] = True
+                    break
         if tag not in {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"}:
             self.stack.append(node)
 
@@ -144,6 +157,8 @@ class Page(HTMLParser):
     def handle_data(self, data):
         if any(node["tag"] in {"script", "style"} for node in self.stack):
             return
+        if any(node.get("publication") for node in self.stack):
+            self.publication_text.add(len(self.text))
         self.text.append(data)
         for node in self.stack:
             node["text"].append(data)
@@ -157,6 +172,21 @@ class Page(HTMLParser):
                           verses=[(n["attrs"]["verse"], words("".join(n["text"]))) for n in self.verses],
                           superscripts=[words("".join(n["text"])) for n in self.superscripts],
                           holes=[words("".join(n["text"])) for n in self.holes])
+        return result
+
+    def home_value(self, sort_publications=False):
+        result = self.value()
+        # Compare each language's publications separately from the surrounding text.
+        result["text"] = words(" ".join(
+            text for index, text in enumerate(self.text)
+            if index not in self.publication_text
+        ))
+        # The saved PHP page has a fixed 2013 copyright end year.
+        result["text"] = re.sub(r"(© 2011[–-])\d{4}(?= Ilya Skriblovsky)", r"\1YEAR", result["text"])
+        result["publications"] = []
+        for language in self.language_groups:
+            names = [words("".join(node["text"])) for node in language["publications"]]
+            result["publications"].append(sorted(names) if sort_publications else names)
         return result
 
 

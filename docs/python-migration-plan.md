@@ -1,6 +1,6 @@
 # MeeBible Python migration plan
 
-Last updated: 2026-10-24.
+Last updated: 2026-10-25.
 
 The goal is to keep existing MeeBible clients on Symbian and MeeGo working by replacing PHP 5.6 with a small Python + FastAPI service. New features, new users, and a redesign are out of scope. We will not migrate to PHP 8.
 
@@ -120,3 +120,15 @@ Unsafe behavior in the old implementation is not a compatibility requirement. Co
 - Final quick run passed all 104 checks. A full local run checked every advertised chapter, all translation XML, and all static assets with no failures. A separate nine-check tool test covers negative cases such as changed bytes/order, JSON errors, plus-sign data loss, and writes hidden behind an error response. Details and validation scope are in [test verification](../tests/backend/verification.md).
 - The full sweep used the same fixed chapter index as the final capture. Its PHP CPU limit was raised from one to the two CPUs available in the local VM to reduce emulation time, then restored. No image, application, content, PHP setting, mount, or network changed. The final isolation check passed and the containers were removed.
 - Step 4 is complete. No production requests were made. Production comparison remains step 5; final environment and failure injection remain later checks. The owner has started the Python implementation in parallel and owns step 6. Only test tooling and documentation are part of this result.
+
+### 2026-10-25 — catalog route boundary tests
+
+- Rechecked the client: `Languages::reload` calls `Paths::wsUrl("meta")`, which builds the exact `/meta` URL without a query or trailing slash. The client does not generate the two noncanonical variants in normal use.
+- Removed `meta-query` and `meta-slash` from the Python profile. Their old 404 responses describe PHP's raw-URI matching and are not needed for client compatibility. Kept both saved responses and both checks in the PHP profile.
+- Python may ignore extra query parameters or use normal framework behavior for `/meta/`. Canonical `/meta` must still return 200 directly. The owner's backend code is unchanged by this test correction.
+
+### 2026-10-25 — home page translation order
+
+- The owner confirmed that PHP's historical database insertion order is a bug. Sort translation names alphabetically within each language on the Python home page. Keep the client-facing `/meta` XML order unchanged.
+- Updated the Python home page checks to require sorted names and preserve language groups, translation contents, counts, and links. The old fixed copyright end year may be updated. Saved PHP responses and the PHP profile remain unchanged.
+- Backend implementation stays with the owner. Connection transaction handling and the corrected GET/HEAD Allow header were checked using temporary databases and local in-process requests; no backend source was edited.

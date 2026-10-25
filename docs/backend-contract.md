@@ -1,6 +1,6 @@
 # MeeBible backend contract
 
-Last updated: 2026-10-24.
+Last updated: 2026-10-25.
 
 This is the contract for the Python migration, based on source review and local PHP 5.6.40 observations. It describes the old code, client expectations, and deliberate fixes. Local reference responses and external tests are now available; see the [test guide](backend-tests.md). Production comparison has not started.
 
@@ -72,6 +72,8 @@ Methods in this table are the methods used by the client or browser. Old PHP doe
 - Dispatch does not check the HTTP method. A request that reaches `/startup` or `/feedback` can run a write even without POST fields. Do not test this on production.
 - Translation and chapter handlers use `$_REQUEST`; startup and feedback use `$_POST`. The merge of query, form, and possibly cookie values depends on PHP configuration. Duplicate keys, array syntax, and collisions need local reference tests.
 - Canonical client requests have one scalar value per field. They use query parameters for reads and form bodies for writes. They do not need cookie authentication, sessions, or API keys.
+
+The client requests the catalog with `Paths::wsUrl("meta")` in [`Languages.cpp`](../src/Languages.cpp). [`Paths::wsUrl`](../src/Paths.cpp) builds `http://{service}/{path}`; it adds no query or trailing slash. Returning 404 for `/meta?x=1` and `/meta/` is therefore a PHP routing detail, not a client compatibility requirement. From 2026-10-25 these two cases run only in the PHP test profile. Python may ignore extra query parameters and use its normal trailing-slash behavior. Canonical `/meta` must still return the catalog directly with 200.
 
 ### Responses and proxy behavior
 
@@ -308,13 +310,15 @@ Current weaknesses to fix: loose path matching, digit-prefixed books rejected, m
 
 | Page | Current behavior to preserve |
 | --- | --- |
-| `/` | Shows app information, download/source/support/donation/privacy links, screenshots, and a catalog list. Languages are sorted by `selfname`; languages without translations are removed. The translation count is the number of `translationLangs` rows, not distinct translation codes. Translation names retain query order. |
+| `/` | Shows app information, download/source/support/donation/privacy links, screenshots, and a catalog list. Languages are sorted by `selfname`; languages without translations are removed. The translation count is the number of `translationLangs` rows, not distinct translation codes. PHP keeps translation names in database query order. Python sorts names within each language, as agreed on 2026-10-25. |
 | `/privacy` | Renders the existing policy. The client opens this URL from the feedback page. Policy changes are outside this port. |
 | `/donate` | Returns HTML with a PayPal form and JavaScript that submits it on page load; this is not an HTTP 301/302 redirect. |
 | `/donate-mobile` | Returns HTML with a PayPal form/button and a link to `/donate`; no automatic submit. |
 | Unknown application path | Returns status 404 with the existing HTML error template. |
 
 Shared templates declare UTF-8 in HTML and link to existing CSS and favicon. Preserve page content, useful links, and appearance without requiring identical template whitespace. Escape ordinary text in the new template engine; only the passage HTML built from stored content is inserted as markup.
+
+The home page's historical insertion order is a PHP bug, not a compatibility requirement. Sort translation names alphabetically within each language. This does not change the `/meta` XML order used by the client. The copyright end year may be updated; the fixed 2013 year in the old page is not part of the client contract.
 
 Static files include CSS, JavaScript, images, and the existing `.sis` and `.deb` packages. Preserve URLs and file bytes. MIME types, HEAD, cache validators, range handling, and nginx-generated 404 bodies need runtime capture. `/static/` must not expose code, databases, or writable user data.
 
@@ -354,7 +358,7 @@ The changes below are part of the port, not changes to existing PHP in this step
 | Literal plus signs in POST forms | Preserve raw plus signs; percent-decode UTF-8 without HTML form plus conversion | Agreed on 2026-10-24; raw Qt bytes, encoded plus, and standard form difference are tested |
 | Passage links | Accept digit-prefixed book codes; validate the full path and handle missing content | Exact 400/404 policy, missing/partial verses, suffixes, and trailing slashes |
 | HTML output | Escape plain text; keep chapter HTML intact | Compare passage parser output and review external HTTP script |
-| Routing cleanup | Preserve canonical client URLs; no automatic redirects | Whether to accept extra query strings on exact routes or bare metadata paths; record any change explicitly |
+| Routing cleanup | Preserve canonical client URLs without redirects; unused `/meta?x=1` and `/meta/` variants are not constrained in Python | Review other route boundary cases separately before changing their requirements |
 
 ## Reference and test checklist
 

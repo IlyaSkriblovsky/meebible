@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% block head %}
+            {% block meta %}
+                <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+            {% endblock %}
+
+            <title>{% block title %}MeeBible{% endblock %}</title>
+            <link rel="shortcut" href="/favicon.ico" type="image/x/icon"/>
+            <link rel="icon" href="/favicon.ico" type="image/x/icon"/>
+
+            {% block css %}
+                <link rel="stylesheet" href="/static/css/style.css" />
+            {% endblock %}
+
+            {% block js %}{% endblock %}
+        {% endblock %}
+    </head>
+
+    <body>
+        {% block body %}{% endblock %}
+    </body>
+</html>

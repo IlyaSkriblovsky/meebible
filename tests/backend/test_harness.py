@@ -52,6 +52,26 @@ class HarnessChecks(unittest.TestCase):
     def test_historical_qt_fixture_keeps_literal_plus(self):
         self.assertEqual(form({"message": "C++ &=% é\r\n"}), "message=C++%20%26%3D%25%20%C3%A9%0D%0A")
 
+    def test_python_home_requires_sorted_names_and_preserves_content(self):
+        expected = {"status": 200, "headers": [("Content-Type", "text/html;charset=UTF-8")]}
+        body = '<h2>About</h2><div class="language"><h3>English</h3><div class="translation">Zulu</div><div class="translation">Alpha</div></div><div class="language"><h3>Russian</h3><div class="translation">Beta</div></div><p>© 2011–2013 Ilya Skriblovsky</p>'.encode()
+        sorted_body = body.replace(b'>Zulu</div><div class="translation">Alpha<', b'>Alpha</div><div class="translation">Zulu<')
+        response = Response(200, expected["headers"], b"", sorted_body)
+        compare(response, expected, body, "home")
+        for broken in (
+            body,
+            sorted_body.replace(b'<div class="translation">Zulu</div>', b''),
+            sorted_body.replace(b'<div class="translation">Alpha</div>', b'<div class="translation">Alpha</div>' * 2),
+            sorted_body.replace(b'>Alpha<', b'>Beta<').replace(b'>Beta</div></div><p>', b'>Alpha</div></div><p>'),
+            sorted_body.replace(b'>About<', b'>Changed<'),
+        ):
+            with self.subTest(body=broken), self.assertRaises(AssertionError):
+                compare(Response(200, expected["headers"], b"", broken), expected, body, "home")
+        response.body = sorted_body.decode().replace('2011–2013', '2011–2026').encode()
+        compare(response, expected, body, "home")
+        with self.assertRaises(AssertionError):
+            compare(response, expected, body, "page")
+
     def test_python_profile_rejects_the_php_plus_data_loss(self):
         case = next(case for case in cases() if case["id"] == "feedback")
         before = {table: {"rows": [], "columns": []} for table in ("startup", "feedback")}

@@ -1,0 +1,39 @@
+html {
+  position: relative;
+  height: 100%; }
+
+body {
+  position: relative;
+  height: 100%; }
+
+.par {
+  margin-top: 0.8em; }
+
+.z {
+  display: block;
+  margin-left: 60px;
+  text-indent: -20px; }
+
+.par.z {
+  margin-top: 0; }
+
+.verse {
+  display: inline; }
+
+.verse-label {
+  display: inline;
+  position: relative;
+  top: -0.5em;
+  font-size: 65%;
+  padding: 0 0.1em 0 0.2em;
+  color: #aaaaaa; }
+
+.hole {
+  color: #aaaaaa;
+  padding: 0 0.4em 0 0.4em; }
+
+.small, .smallcaps {
+  font-size: 80%; }
+
+.upper {
+  text-transform: uppercase; }
