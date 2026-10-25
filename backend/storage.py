@@ -1,10 +1,16 @@
+import os
 import sqlite3
 from collections.abc import Iterator
 from contextlib import contextmanager
 from dataclasses import dataclass
+from itertools import groupby
+from operator import itemgetter
 from pathlib import Path
 
 DB_PATH = Path(__file__).parent / "content"
+
+LANGS_DB = "langs.sqlite"
+TRANSLATIONS_DB = "trans.sqlite"
 
 
 @contextmanager
@@ -16,6 +22,15 @@ def connect_db(filename: str, write=False) -> Iterator[sqlite3.Connection]:
             yield connection
     finally:
         connection.close()
+
+
+@contextmanager
+def connect_translation_db(trans_code: str) -> Iterator[sqlite3.Connection]:
+    db_path = DB_PATH / (trans_code + ".sqlite")
+    if not os.path.exists(db_path):
+        raise FileNotFoundError(db_path)
+    with connect_db(db_path) as con:
+        yield con
 
 
 @dataclass(frozen=True)
@@ -43,12 +58,30 @@ class Translation:
     rtl: bool
 
 
+@dataclass(frozen=True)
+class ChapterHeader:
+    no: int
+    verse_count: int
+
+
+@dataclass(frozen=True)
+class Book:
+    code: str
+    name: str  # localized
+    chapters: list[ChapterHeader]
+
+
+@dataclass(frozen=True)
+class PublicationStructure:
+    books: list[Book]
+
+
 class Library:
     def __init__(
         self,
         langs: dict[str, Lang],
         translations: dict[str, Translation],
-        publications: dict[str, Publication],
+        publications: dict[tuple[str, str], Publication],
     ):
         self._langs = langs
         self._translations = translations
@@ -99,7 +132,7 @@ class Library:
 
 def load_library() -> Library:
     langs: list[Lang] = []
-    with connect_db("langs.sqlite") as con:
+    with connect_db(LANGS_DB) as con:
         res = con.execute("SELECT code, engname, selfname FROM langs")
         for code, engname, selfname in res:
             langs.append(Lang(code=code, engname=engname, selfname=selfname))
@@ -107,7 +140,7 @@ def load_library() -> Library:
     translations: list[Translation] = []
     publication: list[Publication] = []
 
-    with connect_db("trans.sqlite") as con:
+    with connect_db(TRANSLATIONS_DB) as con:
         res = con.execute(
             "SELECT transCode, name, sourceUrl, copyright, rtl FROM translations"
         )
@@ -140,3 +173,30 @@ def load_library() -> Library:
             for publication in publication
         },
     )
+
+
+def load_publication_structure(trans_code: str, lang_code: str) -> PublicationStructure:
+    with connect_db(TRANSLATIONS_DB) as con:
+        res = con.execute(
+            "SELECT bookCode, chapterNo, verseCount FROM chapterSize WHERE transCode=:trans_code ORDER BY bookCode, chapterNo",
+            {"trans_code": trans_code},
+        )
+
+        chapters_by_book_code: dict[str, list[ChapterHeader]] = {}
+        for bookCode, group in groupby(res, itemgetter(0)):
+            chapters_by_book_code[bookCode] = [
+                ChapterHeader(no=chapter_no, verse_count=verse_count)
+                for _, chapter_no, verse_count in group
+            ]
+
+        res = con.execute(
+            "SELECT bookCode, bookName FROM books WHERE transCode=:trans_code AND langCode=:lang_code ORDER BY bookNo",
+            {"trans_code": trans_code, "lang_code": lang_code},
+        )
+
+        books: list[Book] = [
+            Book(code=bookCode, name=bookName, chapters=chapters_by_book_code[bookCode])
+            for bookCode, bookName in res
+        ]
+
+    return PublicationStructure(books=books)

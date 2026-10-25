@@ -134,6 +134,10 @@ Canonical example: `GET /translation?trans=kjv&lang=e`.
 
 PHP treats both an empty string and the string `0` as empty. There is no code-format validation here. Extra query fields are unused.
 
+The client constructs exactly `/translation?trans={code}&lang={code}` in [`Translation::reload`](../src/Translation.cpp), with one value for each key. Both codes come from `/meta` through [`MetaInfoParser`](../src/MetaInfoParser.cpp). None of the 94 pairs in the fixed catalog uses an empty or `0` code, and their codes contain no query punctuation. The normal client does not send a bare `/translation`, bracket-style query keys, or duplicate keys.
+
+For Python, the old special treatment of `0` and the old 404 for bare `/translation` are not compatibility requirements. Keep those two observations in the PHP profile only. Strict rejection of bracket-style or duplicate `/translation` query keys is an optional validation policy, tested with `--include-optional`. Default framework handling of these two unused query forms is allowed. This does not relax bound SQL parameters, controlled server failures, content file access rules, or validation on POST endpoints.
+
 ```xml
 <translation>
   <book code="ge" name="Genesis">
@@ -351,14 +355,14 @@ The changes below are part of the port, not changes to existing PHP in this step
 | Removed features | 404 for `/fb`, `/nwtbible`, and unused J2ME URLs; keep `nwt` content | Add regression cases |
 | Methods | Reads use GET/HEAD; startup/feedback use POST only; unsupported methods must not write | Check old HEAD behavior and define error headers/bodies |
 | File access | Known content paths, read-only SQLite, separate writable data | Exact configuration paths |
-| Invalid input | Controlled errors; no arrays used as scalars, loose numeric conversion, or accidental FastAPI 422 JSON; malformed scalar fields return 400 | Multipart bodies, size limits, and remaining collision cases |
+| Invalid input | Controlled errors and bound SQL values; malformed scalar POST fields return 400. Strict array/duplicate query rejection on `/translation` is optional; chapter file access checks remain required | Multipart bodies, size limits, and remaining collision cases |
 | Normal legacy errors | Keep documented XML/text responses and statuses | Confirm actual wire headers and bytes |
 | Write failures | No success before commit | Choose controlled 5xx body and test disk/database failures |
 | Optional startup fields and empty feedback | Accept legitimate client input; omitted startup language/translation store NULL | Covered by external tests |
 | Literal plus signs in POST forms | Preserve raw plus signs; percent-decode UTF-8 without HTML form plus conversion | Agreed on 2026-10-24; raw Qt bytes, encoded plus, and standard form difference are tested |
 | Passage links | Accept digit-prefixed book codes; validate the full path and handle missing content | Exact 400/404 policy, missing/partial verses, suffixes, and trailing slashes |
 | HTML output | Escape plain text; keep chapter HTML intact | Compare passage parser output and review external HTTP script |
-| Routing cleanup | Preserve canonical client URLs without redirects; unused `/meta?x=1` and `/meta/` variants are not constrained in Python | Review other route boundary cases separately before changing their requirements |
+| Routing cleanup | Preserve canonical client URLs without redirects; unused `/meta?x=1`, `/meta/`, and bare `/translation` variants are not constrained in Python | Review other route boundary cases separately before changing their requirements |
 
 ## Reference and test checklist
 
@@ -367,7 +371,7 @@ This list defines overall coverage. The [external suite](backend-tests.md) cover
 | Group | Required checks |
 | --- | --- |
 | Catalog | Complete languages/translations, all attributes, ordering, empty values, Unicode, RTL, valid language references |
-| Translation | All advertised pairs, book order, chapter order/count/verse count, missing and empty fields, `0`, unknown pairs |
+| Translation | All advertised pairs, book order, chapter order/count/verse count, missing and empty query fields, unknown pairs; `0` and bare route responses are PHP-only observations; array/duplicate query rejection is optional in Python |
 | Chapters | Full advertised content set locally, `nwt` layout, first/last chapters, digit-prefixed books, exact decoded bytes, unchanged file checksums |
 | Chapter errors | Missing/empty fields, `0`, invalid codes, unknown codes, missing rows/files, leading zeroes, huge integers, array parameters, no new files |
 | Qt forms | Exact encoded bodies, Unicode, spaces, literal `+`, `%`, `&`, `=`, apostrophes, CR/LF, empty feedback, omitted startup language/translation, repeated requests |

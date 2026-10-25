@@ -243,6 +243,7 @@ def run(args):
         "profile": args.profile,
         "mode": args.mode,
         "read_only": args.read_only,
+        "include_optional": args.include_optional,
         "reference_manifest_sha256": sha((REFERENCE / "manifest.json").read_bytes()),
         "chapter_index_sha256": sha((REFERENCE / "chapters.json.gz").read_bytes()),
         "passed": 0,
@@ -272,7 +273,7 @@ def run(args):
             print(f"FAIL {name}: {error}", flush=True)
 
     started = time.monotonic()
-    for case in cases(args.profile):
+    for case in cases(args.profile, include_optional=args.include_optional):
         if args.read_only and (
             case.get("writes") or case.get("method", "GET") not in {"GET", "HEAD"}
         ):
@@ -445,6 +446,11 @@ if __name__ == "__main__":
         "--base-url", default=os.environ.get("BASE_URL", "http://127.0.0.1:8000")
     )
     parser.add_argument("--profile", choices=("php", "python"), default="python")
+    parser.add_argument(
+        "--include-optional",
+        action="store_true",
+        help="Also run optional strict Python query-validation checks",
+    )
     parser.add_argument(
         "--user-data", type=Path, default=os.environ.get("USER_DATA_DIR")
     )

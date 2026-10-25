@@ -13,6 +13,34 @@ from support import Page, Response, delta, local_url, user_data
 
 
 class HarnessChecks(unittest.TestCase):
+    def test_translation_nonclient_cases_are_not_required_for_python(self):
+        required = {case["id"] for case in cases("python")}
+        extended = {case["id"] for case in cases("python", include_optional=True)}
+        observations = {"translation-zero", "translation-bare"}
+        optional = {"translation-array", "translation-duplicate"}
+        self.assertTrue(required.isdisjoint(observations | optional))
+        self.assertTrue(extended.isdisjoint(observations))
+        self.assertEqual(extended - required, optional)
+        self.assertTrue({"chapter-array", "chapter-duplicate", "translation-unknown",
+                         "translation-sql-text"}.issubset(required))
+        php = {case["id"] for case in cases("php")}
+        self.assertTrue((observations | optional).issubset(php))
+        self.assertEqual(php, {case["id"] for case in cases("php", include_optional=True)})
+
+    def test_optional_translation_checks_keep_their_strict_validation(self):
+        args = SimpleNamespace(profile="python", user_data=None, php_reference=False,
+                               base_url="http://127.0.0.1:8000")
+        for case in cases("python", include_optional=True):
+            if not case.get("python_optional"):
+                continue
+            with self.subTest(case=case["id"]):
+                response = Response(400, [("Content-Type", "text/plain")], b"", b"Bad input")
+                with patch("run.request", return_value=response):
+                    check_case(args, {}, {}, case)
+                response.status = 200
+                with patch("run.request", return_value=response), self.assertRaises(AssertionError):
+                    check_case(args, {}, {}, case)
+
     def test_never_accept_a_public_target(self):
         for url in ("http://meebible.org", "https://127.0.0.1", "http://127.0.0.1@meebible.org",
                     "http://127.0.0.1/api", "http://127.0.0.1?target=production"):

@@ -9,7 +9,7 @@ def form(fields):
                     for key, value in fields.items())
 
 
-def cases(profile=None):
+def cases(profile=None, include_optional=False):
     result = []
 
     def add(name, path, kind="bytes", python=None, **options):
@@ -48,13 +48,15 @@ def cases(profile=None):
     for name, query in (("missing", "x=1"), ("empty", "trans=&lang=e"),
                         ("zero", "trans=0&lang=e"), ("unknown", "trans=unknown&lang=e"),
                         ("sql-text", "trans=%27%20OR%201%3D1--&lang=e")):
-        add("translation-" + name, "/translation?" + query, "xml")
-    add("translation-array", "/translation?trans[]=kjv&lang=e", "xml", python=controlled)
+        add("translation-" + name, "/translation?" + query, "xml", php_only=name == "zero")
+    add("translation-array", "/translation?trans[]=kjv&lang=e", "xml", python=controlled,
+        python_optional=True)
     for endpoint in ("translation", "chapter"):
         query = "trans=unknown&trans=kjv&lang=e" + ("&book=ge&chapter=1" if endpoint == "chapter" else "")
         add(endpoint + "-duplicate", "/" + endpoint + "?" + query,
             "xml" if endpoint == "translation" else "bytes",
-            python={"kind": "controlled", "statuses": [400], "no_write": True})
+            python={"kind": "controlled", "statuses": [400], "no_write": True},
+            python_optional=endpoint == "translation")
     for name, path in (("home", "/"), ("privacy", "/privacy"), ("donate", "/donate"),
                        ("donate-mobile", "/donate-mobile"), ("not-found", "/reference-missing")):
         add(name, path, "page", python={"kind": "home"} if name == "home" else None)
@@ -90,7 +92,7 @@ def cases(profile=None):
                        ("feedback-query", "/feedback?x=1"), ("code-hidden", "/route.php"),
                        ("content-hidden", "/content/langs.sqlite"), ("user-data-hidden", "/feedback.sqlite"),
                        ("j2me-removed", "/meta.j2me")):
-        add(name, path, "page")
+        add(name, path, "page", php_only=name == "translation-bare")
     add("nwtbible-removed", "/nwtbible?trans=nwt&lang=e&book=ge&chapter=1",
         python={"status": 404, "kind": "controlled"})
     # Never fetch /fb, even locally. It is a removed route in the Python profile.
@@ -140,7 +142,9 @@ def cases(profile=None):
     add("chapter-method-post", "/chapter?trans=kjv&lang=e&book=ge&chapter=1", method="POST",
         body="trans=rus&lang=u", python={"kind": "method", "status": 405, "allow": ["GET", "HEAD"]})
     if profile == "python":
-        return [case for case in result if not case.get("php_only")]
+        return [case for case in result
+                if not case.get("php_only")
+                and (include_optional or not case.get("python_optional"))]
     if profile == "php":
         return [case for case in result if not case.get("python_only")]
     return result

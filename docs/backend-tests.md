@@ -23,6 +23,14 @@ Reports are saved in `tests/backend/.local/quick-python.json` or `full-python.js
 
 For early work, `--read-only` runs a **partial** suite without write checks. It is useful before startup/feedback exists, but cannot prove the complete contract. Full mode still checks every chapter. Use `--workers 1` to investigate concurrency problems; the normal full run uses 20 outstanding chapter requests, as the mobile client can do.
 
+`translation-array` and `translation-duplicate` are optional Python checks. They require strict rejection of bracket-style and repeated query keys, which the client does not send. They are excluded from both quick and full by default. Add `--include-optional` to run them; the report records this option. For example:
+
+```sh
+python3 tests/backend/run.py quick --read-only --include-optional
+```
+
+`translation-zero` and `translation-bare` run only in the PHP profile. They record PHP's treatment of the string `0` and its raw-URI route matching. Python does not need to reproduce those responses. Client compatibility still requires every advertised translation/language pair and the correct book/chapter order and values. SQL parameterization, safe file access, and POST validation remain required.
+
 ## What the modes check
 
 | Mode | Coverage |
@@ -45,7 +53,7 @@ These are test expectations, not an implementation. Keep the code of the Python 
 - Reject missing required form fields, array-valued fields, duplicate scalar keys, and invalid UTF-8 with a controlled 400 and no new row. The required fields are `os`/`device_id` for startup and `name`/`email`/`message` for feedback. Required fields may be empty strings; `lang`/`trans` remain optional.
 - Read routes use GET/HEAD. Startup/feedback use POST only. Unsupported tested methods return 405 with an appropriate Allow header and cannot write user data. Custom text/HTML errors are needed; automatic framework JSON errors do not satisfy these tests.
 - Accept digit-prefixed book codes in passage links. Reject trailing path garbage/slashes and missing or partly missing passage content with a controlled 400 or 404. The exact choice between those two statuses remains open where the contract has not fixed it.
-- Unknown content files and array parameters must produce a controlled 400/404, without PHP-style diagnostics. Normal legacy errors keep their documented text and status. Unknown application paths keep the existing HTML 404. Removed `/fb`, `/nwtbible`, and J2ME routes return 404.
+- Unknown chapter content files and array parameters must produce a controlled 400/404, without PHP-style diagnostics. Strict rejection of arrays and duplicate query keys on `/translation` is optional, as described above. Normal legacy errors keep their documented text and status. Unknown application paths keep the existing HTML 404. Removed `/fb`, `/nwtbible`, and J2ME routes return 404.
 - Serve canonical `/meta` directly, without a slash or HTTPS redirect. The client requests exactly this path. `/meta?x=1` and `/meta/` are PHP-only observations; their responses are not requirements for Python. Ignoring extra query parameters or using the framework's normal trailing-slash behavior is allowed for these unused variants.
 - Sort translation names alphabetically within each language on the home page. The test sorts only the expected lists from the saved PHP page; it still rejects unsorted, missing, duplicated, or moved translations in Python. Other page content and links remain checked. The copyright end year may be updated. The PHP profile retains its original page comparison; `/meta` XML ordering is unchanged.
 

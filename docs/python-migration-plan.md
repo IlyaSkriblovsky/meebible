@@ -132,3 +132,10 @@ Unsafe behavior in the old implementation is not a compatibility requirement. Co
 - The owner confirmed that PHP's historical database insertion order is a bug. Sort translation names alphabetically within each language on the Python home page. Keep the client-facing `/meta` XML order unchanged.
 - Updated the Python home page checks to require sorted names and preserve language groups, translation contents, counts, and links. The old fixed copyright end year may be updated. Saved PHP responses and the PHP profile remain unchanged.
 - Backend implementation stays with the owner. Connection transaction handling and the corrected GET/HEAD Allow header were checked using temporary databases and local in-process requests; no backend source was edited.
+
+### 2026-10-25 — translation query boundary tests
+
+- Rechecked `Translation::reload`, `MetaInfoParser`, and the fixed catalog. The client sends one `trans` and one `lang`, taken from `/meta`. No published pair uses an empty or `0` code. The client does not generate any of the four disputed requests in normal use.
+- Moved `translation-zero` and `translation-bare` to PHP-only observations. Python does not need to copy PHP's `empty("0")` behavior or its raw-URI route matching.
+- Made `translation-array` and `translation-duplicate` optional Python validation checks, enabled by `--include-optional`. They no longer block the default quick/full runs. Their strict rejection policy remains available without treating it as a client requirement.
+- Kept the saved PHP responses and PHP profile, required SQL/file/POST safety checks, and all advertised translation XML checks. No backend implementation was changed.
