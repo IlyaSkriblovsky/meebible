@@ -3,17 +3,24 @@ from pathlib import Path
 
 from fastapi import FastAPI
 from fastapi.middleware.gzip import GZipMiddleware
-from fastapi.responses import HTMLResponse, Response
+from fastapi.responses import (
+    HTMLResponse,
+    PlainTextResponse,
+    RedirectResponse,
+    Response,
+)
 from fastapi.staticfiles import StaticFiles
 from jinja2 import Environment, FileSystemLoader
-from starlette.responses import PlainTextResponse
+from lxml import etree
 
 from backend.storage import (
     ChapterNotFoundError,
+    load_book_name,
     load_chapter_html,
     load_library,
     load_publication_structure,
 )
+from backend.verse_spec import InvalidVerseSpec, build_verses_spec, parse_verse_spec
 
 TEMPLATES = Path(__file__).parent / "templates"
 STATIC = Path(__file__).parent / "static"
@@ -29,18 +36,16 @@ class XMLResponse(Response):
     media_type = "application/xml"
 
 
-@app.get("/")
+@app.get("/", response_class=HTMLResponse)
 def get_root():
     library = load_library()
-    html = templates_env.get_template("index.html").render(library=library)
-    return HTMLResponse(content=html)
+    return templates_env.get_template("index.html").render(library=library)
 
 
-@app.api_route("/meta", methods=["GET", "HEAD"])
+@app.api_route("/meta", methods=["GET", "HEAD"], response_class=XMLResponse)
 def get_meta():
     library = load_library()
-    xml = templates_env.get_template("meta.xml").render(library=library)
-    return XMLResponse(content=xml)
+    return templates_env.get_template("meta.xml").render(library=library)
 
 
 @app.api_route("/translation", methods=["GET", "HEAD"])
@@ -78,3 +83,83 @@ def get_chapter(trans: str = "", lang: str = "", book: str = "", chapter: str = 
         return HTMLResponse(content=content)
     except ChapterNotFoundError:
         return PlainTextResponse("Chapter does not exists", status_code=400)
+
+
+@app.api_route(
+    "/t/{trans_code}/{lang_code}/{book_code}/{chapter_no}/{verses_spec}",
+    methods=["GET", "HEAD"],
+)
+def get_place(
+    trans_code: str, lang_code: str, book_code: str, chapter_no: int, verses_spec: str
+):
+    try:
+        verses = parse_verse_spec(verses_spec)
+    except InvalidVerseSpec:
+        return PlainTextResponse("Strange verse specification", status_code=400)
+
+    normalized_verse_spec = build_verses_spec(verses)
+    if verses_spec != normalized_verse_spec:
+        return RedirectResponse(
+            f"/t/{trans_code}/{lang_code}/{book_code}/{chapter_no}/{normalized_verse_spec}",
+            status_code=301,
+        )
+
+    try:
+        content = load_chapter_html(trans_code, lang_code, book_code, chapter_no)
+    except ChapterNotFoundError:
+        return PlainTextResponse("Chapter does not exists", status_code=400)
+
+    parser = etree.HTMLParser()
+    html_root = etree.fromstring(content, parser)
+
+    out_root = etree.Element("div")
+
+    prev_parent = None
+    out_parent = None
+    for i, verse in enumerate(verses):
+        if i > 0 and verses[i - 1] + 1 != verse:
+            hole = etree.Element("span")
+            hole.set("class", "hole")
+            hole.text = "[...] "
+            out_root.append(hole)
+
+        nodes = []
+
+        if verse == 1:
+            nodes.extend(html_root.xpath(".//*[@class='superscript']"))
+        nodes.extend(html_root.xpath(f".//*[@verse='{verse}']"))
+
+        for node in nodes:
+            node_parent = node.getparent()
+            if node_parent != prev_parent:
+                out_parent = etree.Element(node_parent.tag)
+                for k, v in node_parent.items():
+                    out_parent.set(k, v)
+                out_root.append(out_parent)
+                prev_parent = node_parent
+
+            out_parent.append(node)
+            node.tail = " "
+
+    book_name = load_book_name(trans_code, lang_code, book_code)
+
+    html = etree.tostring(out_root, pretty_print=True).decode()
+
+    for element in out_root.xpath(".//*[@class='verse-label']"):
+        element.text = ""
+    for element in out_root.xpath(".//br"):
+        element.tail = " " + (element.tail or "")
+    text = (
+        etree.tostring(out_root, method="text", encoding="utf-8")
+        .decode()
+        .replace("  ", " ")
+        .strip()
+    )
+    place = f"{book_name} {chapter_no}:{normalized_verse_spec}".replace("-", "–")
+
+    content = templates_env.get_template("place.html").render(
+        html=html,
+        text=text,
+        place=place,
+    )
+    return HTMLResponse(content=content)

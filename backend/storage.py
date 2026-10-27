@@ -13,6 +13,10 @@ LANGS_DB = "langs.sqlite"
 TRANSLATIONS_DB = "trans.sqlite"
 
 
+class BookNotFoundError(Exception):
+    pass
+
+
 class ChapterNotFoundError(Exception):
     pass
 
@@ -234,3 +238,16 @@ def load_chapter_html(
                 raise ChapterNotFoundError()
     except FileNotFoundError:
         raise ChapterNotFoundError()
+
+
+def load_book_name(trans_code: str, lang_code: str, book_code: str) -> str:
+    with connect_db(TRANSLATIONS_DB) as con:
+        res = con.execute(
+            "SELECT bookName FROM books WHERE transCode=:trans_code AND langCode=:lang_code AND bookCode=:book_code",
+            {"trans_code": trans_code, "lang_code": lang_code, "book_code": book_code},
+        )
+        try:
+            first = next(iter(res))
+            return first[0]
+        except StopIteration:
+            raise BookNotFoundError()

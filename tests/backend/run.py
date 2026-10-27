@@ -11,6 +11,7 @@ import time
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.parse import urljoin, urlsplit
 
 from cases import cases
 from support import (
@@ -116,6 +117,42 @@ def compare(response, expected, body, kind):
         )
 
 
+def check_selection(response, chapter_body, verses):
+    need(response.status == 200, f"Passage HTTP {response.status}, expected 200")
+    need(media(response) == ("text/html", {"charset": "utf-8"}), "Passage needs UTF-8 HTML")
+    chapter = Page(chapter_body)
+    expected = [
+        (node["attrs"]["verse"], " ".join("".join(node["text"]).split()))
+        for node in chapter.verses
+        if int(node["attrs"]["verse"]) in verses
+    ]
+    need(Page(response.body).value(True)["verses"] == expected,
+         "Passage selected the wrong verse pieces")
+
+
+def check_passage_redirect(args, response, indexed, case, policy):
+    if response.status != 200:
+        location = response.header("Location")
+        need(bool(location), "Redirect needs Location")
+        host = case.get("headers", {}).get("Host", "meebible.org")
+        target = urlsplit(urljoin(f"http://{host}{case['path']}", location))
+        origin = local_url(args.base_url)
+        need(target.scheme == "http" and target.netloc.lower() in {host.lower(), origin.netloc.lower()},
+             "Redirect changed the origin or requires HTTPS")
+        need(target.path == policy["location"] and not target.query and not target.fragment,
+             "Redirect points to the wrong canonical passage")
+        # Follow only the validated path on BASE_URL, even if Location uses the
+        # Host header's public name. Never request the absolute Location URL.
+        response = request(args.base_url, {"path": policy["location"],
+                                          "headers": case.get("headers", {})})
+    if "reference" in policy:
+        entry = indexed[policy["reference"]]
+        compare(response, entry["response"], (REFERENCE / entry["body_file"]).read_bytes(), "passage")
+    else:
+        check_selection(response, (REFERENCE / indexed[policy["chapter"]]["body_file"]).read_bytes(),
+                        policy["verses"])
+
+
 def check_case(args, manifest, indexed, case):
     entry = indexed.get(case["id"])
     policy = case.get("python", {}) if args.profile == "python" else {}
@@ -130,9 +167,11 @@ def check_case(args, manifest, indexed, case):
             response.status in statuses, f"HTTP {response.status}, expected {statuses}"
         )
         kind = policy["kind"]
-        if kind == "home":
+        if kind in {"home", "passage"}:
             need(entry is not None, "Missing captured case")
-            compare(response, entry["response"], (REFERENCE / entry["body_file"]).read_bytes(), "home")
+            compare(response, entry["response"], (REFERENCE / entry["body_file"]).read_bytes(), kind)
+        if kind == "redirect":
+            check_passage_redirect(args, response, indexed, case, policy)
         if kind in {"controlled", "method"}:
             clean_error(response)
         if kind == "method":
@@ -147,18 +186,8 @@ def check_case(args, manifest, indexed, case):
                 "Successful POST must return text ok",
             )
         if kind == "selection":
-            chapter = Page(
-                (REFERENCE / indexed[policy["chapter"]]["body_file"]).read_bytes()
-            )
-            expected = [
-                (n["attrs"]["verse"], " ".join("".join(n["text"]).split()))
-                for n in chapter.verses
-                if int(n["attrs"]["verse"]) in policy["verses"]
-            ]
-            need(
-                Page(response.body).value(True)["verses"] == expected,
-                "Digit-prefixed passage selected the wrong verses",
-            )
+            check_selection(response, (REFERENCE / indexed[policy["chapter"]]["body_file"]).read_bytes(),
+                            policy["verses"])
     else:
         need(entry is not None, "Missing captured case")
         compare(

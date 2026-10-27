@@ -1,6 +1,6 @@
 # MeeBible backend contract
 
-Last updated: 2026-10-25.
+Last updated: 2026-10-27.
 
 This is the contract for the Python migration, based on source review and local PHP 5.6.40 observations. It describes the old code, client expectations, and deliberate fixes. Local reference responses and external tests are now available; see the [test guide](backend-tests.md). Production comparison has not started.
 
@@ -49,7 +49,7 @@ Methods in this table are the methods used by the client or browser. Old PHP doe
 | `GET /chapter?trans=...&lang=...&book=...&chapter=...` | Codes and chapter number | 200, stored HTML | Reads a translation database |
 | `POST /startup` | URL-encoded form | 200, text `ok` | Inserts a startup record |
 | `POST /feedback` | URL-encoded form | 200, text `ok` | Inserts a feedback record |
-| `GET /t/{trans}/{lang}/{book}/{chapter}/{verses}` | Passage in path | 200 HTML, 301 for a non-canonical verse list, or an error | Reads chapter HTML and book name |
+| `GET /t/{trans}/{lang}/{book}/{chapter}/{verses}` | Passage in path | 200 HTML, 301/307 for a non-canonical verse list, or an error | Reads chapter HTML and book name |
 | `GET /` | None | 200, HTML home page | Reads catalog for counts and translation list |
 | `GET /privacy` | None | 200, HTML privacy policy | Template |
 | `GET /donate` | None | 200, HTML donation page | Browser submits a PayPal form |
@@ -288,7 +288,16 @@ Insert values are `datetime('now')`, name, email, and message. The client report
 
 ## Shared passages: `/t/{trans}/{lang}/{book}/{chapter}/{verses}`
 
-The client generates absolute plain HTTP links such as `http://meebible.org/t/kjv/e/ge/1/1-3,5`. It sorts selected verse numbers, joins consecutive numbers with ASCII `-`, and joins ranges with commas. The displayed title uses an en dash instead of a hyphen.
+The client generates absolute plain HTTP links such as `http://meebible.org/t/kjv/e/ge/1/1-3,5`. It sorts selected verse numbers, joins consecutive numbers with ASCII `-`, and joins ranges with commas. The displayed title uses an en dash instead of a hyphen. The client builds a link for sharing; the page is consumed by a browser. [`Place::siteUrl`](../src/Place.cpp) formats the chapter from an `int` and the selected verses from integers. It does not generate a `not-a-number` chapter component.
+
+Python behavior agreed on 2026-10-27:
+
+- Verse normalization may return 301 or 307 with the correct canonical Location. The redirect body and Content-Type are not compatibility requirements. Both relative and absolute same-origin HTTP Locations are allowed. See [HTTP redirect semantics](https://www.rfc-editor.org/rfc/rfc9110.html#section-15.4.8).
+- A trailing slash may redirect with 301/307 to the same passage without the slash. Serving the same valid page directly with 200 is also allowed. Tests check the destination page and do not accept a loop or a different passage.
+- Keep PHP's 200 behavior when a requested verse does not exist: show the existing selected pieces, or an empty passage when none exist. Keep the normal page wrapper and metadata. Do not require extra verse-existence validation for these browser pages. A missing chapter still requires a controlled error.
+- `passage-bad-path`, which uses a nonnumeric chapter, is a PHP-only observation. Python may use the framework's normal validation response for this unused URL; the client does not generate it.
+
+The following describes the old PHP implementation and its saved responses.
 
 The current handler matches this prefix (there is no end anchor):
 
@@ -312,7 +321,7 @@ For a canonical request, the handler loads chapter HTML and parses it with DOMDo
 
 The result is wrapped in a `div` and placed in `place.tpl`. The title and heading use the localized book name from `books`, chapter number, and normalized verse list. Open Graph metadata contains the passage title and extracted text; verse labels are excluded from the direct text-node selection used for that text. The template includes the existing styles, home links, and social widgets. Metadata is escaped explicitly, but the heading is not; Python must escape ordinary text.
 
-Current weaknesses to fix: loose path matching, digit-prefixed books rejected, missing chapter content not checked before parsing, and verse bounds checked against a fixed 300 rather than whether the requested content exists. A missing verse may currently yield an empty or partial page with 200. Define and test controlled missing-content responses during implementation. Keep working canonical links and normal range redirects. HTML parser whitespace and entity output need fixture comparison; passage pages do not have the byte-for-byte requirement of chapter downloads.
+Python must support digit-prefixed books, reject trailing path garbage, and handle missing chapter content before parsing. Keep the existing verse normalization and the agreed 200 empty/partial behavior for missing verses. Keep working canonical links and range redirects. HTML parser whitespace and entity output need fixture comparison; passage pages do not have the byte-for-byte requirement of chapter downloads.
 
 ## Website and static files
 
@@ -364,9 +373,9 @@ The changes below are part of the port, not changes to existing PHP in this step
 | Write failures | No success before commit | Choose controlled 5xx body and test disk/database failures |
 | Optional startup fields and empty feedback | Accept legitimate client input; omitted startup language/translation store NULL | Covered by external tests |
 | Literal plus signs in POST forms | Preserve raw plus signs; percent-decode UTF-8 without HTML form plus conversion | Agreed on 2026-10-24; raw Qt bytes, encoded plus, and standard form difference are tested |
-| Passage links | Accept digit-prefixed book codes; validate the full path and handle missing content | Exact 400/404 policy, missing/partial verses, suffixes, and trailing slashes |
+| Passage links | Accept digit-prefixed books; normalization accepts 301/307 without requiring a redirect body or Content-Type; trailing slash may redirect; missing verses keep 200; missing chapters and path garbage require controlled errors | Check page extraction and remaining parser differences |
 | HTML output | Escape plain text; keep chapter HTML intact | Compare passage parser output and review external HTTP script |
-| Routing cleanup | Preserve canonical client URLs without redirects; unused `/meta?x=1`, `/meta/`, bare `/translation`, and bare `/chapter` variants are not constrained in Python | Review other route boundary cases separately before changing their requirements |
+| Routing cleanup | Preserve canonical client URLs without redirects; unused `/meta?x=1`, `/meta/`, bare `/translation`, bare `/chapter`, and nonnumeric passage chapter errors do not need PHP's exact responses | Review other route boundary cases separately before changing their requirements |
 
 ## Reference and test checklist
 
@@ -380,7 +389,7 @@ This list defines overall coverage. The [external suite](backend-tests.md) cover
 | Chapter errors | Missing/empty fields, `0`, invalid codes, unknown codes, missing rows/files, leading zeroes, huge integers, array parameters, no new files; bare route 404 is PHP-only; duplicate rejection and POST error-format checks are optional in Python |
 | Qt forms | Exact encoded bodies, Unicode, spaces, literal `+`, `%`, `&`, `=`, apostrophes, CR/LF, empty feedback, omitted startup language/translation, repeated requests |
 | Writes | One committed row per success, unchanged schema, timestamp format, database failure, no mail, no public test writes |
-| Passages | Single verse, ranges, gaps, duplicates, normalization redirect, superscripts, split verses, Unicode/RTL, digit-prefixed books, invalid paths and missing content |
+| Passages | Single verse, ranges, gaps, duplicates, canonical redirect target and final content, superscripts, split verses, Unicode/RTL, digit-prefixed books, path garbage, missing chapter errors, and 200 empty/partial pages for missing verses; nonnumeric chapter response is PHP-only |
 | Pages/static | All retained pages and local assets, download file bytes, links/form fields, 404, HEAD, MIME, validators/ranges |
 | Routing | Query versus bare path, slash variants, extra fields, duplicate/query-body values, unknown paths, methods, removed endpoints |
 | Transport | Plain HTTP, original status and Location, Content-Type/charset, byte length, identity/gzip, changing proxy headers kept as evidence |

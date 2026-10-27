@@ -9,14 +9,14 @@ from pathlib import Path
 
 from cases import cases, form
 from run import check_case, clean_error, compare
-from support import Page, Response, delta, local_url, user_data
+from support import REFERENCE, Page, Response, delta, load_reference, local_url, user_data
 
 
 class HarnessChecks(unittest.TestCase):
     def test_nonclient_cases_are_not_required_for_python(self):
         required = {case["id"] for case in cases("python")}
         extended = {case["id"] for case in cases("python", include_optional=True)}
-        observations = {"translation-zero", "translation-bare", "chapter-bare"}
+        observations = {"translation-zero", "translation-bare", "chapter-bare", "passage-bad-path"}
         optional = {"translation-array", "translation-duplicate", "chapter-duplicate", "chapter-method-post"}
         self.assertTrue(required.isdisjoint(observations | optional))
         self.assertTrue(extended.isdisjoint(observations))
@@ -94,6 +94,76 @@ class HarnessChecks(unittest.TestCase):
         self.assertEqual(page["superscripts"], ["A song"])
         self.assertEqual(page["holes"], ["[...]"])
         self.assertNotEqual(page, Page(body.replace(b'verse="3"', b'verse="2"')).value(True))
+
+    def test_passage_redirect_checks_target_without_requiring_body_or_content_type(self):
+        manifest = load_reference()
+        indexed = {entry["request"]["id"]: entry for entry in manifest["cases"]}
+        case = next(case for case in cases("python") if case["id"] == "passage-normalize-sort")
+        args = SimpleNamespace(profile="python", user_data=None, php_reference=False,
+                               base_url="http://127.0.0.1:8000")
+        entry = indexed["passage-range"]
+        target = Response(200, entry["response"]["headers"], b"", (REFERENCE / entry["body_file"]).read_bytes())
+        for status in (301, 307):
+            for location in ("/t/kjv/e/ge/1/1-3", "http://meebible.org/t/kjv/e/ge/1/1-3"):
+                redirect = Response(status, [("Location", location)], b"", b"")
+                with self.subTest(status=status, location=location), patch("run.request", side_effect=[redirect, target]) as send:
+                    check_case(args, manifest, indexed, case)
+                    self.assertEqual(send.call_count, 2)
+                    self.assertEqual(send.call_args.args, (args.base_url, {"path": "/t/kjv/e/ge/1/1-3", "headers": {}}))
+        # PHP still checks its original redirect status, headers, and body.
+        args.profile = "php"
+        with patch("run.request", return_value=redirect), self.assertRaises(AssertionError):
+            check_case(args, manifest, indexed, case)
+
+    def test_passage_redirect_rejects_wrong_targets_loops_and_wrong_final_content(self):
+        manifest = load_reference()
+        indexed = {entry["request"]["id"]: entry for entry in manifest["cases"]}
+        case = next(case for case in cases("python") if case["id"] == "passage-normalize-sort")
+        args = SimpleNamespace(profile="python", user_data=None, php_reference=False,
+                               base_url="http://127.0.0.1:8000")
+        for location in ("", "/t/kjv/e/ge/1/2", case["path"],
+                         "http://example.org/t/kjv/e/ge/1/1-3", "https://meebible.org/t/kjv/e/ge/1/1-3"):
+            redirect = Response(307, [("Location", location)], b"", b"")
+            with self.subTest(location=location), patch("run.request", return_value=redirect) as send, self.assertRaises(AssertionError):
+                check_case(args, manifest, indexed, case)
+            self.assertEqual(send.call_count, 1)
+        redirect = Response(307, [("Location", "/t/kjv/e/ge/1/1-3")], b"", b"")
+        for target in (Response(307, redirect.headers, b"", b""),
+                       Response(200, [("Content-Type", "text/html;charset=UTF-8")], b"", b"<html></html>")):
+            with self.subTest(target=target), patch("run.request", side_effect=[redirect, target]), self.assertRaises(AssertionError):
+                check_case(args, manifest, indexed, case)
+
+    def test_passage_slash_allows_the_page_or_a_redirect_to_it(self):
+        manifest = load_reference()
+        indexed = {entry["request"]["id"]: entry for entry in manifest["cases"]}
+        case = next(case for case in cases("python") if case["id"] == "passage-slash")
+        args = SimpleNamespace(profile="python", user_data=None, php_reference=False,
+                               base_url="http://127.0.0.1:8000")
+        entry = indexed["passage-single"]
+        target = Response(200, entry["response"]["headers"], b"", (REFERENCE / entry["body_file"]).read_bytes())
+        with patch("run.request", return_value=target):
+            check_case(args, manifest, indexed, case)
+        for status in (301, 307):
+            redirect = Response(status, [("Location", "http://meebible.org/t/kjv/e/ge/1/1")], b"", b"")
+            with self.subTest(status=status), patch("run.request", side_effect=[redirect, target]):
+                check_case(args, manifest, indexed, case)
+
+    def test_missing_passage_verses_keep_200_and_check_the_remaining_content(self):
+        manifest = load_reference()
+        indexed = {entry["request"]["id"]: entry for entry in manifest["cases"]}
+        args = SimpleNamespace(profile="python", user_data=None, php_reference=False,
+                               base_url="http://127.0.0.1:8000")
+        for case in cases("python"):
+            if case["id"] not in {"passage-missing-verse", "passage-partial-verse"}:
+                continue
+            entry = indexed[case["id"]]
+            body = (REFERENCE / entry["body_file"]).read_bytes()
+            response = Response(200, entry["response"]["headers"], body, body)
+            with self.subTest(case=case["id"]), patch("run.request", return_value=response):
+                check_case(args, manifest, indexed, case)
+            response.body = b"<html></html>"
+            with patch("run.request", return_value=response), self.assertRaises(AssertionError):
+                check_case(args, manifest, indexed, case)
 
     def test_historical_qt_fixture_keeps_literal_plus(self):
         self.assertEqual(form({"message": "C++ &=% é\r\n"}), "message=C++%20%26%3D%25%20%C3%A9%0D%0A")
