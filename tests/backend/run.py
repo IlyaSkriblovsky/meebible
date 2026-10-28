@@ -120,15 +120,20 @@ def compare(response, expected, body, kind, allowed_media=None):
 
 def check_selection(response, chapter_body, verses):
     need(response.status == 200, f"Passage HTTP {response.status}, expected 200")
-    need(media(response) == ("text/html", {"charset": "utf-8"}), "Passage needs UTF-8 HTML")
+    need(
+        media(response) == ("text/html", {"charset": "utf-8"}),
+        "Passage needs UTF-8 HTML",
+    )
     chapter = Page(chapter_body)
     expected = [
         (node["attrs"]["verse"], " ".join("".join(node["text"]).split()))
         for node in chapter.verses
         if int(node["attrs"]["verse"]) in verses
     ]
-    need(Page(response.body).value(True)["verses"] == expected,
-         "Passage selected the wrong verse pieces")
+    need(
+        Page(response.body).value(True)["verses"] == expected,
+        "Passage selected the wrong verse pieces",
+    )
 
 
 def check_passage_redirect(args, response, indexed, case, policy):
@@ -138,20 +143,37 @@ def check_passage_redirect(args, response, indexed, case, policy):
         host = case.get("headers", {}).get("Host", "meebible.org")
         target = urlsplit(urljoin(f"http://{host}{case['path']}", location))
         origin = local_url(args.base_url)
-        need(target.scheme == "http" and target.netloc.lower() in {host.lower(), origin.netloc.lower()},
-             "Redirect changed the origin or requires HTTPS")
-        need(target.path == policy["location"] and not target.query and not target.fragment,
-             "Redirect points to the wrong canonical passage")
+        need(
+            target.scheme == "http"
+            and target.netloc.lower() in {host.lower(), origin.netloc.lower()},
+            "Redirect changed the origin or requires HTTPS",
+        )
+        need(
+            target.path == policy["location"]
+            and not target.query
+            and not target.fragment,
+            "Redirect points to the wrong canonical passage",
+        )
         # Follow only the validated path on BASE_URL, even if Location uses the
         # Host header's public name. Never request the absolute Location URL.
-        response = request(args.base_url, {"path": policy["location"],
-                                          "headers": case.get("headers", {})})
+        response = request(
+            args.base_url,
+            {"path": policy["location"], "headers": case.get("headers", {})},
+        )
     if "reference" in policy:
         entry = indexed[policy["reference"]]
-        compare(response, entry["response"], (REFERENCE / entry["body_file"]).read_bytes(), "passage")
+        compare(
+            response,
+            entry["response"],
+            (REFERENCE / entry["body_file"]).read_bytes(),
+            "passage",
+        )
     else:
-        check_selection(response, (REFERENCE / indexed[policy["chapter"]]["body_file"]).read_bytes(),
-                        policy["verses"])
+        check_selection(
+            response,
+            (REFERENCE / indexed[policy["chapter"]]["body_file"]).read_bytes(),
+            policy["verses"],
+        )
 
 
 def check_case(args, manifest, indexed, case):
@@ -170,8 +192,13 @@ def check_case(args, manifest, indexed, case):
         kind = policy["kind"]
         if kind in {"home", "passage", "bytes"}:
             need(entry is not None, "Missing captured case")
-            compare(response, entry["response"], (REFERENCE / entry["body_file"]).read_bytes(), kind,
-                    allowed_media=policy.get("media_types"))
+            compare(
+                response,
+                entry["response"],
+                (REFERENCE / entry["body_file"]).read_bytes(),
+                kind,
+                allowed_media=policy.get("media_types"),
+            )
         if kind == "redirect":
             check_passage_redirect(args, response, indexed, case, policy)
         if kind in {"controlled", "method"}:
@@ -188,8 +215,11 @@ def check_case(args, manifest, indexed, case):
                 "Successful POST must return text ok",
             )
         if kind == "selection":
-            check_selection(response, (REFERENCE / indexed[policy["chapter"]]["body_file"]).read_bytes(),
-                            policy["verses"])
+            check_selection(
+                response,
+                (REFERENCE / indexed[policy["chapter"]]["body_file"]).read_bytes(),
+                policy["verses"],
+            )
     else:
         need(entry is not None, "Missing captured case")
         compare(

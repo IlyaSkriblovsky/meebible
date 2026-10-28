@@ -3,6 +3,7 @@ from pathlib import Path
 
 from etag import ETagMiddleware
 from fastapi import FastAPI, Request
+from fastapi.exceptions import HTTPException, RequestValidationError
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import (
     FileResponse,
@@ -21,7 +22,9 @@ from backend.storage import (
     load_chapter_html,
     load_library,
     load_publication_structure,
+    save_startup_event,
 )
+from backend.utils import parse_qt_form
 from backend.verse_spec import InvalidVerseSpec, build_verses_spec, parse_verse_spec
 
 TEMPLATES = Path(__file__).parent / "templates"
@@ -47,10 +50,20 @@ def get_root():
 
 
 @app.exception_handler(404)
-def handle_404(request: Request, exc: Exception):
+def handle_404(request: Request, exc: HTTPException):
     return HTMLResponse(
         templates_env.get_template("404.html").render(), status_code=404
     )
+
+
+@app.exception_handler(405)
+def handle_405(request: Request, exc: HTTPException):
+    return PlainTextResponse("Method Not Allowed", status_code=405, headers=exc.headers)
+
+
+@app.exception_handler(RequestValidationError)
+def handle_422(request: Request, exc: RequestValidationError):
+    return PlainTextResponse(content=str(exc), status_code=400)
 
 
 @app.get("/favicon.ico", include_in_schema=False)
@@ -71,6 +84,24 @@ def get_donate():
 @app.get("/donate-mobile", response_class=HTMLResponse)
 def get_donate_mobile():
     return templates_env.get_template("donate-mobile.html").render()
+
+
+@app.post("/startup")
+async def post_startup(request: Request):
+    try:
+        form = parse_qt_form(await request.body())
+        if not {"os", "device_id"}.issubset(form):
+            raise ValueError("Missing fields")
+    except ValueError:
+        return PlainTextResponse("Invalid form", status_code=400)
+
+    save_startup_event(
+        platform=form["os"],
+        device_id=form["device_id"],
+        trans_code=form.get("trans"),
+        lang_code=form.get("lang"),
+    )
+    return PlainTextResponse("ok")
 
 
 @app.api_route("/meta", methods=["GET", "HEAD"], response_class=XMLResponse)

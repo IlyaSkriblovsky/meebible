@@ -3,14 +3,13 @@ import sqlite3
 from collections.abc import Iterator
 from contextlib import contextmanager
 from dataclasses import dataclass
+from functools import partial
 from itertools import groupby
 from operator import itemgetter
 from pathlib import Path
 
 DB_PATH = Path(__file__).parent / "content"
-
-LANGS_DB = "langs.sqlite"
-TRANSLATIONS_DB = "trans.sqlite"
+STARTUP_DB = "startup.sqlite"  # in process CWD
 
 
 class BookNotFoundError(Exception):
@@ -22,9 +21,9 @@ class ChapterNotFoundError(Exception):
 
 
 @contextmanager
-def connect_db(filename: str, write=False) -> Iterator[sqlite3.Connection]:
+def connect_db(filename: str | Path, write=False) -> Iterator[sqlite3.Connection]:
     suffix = "" if write else "?mode=ro"
-    connection = sqlite3.connect(f"file:{DB_PATH / filename}{suffix}", uri=True)
+    connection = sqlite3.connect(f"file:{filename}{suffix}", uri=True)
     try:
         with connection:
             yield connection
@@ -33,18 +32,30 @@ def connect_db(filename: str, write=False) -> Iterator[sqlite3.Connection]:
 
 
 @contextmanager
-def connect_translation_db(
+def connect_content_db(relative_filename: str | Path) -> Iterator[sqlite3.Connection]:
+    abs_path = DB_PATH / relative_filename
+
+    if not os.path.exists(abs_path):
+        raise FileNotFoundError(abs_path)
+
+    with connect_db(abs_path) as con:
+        yield con
+
+
+connect_langs_db = partial(connect_content_db, "langs.sqlite")
+connect_translations_db = partial(connect_content_db, "trans.sqlite")
+
+
+@contextmanager
+def connect_publication_db(
     trans_code: str, lang_code: str
 ) -> Iterator[sqlite3.Connection]:
     if trans_code == "nwt":
-        db_path = DB_PATH / "nwt" / f"nwt_{lang_code}.sqlite"
+        db_path = Path("nwt") / f"nwt_{lang_code}.sqlite"
     else:
-        db_path = DB_PATH / f"{trans_code}.sqlite"
+        db_path = f"{trans_code}.sqlite"
 
-    if not os.path.exists(db_path):
-        raise FileNotFoundError(db_path)
-
-    with connect_db(db_path) as con:
+    with connect_content_db(db_path) as con:
         yield con
 
 
@@ -147,7 +158,7 @@ class Library:
 
 def load_library() -> Library:
     langs: list[Lang] = []
-    with connect_db(LANGS_DB) as con:
+    with connect_langs_db() as con:
         res = con.execute("SELECT code, engname, selfname FROM langs")
         for code, engname, selfname in res:
             langs.append(Lang(code=code, engname=engname, selfname=selfname))
@@ -155,7 +166,7 @@ def load_library() -> Library:
     translations: list[Translation] = []
     publication: list[Publication] = []
 
-    with connect_db(TRANSLATIONS_DB) as con:
+    with connect_translations_db() as con:
         res = con.execute(
             "SELECT transCode, name, sourceUrl, copyright, rtl FROM translations"
         )
@@ -191,7 +202,7 @@ def load_library() -> Library:
 
 
 def load_publication_structure(trans_code: str, lang_code: str) -> PublicationStructure:
-    with connect_db(TRANSLATIONS_DB) as con:
+    with connect_translations_db() as con:
         res = con.execute(
             "SELECT bookCode, chapterNo, verseCount FROM chapterSize WHERE transCode=:trans_code ORDER BY bookCode, chapterNo",
             {"trans_code": trans_code},
@@ -221,7 +232,7 @@ def load_chapter_html(
     trans_code: str, lang_code: str, book_code: str, chapter_no: int
 ) -> str:
     try:
-        with connect_translation_db(trans_code, lang_code) as con:
+        with connect_publication_db(trans_code, lang_code) as con:
             res = con.execute(
                 "SELECT html FROM html WHERE langCode=:lang_code AND bookCode=:book_code AND chapterNo=:chapter_no",
                 {
@@ -241,7 +252,7 @@ def load_chapter_html(
 
 
 def load_book_name(trans_code: str, lang_code: str, book_code: str) -> str:
-    with connect_db(TRANSLATIONS_DB) as con:
+    with connect_translations_db() as con:
         res = con.execute(
             "SELECT bookName FROM books WHERE transCode=:trans_code AND langCode=:lang_code AND bookCode=:book_code",
             {"trans_code": trans_code, "lang_code": lang_code, "book_code": book_code},
@@ -251,3 +262,36 @@ def load_book_name(trans_code: str, lang_code: str, book_code: str) -> str:
             return first[0]
         except StopIteration:
             raise BookNotFoundError()
+
+
+def save_startup_event(
+    platform: str,
+    device_id: str,
+    trans_code: str | None,
+    lang_code: str | None,
+):
+    with connect_db(STARTUP_DB, write=True) as con:
+        con.execute(
+            """
+            CREATE TABLE IF NOT EXISTS startup (
+                id INTEGER PRIMARY KEY, 
+                time DATETIME,
+                device_id VARCHAR,
+                os VARCHAR,
+                lang VARCHAR,
+                trans VARCHAR
+            )
+            """
+        )
+        con.execute(
+            """
+            INSERT INTO startup (time, device_id, os, lang, trans)
+                VALUES (datetime('now'), :device_id, :os, :lang, :trans)
+            """,
+            {
+                "device_id": device_id,
+                "os": platform,
+                "lang": lang_code,
+                "trans": trans_code,
+            },
+        )
