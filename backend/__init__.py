@@ -1,9 +1,11 @@
 import re
 from pathlib import Path
 
+from etag import ETagMiddleware
 from fastapi import FastAPI, Request
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import (
+    FileResponse,
     HTMLResponse,
     PlainTextResponse,
     RedirectResponse,
@@ -30,6 +32,7 @@ templates_env = Environment(loader=FileSystemLoader(TEMPLATES), autoescape=True)
 
 app = FastAPI()
 app.add_middleware(GZipMiddleware, minimum_size=1000, compresslevel=5)
+app.add_middleware(ETagMiddleware)
 app.mount("/static", StaticFiles(directory=STATIC), name="static")
 
 
@@ -48,6 +51,11 @@ def handle_404(request: Request, exc: Exception):
     return HTMLResponse(
         templates_env.get_template("404.html").render(), status_code=404
     )
+
+
+@app.get("/favicon.ico", include_in_schema=False)
+async def favicon():
+    return FileResponse(STATIC / "img" / "favicon.ico")
 
 
 @app.get("/privacy", response_class=HTMLResponse)

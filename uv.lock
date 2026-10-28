@@ -237,6 +237,14 @@ wheels = [
 ]
 
 [[package]]
+name = "etag-middleware"
+version = "0.2.0"
+source = { registry = "https://pypi.org/simple" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/6f/5d/9c168012b9441826666bc25d3f3a378fc0f1fd1c5d7d2117c6ed6c50a13a/etag_middleware-0.2.0-py3-none-any.whl", hash = "sha256:aee4dd0cb9da4e15134f2d8045b964dd17062b27bb1797bd09a87232ded5c34d", size = 4172, upload-time = "2024-06-02T03:38:01.204Z" },
+]
+
+[[package]]
 name = "fastapi"
 version = "0.162.0"
 source = { registry = "https://pypi.org/simple" }
@@ -858,6 +866,7 @@ name = "meebible"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
+    { name = "etag-middleware" },
     { name = "fastapi", extra = ["standard"] },
     { name = "jinja2" },
     { name = "lxml" },
@@ -870,6 +879,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
+    { name = "etag-middleware", specifier = ">=0.2.0" },
     { name = "fastapi", extras = ["standard"], specifier = ">=0.162.0" },
     { name = "jinja2", specifier = ">=3.1.6" },
     { name = "lxml", specifier = ">=6.1.3" },
