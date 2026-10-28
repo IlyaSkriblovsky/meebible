@@ -1,7 +1,7 @@
 import re
 from pathlib import Path
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import (
     HTMLResponse,
@@ -27,6 +27,7 @@ STATIC = Path(__file__).parent / "static"
 
 templates_env = Environment(loader=FileSystemLoader(TEMPLATES), autoescape=True)
 
+
 app = FastAPI()
 app.add_middleware(GZipMiddleware, minimum_size=1000, compresslevel=5)
 app.mount("/static", StaticFiles(directory=STATIC), name="static")
@@ -40,6 +41,28 @@ class XMLResponse(Response):
 def get_root():
     library = load_library()
     return templates_env.get_template("index.html").render(library=library)
+
+
+@app.exception_handler(404)
+def handle_404(request: Request, exc: Exception):
+    return HTMLResponse(
+        templates_env.get_template("404.html").render(), status_code=404
+    )
+
+
+@app.get("/privacy", response_class=HTMLResponse)
+def get_privacy():
+    return templates_env.get_template("privacy.html").render()
+
+
+@app.get("/donate", response_class=HTMLResponse)
+def get_donate():
+    return templates_env.get_template("donate.html").render()
+
+
+@app.get("/donate-mobile", response_class=HTMLResponse)
+def get_donate_mobile():
+    return templates_env.get_template("donate-mobile.html").render()
 
 
 @app.api_route("/meta", methods=["GET", "HEAD"], response_class=XMLResponse)
