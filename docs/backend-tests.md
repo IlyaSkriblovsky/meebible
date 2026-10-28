@@ -31,7 +31,7 @@ python3 tests/backend/run.py quick --read-only --include-optional
 
 `--read-only` still skips all POST requests, including `chapter-method-post`. To include that check, omit `--read-only` and configure temporary user data as for a normal run.
 
-`translation-zero`, `translation-bare`, `chapter-bare`, and `passage-bad-path` run only in the PHP profile. They record PHP's treatment of the string `0`, raw-URI route matching, and the error for a nonnumeric passage chapter. The client does not generate these requests. Python does not need to reproduce those responses. Client compatibility still requires every advertised translation/language pair and the correct book/chapter order and values. SQL parameterization, safe file access, and POST validation remain required.
+`translation-zero`, `translation-bare`, `chapter-bare`, `passage-bad-path`, and `privacy-query` run only in the PHP profile. They record PHP's treatment of the string `0`, raw-URI route matching, and the error for a nonnumeric passage chapter. The client does not generate these requests. Python does not need to reproduce those responses. In particular, Python may ignore the query on `/privacy?x=1`; canonical `/privacy` and its existing content remain required. Client compatibility still requires every advertised translation/language pair and the correct book/chapter order and values. SQL parameterization, safe file access, and POST validation remain required.
 
 ## What the modes check
 
@@ -60,6 +60,7 @@ These are test expectations, not an implementation. Keep the code of the Python 
 - Unknown chapter content files and array parameters must produce a controlled 400/404, without PHP-style diagnostics. Strict rejection of arrays on `/translation` and duplicate query keys on `/translation` and `/chapter` is optional, as described above. Normal legacy errors keep their documented text and status. Unknown application paths keep the existing HTML 404. Removed `/fb`, `/nwtbible`, and J2ME routes return 404.
 - Serve canonical `/meta` directly, without a slash or HTTPS redirect. The client requests exactly this path. `/meta?x=1` and `/meta/` are PHP-only observations; their responses are not requirements for Python. Ignoring extra query parameters or using the framework's normal trailing-slash behavior is allowed for these unused variants.
 - Sort translation names alphabetically within each language on the home page. The test sorts only the expected lists from the saved PHP page; it still rejects unsorted, missing, duplicated, or moved translations in Python. Other page content and links remain checked. The copyright end year may be updated. The PHP profile retains its original page comparison; `/meta` XML ordering is unchanged.
+- `static-range` accepts `application/octet-stream` or `application/vnd.symbian.install` for the `.sis` package. It remains required and still checks 206, Content-Range, and exact range bytes; the HTTP reader checks Content-Length. Other asset MIME checks and the PHP profile are unchanged.
 
 The PHP profile records several unsafe cases as 200 with diagnostics, empty XML, converted strings, or unexpected writes. Those observations are evidence, not Python requirements. It never fetches `/fb`. The Python profile checks `/fb` only as a removed route on the new service.
 

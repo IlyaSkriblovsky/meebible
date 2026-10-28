@@ -16,14 +16,14 @@ class HarnessChecks(unittest.TestCase):
     def test_nonclient_cases_are_not_required_for_python(self):
         required = {case["id"] for case in cases("python")}
         extended = {case["id"] for case in cases("python", include_optional=True)}
-        observations = {"translation-zero", "translation-bare", "chapter-bare", "passage-bad-path"}
+        observations = {"translation-zero", "translation-bare", "chapter-bare", "passage-bad-path", "privacy-query"}
         optional = {"translation-array", "translation-duplicate", "chapter-duplicate", "chapter-method-post"}
         self.assertTrue(required.isdisjoint(observations | optional))
         self.assertTrue(extended.isdisjoint(observations))
         self.assertEqual(extended - required, optional)
         self.assertTrue({"chapter-array", "chapter-unknown-file", "chapter-traversal",
                          "translation-unknown", "translation-sql-text",
-                         "startup-missing", "feedback-duplicate"}.issubset(required))
+                         "startup-missing", "feedback-duplicate", "privacy"}.issubset(required))
         php = {case["id"] for case in cases("php")}
         self.assertTrue((observations | optional).issubset(php))
         self.assertEqual(php, {case["id"] for case in cases("php", include_optional=True)})
@@ -81,6 +81,42 @@ class HarnessChecks(unittest.TestCase):
         response = Response(200, expected["headers"], b"", body.rstrip())
         with self.assertRaises(AssertionError):
             compare(response, expected, body, "bytes")
+
+    def test_sis_range_allows_both_types_but_keeps_range_and_byte_checks(self):
+        manifest = load_reference()
+        indexed = {entry["request"]["id"]: entry for entry in manifest["cases"]}
+        case = next(case for case in cases("python") if case["id"] == "static-range")
+        entry = indexed[case["id"]]
+        body = (REFERENCE / entry["body_file"]).read_bytes()
+        args = SimpleNamespace(profile="python", user_data=None, php_reference=False,
+                               base_url="http://127.0.0.1:8000")
+
+        def headers(mime):
+            return [(key, mime if key.lower() == "content-type" else value)
+                    for key, value in entry["response"]["headers"]]
+
+        for mime in ("application/octet-stream", "application/vnd.symbian.install"):
+            response = Response(206, headers(mime), body, body)
+            with self.subTest(mime=mime), patch("run.request", return_value=response):
+                check_case(args, manifest, indexed, case)
+        wrong_range = [(key, "bytes 1-64/281860" if key.lower() == "content-range" else value)
+                       for key, value in headers("application/vnd.symbian.install")]
+        for broken in (
+            Response(200, headers("application/vnd.symbian.install"), body, body),
+            Response(206, headers("text/html"), body, body),
+            Response(206, wrong_range, body, body),
+            Response(206, headers("application/vnd.symbian.install"), body[:-1], body[:-1]),
+            Response(206, headers("application/vnd.symbian.install"), body, bytes([body[0] ^ 1]) + body[1:]),
+        ):
+            with self.subTest(response=broken), patch("run.request", return_value=broken), self.assertRaises(AssertionError):
+                check_case(args, manifest, indexed, case)
+        # The MIME exception is specific to the Python SIS case.
+        args.profile = "php"
+        with patch("run.request", return_value=response), self.assertRaises(AssertionError):
+            check_case(args, manifest, indexed, case)
+        css = {"status": 200, "headers": [("Content-Type", "text/css")]}
+        with self.assertRaises(AssertionError):
+            compare(Response(200, [("Content-Type", "application/octet-stream")], b"", b"body {}"), css, b"body {}", "bytes")
 
     def test_automatic_json_errors_are_rejected(self):
         response = Response(400, [("Content-Type", "application/json")], b"", b'{"detail":"bad input"}')

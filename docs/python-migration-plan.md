@@ -1,6 +1,6 @@
 # MeeBible Python migration plan
 
-Last updated: 2026-10-27.
+Last updated: 2026-10-28.
 
 The goal is to keep existing MeeBible clients on Symbian and MeeGo working by replacing PHP 5.6 with a small Python + FastAPI service. New features, new users, and a redesign are out of scope. We will not migrate to PHP 8.
 
@@ -155,3 +155,15 @@ Unsafe behavior in the old implementation is not a compatibility requirement. Co
 - The owner chose to retain PHP's 200 empty/partial page behavior for missing verses. Both the saved PHP responses and current Python responses do this. Keep checks of page content, metadata, and existing selected verses; missing chapters still require controlled errors.
 - Updated the contract and test rules. Saved PHP responses, the PHP profile, chapter bytes, and the owner's backend source are unchanged.
 - All 17 test-tool checks passed, including redirect target/loop checks and empty/partial page checks. All 19 Python passage cases passed over HTTP against the owner's server at `localhost:8000`. All 95 PHP case IDs remain present and saved reference checksums match.
+
+### 2026-10-28 — SIS download MIME type
+
+- Accepted `application/vnd.symbian.install` as well as the reference `application/octet-stream` for the SIS range case. This is a binary download MIME mapping difference, not a change to the package or range behavior.
+- Local GET checks confirmed 206, `Content-Range: bytes 0-63/281860`, Content-Length 64, and exact reference range bytes. The full 281,860-byte package matches its saved SHA-256.
+- Kept `static-range` required, preserved its range and byte checks, and added negative tool checks for wrong types, statuses, ranges, and content. Other asset MIME checks, PHP references/profile, and backend source are unchanged.
+
+### 2026-10-28 — privacy query boundary test
+
+- Confirmed that the feedback page opens exactly `http://meebible.org/privacy`, without query parameters. The old 404 for `/privacy?x=1` comes from PHP's raw-URI matching.
+- Moved `privacy-query` to PHP-only observations. Python may ignore extra query parameters. Canonical `/privacy` and its existing policy content remain required.
+- Updated the selection check and documentation. Saved references, the PHP profile, and backend source are unchanged.

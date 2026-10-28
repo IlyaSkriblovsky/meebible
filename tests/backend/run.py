@@ -60,16 +60,17 @@ def clean_error(response):
     )
 
 
-def compare(response, expected, body, kind):
+def compare(response, expected, body, kind, allowed_media=None):
     need(
         response.status == expected["status"],
         f"HTTP {response.status}, expected {expected['status']}",
     )
     old_headers = {key.lower(): value for key, value in expected["headers"]}
     old_media = old_headers.get("content-type", "").split(";", 1)[0].lower()
+    accepted_media = [old_media] if allowed_media is None else allowed_media
     need(
-        media(response)[0] == old_media,
-        f"Content-Type: {response.header('Content-Type')}, expected {old_media}",
+        media(response)[0] in accepted_media,
+        f"Content-Type: {response.header('Content-Type')}, expected {', '.join(accepted_media)}",
     )
     if (
         old_media.startswith("text/")
@@ -167,9 +168,10 @@ def check_case(args, manifest, indexed, case):
             response.status in statuses, f"HTTP {response.status}, expected {statuses}"
         )
         kind = policy["kind"]
-        if kind in {"home", "passage"}:
+        if kind in {"home", "passage", "bytes"}:
             need(entry is not None, "Missing captured case")
-            compare(response, entry["response"], (REFERENCE / entry["body_file"]).read_bytes(), kind)
+            compare(response, entry["response"], (REFERENCE / entry["body_file"]).read_bytes(), kind,
+                    allowed_media=policy.get("media_types"))
         if kind == "redirect":
             check_passage_redirect(args, response, indexed, case, policy)
         if kind in {"controlled", "method"}:

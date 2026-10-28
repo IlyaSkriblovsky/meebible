@@ -1,6 +1,6 @@
 # MeeBible backend contract
 
-Last updated: 2026-10-27.
+Last updated: 2026-10-28.
 
 This is the contract for the Python migration, based on source review and local PHP 5.6.40 observations. It describes the old code, client expectations, and deliberate fixes. Local reference responses and external tests are now available; see the [test guide](backend-tests.md). Production comparison has not started.
 
@@ -74,6 +74,8 @@ Methods in this table are the methods used by the client or browser. Old PHP doe
 - Canonical client requests have one scalar value per field. They use query parameters for reads and form bodies for writes. They do not need cookie authentication, sessions, or API keys.
 
 The client requests the catalog with `Paths::wsUrl("meta")` in [`Languages.cpp`](../src/Languages.cpp). [`Paths::wsUrl`](../src/Paths.cpp) builds `http://{service}/{path}`; it adds no query or trailing slash. Returning 404 for `/meta?x=1` and `/meta/` is therefore a PHP routing detail, not a client compatibility requirement. From 2026-10-25 these two cases run only in the PHP test profile. Python may ignore extra query parameters and use its normal trailing-slash behavior. Canonical `/meta` must still return the catalog directly with 200.
+
+The privacy link in [`FeedbackPage.qml.in`](../qml/FeedbackPage.qml.in) opens exactly `http://meebible.org/privacy`, without query parameters. The old 404 for `/privacy?x=1` is also a PHP routing detail. `privacy-query` runs only in the PHP profile; Python may ignore the extra query and serve the policy. Canonical `/privacy` remains required with 200 and the existing policy content.
 
 ### Responses and proxy behavior
 
@@ -339,6 +341,8 @@ The home page's historical insertion order is a PHP bug, not a compatibility req
 
 Static files include CSS, JavaScript, images, and the existing `.sis` and `.deb` packages. Preserve URLs and file bytes. MIME types, HEAD, cache validators, range handling, and nginx-generated 404 bodies need runtime capture. `/static/` must not expose code, databases, or writable user data.
 
+For the `.sis` package, both `application/octet-stream` and `application/vnd.symbian.install` are accepted. The old generic type is an nginx MIME mapping detail; Python may use the specific Symbian installer type. The range response must still use 206, the correct Content-Range and length, and the exact file bytes. This MIME exception does not apply to other assets.
+
 External scripts, social widgets, download destinations, and payment services are outside the backend protocol. Tests can check the page's links and form fields without executing scripts, submitting payments, or contacting those services. The old home page loads an unpinned external jQuery script over HTTP; review replacing it with a local resource or small local script as a website safety fix, without redesigning the page.
 
 ## Local data observations
@@ -375,7 +379,7 @@ The changes below are part of the port, not changes to existing PHP in this step
 | Literal plus signs in POST forms | Preserve raw plus signs; percent-decode UTF-8 without HTML form plus conversion | Agreed on 2026-10-24; raw Qt bytes, encoded plus, and standard form difference are tested |
 | Passage links | Accept digit-prefixed books; normalization accepts 301/307 without requiring a redirect body or Content-Type; trailing slash may redirect; missing verses keep 200; missing chapters and path garbage require controlled errors | Check page extraction and remaining parser differences |
 | HTML output | Escape plain text; keep chapter HTML intact | Compare passage parser output and review external HTTP script |
-| Routing cleanup | Preserve canonical client URLs without redirects; unused `/meta?x=1`, `/meta/`, bare `/translation`, bare `/chapter`, and nonnumeric passage chapter errors do not need PHP's exact responses | Review other route boundary cases separately before changing their requirements |
+| Routing cleanup | Preserve canonical client URLs without redirects; unused `/meta?x=1`, `/meta/`, `/privacy?x=1`, bare `/translation`, bare `/chapter`, and nonnumeric passage chapter errors do not need PHP's exact responses | Review other route boundary cases separately before changing their requirements |
 
 ## Reference and test checklist
 

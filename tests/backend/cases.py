@@ -105,12 +105,14 @@ def cases(profile=None, include_optional=False):
                        ("feedback-query", "/feedback?x=1"), ("code-hidden", "/route.php"),
                        ("content-hidden", "/content/langs.sqlite"), ("user-data-hidden", "/feedback.sqlite"),
                        ("j2me-removed", "/meta.j2me")):
-        add(name, path, "page", php_only=name in {"translation-bare", "chapter-bare"})
+        add(name, path, "page", php_only=name in {"translation-bare", "chapter-bare", "privacy-query"})
     add("nwtbible-removed", "/nwtbible?trans=nwt&lang=e&book=ge&chapter=1",
         python={"status": 404, "kind": "controlled"})
     # Never fetch /fb, even locally. It is a removed route in the Python profile.
     add("fb-removed", "/fb", python={"status": 404, "kind": "controlled"}, python_only=True)
-    add("static-range", "/static/meebible_3.5.7_signed.sis", headers={"Range": "bytes=0-63"})
+    add("static-range", "/static/meebible_3.5.7_signed.sis", headers={"Range": "bytes=0-63"},
+        python={"kind": "bytes", "status": 206,
+                "media_types": ["application/octet-stream", "application/vnd.symbian.install"]})
     add("static-css", "/static/css/style.css")
     add("favicon", "/favicon.ico")
     add("static-head", "/static/css/style.css", method="HEAD")
