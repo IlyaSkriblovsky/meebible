@@ -1,6 +1,6 @@
 # MeeBible Python backend
 
-**Status: PHP reference server and external tests are ready for implementation work.** The owner is writing the Python service. The architecture and operating sections below remain plans until that service is built and checked.
+**Status: the Python implementation passes the default local quick suite (93 checks, no failures or skips, including POST storage checks).** Python unit tests, container conversion, and full final-image validation are next. The operating sections below remain plans until the container setup is built and checked.
 
 See the [migration plan](python-migration-plan.md) for work order, status, completion criteria, and decisions. Keep this guide in simple English.
 
@@ -12,9 +12,9 @@ The service must support existing mobile clients without client updates. Keep HT
 
 ## Architecture
 
-The plan is to use FastAPI + Uvicorn behind nginx, the standard sqlite3 module for existing databases, XML serialization for metadata, and HTML templates for website pages. Code and content must be read-only. Store startup/feedback data separately with write access.
+The application is in `backend/`, using FastAPI, sqlite3, Jinja templates, and lxml for passage HTML. The deployment target remains Uvicorn behind nginx. Code and content must be read-only. Startup/feedback currently use database filenames relative to the process working directory; the Docker task must give them a separate persistent writable path.
 
-After implementation, document:
+During container and release work, document:
 
 - actual Python and dependency versions, and how they are pinned;
 - responsibilities of nginx and the application, HTTP/gzip settings, and routing;
@@ -23,17 +23,19 @@ After implementation, document:
 
 ## Where to find things
 
-Before the migration, these are the main locations in the project:
+These are the main implementation and historical source locations:
 
 | Path | Contents |
 | --- | --- |
+| `backend/` | Python application, SQLite access, form/verse parsing, templates, static assets, and Bible content |
+| `pyproject.toml`, `uv.lock` | Python requirements and locked dependencies |
 | `www/urls.php`, `www/views/` | Old routes and handlers |
 | `www/loadchapter.inc.php` | Chapter loading, including the special `nwt` layout |
 | `www/content/` | SQLite catalog and translation text databases |
 | `www/templates/`, `www/static/` | Templates and static files |
 | `src/Paths.cpp`, `src/Translation.cpp`, `src/Languages.cpp` | Client URLs and content loading |
 | `src/StartupTracker.cpp`, `src/Feedback.cpp` | Client POST requests |
-| `docker-compose.yml`, `nginx.conf`, `proxy.conf` | Existing startup and proxy configuration; check whether it matches production |
+| `docker-compose.yml`, `nginx.conf`, `proxy.conf` | Existing PHP startup/proxy configuration; the root Compose/nginx setup still needs conversion to Python |
 | `tools/php-reference/` | Tested, isolated PHP 5.6.40 reference setup and checksum manifest |
 | `docs/php-reference.md` | PHP reference startup, settings, checks, reset, and stop commands |
 | `tests/backend/` | External HTTP tests, reference capture, and saved responses |
@@ -41,13 +43,13 @@ Before the migration, these are the main locations in the project:
 | `docs/python-migration-plan.md` | Plan, status, and decisions |
 | `docs/backend-contract.md` | Source-based contract and reference test checklist |
 
-After implementation, add the actual paths for Python code, tests, reference responses, dependencies, and configuration. Remove obsolete paths or clearly label them as historical.
+During container and release work, add the actual unit-test and deployment paths. Remove obsolete paths or clearly label them as historical.
 
 ## Local startup
 
 For the old service, follow the tested [PHP reference server guide](php-reference.md). It uses pinned PHP 5.6.40/nginx images, a fixed Git content snapshot, read-only mounts, and temporary startup/feedback databases. Only `http://127.0.0.1:10056` is published. Setup checks and a complete reset passed; image identities and results are in [verification.md](../tools/php-reference/verification.md). The containers were stopped after verification.
 
-Python startup commands have not been defined yet. During implementation, document requirements, dependency installation, data setup, configuration variables, Docker startup, and a basic availability check.
+Stable Python deployment commands have not been documented yet. During container work, document requirements, dependency installation, data setup, configuration variables, Docker startup, and a basic availability check.
 
 Historical Qt source is used to define client encoding fixtures. A local Qt installation is not a prerequisite; see the form encoding section in the [backend contract](backend-contract.md).
 

@@ -6,6 +6,8 @@ The goal is to keep existing MeeBible clients on Symbian and MeeGo working by re
 
 This document tracks the plan, completion criteria, main results, and decisions. The source-based API and website contract is in [Backend contract](backend-contract.md). Keep the description of the built service and operating instructions in the separate [Python backend guide](python-backend.md). Write project documents in simple English.
 
+**Current status:** the Python implementation passes the default local quick suite: 93 checks, no failures, and no skips, including POST storage checks. Unit tests, the Python Docker environment, and full validation of the final image remain to be done.
+
 ## Work plan
 
 Statuses: **Not started**, **In progress**, **Done**, **Blocked**. Mark a step as done only when its completion criteria are met. Add a short note about important results and changes to the log below. Update this plan when the scope changes.
@@ -17,14 +19,24 @@ Statuses: **Not started**, **In progress**, **Done**, **Blocked**. Mark a step a
 | 3 | Set up an isolated PHP 5.6 reference server | The old service can be started in a repeatable way without public access; it uses a fixed content snapshot and temporary startup/feedback databases; commands and settings are documented | Done |
 | 4 | Capture local reference responses and build external tests | Responses and environment details are saved; tests accept BASE_URL; routes to keep, errors, and POST writes are covered; quick and full test modes exist | Done |
 | 5 | Compare reference responses with meebible.org | A small set of safe GET requests is compared at a low rate; differences in status, headers, and bodies are classified; configuration differences are separated from data and application differences; unexplained differences are recorded | Not started |
-| 6 | Build the Python backend | All features to keep are implemented using the existing SQLite files; removed routes return 404; agreed bugs are fixed; quick contract tests pass | In progress |
-| 7 | Check all content and the final environment | All translations, languages, books, and chapters are checked; POST, errors, permissions, nginx, gzip, and HTTP are tested; every difference from the reference is explained and accepted | Not started |
-| 8 | Prepare the release and operating guide | Tested commands cover startup, tests, updates, backup, restore, and switching servers; dependency versions are pinned; project layout and limits are documented | Not started |
-| 9 | Switch production to Python | User SQLite databases are copied consistently with old writes stopped; the upstream is switched; reads, writes, logs, and redirects are checked; old PHP no longer serves public requests | Not started |
+| 6 | Build the Python backend | All features to keep are implemented using the existing SQLite files; removed routes return 404; agreed bugs are fixed; default quick contract tests pass | Done |
+| 7 | Add Python unit tests | Form and verse parsing, passage extraction, and SQLite behavior are tested in isolation; temporary databases cover commits, rollback, and failed writes; one documented command runs the tests | Not started |
+| 8 | Build the Python Docker environment | A Dockerfile and updated Compose/nginx configuration run Python; dependencies use the lock file; code/content are read-only; user data has a separate persistent writable path; startup, shutdown, and restart are checked | Not started |
+| 9 | Check all content and the final environment | Quick and full suites pass through nginx on the final Python image, including all 109,505 advertised chapters; POST, errors, permissions, persistence, gzip, caching, and concurrent downloads are checked; differences are explained and accepted | Not started |
+| 10 | Prepare the release and operating guide | Tested commands cover startup, tests, updates, backup, restore, and switching servers; dependency versions are pinned; project layout and limits are documented; user-data transfer and recovery are rehearsed | Not started |
+| 11 | Switch production to Python | User SQLite databases are copied consistently with old writes stopped; the upstream is switched; reads, writes, logs, and redirects are checked; old PHP no longer serves public requests | Not started |
 
 Implementation can proceed in parts as contracts become clear. Run the full content checks and final comparison on the final image and configuration. This plan does not mean that production has already been changed.
 
-The owner will write the Python service. The assistant is preparing the external tests and reference evidence. Keep test tooling independent of the service implementation.
+The owner has written the Python service. The assistant maintains external tests and reference evidence. Implementation unit tests belong to the Python code; the external HTTP suite stays independent of that implementation.
+
+## Next work
+
+1. **Unit tests (step 7).** Test `parse_qt_form`, verse parsing/normalization, and passage selection, including Unicode/RTL, superscripts, and split verses. Use temporary SQLite files to test read-only content, missing files, commits, rollback, and errors before a successful response. Cover absent versus empty POST fields, raw plus signs, invalid UTF-8, and missing required keys. Add tests for behavior and failure cases rather than copying implementation details. Keep this suite separate from `tests/backend/test_harness.py`, which tests the external tools rather than the backend.
+2. **Docker and configuration (step 8).** Add a Python Dockerfile and `.dockerignore`, install from `uv.lock`, and choose a pinned Python image. Replace PHP in the root Compose project with Uvicorn. Change nginx from `fastcgi_pass php:9000` to an HTTP upstream and point static paths at the Python assets. Decide which layer handles gzip and static files, then test that configuration. Keep the isolated PHP reference project unchanged.
+3. **Persistent data paths.** Before making the application filesystem read-only, give startup/feedback a configured writable directory and a persistent volume. They currently use filenames relative to the process working directory. Keep code and Bible content read-only and run the application without root. Exclude local user databases and logs from the image. Verify that both user tables survive container recreation.
+4. **Final validation (step 9).** Run the default quick suite and the complete full suite against the built image through nginx, using temporary user data. Check the client's 20-request download concurrency, ETag/304, ranges, HEAD, gzip, and HTTP URLs. Test database lock/read-only/write failures and confirm that an unsuccessful write cannot return `ok`. Review input validation and resource limits as part of this work. The existing local quick pass is not evidence for all chapters or for the final container.
+5. **Production comparison and release (steps 5, 10, and 11).** The limited safe GET comparison with production is still pending and can run in parallel with unit/Docker work. Before switching, rehearse consistent backup, user-database transfer while old writes are stopped, restore, and recovery. Record the final image and configuration, check logs and basic availability after the switch, and try the new service with a real client where possible. Update `python-backend.md` with the actual commands and paths.
 
 ## Agreed scope
 
@@ -173,3 +185,10 @@ Unsafe behavior in the old implementation is not a compatibility requirement. Co
 - Confirmed that `Feedback::send` posts to exactly `/feedback`, with all fields in the body. The client does not send `GET /feedback?x=1`; the case's old 404 comes from PHP's raw-URI matching.
 - Moved `feedback-query` to PHP-only observations. A normal framework JSON 405 is allowed for this unused GET variant in Python. It must not write feedback; POST submission, validation, and method checks remain required.
 - Updated the selection check and documentation. Saved references, the PHP profile, and backend source are unchanged.
+
+### 2026-11-04 — Python implementation passes quick tests
+
+- The owner reports that the implementation now passes all required tests. The saved local `tests/backend/.local/quick-python.json` confirms a default Python quick run on `localhost:8000`: 93 passed, zero failed, zero skipped, `read_only=false`, and `include_optional=false`. The run includes POST and committed-storage checks. The optional strict checks were not enabled, and this report does not cover the full chapter sweep.
+- Marked step 6 complete. Added separate unit-test and Docker steps, and expanded the remaining work on persistent data, final-image testing, production comparison, and backup/restore. Steps 7–9 from the earlier table are now steps 9–11; existing steps 1–6 keep their numbers.
+- The root Compose/nginx files still use PHP/FastCGI. Python user databases still use paths relative to the process working directory. These are concrete tasks for the container stage, not completed deployment settings.
+- Unit tests and container conversion are the next implementation tasks; neither was started in this documentation update. No application code, deployment files, user databases, or production services were changed.
