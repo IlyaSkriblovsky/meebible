@@ -1,8 +1,7 @@
 import re
 from pathlib import Path
 
-from etag import ETagMiddleware
-from fastapi import FastAPI, Form, Request
+from fastapi import FastAPI, Request
 from fastapi.exceptions import HTTPException, RequestValidationError
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import (
@@ -36,8 +35,9 @@ templates_env = Environment(loader=FileSystemLoader(TEMPLATES), autoescape=True)
 
 app = FastAPI()
 app.add_middleware(GZipMiddleware, minimum_size=1000, compresslevel=5)
-app.add_middleware(ETagMiddleware)
-app.mount("/static", StaticFiles(directory=STATIC), name="static")
+# app.add_middleware(ETagMiddleware)
+static_files = StaticFiles(directory=STATIC)
+app.mount("/static", static_files, name="static")
 
 
 class XMLResponse(Response):
@@ -68,8 +68,8 @@ def handle_422(request: Request, exc: RequestValidationError):
 
 
 @app.get("/favicon.ico", include_in_schema=False)
-async def favicon():
-    return FileResponse(STATIC / "img" / "favicon.ico")
+async def favicon(request: Request):
+    return await static_files.get_response("img/favicon.ico", request.scope)
 
 
 @app.get("/privacy", response_class=HTMLResponse)

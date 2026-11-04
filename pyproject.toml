@@ -5,7 +5,6 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "etag-middleware>=0.2.0",
     "fastapi[standard]>=0.162.0",
     "jinja2>=3.1.6",
     "lxml>=6.1.3",
