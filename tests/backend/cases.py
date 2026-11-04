@@ -105,7 +105,7 @@ def cases(profile=None, include_optional=False):
                        ("feedback-query", "/feedback?x=1"), ("code-hidden", "/route.php"),
                        ("content-hidden", "/content/langs.sqlite"), ("user-data-hidden", "/feedback.sqlite"),
                        ("j2me-removed", "/meta.j2me")):
-        add(name, path, "page", php_only=name in {"translation-bare", "chapter-bare", "privacy-query"})
+        add(name, path, "page", php_only=name in {"translation-bare", "chapter-bare", "privacy-query", "feedback-query"})
     add("nwtbible-removed", "/nwtbible?trans=nwt&lang=e&book=ge&chapter=1",
         python={"status": 404, "kind": "controlled"})
     # Never fetch /fb, even locally. It is a removed route in the Python profile.

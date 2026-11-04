@@ -10,6 +10,7 @@ from pathlib import Path
 
 DB_PATH = Path(__file__).parent / "content"
 STARTUP_DB = "startup.sqlite"  # in process CWD
+FEEDBACK_DB = "feedback.sqlite"
 
 
 class BookNotFoundError(Exception):
@@ -293,5 +294,31 @@ def save_startup_event(
                 "os": platform,
                 "lang": lang_code,
                 "trans": trans_code,
+            },
+        )
+
+
+def save_feedback(name: str, email: str, message: str) -> None:
+    with connect_db(FEEDBACK_DB, write=True) as con:
+        con.execute(
+            """
+            CREATE TABLE IF NOT EXISTS feedback (
+                id INTEGER PRIMARY KEY,
+                time DATETIME,
+                name VARCHAR,
+                email VARCHAR,
+                message VARCHAR
+            )
+            """
+        )
+        con.execute(
+            """
+            INSERT INTO feedback (time, name, email, message)
+            VALUES (datetime('now'), :name, :email, :message)
+            """,
+            {
+                "name": name,
+                "email": email,
+                "message": message,
             },
         )

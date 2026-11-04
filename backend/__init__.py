@@ -2,7 +2,7 @@ import re
 from pathlib import Path
 
 from etag import ETagMiddleware
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Form, Request
 from fastapi.exceptions import HTTPException, RequestValidationError
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import (
@@ -22,6 +22,7 @@ from backend.storage import (
     load_chapter_html,
     load_library,
     load_publication_structure,
+    save_feedback,
     save_startup_event,
 )
 from backend.utils import parse_qt_form
@@ -225,3 +226,23 @@ def get_place(
         place=place,
     )
     return HTMLResponse(content=content)
+
+
+@app.post("/feedback")
+async def post_feedback(request: Request):
+    try:
+        form = parse_qt_form(await request.body())
+    except (ValueError, AssertionError):
+        return PlainTextResponse("Invalid parameters", status_code=400)
+
+    try:
+        message = form["message"]
+    except KeyError:
+        return PlainTextResponse("Missing parameters", status_code=400)
+
+    save_feedback(
+        name=form["name"],
+        email=form["email"],
+        message=message,
+    )
+    return PlainTextResponse("ok")

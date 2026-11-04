@@ -16,14 +16,15 @@ class HarnessChecks(unittest.TestCase):
     def test_nonclient_cases_are_not_required_for_python(self):
         required = {case["id"] for case in cases("python")}
         extended = {case["id"] for case in cases("python", include_optional=True)}
-        observations = {"translation-zero", "translation-bare", "chapter-bare", "passage-bad-path", "privacy-query"}
+        observations = {"translation-zero", "translation-bare", "chapter-bare", "passage-bad-path", "privacy-query", "feedback-query"}
         optional = {"translation-array", "translation-duplicate", "chapter-duplicate", "chapter-method-post"}
         self.assertTrue(required.isdisjoint(observations | optional))
         self.assertTrue(extended.isdisjoint(observations))
         self.assertEqual(extended - required, optional)
         self.assertTrue({"chapter-array", "chapter-unknown-file", "chapter-traversal",
                          "translation-unknown", "translation-sql-text",
-                         "startup-missing", "feedback-duplicate", "privacy"}.issubset(required))
+                         "startup-missing", "feedback-duplicate", "privacy", "feedback",
+                         "feedback-empty", "feedback-method-head", "feedback-method-put"}.issubset(required))
         php = {case["id"] for case in cases("php")}
         self.assertTrue((observations | optional).issubset(php))
         self.assertEqual(php, {case["id"] for case in cases("php", include_optional=True)})

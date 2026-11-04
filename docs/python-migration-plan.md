@@ -1,6 +1,6 @@
 # MeeBible Python migration plan
 
-Last updated: 2026-10-28.
+Last updated: 2026-11-04.
 
 The goal is to keep existing MeeBible clients on Symbian and MeeGo working by replacing PHP 5.6 with a small Python + FastAPI service. New features, new users, and a redesign are out of scope. We will not migrate to PHP 8.
 
@@ -166,4 +166,10 @@ Unsafe behavior in the old implementation is not a compatibility requirement. Co
 
 - Confirmed that the feedback page opens exactly `http://meebible.org/privacy`, without query parameters. The old 404 for `/privacy?x=1` comes from PHP's raw-URI matching.
 - Moved `privacy-query` to PHP-only observations. Python may ignore extra query parameters. Canonical `/privacy` and its existing policy content remain required.
+- Updated the selection check and documentation. Saved references, the PHP profile, and backend source are unchanged.
+
+### 2026-11-04 — feedback query boundary test
+
+- Confirmed that `Feedback::send` posts to exactly `/feedback`, with all fields in the body. The client does not send `GET /feedback?x=1`; the case's old 404 comes from PHP's raw-URI matching.
+- Moved `feedback-query` to PHP-only observations. A normal framework JSON 405 is allowed for this unused GET variant in Python. It must not write feedback; POST submission, validation, and method checks remain required.
 - Updated the selection check and documentation. Saved references, the PHP profile, and backend source are unchanged.
