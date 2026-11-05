@@ -40,7 +40,9 @@ python3 tests/backend/run.py quick --read-only --include-optional
 | `quick` | Catalog; representative translation XML; Unicode, RTL, `nwt`, first/last and digit-prefixed chapters; normal and malformed requests; passage extraction, gaps, split verses, superscripts, redirects; public pages; static files, ranges, HEAD and validators; Qt forms; committed rows and unchanged schemas |
 | `full` | Everything in quick, all 94 translation/language XML responses, all 109,505 advertised chapter bodies, and all static assets including `.sis` and `.deb` packages |
 
-Counts describe the fixed reference snapshot, not permanent API constants. Full mode obtains paths from the captured catalog and translation flow and uses at most 20 concurrent requests. It compares each chapter's byte count and SHA-256 against the original SQLite text. No chapter is reformatted. Full runs can take many minutes under amd64 emulation.
+Counts describe the fixed reference snapshot, not permanent API constants. Full mode obtains paths from the captured catalog and translation flow and uses at most 20 concurrent requests. Each worker reuses its own HTTP connection while checking chapters; it does not open a new TCP connection for every chapter. Connections are closed after workers finish or when a request fails. Failed requests are reported without automatic retries. The report records the worker count. Each chapter's byte count and SHA-256 are compared against the original SQLite text. No chapter is reformatted. Full runs can take many minutes under amd64 emulation.
+
+For a full run, use a server without `--reload` and avoid editing its code during the run. A development reload can interrupt requests. On macOS, opening a new connection for every chapter can also exhaust local ephemeral ports after roughly 16,000 fast requests; the persistent worker connections avoid that client-side limit. If connection errors remain, check the server log and confirm that its process stays alive. Reducing `--workers` is useful for diagnosis, but does not replace connection reuse.
 
 XML comparison checks element names, values, all attributes, and child order. It allows different attribute order and formatting whitespace. This keeps the chapter order required by the client. Pages compare visible content, titles, links, image URLs, and payment form fields without executing scripts or contacting external services. Passage checks also compare ordered verse pieces, superscripts, gap markers, and Open Graph text. HTML whitespace and serializer spelling can differ. Chapter bodies and static assets remain byte-exact.
 
@@ -107,3 +109,64 @@ The command first verifies the old server's isolation and snapshot. The output d
 Review differences in status, headers, body bytes/XML values, and stored form fields before replacing anything. Compare content/image/configuration hashes first. Different Date values, synthetic timestamps, and compressed bytes can be expected; changes to decoded chapter bytes need explanation. The normal test runner has no capture/update option.
 
 The full test suite is available for implementation work, but this is not release approval. Production comparison, failure injection for database/disk errors, final filesystem permissions, final nginx limits, and the full checks on the final Python image still belong to later migration steps. These protocol checks do not prove rendering on a real phone.
+
+## Python unit and API integration tests
+
+From the repository root:
+
+```sh
+uv sync --locked
+uv run --locked pytest -q
+```
+
+`pytest` and `httpx` are explicit development dependencies, pinned by `uv.lock`.
+The pytest configuration collects only `backend/tests/` by default. Use
+`uv run --locked pytest -q -m "not api"` for unit tests and
+`uv run --locked pytest -q -m api` for API integration tests. An installed
+virtual environment can run `.venv/bin/python -m pytest -q` directly.
+
+These tests import the Python implementation and remain separate from the
+external HTTP suite, its references, and `tests/backend/test_harness.py`.
+They need no server, Docker, network, or real user databases.
+
+`test_parsing.py` uses native pytest assertions, raises checks, and parameterized
+examples for Qt forms and verse normalization. `test_handlers.py` tests handlers
+directly with storage and rendering replaced at their boundaries.
+`test_storage.py` uses pytest temporary paths for read-only content, missing
+files, normal and nwt chapter selection, parameter binding, original write
+schemas, NULL versus empty strings, repeated writes, commits, rollback,
+connection closure, rejected inserts, an invalid database target, and a deferred
+constraint that fails at commit. Permission bits are not used to simulate a
+write failure because privileged processes can bypass them.
+
+`test_api.py` uses FastAPI's TestClient (httpx) to send in-process ASGI requests
+through real routing, middleware, templates, parsing, and SQLite storage.
+`conftest.py` builds a small synthetic catalog and chapter databases for each
+test in `tmp_path` and redirects all storage paths there. POST success is
+checked using a separate SQLite connection; invalid requests and failed inserts
+must preserve existing rows. A rejecting SQLite trigger tests HTTP 500 on write
+failure without mocking the save function. Other cases cover the catalog →
+translation → chapter flow, nwt layout, Qt forms, missing required fields,
+unsupported methods, passage extraction/redirects/escaping, missing content,
+removed routes, retained pages, HEAD, gzip, and static ranges/validators.
+Static tests read the shipped favicon without modifying it.
+
+These in-process tests do not validate nginx, Docker, TCP transport, filesystem
+permissions, download concurrency, or all shipped content. Those checks remain
+part of the external quick/full suite and final environment validation.
+
+### Results on 2026-11-04
+
+The initial unittest run had 28 methods: 25 passed and three had errors in eight
+subtests. It exposed missing feedback name/email validation and empty verse
+components raising ValueError. The owner's subsequent implementation changes
+were already present before the pytest migration; this work preserved them.
+
+After migration: **93 passed** on Python 3.12 with pytest 9.2.0: 53 unit cases
+and 40 API cases, with no failures, skips, or expected failures. Ruff checks and
+formatting passed. The earlier regression cases now pass. No implementation,
+external suite, reference, Docker, or Compose changes were made by this task.
+
+The separate external quick suite was previously reported as 93 checks without
+errors or skips. The matching count is coincidental: it is a different suite
+and was not rerun here. Full external validation remains pending.

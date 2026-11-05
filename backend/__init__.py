@@ -236,13 +236,15 @@ async def post_feedback(request: Request):
         return PlainTextResponse("Invalid parameters", status_code=400)
 
     try:
+        name = form["name"]
+        email = form["email"]
         message = form["message"]
     except KeyError:
         return PlainTextResponse("Missing parameters", status_code=400)
 
     save_feedback(
-        name=form["name"],
-        email=form["email"],
+        name=name,
+        email=email,
         message=message,
     )
     return PlainTextResponse("ok")

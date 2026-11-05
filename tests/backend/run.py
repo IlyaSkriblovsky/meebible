@@ -16,6 +16,7 @@ from urllib.parse import urljoin, urlsplit
 from cases import cases
 from support import (
     HERE,
+    HTTPConnectionPool,
     REFERENCE,
     Page,
     delta,
@@ -305,6 +306,7 @@ def run(args):
         "mode": args.mode,
         "read_only": args.read_only,
         "include_optional": args.include_optional,
+        "workers": args.workers,
         "reference_manifest_sha256": sha((REFERENCE / "manifest.json").read_bytes()),
         "chapter_index_sha256": sha((REFERENCE / "chapters.json.gz").read_bytes()),
         "passed": 0,
@@ -442,13 +444,17 @@ def run(args):
 
         def fetch_chapter(chapter):
             try:
-                return chapter, request(args.base_url, chapter), None
+                return chapter, chapter_client.request(chapter), None
             except Exception as error:
                 return chapter, None, error
 
         # Bound both client concurrency and queued work. A whole download can keep 20
-        # requests outstanding. Each path comes from the captured catalog/translation flow.
-        with concurrent.futures.ThreadPoolExecutor(max_workers=args.workers) as pool:
+        # requests outstanding. Reuse one TCP connection per worker instead of
+        # exhausting local ephemeral ports with one connection per chapter.
+        with (
+            HTTPConnectionPool(args.base_url) as chapter_client,
+            concurrent.futures.ThreadPoolExecutor(max_workers=args.workers) as pool,
+        ):
             for offset in range(0, len(chapters), 1000):
                 for chapter, response, error in pool.map(
                     fetch_chapter, chapters[offset : offset + 1000]

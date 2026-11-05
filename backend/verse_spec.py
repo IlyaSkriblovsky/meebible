@@ -26,11 +26,14 @@ def parse_verse_spec(spec: str) -> list[int]:
     verses: list[int] = []
 
     for verse_range in ranges:
-        match verse_range.split("-"):
-            case [verse] if 0 < int(verse) <= 300:
-                verses.append(int(verse))
-            case [start, end] if all(0 < int(x) <= 300 for x in (start, end)):
-                verses.extend(range(int(start), int(end) + 1))
+        try:
+            match verse_range.split("-"):
+                case [verse] if 0 < int(verse) <= 300:
+                    verses.append(int(verse))
+                case [start, end] if all(0 < int(x) <= 300 for x in (start, end)):
+                    verses.extend(range(int(start), int(end) + 1))
+        except ValueError:
+            pass
 
     if not verses:
         raise InvalidVerseSpec()

@@ -1,6 +1,6 @@
 # MeeBible Python backend
 
-**Status: the Python implementation passes the default local quick suite (93 checks, no failures or skips, including POST storage checks).** Python unit tests, container conversion, and full final-image validation are next. The operating sections below remain plans until the container setup is built and checked.
+**Status: the Python implementation passes the default local quick suite (93 checks, no failures or skips, including POST storage checks).** Python unit and API integration tests pass: 93 pytest cases (53 unit, 40 API). Container conversion and full final-image validation are next. The operating sections below remain plans until the container setup is built and checked.
 
 See the [migration plan](python-migration-plan.md) for work order, status, completion criteria, and decisions. Keep this guide in simple English.
 
@@ -43,7 +43,7 @@ These are the main implementation and historical source locations:
 | `docs/python-migration-plan.md` | Plan, status, and decisions |
 | `docs/backend-contract.md` | Source-based contract and reference test checklist |
 
-During container and release work, add the actual unit-test and deployment paths. Remove obsolete paths or clearly label them as historical.
+Implementation unit tests are in `backend/tests/`; run `uv run --locked pytest -q` from the repository root. See the test guide for dependencies, coverage, and suite selection. During container and release work, add the deployment paths. Remove obsolete paths or clearly label them as historical.
 
 ## Local startup
 

@@ -13,5 +13,12 @@ dependencies = [
 
 [dependency-groups]
 dev = [
+    "httpx",
+    "pytest",
     "ruff>=0.17.2",
 ]
+
+[tool.pytest.ini_options]
+testpaths = ["backend/tests"]
+pythonpath = ["."]
+markers = ["api: in-process API integration tests with temporary SQLite databases"]

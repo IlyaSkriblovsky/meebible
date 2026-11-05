@@ -1,12 +1,12 @@
 # MeeBible Python migration plan
 
-Last updated: 2026-11-04.
+Last updated: 2026-11-05.
 
 The goal is to keep existing MeeBible clients on Symbian and MeeGo working by replacing PHP 5.6 with a small Python + FastAPI service. New features, new users, and a redesign are out of scope. We will not migrate to PHP 8.
 
 This document tracks the plan, completion criteria, main results, and decisions. The source-based API and website contract is in [Backend contract](backend-contract.md). Keep the description of the built service and operating instructions in the separate [Python backend guide](python-backend.md). Write project documents in simple English.
 
-**Current status:** the Python implementation passes the default local quick suite: 93 checks, no failures, and no skips, including POST storage checks. Unit tests, the Python Docker environment, and full validation of the final image remain to be done.
+**Current status:** the Python implementation passes the default local quick suite: 93 checks, no failures, and no skips, including POST storage checks. Unit and API integration tests now pass: 93 pytest cases (53 unit, 40 API), including regressions for the two defects fixed by the owner. The Python Docker environment and full validation of the final image remain to be done.
 
 ## Work plan
 
@@ -20,7 +20,7 @@ Statuses: **Not started**, **In progress**, **Done**, **Blocked**. Mark a step a
 | 4 | Capture local reference responses and build external tests | Responses and environment details are saved; tests accept BASE_URL; routes to keep, errors, and POST writes are covered; quick and full test modes exist | Done |
 | 5 | Compare reference responses with meebible.org | A small set of safe GET requests is compared at a low rate; differences in status, headers, and bodies are classified; configuration differences are separated from data and application differences; unexplained differences are recorded | Not started |
 | 6 | Build the Python backend | All features to keep are implemented using the existing SQLite files; removed routes return 404; agreed bugs are fixed; default quick contract tests pass | Done |
-| 7 | Add Python unit tests | Form and verse parsing, passage extraction, and SQLite behavior are tested in isolation; temporary databases cover commits, rollback, and failed writes; one documented command runs the tests | Not started |
+| 7 | Add Python unit tests | Form and verse parsing, passage extraction, and SQLite behavior are tested in isolation; temporary databases cover commits, rollback, and failed writes; one documented command runs the tests | Done |
 | 8 | Build the Python Docker environment | A Dockerfile and updated Compose/nginx configuration run Python; dependencies use the lock file; code/content are read-only; user data has a separate persistent writable path; startup, shutdown, and restart are checked | Not started |
 | 9 | Check all content and the final environment | Quick and full suites pass through nginx on the final Python image, including all 109,505 advertised chapters; POST, errors, permissions, persistence, gzip, caching, and concurrent downloads are checked; differences are explained and accepted | Not started |
 | 10 | Prepare the release and operating guide | Tested commands cover startup, tests, updates, backup, restore, and switching servers; dependency versions are pinned; project layout and limits are documented; user-data transfer and recovery are rehearsed | Not started |
@@ -32,7 +32,7 @@ The owner has written the Python service. The assistant maintains external tests
 
 ## Next work
 
-1. **Unit tests (step 7).** Test `parse_qt_form`, verse parsing/normalization, and passage selection, including Unicode/RTL, superscripts, and split verses. Use temporary SQLite files to test read-only content, missing files, commits, rollback, and errors before a successful response. Cover absent versus empty POST fields, raw plus signs, invalid UTF-8, and missing required keys. Add tests for behavior and failure cases rather than copying implementation details. Keep this suite separate from `tests/backend/test_harness.py`, which tests the external tools rather than the backend.
+1. **Python tests (step 7 complete).** Run `uv run --locked pytest -q` for unit and API integration tests. All 93 cases pass with the owner's fixes. See [test results](backend-tests.md#results-on-2026-11-04). The external full suite and final environment checks remain pending.
 2. **Docker and configuration (step 8).** Add a Python Dockerfile and `.dockerignore`, install from `uv.lock`, and choose a pinned Python image. Replace PHP in the root Compose project with Uvicorn. Change nginx from `fastcgi_pass php:9000` to an HTTP upstream and point static paths at the Python assets. Decide which layer handles gzip and static files, then test that configuration. Keep the isolated PHP reference project unchanged.
 3. **Persistent data paths.** Before making the application filesystem read-only, give startup/feedback a configured writable directory and a persistent volume. They currently use filenames relative to the process working directory. Keep code and Bible content read-only and run the application without root. Exclude local user databases and logs from the image. Verify that both user tables survive container recreation.
 4. **Final validation (step 9).** Run the default quick suite and the complete full suite against the built image through nginx, using temporary user data. Check the client's 20-request download concurrency, ETag/304, ranges, HEAD, gzip, and HTTP URLs. Test database lock/read-only/write failures and confirm that an unsuccessful write cannot return `ok`. Review input validation and resource limits as part of this work. The existing local quick pass is not evidence for all chapters or for the final container.
@@ -192,3 +192,23 @@ Unsafe behavior in the old implementation is not a compatibility requirement. Co
 - Marked step 6 complete. Added separate unit-test and Docker steps, and expanded the remaining work on persistent data, final-image testing, production comparison, and backup/restore. Steps 7–9 from the earlier table are now steps 9–11; existing steps 1–6 keep their numbers.
 - The root Compose/nginx files still use PHP/FastCGI. Python user databases still use paths relative to the process working directory. These are concrete tasks for the container stage, not completed deployment settings.
 - Unit tests and container conversion are the next implementation tasks; neither was started in this documentation update. No application code, deployment files, user databases, or production services were changed.
+
+### 2026-11-04 — step 7: Python unit tests
+
+- Added 28 unittest methods in `backend/tests/`, separate from external tests and references. No dependencies were added.
+- Tested form/verse parsing, passage extraction, and temporary SQLite reads/writes, including commit failure and rollback. The test guide documents one command and the isolation boundaries.
+- The run passed 25 methods; three methods reported eight subtest errors exposing two defects: missing feedback name/email validation and empty verse components raising ValueError. Tests retain the required behavior and remain failing for the owner to fix. Step 7's test-writing criteria are met; the implementation is not fully validated.
+- Implementation, external references, Docker, and Compose were unchanged. Full validation remains pending.
+
+### 2026-11-04 — pytest and API integration tests
+
+- Migrated implementation tests to native pytest assertions, fixtures, and parameterized parser cases. Added explicit pytest/httpx development dependencies and updated `uv.lock`.
+- Added API integration tests through TestClient with disposable synthetic SQLite content and user data, real templates, and middleware. External tests and references remain independent.
+- All 93 cases passed (53 unit, 40 API), including regressions after the owner's feedback and verse-parser fixes. Ruff checks and formatting passed. No backend implementation, Docker, or Compose changes were made by this task. Full external validation remains pending.
+
+### 2026-11-05 — full-run transport diagnosis
+
+- The original full run reached 16,000 chapter checks, then failed with connection errors. A separate reproduction showed that opening a new TCP connection for each chapter exhausts this Mac's 16,384 ephemeral ports after roughly 16,000 rapid requests, while the server remains alive.
+- Fixed the external client to reuse one connection per chapter worker, keep the 20-request limit, and close all connections after the workers finish. Failed requests are still reported without retries; chapter status, size, and hash checks are unchanged. All 21 test-tool checks passed.
+- After the owner restarted the server without reload, a full read-only HTTP run checked all 109,505 chapters and passed 109,700 checks with zero failures in 27.73 seconds. The 18 POST/write-method cases were intentionally skipped, so the report is marked partial. Original failure evidence and user databases were preserved.
+- Details and local report paths are in [`tests/backend/verification.md`](../tests/backend/verification.md). This confirms development-server content and transport behavior; final Docker/nginx validation remains pending. No backend implementation or deployment files were changed by this investigation.

@@ -8,6 +8,8 @@ import json
 import re
 import sqlite3
 import subprocess
+import threading
+from contextlib import closing
 from dataclasses import dataclass
 from html.parser import HTMLParser
 from pathlib import Path
@@ -53,30 +55,66 @@ class Response:
                 "body_bytes": len(self.body), "body_sha256": sha(self.body)}
 
 
-def request(base_url, case):
-    url = local_url(base_url)
-    connection = http.client.HTTPConnection(url.hostname, url.port or 80, timeout=15)
+def _connection(url):
+    return http.client.HTTPConnection(url.hostname, url.port or 80, timeout=15)
+
+
+def _request(connection, case):
     headers = {"Host": "meebible.org", "Accept-Encoding": "identity", **case.get("headers", {})}
     body = case.get("body")
     if body is not None:
         body = body.encode("ascii")
         headers.setdefault("Content-Type", "application/x-www-form-urlencoded")
-    try:
-        connection.request(case.get("method", "GET"), case["path"], body, headers)
-        result = connection.getresponse()
-        wire = result.read(16 * 1024 * 1024 + 1)
-        need(len(wire) <= 16 * 1024 * 1024, "Response exceeds test size limit")
-        response = Response(result.status, result.getheaders(), wire, wire)
-        if case.get("method") != "HEAD":
-            length = response.header("Content-Length")
-            need(not length or int(length) == len(wire), "Content-Length does not match the entity bytes")
-            if response.header("Content-Encoding").lower() == "gzip":
-                response.body = gzip.decompress(wire)
-        else:
-            need(not wire, "HEAD returned a body")
-        return response
-    finally:
-        connection.close()
+    connection.request(case.get("method", "GET"), case["path"], body, headers)
+    result = connection.getresponse()
+    wire = result.read(16 * 1024 * 1024 + 1)
+    need(len(wire) <= 16 * 1024 * 1024, "Response exceeds test size limit")
+    response = Response(result.status, result.getheaders(), wire, wire)
+    if case.get("method") != "HEAD":
+        length = response.header("Content-Length")
+        need(not length or int(length) == len(wire), "Content-Length does not match the entity bytes")
+        if response.header("Content-Encoding").lower() == "gzip":
+            response.body = gzip.decompress(wire)
+    else:
+        need(not wire, "HEAD returned a body")
+    return response
+
+
+def request(base_url, case):
+    with closing(_connection(local_url(base_url))) as connection:
+        return _request(connection, case)
+
+
+class HTTPConnectionPool:
+    """One persistent connection per worker thread. Failed requests are not retried."""
+
+    def __init__(self, base_url):
+        self.url = local_url(base_url)
+        self._local = threading.local()
+        self._connections = []
+        self._lock = threading.Lock()
+        self._closed = False
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *exception):
+        self._closed = True
+        for connection in self._connections:
+            connection.close()
+
+    def request(self, case):
+        need(not self._closed, "HTTP connection pool is closed")
+        connection = getattr(self._local, "connection", None)
+        if connection is None:
+            connection = self._local.connection = _connection(self.url)
+            with self._lock:
+                self._connections.append(connection)
+        try:
+            return _request(connection, case)
+        except BaseException:
+            connection.close()
+            raise
 
 
 def xml_value(body):

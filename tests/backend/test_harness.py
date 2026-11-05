@@ -2,17 +2,76 @@
 
 import sqlite3
 import tempfile
+import threading
 import unittest
+from concurrent.futures import ThreadPoolExecutor
 from types import SimpleNamespace
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 from pathlib import Path
 
 from cases import cases, form
 from run import check_case, clean_error, compare
-from support import REFERENCE, Page, Response, delta, load_reference, local_url, user_data
+from support import HTTPConnectionPool, REFERENCE, Page, Response, delta, load_reference, local_url, request, user_data
 
 
 class HarnessChecks(unittest.TestCase):
+    def test_bulk_connections_are_reused_per_thread_and_closed_after_workers_finish(self):
+        connections = []
+        barrier = threading.Barrier(2, timeout=5)
+
+        def factory(*args, **kwargs):
+            connection = Mock()
+            owner = threading.get_ident()
+
+            def send(*args, **kwargs):
+                self.assertEqual(threading.get_ident(), owner)
+                connection.close.assert_not_called()
+
+            connection.request.side_effect = send
+            connection.getresponse.return_value = SimpleNamespace(
+                status=200, getheaders=lambda: [("Content-Length", "7")], read=lambda limit: b"chapter")
+            connections.append(connection)
+            return connection
+
+        def worker(index):
+            for _ in range(3):
+                barrier.wait()
+                self.assertEqual(client.request({"path": "/chapter"}).body, b"chapter")
+
+        with patch("support.http.client.HTTPConnection", side_effect=factory):
+            with HTTPConnectionPool("http://127.0.0.1:8000") as client:
+                with ThreadPoolExecutor(max_workers=2) as executor:
+                    list(executor.map(worker, range(2)))
+                self.assertEqual(len(connections), 2)
+                for connection in connections:
+                    self.assertEqual(connection.request.call_count, 3)
+                    connection.close.assert_not_called()
+            for connection in connections:
+                connection.close.assert_called_once()
+            with self.assertRaises(AssertionError):
+                client.request({"path": "/chapter"})
+
+    def test_connection_errors_are_not_retried_and_connections_are_closed(self):
+        with patch("support.http.client.HTTPConnection") as factory:
+            connection = factory.return_value
+            connection.request.side_effect = ConnectionRefusedError("server unavailable")
+            with HTTPConnectionPool("http://127.0.0.1:8000") as client:
+                with self.assertRaises(ConnectionRefusedError):
+                    client.request({"path": "/chapter"})
+                connection.request.assert_called_once()
+                connection.close.assert_called_once()
+            connection.reset_mock()
+            with self.assertRaises(ConnectionRefusedError):
+                request("http://127.0.0.1:8000", {"path": "/chapter"})
+            connection.request.assert_called_once()
+            connection.close.assert_called_once()
+
+    def test_bulk_connection_pool_rejects_public_targets(self):
+        with patch("support.http.client.HTTPConnection") as factory:
+            with self.assertRaises(ValueError):
+                HTTPConnectionPool("http://meebible.org")
+            factory.assert_not_called()
+
     def test_nonclient_cases_are_not_required_for_python(self):
         required = {case["id"] for case in cases("python")}
         extended = {case["id"] for case in cases("python", include_optional=True)}
