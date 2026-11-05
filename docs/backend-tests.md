@@ -108,7 +108,7 @@ The command first verifies the old server's isolation and snapshot. The output d
 
 Review differences in status, headers, body bytes/XML values, and stored form fields before replacing anything. Compare content/image/configuration hashes first. Different Date values, synthetic timestamps, and compressed bytes can be expected; changes to decoded chapter bytes need explanation. The normal test runner has no capture/update option.
 
-The full test suite is available for implementation work, but this is not release approval. Production comparison, failure injection for database/disk errors, final filesystem permissions, final nginx limits, and the full checks on the final Python image still belong to later migration steps. These protocol checks do not prove rendering on a real phone.
+The full test suite is available for implementation work, but this is not release approval. Production comparison, failure injection for database/disk errors, final filesystem permissions, external proxy limits, and the full checks on the final Python image still belong to later migration steps. These protocol checks do not prove rendering on a real phone.
 
 ## Python unit and API integration tests
 

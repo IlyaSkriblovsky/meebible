@@ -16,7 +16,7 @@ The review covers the PHP routes and handlers, response classes, website templat
 | [`www/core/Response.php`](../www/core/Response.php) | Content types, lengths, XML, templates, and redirects |
 | [`www/views/`](../www/views/), [`www/loadchapter.inc.php`](../www/loadchapter.inc.php) | Parameters, queries, responses, errors, and writes |
 | [`www/templates/`](../www/templates/), [`www/static/`](../www/static/) | Public pages, links, forms, and files |
-| [`nginx.conf`](../nginx.conf), [`proxy.conf`](../proxy.conf), [`docker-compose.yml`](../docker-compose.yml) | FastCGI, static files, compression, and proxy settings in the repository |
+| [`reference nginx.conf`](../tools/php-reference/nginx.conf), [`proxy.conf`](../proxy.conf), [`docker-compose.yml`](../docker-compose.yml) | Historical PHP FastCGI/static/compression settings are preserved in the isolated reference; root Compose now runs Python for the external proxy |
 | [`tools/php-reference/`](../tools/php-reference/compose.yml) | Tested local PHP environment; image identities and results are in [verification.md](../tools/php-reference/verification.md) |
 | [`src/Paths.cpp`](../src/Paths.cpp), [`src/Settings.cpp`](../src/Settings.cpp) | Service URL and client defaults |
 | [`src/Languages.cpp`](../src/Languages.cpp), [`src/MetaInfoParser.cpp`](../src/MetaInfoParser.cpp) | Metadata requests, parsing, and caching |

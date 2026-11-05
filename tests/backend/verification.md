@@ -73,3 +73,33 @@ Validation after the fix:
 
 Backend implementation and saved PHP references were not changed by this investigation. Further full runs should use a
 stable server without development reload.
+
+## Python container checks, 2026-11-05
+
+The root Dockerfile, Compose project, and nginx configuration now run Python. Validation used Docker Engine 29.9.2 on Docker Desktop, native linux/arm64, project `meebible-python-check`, and loopback port 10057. Python 3.12.12, uv 0.9.10, and nginx 1.28.0 image indexes are pinned in the source files. The tested local application image ID was `sha256:4e9e9507828ce3e649a5071fa5c3a63f8a7dbd85e4c55fc32b3860ec7d4b7b9d`.
+
+Commands followed the [Python guide](../../docs/python-backend.md#local-startup), using `-p meebible-python-check` and `MEEBIBLE_PORT=10057`. First, the default named volume received one synthetic startup row and one feedback row through nginx. Both rows survived restart and forced backend recreation. The application ran as UID 10001 and rejected writes under `/app` and `/app/backend/content`; no user databases or implementation tests were present under `/app`. Logs showed graceful application shutdown on SIGTERM.
+
+For the external suite, a local override bound `.local/container-data/` at `/data` so the independent SQLite observer could inspect commits. No production or existing local user databases were mounted. Ran:
+
+```sh
+BASE_URL=http://127.0.0.1:10057 USER_DATA_DIR="$PWD/tests/backend/.local/container-data" python3 tests/backend/run.py quick
+BASE_URL=http://127.0.0.1:10057 USER_DATA_DIR="$PWD/tests/backend/.local/container-data" python3 tests/backend/run.py full
+```
+
+- Quick: 93 passed, zero failures or skips, 0.55 seconds.
+- Full: 109,718 passed, zero failures or skips, 44.61 seconds; all 109,505 chapters matched saved sizes/hashes, with 20 workers. Both runs enabled POST/storage checks and left optional checks disabled.
+- Separate HTTP requests through nginx checked static ETag/304 and HEAD. The ordinary suite also checked gzip, byte ranges, canonical HTTP routes, errors, XML/catalog flow, and static asset bytes.
+- All 93 implementation pytest cases passed; Ruff lint and format checks passed.
+
+The first quick container run found Debian's different favicon MIME mapping; the application now explicitly returns the saved `image/x-icon` type. The first full container run stopped at 28,000 chapters with nginx `Cannot assign requested address` errors: the proxy opened one upstream TCP connection per request. A shared upstream with keepalive and dynamic DNS resolution fixed this; response assertions and concurrency were unchanged. The failed report is retained at `.local/container-full-before-keepalive.json`.
+
+Final reports are `.local/container-quick-python.json` and `.local/container-full-python.json`, with console logs at `.local/container-quick.log` and `.local/container-full.log`. Previous top-level quick/full reports were preserved before testing and restored afterward. Source references and the isolated PHP project were unchanged.
+
+These checks complete migration step 8 and part of step 9. Container failure injection for database locks/read-only storage/write failures, input/resource-limit review, production comparison, backup/restore rehearsal, and real-client checks remain outside this result. Only native arm64 was run; deployment architecture validation remains part of release preparation.
+
+## Direct Python container checks, 2026-11-05
+
+After the owner confirmed an existing external reverse proxy, removed nginx and the extra networks from root Compose. Tested only the backend, publishing `127.0.0.1:10057:8000`, with project `meebible-direct-check` and the same disposable `.local/container-data` bind override. The image was unchanged. Compose config lists exactly one service (`backend`), and its healthcheck passed.
+
+The same quick/full commands above passed directly against Uvicorn: quick 93 checks; full 109,718 checks, all 109,505 chapters, 20 workers, 43.51 seconds. Neither run had failures or skips; POST/storage checks remained enabled. Results and console logs are `.local/direct-quick-python.json`, `.local/direct-full-python.json`, `.local/direct-quick.log`, and `.local/direct-full.log`. Previous top-level quick/full reports were restored. The server's external proxy was not part of this local test; ingress limits, forwarding, and real deployment behavior remain release checks.

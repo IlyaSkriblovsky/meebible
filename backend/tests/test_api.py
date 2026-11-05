@@ -241,6 +241,9 @@ def test_passage_malformed_entries_and_missing_verses(client, spec, expected):
 
 
 def test_static_file_head_range_and_validator(client):
+    favicon = client.get("/favicon.ico")
+    assert favicon.status_code == 200
+    assert favicon.headers["content-type"] == "image/x-icon"
     response = client.get("/static/img/favicon.ico")
     assert response.status_code == 200
     assert response.content

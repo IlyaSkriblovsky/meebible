@@ -6,7 +6,7 @@ The goal is to keep existing MeeBible clients on Symbian and MeeGo working by re
 
 This document tracks the plan, completion criteria, main results, and decisions. The source-based API and website contract is in [Backend contract](backend-contract.md). Keep the description of the built service and operating instructions in the separate [Python backend guide](python-backend.md). Write project documents in simple English.
 
-**Current status:** the Python implementation passes the default local quick suite: 93 checks, no failures, and no skips, including POST storage checks. Unit and API integration tests now pass: 93 pytest cases (53 unit, 40 API), including regressions for the two defects fixed by the owner. The Python Docker environment and full validation of the final image remain to be done.
+**Current status:** steps 6–8 are complete. The Python Docker environment runs Uvicorn behind the existing external reverse proxy with read-only code/content and a separate persistent user-data bind mount. All 93 pytest cases pass. Directly against the local arm64 container without nginx, quick passed 93 checks and full passed 109,718 checks, including all 109,505 chapters and POST storage checks, with no failures or skips. External proxy validation remains pending. Step 9 remains in progress: container failure injection and the input/resource-limit review are pending. Production has not been changed.
 
 ## Work plan
 
@@ -21,8 +21,8 @@ Statuses: **Not started**, **In progress**, **Done**, **Blocked**. Mark a step a
 | 5 | Compare reference responses with meebible.org | A small set of safe GET requests is compared at a low rate; differences in status, headers, and bodies are classified; configuration differences are separated from data and application differences; unexplained differences are recorded | Not started |
 | 6 | Build the Python backend | All features to keep are implemented using the existing SQLite files; removed routes return 404; agreed bugs are fixed; default quick contract tests pass | Done |
 | 7 | Add Python unit tests | Form and verse parsing, passage extraction, and SQLite behavior are tested in isolation; temporary databases cover commits, rollback, and failed writes; one documented command runs the tests | Done |
-| 8 | Build the Python Docker environment | A Dockerfile and updated Compose/nginx configuration run Python; dependencies use the lock file; code/content are read-only; user data has a separate persistent writable path; startup, shutdown, and restart are checked | Not started |
-| 9 | Check all content and the final environment | Quick and full suites pass through nginx on the final Python image, including all 109,505 advertised chapters; POST, errors, permissions, persistence, gzip, caching, and concurrent downloads are checked; differences are explained and accepted | Not started |
+| 8 | Build the Python Docker environment | A Dockerfile and updated Compose configuration run Python; dependencies use the lock file; code/content are read-only; user data has a separate persistent writable path; startup, shutdown, and restart are checked | Done |
+| 9 | Check all content and the final environment | Quick and full suites pass on the final Python image; external proxy behavior is checked, including all 109,505 advertised chapters; POST, errors, permissions, persistence, gzip, caching, and concurrent downloads are checked; differences are explained and accepted | In progress |
 | 10 | Prepare the release and operating guide | Tested commands cover startup, tests, updates, backup, restore, and switching servers; dependency versions are pinned; project layout and limits are documented; user-data transfer and recovery are rehearsed | Not started |
 | 11 | Switch production to Python | User SQLite databases are copied consistently with old writes stopped; the upstream is switched; reads, writes, logs, and redirects are checked; old PHP no longer serves public requests | Not started |
 
@@ -32,11 +32,9 @@ The owner has written the Python service. The assistant maintains external tests
 
 ## Next work
 
-1. **Python tests (step 7 complete).** Run `uv run --locked pytest -q` for unit and API integration tests. All 93 cases pass with the owner's fixes. See [test results](backend-tests.md#results-on-2026-11-04). The external full suite and final environment checks remain pending.
-2. **Docker and configuration (step 8).** Add a Python Dockerfile and `.dockerignore`, install from `uv.lock`, and choose a pinned Python image. Replace PHP in the root Compose project with Uvicorn. Change nginx from `fastcgi_pass php:9000` to an HTTP upstream and point static paths at the Python assets. Decide which layer handles gzip and static files, then test that configuration. Keep the isolated PHP reference project unchanged.
-3. **Persistent data paths.** Before making the application filesystem read-only, give startup/feedback a configured writable directory and a persistent volume. They currently use filenames relative to the process working directory. Keep code and Bible content read-only and run the application without root. Exclude local user databases and logs from the image. Verify that both user tables survive container recreation.
-4. **Final validation (step 9).** Run the default quick suite and the complete full suite against the built image through nginx, using temporary user data. Check the client's 20-request download concurrency, ETag/304, ranges, HEAD, gzip, and HTTP URLs. Test database lock/read-only/write failures and confirm that an unsuccessful write cannot return `ok`. Review input validation and resource limits as part of this work. The existing local quick pass is not evidence for all chapters or for the final container.
-5. **Production comparison and release (steps 5, 10, and 11).** The limited safe GET comparison with production is still pending and can run in parallel with unit/Docker work. Before switching, rehearse consistent backup, user-database transfer while old writes are stopped, restore, and recovery. Record the final image and configuration, check logs and basic availability after the switch, and try the new service with a real client where possible. Update `python-backend.md` with the actual commands and paths.
+1. **Docker environment (step 8 complete).** The root Compose project runs Uvicorn directly on a loopback port for the existing external reverse proxy, using a pinned image and locked dependencies. Startup/feedback use `./data/` in the project root, bind-mounted at `/data`. Code/content are read-only, the service runs without root, and startup, graceful shutdown, restart, and database persistence after container recreation have been checked. See [the backend guide](python-backend.md#local-startup) for commands.
+2. **Final validation (step 9).** Validate the final image using disposable user data and check the external proxy before release. Check all advertised chapters, POST, the client's 20-request download concurrency, ETag/304, ranges, HEAD, gzip, and HTTP URLs. Test database lock/read-only/write failures and confirm that an unsuccessful write cannot return `ok`. Review input validation and resource limits. Record the actual validation scope in the log below.
+3. **Production comparison and release (steps 5, 10, and 11).** The limited safe GET comparison with production is still pending. Before switching, rehearse consistent backup, user-database transfer while old writes are stopped, restore, and recovery. Record the final image and configuration, check logs and basic availability after the switch, and try the new service with a real client where possible. Complete the operating guide with tested release and recovery commands.
 
 ## Agreed scope
 
@@ -75,7 +73,7 @@ Unsafe behavior in the old implementation is not a compatibility requirement. Co
 - Qt form-urlencoded requests, missing optional fields, and special characters are tested. A successful POST confirms that the data was written.
 - The service cannot write to code or content. User data is stored separately. Invalid input does not cause unhandled exceptions or file operations outside allowed paths.
 - No unexplained differences affect existing clients. Intentional fixes are listed separately from behavior kept for compatibility.
-- Final Docker/nginx settings and operating commands are tested. Protocol tests are not presented as proof of correct display on a real phone.
+- Final Docker and external proxy settings and operating commands are tested. Protocol tests are not presented as proof of correct display on a real phone.
 
 ## Results and decision log
 
@@ -212,3 +210,24 @@ Unsafe behavior in the old implementation is not a compatibility requirement. Co
 - Fixed the external client to reuse one connection per chapter worker, keep the 20-request limit, and close all connections after the workers finish. Failed requests are still reported without retries; chapter status, size, and hash checks are unchanged. All 21 test-tool checks passed.
 - After the owner restarted the server without reload, a full read-only HTTP run checked all 109,505 chapters and passed 109,700 checks with zero failures in 27.73 seconds. The 18 POST/write-method cases were intentionally skipped, so the report is marked partial. Original failure evidence and user databases were preserved.
 - Details and local report paths are in [`tests/backend/verification.md`](../tests/backend/verification.md). This confirms development-server content and transport behavior; final Docker/nginx validation remains pending. No backend implementation or deployment files were changed by this investigation.
+
+### 2026-11-05 — step 8: Python Docker environment
+
+- Added a multi-stage Dockerfile and allowlist-based `.dockerignore`. Python 3.12.12, uv 0.9.10, and nginx 1.28.0 use pinned image indexes; runtime packages install from `uv.lock` without development dependencies. The image excludes user databases, tests, local caches/logs, and PHP sources.
+- Replaced PHP/FastCGI in the root Compose project with Uvicorn and HTTP proxying. The application owns static files, gzip, ranges, and conditional responses. nginx reuses upstream connections and refreshes Docker DNS after backend recreation. Only the nginx loopback port is published; backend uses an internal network. The PHP reference project is unchanged.
+- Added `MEEBIBLE_DATA_DIR`, defaulting to the process working directory for local compatibility. Compose uses a separate `/data` named volume. Both services run without root on read-only filesystems, with bounded writable tmpfs directories and rotating Docker logs.
+- Checked startup, graceful SIGTERM shutdown, restart, read-only code/content, named-volume initialization, and preservation of both user tables after backend recreation. Initial container checks found restrictive host content permissions and nginx temporary paths; the image now normalizes read permissions and nginx uses `/tmp` for every temporary path.
+- Fixed an OS-dependent favicon MIME mapping by explicitly retaining `image/x-icon`; added an API regression assertion. No saved reference or test expectation was relaxed.
+- The first full container run exhausted nginx upstream TCP ports after 28,000 chapters because upstream connections were not pooled. Added upstream keepalive; the complete rerun passed 109,718 checks in 44.61 seconds with 20 workers, including 109,505 chapter hashes and POST writes. Quick passed 93 checks with no failures or skips. ETag/304 and HEAD were also checked through nginx. All 93 pytest cases, Ruff checks, and formatting passed.
+- Step 8 is complete. Step 9 is in progress: container database lock/read-only/write-failure tests and input/resource-limit review remain. See [container verification](../tests/backend/verification.md#python-container-checks-2026-11-05) and the updated [backend guide](python-backend.md). No production requests, real user-data changes, or server switching were performed.
+
+### 2026-11-05 — user-data bind mount
+
+- At the owner's request, replaced the root Compose named volume with `./data:/data`. The bind source must already exist; Compose will not create a root-owned directory. The guide documents UID/GID 10001 permissions on Linux. Host data is excluded from Git and the Docker build context. Existing named volumes and databases are not moved or deleted automatically.
+- Validated Compose, SQLite writes as UID 10001 into `./data`, persistence after forced backend recreation, and `/meta` through nginx. Removed only the synthetic probe database and stopped the test containers.
+
+### 2026-11-05 — use the existing external reverse proxy
+
+- The owner confirmed that the server already has a reverse proxy. Removed the nginx service, the root `nginx.conf`, and the explicit frontend/backend networks. Compose now has one backend on its default bridge, publishing Uvicorn only at `127.0.0.1:${MEEBIBLE_PORT:-10001}`. Kept the `./data` bind mount, read-only filesystem, non-root user, healthcheck, and graceful shutdown settings. The isolated PHP reference configuration remains unchanged.
+- Validated the simplified Compose and repeated quick/full HTTP tests directly against the container on loopback port 10057 with disposable bind-mounted data. Quick passed 93 checks; full passed 109,718, including all 109,505 chapters and POST/storage checks, with zero failures or skips. Full used 20 workers and took 43.51 seconds. Reports: `tests/backend/.local/direct-quick-python.json` and `direct-full-python.json`.
+- The external proxy should forward to the host loopback port; request limits, upstream keepalive, and forwarded-header policy belong to its release configuration. No external proxy or production server was changed.

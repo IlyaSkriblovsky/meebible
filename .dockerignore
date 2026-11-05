@@ -1,0 +1,16 @@
+# Only runtime sources, content, and dependency manifests enter the context.
+**
+!Dockerfile
+!.dockerignore
+!pyproject.toml
+!uv.lock
+!README.md
+!backend/
+!backend/**
+backend/tests/
+**/__pycache__/
+**/*.pyc
+**/.DS_Store
+**/startup.sqlite*
+**/feedback.sqlite*
+backend/langs.sqlite

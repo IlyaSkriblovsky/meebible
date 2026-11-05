@@ -5,7 +5,6 @@ from fastapi import FastAPI, Request
 from fastapi.exceptions import HTTPException, RequestValidationError
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import (
-    FileResponse,
     HTMLResponse,
     PlainTextResponse,
     RedirectResponse,
@@ -69,7 +68,10 @@ def handle_422(request: Request, exc: RequestValidationError):
 
 @app.get("/favicon.ico", include_in_schema=False)
 async def favicon(request: Request):
-    return await static_files.get_response("img/favicon.ico", request.scope)
+    response = await static_files.get_response("img/favicon.ico", request.scope)
+    # Keep the historical MIME type across operating-system MIME databases.
+    response.headers["content-type"] = "image/x-icon"
+    return response
 
 
 @app.get("/privacy", response_class=HTMLResponse)

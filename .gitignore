@@ -2,3 +2,5 @@
 /logs
 /www/compile
 **/venv/
+
+/data/

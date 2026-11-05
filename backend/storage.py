@@ -9,8 +9,9 @@ from operator import itemgetter
 from pathlib import Path
 
 DB_PATH = Path(__file__).parent / "content"
-STARTUP_DB = "startup.sqlite"  # in process CWD
-FEEDBACK_DB = "feedback.sqlite"
+USER_DATA_DIR = Path(os.environ.get("MEEBIBLE_DATA_DIR", "."))
+STARTUP_DB = USER_DATA_DIR / "startup.sqlite"
+FEEDBACK_DB = USER_DATA_DIR / "feedback.sqlite"
 
 
 class BookNotFoundError(Exception):
