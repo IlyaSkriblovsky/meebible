@@ -13,6 +13,7 @@ from fastapi.responses import (
 from fastapi.staticfiles import StaticFiles
 from jinja2 import Environment, FileSystemLoader
 from lxml import etree
+from starlette.concurrency import run_in_threadpool
 
 from backend.storage import (
     ChapterNotFoundError,
@@ -30,6 +31,18 @@ TEMPLATES = Path(__file__).parent / "templates"
 STATIC = Path(__file__).parent / "static"
 
 templates_env = Environment(loader=FileSystemLoader(TEMPLATES), autoescape=True)
+
+
+MAX_FORM_BYTES = 1024 * 1024
+
+
+async def read_form_body(request: Request) -> bytes:
+    body = bytearray()
+    async for chunk in request.stream():
+        if len(body) + len(chunk) > MAX_FORM_BYTES:
+            raise HTTPException(status_code=413, detail="Request body too large")
+        body.extend(chunk)
+    return bytes(body)
 
 
 app = FastAPI()
@@ -92,13 +105,14 @@ def get_donate_mobile():
 @app.post("/startup")
 async def post_startup(request: Request):
     try:
-        form = parse_qt_form(await request.body())
+        form = parse_qt_form(await read_form_body(request))
         if not {"os", "device_id"}.issubset(form):
             raise ValueError("Missing fields")
     except ValueError:
         return PlainTextResponse("Invalid form", status_code=400)
 
-    save_startup_event(
+    await run_in_threadpool(
+        save_startup_event,
         platform=form["os"],
         device_id=form["device_id"],
         trans_code=form.get("trans"),
@@ -233,7 +247,7 @@ def get_place(
 @app.post("/feedback")
 async def post_feedback(request: Request):
     try:
-        form = parse_qt_form(await request.body())
+        form = parse_qt_form(await read_form_body(request))
     except (ValueError, AssertionError):
         return PlainTextResponse("Invalid parameters", status_code=400)
 
@@ -244,7 +258,8 @@ async def post_feedback(request: Request):
     except KeyError:
         return PlainTextResponse("Missing parameters", status_code=400)
 
-    save_feedback(
+    await run_in_threadpool(
+        save_feedback,
         name=name,
         email=email,
         message=message,

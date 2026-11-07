@@ -1,6 +1,6 @@
 # MeeBible Python backend
 
-**Status: the Python Docker environment is built and locally checked.** All 93 unit/API cases pass. The Compose project runs Uvicorn directly behind the server's existing external reverse proxy. Direct container HTTP tests passed 93 quick checks and 109,718 full checks, including all 109,505 chapters and POST writes, with no failures or skips. External proxy validation remains pending. Container failure injection and release preparation remain pending; production has not been switched.
+**Status: the Python Docker environment is built and locally checked.** All 99 unit/API cases pass. The Compose project runs Uvicorn directly behind the server's existing external reverse proxy. The final image passed 93 quick checks and 109,718 full checks through a local copy of the prepared external proxy, including all 109,505 chapters and POST writes, with no failures or skips. Applying and checking the real external proxy remains release work. Container failure injection and input-limit checks pass; release preparation remains pending and production has not been switched.
 
 See the [migration plan](python-migration-plan.md) for work order, status, completion criteria, and decisions. Keep this guide in simple English.
 
@@ -68,9 +68,9 @@ docker compose down
 
 Compose runs one backend service and publishes container port 8000 only on `127.0.0.1:${MEEBIBLE_PORT:-10001}`. It uses the default Compose bridge network; there is no nginx container or additional frontend/backend network. The server's existing external reverse proxy forwards to `http://127.0.0.1:10001` (as in `proxy.conf` when the proxy runs on the host). A proxy in another container needs its own host routing or shared-network configuration; its loopback address does not refer to this host.
 
-The application handles gzip and all static files, including HEAD, ETag/304, and byte ranges. Keep HTTP without a forced HTTPS redirect. Configure request-body limits and upstream connection reuse at the external proxy; the removed internal nginx's 1 MiB body limit no longer applies. Uvicorn currently ignores forwarded headers (`--no-proxy-headers`), so client IP forwarding remains part of release configuration.
+The application handles gzip and all static files, including HEAD, ETag/304, and byte ranges. Keep HTTP without a forced HTTPS redirect. POST bodies are limited to 1 MiB of encoded bytes by the application while streaming, including chunked requests; larger forms return 413 without writes. `proxy.conf` now sets the same limit and reuses upstream HTTP/1.1 connections. Apply those external proxy changes during release preparation. Verse specifications are limited to 4096 characters, and range parsing keeps at most 300 unique verse numbers. Uvicorn currently ignores forwarded headers (`--no-proxy-headers`), so client IP forwarding remains part of release configuration.
 
-The backend has a read-only root filesystem, no Linux capabilities, `no-new-privileges`, and a writable temporary directory in a bounded tmpfs mount. Uvicorn runs as UID/GID 10001 and receives SIGTERM directly; its graceful shutdown timeout is 20 seconds, within Compose's 30-second stop period. A read-only `/meta` healthcheck lets `up --wait` check readiness. Logs go to Docker stdout/stderr and rotate at 5 MiB with two files.
+The backend has a read-only root filesystem, no Linux capabilities, `no-new-privileges`, and a writable temporary directory in a bounded tmpfs mount. SQLite writes run in the thread pool so a locked database does not block the event loop. The existing SQLite lock timeout is five seconds; failed writes return HTTP 500 without `ok`, and success follows commit. Uvicorn runs as UID/GID 10001 and receives SIGTERM directly; its graceful shutdown timeout is 20 seconds, within Compose's 30-second stop period. A read-only `/meta` healthcheck lets `up --wait` check readiness. Logs go to Docker stdout/stderr and rotate at 5 MiB with two files.
 
 Both SQLite databases and their journal files live in the host directory `./data/`, mounted at `/data`. The directory is excluded from Git and the Docker build context. Compose requires it to exist rather than creating a root-owned directory automatically. On Linux, prepare a new directory with `sudo install -d -o 10001 -g 10001 -m 0700 data` before starting; for an existing directory, ensure its files are writable by UID/GID 10001. On Docker Desktop, `mkdir -p data` was checked locally. Container recreation, rebuilds, `docker compose down`, and `down -v` preserve these host files. Existing production databases are not imported automatically.
 
@@ -115,3 +115,9 @@ Before release, add a tested procedure for updating Python, dependencies, and ba
 ## Backup and restore
 
 Before release, document independent content and configuration backups, consistent user SQLite backups, restore steps, and checks after restore. Do not copy active SQLite files without accounting for journal/WAL files. Do not include user data or production logs in test reference files or Git.
+
+## Validated resource bounds
+
+The container permits at most 128 processes/threads and uses a 16 MiB temporary filesystem. POST parsing and verse-range expansion have the bounds above. The full-content tests use 20 concurrent chapter requests; they do not establish maximum server capacity. Compose currently sets no hard CPU or total-memory cap. Host capacity, external proxy connection/time limits, and log retention should be reviewed for the release environment. Client IP forwarding is still disabled in Uvicorn. This local validation does not assert that production settings have already changed.
+
+See [container test commands](backend-tests.md#container-failure-and-input-limit-checks) for reproducible lock, permission, corruption, full-filesystem, input-limit, and recovery checks. Production comparison, backup/restore rehearsal, target architecture validation, and a real-client check remain release work.

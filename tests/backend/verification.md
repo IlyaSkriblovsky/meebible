@@ -103,3 +103,26 @@ These checks complete migration step 8 and part of step 9. Container failure inj
 After the owner confirmed an existing external reverse proxy, removed nginx and the extra networks from root Compose. Tested only the backend, publishing `127.0.0.1:10057:8000`, with project `meebible-direct-check` and the same disposable `.local/container-data` bind override. The image was unchanged. Compose config lists exactly one service (`backend`), and its healthcheck passed.
 
 The same quick/full commands above passed directly against Uvicorn: quick 93 checks; full 109,718 checks, all 109,505 chapters, 20 workers, 43.51 seconds. Neither run had failures or skips; POST/storage checks remained enabled. Results and console logs are `.local/direct-quick-python.json`, `.local/direct-full-python.json`, `.local/direct-quick.log`, and `.local/direct-full.log`. Previous top-level quick/full reports were restored. The server's external proxy was not part of this local test; ingress limits, forwarding, and real deployment behavior remain release checks.
+
+## Stage 9 final validation, 2026-11-05
+
+Source baseline: `c89cc8f` plus the stage 9 working changes. Final native linux/arm64 application image: `sha256:f62f0124e46b9368c6312fcaaf1defb35642cb71850cd849b5c9261601f48363`. Runtime versions and locked packages are unchanged. Test-only Compose companions are separate from the one-service root deployment.
+
+Failure injection (`container_checks.py`) passed 14 checks, seven for each database: file read-only, directory/journal creation denied, insert aborted by a trigger, corrupt database file, ENOSPC on a dedicated 2 MiB tmpfs, exclusive database lock, and recovery. Each failure returns 5xx rather than `ok`, with no traceback in the HTTP body and unchanged existing rows. Recovery commits one new row. During exclusive locks, `/meta` answers within two seconds while the write reaches its existing five-second SQLite timeout. This exposed event-loop blocking in the original async handlers; thread-pool writes fix it.
+
+Initial fault-fixture setup on Docker Desktop bind mounts produced intermittent `disk I/O error` while creating triggers. Final permission/failure injection used Linux tmpfs, and all 14 checks passed. It did not operate on production or existing user databases. Before/after diagnostic reports are `.local/container-failures-before.json`, `.local/container-failures-after.json`, and final `.local/container-failures-linux.json`.
+
+`container_limits.py` passed 12 checks: both POST routes, direct and through the proxy, reject excessive Content-Length/chunked forms with 413 and unchanged rows; each origin accepts an exactly 1 MiB form; each rejects an oversized verse list with 400. Report: `.local/container-limits.json`. The six new unit/API cases bring the implementation suite to 99 (54 unit, 45 API). Ruff lint and formatting passed.
+
+The owner confirmed that the external proxy otherwise matches `proxy.conf`, with a CORS-header difference. Prepared HTTP/1.1 upstream keepalive and a 1 MiB body limit in that source file. `prepare_proxy.py` changes only the upstream address, listening port, and log destinations for the local test; routing, gzip, and the new limits are retained. The prepared proxy was tested with nginx 1.28.0 pinned in the test companion. Existing production proxy version/runtime and applying this config remain release checks.
+
+Final quick/full tests used project `meebible-stage9-check`, a dedicated host bind directory `.local/stage9-data`, backend loopback port 10057, and proxy loopback port 10058. Both suites targeted the proxy and enabled POST/storage checks (optional strict checks remained disabled):
+
+- Quick: 93 passed, no failures/skips, 0.60 seconds.
+- Full: 109,718 passed, no failures/skips, 40.65 seconds, 20 workers; all 109,505 chapter sizes/hashes matched.
+- Separate final-proxy requests passed static ETag/304 and HEAD. The suite also checks gzip, ranges, errors, HTTP URLs, XML/catalog flow, and static bytes.
+- The backend was restarted and recreated with the bind directory retained. Healthcheck and HTTP reads recovered; database hashes were compared around recreation.
+
+Reports/logs: `.local/stage9-quick.json`, `.local/stage9-full.json`, `.local/stage9-quick.log`, `.local/stage9-full.log`. Previous default report files were restored afterward. A sample during the full run reported 67.16 MiB / 25 tasks for Python and 3.191 MiB / 2 tasks for nginx. This is not a measured peak or a capacity guarantee. No hard CPU or total-memory cap is configured; process/tmpfs/input bounds are documented in the backend guide.
+
+Local stage 9 validation is complete. Production comparison, backup/restore and data-transfer rehearsal, applying/checking the live external proxy, deployment architecture validation, and a real-client check remain later work. No public requests or production changes were made.

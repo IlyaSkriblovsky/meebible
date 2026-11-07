@@ -260,3 +260,28 @@ def test_static_file_head_range_and_validator(client):
     assert partial.status_code == 206
     assert partial.content == response.content[:10]
     assert partial.headers["content-range"] == f"bytes 0-9/{len(response.content)}"
+
+
+@pytest.mark.parametrize(
+    "path,prefix",
+    [("/startup", b"os=x&device_id="), ("/feedback", b"name=&email=&message=")],
+)
+@pytest.mark.parametrize("chunked", [False, True])
+def test_oversized_form_is_rejected_without_writing(
+    client, api_data, path, prefix, chunked
+):
+    body = prefix + b"x" * (1024 * 1024)
+    content = iter([body[:524288], body[524288:]]) if chunked else body
+    response = client.post(path, content=content, headers=FORM)
+    assert response.status_code == 413
+    assert not (api_data / (path[1:] + ".sqlite")).exists()
+
+
+def test_form_at_limit_still_commits(client, api_data):
+    prefix = b"name=&email=&message="
+    body = prefix + b"x" * (1024 * 1024 - len(prefix))
+    assert client.post("/feedback", content=body, headers=FORM).content == b"ok"
+    with sqlite3.connect(api_data / "feedback.sqlite") as con:
+        assert len(con.execute("SELECT message FROM feedback").fetchone()[0]) == len(
+            body
+        ) - len(prefix)

@@ -76,3 +76,9 @@ class TestVerse:
     def test_builder_sorts_and_handles_empty_iterable(self):
         assert build_verses_spec(iter([5, 2, 1, 3])) == "1-3,5"
         assert build_verses_spec([]) == ""
+
+
+def test_repeated_verse_ranges_are_bounded():
+    assert parse_verse_spec(",".join(["1-300"] * 10)) == list(range(1, 301))
+    with pytest.raises(InvalidVerseSpec):
+        parse_verse_spec(",".join(["1-300"] * 1000))

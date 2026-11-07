@@ -19,19 +19,19 @@ class InvalidVerseSpec(Exception):
 
 def parse_verse_spec(spec: str) -> list[int]:
     """Converts Verse Spec to a Verse Set"""
-    if not re.match(r"^[0-9,-]+$", spec):
+    if len(spec) > 64 or not re.fullmatch(r"[0-9,-]+", spec):
         raise InvalidVerseSpec()
 
     ranges = spec.split(",")
-    verses: list[int] = []
+    verses: set[int] = set()
 
     for verse_range in ranges:
         try:
             match verse_range.split("-"):
                 case [verse] if 0 < int(verse) <= 300:
-                    verses.append(int(verse))
+                    verses.add(int(verse))
                 case [start, end] if all(0 < int(x) <= 300 for x in (start, end)):
-                    verses.extend(range(int(start), int(end) + 1))
+                    verses.update(range(int(start), int(end) + 1))
         except ValueError:
             pass
 

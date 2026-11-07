@@ -1,0 +1,7 @@
+# Disposable Linux filesystems for failure injection only.
+services:
+  backend:
+    volumes: !reset []
+    tmpfs:
+      - /data:uid=10001,gid=10001,mode=0700,size=16m,noexec,nosuid,nodev
+      - /failure-space:uid=10001,gid=10001,mode=0700,size=2m,noexec,nosuid,nodev

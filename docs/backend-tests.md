@@ -170,3 +170,22 @@ external suite, reference, Docker, or Compose changes were made by this task.
 The separate external quick suite was previously reported as 93 checks without
 errors or skips. The matching count is coincidental: it is a different suite
 and was not rerun here. Full external validation remains pending.
+
+## Container failure and input-limit checks
+
+`container_checks.py` uses HTTP and SQLite without importing the application. It refuses to run unless `/data/.container-check-only` exists and both user databases are absent. It creates synthetic rows, injects failures, checks unchanged rows after every failed write, and checks recovery. Use a fresh disposable container for each run.
+
+The test companion configurations leave root Compose unchanged. `compose.validation.yml` adds a local copy of the outer proxy, and `compose.failures.yml` replaces the data bind mount with Linux tmpfs. A separate 2 MiB tmpfs is filled to test ENOSPC without filling host storage. Compose must support the `!reset` tag.
+
+```sh
+python3 tests/backend/prepare_proxy.py
+MEEBIBLE_PORT=10057 docker compose -p meebible-validation -f docker-compose.yml -f tests/backend/compose.validation.yml -f tests/backend/compose.failures.yml up -d --build --wait
+docker compose -p meebible-validation exec -T backend python -c "from pathlib import Path; Path('/data/.container-check-only').touch()"
+docker compose -p meebible-validation exec -T backend python - < tests/backend/container_checks.py
+docker compose -p meebible-validation exec -T backend python - < tests/backend/container_limits.py
+MEEBIBLE_PORT=10057 docker compose -p meebible-validation -f docker-compose.yml -f tests/backend/compose.validation.yml -f tests/backend/compose.failures.yml down
+```
+
+`container_limits.py` also requires the disposable-data marker. It checks both Uvicorn and the local proxy: excessive Content-Length/chunked bodies return 413 without writes; an exactly 1 MiB form commits; an excessive verse list returns 400. Run it after the failure checks. These tests intentionally produce server-error log entries. Stopping/removing this test container deletes its tmpfs databases.
+
+For quick/full testing through the proxy, use the host bind override from the Python guide together with `compose.validation.yml` (omit `compose.failures.yml`), set `BASE_URL=http://127.0.0.1:10058`, and point `USER_DATA_DIR` at that disposable host directory. The proxy preparation script reads current `proxy.conf` and changes only the upstream address, listen port, and log paths for Docker. It fails if those mappings no longer match. Tests cover the prepared repository config; applying it to the real external proxy is a release step.

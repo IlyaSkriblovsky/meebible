@@ -2,10 +2,11 @@
 
 import asyncio
 import sqlite3
-from unittest.mock import AsyncMock, Mock, patch
+from unittest.mock import Mock, patch
 
 import pytest
 from lxml import etree
+from starlette.requests import Request
 
 import backend
 from backend.storage import ChapterNotFoundError
@@ -13,7 +14,10 @@ from backend.storage import ChapterNotFoundError
 
 class TestPost:
     def call(self, handler, body):
-        return asyncio.run(handler(Mock(body=AsyncMock(return_value=body))))
+        async def receive():
+            return {"type": "http.request", "body": body, "more_body": False}
+
+        return asyncio.run(handler(Request({"type": "http"}, receive)))
 
     def test_startup_missing_required_keys_never_writes(self):
         for body in (b"", b"os=x", b"device_id=x"):
