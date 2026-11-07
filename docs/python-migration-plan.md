@@ -1,12 +1,12 @@
 # MeeBible Python migration plan
 
-Last updated: 2026-11-05.
+Last updated: 2026-11-07.
 
 The goal is to keep existing MeeBible clients on Symbian and MeeGo working by replacing PHP 5.6 with a small Python + FastAPI service. New features, new users, and a redesign are out of scope. We will not migrate to PHP 8.
 
 This document tracks the plan, completion criteria, main results, and decisions. The source-based API and website contract is in [Backend contract](backend-contract.md). Keep the description of the built service and operating instructions in the separate [Python backend guide](python-backend.md). Write project documents in simple English.
 
-**Current status:** steps 6–9 are complete for the local final image and prepared external proxy configuration. All 99 pytest cases pass. Through the local copy of the external proxy, quick passed 93 checks and full passed 109,718 checks, including all 109,505 chapters and POST storage checks, without failures or skips. Fourteen SQLite failure/recovery checks and twelve HTTP input-limit checks pass. Production comparison, applying the prepared proxy changes, backup/restore rehearsal, and switching production remain pending. Production has not been changed.
+**Current status:** steps 6–9 are complete for the local final image and prepared external proxy configuration. All 99 pytest cases pass. Through the local copy of the external proxy, quick passed 93 checks and full passed 109,718 checks, including all 109,505 chapters and POST storage checks, without failures or skips. Fourteen SQLite failure/recovery checks and twelve HTTP input-limit checks pass. Step 5 is also complete: 17 safe production GETs match the local PHP reference except for an explained home-page script URL and deployment headers. Applying the prepared proxy changes, backup/restore rehearsal, and switching production remain pending. Production has not been changed.
 
 ## Work plan
 
@@ -18,7 +18,7 @@ Statuses: **Not started**, **In progress**, **Done**, **Blocked**. Mark a step a
 | 2 | Describe the external contract from PHP, nginx, and client code | Routes, methods, parameters, responses, errors, and side effects are listed; HTTP, encodings, Qt forms, and client parsers are covered | Done |
 | 3 | Set up an isolated PHP 5.6 reference server | The old service can be started in a repeatable way without public access; it uses a fixed content snapshot and temporary startup/feedback databases; commands and settings are documented | Done |
 | 4 | Capture local reference responses and build external tests | Responses and environment details are saved; tests accept BASE_URL; routes to keep, errors, and POST writes are covered; quick and full test modes exist | Done |
-| 5 | Compare reference responses with meebible.org | A small set of safe GET requests is compared at a low rate; differences in status, headers, and bodies are classified; configuration differences are separated from data and application differences; unexplained differences are recorded | Not started |
+| 5 | Compare reference responses with meebible.org | A small set of safe GET requests is compared at a low rate; differences in status, headers, and bodies are classified; configuration differences are separated from data and application differences; unexplained differences are recorded | Done |
 | 6 | Build the Python backend | All features to keep are implemented using the existing SQLite files; removed routes return 404; agreed bugs are fixed; default quick contract tests pass | Done |
 | 7 | Add Python unit tests | Form and verse parsing, passage extraction, and SQLite behavior are tested in isolation; temporary databases cover commits, rollback, and failed writes; one documented command runs the tests | Done |
 | 8 | Build the Python Docker environment | A Dockerfile and updated Compose configuration run Python; dependencies use the lock file; code/content are read-only; user data has a separate persistent writable path; startup, shutdown, and restart are checked | Done |
@@ -32,9 +32,8 @@ The owner has written the Python service. The assistant maintains external tests
 
 ## Next work
 
-1. **Production comparison (step 5).** Make the planned small, slow, safe GET comparison with `meebible.org`. Classify content/header/configuration differences. Do not send production POST requests or malformed input. Keep production evidence separate from local references.
-2. **Release and operating guide (step 10).** Rehearse consistent SQLite backup, transfer with old writes stopped, restore, and recovery. Verify the deployment architecture and document tested commands. Apply the prepared `proxy.conf` changes only during the authorized release work: upstream HTTP/1.1 keepalive and the 1 MiB body limit. The owner reports that the existing external proxy otherwise matches the repository config, with a CORS-header difference; CORS is not needed by the native clients.
-3. **Switch production (step 11).** Move the user databases consistently, switch the existing external proxy upstream, check live reads/writes/logs/redirects, and try a real mobile client where possible. Local checks do not mean that this switch has happened.
+1. **Release and operating guide (step 10).** Rehearse consistent SQLite backup, transfer with old writes stopped, restore, and recovery. Verify deployment architecture and document tested commands. Review the real external proxy and apply prepared keepalive/body-limit changes only during release work. Record the existing CORS policy; the safe production comparison observed `Access-Control-Allow-Origin: *` on dynamic responses.
+2. **Switch production (step 11).** Move user databases consistently, switch the existing external proxy upstream, check live reads/writes/logs/redirects, and try a real mobile client where possible. Local checks and the read-only production comparison do not mean this switch has happened.
 
 ## Agreed scope
 
@@ -242,3 +241,15 @@ Unsafe behavior in the old implementation is not a compatibility requirement. Co
 - Reviewed resource bounds: 128 processes/threads, 16 MiB `/tmp`, bounded forms and verse expansion. No hard CPU/total-memory limits are set. One full-run sample showed 67.16 MiB and 25 tasks for Python and 3.191 MiB and 2 tasks for the test proxy; these are observations, not capacity guarantees. Target host capacity and live ingress remain release checks.
 - Permission-fault fixture setup on Docker Desktop bind mounts produced intermittent SQLite I/O errors; final permission/full-disk injection ran on Linux tmpfs. Final HTTP and persistence checks used a separate disposable bind directory. Existing local/production user databases, old reports, and saved references were preserved.
 - Step 9 is complete within the local validation scope. Steps 5, 10, and 11 remain; target-architecture and real-client checks are still release work.
+
+### 2026-11-07 — step 5: safe production GET comparison
+
+- Added a separate fixed-target comparison command, independent of the loopback-only HTTP suite. Sent 17 sequential safe GETs with one-second pauses, without following redirects or retrying. No public writes, malformed requests, `/fb`, user databases, or full production download were used.
+- All statuses match the reference. Fifteen decoded bodies match byte for byte; home identity/gzip differ only in the jQuery script URL (`https` in production, `http` in the reference). Catalog, sampled translation/chapter bytes, passage, normalization, static files, range data, and gzip decoding match.
+- Classified deployment header differences: dynamic `Access-Control-Allow-Origin: *`, nginx 1.31.0 versus reference 1.25.4, changing Date, and static mtime-based validators. Static bytes match and each observed ETag agrees with its Last-Modified and asset size. No unexplained sampled status/content mismatch remains; the exact CORS insertion layer cannot be identified from HTTP alone.
+- Kept the compact report (public headers, sizes, hashes, and comparisons) and home-page diff under `tests/backend/production/2026-11-07/`. Full wire/decoded entities remain in the ignored local capture directory. Local references, backend code, deployment configuration, and production settings/data are unchanged. Three offline guard checks and Ruff passed for the new comparison tool.
+- Step 5 is complete. See [production comparison](production-comparison.md) for evidence, scope, and limitations. Steps 10 and 11 remain.
+
+### 2026-11-07 — HTTPS jQuery link
+
+- The owner confirmed the production-only HTTPS script URL change fixes mixed-content blocking when opening the page over HTTPS. Applied the same link in the Python home template. Verified the rendered script URL, existing home-page contract, and all 99 unit/API cases. Saved references and production evidence are unchanged; no production settings or data were changed.

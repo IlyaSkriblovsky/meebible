@@ -1,0 +1,1117 @@
+{
+  "started_at_utc": "2026-11-07T08:47:53.408815+00:00",
+  "origin": "http://meebible.org",
+  "method": "GET",
+  "interval_seconds": 1,
+  "concurrency": 1,
+  "follows_redirects": false,
+  "reference_manifest_sha256": "50c2e2efe54e1503a1ff9929896e9caf5b4e553e992c36d4b2790dbaff22bd69",
+  "cases": [
+    {
+      "id": "home",
+      "path": "/",
+      "request_headers": {
+        "Accept-Encoding": "identity",
+        "User-Agent": "MeeBible-migration-readonly-comparison/1.0"
+      },
+      "received_at_utc": "2026-11-07T08:47:53.849932+00:00",
+      "status": 200,
+      "headers": [
+        [
+          "Server",
+          "nginx/1.31.0"
+        ],
+        [
+          "Date",
+          "Sat, 07 Nov 2026 08:47:53 GMT"
+        ],
+        [
+          "Content-Type",
+          "text/html;charset=UTF-8"
+        ],
+        [
+          "Content-Length",
+          "37584"
+        ],
+        [
+          "Connection",
+          "keep-alive"
+        ],
+        [
+          "Vary",
+          "Accept-Encoding"
+        ],
+        [
+          "X-Powered-By",
+          "PHP/5.6.40"
+        ],
+        [
+          "Access-Control-Allow-Origin",
+          "*"
+        ]
+      ],
+      "wire_bytes": 37584,
+      "body_bytes": 37584,
+      "body_sha256": "add8ac3729b83faebe43f0438f2a307c818c772597057bcfd9f60fd0739b3a1f",
+      "reference_status": 200,
+      "body_equal": false,
+      "header_differences": {
+        "access-control-allow-origin": {
+          "reference": null,
+          "production": "*"
+        },
+        "content-length": {
+          "reference": "37583",
+          "production": "37584"
+        },
+        "date": {
+          "reference": "Sat, 24 Oct 2026 13:55:06 GMT",
+          "production": "Sat, 07 Nov 2026 08:47:53 GMT"
+        },
+        "server": {
+          "reference": "nginx/1.25.4",
+          "production": "nginx/1.31.0"
+        }
+      }
+    },
+    {
+      "id": "home-gzip",
+      "path": "/",
+      "request_headers": {
+        "Accept-Encoding": "gzip",
+        "User-Agent": "MeeBible-migration-readonly-comparison/1.0"
+      },
+      "received_at_utc": "2026-11-07T08:47:55.001493+00:00",
+      "status": 200,
+      "headers": [
+        [
+          "Server",
+          "nginx/1.31.0"
+        ],
+        [
+          "Date",
+          "Sat, 07 Nov 2026 08:47:54 GMT"
+        ],
+        [
+          "Content-Type",
+          "text/html;charset=UTF-8"
+        ],
+        [
+          "Transfer-Encoding",
+          "chunked"
+        ],
+        [
+          "Connection",
+          "keep-alive"
+        ],
+        [
+          "Vary",
+          "Accept-Encoding"
+        ],
+        [
+          "X-Powered-By",
+          "PHP/5.6.40"
+        ],
+        [
+          "Access-Control-Allow-Origin",
+          "*"
+        ],
+        [
+          "Content-Encoding",
+          "gzip"
+        ]
+      ],
+      "wire_bytes": 7684,
+      "body_bytes": 37584,
+      "body_sha256": "add8ac3729b83faebe43f0438f2a307c818c772597057bcfd9f60fd0739b3a1f",
+      "reference_status": 200,
+      "body_equal": false,
+      "header_differences": {
+        "access-control-allow-origin": {
+          "reference": null,
+          "production": "*"
+        },
+        "date": {
+          "reference": "Sat, 24 Oct 2026 13:55:08 GMT",
+          "production": "Sat, 07 Nov 2026 08:47:54 GMT"
+        },
+        "server": {
+          "reference": "nginx/1.25.4",
+          "production": "nginx/1.31.0"
+        }
+      }
+    },
+    {
+      "id": "privacy",
+      "path": "/privacy",
+      "request_headers": {
+        "Accept-Encoding": "identity",
+        "User-Agent": "MeeBible-migration-readonly-comparison/1.0"
+      },
+      "received_at_utc": "2026-11-07T08:47:56.156527+00:00",
+      "status": 200,
+      "headers": [
+        [
+          "Server",
+          "nginx/1.31.0"
+        ],
+        [
+          "Date",
+          "Sat, 07 Nov 2026 08:47:56 GMT"
+        ],
+        [
+          "Content-Type",
+          "text/html;charset=UTF-8"
+        ],
+        [
+          "Content-Length",
+          "6587"
+        ],
+        [
+          "Connection",
+          "keep-alive"
+        ],
+        [
+          "Vary",
+          "Accept-Encoding"
+        ],
+        [
+          "X-Powered-By",
+          "PHP/5.6.40"
+        ],
+        [
+          "Access-Control-Allow-Origin",
+          "*"
+        ]
+      ],
+      "wire_bytes": 6587,
+      "body_bytes": 6587,
+      "body_sha256": "fd8ca46372bbd20efc561a09aea31c9cdfb6a241037a3a85c7bbe8b9db639835",
+      "reference_status": 200,
+      "body_equal": true,
+      "header_differences": {
+        "access-control-allow-origin": {
+          "reference": null,
+          "production": "*"
+        },
+        "date": {
+          "reference": "Sat, 24 Oct 2026 13:55:06 GMT",
+          "production": "Sat, 07 Nov 2026 08:47:56 GMT"
+        },
+        "server": {
+          "reference": "nginx/1.25.4",
+          "production": "nginx/1.31.0"
+        }
+      }
+    },
+    {
+      "id": "meta",
+      "path": "/meta",
+      "request_headers": {
+        "Accept-Encoding": "identity",
+        "User-Agent": "MeeBible-migration-readonly-comparison/1.0"
+      },
+      "received_at_utc": "2026-11-07T08:47:57.385167+00:00",
+      "status": 200,
+      "headers": [
+        [
+          "Server",
+          "nginx/1.31.0"
+        ],
+        [
+          "Date",
+          "Sat, 07 Nov 2026 08:47:57 GMT"
+        ],
+        [
+          "Content-Type",
+          "application/xml"
+        ],
+        [
+          "Content-Length",
+          "16698"
+        ],
+        [
+          "Connection",
+          "keep-alive"
+        ],
+        [
+          "Vary",
+          "Accept-Encoding"
+        ],
+        [
+          "X-Powered-By",
+          "PHP/5.6.40"
+        ],
+        [
+          "Access-Control-Allow-Origin",
+          "*"
+        ]
+      ],
+      "wire_bytes": 16698,
+      "body_bytes": 16698,
+      "body_sha256": "74487627bdf8c49baf82318b2dc8289c0bec5fd100ea80caca68bacfe6cbfa84",
+      "reference_status": 200,
+      "body_equal": true,
+      "header_differences": {
+        "access-control-allow-origin": {
+          "reference": null,
+          "production": "*"
+        },
+        "date": {
+          "reference": "Sat, 24 Oct 2026 13:54:51 GMT",
+          "production": "Sat, 07 Nov 2026 08:47:57 GMT"
+        },
+        "server": {
+          "reference": "nginx/1.25.4",
+          "production": "nginx/1.31.0"
+        }
+      }
+    },
+    {
+      "id": "meta-gzip",
+      "path": "/meta",
+      "request_headers": {
+        "Accept-Encoding": "gzip",
+        "User-Agent": "MeeBible-migration-readonly-comparison/1.0"
+      },
+      "received_at_utc": "2026-11-07T08:47:58.543096+00:00",
+      "status": 200,
+      "headers": [
+        [
+          "Server",
+          "nginx/1.31.0"
+        ],
+        [
+          "Date",
+          "Sat, 07 Nov 2026 08:47:58 GMT"
+        ],
+        [
+          "Content-Type",
+          "application/xml"
+        ],
+        [
+          "Transfer-Encoding",
+          "chunked"
+        ],
+        [
+          "Connection",
+          "keep-alive"
+        ],
+        [
+          "Vary",
+          "Accept-Encoding"
+        ],
+        [
+          "X-Powered-By",
+          "PHP/5.6.40"
+        ],
+        [
+          "Access-Control-Allow-Origin",
+          "*"
+        ],
+        [
+          "Content-Encoding",
+          "gzip"
+        ]
+      ],
+      "wire_bytes": 4465,
+      "body_bytes": 16698,
+      "body_sha256": "74487627bdf8c49baf82318b2dc8289c0bec5fd100ea80caca68bacfe6cbfa84",
+      "reference_status": 200,
+      "body_equal": true,
+      "header_differences": {
+        "access-control-allow-origin": {
+          "reference": null,
+          "production": "*"
+        },
+        "date": {
+          "reference": "Sat, 24 Oct 2026 13:54:52 GMT",
+          "production": "Sat, 07 Nov 2026 08:47:58 GMT"
+        },
+        "server": {
+          "reference": "nginx/1.25.4",
+          "production": "nginx/1.31.0"
+        }
+      }
+    },
+    {
+      "id": "translation-kjv",
+      "path": "/translation?trans=kjv&lang=e",
+      "request_headers": {
+        "Accept-Encoding": "identity",
+        "User-Agent": "MeeBible-migration-readonly-comparison/1.0"
+      },
+      "received_at_utc": "2026-11-07T08:47:59.785587+00:00",
+      "status": 200,
+      "headers": [
+        [
+          "Server",
+          "nginx/1.31.0"
+        ],
+        [
+          "Date",
+          "Sat, 07 Nov 2026 08:47:59 GMT"
+        ],
+        [
+          "Content-Type",
+          "application/xml"
+        ],
+        [
+          "Content-Length",
+          "37843"
+        ],
+        [
+          "Connection",
+          "keep-alive"
+        ],
+        [
+          "Vary",
+          "Accept-Encoding"
+        ],
+        [
+          "X-Powered-By",
+          "PHP/5.6.40"
+        ],
+        [
+          "Access-Control-Allow-Origin",
+          "*"
+        ]
+      ],
+      "wire_bytes": 37843,
+      "body_bytes": 37843,
+      "body_sha256": "c499563c858afb3ac384a3aee18a16c4a753c6b1ba4e2ccab339a75dcf7c84f3",
+      "reference_status": 200,
+      "body_equal": true,
+      "header_differences": {
+        "access-control-allow-origin": {
+          "reference": null,
+          "production": "*"
+        },
+        "date": {
+          "reference": "Sat, 24 Oct 2026 13:56:23 GMT",
+          "production": "Sat, 07 Nov 2026 08:47:59 GMT"
+        },
+        "server": {
+          "reference": "nginx/1.25.4",
+          "production": "nginx/1.31.0"
+        }
+      }
+    },
+    {
+      "id": "translation-nwt",
+      "path": "/translation?trans=nwt&lang=e",
+      "request_headers": {
+        "Accept-Encoding": "identity",
+        "User-Agent": "MeeBible-migration-readonly-comparison/1.0"
+      },
+      "received_at_utc": "2026-11-07T08:48:01.020479+00:00",
+      "status": 200,
+      "headers": [
+        [
+          "Server",
+          "nginx/1.31.0"
+        ],
+        [
+          "Date",
+          "Sat, 07 Nov 2026 08:48:00 GMT"
+        ],
+        [
+          "Content-Type",
+          "application/xml"
+        ],
+        [
+          "Content-Length",
+          "37843"
+        ],
+        [
+          "Connection",
+          "keep-alive"
+        ],
+        [
+          "Vary",
+          "Accept-Encoding"
+        ],
+        [
+          "X-Powered-By",
+          "PHP/5.6.40"
+        ],
+        [
+          "Access-Control-Allow-Origin",
+          "*"
+        ]
+      ],
+      "wire_bytes": 37843,
+      "body_bytes": 37843,
+      "body_sha256": "c499563c858afb3ac384a3aee18a16c4a753c6b1ba4e2ccab339a75dcf7c84f3",
+      "reference_status": 200,
+      "body_equal": true,
+      "header_differences": {
+        "access-control-allow-origin": {
+          "reference": null,
+          "production": "*"
+        },
+        "date": {
+          "reference": "Sat, 24 Oct 2026 13:56:04 GMT",
+          "production": "Sat, 07 Nov 2026 08:48:00 GMT"
+        },
+        "server": {
+          "reference": "nginx/1.25.4",
+          "production": "nginx/1.31.0"
+        }
+      }
+    },
+    {
+      "id": "chapter-kjv-e-ge-1",
+      "path": "/chapter?trans=kjv&lang=e&book=ge&chapter=1",
+      "request_headers": {
+        "Accept-Encoding": "identity",
+        "User-Agent": "MeeBible-migration-readonly-comparison/1.0"
+      },
+      "received_at_utc": "2026-11-07T08:48:02.174904+00:00",
+      "status": 200,
+      "headers": [
+        [
+          "Server",
+          "nginx/1.31.0"
+        ],
+        [
+          "Date",
+          "Sat, 07 Nov 2026 08:48:02 GMT"
+        ],
+        [
+          "Content-Type",
+          "text/html;charset=UTF-8"
+        ],
+        [
+          "Content-Length",
+          "7125"
+        ],
+        [
+          "Connection",
+          "keep-alive"
+        ],
+        [
+          "Vary",
+          "Accept-Encoding"
+        ],
+        [
+          "X-Powered-By",
+          "PHP/5.6.40"
+        ],
+        [
+          "Access-Control-Allow-Origin",
+          "*"
+        ]
+      ],
+      "wire_bytes": 7125,
+      "body_bytes": 7125,
+      "body_sha256": "4f6267f404e07b9e326619c7d76986755e0b017a66e58749e25448d99f477e8f",
+      "reference_status": 200,
+      "body_equal": true,
+      "header_differences": {
+        "access-control-allow-origin": {
+          "reference": null,
+          "production": "*"
+        },
+        "date": {
+          "reference": "Sat, 24 Oct 2026 13:54:53 GMT",
+          "production": "Sat, 07 Nov 2026 08:48:02 GMT"
+        },
+        "server": {
+          "reference": "nginx/1.25.4",
+          "production": "nginx/1.31.0"
+        }
+      }
+    },
+    {
+      "id": "chapter-rus-u-ge-1",
+      "path": "/chapter?trans=rus&lang=u&book=ge&chapter=1",
+      "request_headers": {
+        "Accept-Encoding": "identity",
+        "User-Agent": "MeeBible-migration-readonly-comparison/1.0"
+      },
+      "received_at_utc": "2026-11-07T08:48:03.336515+00:00",
+      "status": 200,
+      "headers": [
+        [
+          "Server",
+          "nginx/1.31.0"
+        ],
+        [
+          "Date",
+          "Sat, 07 Nov 2026 08:48:03 GMT"
+        ],
+        [
+          "Content-Type",
+          "text/html;charset=UTF-8"
+        ],
+        [
+          "Content-Length",
+          "8683"
+        ],
+        [
+          "Connection",
+          "keep-alive"
+        ],
+        [
+          "Vary",
+          "Accept-Encoding"
+        ],
+        [
+          "X-Powered-By",
+          "PHP/5.6.40"
+        ],
+        [
+          "Access-Control-Allow-Origin",
+          "*"
+        ]
+      ],
+      "wire_bytes": 8683,
+      "body_bytes": 8683,
+      "body_sha256": "5bae7b43ae05901dea45d7d850f7c14f0cb4b8ad000ffa1eab96e97772e7bafc",
+      "reference_status": 200,
+      "body_equal": true,
+      "header_differences": {
+        "access-control-allow-origin": {
+          "reference": null,
+          "production": "*"
+        },
+        "date": {
+          "reference": "Sat, 24 Oct 2026 13:54:54 GMT",
+          "production": "Sat, 07 Nov 2026 08:48:03 GMT"
+        },
+        "server": {
+          "reference": "nginx/1.25.4",
+          "production": "nginx/1.31.0"
+        }
+      }
+    },
+    {
+      "id": "chapter-ara-a-ge-1",
+      "path": "/chapter?trans=ara&lang=a&book=ge&chapter=1",
+      "request_headers": {
+        "Accept-Encoding": "identity",
+        "User-Agent": "MeeBible-migration-readonly-comparison/1.0"
+      },
+      "received_at_utc": "2026-11-07T08:48:04.496269+00:00",
+      "status": 200,
+      "headers": [
+        [
+          "Server",
+          "nginx/1.31.0"
+        ],
+        [
+          "Date",
+          "Sat, 07 Nov 2026 08:48:04 GMT"
+        ],
+        [
+          "Content-Type",
+          "text/html;charset=UTF-8"
+        ],
+        [
+          "Content-Length",
+          "9933"
+        ],
+        [
+          "Connection",
+          "keep-alive"
+        ],
+        [
+          "Vary",
+          "Accept-Encoding"
+        ],
+        [
+          "X-Powered-By",
+          "PHP/5.6.40"
+        ],
+        [
+          "Access-Control-Allow-Origin",
+          "*"
+        ]
+      ],
+      "wire_bytes": 9933,
+      "body_bytes": 9933,
+      "body_sha256": "93c01e4b3201dcad4999f3beee64261a1456b0a937511a8f74de2103943cf1bf",
+      "reference_status": 200,
+      "body_equal": true,
+      "header_differences": {
+        "access-control-allow-origin": {
+          "reference": null,
+          "production": "*"
+        },
+        "date": {
+          "reference": "Sat, 24 Oct 2026 13:54:54 GMT",
+          "production": "Sat, 07 Nov 2026 08:48:04 GMT"
+        },
+        "server": {
+          "reference": "nginx/1.25.4",
+          "production": "nginx/1.31.0"
+        }
+      }
+    },
+    {
+      "id": "chapter-gzip",
+      "path": "/chapter?trans=ara&lang=a&book=ge&chapter=1",
+      "request_headers": {
+        "Accept-Encoding": "gzip",
+        "User-Agent": "MeeBible-migration-readonly-comparison/1.0"
+      },
+      "received_at_utc": "2026-11-07T08:48:05.647092+00:00",
+      "status": 200,
+      "headers": [
+        [
+          "Server",
+          "nginx/1.31.0"
+        ],
+        [
+          "Date",
+          "Sat, 07 Nov 2026 08:48:05 GMT"
+        ],
+        [
+          "Content-Type",
+          "text/html;charset=UTF-8"
+        ],
+        [
+          "Transfer-Encoding",
+          "chunked"
+        ],
+        [
+          "Connection",
+          "keep-alive"
+        ],
+        [
+          "Vary",
+          "Accept-Encoding"
+        ],
+        [
+          "X-Powered-By",
+          "PHP/5.6.40"
+        ],
+        [
+          "Access-Control-Allow-Origin",
+          "*"
+        ],
+        [
+          "Content-Encoding",
+          "gzip"
+        ]
+      ],
+      "wire_bytes": 1978,
+      "body_bytes": 9933,
+      "body_sha256": "93c01e4b3201dcad4999f3beee64261a1456b0a937511a8f74de2103943cf1bf",
+      "reference_status": 200,
+      "body_equal": true,
+      "header_differences": {
+        "access-control-allow-origin": {
+          "reference": null,
+          "production": "*"
+        },
+        "date": {
+          "reference": "Sat, 24 Oct 2026 13:54:57 GMT",
+          "production": "Sat, 07 Nov 2026 08:48:05 GMT"
+        },
+        "server": {
+          "reference": "nginx/1.25.4",
+          "production": "nginx/1.31.0"
+        }
+      }
+    },
+    {
+      "id": "chapter-nwt-e-ge-1",
+      "path": "/chapter?trans=nwt&lang=e&book=ge&chapter=1",
+      "request_headers": {
+        "Accept-Encoding": "identity",
+        "User-Agent": "MeeBible-migration-readonly-comparison/1.0"
+      },
+      "received_at_utc": "2026-11-07T08:48:06.803164+00:00",
+      "status": 200,
+      "headers": [
+        [
+          "Server",
+          "nginx/1.31.0"
+        ],
+        [
+          "Date",
+          "Sat, 07 Nov 2026 08:48:06 GMT"
+        ],
+        [
+          "Content-Type",
+          "text/html;charset=UTF-8"
+        ],
+        [
+          "Content-Length",
+          "8010"
+        ],
+        [
+          "Connection",
+          "keep-alive"
+        ],
+        [
+          "Vary",
+          "Accept-Encoding"
+        ],
+        [
+          "X-Powered-By",
+          "PHP/5.6.40"
+        ],
+        [
+          "Access-Control-Allow-Origin",
+          "*"
+        ]
+      ],
+      "wire_bytes": 8010,
+      "body_bytes": 8010,
+      "body_sha256": "a79e5aff219213acada33229c18335cb92247fa58c3989baf69088e155644372",
+      "reference_status": 200,
+      "body_equal": true,
+      "header_differences": {
+        "access-control-allow-origin": {
+          "reference": null,
+          "production": "*"
+        },
+        "date": {
+          "reference": "Sat, 24 Oct 2026 13:54:55 GMT",
+          "production": "Sat, 07 Nov 2026 08:48:06 GMT"
+        },
+        "server": {
+          "reference": "nginx/1.25.4",
+          "production": "nginx/1.31.0"
+        }
+      }
+    },
+    {
+      "id": "passage-single",
+      "path": "/t/kjv/e/ge/1/1",
+      "request_headers": {
+        "Accept-Encoding": "identity",
+        "User-Agent": "MeeBible-migration-readonly-comparison/1.0"
+      },
+      "received_at_utc": "2026-11-07T08:48:07.958850+00:00",
+      "status": 200,
+      "headers": [
+        [
+          "Server",
+          "nginx/1.31.0"
+        ],
+        [
+          "Date",
+          "Sat, 07 Nov 2026 08:48:07 GMT"
+        ],
+        [
+          "Content-Type",
+          "text/html;charset=UTF-8"
+        ],
+        [
+          "Content-Length",
+          "2618"
+        ],
+        [
+          "Connection",
+          "keep-alive"
+        ],
+        [
+          "Vary",
+          "Accept-Encoding"
+        ],
+        [
+          "X-Powered-By",
+          "PHP/5.6.40"
+        ],
+        [
+          "Access-Control-Allow-Origin",
+          "*"
+        ]
+      ],
+      "wire_bytes": 2618,
+      "body_bytes": 2618,
+      "body_sha256": "3e90e183d8e846c2cf82585547e0a1109a06ffb9f1ea0fbaabc3611c013e9870",
+      "reference_status": 200,
+      "body_equal": true,
+      "header_differences": {
+        "access-control-allow-origin": {
+          "reference": null,
+          "production": "*"
+        },
+        "date": {
+          "reference": "Sat, 24 Oct 2026 13:55:08 GMT",
+          "production": "Sat, 07 Nov 2026 08:48:07 GMT"
+        },
+        "server": {
+          "reference": "nginx/1.25.4",
+          "production": "nginx/1.31.0"
+        }
+      }
+    },
+    {
+      "id": "passage-normalize-sort",
+      "path": "/t/kjv/e/ge/1/3,1,2",
+      "request_headers": {
+        "Accept-Encoding": "identity",
+        "User-Agent": "MeeBible-migration-readonly-comparison/1.0"
+      },
+      "received_at_utc": "2026-11-07T08:48:09.113627+00:00",
+      "status": 301,
+      "headers": [
+        [
+          "Server",
+          "nginx/1.31.0"
+        ],
+        [
+          "Date",
+          "Sat, 07 Nov 2026 08:48:09 GMT"
+        ],
+        [
+          "Content-Type",
+          "text/plain;charset=UTF-8"
+        ],
+        [
+          "Content-Length",
+          "48"
+        ],
+        [
+          "Connection",
+          "keep-alive"
+        ],
+        [
+          "X-Powered-By",
+          "PHP/5.6.40"
+        ],
+        [
+          "Location",
+          "/t/kjv/e/ge/1/1-3"
+        ],
+        [
+          "Access-Control-Allow-Origin",
+          "*"
+        ]
+      ],
+      "wire_bytes": 48,
+      "body_bytes": 48,
+      "body_sha256": "ff7513e7e0bf7632d5f6e6b6071804a241084bc062d3afbdf549da5f55cd55cf",
+      "reference_status": 301,
+      "body_equal": true,
+      "header_differences": {
+        "access-control-allow-origin": {
+          "reference": null,
+          "production": "*"
+        },
+        "date": {
+          "reference": "Sat, 24 Oct 2026 13:55:12 GMT",
+          "production": "Sat, 07 Nov 2026 08:48:09 GMT"
+        },
+        "server": {
+          "reference": "nginx/1.25.4",
+          "production": "nginx/1.31.0"
+        }
+      }
+    },
+    {
+      "id": "static-css",
+      "path": "/static/css/style.css",
+      "request_headers": {
+        "Accept-Encoding": "identity",
+        "User-Agent": "MeeBible-migration-readonly-comparison/1.0"
+      },
+      "received_at_utc": "2026-11-07T08:48:10.256940+00:00",
+      "status": 200,
+      "headers": [
+        [
+          "Server",
+          "nginx/1.31.0"
+        ],
+        [
+          "Date",
+          "Sat, 07 Nov 2026 08:48:10 GMT"
+        ],
+        [
+          "Content-Type",
+          "text/css"
+        ],
+        [
+          "Content-Length",
+          "3678"
+        ],
+        [
+          "Connection",
+          "keep-alive"
+        ],
+        [
+          "Last-Modified",
+          "Sat, 30 Mar 2024 19:17:59 GMT"
+        ],
+        [
+          "Vary",
+          "Accept-Encoding"
+        ],
+        [
+          "ETag",
+          "\"66086567-e5e\""
+        ],
+        [
+          "Accept-Ranges",
+          "bytes"
+        ]
+      ],
+      "wire_bytes": 3678,
+      "body_bytes": 3678,
+      "body_sha256": "936ab59b4602c545064bf62d76767dda5924d5b3e83d0bcd02142ad1a07be5c0",
+      "reference_status": 200,
+      "body_equal": true,
+      "header_differences": {
+        "date": {
+          "reference": "Sat, 24 Oct 2026 13:55:22 GMT",
+          "production": "Sat, 07 Nov 2026 08:48:10 GMT"
+        },
+        "etag": {
+          "reference": "\"6adcad89-e5e\"",
+          "production": "\"66086567-e5e\""
+        },
+        "last-modified": {
+          "reference": "Sat, 24 Oct 2026 13:07:21 GMT",
+          "production": "Sat, 30 Mar 2024 19:17:59 GMT"
+        },
+        "server": {
+          "reference": "nginx/1.25.4",
+          "production": "nginx/1.31.0"
+        }
+      }
+    },
+    {
+      "id": "favicon",
+      "path": "/favicon.ico",
+      "request_headers": {
+        "Accept-Encoding": "identity",
+        "User-Agent": "MeeBible-migration-readonly-comparison/1.0"
+      },
+      "received_at_utc": "2026-11-07T08:48:11.398065+00:00",
+      "status": 200,
+      "headers": [
+        [
+          "Server",
+          "nginx/1.31.0"
+        ],
+        [
+          "Date",
+          "Sat, 07 Nov 2026 08:48:11 GMT"
+        ],
+        [
+          "Content-Type",
+          "image/x-icon"
+        ],
+        [
+          "Content-Length",
+          "12602"
+        ],
+        [
+          "Connection",
+          "keep-alive"
+        ],
+        [
+          "Last-Modified",
+          "Sat, 30 Mar 2024 19:17:59 GMT"
+        ],
+        [
+          "ETag",
+          "\"66086567-313a\""
+        ],
+        [
+          "Accept-Ranges",
+          "bytes"
+        ]
+      ],
+      "wire_bytes": 12602,
+      "body_bytes": 12602,
+      "body_sha256": "aedcd42bc7186715137827faf5dcc43d622b1f8a1860464ae8ba3dee9be02e17",
+      "reference_status": 200,
+      "body_equal": true,
+      "header_differences": {
+        "date": {
+          "reference": "Sat, 24 Oct 2026 13:55:22 GMT",
+          "production": "Sat, 07 Nov 2026 08:48:11 GMT"
+        },
+        "etag": {
+          "reference": "\"6adcad89-313a\"",
+          "production": "\"66086567-313a\""
+        },
+        "last-modified": {
+          "reference": "Sat, 24 Oct 2026 13:07:21 GMT",
+          "production": "Sat, 30 Mar 2024 19:17:59 GMT"
+        },
+        "server": {
+          "reference": "nginx/1.25.4",
+          "production": "nginx/1.31.0"
+        }
+      }
+    },
+    {
+      "id": "static-range",
+      "path": "/static/meebible_3.5.7_signed.sis",
+      "request_headers": {
+        "Accept-Encoding": "identity",
+        "User-Agent": "MeeBible-migration-readonly-comparison/1.0",
+        "Range": "bytes=0-63"
+      },
+      "received_at_utc": "2026-11-07T08:48:12.538475+00:00",
+      "status": 206,
+      "headers": [
+        [
+          "Server",
+          "nginx/1.31.0"
+        ],
+        [
+          "Date",
+          "Sat, 07 Nov 2026 08:48:12 GMT"
+        ],
+        [
+          "Content-Type",
+          "application/octet-stream"
+        ],
+        [
+          "Content-Length",
+          "64"
+        ],
+        [
+          "Connection",
+          "keep-alive"
+        ],
+        [
+          "Last-Modified",
+          "Sat, 13 Apr 2024 11:33:58 GMT"
+        ],
+        [
+          "ETag",
+          "\"661a6da6-44d04\""
+        ],
+        [
+          "Content-Range",
+          "bytes 0-63/281860"
+        ]
+      ],
+      "wire_bytes": 64,
+      "body_bytes": 64,
+      "body_sha256": "07433868b1c819ab0f3e96309c0561a568bcac4e71dd88340afe7ef841008385",
+      "reference_status": 206,
+      "body_equal": true,
+      "header_differences": {
+        "date": {
+          "reference": "Sat, 24 Oct 2026 13:55:22 GMT",
+          "production": "Sat, 07 Nov 2026 08:48:12 GMT"
+        },
+        "etag": {
+          "reference": "\"6adcad89-44d04\"",
+          "production": "\"661a6da6-44d04\""
+        },
+        "last-modified": {
+          "reference": "Sat, 24 Oct 2026 13:07:21 GMT",
+          "production": "Sat, 13 Apr 2024 11:33:58 GMT"
+        },
+        "server": {
+          "reference": "nginx/1.25.4",
+          "production": "nginx/1.31.0"
+        }
+      }
+    }
+  ],
+  "complete": true,
+  "finished_at_utc": "2026-11-07T08:48:12.538658+00:00"
+}
