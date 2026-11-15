@@ -3,6 +3,7 @@ from pathlib import Path
 
 from fastapi import FastAPI, Request
 from fastapi.exceptions import HTTPException, RequestValidationError
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import (
     HTMLResponse,
@@ -47,7 +48,13 @@ async def read_form_body(request: Request) -> bytes:
 
 app = FastAPI()
 app.add_middleware(GZipMiddleware, minimum_size=1000, compresslevel=5)
-# app.add_middleware(ETagMiddleware)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://app.meebible.org"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 static_files = StaticFiles(directory=STATIC)
 app.mount("/static", static_files, name="static")
 

@@ -8,6 +8,61 @@ from lxml import etree, html
 
 pytestmark = pytest.mark.api
 FORM = {"Content-Type": "application/x-www-form-urlencoded"}
+WEB_APP_ORIGIN = "https://app.meebible.org"
+
+
+def test_web_app_cors_get(client):
+    response = client.get("/meta", headers={"Origin": WEB_APP_ORIGIN})
+
+    assert response.status_code == 200
+    assert response.headers["access-control-allow-origin"] == WEB_APP_ORIGIN
+    assert response.headers["access-control-allow-credentials"] == "true"
+    assert "origin" in response.headers["vary"].lower().split(", ")
+
+
+@pytest.mark.parametrize(
+    "headers",
+    [
+        {},
+        {"Origin": "http://app.meebible.org"},
+        {"Origin": "https://app.meebible.org.example"},
+    ],
+)
+def test_cors_get_without_allowed_origin(client, headers):
+    response = client.get("/meta", headers=headers)
+
+    assert response.status_code == 200
+    assert "access-control-allow-origin" not in response.headers
+
+
+@pytest.mark.parametrize(
+    "origin,status",
+    [
+        (WEB_APP_ORIGIN, 200),
+        ("http://app.meebible.org", 400),
+        ("https://app.meebible.org.example", 400),
+    ],
+)
+def test_cors_preflight(client, api_data, origin, status):
+    response = client.options(
+        "/feedback",
+        headers={
+            "Origin": origin,
+            "Access-Control-Request-Method": "POST",
+            "Access-Control-Request-Headers": "x-request-id",
+        },
+    )
+
+    assert response.status_code == status
+    if status == 200:
+        assert response.headers["access-control-allow-origin"] == WEB_APP_ORIGIN
+        assert response.headers["access-control-allow-credentials"] == "true"
+        assert "POST" in response.headers["access-control-allow-methods"].split(", ")
+        assert response.headers["access-control-allow-headers"] == "x-request-id"
+        assert "origin" in response.headers["vary"].lower().split(", ")
+    else:
+        assert "access-control-allow-origin" not in response.headers
+    assert not (api_data / "feedback.sqlite").exists()
 
 
 def test_catalog_translation_chapter_flow(client):
