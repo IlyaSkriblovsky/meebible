@@ -7,3 +7,7 @@
 
 /backups/
 /.env.release
+
+*.pyc
+
+.DS_Store
