@@ -4,3 +4,6 @@
 **/venv/
 
 /data/
+
+/backups/
+/.env.release

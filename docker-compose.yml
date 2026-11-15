@@ -11,7 +11,7 @@ services:
         max-size: 5m
         max-file: "2"
     build: .
-    image: meebible-python:local
+    image: ${MEEBIBLE_IMAGE:-meebible-python:local}
     user: "10001:10001"
     environment:
       MEEBIBLE_DATA_DIR: /data

@@ -6,7 +6,7 @@ The goal is to keep existing MeeBible clients on Symbian and MeeGo working by re
 
 This document tracks the plan, completion criteria, main results, and decisions. The source-based API and website contract is in [Backend contract](backend-contract.md). Keep the description of the built service and operating instructions in the separate [Python backend guide](python-backend.md). Write project documents in simple English.
 
-**Current status:** steps 6–9 are complete for the local final image and prepared external proxy configuration. All 99 pytest cases pass. Through the local copy of the external proxy, quick passed 93 checks and full passed 109,718 checks, including all 109,505 chapters and POST storage checks, without failures or skips. Fourteen SQLite failure/recovery checks and twelve HTTP input-limit checks pass. Step 5 is also complete: 17 safe production GETs match the local PHP reference except for an explained home-page script URL and deployment headers. Applying the prepared proxy changes, backup/restore rehearsal, and switching production remain pending. Production has not been changed.
+**Current status:** steps 6–9 are complete for the local final image and prepared external proxy configuration. All 99 pytest cases pass. Through the local copy of the external proxy, quick passed 93 checks and full passed 109,718 checks, including all 109,505 chapters and POST storage checks, without failures or skips. Fourteen SQLite failure/recovery checks and twelve HTTP input-limit checks pass. Step 5 is also complete: 17 safe production GETs match the local PHP reference except for an explained home-page script URL and deployment headers. Step 10 release preparation is also complete: backup/transfer/recovery were rehearsed on synthetic data and the amd64 candidate passed quick/full. Applying the prepared proxy changes and switching production remain pending. Production has not been changed.
 
 ## Work plan
 
@@ -23,7 +23,7 @@ Statuses: **Not started**, **In progress**, **Done**, **Blocked**. Mark a step a
 | 7 | Add Python unit tests | Form and verse parsing, passage extraction, and SQLite behavior are tested in isolation; temporary databases cover commits, rollback, and failed writes; one documented command runs the tests | Done |
 | 8 | Build the Python Docker environment | A Dockerfile and updated Compose configuration run Python; dependencies use the lock file; code/content are read-only; user data has a separate persistent writable path; startup, shutdown, and restart are checked | Done |
 | 9 | Check all content and the final environment | Quick and full suites pass on the final Python image; external proxy behavior is checked, including all 109,505 advertised chapters; POST, errors, permissions, persistence, gzip, caching, and concurrent downloads are checked; differences are explained and accepted | Done |
-| 10 | Prepare the release and operating guide | Tested commands cover startup, tests, updates, backup, restore, and switching servers; dependency versions are pinned; project layout and limits are documented; user-data transfer and recovery are rehearsed | Not started |
+| 10 | Prepare the release and operating guide | Tested commands cover startup, tests, updates, backup, restore, and switching servers; dependency versions are pinned; project layout and limits are documented; user-data transfer and recovery are rehearsed | Done |
 | 11 | Switch production to Python | User SQLite databases are copied consistently with old writes stopped; the upstream is switched; reads, writes, logs, and redirects are checked; old PHP no longer serves public requests | Not started |
 
 Implementation can proceed in parts as contracts become clear. Run the full content checks and final comparison on the final image and configuration. This plan does not mean that production has already been changed.
@@ -32,8 +32,7 @@ The owner has written the Python service. The assistant maintains external tests
 
 ## Next work
 
-1. **Release and operating guide (step 10).** Rehearse consistent SQLite backup, transfer with old writes stopped, restore, and recovery. Verify deployment architecture and document tested commands. Review the real external proxy and apply prepared keepalive/body-limit changes only during release work. Record the existing CORS policy; the safe production comparison observed `Access-Control-Allow-Origin: *` on dynamic responses.
-2. **Switch production (step 11).** Move user databases consistently, switch the existing external proxy upstream, check live reads/writes/logs/redirects, and try a real mobile client where possible. Local checks and the read-only production comparison do not mean this switch has happened.
+1. **Switch production (step 11).** Use the [release guide](python-release.md). The owner confirmed x86_64 and old user databases under `www/`. Before the maintenance window, record the actual old PHP container, live external proxy config/reload mechanism, and final reviewed image ID. Stop old writers, back up consistently, restore to `data/` with UID/GID 10001, recreate the candidate, and switch the existing proxy. Check live reads, known real writes, logs, redirects, and a phone client. No live action has been performed by local preparation.
 
 ## Agreed scope
 
@@ -253,3 +252,12 @@ Unsafe behavior in the old implementation is not a compatibility requirement. Co
 ### 2026-11-07 — HTTPS jQuery link
 
 - The owner confirmed the production-only HTTPS script URL change fixes mixed-content blocking when opening the page over HTTPS. Applied the same link in the Python home template. Verified the rendered script URL, existing home-page contract, and all 99 unit/API cases. Saved references and production evidence are unchanged; no production settings or data were changed.
+
+### 2026-11-07 — step 10: release preparation and recovery rehearsal
+
+- The owner confirmed the server is x86_64 and old mutable databases are `www/startup.sqlite` and `www/feedback.sqlite`. Added [release/recovery instructions](python-release.md) for private source/config/content backups, exact image selection, stopped-writer transfer to `data/`, permissions, maintenance, proxy switching, updates, and recovery.
+- Added independent standard-library backup/verify/restore tooling. It includes committed WAL data, seals snapshots to standalone SQLite files, validates legacy schema/types/integrity/row counts/hashes, requires a stopped-writers assertion for paired backups, and refuses existing output directories. Backups and `.env.release` are excluded from Git. Six meaningful offline regression checks pass.
+- Compose accepts `MEEBIBLE_IMAGE` with the existing local default. Built and inspected a separate `linux/amd64` candidate, selected it with an env file, and tested `--no-build --pull never --wait` under local emulation. Quick passed 93 checks; full passed 109,718 checks including all 109,505 chapters, with no failures/skips. All 99 host pytest cases and release-tool lint/format checks passed.
+- Transferred three exact PHP-schema synthetic rows per table, confirmed old rows and new writes survive, then backed up the latest 11/15-row state. A deliberately broken startup exited 42 and failed readiness. Preserved/corrupted the failed test data, restored the latest bundle into a new directory, recreated the known-good candidate, and verified all acknowledged rows and file hashes were retained. The temporary source/content archive matched all 101 database hashes.
+- An initial manually created fixture omitted column types; it was rejected by the HTTP suite, replaced with a captured-schema generator, and recorded separately. No production database, server, proxy, or real client was touched. Local containers were removed and prior default reports restored. See [rehearsal evidence](python-release-verification.md).
+- Step 10 is complete as release preparation. Step 11 remains: the real maintenance/cutover and live-client checks require the actual server administration details and a final reviewed production artifact.

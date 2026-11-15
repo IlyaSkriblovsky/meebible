@@ -1,6 +1,6 @@
 # MeeBible Python backend
 
-**Status: the Python Docker environment is built and locally checked.** All 99 unit/API cases pass. The Compose project runs Uvicorn directly behind the server's existing external reverse proxy. The final image passed 93 quick checks and 109,718 full checks through a local copy of the prepared external proxy, including all 109,505 chapters and POST writes, with no failures or skips. Applying and checking the real external proxy remains release work. Container failure injection and input-limit checks pass; release preparation remains pending and production has not been switched.
+**Status: the Python Docker environment is built and locally checked.** All 99 unit/API cases pass. The Compose project runs Uvicorn directly behind the server's existing external reverse proxy. The final image passed 93 quick checks and 109,718 full checks through a local copy of the prepared external proxy, including all 109,505 chapters and POST writes, with no failures or skips. Applying and checking the real external proxy remains release work. Container failure injection and input-limit checks pass. The [release guide](python-release.md) and [amd64 rehearsal](python-release-verification.md) cover the confirmed x86_64 server, `www/` user-data transfer, and recovery. Release preparation is complete; production has not been switched.
 
 See the [migration plan](python-migration-plan.md) for work order, status, completion criteria, and decisions. Keep this guide in simple English.
 
@@ -14,12 +14,7 @@ The service must support existing mobile clients without client updates. Keep HT
 
 The application is in `backend/`, using FastAPI, sqlite3, Jinja templates, and lxml for passage HTML. Uvicorn runs in Docker behind the existing external reverse proxy. Code and content must be read-only. Startup/feedback use `MEEBIBLE_DATA_DIR` (default: the process working directory). Compose sets it to `/data`, bound to `./data/` in the project root. The directory must already exist and be writable by UID/GID 10001. The original schemas are unchanged.
 
-During container and release work, document:
-
-- actual Python and dependency versions, and how they are pinned;
-- responsibilities of the external proxy and the application, HTTP/gzip settings, and routing;
-- SQLite access, read-only content paths, and writable data paths;
-- input limits and important intentional differences from PHP.
+The sections below document runtime pins, proxy/application responsibilities, data paths, and input limits. The [release guide](python-release.md) contains image selection, transfer, backups, recovery, and updates.
 
 ## Where to find things
 
@@ -36,6 +31,8 @@ These are the main implementation and historical source locations:
 | `src/Paths.cpp`, `src/Translation.cpp`, `src/Languages.cpp` | Client URLs and content loading |
 | `src/StartupTracker.cpp`, `src/Feedback.cpp` | Client POST requests |
 | `docker-compose.yml`, `proxy.conf` | Python container configuration and the existing outer host proxy example |
+| `tools/release/` | Private SQLite backup/verify/restore commands, synthetic rehearsal data, and regression checks |
+| `docs/python-release.md` | Release, cutover, updates, recovery, and routine operations |
 | `tools/php-reference/` | Tested, isolated PHP 5.6.40 reference setup and checksum manifest |
 | `docs/php-reference.md` | PHP reference startup, settings, checks, reset, and stop commands |
 | `tests/backend/` | External HTTP tests, reference capture, and saved responses |
@@ -43,7 +40,7 @@ These are the main implementation and historical source locations:
 | `docs/python-migration-plan.md` | Plan, status, and decisions |
 | `docs/backend-contract.md` | Source-based contract and reference test checklist |
 
-Implementation unit tests are in `backend/tests/`; run `uv run --locked pytest -q` from the repository root. See the test guide for dependencies, coverage, and suite selection. During container and release work, add the deployment paths. Remove obsolete paths or clearly label them as historical.
+Implementation unit tests are in `backend/tests/`; run `uv run --locked pytest -q` from the repository root. See the test guide for dependencies, coverage, and suite selection. The server currently stores user databases at `www/startup.sqlite` and `www/feedback.sqlite`; the release moves them consistently to `data/` with UID/GID 10001.
 
 ## Local startup
 
@@ -106,18 +103,18 @@ Production comparison uses a separate, limited read-only procedure described in 
 
 ## Deployment and switching servers
 
-Before release, document image building and identification, mounts and permissions, external proxy settings, checks before switching, and the upstream switch procedure. Moving startup/feedback requires stopping old writes and taking a consistent SQLite copy. Define recovery steps for a failed release. Do not treat a public rollback to vulnerable PHP as a safe default.
+Follow [release and recovery](python-release.md). Select a uniquely tagged, validated amd64 image with `MEEBIBLE_IMAGE`; the default remains `meebible-python:local`. Stop old writers before the final `www/` database backup, restore into a new staging directory, set UID/GID 10001, and recreate the service after installing `data/`. The existing external proxy must be switched using its live administrative configuration. No automated PHP rollback is provided.
 
 ## Updates and maintenance
 
-Before release, add a tested procedure for updating Python, dependencies, and base images: change pinned versions, rebuild, run quick/full checks, and deploy. Document log locations and size limits, and how to diagnose write errors, missing chapters, and service outages.
+The [update procedure](python-release.md#updates-and-failed-releases) uses a new commit, new pins/lock where needed, a unique image tag, disposable validation, and a consistent pre-update backup. Recreate the selected image with `--no-build --pull never --wait`. Keep the previous working Python image and latest user data available for recovery. Docker logs rotate at 5 MiB with two files; proxy logs follow the server policy.
 
 ## Backup and restore
 
-Before release, document independent content and configuration backups, consistent user SQLite backups, restore steps, and checks after restore. Do not copy active SQLite files without accounting for journal/WAL files. Do not include user data or production logs in test reference files or Git.
+Use `tools/release/user_data.py backup`, `verify`, and `restore` as described in the [backup and transfer procedure](python-release.md#consistent-user-data-backup-and-transfer). It includes committed WAL pages, validates legacy column types/integrity/hashes, refuses existing output directories, and restores privately into a new directory. It requires an explicit stopped-writers assertion for a common two-file cutover. Back up tracked source/content and the actual external proxy configuration independently. Root `backups/` and `.env.release` are excluded from Git; do not put user data or logs in test references.
 
 ## Validated resource bounds
 
 The container permits at most 128 processes/threads and uses a 16 MiB temporary filesystem. POST parsing and verse-range expansion have the bounds above. The full-content tests use 20 concurrent chapter requests; they do not establish maximum server capacity. Compose currently sets no hard CPU or total-memory cap. Host capacity, external proxy connection/time limits, and log retention should be reviewed for the release environment. Client IP forwarding is still disabled in Uvicorn. This local validation does not assert that production settings have already changed.
 
-See [container test commands](backend-tests.md#container-failure-and-input-limit-checks) for reproducible lock, permission, corruption, full-filesystem, input-limit, and recovery checks. The [safe production comparison](production-comparison.md) is complete. Backup/restore rehearsal, target architecture validation, and a real-client check remain release work.
+See [container test commands](backend-tests.md#container-failure-and-input-limit-checks) for reproducible lock, permission, corruption, full-filesystem, input-limit, and recovery checks. The [safe production comparison](production-comparison.md) is complete. The [release rehearsal](python-release-verification.md) covers backup/restore and amd64 candidate validation. Live-server ingress and real-client checks remain cutover work.
