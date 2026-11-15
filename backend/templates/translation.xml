@@ -1,0 +1,9 @@
+<translation>
+    {%- for book in structure.books -%}
+        <book{{ {"code": book.code, "name": book.name}|xmlattr }}>
+            {%- for chapter in book.chapters -%}
+                <chapter{{ {"no": chapter.no, "verses": chapter.verse_count}|xmlattr }}/>
+            {%- endfor -%}
+        </book>
+    {%- endfor -%}
+</translation>

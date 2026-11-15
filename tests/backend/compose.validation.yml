@@ -1,0 +1,19 @@
+# Test-only companion to the root Compose project. Never use production data.
+services:
+  proxy:
+    depends_on:
+      backend:
+        condition: service_healthy
+    image: nginx:1.28.0@sha256:552e7481ca93ffccd046aa658dbbed22caefbc09c66fa7cd247cbb90b8a5c609
+    user: "101:101"
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    entrypoint: [nginx]
+    command: [-g, "daemon off;"]
+    volumes:
+      - ./tests/backend/.local/outer-proxy.conf:/etc/nginx/nginx.conf:ro
+    tmpfs:
+      - /tmp:uid=101,gid=101,mode=0700,size=32m,noexec,nosuid,nodev
+    ports:
+      - "127.0.0.1:10058:8080"

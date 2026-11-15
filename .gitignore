@@ -2,3 +2,8 @@
 /logs
 /www/compile
 **/venv/
+
+/data/
+
+/backups/
+/.env.release

@@ -1,0 +1,21 @@
+<metainfo>
+    <languages>
+        {%- for language in library.languages|sort(attribute='engname') -%}
+            <language code="{{ language.code }}" name="{{ language.engname }}" selfname="{{ language.selfname }}"/>
+        {%- endfor -%}
+    </languages>
+    <translations>
+        {%- for trans in library.translations -%}
+            <trans{{ {
+            "code": trans.code,
+            "sourceUrl": trans.source_url,
+            "copyright": trans.copyright,
+            "rtl": 1 if trans.rtl else 0,
+        }|xmlattr }}>
+                {% for publication in library.publications_by_translation(trans)|sort(attribute="lang_code") -%}
+                    <transLang{{ {"code": publication.lang_code, "name": publication.name}|xmlattr }}/>
+                {% endfor -%}
+            </trans>
+        {%- endfor -%}
+    </translations>
+</metainfo>
